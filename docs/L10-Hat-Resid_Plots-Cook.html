@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>docs - 13&nbsp; L10: The Hat Matrix</title>
+<title>Regression Analysis - 13&nbsp; L10: The Hat Matrix</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -92,8 +93,9 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">docs</a> 
+      <a href="./">Regression Analysis</a> 
         <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST362_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -125,32 +127,32 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 1: OLS Estimates</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L03-MSE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
+  <a href="./Lb02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L03-Residuals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb03-MSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -161,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
   </div>
 </li>
@@ -197,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Hat Matrix and Residuals in R</span></span></a>
   </div>
 </li>
@@ -209,20 +211,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+  <a href="./Lb13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
   </div>
 </li>
     </ul>
@@ -237,38 +239,38 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#le-chapeau" id="toc-le-chapeau" class="nav-link active" data-scroll-target="#le-chapeau"><span class="header-section-number">13.1</span> Le Chapeau</a>
   <ul class="collapse">
-  <li><a href="#the-hat-matrix" id="toc-the-hat-matrix" class="nav-link" data-scroll-target="#the-hat-matrix"><span class="header-section-number">13.1.1</span> The Hat Matrix</a></li>
-  <li><a href="#variance-covariance-matrix-of-hatunderlineepsilon" id="toc-variance-covariance-matrix-of-hatunderlineepsilon" class="nav-link" data-scroll-target="#variance-covariance-matrix-of-hatunderlineepsilon"><span class="header-section-number">13.1.2</span> Variance-Covariance matrix of <span class="math inline">\(\hat{\underline\epsilon}\)</span></a></li>
-  <li><a href="#the-variance-of-a-residual" id="toc-the-variance-of-a-residual" class="nav-link" data-scroll-target="#the-variance-of-a-residual"><span class="header-section-number">13.1.3</span> The variance of a residual</a></li>
-  <li><a href="#more-h-facts" id="toc-more-h-facts" class="nav-link" data-scroll-target="#more-h-facts"><span class="header-section-number">13.1.4</span> More H Facts</a></li>
-  <li><a href="#proof-that-h1-1" id="toc-proof-that-h1-1" class="nav-link" data-scroll-target="#proof-that-h1-1"><span class="header-section-number">13.1.5</span> Proof that <span class="math inline">\(H1 = 1\)</span></a></li>
+  <li><a href="#the-hat-matrix" id="toc-the-hat-matrix" class="nav-link" data-scroll-target="#the-hat-matrix">The Hat Matrix</a></li>
+  <li><a href="#variance-covariance-matrix-of-hatunderlineepsilon" id="toc-variance-covariance-matrix-of-hatunderlineepsilon" class="nav-link" data-scroll-target="#variance-covariance-matrix-of-hatunderlineepsilon">Variance-Covariance matrix of <span class="math inline">\(\hat{\underline\epsilon}\)</span></a></li>
+  <li><a href="#the-variance-of-a-residual" id="toc-the-variance-of-a-residual" class="nav-link" data-scroll-target="#the-variance-of-a-residual">The variance of a residual</a></li>
+  <li><a href="#more-h-facts" id="toc-more-h-facts" class="nav-link" data-scroll-target="#more-h-facts">More H Facts</a></li>
+  <li><a href="#proof-that-h1-1" id="toc-proof-that-h1-1" class="nav-link" data-scroll-target="#proof-that-h1-1">Proof that <span class="math inline">\(H1 = 1\)</span></a></li>
   </ul></li>
   <li><a href="#studentized-residuals" id="toc-studentized-residuals" class="nav-link" data-scroll-target="#studentized-residuals"><span class="header-section-number">13.2</span> Studentized Residuals</a>
   <ul class="collapse">
-  <li><a href="#internally-studentized-not-ideal" id="toc-internally-studentized-not-ideal" class="nav-link" data-scroll-target="#internally-studentized-not-ideal"><span class="header-section-number">13.2.1</span> Internally Studentized (not ideal)</a></li>
-  <li><a href="#internally-studentized" id="toc-internally-studentized" class="nav-link" data-scroll-target="#internally-studentized"><span class="header-section-number">13.2.2</span> “Internally” “Studentized”</a></li>
-  <li><a href="#externally-studentized-step-1" id="toc-externally-studentized-step-1" class="nav-link" data-scroll-target="#externally-studentized-step-1"><span class="header-section-number">13.2.3</span> Externally Studentized Step 1</a></li>
-  <li><a href="#externally-studentized-step-2" id="toc-externally-studentized-step-2" class="nav-link" data-scroll-target="#externally-studentized-step-2"><span class="header-section-number">13.2.4</span> Externally Studentized Step 2</a></li>
-  <li><a href="#externally-studentized-residuals" id="toc-externally-studentized-residuals" class="nav-link" data-scroll-target="#externally-studentized-residuals"><span class="header-section-number">13.2.5</span> Externally Studentized Residuals</a></li>
+  <li><a href="#internally-studentized-not-ideal" id="toc-internally-studentized-not-ideal" class="nav-link" data-scroll-target="#internally-studentized-not-ideal">Internally Studentized (not ideal)</a></li>
+  <li><a href="#internally-studentized" id="toc-internally-studentized" class="nav-link" data-scroll-target="#internally-studentized">“Internally” “Studentized”</a></li>
+  <li><a href="#externally-studentized-step-1" id="toc-externally-studentized-step-1" class="nav-link" data-scroll-target="#externally-studentized-step-1">Externally Studentized Step 1</a></li>
+  <li><a href="#externally-studentized-step-2" id="toc-externally-studentized-step-2" class="nav-link" data-scroll-target="#externally-studentized-step-2">Externally Studentized Step 2</a></li>
+  <li><a href="#externally-studentized-residuals" id="toc-externally-studentized-residuals" class="nav-link" data-scroll-target="#externally-studentized-residuals">Externally Studentized Residuals</a></li>
   </ul></li>
   <li><a href="#cooks-distance" id="toc-cooks-distance" class="nav-link" data-scroll-target="#cooks-distance"><span class="header-section-number">13.3</span> Cook’s Distance</a>
   <ul class="collapse">
-  <li><a href="#better-measures-of-influence" id="toc-better-measures-of-influence" class="nav-link" data-scroll-target="#better-measures-of-influence"><span class="header-section-number">13.3.1</span> Better Measures of Influence</a></li>
-  <li><a href="#cooks-distance-change-in-hat-y_i." id="toc-cooks-distance-change-in-hat-y_i." class="nav-link" data-scroll-target="#cooks-distance-change-in-hat-y_i."><span class="header-section-number">13.3.2</span> Cooks Distance: Change in <span class="math inline">\(\hat y_i\)</span>.</a></li>
-  <li><a href="#cooks-distance-alternate-form" id="toc-cooks-distance-alternate-form" class="nav-link" data-scroll-target="#cooks-distance-alternate-form"><span class="header-section-number">13.3.3</span> Cook’s Distance: Alternate Form</a></li>
-  <li><a href="#next-class" id="toc-next-class" class="nav-link" data-scroll-target="#next-class"><span class="header-section-number">13.3.4</span> Next Class</a></li>
+  <li><a href="#better-measures-of-influence" id="toc-better-measures-of-influence" class="nav-link" data-scroll-target="#better-measures-of-influence">Better Measures of Influence</a></li>
+  <li><a href="#cooks-distance-change-in-hat-y_i." id="toc-cooks-distance-change-in-hat-y_i." class="nav-link" data-scroll-target="#cooks-distance-change-in-hat-y_i.">Cooks Distance: Change in <span class="math inline">\(\hat y_i\)</span>.</a></li>
+  <li><a href="#cooks-distance-alternate-form" id="toc-cooks-distance-alternate-form" class="nav-link" data-scroll-target="#cooks-distance-alternate-form">Cook’s Distance: Alternate Form</a></li>
+  <li><a href="#next-class" id="toc-next-class" class="nav-link" data-scroll-target="#next-class">Next Class</a></li>
   </ul></li>
   <li><a href="#participation" id="toc-participation" class="nav-link" data-scroll-target="#participation"><span class="header-section-number">13.4</span> Participation</a>
   <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1"><span class="header-section-number">13.4.1</span> Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2"><span class="header-section-number">13.4.2</span> Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3"><span class="header-section-number">13.4.3</span> Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4"><span class="header-section-number">13.4.4</span> Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5"><span class="header-section-number">13.4.5</span> Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6"><span class="header-section-number">13.4.6</span> Q6</a></li>
+  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
+  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
+  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
+  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
+  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
+  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -280,10 +282,18 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Author</div>
   <div class="quarto-title-meta-heading">Affiliation</div>
   
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
   </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Jam: by Trash.
+          </p>
+      </div>
+    </div>
 
 <div class="quarto-title-meta">
 
@@ -297,8 +307,8 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="le-chapeau" class="level2" data-number="13.1">
 <h2 data-number="13.1" class="anchored" data-anchor-id="le-chapeau"><span class="header-section-number">13.1</span> Le Chapeau</h2>
-<section id="the-hat-matrix" class="level3" data-number="13.1.1">
-<h3 data-number="13.1.1" class="anchored" data-anchor-id="the-hat-matrix"><span class="header-section-number">13.1.1</span> The Hat Matrix</h3>
+<section id="the-hat-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="the-hat-matrix">The Hat Matrix</h3>
 <p><span class="math display">\[
 H = X(X^TX)^{-1}X^T
 \]</span></p>
@@ -310,8 +320,8 @@ H = X(X^TX)^{-1}X^T
 </ul></li>
 </ul>
 </section>
-<section id="variance-covariance-matrix-of-hatunderlineepsilon" class="level3" data-number="13.1.2">
-<h3 data-number="13.1.2" class="anchored" data-anchor-id="variance-covariance-matrix-of-hatunderlineepsilon"><span class="header-section-number">13.1.2</span> Variance-Covariance matrix of <span class="math inline">\(\hat{\underline\epsilon}\)</span></h3>
+<section id="variance-covariance-matrix-of-hatunderlineepsilon" class="level3">
+<h3 class="anchored" data-anchor-id="variance-covariance-matrix-of-hatunderlineepsilon">Variance-Covariance matrix of <span class="math inline">\(\hat{\underline\epsilon}\)</span></h3>
 <p>Just like <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, each sample results in different <span class="math inline">\(\underline{\hat\epsilon}\)</span>.</p>
 <p>Across samples, we have: <span class="math display">\[
 \underline{\hat\epsilon} - E(\underline{\hat\epsilon}) = (I-H)(Y-X\underline{\beta}) = (I-H)\underline{\epsilon}
@@ -322,8 +332,8 @@ V(\underline{\hat\epsilon}) &amp;= E([\underline{\hat\epsilon} - E(\underline{\h
 &amp;= [I-H]\sigma^2
 \end{align*}\]</span> where we used the idempotency and symmetry of <span class="math inline">\(I-H\)</span>.</p>
 </section>
-<section id="the-variance-of-a-residual" class="level3" data-number="13.1.3">
-<h3 data-number="13.1.3" class="anchored" data-anchor-id="the-variance-of-a-residual"><span class="header-section-number">13.1.3</span> The variance of a residual</h3>
+<section id="the-variance-of-a-residual" class="level3">
+<h3 class="anchored" data-anchor-id="the-variance-of-a-residual">The variance of a residual</h3>
 <p>Given that <span class="math inline">\(V(\underline{\hat\epsilon}) = (I-H)\sigma^2\)</span>, <span class="math display">\[
 V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 \]</span></p>
@@ -343,8 +353,8 @@ V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 </ul></li>
 </ul>
 </section>
-<section id="more-h-facts" class="level3" data-number="13.1.4">
-<h3 data-number="13.1.4" class="anchored" data-anchor-id="more-h-facts"><span class="header-section-number">13.1.4</span> More H Facts</h3>
+<section id="more-h-facts" class="level3">
+<h3 class="anchored" data-anchor-id="more-h-facts">More H Facts</h3>
 <ol type="1">
 <li><span class="math inline">\(SS(\hat{\underline\beta}) = \hat{\underline\beta}^TX^TY = \hat Y^TY = Y^TH^TY = Y^TH^THY = \hat Y^T\hat Y\)</span>
 <ul>
@@ -366,8 +376,8 @@ V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 </ul></li>
 </ol>
 </section>
-<section id="proof-that-h1-1" class="level3" data-number="13.1.5">
-<h3 data-number="13.1.5" class="anchored" data-anchor-id="proof-that-h1-1"><span class="header-section-number">13.1.5</span> Proof that <span class="math inline">\(H1 = 1\)</span></h3>
+<section id="proof-that-h1-1" class="level3">
+<h3 class="anchored" data-anchor-id="proof-that-h1-1">Proof that <span class="math inline">\(H1 = 1\)</span></h3>
 <p>Note that <span class="math inline">\(HX = X\)</span> (as proven on A1).</p>
 <ol type="1">
 <li>The first column of <span class="math inline">\(X\)</span> is all ones (<span class="math inline">\(\beta_0\)</span> term).
@@ -386,8 +396,8 @@ V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 </section>
 <section id="studentized-residuals" class="level2" data-number="13.2">
 <h2 data-number="13.2" class="anchored" data-anchor-id="studentized-residuals"><span class="header-section-number">13.2</span> Studentized Residuals</h2>
-<section id="internally-studentized-not-ideal" class="level3" data-number="13.2.1">
-<h3 data-number="13.2.1" class="anchored" data-anchor-id="internally-studentized-not-ideal"><span class="header-section-number">13.2.1</span> Internally Studentized (not ideal)</h3>
+<section id="internally-studentized-not-ideal" class="level3">
+<h3 class="anchored" data-anchor-id="internally-studentized-not-ideal">Internally Studentized (not ideal)</h3>
 <p>How do you measure the size a residual?</p>
 <p>Divide by the variance, of course!</p>
 <p>We know that <span class="math inline">\(V(\hat \epsilon_i) = (1-h_{ii})\sigma^2\)</span>, and <span class="math display">\[
@@ -396,8 +406,8 @@ s^2 = \frac{\sum_{y=1}^n(y_i-\hat y_i)^2}{n-p} = \frac{SSE}{df_E} = MSE
 r_i = \frac{\hat\epsilon_i}{\sqrt{s^2(1-h_{ii})}}
 \]</span> is called the <strong>internally studentized residual</strong>.</p>
 </section>
-<section id="internally-studentized" class="level3" data-number="13.2.2">
-<h3 data-number="13.2.2" class="anchored" data-anchor-id="internally-studentized"><span class="header-section-number">13.2.2</span> “Internally” “Studentized”</h3>
+<section id="internally-studentized" class="level3">
+<h3 class="anchored" data-anchor-id="internally-studentized">“Internally” “Studentized”</h3>
 <p>Note that <span class="math display">\[
 s^2 = \frac{\sum_{i=1}^n(y_i-\hat y_i)^2}{n-p} = \frac{\sum_{i=1}^n(\hat\epsilon_i)^2}{n-p}
 \]</span> and therefore <span class="math display">\[
@@ -413,8 +423,8 @@ r_i = \frac{\hat\epsilon_i}{\sqrt{s^2(1-h_{ii})}} = \frac{\hat\epsilon_i}{\sqrt{
 <li>Often called “standardized”.</li>
 </ul>
 </section>
-<section id="externally-studentized-step-1" class="level3" data-number="13.2.3">
-<h3 data-number="13.2.3" class="anchored" data-anchor-id="externally-studentized-step-1"><span class="header-section-number">13.2.3</span> Externally Studentized Step 1</h3>
+<section id="externally-studentized-step-1" class="level3">
+<h3 class="anchored" data-anchor-id="externally-studentized-step-1">Externally Studentized Step 1</h3>
 <p>Like adding/removing predictors and checking the cahnge in SS, we can add/remove points!</p>
 <ol type="1">
 <li>Calculate SS</li>
@@ -423,8 +433,8 @@ r_i = \frac{\hat\epsilon_i}{\sqrt{s^2(1-h_{ii})}} = \frac{\hat\epsilon_i}{\sqrt{
 </ol>
 <p>For each point, we have an estimate of the variance <strong>without</strong> itself.</p>
 </section>
-<section id="externally-studentized-step-2" class="level3" data-number="13.2.4">
-<h3 data-number="13.2.4" class="anchored" data-anchor-id="externally-studentized-step-2"><span class="header-section-number">13.2.4</span> Externally Studentized Step 2</h3>
+<section id="externally-studentized-step-2" class="level3">
+<h3 class="anchored" data-anchor-id="externally-studentized-step-2">Externally Studentized Step 2</h3>
 <p>Skipping the math, <span class="math display">\[
 s^2_{(i)} = \frac{(n-p)s^2 - \hat\epsilon_i^2/(1-h_{ii})}{n-p-1}
 \]</span> is the variance of the residuals <strong>without</strong> observation <span class="math inline">\(i\)</span>.</p>
@@ -436,8 +446,8 @@ s^2_{(i)} = \frac{(n-p)s^2 - \hat\epsilon_i^2/(1-h_{ii})}{n-p-1}
 </ul></li>
 </ul>
 </section>
-<section id="externally-studentized-residuals" class="level3" data-number="13.2.5">
-<h3 data-number="13.2.5" class="anchored" data-anchor-id="externally-studentized-residuals"><span class="header-section-number">13.2.5</span> Externally Studentized Residuals</h3>
+<section id="externally-studentized-residuals" class="level3">
+<h3 class="anchored" data-anchor-id="externally-studentized-residuals">Externally Studentized Residuals</h3>
 <p>Use <span class="math inline">\(s^2_{(i)}\)</span> in place of <span class="math inline">\(s^2\)</span>. <span class="math display">\[
 t_i = \frac{\hat\epsilon_i}{\sqrt{s_{(i)}^2(1-h_{ii})}} \sim t_{n-p-1}
 \]</span></p>
@@ -454,8 +464,8 @@ t_i = \frac{\hat\epsilon_i}{\sqrt{s_{(i)}^2(1-h_{ii})}} \sim t_{n-p-1}
 </section>
 <section id="cooks-distance" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="cooks-distance"><span class="header-section-number">13.3</span> Cook’s Distance</h2>
-<section id="better-measures-of-influence" class="level3" data-number="13.3.1">
-<h3 data-number="13.3.1" class="anchored" data-anchor-id="better-measures-of-influence"><span class="header-section-number">13.3.1</span> Better Measures of Influence</h3>
+<section id="better-measures-of-influence" class="level3">
+<h3 class="anchored" data-anchor-id="better-measures-of-influence">Better Measures of Influence</h3>
 <p>The hat matrix is intepreted as influence, but it has problems.</p>
 <ul>
 <li><span class="math inline">\(y_i\)</span>’s influence on <em>it’s own</em> prediction,
@@ -470,8 +480,8 @@ t_i = \frac{\hat\epsilon_i}{\sqrt{s_{(i)}^2(1-h_{ii})}} \sim t_{n-p-1}
 </ul>
 <p>A better measure is how much the predicted value changes with/without the obs.</p>
 </section>
-<section id="cooks-distance-change-in-hat-y_i." class="level3" data-number="13.3.2">
-<h3 data-number="13.3.2" class="anchored" data-anchor-id="cooks-distance-change-in-hat-y_i."><span class="header-section-number">13.3.2</span> Cooks Distance: Change in <span class="math inline">\(\hat y_i\)</span>.</h3>
+<section id="cooks-distance-change-in-hat-y_i." class="level3">
+<h3 class="anchored" data-anchor-id="cooks-distance-change-in-hat-y_i.">Cooks Distance: Change in <span class="math inline">\(\hat y_i\)</span>.</h3>
 <p><span class="math display">\[
 D_i = \frac{\sum_{i=1}^n(\hat y_i - \hat y_{(i)})^2}{ps^2}
 \]</span></p>
@@ -486,8 +496,8 @@ D_i = \frac{\sum_{i=1}^n(\hat y_i - \hat y_{(i)})^2}{ps^2}
 </ul>
 <p>Again, this <em>would</em> involve re-fitting the model <span class="math inline">\(n\)</span> time (one for each obs).</p>
 </section>
-<section id="cooks-distance-alternate-form" class="level3" data-number="13.3.3">
-<h3 data-number="13.3.3" class="anchored" data-anchor-id="cooks-distance-alternate-form"><span class="header-section-number">13.3.3</span> Cook’s Distance: Alternate Form</h3>
+<section id="cooks-distance-alternate-form" class="level3">
+<h3 class="anchored" data-anchor-id="cooks-distance-alternate-form">Cook’s Distance: Alternate Form</h3>
 <p><span class="math display">\[
 D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\left[\frac{h_{ii}}{1 - h_{ii}}\right]\frac{1}{p} = r_i^2\frac{\text{variance of $i$th predicted value}}{\text{variance of $i$th residual}}\frac{1}{p}
 \]</span></p>
@@ -506,15 +516,15 @@ D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\left[\frac{h_{
 </ul></li>
 </ul>
 </section>
-<section id="next-class" class="level3" data-number="13.3.4">
-<h3 data-number="13.3.4" class="anchored" data-anchor-id="next-class"><span class="header-section-number">13.3.4</span> Next Class</h3>
+<section id="next-class" class="level3">
+<h3 class="anchored" data-anchor-id="next-class">Next Class</h3>
 <p>Plots!</p>
 </section>
 </section>
 <section id="participation" class="level2" data-number="13.4">
 <h2 data-number="13.4" class="anchored" data-anchor-id="participation"><span class="header-section-number">13.4</span> Participation</h2>
-<section id="q1" class="level3" data-number="13.4.1">
-<h3 data-number="13.4.1" class="anchored" data-anchor-id="q1"><span class="header-section-number">13.4.1</span> Q1</h3>
+<section id="q1" class="level3">
+<h3 class="anchored" data-anchor-id="q1">Q1</h3>
 <p>Which does <em>not</em> describe a residual?</p>
 <ol type="1">
 <li>The observed difference between the measured value <span class="math inline">\(y_i\)</span> and the one we predict with <span class="math inline">\(\hat y_i = X\hat{\underline\beta}\)</span>.</li>
@@ -522,8 +532,8 @@ D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\left[\frac{h_{
 <li>Errors that should be fixed.</li>
 </ol>
 </section>
-<section id="q2" class="level3" data-number="13.4.2">
-<h3 data-number="13.4.2" class="anchored" data-anchor-id="q2"><span class="header-section-number">13.4.2</span> Q2</h3>
+<section id="q2" class="level3">
+<h3 class="anchored" data-anchor-id="q2">Q2</h3>
 <p>Which of the following is <em>not</em> true about the hat matrix (<span class="math inline">\(H = X(X^TX)^{-1}X^T\)</span>)?</p>
 <ol type="1">
 <li><span class="math inline">\((I-H)(I-H)^T = (I-H)\)</span></li>
@@ -532,8 +542,8 @@ D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\left[\frac{h_{
 <li><span class="math inline">\(H(I-H) = 0\)</span></li>
 </ol>
 </section>
-<section id="q3" class="level3" data-number="13.4.3">
-<h3 data-number="13.4.3" class="anchored" data-anchor-id="q3"><span class="header-section-number">13.4.3</span> Q3</h3>
+<section id="q3" class="level3">
+<h3 class="anchored" data-anchor-id="q3">Q3</h3>
 <p>Suppose that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0,\sigma^2)\)</span>.</p>
 <p>Which of the following statements is <em>false</em>?</p>
 <ol type="1">
@@ -543,16 +553,16 @@ D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\left[\frac{h_{
 <li><span class="math inline">\(V(\hat Y_i) \ge V(\hat \epsilon_i)\)</span></li>
 </ol>
 </section>
-<section id="q4" class="level3" data-number="13.4.4">
-<h3 data-number="13.4.4" class="anchored" data-anchor-id="q4"><span class="header-section-number">13.4.4</span> Q4</h3>
+<section id="q4" class="level3">
+<h3 class="anchored" data-anchor-id="q4">Q4</h3>
 <p>The difference between internally and externally studentized residuals is:</p>
 <ol type="1">
 <li>“Internal” uses all of the observations, “external” uses all of the observations except <span class="math inline">\(i\)</span>.</li>
 <li>“External” uses all of the observations, “internal” uses all of the observations except <span class="math inline">\(i\)</span>.</li>
 </ol>
 </section>
-<section id="q5" class="level3" data-number="13.4.5">
-<h3 data-number="13.4.5" class="anchored" data-anchor-id="q5"><span class="header-section-number">13.4.5</span> Q5</h3>
+<section id="q5" class="level3">
+<h3 class="anchored" data-anchor-id="q5">Q5</h3>
 <p>Internally studentized residuals follow a <span class="math inline">\(t\)</span> distribution.</p>
 <ol type="1">
 <li>True - they are a normal r.v. divided by a chi-square r.v.</li>
@@ -561,8 +571,8 @@ D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\left[\frac{h_{
 <li>True - internally studentized residuals are a small modification to externally studentized residuals, which follow a <span class="math inline">\(t\)</span> distribution.</li>
 </ol>
 </section>
-<section id="q6" class="level3" data-number="13.4.6">
-<h3 data-number="13.4.6" class="anchored" data-anchor-id="q6"><span class="header-section-number">13.4.6</span> Q6</h3>
+<section id="q6" class="level3">
+<h3 class="anchored" data-anchor-id="q6">Q6</h3>
 <p>Which of the following is <em>not</em> useful for detecting outliers?</p>
 <ol type="1">
 <li>Standardized residuals</li>

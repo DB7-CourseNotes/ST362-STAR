@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>docs - 19&nbsp; Lab 13: Missing/Extra Predictors</title>
+<title>Regression Analysis - 19&nbsp; Lab 13: Missing/Extra Predictors</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -125,8 +126,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">docs</a> 
+      <a href="./">Regression Analysis</a> 
         <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST362_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -275,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#too-many-and-too-few" id="toc-too-many-and-too-few" class="nav-link" data-scroll-target="#too-many-and-too-few"><span class="header-section-number">19.5</span> Too many <em>and</em> too few</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">19.6</span> Summary</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -286,10 +288,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Wilfrid Laurier University
+          </p>
+      </div>
+    </div>
 
 <div class="quarto-title-meta">
 
-    
+      
   
     
   </div>
@@ -363,11 +378,11 @@ bodymass = 4207 + 18*billlength + 35*billdepth + 711.5*flipperlength + \epsilon
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unname</span>(<span class="fu">coef</span>(<span class="fu">lm</span>(body_mass_g <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> X)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -2973.01734    26.23170   134.33248    14.94195</code></pre>
+<pre><code>[1] -3142.211029    -9.767684   139.163895    24.824523</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unname</span>(<span class="fu">coef</span>(<span class="fu">lm</span>(body_mass_g <span class="sc">~</span> X[, <span class="sc">-</span><span class="dv">1</span>])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -2973.01734    26.23170   134.33248    14.94195</code></pre>
+<pre><code>[1] -3142.211029    -9.767684   139.163895    24.824523</code></pre>
 </div>
 </div>
 <p>Now let’s do this 1000s of times!</p>

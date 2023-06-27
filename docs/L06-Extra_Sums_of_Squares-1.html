@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>docs - 10&nbsp; L06: Extra Sum-of-Squares (Part 1)</title>
+<title>Regression Analysis - 10&nbsp; L06: Extra Sum-of-Squares (Part 1)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./L07-Exampless.html" rel="next">
-<link href="./L05-ANOVA-R2-F_test-CI.html" rel="prev">
+<link href="./Lb05-ANOVA-R2-F_test-CI.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -126,8 +127,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">docs</a> 
+      <a href="./">Regression Analysis</a> 
         <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST362_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -159,32 +161,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 1: OLS Estimates</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L03-MSE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
+  <a href="./Lb02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L03-Residuals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb03-MSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
   </div>
 </li>
@@ -231,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Hat Matrix and Residuals in R</span></span></a>
   </div>
 </li>
@@ -243,20 +245,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+  <a href="./Lb13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
   </div>
 </li>
     </ul>
@@ -271,21 +273,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">10.1</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#todays-main-idea" id="toc-todays-main-idea" class="nav-link" data-scroll-target="#todays-main-idea"><span class="header-section-number">10.1.1</span> Today’s Main Idea</a></li>
-  <li><a href="#sum-of-squares-due-to-regression" id="toc-sum-of-squares-due-to-regression" class="nav-link" data-scroll-target="#sum-of-squares-due-to-regression"><span class="header-section-number">10.1.2</span> Sum-of-Squares due to Regression</a></li>
-  <li><a href="#ssreg-in-two-different-penguin-models" id="toc-ssreg-in-two-different-penguin-models" class="nav-link" data-scroll-target="#ssreg-in-two-different-penguin-models"><span class="header-section-number">10.1.3</span> SSReg in two different penguin models</a></li>
-  <li><a href="#extra-sum-of-squares" id="toc-extra-sum-of-squares" class="nav-link" data-scroll-target="#extra-sum-of-squares"><span class="header-section-number">10.1.4</span> Extra Sum-of-Squares</a></li>
-  <li><a href="#special-case-corrected-sum-of-squares" id="toc-special-case-corrected-sum-of-squares" class="nav-link" data-scroll-target="#special-case-corrected-sum-of-squares"><span class="header-section-number">10.1.5</span> Special Case: Corrected Sum-of-Squares</a></li>
-  <li><a href="#unspecial-case-correction-doesnt-matter" id="toc-unspecial-case-correction-doesnt-matter" class="nav-link" data-scroll-target="#unspecial-case-correction-doesnt-matter"><span class="header-section-number">10.1.6</span> Unspecial Case: Correction doesn’t matter!</a></li>
-  <li><a href="#unspecial-case-ssreg-versus-sse-doesnt-matter" id="toc-unspecial-case-ssreg-versus-sse-doesnt-matter" class="nav-link" data-scroll-target="#unspecial-case-ssreg-versus-sse-doesnt-matter"><span class="header-section-number">10.1.7</span> Unspecial Case: SSReg versus SSE doesn’t matter!</a></li>
-  <li><a href="#anova-tests-for-ess" id="toc-anova-tests-for-ess" class="nav-link" data-scroll-target="#anova-tests-for-ess"><span class="header-section-number">10.1.8</span> ANOVA Tests for ESS</a></li>
-  <li><a href="#in-general" id="toc-in-general" class="nav-link" data-scroll-target="#in-general"><span class="header-section-number">10.1.9</span> In General</a></li>
-  <li><a href="#omnibus-tests-for-multiple-predictors" id="toc-omnibus-tests-for-multiple-predictors" class="nav-link" data-scroll-target="#omnibus-tests-for-multiple-predictors"><span class="header-section-number">10.1.10</span> Omnibus Tests for Multiple Predictors</a></li>
-  <li><a href="#in-r" id="toc-in-r" class="nav-link" data-scroll-target="#in-r"><span class="header-section-number">10.1.11</span> In R</a></li>
-  <li><a href="#next-time" id="toc-next-time" class="nav-link" data-scroll-target="#next-time"><span class="header-section-number">10.1.12</span> Next time</a></li>
+  <li><a href="#todays-main-idea" id="toc-todays-main-idea" class="nav-link" data-scroll-target="#todays-main-idea">Today’s Main Idea</a></li>
+  <li><a href="#sum-of-squares-due-to-regression" id="toc-sum-of-squares-due-to-regression" class="nav-link" data-scroll-target="#sum-of-squares-due-to-regression">Sum-of-Squares due to Regression</a></li>
+  <li><a href="#ssreg-in-two-different-penguin-models" id="toc-ssreg-in-two-different-penguin-models" class="nav-link" data-scroll-target="#ssreg-in-two-different-penguin-models">SSReg in two different penguin models</a></li>
+  <li><a href="#extra-sum-of-squares" id="toc-extra-sum-of-squares" class="nav-link" data-scroll-target="#extra-sum-of-squares">Extra Sum-of-Squares</a></li>
+  <li><a href="#special-case-corrected-sum-of-squares" id="toc-special-case-corrected-sum-of-squares" class="nav-link" data-scroll-target="#special-case-corrected-sum-of-squares">Special Case: Corrected Sum-of-Squares</a></li>
+  <li><a href="#unspecial-case-correction-doesnt-matter" id="toc-unspecial-case-correction-doesnt-matter" class="nav-link" data-scroll-target="#unspecial-case-correction-doesnt-matter">Unspecial Case: Correction doesn’t matter!</a></li>
+  <li><a href="#unspecial-case-ssreg-versus-sse-doesnt-matter" id="toc-unspecial-case-ssreg-versus-sse-doesnt-matter" class="nav-link" data-scroll-target="#unspecial-case-ssreg-versus-sse-doesnt-matter">Unspecial Case: SSReg versus SSE doesn’t matter!</a></li>
+  <li><a href="#anova-tests-for-ess" id="toc-anova-tests-for-ess" class="nav-link" data-scroll-target="#anova-tests-for-ess">ANOVA Tests for ESS</a></li>
+  <li><a href="#in-general" id="toc-in-general" class="nav-link" data-scroll-target="#in-general">In General</a></li>
+  <li><a href="#omnibus-tests-for-multiple-predictors" id="toc-omnibus-tests-for-multiple-predictors" class="nav-link" data-scroll-target="#omnibus-tests-for-multiple-predictors">Omnibus Tests for Multiple Predictors</a></li>
+  <li><a href="#in-r" id="toc-in-r" class="nav-link" data-scroll-target="#in-r">In R</a></li>
+  <li><a href="#next-time" id="toc-next-time" class="nav-link" data-scroll-target="#next-time">Next time</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -296,10 +298,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Wilfrid Laurier University
+          </p>
+      </div>
+    </div>
 
 <div class="quarto-title-meta">
 
-    
+      
   
     
   </div>
@@ -309,8 +324,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">10.1</span> Introduction</h2>
-<section id="todays-main-idea" class="level3" data-number="10.1.1">
-<h3 data-number="10.1.1" class="anchored" data-anchor-id="todays-main-idea"><span class="header-section-number">10.1.1</span> Today’s Main Idea</h3>
+<section id="todays-main-idea" class="level3">
+<h3 class="anchored" data-anchor-id="todays-main-idea">Today’s Main Idea</h3>
 <p>If you add or remove predictors, the variance of the residuals changes!</p>
 <ul>
 <li>As always, we ask if it’s a “big” change.</li>
@@ -318,8 +333,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Which predictors have a meaningful (significant?) effect on the residuals?</p>
 </section>
-<section id="sum-of-squares-due-to-regression" class="level3" data-number="10.1.2">
-<h3 data-number="10.1.2" class="anchored" data-anchor-id="sum-of-squares-due-to-regression"><span class="header-section-number">10.1.2</span> Sum-of-Squares due to Regression</h3>
+<section id="sum-of-squares-due-to-regression" class="level3">
+<h3 class="anchored" data-anchor-id="sum-of-squares-due-to-regression">Sum-of-Squares due to Regression</h3>
 <ul>
 <li>Since SSE = SST - SSReg and SST never changes, we’re focusing on SSReg.</li>
 <li>Recall: SSReg is the variance of the line itself!</li>
@@ -328,8 +343,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 SSReg = \sum_{i=1}^n(\hat y_i - \bar y)
 \]</span></p>
 </section>
-<section id="ssreg-in-two-different-penguin-models" class="level3" data-number="10.1.3">
-<h3 data-number="10.1.3" class="anchored" data-anchor-id="ssreg-in-two-different-penguin-models"><span class="header-section-number">10.1.3</span> SSReg in two different penguin models</h3>
+<section id="ssreg-in-two-different-penguin-models" class="level3">
+<h3 class="anchored" data-anchor-id="ssreg-in-two-different-penguin-models">SSReg in two different penguin models</h3>
 <p>In the <code>penguins</code> data, we’re determining which predictors are associated with body mass.</p>
 <ul>
 <li><span class="math inline">\(SS_1\)</span> = SSReg for model 1
@@ -356,8 +371,8 @@ Important
 </div>
 </div>
 </section>
-<section id="extra-sum-of-squares" class="level3" data-number="10.1.4">
-<h3 data-number="10.1.4" class="anchored" data-anchor-id="extra-sum-of-squares"><span class="header-section-number">10.1.4</span> Extra Sum-of-Squares</h3>
+<section id="extra-sum-of-squares" class="level3">
+<h3 class="anchored" data-anchor-id="extra-sum-of-squares">Extra Sum-of-Squares</h3>
 <p>If M2 is <strong>nested</strong> within M1, :</p>
 <ul>
 <li>M1: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}\)</span></li>
@@ -368,16 +383,16 @@ SS(\hat\beta_3 | \hat\beta_0, \hat\beta_1, \hat\beta_2) = S_1 - S_2
 \]</span></p>
 <p>Convince yourself that S1 &gt; S2.</p>
 </section>
-<section id="special-case-corrected-sum-of-squares" class="level3" data-number="10.1.5">
-<h3 data-number="10.1.5" class="anchored" data-anchor-id="special-case-corrected-sum-of-squares"><span class="header-section-number">10.1.5</span> Special Case: Corrected Sum-of-Squares</h3>
+<section id="special-case-corrected-sum-of-squares" class="level3">
+<h3 class="anchored" data-anchor-id="special-case-corrected-sum-of-squares">Special Case: Corrected Sum-of-Squares</h3>
 <p>We’ve already seen this notation: <span class="math display">\[
 SSReg(\hat\beta_0) = n\bar{\underline y}^2
 \]</span> and <span class="math display">\[
 SSReg(corrected) = \hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2 = S_1 - S_2
 \]</span> where <span class="math inline">\(S_2\)</span> is the sum-of-squares for the null model!</p>
 </section>
-<section id="unspecial-case-correction-doesnt-matter" class="level3" data-number="10.1.6">
-<h3 data-number="10.1.6" class="anchored" data-anchor-id="unspecial-case-correction-doesnt-matter"><span class="header-section-number">10.1.6</span> Unspecial Case: Correction doesn’t matter!</h3>
+<section id="unspecial-case-correction-doesnt-matter" class="level3">
+<h3 class="anchored" data-anchor-id="unspecial-case-correction-doesnt-matter">Unspecial Case: Correction doesn’t matter!</h3>
 <p>Consider <span class="math inline">\(S_{1c}\)</span> and <span class="math inline">\(S_{2c}\)</span>, the corrected versions of <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span>. Then</p>
 <p><span class="math display">\[\begin{align*}
 S_{1c} - S_{2c} = (S_2 - n\bar{\underline y}^2) - (S_1 - n\bar{\underline y}^2) = S_1 - S_2
@@ -385,16 +400,16 @@ S_{1c} - S_{2c} = (S_2 - n\bar{\underline y}^2) - (S_1 - n\bar{\underline y}^2) 
 <p>In other words, the correction term doesn’t matter.</p>
 <p>This is useful because R outputs the corrected versions.</p>
 </section>
-<section id="unspecial-case-ssreg-versus-sse-doesnt-matter" class="level3" data-number="10.1.7">
-<h3 data-number="10.1.7" class="anchored" data-anchor-id="unspecial-case-ssreg-versus-sse-doesnt-matter"><span class="header-section-number">10.1.7</span> Unspecial Case: SSReg versus SSE doesn’t matter!</h3>
+<section id="unspecial-case-ssreg-versus-sse-doesnt-matter" class="level3">
+<h3 class="anchored" data-anchor-id="unspecial-case-ssreg-versus-sse-doesnt-matter">Unspecial Case: SSReg versus SSE doesn’t matter!</h3>
 <p>Consider <span class="math inline">\(SSE_1\)</span> and <span class="math inline">\(SSE_2\)</span>. Since SST is the same for both models,</p>
 <p><span class="math display">\[\begin{align*}
 SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 \end{align*}\]</span></p>
 <p>Notice that the order is switched, which is fine.</p>
 </section>
-<section id="anova-tests-for-ess" class="level3" data-number="10.1.8">
-<h3 data-number="10.1.8" class="anchored" data-anchor-id="anova-tests-for-ess"><span class="header-section-number">10.1.8</span> ANOVA Tests for ESS</h3>
+<section id="anova-tests-for-ess" class="level3">
+<h3 class="anchored" data-anchor-id="anova-tests-for-ess">ANOVA Tests for ESS</h3>
 <p>Consider the models:</p>
 <ul>
 <li>M1: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}\)</span>
@@ -412,16 +427,16 @@ SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 <p>where <span class="math inline">\(s^2\)</span> is the error variance (MSE) in the larger model with degress of freedom <span class="math inline">\(\nu = df_1\)</span>.</p>
 <p>This is almost identical to the F-test for only one predictor (with one important difference).</p>
 </section>
-<section id="in-general" class="level3" data-number="10.1.9">
-<h3 data-number="10.1.9" class="anchored" data-anchor-id="in-general"><span class="header-section-number">10.1.9</span> In General</h3>
+<section id="in-general" class="level3">
+<h3 class="anchored" data-anchor-id="in-general">In General</h3>
 <p>If M1 has <span class="math inline">\(p\)</span> df, M2 has <span class="math inline">\(q\)</span> df, and one is nested in the other, then <span class="math inline">\(\nu = \max(p, q)\)</span> and</p>
 <p><span class="math display">\[
 \frac{S_1 - S_2}{(p - q)s^2} \sim F_{|p-q|,\nu}
 \]</span></p>
 <p>Note that it doesn’t matter which is nested: <span class="math inline">\(S_1 - S_2\)</span> has the same sign as <span class="math inline">\(p-q\)</span>, so it’s always positive.</p>
 </section>
-<section id="omnibus-tests-for-multiple-predictors" class="level3" data-number="10.1.10">
-<h3 data-number="10.1.10" class="anchored" data-anchor-id="omnibus-tests-for-multiple-predictors"><span class="header-section-number">10.1.10</span> Omnibus Tests for Multiple Predictors</h3>
+<section id="omnibus-tests-for-multiple-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="omnibus-tests-for-multiple-predictors">Omnibus Tests for Multiple Predictors</h3>
 <p>Suppose we want to test if <em>any</em> bill measurement is useful.</p>
 <ul>
 <li>Bill length and depth are highly correlated - marginal CIs won’t be valid.</li>
@@ -435,8 +450,8 @@ SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 <p><span class="math inline">\(S_1 = S_2\)</span> is equivalent to <span class="math inline">\(\beta_2 = \beta_3 = 0\)</span>, and it accounts for their covariance!</p>
 <p>If significant, then at least one of <span class="math inline">\((\beta_2, \beta_3)\)</span> is not 0.</p>
 </section>
-<section id="in-r" class="level3" data-number="10.1.11">
-<h3 data-number="10.1.11" class="anchored" data-anchor-id="in-r"><span class="header-section-number">10.1.11</span> In R</h3>
+<section id="in-r" class="level3">
+<h3 class="anchored" data-anchor-id="in-r">In R</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
@@ -479,8 +494,8 @@ SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 </div>
 </div>
 </section>
-<section id="next-time" class="level3" data-number="10.1.12">
-<h3 data-number="10.1.12" class="anchored" data-anchor-id="next-time"><span class="header-section-number">10.1.12</span> Next time</h3>
+<section id="next-time" class="level3">
+<h3 class="anchored" data-anchor-id="next-time">Next time</h3>
 <ul>
 <li>When to check ESS</li>
 <li>How to check all ESS</li>
@@ -842,7 +857,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L05-ANOVA-R2-F_test-CI.html" class="pagination-link">
+      <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span>
       </a>          
   </div>

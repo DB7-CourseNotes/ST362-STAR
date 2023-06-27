@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>docs - 8&nbsp; L05: The General Regression Situation</title>
+<title>Regression Analysis - 8&nbsp; L05: The General Regression Situation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L05-ANOVA-R2-F_test-CI.html" rel="next">
-<link href="./L03-Residuals.html" rel="prev">
+<link href="./Lb05-ANOVA-R2-F_test-CI.html" rel="next">
+<link href="./Lb04-R_Matrix_Form.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -126,8 +127,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">docs</a> 
+      <a href="./">Regression Analysis</a> 
         <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST362_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -159,32 +161,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 1: OLS Estimates</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L03-MSE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
+  <a href="./Lb02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L03-Residuals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb03-MSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
   </div>
 </li>
@@ -231,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Hat Matrix and Residuals in R</span></span></a>
   </div>
 </li>
@@ -243,20 +245,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+  <a href="./Lb13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
   </div>
 </li>
     </ul>
@@ -271,36 +273,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#chapter-summary" id="toc-chapter-summary" class="nav-link active" data-scroll-target="#chapter-summary"><span class="header-section-number">8.1</span> Chapter Summary</a>
   <ul class="collapse">
-  <li><a href="#the-normal-equations" id="toc-the-normal-equations" class="nav-link" data-scroll-target="#the-normal-equations"><span class="header-section-number">8.1.1</span> The Normal Equations</a></li>
-  <li><a href="#facts" id="toc-facts" class="nav-link" data-scroll-target="#facts"><span class="header-section-number">8.1.2</span> Facts</a></li>
-  <li><a href="#example-proof-problems" id="toc-example-proof-problems" class="nav-link" data-scroll-target="#example-proof-problems"><span class="header-section-number">8.1.3</span> Example Proof Problems</a></li>
-  <li><a href="#analysis-of-variance-corrected" id="toc-analysis-of-variance-corrected" class="nav-link" data-scroll-target="#analysis-of-variance-corrected"><span class="header-section-number">8.1.4</span> Analysis of Variance (Corrected)</a></li>
-  <li><a href="#f-test-for-overall-significance" id="toc-f-test-for-overall-significance" class="nav-link" data-scroll-target="#f-test-for-overall-significance"><span class="header-section-number">8.1.5</span> <span class="math inline">\(F\)</span>-test for overall significance</a></li>
-  <li><a href="#example-significance-of-disp" id="toc-example-significance-of-disp" class="nav-link" data-scroll-target="#example-significance-of-disp"><span class="header-section-number">8.1.6</span> Example: Significance of <code>disp</code></a></li>
-  <li><a href="#example-f_1p-1-t2_p-1" id="toc-example-f_1p-1-t2_p-1" class="nav-link" data-scroll-target="#example-f_1p-1-t2_p-1"><span class="header-section-number">8.1.7</span> Example: <span class="math inline">\(F_{1,p-1} = t^2_{p-1}\)</span></a></li>
-  <li><a href="#example-significance-of-regression-f_2p-1-ne-t2_p-1" id="toc-example-significance-of-regression-f_2p-1-ne-t2_p-1" class="nav-link" data-scroll-target="#example-significance-of-regression-f_2p-1-ne-t2_p-1"><span class="header-section-number">8.1.8</span> Example: Significance of Regression (<span class="math inline">\(F_{2,p-1} \ne t^2_{p-1}\)</span>)</a></li>
-  <li><a href="#r2-again" id="toc-r2-again" class="nav-link" data-scroll-target="#r2-again"><span class="header-section-number">8.1.9</span> <span class="math inline">\(R^2\)</span> again</a></li>
-  <li><a href="#r2-is-bad" id="toc-r2-is-bad" class="nav-link" data-scroll-target="#r2-is-bad"><span class="header-section-number">8.1.10</span> <span class="math inline">\(R^2\)</span> is bad?</a></li>
-  <li><a href="#adjusted-multiple-r2" id="toc-adjusted-multiple-r2" class="nav-link" data-scroll-target="#adjusted-multiple-r2"><span class="header-section-number">8.1.11</span> Adjusted (Multiple) <span class="math inline">\(R^2\)</span></a></li>
+  <li><a href="#the-normal-equations" id="toc-the-normal-equations" class="nav-link" data-scroll-target="#the-normal-equations">The Normal Equations</a></li>
+  <li><a href="#facts" id="toc-facts" class="nav-link" data-scroll-target="#facts">Facts</a></li>
+  <li><a href="#example-proof-problems" id="toc-example-proof-problems" class="nav-link" data-scroll-target="#example-proof-problems">Example Proof Problems</a></li>
+  <li><a href="#analysis-of-variance-corrected" id="toc-analysis-of-variance-corrected" class="nav-link" data-scroll-target="#analysis-of-variance-corrected">Analysis of Variance (Corrected)</a></li>
+  <li><a href="#f-test-for-overall-significance" id="toc-f-test-for-overall-significance" class="nav-link" data-scroll-target="#f-test-for-overall-significance"><span class="math inline">\(F\)</span>-test for overall significance</a></li>
+  <li><a href="#example-significance-of-disp" id="toc-example-significance-of-disp" class="nav-link" data-scroll-target="#example-significance-of-disp">Example: Significance of <code>disp</code></a></li>
+  <li><a href="#example-f_1p-1-t2_p-1" id="toc-example-f_1p-1-t2_p-1" class="nav-link" data-scroll-target="#example-f_1p-1-t2_p-1">Example: <span class="math inline">\(F_{1,p-1} = t^2_{p-1}\)</span></a></li>
+  <li><a href="#example-significance-of-regression-f_2p-1-ne-t2_p-1" id="toc-example-significance-of-regression-f_2p-1-ne-t2_p-1" class="nav-link" data-scroll-target="#example-significance-of-regression-f_2p-1-ne-t2_p-1">Example: Significance of Regression (<span class="math inline">\(F_{2,p-1} \ne t^2_{p-1}\)</span>)</a></li>
+  <li><a href="#r2-again" id="toc-r2-again" class="nav-link" data-scroll-target="#r2-again"><span class="math inline">\(R^2\)</span> again</a></li>
+  <li><a href="#r2-is-bad" id="toc-r2-is-bad" class="nav-link" data-scroll-target="#r2-is-bad"><span class="math inline">\(R^2\)</span> is bad?</a></li>
+  <li><a href="#adjusted-multiple-r2" id="toc-adjusted-multiple-r2" class="nav-link" data-scroll-target="#adjusted-multiple-r2">Adjusted (Multiple) <span class="math inline">\(R^2\)</span></a></li>
   </ul></li>
   <li><a href="#prediction-and-confidence-intervals-again" id="toc-prediction-and-confidence-intervals-again" class="nav-link" data-scroll-target="#prediction-and-confidence-intervals-again"><span class="header-section-number">8.2</span> Prediction and Confidence Intervals (Again)</a>
   <ul class="collapse">
-  <li><a href="#r2-and-f" id="toc-r2-and-f" class="nav-link" data-scroll-target="#r2-and-f"><span class="header-section-number">8.2.1</span> <span class="math inline">\(R^2\)</span> and <span class="math inline">\(F\)</span></a></li>
-  <li><a href="#correlation-of-hatbeta_0-hatbeta_1-hatbeta_2-etc." id="toc-correlation-of-hatbeta_0-hatbeta_1-hatbeta_2-etc." class="nav-link" data-scroll-target="#correlation-of-hatbeta_0-hatbeta_1-hatbeta_2-etc."><span class="header-section-number">8.2.2</span> Correlation of <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\hat\beta_2\)</span>, etc.</a></li>
-  <li><a href="#uncorrelated-hatunderlinebeta" id="toc-uncorrelated-hatunderlinebeta" class="nav-link" data-scroll-target="#uncorrelated-hatunderlinebeta"><span class="header-section-number">8.2.3</span> Uncorrelated <span class="math inline">\(\hat\underline{\beta}\)</span></a></li>
-  <li><a href="#prediction-and-confidence-intervals-for-y" id="toc-prediction-and-confidence-intervals-for-y" class="nav-link" data-scroll-target="#prediction-and-confidence-intervals-for-y"><span class="header-section-number">8.2.4</span> Prediction and Confidence Intervals for <span class="math inline">\(Y\)</span></a></li>
+  <li><a href="#r2-and-f" id="toc-r2-and-f" class="nav-link" data-scroll-target="#r2-and-f"><span class="math inline">\(R^2\)</span> and <span class="math inline">\(F\)</span></a></li>
+  <li><a href="#correlation-of-hatbeta_0-hatbeta_1-hatbeta_2-etc." id="toc-correlation-of-hatbeta_0-hatbeta_1-hatbeta_2-etc." class="nav-link" data-scroll-target="#correlation-of-hatbeta_0-hatbeta_1-hatbeta_2-etc.">Correlation of <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\hat\beta_2\)</span>, etc.</a></li>
+  <li><a href="#uncorrelated-hatunderlinebeta" id="toc-uncorrelated-hatunderlinebeta" class="nav-link" data-scroll-target="#uncorrelated-hatunderlinebeta">Uncorrelated <span class="math inline">\(\hat\underline{\beta}\)</span></a></li>
+  <li><a href="#prediction-and-confidence-intervals-for-y" id="toc-prediction-and-confidence-intervals-for-y" class="nav-link" data-scroll-target="#prediction-and-confidence-intervals-for-y">Prediction and Confidence Intervals for <span class="math inline">\(Y\)</span></a></li>
   </ul></li>
   <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">8.3</span> Participation Questions</a>
   <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1"><span class="header-section-number">8.3.1</span> Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2"><span class="header-section-number">8.3.2</span> Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3"><span class="header-section-number">8.3.3</span> Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4"><span class="header-section-number">8.3.4</span> Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5"><span class="header-section-number">8.3.5</span> Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6"><span class="header-section-number">8.3.6</span> Q6</a></li>
+  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
+  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
+  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
+  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
+  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
+  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -312,10 +314,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Author</div>
   <div class="quarto-title-meta-heading">Affiliation</div>
   
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
   </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Jam: by The Kaiser Chefs
+          </p>
+      </div>
+    </div>
 
 <div class="quarto-title-meta">
 
@@ -329,8 +339,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="chapter-summary" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="chapter-summary"><span class="header-section-number">8.1</span> Chapter Summary</h2>
-<section id="the-normal-equations" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="the-normal-equations"><span class="header-section-number">8.1.1</span> The Normal Equations</h3>
+<section id="the-normal-equations" class="level3">
+<h3 class="anchored" data-anchor-id="the-normal-equations">The Normal Equations</h3>
 <p><span class="math display">\[\begin{align*}
 \underline\epsilon^T\underline\epsilon &amp;= (Y - X\underline\beta)^T(Y - X\underline\beta)\\
 &amp;= ... = Y^TY - 2\underline\beta^TX^TY + \underline\beta^TX^TX\underline\beta
@@ -344,8 +354,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 X^TX\underline{\hat\beta} &amp;= X^T\underline y
 \end{align*}\]</span></p>
 </section>
-<section id="facts" class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="facts"><span class="header-section-number">8.1.2</span> Facts</h3>
+<section id="facts" class="level3">
+<h3 class="anchored" data-anchor-id="facts">Facts</h3>
 <p><span class="math display">\[X^TX\underline{\hat\beta} = X^T\underline y\]</span></p>
 <ol type="1">
 <li>No distributional assumptions.</li>
@@ -360,8 +370,8 @@ X^TX\underline{\hat\beta} &amp;= X^T\underline y
 </ul></li>
 </ol>
 </section>
-<section id="example-proof-problems" class="level3" data-number="8.1.3">
-<h3 data-number="8.1.3" class="anchored" data-anchor-id="example-proof-problems"><span class="header-section-number">8.1.3</span> Example Proof Problems</h3>
+<section id="example-proof-problems" class="level3">
+<h3 class="anchored" data-anchor-id="example-proof-problems">Example Proof Problems</h3>
 <ol type="1">
 <li>Prove that <span class="math inline">\(\sum_{i=1}^n\hat\epsilon_i\hat y_i = 0\)</span>.</li>
 <li>Prove that <span class="math inline">\((1/n)\sum_{i=1}^n\hat\epsilon_i = 0\)</span>.</li>
@@ -385,8 +395,8 @@ X^TX\underline{\hat\beta} &amp;= X^T\underline y
 </div>
 </div>
 </section>
-<section id="analysis-of-variance-corrected" class="level3" data-number="8.1.4">
-<h3 data-number="8.1.4" class="anchored" data-anchor-id="analysis-of-variance-corrected"><span class="header-section-number">8.1.4</span> Analysis of Variance (Corrected)</h3>
+<section id="analysis-of-variance-corrected" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-of-variance-corrected">Analysis of Variance (Corrected)</h3>
 <table class="table">
 <colgroup>
 <col style="width: 40%">
@@ -429,8 +439,8 @@ X^TX\underline{\hat\beta} &amp;= X^T\underline y
 </ul></li>
 </ul>
 </section>
-<section id="f-test-for-overall-significance" class="level3" data-number="8.1.5">
-<h3 data-number="8.1.5" class="anchored" data-anchor-id="f-test-for-overall-significance"><span class="header-section-number">8.1.5</span> <span class="math inline">\(F\)</span>-test for overall significance</h3>
+<section id="f-test-for-overall-significance" class="level3">
+<h3 class="anchored" data-anchor-id="f-test-for-overall-significance"><span class="math inline">\(F\)</span>-test for overall significance</h3>
 <p>If SSReg is significantly larger than SSE, then fitting the model was worth it!</p>
 <ul>
 <li>This is a test for <span class="math inline">\(\beta_1 = \beta_2 = ... = \beta_{p-1} = 0\)</span>, versus any <span class="math inline">\(\beta_j\ne 0\)</span>.</li>
@@ -441,8 +451,8 @@ F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)
 \]</span></p>
 <p>Again, note that a regression with no predictors always has <span class="math inline">\(\hat\beta_0 = \bar y\)</span>.</p>
 </section>
-<section id="example-significance-of-disp" class="level3" data-number="8.1.6">
-<h3 data-number="8.1.6" class="anchored" data-anchor-id="example-significance-of-disp"><span class="header-section-number">8.1.6</span> Example: Significance of <code>disp</code></h3>
+<section id="example-significance-of-disp" class="level3">
+<h3 class="anchored" data-anchor-id="example-significance-of-disp">Example: Significance of <code>disp</code></h3>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell">
@@ -499,8 +509,8 @@ F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)
 </div>
 </div>
 </section>
-<section id="example-f_1p-1-t2_p-1" class="level3" data-number="8.1.7">
-<h3 data-number="8.1.7" class="anchored" data-anchor-id="example-f_1p-1-t2_p-1"><span class="header-section-number">8.1.7</span> Example: <span class="math inline">\(F_{1,p-1} = t^2_{p-1}\)</span></h3>
+<section id="example-f_1p-1-t2_p-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-f_1p-1-t2_p-1">Example: <span class="math inline">\(F_{1,p-1} = t^2_{p-1}\)</span></h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> qsec, <span class="at">data =</span> mtcars)) <span class="sc">|&gt;</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -570,8 +580,8 @@ F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)
 </div>
 <p>What do you notice about these two tables?</p>
 </section>
-<section id="example-significance-of-regression-f_2p-1-ne-t2_p-1" class="level3" data-number="8.1.8">
-<h3 data-number="8.1.8" class="anchored" data-anchor-id="example-significance-of-regression-f_2p-1-ne-t2_p-1"><span class="header-section-number">8.1.8</span> Example: Significance of Regression (<span class="math inline">\(F_{2,p-1} \ne t^2_{p-1}\)</span>)</h3>
+<section id="example-significance-of-regression-f_2p-1-ne-t2_p-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-significance-of-regression-f_2p-1-ne-t2_p-1">Example: Significance of Regression (<span class="math inline">\(F_{2,p-1} \ne t^2_{p-1}\)</span>)</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> qsec <span class="sc">+</span> disp, <span class="at">data =</span> mtcars)) <span class="sc">|&gt;</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -656,15 +666,15 @@ F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)
 </div>
 <p>We’ll learn more about the ANOVA table next lecture.</p>
 </section>
-<section id="r2-again" class="level3" data-number="8.1.9">
-<h3 data-number="8.1.9" class="anchored" data-anchor-id="r2-again"><span class="header-section-number">8.1.9</span> <span class="math inline">\(R^2\)</span> again</h3>
+<section id="r2-again" class="level3">
+<h3 class="anchored" data-anchor-id="r2-again"><span class="math inline">\(R^2\)</span> again</h3>
 <p><span class="math display">\[
 R^2 = \frac{SS(Reg|\hat\beta_0)}{Y^TY - SS(\beta_0)} = \frac{\sum(\hat y_i - \bar y)^2}{\sum(y_i - \bar y)^2}
 \]</span></p>
 <p>Works for multiple dimensions!… kinda.</p>
 </section>
-<section id="r2-is-bad" class="level3" data-number="8.1.10">
-<h3 data-number="8.1.10" class="anchored" data-anchor-id="r2-is-bad"><span class="header-section-number">8.1.10</span> <span class="math inline">\(R^2\)</span> is bad?</h3>
+<section id="r2-is-bad" class="level3">
+<h3 class="anchored" data-anchor-id="r2-is-bad"><span class="math inline">\(R^2\)</span> is bad?</h3>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell">
@@ -695,8 +705,8 @@ R^2 = \frac{SS(Reg|\hat\beta_0)}{Y^TY - SS(\beta_0)} = \frac{\sum(\hat y_i - \ba
 </div>
 </div>
 </section>
-<section id="adjusted-multiple-r2" class="level3" data-number="8.1.11">
-<h3 data-number="8.1.11" class="anchored" data-anchor-id="adjusted-multiple-r2"><span class="header-section-number">8.1.11</span> Adjusted (Multiple) <span class="math inline">\(R^2\)</span></h3>
+<section id="adjusted-multiple-r2" class="level3">
+<h3 class="anchored" data-anchor-id="adjusted-multiple-r2">Adjusted (Multiple) <span class="math inline">\(R^2\)</span></h3>
 <p><span class="math display">\[
 R^2_a = 1 - (1 - R^2)\left(\frac{n-1}{n-p}\right)
 \]</span></p>
@@ -720,8 +730,8 @@ R^2_a = 1 - (1 - R^2)\left(\frac{n-1}{n-p}\right)
 </section>
 <section id="prediction-and-confidence-intervals-again" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="prediction-and-confidence-intervals-again"><span class="header-section-number">8.2</span> Prediction and Confidence Intervals (Again)</h2>
-<section id="r2-and-f" class="level3" data-number="8.2.1">
-<h3 data-number="8.2.1" class="anchored" data-anchor-id="r2-and-f"><span class="header-section-number">8.2.1</span> <span class="math inline">\(R^2\)</span> and <span class="math inline">\(F\)</span></h3>
+<section id="r2-and-f" class="level3">
+<h3 class="anchored" data-anchor-id="r2-and-f"><span class="math inline">\(R^2\)</span> and <span class="math inline">\(F\)</span></h3>
 <p>Recall that <span class="math display">\[
 F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)} \sim F_{p-1, n-p}
 \]</span></p>
@@ -731,8 +741,8 @@ R^2 &amp;= \frac{SS(Reg|\hat\beta_0)}{SST}\\
 &amp;= \frac{(p-1)F}{(p-1)F + (n-p)}
 \end{align*}\]</span> Conclusion: Hypothesis tests/CIs for <span class="math inline">\(R^2\)</span> aren’t useful. Just use <span class="math inline">\(F\)</span>!</p>
 </section>
-<section id="correlation-of-hatbeta_0-hatbeta_1-hatbeta_2-etc." class="level3" data-number="8.2.2">
-<h3 data-number="8.2.2" class="anchored" data-anchor-id="correlation-of-hatbeta_0-hatbeta_1-hatbeta_2-etc."><span class="header-section-number">8.2.2</span> Correlation of <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\hat\beta_2\)</span>, etc.</h3>
+<section id="correlation-of-hatbeta_0-hatbeta_1-hatbeta_2-etc." class="level3">
+<h3 class="anchored" data-anchor-id="correlation-of-hatbeta_0-hatbeta_1-hatbeta_2-etc.">Correlation of <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\hat\beta_2\)</span>, etc.</h3>
 <p>With a different sample, we would have gotten slightly different numbers!</p>
 <ul>
 <li>If the slope changed, the intercept must change to fit the data
@@ -744,8 +754,8 @@ R^2 &amp;= \frac{SS(Reg|\hat\beta_0)}{SST}\\
 <li>This correlation can be a problem for <strong>confidence regions</strong></li>
 </ul>
 </section>
-<section id="uncorrelated-hatunderlinebeta" class="level3" data-number="8.2.3">
-<h3 data-number="8.2.3" class="anchored" data-anchor-id="uncorrelated-hatunderlinebeta"><span class="header-section-number">8.2.3</span> Uncorrelated <span class="math inline">\(\hat\underline{\beta}\)</span></h3>
+<section id="uncorrelated-hatunderlinebeta" class="level3">
+<h3 class="anchored" data-anchor-id="uncorrelated-hatunderlinebeta">Uncorrelated <span class="math inline">\(\hat\underline{\beta}\)</span></h3>
 <p><span class="math display">\[
 V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
 \]</span></p>
@@ -754,8 +764,8 @@ V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
 \]</span></p>
 <p>so the correlation is 0 when <span class="math inline">\(\bar x = 0\)</span>!</p>
 </section>
-<section id="prediction-and-confidence-intervals-for-y" class="level3" data-number="8.2.4">
-<h3 data-number="8.2.4" class="anchored" data-anchor-id="prediction-and-confidence-intervals-for-y"><span class="header-section-number">8.2.4</span> Prediction and Confidence Intervals for <span class="math inline">\(Y\)</span></h3>
+<section id="prediction-and-confidence-intervals-for-y" class="level3">
+<h3 class="anchored" data-anchor-id="prediction-and-confidence-intervals-for-y">Prediction and Confidence Intervals for <span class="math inline">\(Y\)</span></h3>
 <p><span class="math inline">\(\hat Y = X\hat\beta\)</span>.</p>
 <ul>
 <li>A confidence interval around <span class="math inline">\(\hat Y\)</span> is based on the variance of <span class="math inline">\(\hat\beta\)</span>.</li>
@@ -770,8 +780,8 @@ V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
 </section>
 <section id="participation-questions" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">8.3</span> Participation Questions</h2>
-<section id="q1" class="level3" data-number="8.3.1">
-<h3 data-number="8.3.1" class="anchored" data-anchor-id="q1"><span class="header-section-number">8.3.1</span> Q1</h3>
+<section id="q1" class="level3">
+<h3 class="anchored" data-anchor-id="q1">Q1</h3>
 <p>Which of the following are the Normal equations?</p>
 <ol type="1">
 <li><span class="math inline">\(X^TX\underline\beta = X^T\underline y\)</span></li>
@@ -780,8 +790,8 @@ V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
 <li><span class="math inline">\(f(\epsilon_i) = \frac{1}{\sqrt{2\pi\sigma}}\exp\left(\frac{-1}{2}\epsilon_i^2\right)\)</span></li>
 </ol>
 </section>
-<section id="q2" class="level3" data-number="8.3.2">
-<h3 data-number="8.3.2" class="anchored" data-anchor-id="q2"><span class="header-section-number">8.3.2</span> Q2</h3>
+<section id="q2" class="level3">
+<h3 class="anchored" data-anchor-id="q2">Q2</h3>
 <p>When is <span class="math inline">\(X^TX\)</span> not invertible?</p>
 <ol type="1">
 <li>One of the predictors can be written as a linear combination of the others.</li>
@@ -790,8 +800,8 @@ V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
 <li>All of the above</li>
 </ol>
 </section>
-<section id="q3" class="level3" data-number="8.3.3">
-<h3 data-number="8.3.3" class="anchored" data-anchor-id="q3"><span class="header-section-number">8.3.3</span> Q3</h3>
+<section id="q3" class="level3">
+<h3 class="anchored" data-anchor-id="q3">Q3</h3>
 <p>What does a significant F-test for the overall regression mean?</p>
 <ol type="1">
 <li>The variance in the line is significantly larger than the variance in the data.</li>
@@ -800,8 +810,8 @@ V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
 <li>At least one of the predictors in the model will have significant <span class="math inline">\(t\)</span>-test.</li>
 </ol>
 </section>
-<section id="q4" class="level3" data-number="8.3.4">
-<h3 data-number="8.3.4" class="anchored" data-anchor-id="q4"><span class="header-section-number">8.3.4</span> Q4</h3>
+<section id="q4" class="level3">
+<h3 class="anchored" data-anchor-id="q4">Q4</h3>
 <p><span class="math inline">\(R^2\)</span> is best used for:</p>
 <ol type="1">
 <li>Determining whether a new predictor is worth including.</li>
@@ -810,8 +820,8 @@ V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
 <li>None of the above.</li>
 </ol>
 </section>
-<section id="q5" class="level3" data-number="8.3.5">
-<h3 data-number="8.3.5" class="anchored" data-anchor-id="q5"><span class="header-section-number">8.3.5</span> Q5</h3>
+<section id="q5" class="level3">
+<h3 class="anchored" data-anchor-id="q5">Q5</h3>
 <p>Which of the following describes a Prediction Interval?</p>
 <ol type="1">
 <li>The CI for the predicted value of the line</li>
@@ -820,8 +830,8 @@ V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
 <li>The CI for the predicted value of the line, including unobserved error at an <span class="math inline">\(X\)</span> value that was not observed in the data, using the true value of <span class="math inline">\(\sigma^2\)</span></li>
 </ol>
 </section>
-<section id="q6" class="level3" data-number="8.3.6">
-<h3 data-number="8.3.6" class="anchored" data-anchor-id="q6"><span class="header-section-number">8.3.6</span> Q6</h3>
+<section id="q6" class="level3">
+<h3 class="anchored" data-anchor-id="q6">Q6</h3>
 <p>Which ANOVA table does the <code>anova()</code> function calculate?</p>
 <ol type="1">
 <li></li>
@@ -1247,12 +1257,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L03-Residuals.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span>
+      <a href="./Lb04-R_Matrix_Form.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L05-ANOVA-R2-F_test-CI.html" class="pagination-link">
+      <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

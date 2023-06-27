@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>docs - 9&nbsp; Lab 5: ANOVA</title>
+<title>Regression Analysis - 9&nbsp; Lab 5: ANOVA</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -126,8 +127,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">docs</a> 
+      <a href="./">Regression Analysis</a> 
         <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST362_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -272,12 +274,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#basic-anova" id="toc-basic-anova" class="nav-link active" data-scroll-target="#basic-anova"><span class="header-section-number">9.1</span> Basic ANOVA</a></li>
   <li><a href="#r2-always-increases-with-new-predictors" id="toc-r2-always-increases-with-new-predictors" class="nav-link" data-scroll-target="#r2-always-increases-with-new-predictors"><span class="header-section-number">9.2</span> <span class="math inline">\(R^2\)</span> always increases with new predictors</a>
   <ul class="collapse">
-  <li><a href="#aside" id="toc-aside" class="nav-link" data-scroll-target="#aside"><span class="header-section-number">9.2.1</span> Aside</a></li>
+  <li><a href="#aside" id="toc-aside" class="nav-link" data-scroll-target="#aside">Aside</a></li>
   </ul></li>
   <li><a href="#covariance-of-the-parameters" id="toc-covariance-of-the-parameters" class="nav-link" data-scroll-target="#covariance-of-the-parameters"><span class="header-section-number">9.3</span> Covariance of the parameters</a></li>
   <li><a href="#joint-normality-of-the-underlinehatbetas" id="toc-joint-normality-of-the-underlinehatbetas" class="nav-link" data-scroll-target="#joint-normality-of-the-underlinehatbetas"><span class="header-section-number">9.4</span> Joint Normality of the <span class="math inline">\(\underline{\hat\beta}\)</span>s</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -288,10 +290,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Wilfrid Laurier University
+          </p>
+      </div>
+    </div>
 
 <div class="quarto-title-meta">
 
-    
+      
   
     
   </div>
@@ -360,8 +375,8 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>rsquares <span class="ot">&lt;-</span> <span class="fu">c</span>(rsquares, <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> uncorr))<span class="sc">$</span>r.squared)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>rsquares</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]         NA 0.01829891 0.02387831 0.04419122 0.10169165 0.11606637
- [7] 0.12880519 0.15445357 0.20303605 0.21277197 0.23403062 0.23403062</code></pre>
+<pre><code> [1]         NA 0.01773430 0.01809059 0.02593418 0.02678633 0.05217198
+ [7] 0.05298793 0.05603537 0.10183875 0.13581769 0.15992785 0.15992785</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rsquares, <span class="at">type =</span> <span class="st">"b"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -438,8 +453,8 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 </div>
 <p>Note that the intervals won’t exactly align - the samples are going to be different each time! In 95% of the samples we collect from this data generating process, the CI we construct from the sample will contain the true (green) line. This is a basic definition for confidence intervals, but it’s neat to see it around a line.</p>
 <p>Notice how the CI is curved. This is completely, 100% expected. Recall that <span class="math inline">\((\bar x, \bar y)\)</span> is always a point on the line. If <span class="math inline">\(x\)</span> is the same for all samples, then the variance in the height at <span class="math inline">\(\bar y\)</span> is just the variance in <span class="math inline">\(y\)</span>. However, we can rotate the line around this point and still fit most of the data “pretty well”, which is where the curved nature of the line comes from!</p>
-<section id="aside" class="level3" data-number="9.2.1">
-<h3 data-number="9.2.1" class="anchored" data-anchor-id="aside"><span class="header-section-number">9.2.1</span> Aside</h3>
+<section id="aside" class="level3">
+<h3 class="anchored" data-anchor-id="aside">Aside</h3>
 <p>Why did I use the same <span class="math inline">\(x\)</span> values for all of the simulations? Because that’s part of the assumptions (this isn’t an important point to make). Again, notice how the point <span class="math inline">\((\bar x, \bar y)\)</span> is always on the line, and how the variance at the point <span class="math inline">\(\bar x\)</span> is minimized. If <span class="math inline">\(\bar x\)</span> is randomly moved, then there’s extra variance in the line.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">2</span>; b1 <span class="ot">&lt;-</span> <span class="dv">5</span>; sigma <span class="ot">&lt;-</span> <span class="dv">10</span></span>

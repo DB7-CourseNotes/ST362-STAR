@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>docs - 19&nbsp; L13: Getting the Wrong Model</title>
+<title>Regression Analysis - 18&nbsp; L13: Getting the Wrong Model</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L12-Corr_in_Betas.html" rel="prev">
+<link href="./Lb13-Wrong_Model.html" rel="next">
+<link href="./Lb12-Corr_in_Betas.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -76,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L13-Wrong_Model.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L13-Wrong_Model.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -91,8 +93,9 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">docs</a> 
+      <a href="./">Regression Analysis</a> 
         <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST362_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -124,32 +127,32 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 1: OLS Estimates</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L03-MSE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
+  <a href="./Lb02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L03-Residuals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb03-MSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -160,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
   </div>
 </li>
@@ -196,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Hat Matrix and Residuals in R</span></span></a>
   </div>
 </li>
@@ -208,20 +211,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+  <a href="./Lb13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
   </div>
 </li>
     </ul>
@@ -234,37 +237,45 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-wrong-model" id="toc-the-wrong-model" class="nav-link active" data-scroll-target="#the-wrong-model"><span class="header-section-number">19.1</span> The Wrong Model</a>
+  <li><a href="#the-wrong-model" id="toc-the-wrong-model" class="nav-link active" data-scroll-target="#the-wrong-model"><span class="header-section-number">18.1</span> The Wrong Model</a>
   <ul class="collapse">
-  <li><a href="#the-right-model" id="toc-the-right-model" class="nav-link" data-scroll-target="#the-right-model"><span class="header-section-number">19.1.1</span> The Right Model?</a></li>
-  <li><a href="#the-wrong-predictors" id="toc-the-wrong-predictors" class="nav-link" data-scroll-target="#the-wrong-predictors"><span class="header-section-number">19.1.2</span> The Wrong Predictors</a></li>
-  <li><a href="#bias-due-to-wrong-predictors" id="toc-bias-due-to-wrong-predictors" class="nav-link" data-scroll-target="#bias-due-to-wrong-predictors"><span class="header-section-number">19.1.3</span> Bias due to wrong predictors</a></li>
-  <li><a href="#expected-mean-square" id="toc-expected-mean-square" class="nav-link" data-scroll-target="#expected-mean-square"><span class="header-section-number">19.1.4</span> Expected Mean Square</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">19.1.5</span> Summary</a></li>
+  <li><a href="#the-right-model" id="toc-the-right-model" class="nav-link" data-scroll-target="#the-right-model">The Right Model?</a></li>
+  <li><a href="#the-wrong-predictors" id="toc-the-wrong-predictors" class="nav-link" data-scroll-target="#the-wrong-predictors">The Wrong Predictors</a></li>
+  <li><a href="#bias-due-to-wrong-predictors" id="toc-bias-due-to-wrong-predictors" class="nav-link" data-scroll-target="#bias-due-to-wrong-predictors">Bias due to wrong predictors</a></li>
+  <li><a href="#expected-mean-square" id="toc-expected-mean-square" class="nav-link" data-scroll-target="#expected-mean-square">Expected Mean Square</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">19.2</span> Participation Questions</a>
+  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">18.2</span> Participation Questions</a>
   <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1"><span class="header-section-number">19.2.1</span> Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2"><span class="header-section-number">19.2.2</span> Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3"><span class="header-section-number">19.2.3</span> Q3</a></li>
+  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
+  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
+  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></h1>
+<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></h1>
 </div>
 
 
 <div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Author</div>
   <div class="quarto-title-meta-heading">Affiliation</div>
   
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
   </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Jam: **** by
+          </p>
+      </div>
+    </div>
 
 <div class="quarto-title-meta">
 
@@ -276,10 +287,10 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="the-wrong-model" class="level2" data-number="19.1">
-<h2 data-number="19.1" class="anchored" data-anchor-id="the-wrong-model"><span class="header-section-number">19.1</span> The Wrong Model</h2>
-<section id="the-right-model" class="level3" data-number="19.1.1">
-<h3 data-number="19.1.1" class="anchored" data-anchor-id="the-right-model"><span class="header-section-number">19.1.1</span> The Right Model?</h3>
+<section id="the-wrong-model" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="the-wrong-model"><span class="header-section-number">18.1</span> The Wrong Model</h2>
+<section id="the-right-model" class="level3">
+<h3 class="anchored" data-anchor-id="the-right-model">The Right Model?</h3>
 <p>Recall: All models are wrong, some are useful!</p>
 <p>But <em>how wrong can a model be while still being useful?</em></p>
 <ul>
@@ -287,8 +298,8 @@ ul.task-list li input[type="checkbox"] {
 <li>We will touch on a very small part of it</li>
 </ul>
 </section>
-<section id="the-wrong-predictors" class="level3" data-number="19.1.2">
-<h3 data-number="19.1.2" class="anchored" data-anchor-id="the-wrong-predictors"><span class="header-section-number">19.1.2</span> The Wrong Predictors</h3>
+<section id="the-wrong-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="the-wrong-predictors">The Wrong Predictors</h3>
 <p>So far, we’ve talked about a model of the form <span class="math inline">\(Y=X\underline\beta + \underline\epsilon\)</span>.</p>
 <ul>
 <li><span class="math inline">\(E(\hat{\underline\beta}) = E((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^TX\underline\beta = \underline\beta\)</span></li>
@@ -302,8 +313,8 @@ E(\hat{\underline\beta}) &amp;= E((X^TX)^{-1}X^TY)\\
 &amp;= \underline\beta + A\underline\beta_2
 \end{align*}\]</span></p>
 </section>
-<section id="bias-due-to-wrong-predictors" class="level3" data-number="19.1.3">
-<h3 data-number="19.1.3" class="anchored" data-anchor-id="bias-due-to-wrong-predictors"><span class="header-section-number">19.1.3</span> Bias due to wrong predictors</h3>
+<section id="bias-due-to-wrong-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="bias-due-to-wrong-predictors">Bias due to wrong predictors</h3>
 <p>The bias of an estimator is: <span class="math display">\[
 \text{Bias}(\hat{\underline\beta}) = \underline\beta - E(\hat{\underline\beta})
 \]</span></p>
@@ -311,33 +322,33 @@ E(\hat{\underline\beta}) &amp;= E((X^TX)^{-1}X^TY)\\
 \text{Bias}(\hat{\underline\beta}) = \underline\beta - (\underline\beta + A\underline\beta_2) = A\underline\beta_2
 \]</span></p>
 </section>
-<section id="expected-mean-square" class="level3" data-number="19.1.4">
-<h3 data-number="19.1.4" class="anchored" data-anchor-id="expected-mean-square"><span class="header-section-number">19.1.4</span> Expected Mean Square</h3>
+<section id="expected-mean-square" class="level3">
+<h3 class="anchored" data-anchor-id="expected-mean-square">Expected Mean Square</h3>
 <p>See text.</p>
 <p>Uses the identity: For an <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(Q\)</span> and <span class="math inline">\(n\times 1\)</span> random vector <span class="math inline">\(Y\)</span> with variance <span class="math inline">\(V(Y)=\Sigma\)</span>, <span class="math display">\[
 E(Y^TQY) = (E(Y))^TQE(Y) + trace(Q\Sigma)
 \]</span></p>
 <p>This may be useful for a future assignment question (will notify if you need it), but for now I’m going to explore this via simulation in the Rmd.</p>
 </section>
-<section id="summary" class="level3" data-number="19.1.5">
-<h3 data-number="19.1.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">19.1.5</span> Summary</h3>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
 <ul>
 <li>Choosing the wrong set of predictors can affect the model!</li>
 </ul>
 </section>
 </section>
-<section id="participation-questions" class="level2" data-number="19.2">
-<h2 data-number="19.2" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">19.2</span> Participation Questions</h2>
-<section id="q1" class="level3" data-number="19.2.1">
-<h3 data-number="19.2.1" class="anchored" data-anchor-id="q1"><span class="header-section-number">19.2.1</span> Q1</h3>
+<section id="participation-questions" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">18.2</span> Participation Questions</h2>
+<section id="q1" class="level3">
+<h3 class="anchored" data-anchor-id="q1">Q1</h3>
 <p>Choosing a model is easy.</p>
 <ol type="1">
 <li>True</li>
 <li>False</li>
 </ol>
 </section>
-<section id="q2" class="level3" data-number="19.2.2">
-<h3 data-number="19.2.2" class="anchored" data-anchor-id="q2"><span class="header-section-number">19.2.2</span> Q2</h3>
+<section id="q2" class="level3">
+<h3 class="anchored" data-anchor-id="q2">Q2</h3>
 <p>Which statement is false?</p>
 <ol type="1">
 <li>If you have the correct subset of predictors, you will have an unbiased model.</li>
@@ -346,8 +357,8 @@ E(Y^TQY) = (E(Y))^TQE(Y) + trace(Q\Sigma)
 <li>All of the above are true.</li>
 </ol>
 </section>
-<section id="q3" class="level3" data-number="19.2.3">
-<h3 data-number="19.2.3" class="anchored" data-anchor-id="q3"><span class="header-section-number">19.2.3</span> Q3</h3>
+<section id="q3" class="level3">
+<h3 class="anchored" data-anchor-id="q3">Q3</h3>
 <p>Proxy measures of important predictors help remove bias, but the coefficient has no relation to the data generating process.</p>
 <ol type="1">
 <li>True</li>
@@ -709,11 +720,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L12-Corr_in_Betas.html" class="pagination-link">
+      <a href="./Lb12-Corr_in_Betas.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./Lb13-Wrong_Model.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>docs - 7&nbsp; L03: Assessing Fit</title>
+<title>Regression Analysis - 4&nbsp; L03: Assessing Fit</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L05-General_Regression.html" rel="next">
-<link href="./L04-R_Matrix_Form.html" rel="prev">
+<link href="./Lb03-MSE.html" rel="next">
+<link href="./Lb02-OLS_Estimates.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -111,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L03-Residuals.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L03-Residuals.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -126,8 +127,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">docs</a> 
+      <a href="./">Regression Analysis</a> 
         <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST362_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -159,32 +161,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 1: OLS Estimates</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L03-MSE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
+  <a href="./Lb02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L03-Residuals.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb03-MSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
   </div>
 </li>
@@ -231,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Hat Matrix and Residuals in R</span></span></a>
   </div>
 </li>
@@ -243,20 +245,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+  <a href="./Lb13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
   </div>
 </li>
     </ul>
@@ -269,58 +271,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-residual-whats-left-over" id="toc-the-residual-whats-left-over" class="nav-link active" data-scroll-target="#the-residual-whats-left-over"><span class="header-section-number">7.1</span> The residual: what’s left over</a>
+  <li><a href="#the-residual-whats-left-over" id="toc-the-residual-whats-left-over" class="nav-link active" data-scroll-target="#the-residual-whats-left-over"><span class="header-section-number">4.1</span> The residual: what’s left over</a>
   <ul class="collapse">
-  <li><a href="#r2-percent-of-variance-explained-by-the-regression-model" id="toc-r2-percent-of-variance-explained-by-the-regression-model" class="nav-link" data-scroll-target="#r2-percent-of-variance-explained-by-the-regression-model"><span class="header-section-number">7.1.1</span> <span class="math inline">\(R^2\)</span>: percent of variance explained by the regression model</a></li>
-  <li><a href="#residual-assumptions" id="toc-residual-assumptions" class="nav-link" data-scroll-target="#residual-assumptions"><span class="header-section-number">7.1.2</span> Residual Assumptions</a></li>
-  <li><a href="#residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney" id="toc-residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney" class="nav-link" data-scroll-target="#residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney"><span class="header-section-number">7.1.3</span> Residuals versus <em>fitted</em> values: <span class="math inline">\(\hat{\underline\epsilon}\)</span> versus <span class="math inline">\(\hat{\underline{y}}\)</span></a></li>
-  <li><a href="#residual-plots-and-assumption-checking" id="toc-residual-plots-and-assumption-checking" class="nav-link" data-scroll-target="#residual-plots-and-assumption-checking"><span class="header-section-number">7.1.4</span> Residual Plots and Assumption Checking</a></li>
-  <li><a href="#residual-plots-unstable-error" id="toc-residual-plots-unstable-error" class="nav-link" data-scroll-target="#residual-plots-unstable-error"><span class="header-section-number">7.1.5</span> Residual plots: unstable error</a></li>
-  <li><a href="#residual-plots-non-linear-trend" id="toc-residual-plots-non-linear-trend" class="nav-link" data-scroll-target="#residual-plots-non-linear-trend"><span class="header-section-number">7.1.6</span> Residual plots: non-linear trend?</a></li>
-  <li><a href="#testing-normality-quantile-quantile-plots" id="toc-testing-normality-quantile-quantile-plots" class="nav-link" data-scroll-target="#testing-normality-quantile-quantile-plots"><span class="header-section-number">7.1.7</span> Testing Normality: Quantile-Quantile Plots</a></li>
-  <li><a href="#other-residual-plots" id="toc-other-residual-plots" class="nav-link" data-scroll-target="#other-residual-plots"><span class="header-section-number">7.1.8</span> Other Residual Plots:</a></li>
+  <li><a href="#r2-percent-of-variance-explained-by-the-regression-model" id="toc-r2-percent-of-variance-explained-by-the-regression-model" class="nav-link" data-scroll-target="#r2-percent-of-variance-explained-by-the-regression-model"><span class="math inline">\(R^2\)</span>: percent of variance explained by the regression model</a></li>
+  <li><a href="#residual-assumptions" id="toc-residual-assumptions" class="nav-link" data-scroll-target="#residual-assumptions">Residual Assumptions</a></li>
+  <li><a href="#residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney" id="toc-residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney" class="nav-link" data-scroll-target="#residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney">Residuals versus <em>fitted</em> values: <span class="math inline">\(\hat{\underline\epsilon}\)</span> versus <span class="math inline">\(\hat{\underline{y}}\)</span></a></li>
+  <li><a href="#residual-plots-and-assumption-checking" id="toc-residual-plots-and-assumption-checking" class="nav-link" data-scroll-target="#residual-plots-and-assumption-checking">Residual Plots and Assumption Checking</a></li>
+  <li><a href="#residual-plots-unstable-error" id="toc-residual-plots-unstable-error" class="nav-link" data-scroll-target="#residual-plots-unstable-error">Residual plots: unstable error</a></li>
+  <li><a href="#residual-plots-non-linear-trend" id="toc-residual-plots-non-linear-trend" class="nav-link" data-scroll-target="#residual-plots-non-linear-trend">Residual plots: non-linear trend?</a></li>
+  <li><a href="#testing-normality-quantile-quantile-plots" id="toc-testing-normality-quantile-quantile-plots" class="nav-link" data-scroll-target="#testing-normality-quantile-quantile-plots">Testing Normality: Quantile-Quantile Plots</a></li>
+  <li><a href="#other-residual-plots" id="toc-other-residual-plots" class="nav-link" data-scroll-target="#other-residual-plots">Other Residual Plots:</a></li>
   </ul></li>
-  <li><a href="#participation-quiz" id="toc-participation-quiz" class="nav-link" data-scroll-target="#participation-quiz"><span class="header-section-number">7.2</span> Participation Quiz</a>
+  <li><a href="#participation-quiz" id="toc-participation-quiz" class="nav-link" data-scroll-target="#participation-quiz"><span class="header-section-number">4.2</span> Participation Quiz</a>
   <ul class="collapse">
-  <li><a href="#q01" id="toc-q01" class="nav-link" data-scroll-target="#q01"><span class="header-section-number">7.2.1</span> Q01</a></li>
-  <li><a href="#q02" id="toc-q02" class="nav-link" data-scroll-target="#q02"><span class="header-section-number">7.2.2</span> Q02</a></li>
-  <li><a href="#q03" id="toc-q03" class="nav-link" data-scroll-target="#q03"><span class="header-section-number">7.2.3</span> Q03</a></li>
-  <li><a href="#q04" id="toc-q04" class="nav-link" data-scroll-target="#q04"><span class="header-section-number">7.2.4</span> Q04</a></li>
-  <li><a href="#q05" id="toc-q05" class="nav-link" data-scroll-target="#q05"><span class="header-section-number">7.2.5</span> Q05</a></li>
-  <li><a href="#q06" id="toc-q06" class="nav-link" data-scroll-target="#q06"><span class="header-section-number">7.2.6</span> Q06</a></li>
+  <li><a href="#q01" id="toc-q01" class="nav-link" data-scroll-target="#q01">Q01</a></li>
+  <li><a href="#q02" id="toc-q02" class="nav-link" data-scroll-target="#q02">Q02</a></li>
+  <li><a href="#q03" id="toc-q03" class="nav-link" data-scroll-target="#q03">Q03</a></li>
+  <li><a href="#q04" id="toc-q04" class="nav-link" data-scroll-target="#q04">Q04</a></li>
+  <li><a href="#q05" id="toc-q05" class="nav-link" data-scroll-target="#q05">Q05</a></li>
+  <li><a href="#q06" id="toc-q06" class="nav-link" data-scroll-target="#q06">Q06</a></li>
   </ul></li>
-  <li><a href="#maximum-likelihood" id="toc-maximum-likelihood" class="nav-link" data-scroll-target="#maximum-likelihood"><span class="header-section-number">7.3</span> Maximum Likelihood</a>
+  <li><a href="#maximum-likelihood" id="toc-maximum-likelihood" class="nav-link" data-scroll-target="#maximum-likelihood"><span class="header-section-number">4.3</span> Maximum Likelihood</a>
   <ul class="collapse">
-  <li><a href="#main-idea" id="toc-main-idea" class="nav-link" data-scroll-target="#main-idea"><span class="header-section-number">7.3.1</span> Main Idea</a></li>
-  <li><a href="#the-likelihood" id="toc-the-likelihood" class="nav-link" data-scroll-target="#the-likelihood"><span class="header-section-number">7.3.2</span> The Likelihood</a></li>
-  <li><a href="#simple-coin-flip-example" id="toc-simple-coin-flip-example" class="nav-link" data-scroll-target="#simple-coin-flip-example"><span class="header-section-number">7.3.3</span> Simple Coin Flip Example</a></li>
-  <li><a href="#maximizing-the-likelihood-in-lm" id="toc-maximizing-the-likelihood-in-lm" class="nav-link" data-scroll-target="#maximizing-the-likelihood-in-lm"><span class="header-section-number">7.3.4</span> Maximizing the Likelihood in LM</a></li>
-  <li><a href="#bias-variance-decomposition" id="toc-bias-variance-decomposition" class="nav-link" data-scroll-target="#bias-variance-decomposition"><span class="header-section-number">7.3.5</span> Bias-Variance Decomposition</a></li>
-  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation"><span class="header-section-number">7.3.6</span> Derivation</a></li>
-  <li><a href="#not-interpreting-the-mse" id="toc-not-interpreting-the-mse" class="nav-link" data-scroll-target="#not-interpreting-the-mse"><span class="header-section-number">7.3.7</span> Not Interpreting the MSE</a></li>
-  <li><a href="#interpreting-the-mse" id="toc-interpreting-the-mse" class="nav-link" data-scroll-target="#interpreting-the-mse"><span class="header-section-number">7.3.8</span> Interpreting the MSE</a></li>
-  <li><a href="#compare-to-previous-studies" id="toc-compare-to-previous-studies" class="nav-link" data-scroll-target="#compare-to-previous-studies"><span class="header-section-number">7.3.9</span> Compare to Previous Studies</a></li>
-  <li><a href="#compare-to-other-models" id="toc-compare-to-other-models" class="nav-link" data-scroll-target="#compare-to-other-models"><span class="header-section-number">7.3.10</span> Compare to other models</a></li>
-  <li><a href="#mse-of-a-parameter-bias-of-s2" id="toc-mse-of-a-parameter-bias-of-s2" class="nav-link" data-scroll-target="#mse-of-a-parameter-bias-of-s2"><span class="header-section-number">7.3.11</span> MSE of a Parameter: Bias of <span class="math inline">\(s^2\)</span></a></li>
-  <li><a href="#mse-of-a-parameter-bias-of-s" id="toc-mse-of-a-parameter-bias-of-s" class="nav-link" data-scroll-target="#mse-of-a-parameter-bias-of-s"><span class="header-section-number">7.3.12</span> MSE of a Parameter: Bias of <span class="math inline">\(s\)</span></a></li>
+  <li><a href="#main-idea" id="toc-main-idea" class="nav-link" data-scroll-target="#main-idea">Main Idea</a></li>
+  <li><a href="#the-likelihood" id="toc-the-likelihood" class="nav-link" data-scroll-target="#the-likelihood">The Likelihood</a></li>
+  <li><a href="#simple-coin-flip-example" id="toc-simple-coin-flip-example" class="nav-link" data-scroll-target="#simple-coin-flip-example">Simple Coin Flip Example</a></li>
+  <li><a href="#maximizing-the-likelihood-in-lm" id="toc-maximizing-the-likelihood-in-lm" class="nav-link" data-scroll-target="#maximizing-the-likelihood-in-lm">Maximizing the Likelihood in LM</a></li>
+  <li><a href="#bias-variance-decomposition" id="toc-bias-variance-decomposition" class="nav-link" data-scroll-target="#bias-variance-decomposition">Bias-Variance Decomposition</a></li>
+  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
+  <li><a href="#not-interpreting-the-mse" id="toc-not-interpreting-the-mse" class="nav-link" data-scroll-target="#not-interpreting-the-mse">Not Interpreting the MSE</a></li>
+  <li><a href="#interpreting-the-mse" id="toc-interpreting-the-mse" class="nav-link" data-scroll-target="#interpreting-the-mse">Interpreting the MSE</a></li>
+  <li><a href="#compare-to-previous-studies" id="toc-compare-to-previous-studies" class="nav-link" data-scroll-target="#compare-to-previous-studies">Compare to Previous Studies</a></li>
+  <li><a href="#compare-to-other-models" id="toc-compare-to-other-models" class="nav-link" data-scroll-target="#compare-to-other-models">Compare to other models</a></li>
+  <li><a href="#mse-of-a-parameter-bias-of-s2" id="toc-mse-of-a-parameter-bias-of-s2" class="nav-link" data-scroll-target="#mse-of-a-parameter-bias-of-s2">MSE of a Parameter: Bias of <span class="math inline">\(s^2\)</span></a></li>
+  <li><a href="#mse-of-a-parameter-bias-of-s" id="toc-mse-of-a-parameter-bias-of-s" class="nav-link" data-scroll-target="#mse-of-a-parameter-bias-of-s">MSE of a Parameter: Bias of <span class="math inline">\(s\)</span></a></li>
   </ul></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></h1>
 </div>
 
 
 <div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Author</div>
   <div class="quarto-title-meta-heading">Affiliation</div>
   
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
   </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Jam: by Joe Bonamassa
+          </p>
+      </div>
+    </div>
 
 <div class="quarto-title-meta">
 
@@ -332,10 +342,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="the-residual-whats-left-over" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="the-residual-whats-left-over"><span class="header-section-number">7.1</span> The residual: what’s left over</h2>
-<section id="r2-percent-of-variance-explained-by-the-regression-model" class="level3" data-number="7.1.1">
-<h3 data-number="7.1.1" class="anchored" data-anchor-id="r2-percent-of-variance-explained-by-the-regression-model"><span class="header-section-number">7.1.1</span> <span class="math inline">\(R^2\)</span>: percent of variance explained by the regression model</h3>
+<section id="the-residual-whats-left-over" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="the-residual-whats-left-over"><span class="header-section-number">4.1</span> The residual: what’s left over</h2>
+<section id="r2-percent-of-variance-explained-by-the-regression-model" class="level3">
+<h3 class="anchored" data-anchor-id="r2-percent-of-variance-explained-by-the-regression-model"><span class="math inline">\(R^2\)</span>: percent of variance explained by the regression model</h3>
 <div class="columns">
 <div class="column" style="width:30%;">
 <p><span class="math display">\[
@@ -376,8 +386,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </div>
 </div>
 </section>
-<section id="residual-assumptions" class="level3" data-number="7.1.2">
-<h3 data-number="7.1.2" class="anchored" data-anchor-id="residual-assumptions"><span class="header-section-number">7.1.2</span> Residual Assumptions</h3>
+<section id="residual-assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="residual-assumptions">Residual Assumptions</h3>
 <ul>
 <li><strong>Residual</strong>: what’s left over
 <ul>
@@ -395,8 +405,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <li>There are statistical tests, but they’ll never tell you as much as a plot!</li>
 </ul>
 </section>
-<section id="residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney" class="level3" data-number="7.1.3">
-<h3 data-number="7.1.3" class="anchored" data-anchor-id="residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney"><span class="header-section-number">7.1.3</span> Residuals versus <em>fitted</em> values: <span class="math inline">\(\hat{\underline\epsilon}\)</span> versus <span class="math inline">\(\hat{\underline{y}}\)</span></h3>
+<section id="residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney" class="level3">
+<h3 class="anchored" data-anchor-id="residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney">Residuals versus <em>fitted</em> values: <span class="math inline">\(\hat{\underline\epsilon}\)</span> versus <span class="math inline">\(\hat{\underline{y}}\)</span></h3>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Why <span class="math inline">\(\hat{\underline{y}}\)</span> instead of <span class="math inline">\(\underline y\)</span>?</p>
@@ -447,8 +457,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </div>
 </div>
 </section>
-<section id="residual-plots-and-assumption-checking" class="level3" data-number="7.1.4">
-<h3 data-number="7.1.4" class="anchored" data-anchor-id="residual-plots-and-assumption-checking"><span class="header-section-number">7.1.4</span> Residual Plots and Assumption Checking</h3>
+<section id="residual-plots-and-assumption-checking" class="level3">
+<h3 class="anchored" data-anchor-id="residual-plots-and-assumption-checking">Residual Plots and Assumption Checking</h3>
 <p>Mathematics is the process of making assumptions and seeing if we can break them.</p>
 <ul>
 <li><span class="math inline">\(E(\epsilon_i) = 0\)</span> is a given since <span class="math inline">\(\sum_{i=1}^n\hat\epsilon_i=0\)</span>.</li>
@@ -462,8 +472,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </ul></li>
 </ul>
 </section>
-<section id="residual-plots-unstable-error" class="level3" data-number="7.1.5">
-<h3 data-number="7.1.5" class="anchored" data-anchor-id="residual-plots-unstable-error"><span class="header-section-number">7.1.5</span> Residual plots: unstable error</h3>
+<section id="residual-plots-unstable-error" class="level3">
+<h3 class="anchored" data-anchor-id="residual-plots-unstable-error">Residual plots: unstable error</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>x</span>
@@ -489,8 +499,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </div>
 </div>
 </section>
-<section id="residual-plots-non-linear-trend" class="level3" data-number="7.1.6">
-<h3 data-number="7.1.6" class="anchored" data-anchor-id="residual-plots-non-linear-trend"><span class="header-section-number">7.1.6</span> Residual plots: non-linear trend?</h3>
+<section id="residual-plots-non-linear-trend" class="level3">
+<h3 class="anchored" data-anchor-id="residual-plots-non-linear-trend">Residual plots: non-linear trend?</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## fig-height: 4</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## fig-width: 8</span></span>
@@ -515,8 +525,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </div>
 </div>
 </section>
-<section id="testing-normality-quantile-quantile-plots" class="level3" data-number="7.1.7">
-<h3 data-number="7.1.7" class="anchored" data-anchor-id="testing-normality-quantile-quantile-plots"><span class="header-section-number">7.1.7</span> Testing Normality: Quantile-Quantile Plots</h3>
+<section id="testing-normality-quantile-quantile-plots" class="level3">
+<h3 class="anchored" data-anchor-id="testing-normality-quantile-quantile-plots">Testing Normality: Quantile-Quantile Plots</h3>
 <div class="columns">
 <div class="column" style="width:58%;">
 <p>Consider the data (2,3,3,4,5,5,6).</p>
@@ -553,8 +563,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </div>
 </div>
 </section>
-<section id="other-residual-plots" class="level3" data-number="7.1.8">
-<h3 data-number="7.1.8" class="anchored" data-anchor-id="other-residual-plots"><span class="header-section-number">7.1.8</span> Other Residual Plots:</h3>
+<section id="other-residual-plots" class="level3">
+<h3 class="anchored" data-anchor-id="other-residual-plots">Other Residual Plots:</h3>
 <p><strong>Scale-Location</strong></p>
 <ul>
 <li>Scale: Standardized residual</li>
@@ -572,10 +582,10 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </ul>
 </section>
 </section>
-<section id="participation-quiz" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="participation-quiz"><span class="header-section-number">7.2</span> Participation Quiz</h2>
-<section id="q01" class="level3" data-number="7.2.1">
-<h3 data-number="7.2.1" class="anchored" data-anchor-id="q01"><span class="header-section-number">7.2.1</span> Q01</h3>
+<section id="participation-quiz" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="participation-quiz"><span class="header-section-number">4.2</span> Participation Quiz</h2>
+<section id="q01" class="level3">
+<h3 class="anchored" data-anchor-id="q01">Q01</h3>
 <p>Which of the following is not an assumption of linear models?</p>
 <ol type="1">
 <li>$$</li>
@@ -584,8 +594,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <li>None of the above.</li>
 </ol>
 </section>
-<section id="q02" class="level3" data-number="7.2.2">
-<h3 data-number="7.2.2" class="anchored" data-anchor-id="q02"><span class="header-section-number">7.2.2</span> Q02</h3>
+<section id="q02" class="level3">
+<h3 class="anchored" data-anchor-id="q02">Q02</h3>
 <p>Which of the following is a confidence interval for <span class="math inline">\(s\)</span>?</p>
 <ol type="1">
 <li><span class="math inline">\(\chi^2_n(0.055) \le \frac{(n-1)s^2}{\sigma^2} \le \chi^2_n(0.945)\)</span></li>
@@ -595,8 +605,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <li>None of the above</li>
 </ol>
 </section>
-<section id="q03" class="level3" data-number="7.2.3">
-<h3 data-number="7.2.3" class="anchored" data-anchor-id="q03"><span class="header-section-number">7.2.3</span> Q03</h3>
+<section id="q03" class="level3">
+<h3 class="anchored" data-anchor-id="q03">Q03</h3>
 <p>Which of the following is <em>not</em> a random variable?</p>
 <ol type="1">
 <li><span class="math inline">\(Y\)</span></li>
@@ -605,8 +615,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <li><span class="math inline">\(\underline\epsilon\)</span></li>
 </ol>
 </section>
-<section id="q04" class="level3" data-number="7.2.4">
-<h3 data-number="7.2.4" class="anchored" data-anchor-id="q04"><span class="header-section-number">7.2.4</span> Q04</h3>
+<section id="q04" class="level3">
+<h3 class="anchored" data-anchor-id="q04">Q04</h3>
 <p><span class="math inline">\(F = t^2\)</span></p>
 <ol type="1">
 <li>True</li>
@@ -614,8 +624,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <li>Sometimes true</li>
 </ol>
 </section>
-<section id="q05" class="level3" data-number="7.2.5">
-<h3 data-number="7.2.5" class="anchored" data-anchor-id="q05"><span class="header-section-number">7.2.5</span> Q05</h3>
+<section id="q05" class="level3">
+<h3 class="anchored" data-anchor-id="q05">Q05</h3>
 <p>Which of the following is the definition of a residual?</p>
 <ol type="1">
 <li><span class="math inline">\(y_i - \hat y_i\)</span></li>
@@ -624,8 +634,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <li><span class="math inline">\((\hat y_i - y_i)^2\)</span></li>
 </ol>
 </section>
-<section id="q06" class="level3" data-number="7.2.6">
-<h3 data-number="7.2.6" class="anchored" data-anchor-id="q06"><span class="header-section-number">7.2.6</span> Q06</h3>
+<section id="q06" class="level3">
+<h3 class="anchored" data-anchor-id="q06">Q06</h3>
 <p>Which of the following statements about <span class="math inline">\(R^2\)</span> is <em>false</em>?</p>
 <ol type="1">
 <li><span class="math inline">\(R^2 = SSReg / SST\)</span></li>
@@ -635,17 +645,17 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </ol>
 </section>
 </section>
-<section id="maximum-likelihood" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="maximum-likelihood"><span class="header-section-number">7.3</span> Maximum Likelihood</h2>
-<section id="main-idea" class="level3" data-number="7.3.1">
-<h3 data-number="7.3.1" class="anchored" data-anchor-id="main-idea"><span class="header-section-number">7.3.1</span> Main Idea</h3>
+<section id="maximum-likelihood" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="maximum-likelihood"><span class="header-section-number">4.3</span> Maximum Likelihood</h2>
+<section id="main-idea" class="level3">
+<h3 class="anchored" data-anchor-id="main-idea">Main Idea</h3>
 <p>Find the values <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, and <span class="math inline">\(\hat\sigma^2\)</span> that <strong>maximize the likelihood of seeing our data</strong>.</p>
 <p>Under the assumptions that <span class="math inline">\(X\)</span> is fixed, <span class="math inline">\(Y = \beta_0 + \beta_1X + \epsilon_i\)</span>, and <span class="math inline">\(\epsilon_i\stackrel{iid}{\sim}N(0,\sigma^2)\)</span>, <span class="math display">\[
 Y \sim N(\beta_0 + \beta_1X, \sigma^2)
 \]</span></p>
 </section>
-<section id="the-likelihood" class="level3" data-number="7.3.2">
-<h3 data-number="7.3.2" class="anchored" data-anchor-id="the-likelihood"><span class="header-section-number">7.3.2</span> The Likelihood</h3>
+<section id="the-likelihood" class="level3">
+<h3 class="anchored" data-anchor-id="the-likelihood">The Likelihood</h3>
 <p>The <strong>probability</strong> of observering a data point is: <span class="math display">\[
 f_Y(y_i|x_i, \beta_0, \beta_1, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{-1}{2\sigma^2}(y_i - \beta_0 - \beta_1x_i)^2\right)
 \]</span></p>
@@ -656,8 +666,8 @@ L(\beta_0, \beta_1, \sigma^2|x_i, y_i) = \prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^
 <li>It’s just a shift in perspective!</li>
 </ul>
 </section>
-<section id="simple-coin-flip-example" class="level3" data-number="7.3.3">
-<h3 data-number="7.3.3" class="anchored" data-anchor-id="simple-coin-flip-example"><span class="header-section-number">7.3.3</span> Simple Coin Flip Example</h3>
+<section id="simple-coin-flip-example" class="level3">
+<h3 class="anchored" data-anchor-id="simple-coin-flip-example">Simple Coin Flip Example</h3>
 <p>Suppose we flipped 10 bottle caps and got 6 “crowns”. Assume the probability of “crown” (<span class="math inline">\(C\)</span>) is unknown, labelled <span class="math inline">\(p\)</span>.</p>
 <ul>
 <li>The <strong>probability</strong> of one cap flip is <span class="math inline">\(P(C|p) = p\)</span>.</li>
@@ -668,8 +678,8 @@ L(\beta_0, \beta_1, \sigma^2|x_i, y_i) = \prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^
 <li>The <strong>likelihood</strong> is <span class="math inline">\(L(p|\underline y) = \prod_{i=1}^nP(Y = y_i)\)</span>.</li>
 </ul>
 </section>
-<section id="maximizing-the-likelihood-in-lm" class="level3" data-number="7.3.4">
-<h3 data-number="7.3.4" class="anchored" data-anchor-id="maximizing-the-likelihood-in-lm"><span class="header-section-number">7.3.4</span> Maximizing the Likelihood in LM</h3>
+<section id="maximizing-the-likelihood-in-lm" class="level3">
+<h3 class="anchored" data-anchor-id="maximizing-the-likelihood-in-lm">Maximizing the Likelihood in LM</h3>
 <p><span class="math display">\[
 L(\beta_0, \beta_, \sigma^2) = \prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{-1}{2\sigma^2}(y_i - \beta_0 - \beta_1x_i)^2\right)
 \]</span></p>
@@ -684,8 +694,8 @@ L(\beta_0, \beta_, \sigma^2) = \prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^2}}\exp\le
 \hat\sigma^2 = \frac{1}{n}\sum_{i=1}^n\left(y_i - \hat\beta_0 - \hat\beta_1x_i\right)^2
 \]</span></p>
 </section>
-<section id="bias-variance-decomposition" class="level3" data-number="7.3.5">
-<h3 data-number="7.3.5" class="anchored" data-anchor-id="bias-variance-decomposition"><span class="header-section-number">7.3.5</span> Bias-Variance Decomposition</h3>
+<section id="bias-variance-decomposition" class="level3">
+<h3 class="anchored" data-anchor-id="bias-variance-decomposition">Bias-Variance Decomposition</h3>
 <p>On the next slide, we’ll show that <span class="math inline">\(E\left((Y_i - \hat Y_i)^2\right)\)</span> can be decomposed into <span class="math inline">\(V(\epsilon_i)\)</span>, squared bias, and the variance of the fitted model.</p>
 <ul>
 <li><span class="math inline">\(V(\epsilon_i)\)</span> is the variance of the <em>true</em> errors.</li>
@@ -700,8 +710,8 @@ L(\beta_0, \beta_, \sigma^2) = \prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^2}}\exp\le
 </ul>
 <p>Note that this is a slight deviation from how the text presents it.</p>
 </section>
-<section id="derivation" class="level3" data-number="7.3.6">
-<h3 data-number="7.3.6" class="anchored" data-anchor-id="derivation"><span class="header-section-number">7.3.6</span> Derivation</h3>
+<section id="derivation" class="level3">
+<h3 class="anchored" data-anchor-id="derivation">Derivation</h3>
 <p>Suppose the true value is <span class="math inline">\(Y_i = g(x_i) + \epsilon_i\)</span> (not necessarily linear), where <span class="math inline">\(E(\epsilon_i) = 0\)</span>, <span class="math inline">\(E(Y_i) = g(x_i)\)</span>, and <span class="math inline">\(V(\epsilon_i) = \sigma^2\)</span>. <span class="math display">\[\begin{align*}
 E\left((Y_i - \hat Y_i)^2\right) &amp;= E(Y_i - 2Y_i\hat Y_i + \hat Y_i^2)\\
 &amp;= E(Y_i^2) - 2E(Y_i\hat Y_i) + E(\hat Y_i^2)\\
@@ -712,8 +722,8 @@ E\left((Y_i - \hat Y_i)^2\right) &amp;= E(Y_i - 2Y_i\hat Y_i + \hat Y_i^2)\\
 &amp;= \text{Error Variance} + \text{Bias}^2 + \text{Fitted Model Variance}
 \end{align*}\]</span></p>
 </section>
-<section id="not-interpreting-the-mse" class="level3" data-number="7.3.7">
-<h3 data-number="7.3.7" class="anchored" data-anchor-id="not-interpreting-the-mse"><span class="header-section-number">7.3.7</span> Not Interpreting the MSE</h3>
+<section id="not-interpreting-the-mse" class="level3">
+<h3 class="anchored" data-anchor-id="not-interpreting-the-mse">Not Interpreting the MSE</h3>
 <p><span class="math display">\[
 E((Y_i - \hat{Y_i})^2) = \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)
 \]</span></p>
@@ -722,8 +732,8 @@ E((Y_i - \hat{Y_i})^2) = \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)
 </ul>
 <p>The decomposition is theoretical, we can’t tease apart <span class="math inline">\(s^2\)</span> into these terms.</p>
 </section>
-<section id="interpreting-the-mse" class="level3" data-number="7.3.8">
-<h3 data-number="7.3.8" class="anchored" data-anchor-id="interpreting-the-mse"><span class="header-section-number">7.3.8</span> Interpreting the MSE</h3>
+<section id="interpreting-the-mse" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-mse">Interpreting the MSE</h3>
 <p>The basic question of statistics: “How big is this number?”</p>
 <ul>
 <li>Compare to previous studies - is MSE larger than <span class="math inline">\(\sigma^2\)</span>?
@@ -745,15 +755,15 @@ E((Y_i - \hat{Y_i})^2) = \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)
 </ul></li>
 </ul>
 </section>
-<section id="compare-to-previous-studies" class="level3" data-number="7.3.9">
-<h3 data-number="7.3.9" class="anchored" data-anchor-id="compare-to-previous-studies"><span class="header-section-number">7.3.9</span> Compare to Previous Studies</h3>
+<section id="compare-to-previous-studies" class="level3">
+<h3 class="anchored" data-anchor-id="compare-to-previous-studies">Compare to Previous Studies</h3>
 <p>Hypothesis test for <span class="math inline">\(\sigma^2 = \sigma_0^2\)</span> versus <span class="math inline">\(\sigma^2 &gt; \sigma_0^2\)</span>, where <span class="math inline">\(\sigma_0\)</span> is the value from a previous study.</p>
 <ul>
 <li>If significant, some of your error is coming from the study design!</li>
 </ul>
 </section>
-<section id="compare-to-other-models" class="level3" data-number="7.3.10">
-<h3 data-number="7.3.10" class="anchored" data-anchor-id="compare-to-other-models"><span class="header-section-number">7.3.10</span> Compare to other models</h3>
+<section id="compare-to-other-models" class="level3">
+<h3 class="anchored" data-anchor-id="compare-to-other-models">Compare to other models</h3>
 <p>It can be shown that <span class="math inline">\(E(MSReg) = \sigma^2 + \beta_1S_{XX}\)</span>.</p>
 <p>Consider the Null hypothesis <span class="math inline">\(\beta_1 =0\)</span> (why is this a good null?).</p>
 <ul>
@@ -764,8 +774,8 @@ E((Y_i - \hat{Y_i})^2) = \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)
 <li>This is equivalent to the t-test for <span class="math inline">\(\beta_1\)</span>! (See text.)</li>
 </ul>
 </section>
-<section id="mse-of-a-parameter-bias-of-s2" class="level3" data-number="7.3.11">
-<h3 data-number="7.3.11" class="anchored" data-anchor-id="mse-of-a-parameter-bias-of-s2"><span class="header-section-number">7.3.11</span> MSE of a Parameter: Bias of <span class="math inline">\(s^2\)</span></h3>
+<section id="mse-of-a-parameter-bias-of-s2" class="level3">
+<h3 class="anchored" data-anchor-id="mse-of-a-parameter-bias-of-s2">MSE of a Parameter: Bias of <span class="math inline">\(s^2\)</span></h3>
 <p>From a previous class, we know that <span class="math display">\[
 \frac{(n-2)s^2}{\sigma^2}\sim\chi^2_{n-2}
 \]</span></p>
@@ -774,8 +784,8 @@ E\left(\frac{(n-2)s^2}{\sigma^2}\right) = n-2 \Leftrightarrow E(s^2) = \sigma^2
 \]</span> and thus <span class="math inline">\(s^2\)</span> is unbiased.</p>
 <p>This does <em>not necessarily</em> mean that <span class="math inline">\(s^2\)</span> is the best estimator for <span class="math inline">\(\sigma^2\)</span>!</p>
 </section>
-<section id="mse-of-a-parameter-bias-of-s" class="level3" data-number="7.3.12">
-<h3 data-number="7.3.12" class="anchored" data-anchor-id="mse-of-a-parameter-bias-of-s"><span class="header-section-number">7.3.12</span> MSE of a Parameter: Bias of <span class="math inline">\(s\)</span></h3>
+<section id="mse-of-a-parameter-bias-of-s" class="level3">
+<h3 class="anchored" data-anchor-id="mse-of-a-parameter-bias-of-s">MSE of a Parameter: Bias of <span class="math inline">\(s\)</span></h3>
 <p>Even though <span class="math inline">\(s^2\)</span> is an unbiased estimator, <span class="math inline">\(s = \sqrt{s^2}\)</span> is biased! Specifically, <span class="math inline">\(E(s) &lt; \sigma\)</span></p>
 <p>To see why, first note that <span class="math display">\[
 V(s) = E(s^2) - (E(s))^2 \Leftrightarrow E(s) = \sqrt{E(s^2) - V(s)}
@@ -1138,13 +1148,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L04-R_Matrix_Form.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span>
+      <a href="./Lb02-OLS_Estimates.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L05-General_Regression.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">L05: The General Regression Situation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Lb03-MSE.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
