@@ -1,0 +1,18 @@
+project:
+    title: "Lecture Slides"
+    output-dir: Slides
+date-format: iso
+execute: 
+    warning: false
+format: 
+    beamer:
+        theme: Madrid
+        colortheme: PrimaryBullets
+        aspectratio: 169
+        toc: false
+        execute:
+            echo: false
+            fig-width: 7
+            fig-height: 3.5
+        include-in-header: "defs_beamer.tex"
+        code-line-numbers: true

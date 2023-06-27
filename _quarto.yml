@@ -46,8 +46,4 @@ format:
         code-fold: true
         code-summary: "Show the code"
         warning: false
-  pdf:
-    documentclass: scrreprt
-
-
 
