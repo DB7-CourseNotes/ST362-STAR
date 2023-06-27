@@ -1,0 +1,84 @@
+---
+title: "L11: The Hat Matrix 2"
+institute: "Jam: \\emph{} by "
+---
+
+
+## Participation Questions
+
+### Q1
+
+Which of these does *not* give the diagonal of the hat matrix?
+
+1. `hatvalues(mylm)`
+2. `diag(X %*% solve(t(X) %*% X) %*% t(X))`
+3. `augment(mylm)$hat`
+
+### Q2
+
+Removing an outlier will *not* change:
+
+1. The diagonal of the hat matrix.
+2. The off-diagonal of the hat matrix.
+3. SST
+4. All of the above will change if we remove an outlier.
+
+### Q3
+
+A large residual means large influence.
+
+1. True
+2. False
+
+### Q4
+
+All entries in the hat matrix are between -1 and 1.
+
+1. True
+2. False
+
+### Q5
+
+Which plot corresponds to the model with the *most* predictors?
+
+(All models are nested.)
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-height: 4.5
+#| fig-width: 12
+library(patchwork)
+library(ggplot2)
+library(mlbench)
+library(broom)
+data(Ozone)
+theme_set(theme_bw())
+
+Ozone <- Ozone[complete.cases(Ozone), ]
+
+lm1 <- augment(lm(V4 ~ V6, data = Ozone))
+lm2 <- augment(lm(V4 ~ V6 + V7, data = Ozone))
+lm3 <- augment(lm(V4 ~ V6 + V7 + V5, data = Ozone))
+lm4 <- augment(lm(V4 ~ V6 + V7 + V5 + V8 + V9 + V10, data = Ozone))
+
+g1 <- ggplot(lm1) + aes(x = .fitted, y = .resid)
+g2 <- ggplot(lm2) + aes(x = .fitted, y = .resid)
+g3 <- ggplot(lm3) + aes(x = .fitted, y = .resid)
+g4 <- ggplot(lm4) + aes(x = .fitted, y = .resid)
+
+(g1 + g4) / (g3 + g2)+
+    plot_annotation(tag_levels = '1') & geom_point(size = 2) &
+    geom_smooth(method = "loess", formula = y ~ x, se = FALSE) &
+    coord_cartesian(ylim = c(-20, 30)) 
+
+```
+
+### Q6
+
+In the output of `augment()` in the `broom` package, the `.sigma` column refers to:
+
+1. The MSE of the model.
+2. The MSE of the model *if it were fit without the observation in that row*.
+3. The variance of that residual, as calculated by $V(\hat\epsilon_i) = (1-h_{ii})s^2$.
+4. The variance of that residual, as calculated by $V(\hat\epsilon_i) = (1-h_{ii})s_{(i)}^2$.

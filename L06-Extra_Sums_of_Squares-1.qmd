@@ -1,0 +1,171 @@
+---
+title: "L06: Extra Sum-of-Squares (Part 1)"
+
+---
+
+## Introduction
+
+### Today's Main Idea
+
+If you add or remove predictors, the variance of the residuals changes!
+
+\pspace
+
+- As always, we ask if it's a "big" change.\lspace
+- Different predictors have a different effect on the residuals.
+
+\pspace\pause
+
+Which predictors have a meaningful (significant?) effect on the residuals?
+
+### Sum-of-Squares due to Regression
+
+- Since SSE = SST - SSReg and SST never changes, we're focusing on SSReg.\lspace
+- Recall: SSReg is the variance of the line itself!
+
+$$
+SSReg = \sum_{i=1}^n(\hat y_i - \bar y)
+$$
+
+### SSReg in two different penguin models
+
+In the `penguins` data, we're determining which predictors are associated with body mass.
+
+- $SS_1$ = SSReg for model 1
+    - $\texttt{body\_mass\_g} = \beta_0 + \beta_1 \texttt{flipper\_length\_mm} + \beta_2 \texttt{bill\_length\_mm} + \beta_3 \texttt{bill\_depth\_mm}$
+- $SS_2$ = SSReg for model 2
+    - $\texttt{body\_mass\_g} = \beta_0 + \beta_1 \texttt{flipper\_length\_mm} + \beta_2 \texttt{bill\_length\_mm}$
+
+Note: M2 is **nested** in M1 - M1 has all the same predictors and then some.
+
+\pspace
+
+::: {.callout-important}
+$\beta_1$ in the first model is **different** from $\beta_1$ in the second model.
+:::
+
+### Extra Sum-of-Squares
+
+If M2 is **nested** within M1, \emph{e.g.}:
+
+- M1: $\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}$
+- M2: $\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength}$
+
+Then the Extra sum of squares is defined as:
+$$
+SS(\hat\beta_3 | \hat\beta_0, \hat\beta_1, \hat\beta_2) = S_1 - S_2
+$$
+
+\pspace
+
+Convince yourself that S1 > S2.
+
+### Special Case: Corrected Sum-of-Squares
+
+We've already seen this notation:
+$$
+SSReg(\hat\beta_0) = n\bar{\underline y}^2
+$$
+and
+$$
+SSReg(corrected) = \hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2 = S_1 - S_2
+$$
+where $S_2$ is the sum-of-squares for the null model!
+
+### Unspecial Case: Correction doesn't matter!
+
+Consider $S_{1c}$ and $S_{2c}$, the corrected versions of $S_1$ and $S_2$. Then
+
+\begin{align*}
+S_{1c} - S_{2c} = (S_2 - n\bar{\underline y}^2) - (S_1 - n\bar{\underline y}^2) = S_1 - S_2
+\end{align*}
+
+\pspace
+
+In other words, the correction term doesn't matter. 
+
+This is useful because R outputs the corrected versions.
+
+### Unspecial Case: SSReg versus SSE doesn't matter!
+
+Consider $SSE_1$ and $SSE_2$. Since SST is the same for both models,
+
+\begin{align*}
+SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
+\end{align*}
+
+Notice that the order is switched, which is fine.
+
+### ANOVA Tests for ESS
+
+Consider the models:
+
+- M1: $\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}$
+    - $df_1 = 4$
+- M2: $\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength}$
+    - $df_2 = 3$
+
+\pspace
+
+If we choose $H_0: \beta_3 = 0$ in model 1, then
+$$
+\frac{S_1 - S_2}{(4 - 3)s^2} \sim F_{1,\nu}
+$$
+
+where $s^2$ is the error variance (MSE) in the larger model with degress of freedom $\nu = df_1$.
+
+This is almost identical to the F-test for only one predictor (with one important difference).
+
+### In General
+
+If M1 has $p$ df, M2 has $q$ df, and one is nested in the other, then $\nu = \max(p, q)$ and
+
+$$
+\frac{S_1 - S_2}{(p - q)s^2} \sim F_{|p-q|,\nu}
+$$
+
+\pspace
+
+Note that it doesn't matter which is nested: $S_1 - S_2$ has the same sign as $p-q$, so it's always positive.
+
+### Omnibus Tests for Multiple Predictors
+
+Suppose we want to test if *any* bill measurement is useful. 
+
+- Bill length and depth are highly correlated - marginal CIs won't be valid.
+- Confidence Regions are hard (and only work in 2D)
+
+\pspace
+
+Instead, we can use the ESS to test for a subset of predictors!
+
+- M1: $\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}$
+- M2: $\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength}$
+
+$S_1 = S_2$ is equivalent to $\beta_2 = \beta_3 = 0$, and it accounts for their covariance!
+
+\pspace
+
+If significant, then at least one of $(\beta_2, \beta_3)$ is not 0.
+
+### In R
+
+```{r}
+#| eval: true
+#| echo: true
+library(palmerpenguins)
+peng <- penguins[complete.cases(penguins),]
+m1 <- lm(body_mass_g ~ flipper_length_mm + bill_length_mm + bill_depth_mm,
+    data = peng)
+m2 <- lm(body_mass_g ~ flipper_length_mm,
+    data = peng)
+anova(m1, m2) |> knitr::kable()
+```
+
+### Next time
+
+- When to check ESS\lspace
+- How to check all ESS\lspace
+- What is R's `anova()` function even doing??
+
+

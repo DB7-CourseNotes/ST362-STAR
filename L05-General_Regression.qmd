@@ -1,0 +1,351 @@
+---
+title: "L05: The General Regression Situation"
+institute: "Jam: \\emph{I Predict a Riot} by The Kaiser Chefs"
+---
+
+## Chapter Summary
+
+### The Normal Equations
+
+\begin{align*}
+\underline\epsilon^T\underline\epsilon &= (Y - X\underline\beta)^T(Y - X\underline\beta)\\
+&= ... = Y^TY - 2\underline\beta^TX^TY + \underline\beta^TX^TX\underline\beta
+\end{align*}
+We then take the derivative with respect to $\underline\beta$. Note that $X^TX$ is symmetric and $Y^TX\underline\beta$ is a scalar..
+\begin{align*}
+\frac{\partial}{\partial\underline\beta}\underline\epsilon^T\underline\epsilon &= 0 - 2X^TY + 2X^TX\underline\beta
+\end{align*}
+
+- For the 1 predictor case, make sure the equations look the same!
+
+Setting to 0, rearranging, and plugging in our data gets us the Normal equations:
+\begin{align*}
+X^TX\underline{\hat\beta} &= X^T\underline y
+\end{align*}
+
+### Facts
+
+$$X^TX\underline{\hat\beta} = X^T\underline y$$
+
+1. No distributional assumptions.\lspace
+2. If $X^TX$ is invertible, $\hat{\underline\beta} = (X^TX)^{-1}X^T\underline y$.
+    - $\hat{\underline\beta}$ is a linear transformation of $\underline y$!
+    - This is the same as the MLE.\lspace
+3. $E(\hat{\underline\beta}) = \underline\beta$ and $V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}$.
+    - This is the smallest variance amongst all unbiased estimators of $\underline\beta$.
+
+### Example Proof Problems
+
+1. Prove that $\sum_{i=1}^n\hat\epsilon_i\hat y_i = 0$.
+2. Prove that $(1/n)\sum_{i=1}^n\hat\epsilon_i = 0$.
+3. Prove that $X^TX$ is symmetric. Is $A^TA$ symmetric in general?
+
+\small
+```{r}
+#| echo: true
+#| eval: true
+## Demonstration that they're true (up to a rounding error)
+mylm <- broom::augment(lm(mpg ~ disp, data = mtcars))
+sum(mylm$.resid * mylm$.fitted)
+mean(mylm$.resid)
+X <- model.matrix(mpg ~ disp, data = mtcars)
+all.equal(t(X) %*% X, t(t(X) %*% X))
+```
+
+### Analysis of Variance (Corrected)
+
+| Source | $df$ | $SS$ |
+|--------|------|------|
+| Regression (corrected) | $p - 1$ | $\underline{\hat{\beta}}^TX^T\underline y - n\bar{\underline y}^2$  |
+| Error | $n - p$ | $\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y$ |
+| Total (corrected) | $n - 1$ | $\underline y^t\underline y - n\bar{\underline y}^2$ |
+
+- Note that $p$ is the number of parameters, not the index of the largest param.
+    - $\underline\beta = (\beta_0, \beta_1, ..., \beta_{p-1})$\lspace
+- We'll always be using corrected sum-of-squares.
+    - Especially next chapter!
+
+### $F$-test for overall significance
+
+If SSReg is significantly larger than SSE, then fitting the model was worth it!
+
+- This is a test for $\beta_1 = \beta_2 = ... = \beta_{p-1} = 0$, versus any $\beta_j\ne 0$.
+
+As before, we find a quantity with a known distribution, then use it for hypothesis tests.
+
+$$
+F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)} \sim F_{p-1, n-p}
+$$
+
+Again, note that a regression with no predictors always has $\hat\beta_0 = \bar y$.
+
+### Example: Significance of `disp`
+
+:::: {.columns}
+::: {.column width="60%"}
+
+\small
+```{r}
+#| echo: true
+anova(lm(mpg ~ disp, data = mtcars)) |> 
+    knitr::kable()
+```
+
+\normalsize
+
+- $p = 2$, $n = 32$. 
+    - $df_R' + df_E' = df_T'$, where $df'$ is the df for corrected SS.
+- Verified these numbers in the last lecture
+
+
+:::
+::: {.column width="40%"}
+
+```{r}
+#| fig-width: 4
+#| fig-height: 5
+plot(mpg ~ disp, data = mtcars)
+abline(lm(mpg ~ disp, data = mtcars))
+```
+:::
+::::
+
+### Example: $F_{1,p-1} = t^2_{p-1}$
+
+\small
+```{r}
+#| echo: true
+anova(lm(mpg ~ qsec, data = mtcars)) |> 
+    knitr::kable()
+
+summary(lm(mpg ~ qsec, data = mtcars))$coef |>
+    knitr::kable()
+```
+
+\vspace{-3mm}
+\normalsize
+What do you notice about these two tables?
+
+### Example: Significance of Regression ($F_{2,p-1} \ne t^2_{p-1}$)
+
+\scriptsize
+```{r}
+#| echo: true
+anova(lm(mpg ~ qsec + disp, data = mtcars)) |> 
+    knitr::kable()
+
+summary(lm(mpg ~ qsec + disp, data = mtcars))$coef |>
+    knitr::kable()
+```
+
+We'll learn more about the ANOVA table next lecture.
+
+### $R^2$ again
+
+$$
+R^2 = \frac{SS(Reg|\hat\beta_0)}{Y^TY - SS(\beta_0)} = \frac{\sum(\hat y_i - \bar y)^2}{\sum(y_i - \bar y)^2}
+$$
+
+Works for multiple dimensions!\pause... kinda.
+
+### $R^2$ is bad?
+
+:::: {.columns}
+::: {.column width="60%"}
+\small
+```{r}
+#| echo: true
+#| eval: false
+nx <- 10 # Number of uncorrelated predictores
+uncorr <- matrix(rnorm(50*(nx + 1)), 
+    nrow = 50, ncol = nx + 1)
+## First column is y, rest are x
+colnames(uncorr) <- c("y", paste0("x", 1:nx))
+uncorr <- as.data.frame(uncorr)
+
+rsquares <- NA
+for (i in 2:(nx + 1)) {
+    rsquares <- c(rsquares,
+        summary(lm(y ~ ., 
+            data = uncorr[,1:i]))$r.squared)
+}
+plot(1:10, rsquares[-1], type = "b",
+    xlab = "Number of Uncorrelated Predictors",
+    ylab = "R^2 Value",
+    main = "R^2 ALWAYS increases")
+```
+
+:::
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| eval: true
+#| fig-height: 4.5
+#| fig-width: 4
+nx <- 10 # Number of uncorrelated predictores
+uncorr <- matrix(rnorm(50*(nx + 1)), 
+    nrow = 50, ncol = nx + 1)
+## First column is y, rest are x
+colnames(uncorr) <- c("y", paste0("x", 1:nx))
+uncorr <- as.data.frame(uncorr)
+
+rsquares <- NA
+for (i in 2:(nx + 1)) {
+    rsquares <- c(rsquares,
+        summary(lm(y ~ ., 
+            data = uncorr[,1:i]))$r.squared)
+}
+plot(1:10, rsquares[-1], type = "b",
+    xlab = "Number of Uncorrelated Predictors",
+    ylab = "R^2 Value",
+    main = "R^2 ALWAYS increases")
+```
+:::
+::::
+
+### Adjusted (Multiple) $R^2$
+$$
+R^2_a = 1 - (1 - R^2)\left(\frac{n-1}{n-p}\right)
+$$
+
+- Penalizes added predictors - won't always increase!
+    - Still might increase by chance alone!
+        - F-test
+    - $R^2_a = R^2$ when $p=1$ (intercept model)\lspace
+- Still not perfect!
+    - Works for comparing different models on same data
+    - Works (poorly) for comparing different models on different data.\lspace
+- In general you should use $R^2_a$, but always be careful.
+
+
+## Prediction and Confidence Intervals (Again)
+
+
+### $R^2$ and $F$
+
+Recall that
+$$
+F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)} \sim F_{p-1, n-p}
+$$
+
+From the definition of $R^2$,
+\begin{align*}
+R^2 &= \frac{SS(Reg|\hat\beta_0)}{SST}\\
+&= \frac{SS(Reg|\hat\beta_0)}{SS(Reg|\hat\beta_0) + SSE}\\
+&= \frac{(p-1)F}{(p-1)F + (n-p)}
+\end{align*}
+Conclusion: Hypothesis tests/CIs for $R^2$ aren't useful. Just use $F$!
+
+
+### Correlation of $\hat\beta_0$, $\hat\beta_1$, $\hat\beta_2$, etc.
+
+With a different sample, we would have gotten slightly different numbers!
+
+\pspace
+
+- If the slope changed, the intercept must change to fit the data
+    - (and \emph{vice-versa})
+    - The parameter estimates are *correlated*!\lspace
+- Similar things happen with multiple predictors!\lspace
+- This correlation can be a problem for **confidence regions**
+
+### Uncorrelated $\hat\underline{\beta}$
+
+$$
+V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
+$$
+
+In simple linear regression,
+$$
+(X^TX)^{-1} = \frac{1}{nS_{XX}}\begin{bmatrix}\sum x_i^2 & -n\bar x\\-n \bar x & n\end{bmatrix}
+$$
+
+so the correlation is 0 when $\bar x = 0$!
+
+### Prediction and Confidence Intervals for $Y$
+
+$\hat Y = X\hat\beta$.
+
+- A confidence interval around $\hat Y$ is based on the variance of $\hat\beta$.
+- $\hat Y \pm t * se(X\hat\beta)$
+
+\pspace
+
+$Y_{n+1} = X\beta + \epsilon_{n+1}$
+
+- A prediction interval around $Y_{n+1}$ is based on the variance of $\hat\beta$ *and* $\epsilon$!
+- $\hat Y_{n+1} \pm t * se(X\hat\beta + \epsilon_{n+1})$
+
+
+## Participation Questions
+
+### Q1
+
+Which of the following are the Normal equations?
+
+1. $X^TX\underline\beta = X^T\underline y$\lspace
+2. $X^TX\underline{\hat\beta} = X^T\underline y$\lspace
+3. $\hat{\underline\beta} = (X^TX)^{-1}X^T\underline y$\lspace
+4. $f(\epsilon_i) = \frac{1}{\sqrt{2\pi\sigma}}\exp\left(\frac{-1}{2}\epsilon_i^2\right)$
+
+### Q2
+
+When is $X^TX$ not invertible?
+
+1. One of the predictors can be written as a linear combination of the others.
+2. There are more predictors than observations.
+3. One of the predictors has 0 variance.
+4. All of the above
+
+### Q3
+
+What does a significant F-test for the overall regression mean?
+
+1. The variance in the line is significantly larger than the variance in the data.
+2. The estimate of $\beta_1$ is significantly different from $\beta_0$,
+3. The variance of the line is significantly different from 0.
+4. At least one of the predictors in the model will have  significant $t$-test.
+
+### Q4
+
+$R^2$ is best used for:
+
+1. Determining whether a new predictor is worth including.
+2. Comparing models with different numbers of predictors.
+3. Comparing models based on different data sets.
+4. None of the above.
+
+### Q5
+
+Which of the following describes a Prediction Interval?
+
+1. The CI for the predicted value of the line
+2. The CI for the predicted value of the line, including unobserved error at an $X$ value
+3. The CI for the predicted value of the line, including unobserved error at an $X$ value that was not observed in the data
+4. The CI for the predicted value of the line, including unobserved error at an $X$ value that was not observed in the data, using the true value of $\sigma^2$
+
+### Q6
+
+Which ANOVA table does the `anova()` function calculate?
+
+\footnotesize
+
+1.
+
+| Source | $df$ | $SS$ |
+|--------|------|------|
+| Regression | 1 | $\hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2$  |
+| Error | $n-2$ | $\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y$ |
+| Total | $n - 1$ | $\underline y^t\underline y - n\bar{\underline y}^2$ |
+
+
+2.
+
+| Source | $df$ | $SS$ |
+|--------|------|------|
+| Regression | 1 | $\hat{\underline\beta}^TX^T\underline y$  |
+| Error | $n-2$ | $\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y$ | 
+| Total | $n - 1$ | $\underline y^t\underline y$ |
+
+
+

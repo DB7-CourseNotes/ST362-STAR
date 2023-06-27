@@ -1,0 +1,103 @@
+---
+title: "L13: Getting the Wrong Model"
+institute: "Jam: **** by "
+---
+
+## The Wrong Model
+
+### The Right Model?
+
+Recall: All models are wrong, some are useful!
+
+\pspace
+
+But *how wrong can a model be while still being useful?*
+
+\pspace
+
+- This is an extraordinarily challenging philosophical question.
+- We will touch on a very small part of it
+
+### The Wrong Predictors
+
+So far, we've talked about a model of the form $Y=X\underline\beta + \underline\epsilon$. 
+
+- $E(\hat{\underline\beta}) = E((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^TX\underline\beta = \underline\beta$
+
+\pspace
+
+However, what if we are missing some predictors? 
+
+What if the true model is $Y=X\underline\beta + X_2\underline\beta_2 + \underline\epsilon$?\pause
+\begin{align*}
+E(\hat{\underline\beta}) &= E((X^TX)^{-1}X^TY)\\
+& = (X^TX)^{-1}X^T(X\underline\beta + X_2\underline\beta_2) \\
+& = (X^TX)^{-1}X^TX\underline\beta + (X^TX)^{-1}X^TX_2\underline\beta_2 \\
+&= \underline\beta+ (X^TX)^{-1}X^TX_2\underline\beta_2\\
+&= \underline\beta + A\underline\beta_2
+\end{align*}
+
+### Bias due to wrong predictors
+
+The bias of an estimator is:
+$$
+\text{Bias}(\hat{\underline\beta}) = \underline\beta - E(\hat{\underline\beta})
+$$
+
+For the case where $Y = X\underline\beta + X_2\underline\beta_2 +\underline\epsilon$,
+$$
+\text{Bias}(\hat{\underline\beta}) = \underline\beta - (\underline\beta + A\underline\beta_2) = A\underline\beta_2
+$$
+
+
+### Expected Mean Square
+
+See text.
+
+\pspace
+
+Uses the identity: For an $n\times n$ matrix $Q$ and $n\times 1$ random vector $Y$ with variance $V(Y)=\Sigma$,
+$$
+E(Y^TQY) = (E(Y))^TQE(Y) + trace(Q\Sigma)
+$$
+
+\pspace
+
+This may be useful for a future assignment question (will notify if you need it), but for now I'm going to explore this via simulation in the Rmd.
+
+### Summary
+
+- Choosing the wrong set of predictors can affect the model!
+
+
+## Participation Questions
+
+### Q1
+
+Choosing a model is easy.
+
+\pspace
+
+1. True
+2. False
+
+### Q2
+
+Which statement is false?
+
+\pspace
+
+1. If you have the correct subset of predictors, you will have an unbiased model.
+2. If you do not, your model is likely biased.
+3. If you're only interested in the estimate of one predictor, then it's okay if the other estimates are biased.
+4. All of the above are true.
+
+### Q3
+
+Proxy measures of important predictors help remove bias, but the coefficient has no relation to the data generating process.
+
+\pspace
+
+1. True
+2. False
+

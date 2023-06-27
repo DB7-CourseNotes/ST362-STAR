@@ -1,0 +1,356 @@
+---
+title: "L12: Extra Topics"
+institute: "Jam: \\emph{Hypotheticals} by Lake Street Drive"
+---
+
+## Standardizing $X$
+
+### Mean-Centering
+
+Consider $y_i = \beta_0 + \beta_1 x'_i$, where $x'_i$ are the "centered" versions of $x_i$:
+$$
+x'_i = x_i - \bar x
+$$
+
+\pspace
+
+Then $\bar{x'} = 0$ and the coefficient estimates become:
+\begin{align*}
+\hat\beta_0 &= \bar y - \hat\beta_1\bar{x'} = \bar y\\
+&\text{and}\\
+\hat\beta_1 &= \frac{S_{XX}}{S_{YY}} = \frac{\sum_{i=1}^n(x_i' - \bar{x'})^2}{\sum_{i=1}^n(x_i' - \bar{x'})(y_i - \bar{y})} = \frac{\sum_{i=1}^nx_i'^2}{\sum_{i=1}^nx_i'(y_i - \bar{y})}
+\end{align*}
+
+### Mean-Centering and Covariance
+
+:::: {.columns}
+::: {.column width="50%"}
+For un-centered data:
+\begin{align*}
+V(\hat{\underline\beta}) &= (X^TX)^{-1}\sigma^2,\\
+\text{where }(X^TX)^{-1} &= \frac{1}{nS_{XX}}\begin{bmatrix}\sum x_i^2 & -n\bar x\\-n \bar x & n\end{bmatrix}
+\end{align*}
+Note also that $S_{x'x'} = \sum_{i=1}^n{x'}_i^2$, so
+\begin{align*}
+V(\hat{\underline\beta}^c) &= \frac{\sigma^2}{nS_{X'X'}}\begin{bmatrix}\sum {x'}_i^2 & 0\\0 & n\end{bmatrix}\\
+& = \sigma^2\begin{bmatrix}n^{-1} & 0 \\ 0 & (\sum_{i=1}^n{x'}_i^2)^{-1}\end{bmatrix}
+\end{align*}
+
+$\implies$ *no covariance*!!!
+
+:::
+::: {.column width="50%"}
+Simulations with same data, but one uses centered data (code in L02 Rmd).
+
+\pspace
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-height: 3
+#| fig-width: 5
+
+Sdotdot <- function(x, y) sum((x - mean(x)) * (y - mean(y)))
+
+R <- 1000
+b1s <- double(R)
+b0s <- double(R)
+b1cs <- double(R)
+b0cs <- double(R)
+n <- 25
+x <- runif(n, 0, 10)
+xc <- x - mean(x) # centered
+
+for (i in 1:R) {
+    y <- 2 - 2 * x + rnorm(25, 0, 4)
+    b1 <- Sdotdot(x, y) / Sdotdot(x, x)
+    b0 <- mean(y) - b1 * mean(x)
+    b1s[i] <- b1
+    b0s[i] <- b0
+
+    # Centered
+    y <- 2 - 2 * xc + rnorm(25, 0, 4)
+    b1c <- Sdotdot(xc, y) / Sdotdot(xc, xc)
+    b1cs[i] <- b1c
+    b0c <- mean(y) - b1 * mean(xc)
+    b0cs[i] <- b0c
+}
+
+par(mfrow = c(1,2))
+plot(b1s, b0s, main = "Uncentered",
+    xlab = expression(hat(beta)[1]),
+    ylab = expression(hat(beta)[0]))
+plot(b1cs, b0cs, main = "Centered",
+    xlab = expression(hat(beta)[1]^c),
+    ylab = expression(hat(beta)[0]^c))
+```
+:::
+::::
+
+
+### Comments on $V(\hat{\underline\beta})$
+
+$$
+V(\hat{\underline\beta}^c) = \sigma^2\begin{bmatrix}n^{-1} & 0 \\ 0 & (\sum_{i=1}^n{x'}_i^2)^{-1}\end{bmatrix}
+$$
+
+- $V(\hat\beta_0) = \sigma^2/n \implies sd(\hat\beta_0) = \sigma/\sqrt{n}$.
+    - The t-test for significance of $\beta_0$ is just a hypothesis test for $\bar y = 0$. \lspace
+- Note that $\underline y$ hasn't changed, so $\hat{\underline\epsilon}$ and $\sigma^2$ are unchanged.
+- $V(\hat\beta_0) = \sigma^2/\sum_{i=1}^n{x'}_i^2$ isn't all that interesting...
+
+### Standardizing $\underline x$
+
+In addition to mean-centering, divide by the sd of $\underline x$:
+$$
+z_i = \frac{x_i - \bar x}{\sqrt{S_{XX}/(n-1)}}
+$$
+
+Then $\bar z = 0$ and $sd(z) = 0 \implies S_{ZZ} = n-1$.
+
+
+\pspace\pause
+
+It can be shown that:
+$$
+V(\hat{\underline\beta}^s) = \sigma^2\begin{bmatrix}n^{-1} & 0 \\ 0 & (n-1)^{-1}\end{bmatrix}
+$$
+
+- $\underline x$ doesn't matter!!!
+
+### Standardizing in Multiple Linear Regression
+
+Suppose we standardize each column of $X$ (except the first).
+
+Several things happen:
+
+- All predictors are now in units of standard deviations!!!
+    - Coefficients are directly comparable!
+- Covariances disappear!!!
+
+\pspace
+
+Standardizing doesn't hurt and can often help $\implies$ it's almost always worth it!
+
+## General Linear Hypothesis
+
+### Diet vs. Exercise
+
+Which is more important for weight loss?
+
+\pspace
+
+We can set this up in a linear regression framework:
+$$
+\text{Loss}_i = \beta_0 + \beta_1\text{CaloriesConsumed}_i + \beta_2\text{ExercisesMinutes}_i
+$$
+where we assume CaloriesConsumed and ExerciseMinutes are standardized.
+
+\pspace
+
+Our question about the importance of diet versus exercise becomes a hypothesis test:
+$$
+H_0:\; \beta_1 = \beta_2\text{ vs. }H_a:\; \beta_1 \ne \beta_2
+$$
+Alternatively, the null can be written as $\beta_1 - \beta_2 = 0$.
+
+### Linearly Independent Hypotheses
+
+In some cases, we might have a collection of hypotheses. For ANOVA:
+$$
+H_0:\; \beta_2 - \beta_1 = 0,\; \beta_3 - \beta_2 = 0,\; \beta_4 - \beta_3 = 0,\...,\; and\; \beta_{p-1} - \beta_{p-2} = 0
+$$
+These hypotheses are **linearly indepenent**. \pause To see why, we can write them in matrix form:
+$$
+\begin{bmatrix}
+0 & -1 & 1 & 0 & 0 & ...\\
+0 & 0 & -1 & 1 & 0 & ...\\
+0 & 0 & 0 & -1 & 1 & ...\\
+\vdots & \vdots & \vdots & \vdots & \vdots & ...\\
+\end{bmatrix}\hat{\underline\beta} = \underline 0
+$$
+where none of the rows are linear combinations of the others.
+
+We'll use the notation $C\underline\beta = \underline 0$.
+
+### Linearly Independent Hypotheses
+
+The $C$ matrix can be row-reduced to the hypotheses $\beta_i=0\;\forall i>0$. In this case, our hypothesized model is:
+$$
+Y_i = \beta_0 + \underline\epsilon
+$$
+
+\pspace
+
+We have reduced $Y = X\underline\beta + \underline\epsilon$ to $Y = Z\underline\alpha + \underline\epsilon$, where $\underline\alpha = (\beta_0)$ and $Z$ is a column of ones.
+
+### Linearly Dependent Hypotheses
+
+Consider the model $Y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \underline\epsilon$ and the hypotheses:
+$$
+H_0:\; \beta_{11} = 0,\ \beta_1 - \beta_2 = 0,\; \beta_1 - \beta_2 + \beta_3 = 0,\; 2\beta_1 - 2\beta_2 + 3\beta_3 = 0
+$$
+We can write this as:
+$$
+\begin{bmatrix}
+0 & 0 & 0  & 1\\
+0 & 1 & -1 & 0\\
+0 & 1 & -1 & 1\\
+0 & 2 & -2 & 3
+\end{bmatrix}\begin{bmatrix}\beta_0\\\beta_1\\\beta_2\\\beta_{11}\end{bmatrix} = \begin{bmatrix}0\\0\\0\\0\end{bmatrix}
+$$
+With a little work, we can show that this reduces to the model:
+$$
+Y = \beta_0 + \beta(x_1 + x_2) + \underline\epsilon \Leftrightarrow Y = Z\underline\alpha + \underline\epsilon
+$$
+
+
+### Testing General Linear Hypotheses
+
+Consider an arbitrary matrix for $C$ (not linearly dependent), such that we can row-reduce $C$ to $q$ linearly independent hypotheses.
+
+\pspace
+
+- **Full Model**
+    - $SS_E = Y^TY - \hat{\underline\beta}^TX^TY$ on $n-p$ df.\lspace
+- **Hypothesized Model**
+    - $SS_W = Y^TY - \hat{\underline\alpha}^TZ^TY$ on $n-p-q$ df.
+
+\pspace
+
+From these, we get:
+$$
+\left(\frac{SSW-SSE}{q}\right)/\left(\frac{SSE}{n-p}\right) \sim F_{q, n-p}
+$$
+In other words, we test whether the restrictions significantly change the $SS_E$!
+
+## Generalized Least Squares
+
+### Main Idea
+
+What if the variance of $\epsilon_i$ isn't the same for all $i$?
+
+\pspace
+
+In other words, $V(\underline\epsilon) = V\sigma^2$ for some matrix $V$.
+
+\pspace
+
+- The structure of $V$ changes how we approach this.
+    - Weighted least squares: $V$ is diagonal.
+    - Generalized: $V$ is symmetric and positive-definite, but otherwise arbitrary.
+
+### Transforming the Instability Away
+
+In the model $Y = X\underline\beta + \underline\epsilon$, we want $V(Y) = I\sigma^2$, but we have $V(Y) = V\sigma^2$
+
+\pspace
+
+Since $V$ is symmetric and positive-definite, we can find a matrix $P$ such that:
+$$
+P^TP = PP = P^2 = V
+$$
+
+We can pre-multiply the model by $P^{-1}$ so that $V(P^{-1}Y) = V^{-1}V\sigma^2 = I\sigma^2$:
+$$
+P^{-1}Y = P^{-1}X\underline\beta + P^{-1}\underline\epsilon \Leftrightarrow Z = Q\underline\beta + \underline f
+$$
+
+### Generalized Least Squares Results
+
+\begin{align*}
+\underline f^T\underline f &= \underline\epsilon^TV^{-1}\underline\epsilon = (Y - X\underline\beta)^TV^{-1}(Y - X\underline\beta)\\
+\hat{\underline\beta} &= (X^TV^{-1}X)^{-1}X^TV^{-1}Y\\
+SS_T &= \hat{\underline\beta}^TQ^TZ = Y^TV^{-1}X(X^TV^{-1}X)^{-1}X^TV^{-1}Y\\
+SST &= Z^TZ = Y^TV^{-1}Y\\
+\hat Y &= X\hat{\underline\beta}\\
+\hat{\underline f} &= P^{-1}(Y-\hat Y) = P^{-1}(I-X(X^TV^{-1}X)^{-1}X^TV^{-1})Y
+\end{align*}
+
+Most things are just switching $Y$ with $P^{-1}Y$, etc., except one...
+
+### OLS when you should have used GLS
+
+Suppose the true model has $V(\underline\epsilon) = V\sigma^2$.
+
+\pspace
+
+Let $\hat{\underline\beta}_O$ be the estimate of $\underline\beta$ if we were to fit with Ordinary Least Squares. Then:
+
+- $E(\hat{\underline\beta}_O) = \underline\beta$
+- $V(\hat{\underline\beta}_O) = (X^TX)^{-1}X^TVX(X^TX)^{-1}\sigma^2$
+
+The OLS estimate is **unbiased**, but has a much higher **variance**!
+
+### Choosing $V$
+
+- For serially correlated data, $V_{ii} = 1$ and $V_{ij} = \rho^{|i-j|}$
+    - This is choosing $V$ based on *model assumptions*!
+    - $\rho$ must be estimated ahead of time.\lspace
+- If we have repeteated $x$-values, we can use the estimated variance from there.
+    - Choosing $V$ based on the data\lspace
+- In a controlled experiment, where we have known weights for different $x$-values
+    - E.g., more skilled surgeons, machine age.
+
+## Participation Questions
+
+### Q1
+
+Which of the following will result in no correlation between $\beta_0$ and $\beta_1$?
+
+\pspace
+
+1. Centering
+2. Standardizing
+3. Both centering and standardizing
+4. None of the above
+
+
+### Q2
+
+What's the primary reason for standardizing the predictors?
+
+\pspace
+
+1. Remove correlation between the $\hat\beta$s
+2. Make it so that the variance is not a function of the $X$-values.
+3. Ensure that the values of $\hat\beta$ are comparable.
+4. Make it so that general linear hypotheses are possible.
+
+### Q3
+
+In a general linear hypothesis, $q$ is the rank of the $C$ matrix in $C\underline\beta = \underline 0$. 
+
+1. True
+2. False
+
+### Q4
+
+Generalized Least Squares requires strong assumptions about the matrix $V$.
+
+\pspace
+
+1. True
+2. False
+
+### Q5
+
+Ignoring correlation/unequal variance in $\underline\epsilon$ will lead to a biased estimate of $\underline\beta$
+
+\pspace
+
+1. True
+2. False
+
+### Q6
+
+What do you expect the hat matrix to be for GLS?
+
+\pspace
+
+1. $X(X^TX)^{-1}X^TY$
+2. $X(X^TV^{-1}X)^{-1}X^TV^{-1}Y$
+3. $XV^{-1}(X^TV^{-1}X)^{-1}X^TV^{-1}Y$
+4. $XV^{-T}(X^TV^{-1}X)^{-1}X^TV^{-1}Y$
+
+

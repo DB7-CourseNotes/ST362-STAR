@@ -1,0 +1,232 @@
+---
+title: "L04: Regression in Matrix Form"
+institute: "Jam: \\emph{Monde Invers\\'e} by Cirque du Soleil"
+---
+
+## Chapter 04 Summary
+
+### Matrix Forms of Things We've Seen
+
+Using
+
+$$
+Y = \begin{bmatrix}Y_1\\ Y_2\\ \vdots\\ Y_n\end{bmatrix};\quad \underline y = \begin{bmatrix}y_1\\ y_2\\ \vdots\\ y_n\end{bmatrix};\quad X = \begin{bmatrix}1 & x_1\\1 &x_2\\ \vdots & \vdots\\ 1 & x_n\end{bmatrix};\quad \underline\beta = \begin{bmatrix}\beta_0\\\beta_1\end{bmatrix};\quad\underline\epsilon \begin{bmatrix}\epsilon_1\\ \epsilon_2\\ \vdots\\ \epsilon_n\end{bmatrix}
+$$
+
+$Y = X\underline\beta + \underline\epsilon$ is the same as
+\begin{align*}
+Y_1 &= \beta_0 + \beta_1x_1 + \epsilon_1\\
+Y_2 &= \beta_0 + \beta_1x_2 + \epsilon_2\\
+&\vdots\\
+Y_n &= \beta_0 + \beta_1x_n + \epsilon_n\\
+\end{align*}
+
+### Some Fun Matrix Forms
+
+\begin{align*}
+\underline\epsilon^T\underline\epsilon &= \epsilon_1^2 + \epsilon_2^2 + ... + \epsilon_n^2 = \sum_{i=1}^n\epsilon_i^2\\
+Y^TY &= \sum Y_i^2\\
+\mathbf{1}^T\underline y &= \sum y_i = n\bar y\\
+X^TX &= \begin{bmatrix}n & \sum x_i\\ \sum x_i & \sum x_i^2\end{bmatrix}\\
+(X^TX)^{-1} &= \frac{1}{nS_{XX}}\begin{bmatrix}\sum x_i^2 & -n\bar x\\-n \bar x & n\end{bmatrix}\\
+X^TY &= \begin{bmatrix}\sum Y_i\\ \sum x_iY_i\end{bmatrix}
+\end{align*}
+
+### The "Normal" Equations
+
+:::: {.columns}
+::: {.column width="40%"}
+Copied from previous slide:
+\begin{align*}
+X^TX &= \begin{bmatrix}n & \sum x_i\\ \sum x_i & \sum x_i^2\end{bmatrix}\\
+X^T\underline y &= \begin{bmatrix}\sum y_i\\ \sum x_iy_i\end{bmatrix}
+\end{align*}
+:::
+::: {.column width="60%"}
+
+The textbook included the following equations in Ch02. The estimates $\hat\beta_0$ and $\hat\beta_1$ in OLS (same as MLE) are the solution to:
+
+\begin{align*} 
+\hat\beta_0 + \hat\beta_1\sum x_i &= \sum y_i\\
+\hat\beta_0\sum x_i + \hat\beta_1\sum x_i^2 &= \sum x_iy_i\\
+\end{align*}
+:::
+::::
+
+\pause\vspace{4mm}
+
+Putting these together:
+$$
+X^TX\hat{\underline\beta} = X^T\underline y\quad \Leftrightarrow\quad \hat{\underline\beta} = (X^TX)^{-1}X^T\underline y
+$$
+Try this out using the definition of $(X^TX)^{-1}$ on the previous slide.
+
+
+### (Corrected) ANOVA in Matrix Form
+
+| Source | $df$ | $SS$ | $MS$ |
+|--------|------|------|------|
+| Regression (corrected) | 1 | $\hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2$  | $SS/df$ |
+| Error | $n-2$ | $\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y$ | $SS/df$ |
+| Total (corrected) | $n - 1$ | $\underline y^t\underline y - n\bar{\underline y}^2$ | $SS/df$ |
+
+- The "corrected" ANOVA is the ANOVA table for comparing the errors due to $\hat\beta_1$ to the errors due to $\hat\beta_0$.\lspace
+- This is different from comparing a model with $\hat\beta_0$ *and* $\hat\beta_1$ to a model with neither parameter.
+    - The value of the "correction" is based on $\bar x$. If the slope is 0, then the estimate for $\hat\beta_0$ is $\bar x$.
+
+## Variances
+
+### Variance of a Vector: the Variance-Covariance Matrix
+
+In general, for vector-valued random variable $Z = (Z_1, Z_2, \dots, Z_n)$,
+$$
+V(Z) = \begin{bmatrix}
+V(Z_1) & cov(Z_1, Z_2) & \cdots & cov(Z_1, Z_n) \\
+cov(Z_2, Z_1) & V(Z_2) & \cdots &  cov(Z_2, Z_n)\\
+\vdots & \vdots & \ddots & \vdots\\
+cov(Z_n, Z_1) & cov(Z_n, Z_2) & \cdots & V(Z_n)
+\end{bmatrix}
+$$
+
+### $V(\hat{\underline\beta})$
+
+:::: {.columns}
+::: {.column width="50%"}
+Let's start with the covariance of $\hat\beta_0$ and $\hat\beta_1$:
+\begin{align*}
+cov(\hat\beta_0, \hat\beta_1) &= cov(\bar y - \hat\beta_1\bar x, \hat\beta_1)\\
+&= -\bar x cov(\hat\beta_1, \hat\beta_1)\\
+&= -\bar x V(\hat\beta_1)\\
+&= \frac{-\sigma^2\bar x}{S_{XX}}
+\end{align*}\pause
+
+:::
+::: {.column width="50%"}
+The var-covar matrix is:
+\begin{align*}
+V(\hat{\underline\beta}) &= \begin{bmatrix}
+V(\hat\beta_0) & cov(\hat\beta_0, \hat\beta_1)\\ 
+cov(\hat\beta_0, \hat\beta_1) & V(\hat\beta_1)
+\end{bmatrix}\\
+&= \begin{bmatrix}
+\frac{\sigma^2\sum x_i^2}{S_{XX}} & \frac{-\sigma^2\bar x}{S_{XX}}\\
+\frac{-\sigma^2\bar x}{nS_{XX}} & \frac{\sigma^2}{S_{XX}}
+\end{bmatrix}\\
+&= \frac{\sigma^2}{nS_{XX}}\begin{bmatrix}
+\sum x_i^2 & -n\bar x\\
+-n\bar x & n
+\end{bmatrix}\\
+&= (X^TX)^{-1}\sigma^2
+\end{align*}
+
+:::
+::::
+
+
+### Variance of $\hat Y_0$
+
+Let $X_0 = [1, x_0]$ be an arbitrary observation. Then the predicted value of the line at $X_0$, labelled $\hat Y_0$, is:
+\begin{align*}
+V(\hat Y_0) &= V(X_0\hat{\underline\beta})\\
+&= X_0V(\hat{\underline\beta})X_0^T\\
+&= \sigma^2X_0(X^TX)^{-1}X_0
+\end{align*}
+
+\quad
+
+HWK: Verify that $X_0(X^TX)^{-1}X_0$ is a $1\times 1$ matrix.
+
+### Variance of $\hat Y_{n+1}$
+
+For a **new observation**, we have the variance of the line plus a new unobserved error $\epsilon_{n+1}$.
+\begin{align*}
+V(\hat Y_{n+1}) &= V(X_{n+1}\hat{\underline\beta} + \epsilon_{n+1})\\
+&= X_{n+1}V(\hat{\underline\beta})X_{n+1}^T + V(\epsilon_{n+1})\\
+&= \sigma^2X_{n+1}(X^TX)^{-1}X_{n+1}^T + \sigma^2\\
+&= \sigma^2\left(X_{n+1}(X^TX)^{-1}X_{n+1}^T + 1\right)
+\end{align*}
+
+\quad
+
+HWK: Verify (empirically or mathematically) that this is smallest when $x_0 = \bar x$. 
+
+
+### Summary
+
+When we have one predictor, it is clear that:
+\begin{align*}
+Y &= X\hat{\underline\beta} + \underline\epsilon\\
+\hat{\underline\beta} &= (X^TX)^{-1}X^T\underline y\\
+V(\hat{\underline\beta}) &= (X^TX)^{-1}\sigma^2\\
+V(\hat Y_0) &= \sigma^2X_0(X^TX)^{-1}X_0^T\\
+V(\hat Y_{n+1}) &= \sigma^2(X_{n+1}(X^TX)^{-1}X_{n+1}^T + 1)\\
+\end{align*}
+
+\quad
+
+This will *not* change when we add predictors!
+
+## Participation Questions
+
+### Q01
+
+Which statement about matrix multiplication is *false*?
+
+\pspace
+
+1. $(AB)^T = B^TA^T$\lspace
+2. $(AB)^{-1} = B^{-1}A^{-1}$\lspace
+3. $(A + B)^T = A^T + B^T$\lspace
+4. $A^{-1}A = AA^{-1}$\lspace
+
+### Q02
+
+The Normal Equations come from:
+
+\pspace
+
+1. Setting the partial derivatives of $\underline\epsilon^T\underline\epsilon$ to 0.\lspace
+2. Setting the partial derivatives of $\hat{\underline\epsilon}^T\hat{\underline\epsilon}$ to 0.\lspace
+3. Rearranging the equation $\sum_{i=1}^n(y_i - \hat y_i)^2$ for $\hat\beta_0$ and $\hat\beta_1$\lspace
+4. Rearranging the equation $\sum_{i=1}^n(y_i - \beta_0 + \beta_1x_i + \epsilon_i)^2$ for $\hat\beta_0$ and $\hat\beta_1$\lspace
+
+### Q03
+
+$MS_E = MS_T - MS_Reg$
+
+\pspace
+
+1. True\lspace
+2. False
+
+### Q04
+
+For vector-valued r.v. $Z$, $V(Z)$ is a symmetric matrix.
+
+\pspace
+
+1. No, since the $i,j$ element is $cov(Z_i, Z_j)$ and the $j,i$ element is $cov(Z_j, Z_i)$.\lspace
+2. No, since the $i,i$ element is $V(Z_i)$, which is different for different $i$.\lspace
+3. Yes, because it is a scalar.\lspace
+4. Yes, because $cov(Z_i, Z_j) = cov(Z_j, Z_i)$
+
+### Q05
+
+For scalar-valued random variables $X$ and $Y$, which statement is *true*?
+
+\pspace
+
+1. $cov(a + bX, Y) = b cov(X,Y)$\lspace
+2. $cov(a + bX, bY) =  b cov(X,Y)$\lspace
+3. $cov(bX, X) = b^2V(X)$\lspace
+4. $cov(a + bX, a + bY) =  a + b cov(X,Y)$
+
+
+### Q06
+
+The variance of the line evaluated at an existing point is smaller than the variance of the line evaluated at a new point, even if the new point is the same as an existing point.
+
+\pspace
+
+1. True\lspace
+2. False

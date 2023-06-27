@@ -1,0 +1,5 @@
+# Introduction {.unnumbered}
+
+This repo contains the course notes for the Spring 2023 offering of ST362 Regression Analysis, based on the textbook Applied Regression Analysis, 3rd edition, by Norman R. Draper and Harry Smith and drawing from Introduction to Linear Regression Anaysis by Montgomery and Peck along with the online course notes from [Stat 501](https://online.stat.psu.edu/stat501/lesson/1) at Penn State.
+
+This is very much a work in progress.

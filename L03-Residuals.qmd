@@ -1,0 +1,470 @@
+---
+title: "L03: Assessing Fit"
+institute: "Jam: \\emph{Left Overs} by Joe Bonamassa"
+---
+
+
+## The residual: what's left over
+
+### $R^2$: percent of variance explained by the regression model
+
+:::: {.columns}
+::: {.column width="30%"}
+\vspace{2cm}
+
+$$
+R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
+$$
+
+:::
+::: {.column width="70%"}
+
+```{r}
+#| fig-height: 4.5
+#| fig-width: 6
+layout(mat = matrix(c(1,2,3), nrow = 1), widths = c(0.5,1,1))
+set.seed(18)
+x <- runif(25, 0, 10)
+y <- rnorm(25, 2 + 5*x, 6)
+
+plot(rep(1, 25), y, xlab = "y", ylab = "y has variance", xaxt = "n")
+abline(h = mean(y))
+axis(2, mean(y), bquote(bar(y)), las = 1)
+
+plot(x, y, ylab = "There's variance around the line")
+abline(lm(y~x))
+abline(h = mean(y))
+axis(2, mean(y), bquote(bar(y)), las = 1)
+
+mids <- predict(lm(y~x))
+for(i in seq_along(mids)){
+    lines(x = rep(x[i], 2), y = c(y[i], mids[i]), col = 1)
+}
+
+mids <- predict(lm(y~x))
+plot(mids ~ x, type = "n", ylab = "The line varies around the mean of y!")
+for(i in seq_along(mids)){
+    lines(x = rep(x[i], 2), y = c(mean(y), mids[i]))
+}
+axis(2, at = mean(y), labels = bquote(bar(y)), las = 1)
+abline(h = mean(y))
+```
+:::
+::::
+
+### Residual Assumptions
+
+- **Residual**: what's left over
+    - $\hat\epsilon_i = y_i - \hat y_i$\lspace
+- Assumptions (from before):
+    - $E(\epsilon_i) = 0$
+    - $V(\epsilon_i) = \sigma^2$
+    - $\epsilon_i \sim N(0,\sigma^2)$
+
+\pspace
+
+We must check our assumptions!
+
+- There are statistical tests, but they'll never tell you as much as a plot!
+
+### Residuals versus *fitted* values: $\hat{\underline\epsilon}$ versus $\hat{\underline{y}}$
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+Why $\hat{\underline{y}}$ instead of $\underline y$?
+
+- See text. Try a regression of $\hat{\underline\epsilon}$ versus $\underline{y}$ yourself (mathematically and with code).
+
+\pspace 
+
+Why not $\underline x$?
+
+- For simple linear regression, $\hat{\underline{y}}$ is like a unit change for $\underline x$, so it doesn't matter. 
+    - For multiple linear regression, it's easier to have one variable for the $x$ axis.
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| fig-height: 5
+#| fig-width: 5
+library(ggplot2)
+theme_set(theme_bw())
+library(patchwork)
+library(broom)
+library(palmerpenguins)
+
+penguins <- penguins[complete.cases(penguins),]
+
+g1 <- ggplot(penguins) + 
+    aes(x = flipper_length_mm, y = body_mass_g) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE, formula = y~x) +
+    labs(x = "Flipper Length (mm)",
+        y = "Body Mass (g)",
+        title = "y versus x")
+
+plm <- lm(body_mass_g ~ flipper_length_mm, data = penguins)
+
+p2 <- augment(plm)
+
+g2 <- ggplot(p2) + 
+    aes(x = .fitted, y = .resid) + 
+    geom_point() +
+    geom_hline(yintercept = 0, col = "grey") +
+    labs(x = "Fitted", y = "Residuals", title = "Residuals versus Fitted")
+
+
+g1 / g2
+```
+:::
+::::
+
+### Residual Plots and Assumption Checking
+
+Mathematics is the process of making assumptions and seeing if we can break them.
+
+- $E(\epsilon_i) = 0$ is a given since $\sum_{i=1}^n\hat\epsilon_i=0$.\lspace
+- $V(\epsilon_i) = \sigma^2$
+    - Check if the variance looks stable.\lspace
+- $\epsilon_i \sim N(0,\sigma^2)$ is harder to see
+    - Expect more points close to 0, fewer further away, no outliers
+
+### Residual plots: unstable error
+
+```{r}
+x <- runif(200, 0, 10)
+y0 <- 2 - 3*x
+y <- y0 + rnorm(length(x), 0, 2 * x)
+
+g1 <- ggplot() + 
+    aes(x = x, y = y) + 
+    geom_point() + 
+    geom_smooth(se = FALSE, method = "lm", formula = y~x) +
+    labs(x = NULL, y = NULL, title = "y versus x")
+
+xydf <- augment(lm(y ~ x))
+
+g2 <- ggplot(xydf) +
+    aes(x = .fitted, y = .resid) + 
+    geom_point() +
+    geom_hline(yintercept = 0, col = "grey") +
+    labs(x = "Fitted", y = "Residuals", title = "Residuals versus Fitted")
+
+g1 + g2
+```
+
+### Residual plots: non-linear trend?
+
+```{r}
+## fig-height: 4
+## fig-width: 8
+g1 <- ggplot(mtcars) + 
+    aes(x = disp, y = mpg) + 
+    geom_point() + 
+    geom_smooth(se = FALSE, method = "lm", formula = y~x) +
+    labs(x = "Engine Displacement", y = "Miles per Gallon", title = "y versus x")
+
+mtdf <- augment(lm(mpg ~ disp, data = mtcars))
+
+g2 <- ggplot(mtdf) +
+    aes(x = .fitted, y = .resid) + 
+    geom_point() +
+    geom_smooth(se = FALSE) +
+    geom_hline(yintercept = 0, col = "grey") +
+    labs(x = "Fitted", y = "Residuals", title = "Residuals versus Fitted - non-linear trend?")
+
+g1 + g2
+```
+
+
+### Testing Normality: Quantile-Quantile Plots
+
+:::: {.columns}
+::: {.column width="58%"}
+\vspace{0.15cm}
+
+Consider the data (2,3,3,4,5,5,6).\vspace{0.15cm}
+
+- 50\% of the data is below the median. 
+    - For a $N(0,1)$ distribution, 50% of the data is below 0.
+    - Put the median on the y axis, 0 on the x axis.
+- 25\% of the data is below Q1.
+    - For a $N(0,1)$ distribution, 25% is below `qnorm(0.25)` = -0.67
+    - Put a point at x = -0.67, y = Q1.
+- 75\% of the data is below Q3.
+    - For a $N(0,1)$ distribution, 75% is below `qnorm(0.75)` = 0.67
+    - Put a point at x = 0.67, y = Q3.
+- ... and so on for the rest of the quantiles
+
+
+
+:::
+::: {.column width="40%"}
+
+If perfectly normal, expect a straight line!
+
+```{r}
+#| echo: true
+#| fig-height: 4
+mydata <- c(2, 3, 3, 4, 5, 5, 6)
+quants <- qnorm(c(
+    0.125, 0.25, 0.375, 0.5, 
+    0.625, 0.75, 0.875))
+plot(mydata ~ quants)
+```
+
+:::
+::::
+
+### Other Residual Plots: 
+
+**Scale-Location**
+
+- Scale: Standardized residual
+- Location: Fitted value
+- More on standardized residuals in Ch08
+
+\pspace
+
+**Cook's Distance**
+
+- Basically, an outlier detection method. 
+- More in Ch08
+
+\pspace
+
+**Leverage**
+
+- More in Ch08
+
+## Participation Quiz
+
+### Q01
+
+Which of the following is not an assumption of linear models?
+
+\pspace
+
+1. $$
+2. The variance is constant across all values of $X$.
+3. The height of the line is the mean value of $Y$ for a given $X$.
+4. None of the above.
+
+### Q02
+
+Which of the following is a confidence interval for $s$?
+
+\pspace
+
+1. $\chi^2_n(0.055) \le \frac{(n-1)s^2}{\sigma^2} \le \chi^2_n(0.945)$
+2. $\chi^2_n(0.945) \le \frac{(n-1)s^2}{\sigma^2} \le \chi^2_n(0.055)$
+3. $s^2 \pm \text{Critical Value } * \text{ se}(s^2)$
+4. $s \pm \text{Critical Value } * \text{ se}(s)$
+5. None of the above
+
+### Q03
+
+Which of the following is *not* a random variable?
+
+\pspace
+
+1. $Y$
+2. $\hat\epsilon_i$
+3. $\hat Y$
+4. $\underline\epsilon$
+
+### Q04
+
+$F = t^2$
+
+1. True
+2. False
+3. Sometimes true
+
+### Q05
+
+Which of the following is the definition of a residual?
+
+1. $y_i - \hat y_i$
+2. $(y_i - \hat y_i)^2$
+3. $\hat y_i - y_i$
+4. $(\hat y_i - y_i)^2$
+
+### Q06
+
+Which of the following statements about $R^2$ is *false*?
+
+1. $R^2 = SSReg / SST$
+2. $R^2 = r^2$, where $r$ is the correlation between $\underline x$ and $\underline y$
+3. $R^2$ compares the variance of the line to the variance of $y$ alone
+4. $R^2$ is not a random variable
+
+## Maximum Likelihood
+
+### Main Idea
+
+Find the values $\hat\beta_0$, $\hat\beta_1$, and $\hat\sigma^2$ that **maximize the likelihood of seeing our data**.
+
+\pspace
+
+Under the assumptions that $X$ is fixed, $Y = \beta_0 + \beta_1X + \epsilon_i$, and $\epsilon_i\stackrel{iid}{\sim}N(0,\sigma^2)$,
+$$
+Y \sim N(\beta_0 + \beta_1X, \sigma^2)
+$$ 
+
+### The Likelihood
+
+The **probability** of observering a data point is:
+$$
+f_Y(y_i|x_i, \beta_0, \beta_1, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{-1}{2\sigma^2}(y_i - \beta_0 - \beta_1x_i)^2\right)
+$$
+
+\pspace
+
+The **likelihood** of the parameters, given the data, is:
+$$
+L(\beta_0, \beta_1, \sigma^2|x_i, y_i) = \prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{-1}{2\sigma^2}(y_i - \beta_0 - \beta_1x_i)^2\right)
+$$
+
+- It's just a shift in perspective!
+
+### Simple Coin Flip Example
+
+Suppose we flipped 10 bottle caps and got 6 "crowns". Assume the probability of "crown" ($C$) is unknown, labelled $p$.
+
+\pspace
+
+- The **probability** of one cap flip is $P(C|p) = p$.\lspace
+- The **probability** of this is $P(C = 6|p) = p^6(1-p)^4$. 
+    - This is just $P(\underline y|p) = \prod_{i=1}^nP(Y = y_i)$.\lspace
+- The **likelihood** is $L(p|\underline y) = \prod_{i=1}^nP(Y = y_i)$.
+
+### Maximizing the Likelihood in LM
+
+$$
+L(\beta_0, \beta_, \sigma^2) = \prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{-1}{2\sigma^2}(y_i - \beta_0 - \beta_1x_i)^2\right)
+$$
+
+- To maximize w.r.t $\beta_0$, we set the derivative w.r.t $\beta_0$ to 0 and solve for $\beta_0$.
+    - $\frac{\partial L(\beta_0, \beta_, \sigma^2)}{\partial \beta_0} = 0$.
+- Repeat for $\frac{\partial L(\beta_0, \beta_, \sigma^2)}{\partial \beta_1} = 0$ and $\frac{\partial L(\beta_0, \beta_, \sigma^2)}{\partial \sigma^2} = 0$
+
+\pspace
+
+HWK: Show that the estimates for $\hat\beta_0$ and $\hat\beta_1$ are the same as the OLS estimates. The estimate for $\hat\sigma^2$ should come out to:
+$$
+\hat\sigma^2 = \frac{1}{n}\sum_{i=1}^n\left(y_i - \hat\beta_0 - \hat\beta_1x_i\right)^2
+$$
+
+### Bias-Variance Decomposition
+
+On the next slide, we'll show that $E\left((Y_i - \hat Y_i)^2\right)$ can be decomposed into $V(\epsilon_i)$, squared bias, and the variance of the fitted model.
+
+\pspace
+
+- $V(\epsilon_i)$ is the variance of the *true* errors.\lspace
+- Bias is the difference between the true model and the estimated one.
+    - **Systematic** difference, not just random errors
+        - e.g. fitting a linear model to a non-linear trend\lspace
+- Variance of the fitted model *across all possible samples*
+
+\pspace
+
+Note that this is a slight deviation from how the text presents it.
+
+### Derivation
+
+Suppose the true value is $Y_i = g(x_i) + \epsilon_i$ (not necessarily linear), where $E(\epsilon_i) = 0$, $E(Y_i) = g(x_i)$, and $V(\epsilon_i) = \sigma^2$.
+\begin{align*}
+E\left((Y_i - \hat Y_i)^2\right) &= E(Y_i - 2Y_i\hat Y_i + \hat Y_i^2)\\
+&= E(Y_i^2) - 2E(Y_i\hat Y_i) + E(\hat Y_i^2)\\
+&= E((g(x_i) + \epsilon)^2) - 2E(g(x_i) + \epsilon_i)E(\hat Y_i) + E(\hat Y_i^2)\\
+&= g^2(x_i) + 2g(x_i)E(\epsilon_i) + E(\epsilon_i^2) - 2g(x_i)E(\hat Y_i) + E(\hat Y_i^2)\\
+&= g^2(x_i) + \sigma^2 - 2g(x_i)E(\hat Y_i) + E(\hat Y_i^2) + E(\hat Y_i)^2 - E(\hat Y_i)^2\\
+&= \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)\\
+&= \text{Error Variance} + \text{Bias}^2 + \text{Fitted Model Variance}
+\end{align*}
+
+### Not Interpreting the MSE
+
+$$
+E((Y_i - \hat{Y_i})^2) = \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)
+$$
+
+\pspace
+
+- We don't know any of the numbers on the right!!!
+
+\pspace
+
+The decomposition is theoretical, we can't tease apart $s^2$ into these terms.
+
+### Interpreting the MSE
+
+The basic question of statistics: "How big is this number?"
+
+\pspace
+
+- Compare to previous studies - is MSE larger than $\sigma^2$?
+    - Implies that Bias$^2$ and Fitted Model Variance are larger than expected.
+    - F-test\lspace
+- Compare to "pure error" - direct estimate of $\sigma^2$.
+    - i.e. the variance in repeated trials on the same covariate values
+    - Textbooks devotes a lot to this, but it's often not plausible.
+        - Won't be on tests!\lspace
+- Compare to another model 
+    - We'll focus on this (later)!
+
+
+### Compare to Previous Studies
+
+Hypothesis test for $\sigma^2 = \sigma_0^2$ versus $\sigma^2 > \sigma_0^2$, where $\sigma_0$ is the value from a previous study.
+
+\pspace
+
+- If significant, some of your error is coming from the study design!
+
+### Compare to other models
+
+It can be shown that $E(MSReg) = \sigma^2 + \beta_1S_{XX}$.
+
+\pspace
+
+Consider the Null hypothesis $\beta_1 =0$ (why is this a good null?).
+
+- Under this null, $\frac{MSReg}{s^2}\sim F_{1, n-2}$.
+    - Obvious CI from this. \lspace
+- This is equivalent to the t-test for $\beta_1$! (See text.)
+
+
+### MSE of a Parameter: Bias of $s^2$
+
+From a previous class, we know that
+$$
+\frac{(n-2)s^2}{\sigma^2}\sim\chi^2_{n-2}
+$$
+
+From wikipedia, we know that the mean of a $\chi^2_k$ distribution is $k$. Therefore,
+$$
+E\left(\frac{(n-2)s^2}{\sigma^2}\right) = n-2 \Leftrightarrow E(s^2) = \sigma^2
+$$
+and thus $s^2$ is unbiased.\pause
+
+This does *not necessarily* mean that $s^2$ is the best estimator for $\sigma^2$!
+
+### MSE of a Parameter: Bias of $s$
+
+Even though $s^2$ is an unbiased estimator, $s = \sqrt{s^2}$ is biased! Specifically, $E(s) < \sigma$
+
+To see why, first note that 
+$$
+V(s) = E(s^2) - (E(s))^2 \Leftrightarrow E(s) = \sqrt{E(s^2) - V(s)}
+$$
+since $V(s) > 0$, $E(s^2) - V(s) < E(s^2)$, and therefore
+$$
+E(s) < \sqrt{E(s^2)} = \sqrt{\sigma^2} = \sigma
+$$
+

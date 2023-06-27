@@ -1,0 +1,242 @@
+# Lab 13: Missing/Extra Predictors
+
+## Missing Predictors
+
+-   True model: $Y = X\underline\beta + X_2\underline\beta_2 + \underline\epsilon$
+-   Estimated model: $Y = X\underline\beta + \underline\epsilon$
+
+We're going to do this a little differently than other days. Let's look at the penguins data again:
+
+```{r}
+library(palmerpenguins)
+## Remove NAs and take continuous variables
+penguins <- subset(penguins, species == "Chinstrap")
+peng <- penguins[complete.cases(penguins), c(3, 4, 5, 6)]
+## Standardize the x values
+#peng[, 1:3] <- apply(peng[, 1:3], 2, scale)
+head(peng)
+```
+
+Let's """make""" a true model:
+
+```{r}
+penglm <- lm(body_mass_g ~ ., data = peng)
+beta <- coef(penglm)
+sigma <- summary(penglm)$sigma
+
+beta
+sigma
+```
+
+We'll use these values as if they are *population* values and forget that they were calculated from a sample.
+
+-   The x-values will stay the same, we'll simulate new $y$ values according to this model.
+-   The advantage of this approach is that the predictors retain any correlation that they had.
+
+## Simulating from the "Right" model
+
+Let's forget the actual values of `body_mass_g`, and pretend that this is the true relationship: $$
+bodymass = 4207 + 18*billlength + 35*billdepth + 711.5*flipperlength + \epsilon
+$$ where $\epsilon_i \sim N(0, 393)$.
+
+We can simulate from this as follows:
+
+```{r}
+X <- cbind(1, as.matrix(peng[, 1:3]))
+n <- nrow(X)
+body_mass_g <- X %*% beta + rnorm(n, 0, sigma)
+
+unname(beta)
+unname(coef(lm(body_mass_g ~ -1 + X)))
+unname(coef(lm(body_mass_g ~ X[, -1])))
+```
+
+Now let's do this 1000s of times!
+
+```{r}
+res <- matrix(ncol = 4, nrow = 0)
+for (i in 1:10000) {
+    body_mass_g <- X %*% beta + rnorm(n, 0, sigma)
+    right_lm <- lm(body_mass_g ~ -1 + X)
+    res <- rbind(res, unname(coef(right_lm)))
+}
+
+dim(res)
+```
+
+```{r}
+par(mfrow = c(2, 2))
+for(i in 1:4) {
+    hist(beta[i] - res[, i], 
+        main =paste0("Bias = ",round(beta[i], 2), " - ", 
+            round(mean(res[, i]), 2), " = ", 
+            round(beta[i] - mean(res[, i]), 2)))
+    abline(v = 0, col = 2, lwd = 2)
+}
+```
+
+This looks good- we simulated according to the values in `beta`, and we were able to recover them. We've also shown that the linear model is unbiased!
+
+## Estimating the Wrong Model - Too few predictors
+
+In the following code, I remove the "`flipper_length_mm`" (the third predictor) by only taking the first three columns of `X`, which includes the column of 1s.
+
+I then fit the model without flipper length, which we've seen before is an important predictor!
+
+```{r}
+res_reduced <- matrix(ncol = 3, nrow = 0)
+X_reduced <- X[, 1:3] # Still includes column of 1s
+beta_reduced <- beta[1:3]
+for (i in 1:10000) {
+    # Simulate from the correct model
+    body_mass_g <- X %*% beta + rnorm(n, 0, sigma)
+    # Only estimate beta 0-3 (not beta4)
+    wrong_lm <- lm(body_mass_g ~ -1 + X_reduced)
+    res_reduced <- rbind(res_reduced, unname(coef(wrong_lm)))
+}
+
+dim(res_reduced)
+```
+
+```{r}
+par(mfrow = c(2, 2))
+for(i in 1:3) {
+    bias <- beta[i] - res_reduced[, i]
+    hist(bias, 
+        main =paste0("Bias = ",round(beta[i], 2), " - ", 
+            round(mean(res_reduced[, i]), 2), " = ", 
+            round(mean(bias), 2)),
+        xlim = range(0, bias))
+    abline(v = 0, col = 2, lwd = 2)
+}
+```
+
+Everything is biased! Since `flipper_length_mm` was an important predictor, the estimates from the other predictors are biased!
+
+Here's how I like to think of this: the machine is trying to learn a pattern using the predictors we give it. These other predictors are trying to pick up on as much pattern as possible. Without the true pattern, they have to adjust.
+
+A big part of this comes from the fact that there's correlation in the predictors. Since they're correlated, if one is missing then the others can find the pattern through their correlation. Instead of `flipper_length_mm` causing a change in body mass, `flipper_length_mm` is correlated with `bill_length_mm` and `bill_depth_mm`, which then affect `body_mass_g` in place of `flipper_length_m`'s affect. In other words, they're trying to make up for missing patterns through the correlation, like a game of telephone where information has been lost along the way.
+
+## Too Many Predictors
+
+What happens if we include predictors that *aren't* correlated with the response?
+
+Before we run this code, what do you expect?
+
+Recall our results when $Y = X\underline\beta + X_2\underline\beta_2 + \underline\epsilon$:
+
+$$
+\begin{align*}
+E(\hat{\underline\beta}) &= E((X^TX)^{-1}X^TY)\\
+& = (X^TX)^{-1}X^T(X\underline\beta + X_2\underline\beta_2) \\
+& = (X^TX)^{-1}X^TX\underline\beta + (X^TX)^{-1}X^TX_2\underline\beta_2 \\
+&= \underline\beta+ (X^TX)^{-1}X^TX_2\underline\beta_2\\
+&= \underline\beta + A\underline\beta_2
+\end{align*}
+$$
+
+This isn't directly applicable, but might help you think about what happens when $\underline\beta$ is too big.
+
+Since we already have the objects created, let's pretend that `X_reduced` is correct.
+
+```{r}
+res <- matrix(ncol = 4, nrow = 0)
+X_reduced <- X[, 1:3] # Still includes column of 1s
+beta_reduced <- beta[1:3]
+for (i in 1:10000) {
+    # Simulate from the correct (smaller) model
+    body_mass_g <- X_reduced %*% beta_reduced + rnorm(n, 0, sigma)
+    # Estimate the wrong model
+    wrong_lm <- lm(body_mass_g ~ -1 + X)
+    res <- rbind(res, unname(coef(wrong_lm)))
+
+}
+
+par(mfrow = c(2, 2))
+for(i in 1:3) {
+    bias <- beta_reduced[i] - res[, i]
+    hist(bias, 
+        main =paste0("Bias = ",round(beta[i], 2), " - ", 
+            round(mean(res[, i]), 2), " = ", 
+            round(mean(bias), 2)),
+        xlim = range(0, bias))
+    abline(v = 0, col = 2, lwd = 2)
+}
+```
+
+It's unbiased! In this case, the estimate of $\beta$ for `flipper_length_mm` is 0, and it's successfully estimating this:
+
+```{r}
+hist(res[, 4])
+```
+
+## Too many *and* too few
+
+So let's get to the final case. As we know, bill length and bill depth are correlated:
+
+```{r}
+cor(X[, -1]) # correlation matrix, without column of 1s
+```
+
+Let's simulate with the coefficient for bill depth as 0, but include it in the model.
+
+```{r}
+print(beta)
+print(head(X))
+```
+
+To be clear:
+
+-   Data Generating Process: body mass = $\beta_0$ + $\beta_1$ bill length + $\beta_3$ flipper length
+-   Estimating: body mass = $\beta_0$ + $\beta_2$ bill depth + $\beta_3$ flipper length
+
+```{r}
+res <- matrix(ncol = 3, nrow = 0)
+beta_fewmany <- beta
+beta_fewmany[3] <- 0 # True coefficient for depth is 0, length != 0
+X_fewmany <- X[, c(1, 3, 4)] # estimating depth, not length
+
+for (i in 1:10000) {
+    # Simulate from the correct (smaller) model
+    body_mass_g <- X %*% beta_fewmany + rnorm(n, 0, sigma)
+    # Estimate the wrong model
+    wrong_lm <- lm(body_mass_g ~ -1 + X_fewmany)
+    res <- rbind(res, unname(coef(wrong_lm)))
+
+}
+
+par(mfrow = c(2, 2))
+hist(res[, 1],
+    main = paste0("bias=", round(beta[1], 2),
+        "-", round(mean(res[, 1]), 2),
+        "=", round(beta[1] - mean(res[, 1]), 2)))
+abline(v = beta[1], col = 2, lwd = 2)
+
+hist(res[, 2])
+abline(v = 0, col = 2, lwd = 2)
+
+hist(res[, 3],
+    main = paste0("bias=", round(beta[4], 2),
+        "-", round(mean(res[, 3]), 2),
+        "=", round(beta[4] - mean(res[, 3]), 2)))
+abline(v = beta[4], col = 2, lwd = 2)
+```
+
+-   It looks like flipper length is unbiased
+
+    -   Technically, it isn't, but in this case it's a small bias.
+    -   If we were primarily interested in flipper length, misspecifying bill length/depth isn't so bad.
+
+-   The estimate of bill_depth isn't 0, but also doesn't correspond to anything in the DGP!
+
+    -   It's called a "proxy measure", and the coefficient must be interpreted carefully.
+
+## Summary
+
+Choosing the right subset of predictors can be HARD!
+
+-   Missing predictors means your estimates are biased
+-   Too many predictors isn't as bad of an issue
+    -   Overfitting!
+-   The wrong subset means no relation to DGP
+    -   Can still give (nearly) unbiased estimates for predictors of interest.

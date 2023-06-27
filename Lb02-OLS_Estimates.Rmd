@@ -1,0 +1,165 @@
+---
+title: "Lab 2: OLS Estimates"
+output: pdf_document
+---
+
+The code in this notebook demonstrates what we've seen in class.
+
+```{r}
+set.seed(2112)
+n <- 30
+sigma <- 1
+beta0 <- 1
+beta1 <- 5
+x <- runif(n, 0, 10)
+
+dgp <- function(x, beta0 = 1, beta1 = 5, 
+                sigma = 1) {
+    epsilon <- rnorm(length(x), mean = 0, sd = sigma)
+    y <- beta0 + beta1 * x
+    return(data.frame(x = x, y = y + epsilon))
+}
+
+set.seed(2112)
+mydata <- dgp(x = x, beta0 = beta0, beta1 = beta1,
+    sigma = sigma)
+
+plot(mydata)
+```
+
+Let's find the estimate for $\beta$ as well as the variance. 
+
+```{r}
+Sdotdot <- function(x, y) sum( (x - mean(x)) * (y - mean(y)) )
+
+Sxx <- Sdotdot(mydata$x, mydata$x)
+Sxy <- Sdotdot(mydata$x, mydata$y)
+Syy <- Sdotdot(mydata$y, mydata$y)
+
+b1 <- Sxy / Sxx
+b1
+
+b0 <- mean(mydata$y) - b1 * mean(mydata$x)
+b0
+
+errors <- mydata$y - (b0 + b1 * mydata$x)
+s <- sd(errors)
+b1_var <- s^2 / Sxx
+b1_var
+```
+
+Our estimates of $\beta_0$ and $\beta_1$ are very close to the truth!
+
+Now, let's generate new data a bunch of times and see if our estimate of the *variance* of $\hat\beta_1$ is accurate. This is not a proof, just a demonstration.
+
+In the code below, I'm also keeping track of $\hat\beta_0$ from each sample. This will be useful later.
+
+```{r}
+R <- 1000
+beta1s <- rep(NA, R)
+beta0s <- rep(NA, R)
+for (i in 1:R) {
+    new_data <- dgp(x, beta0 = beta0, beta1 = beta1, sigma = sigma)
+    Sxx <- Sdotdot(new_data$x, new_data$x)
+    Sxy <- Sdotdot(new_data$x, new_data$y)
+    beta1s[i] <- Sxy / Sxx
+    beta0s[i] <- mean(new_data$y) - b1 * mean(new_data$x)
+}
+
+var(beta1s)
+```
+
+In this example, we know the data generating process (dgp), so these randomly generated values are samples from the population.
+
+As we know, the standard error is the variance of the estimator over all possible samples from the population. We only took 1000, but that's probably close enough to infinity to draw the sampling distribution.
+
+```{r}
+hist(beta1s)
+abline(v = 5, col = 2, lwd = 10) # true value of beta
+```
+
+As you can see, $\hat\beta_1$ is unbiased and has some variance (at this stage, there's nothing to compare this variance to so we can't really call it "large" or "small").
+
+Let's use this to calculate an 89\% Confidence Interval!
+
+```{r}
+## Empirical Ci
+quantile(beta1s, c(0.055, 0.945))
+
+## Theoretical CI
+Sxx <- Sdotdot(mydata$x, mydata$x)
+5 + c(-1, 1) * qt(0.945, df = nrow(mydata) - 2) * 1/sqrt(Sxx)
+
+## Sample CI
+b1 + c(-1, 1) * qt(0.945, nrow(mydata) - 2) * s/sqrt(Sxx)
+```
+
+The empirical and the theoretical CIs line up pretty well! However, the sample CI is fundamentally different. The sample CI is centered at the estimated value, and we expect it to *contain* the true population value 89\% of the time!
+
+We practically never know the actual DGP, so this is just a demonstration that the math works. 
+
+Note that we treated $\underline x$ as if it were fixed. The value $S_{XX}$ will be different for different $\underline x$, and we don't make any assumptions about what distribution $\underline x$ follows.
+
+## Analysis of Variance
+
+The code below demonstrates how the ANOVA tables are calculated.
+
+```{r}
+y <- mydata$y
+yhat <- b0 + b1*mydata$x
+ybar <- mean(y)
+
+c(sum((yhat - ybar)^2), sum((y - yhat)^2), sum((y - ybar)^2))
+
+ANOVA <- data.frame(
+    Source = c("Regression", "Error", "Total (cor.)"),
+    df = c(1, nrow(mydata) - 2, nrow(mydata)),
+    SS = c(sum((yhat - ybar)^2), sum((y - yhat)^2), sum((y - ybar)^2))
+)
+ANOVA$MS <- ANOVA$SS / ANOVA$df
+ANOVA
+```
+
+This is equivalent to what R's built-in functions do!
+
+```{r}
+anova(lm(y ~ x, data = mydata))
+```
+
+## Dependence and Centering
+
+Something not touched on in class is that $cov(\hat\beta_0, \hat\beta_1)$ is not 0! This should be clear from the formula got $\hat\beta_0$, which is $\hat\beta_0 = \bar y - \hat\beta_1\bar x$. 
+
+The code below repeats what we did before, but with higher variance to better demonstrate the problem.
+
+It also records the estimates based on *centering* $\underline x$. Notice how the formula for $\hat\beta_0$ is no longer dependent on $\hat\beta_1$ if the mean of $\underline x$ is 0!
+
+```{r}
+b1s <- double(R)
+b0s <- double(R)
+b1cs <- double(R)
+b0cs <- double(R)
+n <- 25
+x <- runif(n, 0, 10)
+xc <- x - mean(x) # centered
+
+for (i in 1:R) {
+    y <- 2 - 2 * x + rnorm(25, 0, 4)
+    b1 <- Sdotdot(x, y) / Sdotdot(x, x)
+    b0 <- mean(y) - b1 * mean(x)
+    b1s[i] <- b1
+    b0s[i] <- b0
+
+    # Centered
+    y <- 2 - 2 * xc + rnorm(25, 0, 4)
+    b1c <- Sdotdot(xc, y) / Sdotdot(xc, xc)
+    b1cs[i] <- b1c
+    b0c <- mean(y) - b1 * mean(xc)
+    b0cs[i] <- b0c
+}
+
+par(mfrow = c(1,2))
+plot(b1s, b0s)
+plot(b1cs, b0cs)
+```
+

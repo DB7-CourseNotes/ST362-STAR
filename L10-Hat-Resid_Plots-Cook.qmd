@@ -1,0 +1,291 @@
+---
+title: "L10: The Hat Matrix"
+institute: "Jam: \\emph{Residual} by Trash."
+---
+
+## Le Chapeau
+
+### The Hat Matrix
+
+$$
+H = X(X^TX)^{-1}X^T
+$$
+
+Recall: The hat matrix projects $Y$ onto $\hat Y$, based on $X$.
+
+- $\hat Y = HY$
+    - $\hat Y_i = h_{ii} Y_i + \sum_{j\ne i}h_{ij}Y_j$
+
+### Variance-Covariance matrix of $\hat{\underline\epsilon}$
+
+Just like $\beta_0$ and $\beta_1$, each sample results in different $\underline{\hat\epsilon}$.
+
+Across samples, we have:
+$$
+\underline{\hat\epsilon} - E(\underline{\hat\epsilon}) = (I-H)(Y-X\underline{\beta}) = (I-H)\underline{\epsilon}
+$$
+and therefore:
+\begin{align*}
+V(\underline{\hat\epsilon}) &= E([\underline{\hat\epsilon} - E(\underline{\hat\epsilon})][\underline{\hat\epsilon} - E(\underline{\hat\epsilon})]^T)\\
+&= [I-H]E(\underline{\epsilon}\underline{\epsilon}^T)[I-H]^T\\
+&= [I-H]\sigma^2[I-H]\\
+&= [I-H]\sigma^2
+\end{align*}
+where we used the idempotency and symmetry of $I-H$.
+
+
+### The variance of a residual
+
+Given that $V(\underline{\hat\epsilon}) = (I-H)\sigma^2$,
+$$
+V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
+$$
+
+- The variance of the residual depends on how much $Y_i$ influences it's own estimate.
+    - High influence = low variance.
+
+\pspace
+
+The correlation between residuals is:
+$$
+\rho_{ij} = \frac{Cov(\hat\epsilon_i, \hat\epsilon_j)}{\sqrt{V(\hat\epsilon_i)V(\hat\epsilon_j)}} = \frac{-h_{ij}}{\sqrt{(1-h_{ii})(1-h_{jj})}}
+$$
+
+- The covariance is negative! A large residual tells us there are small residuals.
+    - "Large" and "small" are relative
+
+### More H Facts
+
+1. $SS(\hat{\underline\beta}) = \hat{\underline\beta}^TX^TY = \hat Y^TY = Y^TH^TY = Y^TH^THY = \hat Y^T\hat Y$
+    - We used the facts $H^T= H^TH$ and $\hat Y = HY$.\lspace
+2. $\sum_{i=1}^nV(\hat Y_i) = trace(H\sigma^2) = p\sigma^2$
+    - $p$ is the number of parameters.
+    - Proof is part of the assignment\lspace
+3. $H1 = 1$ if the model contains a $\beta_0$ term.
+    - $1$ is a *column* of 1s, not identity matrix.
+    - Proof on next slide.
+    - $h_{ii} = 1 - \sum_{j\ne i}h_{ij}$
+        - Note that $h_{ij}\in[-1, 1]$. 
+
+### Proof that $H1 = 1$
+
+Note that $HX = X$ (as proven on A1).
+
+1. The first column of $X$ is all ones ($\beta_0$ term).
+    - $[X]_{i1} = 1$\lspace
+2. Therefore $[HX]_{i1}$ is a column of ones.
+    - Every row of $H$ times the column of 1s in $X$ results in a column of ones.\lspace
+3. $[HX]_{i1}$ is every row of $H$ times the first column of $X$.
+
+\pspace
+
+The first column of $X$ is 1s, which is equal to the first column of $HX$, which is $H$ times a column of ones.
+
+In other words, $H1 = 1$
+
+## Studentized Residuals
+
+### Internally Studentized (not ideal)
+
+How do you measure the size a residual?
+
+\pause
+
+Divide by the variance, of course!
+
+\space
+
+We know that $V(\hat \epsilon_i) = (1-h_{ii})\sigma^2$, and
+$$
+s^2 = \frac{\sum_{y=1}^n(y_i-\hat y_i)^2}{n-p} = \frac{SSE}{df_E} = MSE
+$$
+is an estimate of $\sigma^2$. Then,
+$$
+r_i = \frac{\hat\epsilon_i}{\sqrt{s^2(1-h_{ii})}}
+$$
+is called the **internally studentized residual**.
+
+### "Internally" "Studentized"
+
+Note that 
+$$
+s^2 = \frac{\sum_{i=1}^n(y_i-\hat y_i)^2}{n-p} = \frac{\sum_{i=1}^n(\hat\epsilon_i)^2}{n-p}
+$$
+and therefore
+$$
+r_i = \frac{\hat\epsilon_i}{\sqrt{s^2(1-h_{ii})}} = \frac{\hat\epsilon_i}{\sqrt{(\hat\epsilon_i^2 + \sum_{j\ne i}\hat\epsilon_j^2)(1-h_{ii})/(n-p)}}
+$$
+
+- If $\hat\epsilon_i$ is large, then $s^2$ is large.
+    - If $s^2$ is large, then $s_i$ is small!
+    - "**Internally**": the variance includes the residual of interest.\lspace
+- "**Studentized**" because Student made it popular.\lspace
+- Often called "standardized".
+
+### Externally Studentized Step 1
+
+Like adding/removing predictors and checking the cahnge in SS, we can add/remove points!
+
+\pspace
+
+1. Calculate SS
+2. Remove the first point. Estimate the model again and calculate new SS.
+3. Add the first point back, remove the second. Estimate the model again and check the SS.
+
+\pspace
+
+For each point, we have an estimate of the variance **without** itself.
+
+### Externally Studentized Step 2
+
+Skipping the math,
+$$
+s^2_{(i)} = \frac{(n-p)s^2 - \hat\epsilon_i^2/(1-h_{ii})}{n-p-1}
+$$
+is the variance of the residuals **without** observation $i$.
+
+\pspace
+
+- The influence tells us how much a point influenced the model
+    - We can see what happened without it
+    - No need to re-estimate the model!!!
+
+### Externally Studentized Residuals
+
+Use $s^2_{(i)}$ in place of $s^2$.
+$$
+t_i = \frac{\hat\epsilon_i}{\sqrt{s_{(i)}^2(1-h_{ii})}} \sim t_{n-p-1}
+$$
+
+- Follows a $t$ distribution!
+    - Larger than 2 is suspect, 3 is definitely an outlier!
+- A large $t_i$ is large *relative to the other residuals*
+- Usually just called "Studentized"\lspace
+
+Most software uses Studentized residuals for plots/diagnostics!
+
+
+
+## Cook's Distance
+
+### Better Measures of Influence
+
+The hat matrix is intepreted as influence, but it has problems.
+
+- $y_i$'s influence on *it's own* prediction,
+    - *given all other points.*
+- $0 \le h_{ii} \le 1$
+    - What is a "big" influence?
+- How do you explain $h_{ii}$ to nonstatisticians?
+
+\pspace
+
+A better measure is how much the predicted value changes with/without the obs.
+
+### Cooks Distance: Change in $\hat y_i$.
+
+$$
+D_i = \frac{\sum_{i=1}^n(\hat y_i - \hat y_{(i)})^2}{ps^2}
+$$
+
+- $\hat y_i$ is the predicted value of $y_i$ when all data are considered.
+- $\hat y_{(i)}$ is the predicted value of $y_i$ when observation $i$ is removed.
+- $s^2$ is the MSE of the model with all of the data.
+- $p$ is the number of parameters
+    - $D_i$ decreases as $p$ increases!
+
+\pspace
+
+Again, this *would* involve re-fitting the model $n$ time (one for each obs).
+
+### Cook's Distance: Alternate Form
+
+$$
+D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\left[\frac{h_{ii}}{1 - h_{ii}}\right]\frac{1}{p} = r_i^2\frac{\text{variance of $i$th predicted value}}{\text{variance of $i$th residual}}\frac{1}{p}
+$$
+
+\pspace
+
+- Again, use $H$ rather than re-fitting the model.\lspace
+- Cook's distance is a modification of the *internally* studentized residual.
+    - Variances are based on same "deletion" idea as studentized.\lspace
+- Ratio of Variances!
+    - $F$ distribution, mean approaches 1 for large values of $n$
+        - Cooks Distance of larger than 1 is suspect.
+
+### Next Class
+
+\centering
+Plots!
+
+
+## Participation
+
+### Q1
+
+Which does *not* describe a residual?
+
+\pspace
+
+1. The observed difference between the measured value $y_i$ and the one we predict with $\hat y_i = X\hat{\underline\beta}$.
+2. Given the true relationship $Y = X\underline\beta$, residuals are deviations that cannot be observed.
+3. Errors that should be fixed.
+
+### Q2
+
+Which of the following is *not* true about the hat matrix ($H = X(X^TX)^{-1}X^T$)?
+
+\pspace
+
+1. $(I-H)(I-H)^T = (I-H)$
+2. $\hat{\underline\beta} = (X^TX)^{-1}X^TY = X^{-1}HY$
+3. $h_{ii} = 1 - \sum_{j\ne i}h_{ij}$
+4. $H(I-H) = 0$
+
+### Q3
+
+Suppose that $\epsilon_i \stackrel{iid}{\sim} N(0,\sigma^2)$.
+
+Which of the following statements is *false*?
+
+\pspace
+
+1. $V(\hat\epsilon_i) = (1 - h_{ii})\sigma^2$
+2. $V(\epsilon_i) = \sigma^2$
+3. $V(Y_i) = \sigma^2$
+4. $V(\hat Y_i) \ge V(\hat \epsilon_i)$
+
+### Q4
+
+The difference between internally and externally studentized residuals is:
+
+\pspace
+
+1. "Internal" uses all of the observations, "external" uses all of the observations except $i$.
+2. "External" uses all of the observations, "internal" uses all of the observations except $i$.
+
+### Q5
+
+Internally studentized residuals follow a $t$ distribution.
+
+\pspace
+
+1. True - they are a normal r.v. divided by a chi-square r.v.
+2. False - they are a normal r.v. divided by a chi-square r.v., but the two are *not* independent.
+3. False - They include a normal and a chi-square, but the $h_{ii}$ make this not follow distributional assumptions.
+4. True - internally studentized residuals are a small modification to externally studentized residuals, which follow a $t$ distribution.
+
+### Q6
+
+Which of the following is *not* useful for detecting outliers?
+
+\pspace
+
+1. Standardized residuals
+2. Studentized residuals
+3. Cook's distance
+4. $h_{ii}$
+
+
+
+

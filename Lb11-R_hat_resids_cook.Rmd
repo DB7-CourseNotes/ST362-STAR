@@ -1,0 +1,215 @@
+---
+title: "Hat Matrix and Residuals in R"
+output: html_notebook
+---
+
+## The Hat Matrix
+
+$$
+H = X(X^TX)^{-1}X^T
+$$
+
+In R, we can calculate the diagonal of the hat matrix as follows:
+
+```{r}
+mylm <- lm(mpg ~ disp + wt, data = mtcars)
+hatvalues(mylm) |> unname()
+```
+
+## Extracting the Diagonals from H
+
+There isn't a built-in function for the full hat matrix (the diagonals are usually all you'll need). For demonstration, here are some demonstrations of the features of the hat matrix.
+
+```{r}
+X <- model.matrix(mylm)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+all.equal(diag(H), hatvalues(mylm))
+```
+
+## Features of H
+
+In the code below, I use the `unname()` function because mtcars has rownames which make the output harder to see (this used to be the norm in R, but it's fallen out of fashion).
+
+```{r}
+colSums(H) |> unname()
+rowSums(H) |> unname()
+range(H) # -1 <= h_{ij} <= 1
+range(diag(H)) # 0 <= h_{ii} <= 1
+H %*% rep(1, ncol(H)) # H1 = 1
+```
+
+## Extracting the residuals
+
+See `?influence.measures`.
+
+```{r}
+?rstandard
+cooks.distance(mylm)
+```
+
+## The `broom` package
+
+The `broom` package has a wonderful function called `augment()`. This function sets up our data so that it's super easy to see what we need.
+
+```{r}
+library(broom)
+augment(mylm)
+```
+
+Notice that it includes:
+
+-   `.fitted` = $X\underline{\hat\beta}$
+-   `.resid` = $\hat{\underline\epsilon}$
+-   `.hat` = $diag(H)$
+-   `.sigma` = $s_{(i)}$
+-   `.cooksd` = `D`
+-   `.std.resid` = standardized or studentized residuals?
+
+## Plotting the residuals
+
+If you've ever accidentally typed `plot(mylm)`, you've seen some plots of the residuals.
+
+```{r}
+par(mfrow = c(2, 2))
+plot(mylm) # ?plot.lm
+```
+
+You can access individual plots with the `which` argument.
+
+```{r}
+par(mfrow = c(2, 3))
+plot(mylm, which = 1:6)
+```
+
+99% of the time, the default plots are the ones you'll want to look at. For teaching purposes, we'll look at a few extra.
+
+## Demonstrations
+
+We'll use the `Ozone` data from the `mlbench` package.
+
+-   V4 is response (measurement of Ozone)
+-   V5 is atmospheric pressure
+-   V6 is wind speed
+-   V7 is humidity
+-   We'll ignore the rest.
+
+```{r}
+library(mlbench)
+data(Ozone)
+str(Ozone) # V4 is response (measurement of Ozone)
+Ozone <- Ozone[complete.cases(Ozone), ]
+```
+
+A small amount of exploration first:
+
+```{r}
+library(ggplot2)
+theme_set(theme_bw())
+library(patchwork)
+g5 <- ggplot(Ozone) +
+    aes(x = V5, y = V4) +
+    geom_point()
+g6 <- ggplot(Ozone) +
+    aes(x = V6, y = V4) +
+    geom_jitter() # deal with overlapping points
+g7 <- ggplot(Ozone) +
+    aes(x = V7, y = V4) +
+    geom_point()
+g5 + g6 + g7
+```
+
+Now let's check some residuals!
+
+-   Change `.resid` to `.std.resid`.
+    -   Try `rstudent(olm)` as well.
+-   Change `.hat` to `.cooksd`.
+
+```{r}
+library(dplyr)
+olm <- lm(V4 ~ V5 + V6 + V7, data = Ozone)
+augment(olm) %>%
+    ggplot() +
+        aes(x = .fitted, y = .std.resid, col = .cooksd) +
+        scale_colour_viridis_c(option = 2, end = 0.7) +
+        theme(legend.position = "bottom") +
+        geom_point(size = 2) +
+        geom_hline(yintercept = 0, colour = "grey")
+```
+
+Which ones have a large hat value?
+
+The plots below are the same as the ones above, but coloured according to the hat values.
+
+```{r}
+g5 <- ggplot(Ozone) +
+    aes(x = V5, y = V4, col = hatvalues(olm)) +
+    geom_point(size = 2)
+g6 <- ggplot(Ozone) +
+    aes(x = V6, y = V4, col = hatvalues(olm)) +
+    geom_jitter(size = 2) # deal with overlapping points
+g7 <- ggplot(Ozone) +
+    aes(x = V7, y = V4, col = hatvalues(olm)) +
+    geom_point(size = 2)
+(g5 + g6 + g7) +
+    plot_layout(guides = "collect") &
+    scale_colour_viridis_c(option = 2, end = 0.8) &
+    theme(legend.position = "bottom")
+```
+
+## Adding an Outlier
+
+Let's add an outlier to see what happens with these data.
+
+```{r}
+newzone <- Ozone[, c(4:7)]
+newzone <- rbind(newzone,
+    data.frame(V4 = 30, V5 = 5300, V6 = 5, V7 = 40))
+newlm <- augment(lm(V4 ~ ., data = newzone))
+
+g5 <- ggplot(newlm) +
+    aes(x = V5, y = V4, col = .hat) +
+    geom_point(size = 2)
+g6 <- ggplot(newlm) +
+    aes(x = V6, y = V4, col = .hat) +
+    geom_jitter(size = 2) # deal with overlapping points
+g7 <- ggplot(newlm) +
+    aes(x = V7, y = V4, col = .hat) +
+    geom_point(size = 2)
+(g5 + g6 + g7) +
+    plot_layout(guides = "collect") &
+    scale_colour_viridis_c(option = 2, end = 0.8) &
+    theme(legend.position = "bottom")
+```
+
+## Using R's Built-In Diagnostics
+
+```{r}
+par(mfrow = c(2, 2), mar = rep(2, 4))
+plot(lm(V4 ~ ., data = newzone))
+newzone[row.names(newzone) %in% c(1, 58, 243), ]
+```
+
+1.  Huge residual!
+    -   This plot also just has a bad pattern
+2.  Deviates from normality!
+    -   Otherwise this looks pretty good.
+3.  Large standardized residual
+    -   Clear pattern without the outlier
+4.  Cook's distance is massive compared to the others
+    -   Potentially some large $D_i$'s
+5.  In the corner
+    -   Otherwise this looks okay-ish
+6.  Last plot also shows it as something different (harder to interpret)
+
+## What to do with a large residual?
+
+-   Misrecorded: remove or fix, if possible
+    -   Fires with negative lengths (MDY versus DMY)
+    -   CO2 measured as -99 (code for NA in a system with no NA option)
+    -   Heights measured in the wrong units
+-   Real, but large residual: Consider whether it's actually part of the population of interest
+    -   Studying heights and got a basketball player in your sample? That's a real data point and your model should allow for it!
+    -   Studying fish and a shark was included? That's real, but maybe you should narrow your scope!
+-   Many large outliers: you may need to try more predictors or a non-linear model.
+
+Do *NOT* remove a point simply because it's an outlier!

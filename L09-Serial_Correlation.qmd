@@ -1,0 +1,308 @@
+---
+title: "L09: Cereal Correlation in the Residuals"
+institute: "Jam: \\emph{Like Yesterday} by Ryan Adams and The Cardinals"
+---
+
+## Serial Correlation in the Residuals
+
+### Assumptions and Definitions
+
+The time of each observation is recorded, and they are equally spaced.
+
+- In other words, $x_1$ is observed at time 1, $x_2$ is observed at time 2, etc.
+
+\pspace\pause
+
+**Serial Correlation**: $cor(\epsilon_{t-1}, \epsilon_t)\ne 0$
+
+- *Serial Correlation is not causation.*
+    - Knowledge of one gives you more knowledge of the other.
+- Serial correlation can be *negative*
+    - Example: didn't hit quota today, so big push tomorrow.
+
+### Visualizing Serial Correlation in the Residuals
+
+R
+
+## Durbin-Watson
+
+### Strong Assumption about Correlation
+
+The usual model: $Y = X\underline{\beta} + \underline \epsilon$.
+
+\pspace
+
+Assume that $cor(\epsilon_{t-1}, \epsilon_t) = \rho$, $cor(\epsilon_{t-2}, \epsilon_t)= \rho^2$, $cor(\epsilon_{t-3}, \epsilon_t) = \rho^3$, etc.
+
+- The correlation is proportional to the distance in time.
+
+\pspace
+
+This can be written as:
+$$
+\epsilon_t = \rho\epsilon_{t-1} + z_t
+$$
+where $z_t\sim N(0,\sigma^2)$. Note that $V(\hat\epsilon_t) = \frac{\sigma^2}{1 - \rho^2}$.
+
+### The Durbin-Watson test statistic
+
+As usual, we find a quantity with a known distribution:
+$$
+d = \dfrac{\sum_{s=2}^n(\hat\epsilon_s - \hat\epsilon_{s-1})^2}{\sum_{s=1}^n\hat\epsilon_s^2}\sim\text{ some complicated distribution}
+$$
+
+\pspace
+
+- Distribution has a closed form, but I hate it.
+- $d\in [0, 4]$, with $d=2$ corresponding to the null.
+- R will calculate the values for you. 
+    - Textbook has pages and pages of tables. Textbook was written before iPhones existed.
+
+I'll show an example of DW later.
+
+### Cautions with Durbin-Watson
+
+- Tests the hypotheses $H_a:\;cor(\epsilon_{t-s}, \epsilon_t) = \rho^s$ versus not that.
+    - There are many, many other $H_a$. DW has low power for these situations.\lspace
+- Graphical summaries will reveal strong patterns; patterns found by DW might not be worrisome. \lspace
+- It's more p-values to look at. We want to minimize the number of p-values we look at.
+
+## Graphical Methods
+
+### Empirical Autocorrelation
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+- We can simply find the correlation between $\hat \epsilon_t$ and $\hat \epsilon_{t-1}$!\lspace
+- We can do the same for $\hat \epsilon_t$ and $\hat \epsilon_{t-2}$.
+    - etc.\lspace
+
+
+:::
+::: {.column width="50%"}
+| t | $\hat \epsilon_t$ | $\hat \epsilon_{t-1}$ | $\hat \epsilon_{t-2}$ |
+|---|---|---|---|
+| 2 | $\hat \epsilon_1$ | NA | NA |
+| 2 | $\hat \epsilon_2$ | $\hat \epsilon_1$ | NA |
+| 3 | $\hat \epsilon_3$ | $\hat \epsilon_2$ | $\hat \epsilon_1$ |
+| 4 | $\hat \epsilon_4$ | $\hat \epsilon_3$ | $\hat \epsilon_2$ |
+| $\cdots$ | $\cdots$ | $\cdots$ | $\cdots$ |
+
+:::
+::::
+
+### The ACF: Empirical Autocorrelations of lag $k$
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+ACF: AutoCorrelation Function
+
+\pspace
+
+The x-axis shows the lag, the y axis shows the correlations
+
+\pspace
+
+The plot on the right shows an example of time series data.
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| fig-height: 6
+#| fig-width: 6
+par(mfrow = c(2, 1))
+plot(co2, main = "Time series of CO2 data")
+acf(co2, main = "ACF of CO2 data (not residuals)")
+```
+
+:::
+::::
+
+### ACF isn't ideal
+
+In the model we saw for DW,
+$$
+\epsilon_t = \rho\epsilon_{t-1} + z_t
+$$
+which means that 
+$$
+\epsilon_t = \rho(\rho\epsilon_{t-2} + z_{t-1}) + z_t
+$$
+
+The lag 2 correlation (the $\rho^2$ term) includes the lag 1 correlation!
+
+### Partial Autocorrelations
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+If we extend the model to:
+$$
+\epsilon_t = \rho_1\epsilon_{t-1} + \rho_2\epsilon_{t-2} + z_t,
+$$
+then $\rho_2$ is the correlation in the lag 2 terms, *accounting for lag 1 terms*!
+
+\pspace
+
+This is the PACF, and it's often much more useful. 
+
+\pspace
+
+The plot on the right shows a cyclic trend.
+
+:::
+::: {.column width="50%"}
+```{r}
+#| fig-height: 6
+#| fig-width: 6
+par(mfrow = c(2, 1))
+plot(co2, main = "Time series of CO2 data")
+pacf(co2, main = "PACF of CO2 data (not residuals)")
+```
+:::
+::::
+
+### DW, ACF, and PACF in practice
+
+Most of the time, just check the PACF.
+
+\pspace
+
+- If you see something, check ACF.\lspace
+- If you're in a field that requires p-values, show them the DW statistic.
+    - Or use a non-parametric test...
+
+
+### What to do if there is autocorrelation?
+
+- Correlation in the residuals might mean correlation in the $y_i$'s
+    - Try time series modelling!\lspace
+- If it's simple (lag 1) autocorrlation, the data could potentially be transformed to remove the autocorrelation.
+    - $y_t - y_{t-1} = X\underline \beta$.
+    - Change estimation to account for autocorrelation.\lspace
+- If it's complicated, get a PhD student to do it for you.
+
+## Participation
+
+### Q1
+
+Serial correlation can be tested for any data set.
+
+\pspace
+
+1. 
+2. True
+3. False
+4. 
+
+### Q2
+
+A non-significant result from the DW test means there is no autocorrelation in the residuals.
+
+\pspace
+
+1. True
+2. 
+3. 
+4. False
+
+### Q3
+
+The quantity $d = \dfrac{\sum_{s=2}^n(\hat\epsilon_s - \hat\epsilon_{s-1})^2}{\sum_{s=1}^n\hat\epsilon_s^2}$ is a statistic because:
+
+\pspace
+
+1. It's a value calculated from the data, possibly including information from outside the data.
+2. It's a value calculated from the data only, with no other information.
+3. It's a value calculated from the data only, with no other information, and has a known distribution.
+4. It's not a statistic since it's not estimating a population parameter.
+
+### Q4
+
+The "partial" in PACF refers to:
+
+1. The PACF plot only contains some of (partial) information.
+2. The PACF evaluates the lag $k$ correlation after controlling for lags 1 to $k-1$.
+3. The PACF is only evaluated for a portion of the data.
+4. The PACF for a lag of $k$ cannot use the first $k-1$ data points (they are the NAs in the table).
+
+### Q5
+
+Which of the following is *not* an assumption of the DW test?
+
+1. The time points are all equally spaced.
+2. The correlation between two residuals is equal to $\rho$.
+3. The further apart two residuals are, the less correlated they are.
+4. There is no missing data.
+
+### Q6
+
+Autocorrelation means that there are no possible insights into the data.
+
+1. True, the study was worthless.
+2. False, there are standard methods that will work for any situation.
+3. False, but we won't get into the details in this course.
+
+
+
+
+
+## Non-Parametric Test for Autocorrelation
+
+### Runs
+
+$\sum_{i=1}^n\hat\epsilon_i = 0$, so some residuals are positive and some are negative. 
+
+The runs test just looks at the *sign* of the residuals. Consider the signs:
+
+```
++ + - + - - - - + + - + + + + 
+```
+
+There are 7 runs in these residuals. Is this a lot of runs?
+
+### Defining "A Lot Of Runs"
+
+p-value: Probability of a result *at least as extreme* as the one obtained, under the null hypothesis.
+
+- Null: random +'s and -'s.
+
+\pspace
+
+For small numbers, we can look at all sequences of +'s and -'s and count the runs!
+
+- P(7 or more runs) is an upper tailed test (-ive autocorrelation)
+- P(7 or fewer runs) is a test for +ive autocorrelation
+
+### Large Numbers: Of course it's Normal!
+
+Given $n_1$ +'s and $n_2$ -'s, the mean and variance of the number of runs is:
+$$
+\mu = \frac{2n_1n_2}{n_1 + n_2} + 1\text{, and }\sigma^2 = \frac{2n_1n_2(2n_1n_2 - n_1 - n_2)}{(n_1+n_2)^2(n_1 + n_2 - 1)}
+$$
+
+In the actual distribution, $P(runs\le \mu) = P(runs\le \mu -1/2) = P(runs < \mu + 1/2)$.
+
+\pspace
+
+In the normal distribution this isn't true, so we apply a correction factor:
+
+- Lower-tailed test: $runs\sim N(\mu + 1/2, \sigma^2)$
+- Upper-tailed test: $runs\sim N(\mu - 1/2, \sigma^2)$
+- Two-tailed test: $runs\sim N(\mu, \sigma^2)$ and we hope it averages out.
+
+
+### Example
+
+```{r}
+#| eval: false
+#| echo: true
+shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+    subdir = "Apps/SerialCorrelation")
+```
