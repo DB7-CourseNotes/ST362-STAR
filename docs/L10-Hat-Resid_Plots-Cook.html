@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.333">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>docs - 13&nbsp; L10: The Hat Matrix</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./L11-Admin_Slides.html" rel="next">
+<link href="./L09-Serial_Correlation.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L10-Hat-Resid_Plots-Cook.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L10: The Hat Matrix</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">docs</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02-Fitting_Straight_Lines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">L02: Straight Line Fitting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 1: OLS Estimates</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03-MSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03-Residuals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05-General_Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">L05: The General Regression Situation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L06-Extra_Sums_of_Squares-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">L06: Extra Sum-of-Squares (Part 1)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07-Exampless.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">L07: ESS Exampless</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">L09: Cereal Correlation in the Residuals</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L10: The Hat Matrix</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">L11: The Hat Matrix 2</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Hat Matrix and Residuals in R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">L12: Extra Topics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#le-chapeau" id="toc-le-chapeau" class="nav-link active" data-scroll-target="#le-chapeau"><span class="header-section-number">13.1</span> Le Chapeau</a>
+  <ul class="collapse">
+  <li><a href="#the-hat-matrix" id="toc-the-hat-matrix" class="nav-link" data-scroll-target="#the-hat-matrix"><span class="header-section-number">13.1.1</span> The Hat Matrix</a></li>
+  <li><a href="#variance-covariance-matrix-of-hatunderlineepsilon" id="toc-variance-covariance-matrix-of-hatunderlineepsilon" class="nav-link" data-scroll-target="#variance-covariance-matrix-of-hatunderlineepsilon"><span class="header-section-number">13.1.2</span> Variance-Covariance matrix of <span class="math inline">\(\hat{\underline\epsilon}\)</span></a></li>
+  <li><a href="#the-variance-of-a-residual" id="toc-the-variance-of-a-residual" class="nav-link" data-scroll-target="#the-variance-of-a-residual"><span class="header-section-number">13.1.3</span> The variance of a residual</a></li>
+  <li><a href="#more-h-facts" id="toc-more-h-facts" class="nav-link" data-scroll-target="#more-h-facts"><span class="header-section-number">13.1.4</span> More H Facts</a></li>
+  <li><a href="#proof-that-h1-1" id="toc-proof-that-h1-1" class="nav-link" data-scroll-target="#proof-that-h1-1"><span class="header-section-number">13.1.5</span> Proof that <span class="math inline">\(H1 = 1\)</span></a></li>
+  </ul></li>
+  <li><a href="#studentized-residuals" id="toc-studentized-residuals" class="nav-link" data-scroll-target="#studentized-residuals"><span class="header-section-number">13.2</span> Studentized Residuals</a>
+  <ul class="collapse">
+  <li><a href="#internally-studentized-not-ideal" id="toc-internally-studentized-not-ideal" class="nav-link" data-scroll-target="#internally-studentized-not-ideal"><span class="header-section-number">13.2.1</span> Internally Studentized (not ideal)</a></li>
+  <li><a href="#internally-studentized" id="toc-internally-studentized" class="nav-link" data-scroll-target="#internally-studentized"><span class="header-section-number">13.2.2</span> “Internally” “Studentized”</a></li>
+  <li><a href="#externally-studentized-step-1" id="toc-externally-studentized-step-1" class="nav-link" data-scroll-target="#externally-studentized-step-1"><span class="header-section-number">13.2.3</span> Externally Studentized Step 1</a></li>
+  <li><a href="#externally-studentized-step-2" id="toc-externally-studentized-step-2" class="nav-link" data-scroll-target="#externally-studentized-step-2"><span class="header-section-number">13.2.4</span> Externally Studentized Step 2</a></li>
+  <li><a href="#externally-studentized-residuals" id="toc-externally-studentized-residuals" class="nav-link" data-scroll-target="#externally-studentized-residuals"><span class="header-section-number">13.2.5</span> Externally Studentized Residuals</a></li>
+  </ul></li>
+  <li><a href="#cooks-distance" id="toc-cooks-distance" class="nav-link" data-scroll-target="#cooks-distance"><span class="header-section-number">13.3</span> Cook’s Distance</a>
+  <ul class="collapse">
+  <li><a href="#better-measures-of-influence" id="toc-better-measures-of-influence" class="nav-link" data-scroll-target="#better-measures-of-influence"><span class="header-section-number">13.3.1</span> Better Measures of Influence</a></li>
+  <li><a href="#cooks-distance-change-in-hat-y_i." id="toc-cooks-distance-change-in-hat-y_i." class="nav-link" data-scroll-target="#cooks-distance-change-in-hat-y_i."><span class="header-section-number">13.3.2</span> Cooks Distance: Change in <span class="math inline">\(\hat y_i\)</span>.</a></li>
+  <li><a href="#cooks-distance-alternate-form" id="toc-cooks-distance-alternate-form" class="nav-link" data-scroll-target="#cooks-distance-alternate-form"><span class="header-section-number">13.3.3</span> Cook’s Distance: Alternate Form</a></li>
+  <li><a href="#next-class" id="toc-next-class" class="nav-link" data-scroll-target="#next-class"><span class="header-section-number">13.3.4</span> Next Class</a></li>
+  </ul></li>
+  <li><a href="#participation" id="toc-participation" class="nav-link" data-scroll-target="#participation"><span class="header-section-number">13.4</span> Participation</a>
+  <ul class="collapse">
+  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1"><span class="header-section-number">13.4.1</span> Q1</a></li>
+  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2"><span class="header-section-number">13.4.2</span> Q2</a></li>
+  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3"><span class="header-section-number">13.4.3</span> Q3</a></li>
+  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4"><span class="header-section-number">13.4.4</span> Q4</a></li>
+  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5"><span class="header-section-number">13.4.5</span> Q5</a></li>
+  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6"><span class="header-section-number">13.4.6</span> Q6</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L10: The Hat Matrix</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="le-chapeau" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="le-chapeau"><span class="header-section-number">13.1</span> Le Chapeau</h2>
+<section id="the-hat-matrix" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="the-hat-matrix"><span class="header-section-number">13.1.1</span> The Hat Matrix</h3>
+<p><span class="math display">\[
+H = X(X^TX)^{-1}X^T
+\]</span></p>
+<p>Recall: The hat matrix projects <span class="math inline">\(Y\)</span> onto <span class="math inline">\(\hat Y\)</span>, based on <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\hat Y = HY\)</span>
+<ul>
+<li><span class="math inline">\(\hat Y_i = h_{ii} Y_i + \sum_{j\ne i}h_{ij}Y_j\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="variance-covariance-matrix-of-hatunderlineepsilon" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="variance-covariance-matrix-of-hatunderlineepsilon"><span class="header-section-number">13.1.2</span> Variance-Covariance matrix of <span class="math inline">\(\hat{\underline\epsilon}\)</span></h3>
+<p>Just like <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, each sample results in different <span class="math inline">\(\underline{\hat\epsilon}\)</span>.</p>
+<p>Across samples, we have: <span class="math display">\[
+\underline{\hat\epsilon} - E(\underline{\hat\epsilon}) = (I-H)(Y-X\underline{\beta}) = (I-H)\underline{\epsilon}
+\]</span> and therefore: <span class="math display">\[\begin{align*}
+V(\underline{\hat\epsilon}) &amp;= E([\underline{\hat\epsilon} - E(\underline{\hat\epsilon})][\underline{\hat\epsilon} - E(\underline{\hat\epsilon})]^T)\\
+&amp;= [I-H]E(\underline{\epsilon}\underline{\epsilon}^T)[I-H]^T\\
+&amp;= [I-H]\sigma^2[I-H]\\
+&amp;= [I-H]\sigma^2
+\end{align*}\]</span> where we used the idempotency and symmetry of <span class="math inline">\(I-H\)</span>.</p>
+</section>
+<section id="the-variance-of-a-residual" class="level3" data-number="13.1.3">
+<h3 data-number="13.1.3" class="anchored" data-anchor-id="the-variance-of-a-residual"><span class="header-section-number">13.1.3</span> The variance of a residual</h3>
+<p>Given that <span class="math inline">\(V(\underline{\hat\epsilon}) = (I-H)\sigma^2\)</span>, <span class="math display">\[
+V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
+\]</span></p>
+<ul>
+<li>The variance of the residual depends on how much <span class="math inline">\(Y_i\)</span> influences it’s own estimate.
+<ul>
+<li>High influence = low variance.</li>
+</ul></li>
+</ul>
+<p>The correlation between residuals is: <span class="math display">\[
+\rho_{ij} = \frac{Cov(\hat\epsilon_i, \hat\epsilon_j)}{\sqrt{V(\hat\epsilon_i)V(\hat\epsilon_j)}} = \frac{-h_{ij}}{\sqrt{(1-h_{ii})(1-h_{jj})}}
+\]</span></p>
+<ul>
+<li>The covariance is negative! A large residual tells us there are small residuals.
+<ul>
+<li>“Large” and “small” are relative</li>
+</ul></li>
+</ul>
+</section>
+<section id="more-h-facts" class="level3" data-number="13.1.4">
+<h3 data-number="13.1.4" class="anchored" data-anchor-id="more-h-facts"><span class="header-section-number">13.1.4</span> More H Facts</h3>
+<ol type="1">
+<li><span class="math inline">\(SS(\hat{\underline\beta}) = \hat{\underline\beta}^TX^TY = \hat Y^TY = Y^TH^TY = Y^TH^THY = \hat Y^T\hat Y\)</span>
+<ul>
+<li>We used the facts <span class="math inline">\(H^T= H^TH\)</span> and <span class="math inline">\(\hat Y = HY\)</span>.</li>
+</ul></li>
+<li><span class="math inline">\(\sum_{i=1}^nV(\hat Y_i) = trace(H\sigma^2) = p\sigma^2\)</span>
+<ul>
+<li><span class="math inline">\(p\)</span> is the number of parameters.</li>
+<li>Proof is part of the assignment</li>
+</ul></li>
+<li><span class="math inline">\(H1 = 1\)</span> if the model contains a <span class="math inline">\(\beta_0\)</span> term.
+<ul>
+<li><span class="math inline">\(1\)</span> is a <em>column</em> of 1s, not identity matrix.</li>
+<li>Proof on next slide.</li>
+<li><span class="math inline">\(h_{ii} = 1 - \sum_{j\ne i}h_{ij}\)</span>
+<ul>
+<li>Note that <span class="math inline">\(h_{ij}\in[-1, 1]\)</span>.</li>
+</ul></li>
+</ul></li>
+</ol>
+</section>
+<section id="proof-that-h1-1" class="level3" data-number="13.1.5">
+<h3 data-number="13.1.5" class="anchored" data-anchor-id="proof-that-h1-1"><span class="header-section-number">13.1.5</span> Proof that <span class="math inline">\(H1 = 1\)</span></h3>
+<p>Note that <span class="math inline">\(HX = X\)</span> (as proven on A1).</p>
+<ol type="1">
+<li>The first column of <span class="math inline">\(X\)</span> is all ones (<span class="math inline">\(\beta_0\)</span> term).
+<ul>
+<li><span class="math inline">\([X]_{i1} = 1\)</span></li>
+</ul></li>
+<li>Therefore <span class="math inline">\([HX]_{i1}\)</span> is a column of ones.
+<ul>
+<li>Every row of <span class="math inline">\(H\)</span> times the column of 1s in <span class="math inline">\(X\)</span> results in a column of ones.</li>
+</ul></li>
+<li><span class="math inline">\([HX]_{i1}\)</span> is every row of <span class="math inline">\(H\)</span> times the first column of <span class="math inline">\(X\)</span>.</li>
+</ol>
+<p>The first column of <span class="math inline">\(X\)</span> is 1s, which is equal to the first column of <span class="math inline">\(HX\)</span>, which is <span class="math inline">\(H\)</span> times a column of ones.</p>
+<p>In other words, <span class="math inline">\(H1 = 1\)</span></p>
+</section>
+</section>
+<section id="studentized-residuals" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="studentized-residuals"><span class="header-section-number">13.2</span> Studentized Residuals</h2>
+<section id="internally-studentized-not-ideal" class="level3" data-number="13.2.1">
+<h3 data-number="13.2.1" class="anchored" data-anchor-id="internally-studentized-not-ideal"><span class="header-section-number">13.2.1</span> Internally Studentized (not ideal)</h3>
+<p>How do you measure the size a residual?</p>
+<p>Divide by the variance, of course!</p>
+<p>We know that <span class="math inline">\(V(\hat \epsilon_i) = (1-h_{ii})\sigma^2\)</span>, and <span class="math display">\[
+s^2 = \frac{\sum_{y=1}^n(y_i-\hat y_i)^2}{n-p} = \frac{SSE}{df_E} = MSE
+\]</span> is an estimate of <span class="math inline">\(\sigma^2\)</span>. Then, <span class="math display">\[
+r_i = \frac{\hat\epsilon_i}{\sqrt{s^2(1-h_{ii})}}
+\]</span> is called the <strong>internally studentized residual</strong>.</p>
+</section>
+<section id="internally-studentized" class="level3" data-number="13.2.2">
+<h3 data-number="13.2.2" class="anchored" data-anchor-id="internally-studentized"><span class="header-section-number">13.2.2</span> “Internally” “Studentized”</h3>
+<p>Note that <span class="math display">\[
+s^2 = \frac{\sum_{i=1}^n(y_i-\hat y_i)^2}{n-p} = \frac{\sum_{i=1}^n(\hat\epsilon_i)^2}{n-p}
+\]</span> and therefore <span class="math display">\[
+r_i = \frac{\hat\epsilon_i}{\sqrt{s^2(1-h_{ii})}} = \frac{\hat\epsilon_i}{\sqrt{(\hat\epsilon_i^2 + \sum_{j\ne i}\hat\epsilon_j^2)(1-h_{ii})/(n-p)}}
+\]</span></p>
+<ul>
+<li>If <span class="math inline">\(\hat\epsilon_i\)</span> is large, then <span class="math inline">\(s^2\)</span> is large.
+<ul>
+<li>If <span class="math inline">\(s^2\)</span> is large, then <span class="math inline">\(s_i\)</span> is small!</li>
+<li>“<strong>Internally</strong>”: the variance includes the residual of interest.</li>
+</ul></li>
+<li>“<strong>Studentized</strong>” because Student made it popular.</li>
+<li>Often called “standardized”.</li>
+</ul>
+</section>
+<section id="externally-studentized-step-1" class="level3" data-number="13.2.3">
+<h3 data-number="13.2.3" class="anchored" data-anchor-id="externally-studentized-step-1"><span class="header-section-number">13.2.3</span> Externally Studentized Step 1</h3>
+<p>Like adding/removing predictors and checking the cahnge in SS, we can add/remove points!</p>
+<ol type="1">
+<li>Calculate SS</li>
+<li>Remove the first point. Estimate the model again and calculate new SS.</li>
+<li>Add the first point back, remove the second. Estimate the model again and check the SS.</li>
+</ol>
+<p>For each point, we have an estimate of the variance <strong>without</strong> itself.</p>
+</section>
+<section id="externally-studentized-step-2" class="level3" data-number="13.2.4">
+<h3 data-number="13.2.4" class="anchored" data-anchor-id="externally-studentized-step-2"><span class="header-section-number">13.2.4</span> Externally Studentized Step 2</h3>
+<p>Skipping the math, <span class="math display">\[
+s^2_{(i)} = \frac{(n-p)s^2 - \hat\epsilon_i^2/(1-h_{ii})}{n-p-1}
+\]</span> is the variance of the residuals <strong>without</strong> observation <span class="math inline">\(i\)</span>.</p>
+<ul>
+<li>The influence tells us how much a point influenced the model
+<ul>
+<li>We can see what happened without it</li>
+<li>No need to re-estimate the model!!!</li>
+</ul></li>
+</ul>
+</section>
+<section id="externally-studentized-residuals" class="level3" data-number="13.2.5">
+<h3 data-number="13.2.5" class="anchored" data-anchor-id="externally-studentized-residuals"><span class="header-section-number">13.2.5</span> Externally Studentized Residuals</h3>
+<p>Use <span class="math inline">\(s^2_{(i)}\)</span> in place of <span class="math inline">\(s^2\)</span>. <span class="math display">\[
+t_i = \frac{\hat\epsilon_i}{\sqrt{s_{(i)}^2(1-h_{ii})}} \sim t_{n-p-1}
+\]</span></p>
+<ul>
+<li>Follows a <span class="math inline">\(t\)</span> distribution!
+<ul>
+<li>Larger than 2 is suspect, 3 is definitely an outlier!</li>
+</ul></li>
+<li>A large <span class="math inline">\(t_i\)</span> is large <em>relative to the other residuals</em></li>
+<li>Usually just called “Studentized”</li>
+</ul>
+<p>Most software uses Studentized residuals for plots/diagnostics!</p>
+</section>
+</section>
+<section id="cooks-distance" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="cooks-distance"><span class="header-section-number">13.3</span> Cook’s Distance</h2>
+<section id="better-measures-of-influence" class="level3" data-number="13.3.1">
+<h3 data-number="13.3.1" class="anchored" data-anchor-id="better-measures-of-influence"><span class="header-section-number">13.3.1</span> Better Measures of Influence</h3>
+<p>The hat matrix is intepreted as influence, but it has problems.</p>
+<ul>
+<li><span class="math inline">\(y_i\)</span>’s influence on <em>it’s own</em> prediction,
+<ul>
+<li><em>given all other points.</em></li>
+</ul></li>
+<li><span class="math inline">\(0 \le h_{ii} \le 1\)</span>
+<ul>
+<li>What is a “big” influence?</li>
+</ul></li>
+<li>How do you explain <span class="math inline">\(h_{ii}\)</span> to nonstatisticians?</li>
+</ul>
+<p>A better measure is how much the predicted value changes with/without the obs.</p>
+</section>
+<section id="cooks-distance-change-in-hat-y_i." class="level3" data-number="13.3.2">
+<h3 data-number="13.3.2" class="anchored" data-anchor-id="cooks-distance-change-in-hat-y_i."><span class="header-section-number">13.3.2</span> Cooks Distance: Change in <span class="math inline">\(\hat y_i\)</span>.</h3>
+<p><span class="math display">\[
+D_i = \frac{\sum_{i=1}^n(\hat y_i - \hat y_{(i)})^2}{ps^2}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\hat y_i\)</span> is the predicted value of <span class="math inline">\(y_i\)</span> when all data are considered.</li>
+<li><span class="math inline">\(\hat y_{(i)}\)</span> is the predicted value of <span class="math inline">\(y_i\)</span> when observation <span class="math inline">\(i\)</span> is removed.</li>
+<li><span class="math inline">\(s^2\)</span> is the MSE of the model with all of the data.</li>
+<li><span class="math inline">\(p\)</span> is the number of parameters
+<ul>
+<li><span class="math inline">\(D_i\)</span> decreases as <span class="math inline">\(p\)</span> increases!</li>
+</ul></li>
+</ul>
+<p>Again, this <em>would</em> involve re-fitting the model <span class="math inline">\(n\)</span> time (one for each obs).</p>
+</section>
+<section id="cooks-distance-alternate-form" class="level3" data-number="13.3.3">
+<h3 data-number="13.3.3" class="anchored" data-anchor-id="cooks-distance-alternate-form"><span class="header-section-number">13.3.3</span> Cook’s Distance: Alternate Form</h3>
+<p><span class="math display">\[
+D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\left[\frac{h_{ii}}{1 - h_{ii}}\right]\frac{1}{p} = r_i^2\frac{\text{variance of $i$th predicted value}}{\text{variance of $i$th residual}}\frac{1}{p}
+\]</span></p>
+<ul>
+<li>Again, use <span class="math inline">\(H\)</span> rather than re-fitting the model.</li>
+<li>Cook’s distance is a modification of the <em>internally</em> studentized residual.
+<ul>
+<li>Variances are based on same “deletion” idea as studentized.</li>
+</ul></li>
+<li>Ratio of Variances!
+<ul>
+<li><span class="math inline">\(F\)</span> distribution, mean approaches 1 for large values of <span class="math inline">\(n\)</span>
+<ul>
+<li>Cooks Distance of larger than 1 is suspect.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="next-class" class="level3" data-number="13.3.4">
+<h3 data-number="13.3.4" class="anchored" data-anchor-id="next-class"><span class="header-section-number">13.3.4</span> Next Class</h3>
+<p>Plots!</p>
+</section>
+</section>
+<section id="participation" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="participation"><span class="header-section-number">13.4</span> Participation</h2>
+<section id="q1" class="level3" data-number="13.4.1">
+<h3 data-number="13.4.1" class="anchored" data-anchor-id="q1"><span class="header-section-number">13.4.1</span> Q1</h3>
+<p>Which does <em>not</em> describe a residual?</p>
+<ol type="1">
+<li>The observed difference between the measured value <span class="math inline">\(y_i\)</span> and the one we predict with <span class="math inline">\(\hat y_i = X\hat{\underline\beta}\)</span>.</li>
+<li>Given the true relationship <span class="math inline">\(Y = X\underline\beta\)</span>, residuals are deviations that cannot be observed.</li>
+<li>Errors that should be fixed.</li>
+</ol>
+</section>
+<section id="q2" class="level3" data-number="13.4.2">
+<h3 data-number="13.4.2" class="anchored" data-anchor-id="q2"><span class="header-section-number">13.4.2</span> Q2</h3>
+<p>Which of the following is <em>not</em> true about the hat matrix (<span class="math inline">\(H = X(X^TX)^{-1}X^T\)</span>)?</p>
+<ol type="1">
+<li><span class="math inline">\((I-H)(I-H)^T = (I-H)\)</span></li>
+<li><span class="math inline">\(\hat{\underline\beta} = (X^TX)^{-1}X^TY = X^{-1}HY\)</span></li>
+<li><span class="math inline">\(h_{ii} = 1 - \sum_{j\ne i}h_{ij}\)</span></li>
+<li><span class="math inline">\(H(I-H) = 0\)</span></li>
+</ol>
+</section>
+<section id="q3" class="level3" data-number="13.4.3">
+<h3 data-number="13.4.3" class="anchored" data-anchor-id="q3"><span class="header-section-number">13.4.3</span> Q3</h3>
+<p>Suppose that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0,\sigma^2)\)</span>.</p>
+<p>Which of the following statements is <em>false</em>?</p>
+<ol type="1">
+<li><span class="math inline">\(V(\hat\epsilon_i) = (1 - h_{ii})\sigma^2\)</span></li>
+<li><span class="math inline">\(V(\epsilon_i) = \sigma^2\)</span></li>
+<li><span class="math inline">\(V(Y_i) = \sigma^2\)</span></li>
+<li><span class="math inline">\(V(\hat Y_i) \ge V(\hat \epsilon_i)\)</span></li>
+</ol>
+</section>
+<section id="q4" class="level3" data-number="13.4.4">
+<h3 data-number="13.4.4" class="anchored" data-anchor-id="q4"><span class="header-section-number">13.4.4</span> Q4</h3>
+<p>The difference between internally and externally studentized residuals is:</p>
+<ol type="1">
+<li>“Internal” uses all of the observations, “external” uses all of the observations except <span class="math inline">\(i\)</span>.</li>
+<li>“External” uses all of the observations, “internal” uses all of the observations except <span class="math inline">\(i\)</span>.</li>
+</ol>
+</section>
+<section id="q5" class="level3" data-number="13.4.5">
+<h3 data-number="13.4.5" class="anchored" data-anchor-id="q5"><span class="header-section-number">13.4.5</span> Q5</h3>
+<p>Internally studentized residuals follow a <span class="math inline">\(t\)</span> distribution.</p>
+<ol type="1">
+<li>True - they are a normal r.v. divided by a chi-square r.v.</li>
+<li>False - they are a normal r.v. divided by a chi-square r.v., but the two are <em>not</em> independent.</li>
+<li>False - They include a normal and a chi-square, but the <span class="math inline">\(h_{ii}\)</span> make this not follow distributional assumptions.</li>
+<li>True - internally studentized residuals are a small modification to externally studentized residuals, which follow a <span class="math inline">\(t\)</span> distribution.</li>
+</ol>
+</section>
+<section id="q6" class="level3" data-number="13.4.6">
+<h3 data-number="13.4.6" class="anchored" data-anchor-id="q6"><span class="header-section-number">13.4.6</span> Q6</h3>
+<p>Which of the following is <em>not</em> useful for detecting outliers?</p>
+<ol type="1">
+<li>Standardized residuals</li>
+<li>Studentized residuals</li>
+<li>Cook’s distance</li>
+<li><span class="math inline">\(h_{ii}\)</span></li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./L09-Serial_Correlation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">L09: Cereal Correlation in the Residuals</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./L11-Admin_Slides.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">L11: The Hat Matrix 2</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
