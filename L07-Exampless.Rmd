@@ -3,6 +3,7 @@ title: "L07: ESS Exampless"
 ---
 
 ```{r}
+set.seed(2112)
 library(palmerpenguins)
 peng <- penguins[complete.cases(penguins), ]
 head(peng)

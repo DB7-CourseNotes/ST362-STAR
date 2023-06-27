@@ -339,8 +339,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="basic-anova" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="basic-anova"><span class="header-section-number">16.1</span> Basic ANOVA</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2221</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Lb05-ANOVA-R2-F_test-CI_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -397,8 +398,8 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>rsquares <span class="ot">&lt;-</span> <span class="fu">c</span>(rsquares, <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> uncorr))<span class="sc">$</span>r.squared)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>rsquares</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]         NA 0.03232031 0.06188019 0.06331198 0.12778471 0.12781042
- [7] 0.16318838 0.18063389 0.18298318 0.25726736 0.25734273 0.25734273</code></pre>
+<pre><code> [1]          NA 0.003898013 0.056398466 0.056407225 0.069142075 0.073155890
+ [7] 0.105824965 0.122449599 0.145307322 0.168746574 0.172758068 0.172758068</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rsquares, <span class="at">type =</span> <span class="st">"b"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">

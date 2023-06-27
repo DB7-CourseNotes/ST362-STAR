@@ -338,9 +338,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins), ]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(peng)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins), ]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(peng)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 8
   species island    bill_length_mm bill_depth_mm flipper_l…¹ body_…² sex    year
@@ -526,13 +527,13 @@ y_i = \beta_0 + \beta_1x_i + \beta_2x_i^2 + \beta_3x_i^3 + ... + \beta_{p-1}x_i^
 
 Response: y
            Df   Sum Sq  Mean Sq   F value Pr(&gt;F)    
-x           1 49433353 49433353 4807.5307 &lt;2e-16 ***
-I(x^2)      1 19281747 19281747 1875.2034 &lt;2e-16 ***
-I(x^3)      1  1241583  1241583  120.7474 &lt;2e-16 ***
-I(x^4)      1     6185     6185    0.6015 0.4383    
-I(x^5)      1    20423    20423    1.9862 0.1593    
-I(x^6)      1      321      321    0.0312 0.8598    
-Residuals 593  6097512    10282                     
+x           1 49560412 49560412 4726.8201 &lt;2e-16 ***
+I(x^2)      1 19661307 19661307 1875.1955 &lt;2e-16 ***
+I(x^3)      1  1150679  1150679  109.7459 &lt;2e-16 ***
+I(x^4)      1      661      661    0.0630 0.8018    
+I(x^5)      1      112      112    0.0107 0.9177    
+I(x^6)      1     6274     6274    0.5984 0.4395    
+Residuals 593  6217568    10485                     
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>

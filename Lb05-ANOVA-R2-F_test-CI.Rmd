@@ -6,6 +6,7 @@ output: html_notebook
 ## Basic ANOVA
 
 ```{r}
+set.seed(2221)
 plot(mpg ~ disp, data = mtcars)
 abline(lm(mpg ~ disp, data = mtcars))
 ```

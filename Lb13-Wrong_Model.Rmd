@@ -8,6 +8,7 @@
 We're going to do this a little differently than other days. Let's look at the penguins data again:
 
 ```{r}
+set.seed(2121)
 library(palmerpenguins)
 ## Remove NAs and take continuous variables
 penguins <- subset(penguins, species == "Chinstrap")
