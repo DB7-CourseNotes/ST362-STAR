@@ -16,25 +16,29 @@ book:
   repo-actions: [issue]
   chapters:
     - index.qmd
-    - L01-Introduction.qmd
-    - L02-Fitting_Straight_Lines.qmd
-    - Lb02-OLS_Estimates.Rmd
-    - L03-Residuals.qmd
-    - Lb03-MSE.Rmd
-    - L04-Matrix_Form.qmd
-    - Lb04-R_Matrix_Form.Rmd
-    - L05-General_Regression.qmd
-    - Lb05-ANOVA-R2-F_test-CI.Rmd
-    - L06-Extra_Sums_of_Squares-1.qmd
-    - L07-Exampless.Rmd
-    - L09-Serial_Correlation.qmd
-    - L10-Hat-Resid_Plots-Cook.qmd
-    - L11-Admin_Slides.qmd
-    - Lb11-R_hat_resids_cook.Rmd
-    - L12-Extra_Topics.qmd
-    - Lb12-Corr_in_Betas.qmd
-    - L13-Wrong_Model.qmd
-    - Lb13-Wrong_Model.Rmd
+    - part: Lectures
+      chapters:
+        - L01-Introduction.qmd
+        - L02-Fitting_Straight_Lines.qmd
+        - L03-Residuals.qmd
+        - L04-Matrix_Form.qmd
+        - L05-General_Regression.qmd
+        - L06-Extra_Sums_of_Squares-1.qmd
+        - L07-Exampless.Rmd
+        - L09-Serial_Correlation.qmd
+        - L10-Hat-Resid_Plots-Cook.qmd
+        - L11-Admin_Slides.qmd
+        - L12-Extra_Topics.qmd
+        - L13-Wrong_Model.qmd
+    - part: Lab Notes
+      chapters:
+        - Lb02-OLS_Estimates.Rmd
+        - Lb03-MSE.Rmd
+        - Lb04-R_Matrix_Form.Rmd
+        - Lb05-ANOVA-R2-F_test-CI.Rmd
+        - Lb11-R_hat_resids_cook.Rmd
+        - Lb12-Corr_in_Betas.qmd
+        - Lb13-Wrong_Model.Rmd
 
 format:
   html:
