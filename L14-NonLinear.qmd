@@ -1,0 +1,369 @@
+---
+title: "L14: Non-Linear Relationships with Linear Models"
+institute: "Jam: **Higher Order** by Empire Me"
+---
+
+## Non-Linear Relationships
+
+### Arbitrarily Shaped Functions
+
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+The plot on the right is the function:
+$$
+y = 2 + \frac{1}{5}x^2 - 8\log(x) - 0.005x^3 + 20\sin\left(\frac{x}{2}\right) + \epsilon
+$$
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-width: 4.5
+x <- runif(300, 0, 50)
+y <- 2 + 0.2*x^2 - 8 * log(x) - 0.005*x^3 + 20*sin(x/2) + rnorm(300, 0, 10)
+plot(x, y)
+
+xseq <- seq(0, 50, 0.5)
+lines(xseq, 
+    predict(lm(y ~ poly(x, 12)), newdata = list(x = xseq)),
+    col = 2, lwd = 2)
+```
+:::
+::::
+
+\pause\pspace
+
+The twist: The fitted line is just a polynomial model: $y = \beta_0 + \sum_{j=1}^{12}\beta_jx^j$
+
+### Fitting a Polynomial
+
+To fit a polynomial of order $k$:
+$$
+y = \beta_0 + \sum_{j=1}^{k}\beta_jx^j + \epsilon
+$$
+we can simply fit a linear model to **transformed** predictors, i.e.:
+$$
+x_1 = x;\; x_2 = x^2;\; x_3 = x^3;\;...
+$$
+and we can just fit a linear model as usual!
+
+\pspace
+
+... that seems too easy?
+
+### Choosing Polynomial Order
+
+There are two common options:
+
+1. Domain knowledge
+    - Is there a theoretical reason to use a cubic?\lspace
+2. Reduce prediction error
+    - Cross-validation or ANOVA, depending on problem.
+
+### Domain Knowledge: Stopping Distance
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+The stopping distance is theoretically proportional to the square of the speed.
+
+\pspace
+
+- A line might fit
+    - Fits poorly at 0 (negative stopping distances for positive speed?)
+- A quadratic fits better?
+- A cubic does something funky at 0.
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-width: 4.5
+plot(dist ~ speed, data = cars,
+    xlab = "Speed", ylab = "Stopping Distance",
+    xlim = c(0, max(cars$speed)))
+xseq <- seq(0, max(cars$speed), length.out = 50)
+
+y1 <- predict(lm(dist ~ poly(speed, 1), data = cars), newdata = list(speed = xseq))
+y2 <- predict(lm(dist ~ poly(speed, 2), data = cars), newdata = list(speed = xseq))
+y3 <- predict(lm(dist ~ poly(speed, 3), data = cars), newdata = list(speed = xseq))
+
+lines(xseq, y1, col = 3, lwd = 6)
+lines(xseq, y2, col = 4, lwd = 6)
+lines(xseq, y3, col = 5, lwd = 6)
+legend("topleft", legend = 1:3, col = 1:3 + 2, lwd = 4, title = "Order")
+```
+:::
+::::
+
+### Choosing Order with ANOVA
+
+\footnotesize
+```{r}
+#| echo: true
+X <- data.frame(dist = cars$dist, x1 = cars$speed, x2 = cars$speed^2, 
+    x3 = cars$speed^3, x4 = cars$speed^4)
+lm(dist ~ ., data = X) |> anova()
+```
+
+\normalsize
+In this situation, Sequential Sum-of-Squares makes sense! (Disagrees with theory, though. Go with theory.)
+
+### Stopping Distance $\propto$ Speed$^2$
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+A second order polynomial is:
+$$
+y = \beta_0 + \beta_1x + \beta_2x^2
+$$
+
+\pspace
+
+The implied model is:
+$$
+y = \beta_2x^2
+$$
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-width: 4.5
+plot(dist ~ speed, data = cars,
+    xlab = "Speed", ylab = "Stopping Distance",
+    xlim = c(0, max(cars$speed)))
+xseq <- seq(0, max(cars$speed), length.out = 50)
+
+y2 <- predict(lm(dist ~ poly(speed, 2), data = cars), newdata = list(speed = xseq))
+y20 <- predict(lm(dist ~ -1 + I(speed^2), data = cars), newdata = list(speed = xseq))
+
+lines(xseq, y2, col = 4, lwd = 6)
+lines(xseq, y20, col = 6, lwd = 6)
+legend("topleft", legend = c("Order 2", "Only Squared"), col = c(4,6), lwd = 4)
+```
+:::
+::::
+
+### Unconventional ESS
+
+\footnotesize
+```{r}
+#| echo: true
+X <- data.frame(dist = cars$dist, x1 = cars$speed, x2 = cars$speed^2, 
+    x3 = cars$speed^3, x4 = cars$speed^4)
+m1 <- lm(dist ~ x1 + x2, data = X)
+m2 <- lm(dist ~ -1 + x2, data = X)
+anova(m2, m1)
+```
+
+\normalsize Not a significant difference in models, so go with simpler one: $y = \beta_2x^2$
+
+- This is *highly* specific to this situation - see cautions later.
+
+
+### Polynomial Models *will* Overfit!
+
+True model: $f(x) = 2 + 25x + 5x^2 - x^3$ (cubic), Var($\epsilon$) = 40
+
+```{r}
+#| echo: false
+#| fig-height: 3
+#| fig-width: 7
+library(dplyr)
+library(ggplot2)
+set.seed(2112)
+
+true_y <- function(x) 2 + 25*x + 5*x^2 - x^3 
+epsilon <- function(n) rnorm(n, 0, 40)
+xseq <- seq(0, 10, by = 0.1)
+poly_orders <- c(1,2,3,10,15,20)
+
+xtrain <- runif(70, 0, 10)
+ytrain <- true_y(xtrain) + epsilon(length(xtrain))
+
+for(poly_order in poly_orders) {
+    ylm <- lm(ytrain ~ poly(xtrain, degree = poly_order))
+    ypred <- predict(ylm, newdata = data.frame(xtrain = xseq))
+    i_df <- data.frame(xtrain = xseq, ytrain = ypred, order = poly_order)
+    if(poly_order == poly_orders[1]) {
+        res_df <- i_df
+    } else {
+        res_df <- bind_rows(res_df, i_df)
+    }
+}
+
+for (i in 1:length(poly_orders)) {
+    if(i == 1) {
+        df <- data.frame(x = xtrain, y = ytrain, order = poly_orders[i])
+    } else {
+        df2 <- data.frame(x = xtrain, y = ytrain, order = poly_orders[i])
+        df <- bind_rows(df, df2)
+    }
+}
+
+ggplot() + theme_minimal() +
+    geom_point(data = df, mapping = aes(x = x, y = y)) +
+    geom_line(data = res_df, 
+        mapping = aes(x = xtrain, y = ytrain, colour = factor(order)),
+        size = 1.5) +
+    coord_cartesian(xlim = range(xtrain), ylim = range(ytrain)) +
+    #scale_colour_viridis_d(option = "plasma", end = 0.75) +
+    labs(x = "x", y = "y",
+        colour = "Polynomial Order") +
+    facet_wrap(~ order)
+
+```
+
+### Multiple Regression Polynomial Models
+
+A full polynomial model of order 2 with two predictors is:
+$$
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \beta_{12}x_1x_2
+$$
+In R this can be specified as:
+
+```{r}
+#| eval: false
+#| echo: true
+lm(y ~ (x1 + x2)^2)
+```
+
+- This is why you can't use `y ~ x + x^2` to get a polynomial model - R tries to interpret this as a model specification rather than a transformation. \lspace
+- We'll learn more about interactions and transformations in the next few lectures.
+
+
+## Cautions about Polynomials
+
+### Lower Order Terms
+
+Unless there's a strong physical reason,
+
+\begin{center}
+\emph{always include lower order terms!}
+\end{center}
+
+\pspace
+
+- $(ax - b)^2$ is the model, not $\beta_0 + \beta_1x + \beta_{11}x^2$
+
+### Orders higher than 3 are rarely jutified
+
+Recall the interpretation of a slope: 
+
+- A one unit increase in $x$ is associated with a $\beta_1$ unit increase in $y$.
+    - This interpretation fails in quadratrics, and fails spectacularly in higher orders.
+
+\pspace
+
+See **splines** for more flexibility
+
+### Extrapolation is Fraught with Peril
+
+Unless you have the true order (you don't), polynomials diverge almost immediately.
+
+```{r}
+#| echo: true
+#| eval: false
+shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+    subdir = "Apps/polyFit")
+```
+
+### $x$ and $x^2$ are correlated
+
+This strongly affects parameter estimates.
+
+\pspace
+
+... unless...
+
+###  `poly()` uses **orthogonal** polynomials
+
+```{r}
+#| echo: true
+#| eval: false
+betas <- replicate(1000, 
+    coef(lm(y ~ poly(x, 2, raw = TRUE),
+         data = data.frame(x = runif(30, 0, 10), 
+            y = (x - 2)^2 + rnorm(30, 0, 10)))))
+plot(t(betas))
+```
+
+After squaring, cubing, etc., each column of X is transformed to be orthogonal to the previous.
+
+\pspace
+
+- Takes care of transformations for you when using `predict()`.\lspace
+- The `coef()` function is useless.\lspace
+- Mean-centering also helps!
+
+### Orthogonal Polynomials
+
+```{r}
+#| echo: true
+#| eval: false
+x <- sort(runif(60, 0, 10))
+par(mfrow = c(2,3))
+for(i in 1:3) {
+    plot(x, poly(x, 3, raw = TRUE)[,i])
+}
+for(i in 1:3) {
+    plot(x, poly(x, 3, raw = FALSE)[,i])
+}
+```
+
+## Should I Use a Polynomial?
+
+### Example: mtcars
+
+[code]
+
+### Summary
+
+
+
+
+## Participation Questions
+
+### Q1
+
+Given a correctly structured model matrix ($X$), polynomial models can be fit with the same routines as linear models (without modification).
+
+1. True
+2. False
+
+### Q2
+
+Any smooth function can be approximated by a polynomial.
+
+1. True
+2. False
+
+### Q3
+
+Orthogonal polynomials are used because:
+
+1. They remove covariance between $x$, $x^2$, $x^3$, etc.
+2. They remove the covariance between $\beta_1$, $\beta_{11}$, $\beta_{111}$, etc.
+3. They result in p-values that make sense.
+4. All of the above.
+
+### Q4
+
+Which statement is *true*?
+
+1. We should start with a high order polynomial and use Sequential Sum-of-Squares to choose the order.
+2. We should try second order polynomials if we think there's a curve to our model, but should generally avoid polynomials unless there's a strong contextual reason.
+3. We saw last week that estimates are still unbiased in the presence of extraneous predictors, so it's fine to include a higher order polynomial in our model.
