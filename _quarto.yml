@@ -12,7 +12,7 @@ book:
   subtitle: Theory, Simulation, and Application
   author: "Dr. Devan Becker"
   date: "2023-06-27"
-  repo-url: https://github.com/DB7-CourseNotes/ST362_S23
+  repo-url: https://github.com/DB7-CourseNotes/ST362-S23
   repo-actions: [issue]  
   page-footer:
     left: |
@@ -33,6 +33,7 @@ book:
         - L11-Admin_Slides.qmd
         - L12-Extra_Topics.qmd
         - L13-Wrong_Model.qmd
+        - L14-Nonlinear.qmd
     - part: Lab Notes
       chapters:
         - Lb02-OLS_Estimates.Rmd
