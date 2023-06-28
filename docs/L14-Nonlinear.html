@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2023-06-27">
 
-<title>Regression Analysis</title>
+<title>Regression Analysis - 13&nbsp; L14: Non-Linear Relationships with Linear Models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L01-Introduction.html" rel="next">
+<link href="./Lb02-OLS_Estimates.html" rel="next">
+<link href="./L13-Wrong_Model.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L14-Nonlinear.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L14: Non-Linear Relationships with Linear Models</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -143,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -230,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-Nonlinear.html" class="sidebar-item-text sidebar-link">
+  <a href="./L14-Nonlinear.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L14: Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
@@ -299,10 +299,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <li><a href="#non-linear-relationships" id="toc-non-linear-relationships" class="nav-link active" data-scroll-target="#non-linear-relationships"><span class="header-section-number">13.1</span> Non-Linear Relationships</a>
   <ul class="collapse">
-  <li><a href="#about-this-course" id="toc-about-this-course" class="nav-link" data-scroll-target="#about-this-course">About This Course</a></li>
-  <li><a href="#about-this-book" id="toc-about-this-book" class="nav-link" data-scroll-target="#about-this-book">About This Book</a></li>
+  <li><a href="#arbitrarily-shaped-functions" id="toc-arbitrarily-shaped-functions" class="nav-link" data-scroll-target="#arbitrarily-shaped-functions">Arbitrarily Shaped Functions</a></li>
+  <li><a href="#fitting-a-polynomial" id="toc-fitting-a-polynomial" class="nav-link" data-scroll-target="#fitting-a-polynomial">Fitting a Polynomial</a></li>
+  <li><a href="#choosing-polynomial-order" id="toc-choosing-polynomial-order" class="nav-link" data-scroll-target="#choosing-polynomial-order">Choosing Polynomial Order</a></li>
+  <li><a href="#domain-knowledge-stopping-distance" id="toc-domain-knowledge-stopping-distance" class="nav-link" data-scroll-target="#domain-knowledge-stopping-distance">Domain Knowledge: Stopping Distance</a></li>
+  <li><a href="#choosing-order-with-anova" id="toc-choosing-order-with-anova" class="nav-link" data-scroll-target="#choosing-order-with-anova">Choosing Order with ANOVA</a></li>
+  <li><a href="#stopping-distance-propto-speed2" id="toc-stopping-distance-propto-speed2" class="nav-link" data-scroll-target="#stopping-distance-propto-speed2">Stopping Distance <span class="math inline">\(\propto\)</span> Speed<span class="math inline">\(^2\)</span></a></li>
+  <li><a href="#unconventional-ess" id="toc-unconventional-ess" class="nav-link" data-scroll-target="#unconventional-ess">Unconventional ESS</a></li>
+  <li><a href="#polynomial-models-will-overfit" id="toc-polynomial-models-will-overfit" class="nav-link" data-scroll-target="#polynomial-models-will-overfit">Polynomial Models <em>will</em> Overfit!</a></li>
+  <li><a href="#multiple-regression-polynomial-models" id="toc-multiple-regression-polynomial-models" class="nav-link" data-scroll-target="#multiple-regression-polynomial-models">Multiple Regression Polynomial Models</a></li>
+  </ul></li>
+  <li><a href="#cautions-about-polynomials" id="toc-cautions-about-polynomials" class="nav-link" data-scroll-target="#cautions-about-polynomials"><span class="header-section-number">13.2</span> Cautions about Polynomials</a>
+  <ul class="collapse">
+  <li><a href="#lower-order-terms" id="toc-lower-order-terms" class="nav-link" data-scroll-target="#lower-order-terms">Lower Order Terms</a></li>
+  <li><a href="#orders-higher-than-3-are-rarely-jutified" id="toc-orders-higher-than-3-are-rarely-jutified" class="nav-link" data-scroll-target="#orders-higher-than-3-are-rarely-jutified">Orders higher than 3 are rarely jutified</a></li>
+  <li><a href="#extrapolation-is-fraught-with-peril" id="toc-extrapolation-is-fraught-with-peril" class="nav-link" data-scroll-target="#extrapolation-is-fraught-with-peril">Extrapolation is Fraught with Peril</a></li>
+  <li><a href="#x-and-x2-are-correlated" id="toc-x-and-x2-are-correlated" class="nav-link" data-scroll-target="#x-and-x2-are-correlated"><span class="math inline">\(x\)</span> and <span class="math inline">\(x^2\)</span> are correlated</a></li>
+  <li><a href="#poly-uses-orthogonal-polynomials" id="toc-poly-uses-orthogonal-polynomials" class="nav-link" data-scroll-target="#poly-uses-orthogonal-polynomials"><code>poly()</code> uses <strong>orthogonal</strong> polynomials</a></li>
+  <li><a href="#orthogonal-polynomials" id="toc-orthogonal-polynomials" class="nav-link" data-scroll-target="#orthogonal-polynomials">Orthogonal Polynomials</a></li>
+  </ul></li>
+  <li><a href="#should-i-use-a-polynomial" id="toc-should-i-use-a-polynomial" class="nav-link" data-scroll-target="#should-i-use-a-polynomial"><span class="header-section-number">13.3</span> Should I Use a Polynomial?</a>
+  <ul class="collapse">
+  <li><a href="#example-mtcars" id="toc-example-mtcars" class="nav-link" data-scroll-target="#example-mtcars">Example: mtcars</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul></li>
+  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">13.4</span> Participation Questions</a>
+  <ul class="collapse">
+  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
+  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
+  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
+  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -312,8 +340,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Regression Analysis</h1>
-<p class="subtitle lead">Theory, Simulation, and Application</p>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L14: Non-Linear Relationships with Linear Models</span></h1>
 </div>
 
 
@@ -326,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Wilfrid Laurier University
+            Jam: <strong>Higher Order</strong> by Empire Me
           </p>
       </div>
     </div>
@@ -334,12 +361,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
       
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">2023-06-27</p>
-    </div>
-  </div>
   
     
   </div>
@@ -347,40 +368,266 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introduction" class="level1 unnumbered">
-<h1 class="unnumbered">Introduction</h1>
-<section id="about-this-course" class="level2">
-<h2 class="anchored" data-anchor-id="about-this-course">About This Course</h2>
-<p>This book contains the course notes for the Spring 2023 offering of ST362 Regression Analysis, based on the following sources:</p>
+<section id="non-linear-relationships" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="non-linear-relationships"><span class="header-section-number">13.1</span> Non-Linear Relationships</h2>
+<section id="arbitrarily-shaped-functions" class="level3">
+<h3 class="anchored" data-anchor-id="arbitrarily-shaped-functions">Arbitrarily Shaped Functions</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>The plot on the right is the function: <span class="math display">\[
+y = 2 + \frac{1}{5}x^2 - 8\log(x) - 0.005x^3 + 20\sin\left(\frac{x}{2}\right) + \epsilon
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L14-Nonlinear_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="432"></p>
+</div>
+</div>
+</div>
+</div>
+<p>The twist: The fitted line is just a polynomial model: <span class="math inline">\(y = \beta_0 + \sum_{j=1}^{12}\beta_jx^j\)</span></p>
+</section>
+<section id="fitting-a-polynomial" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-a-polynomial">Fitting a Polynomial</h3>
+<p>To fit a polynomial of order <span class="math inline">\(k\)</span>: <span class="math display">\[
+y = \beta_0 + \sum_{j=1}^{k}\beta_jx^j + \epsilon
+\]</span> we can simply fit a linear model to <strong>transformed</strong> predictors, i.e.: <span class="math display">\[
+x_1 = x;\; x_2 = x^2;\; x_3 = x^3;\;...
+\]</span> and we can just fit a linear model as usual!</p>
+<p>… that seems too easy?</p>
+</section>
+<section id="choosing-polynomial-order" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-polynomial-order">Choosing Polynomial Order</h3>
+<p>There are two common options:</p>
+<ol type="1">
+<li>Domain knowledge
 <ul>
-<li><em>Applied Regression Analysis</em>, 3rd edition, by Draper and Smith
-<ul>
-<li>A PDF of this textbook is available through the WLU library</li>
+<li>Is there a theoretical reason to use a cubic?</li>
 </ul></li>
-<li><em>Introduction to Linear Regression Anaysis</em>, 2nd edition, by Montgomery and Peck
+<li>Reduce prediction error
 <ul>
-<li>This textbook is excellent but expensive, and I am striving to use free and OER materials.</li>
+<li>Cross-validation or ANOVA, depending on problem.</li>
 </ul></li>
-<li>The online course notes from <a href="https://online.stat.psu.edu/stat501/lesson/1">Stat 501</a> at Penn State.</li>
+</ol>
+</section>
+<section id="domain-knowledge-stopping-distance" class="level3">
+<h3 class="anchored" data-anchor-id="domain-knowledge-stopping-distance">Domain Knowledge: Stopping Distance</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>The stopping distance is theoretically proportional to the square of the speed.</p>
+<ul>
+<li>A line might fit
+<ul>
+<li>Fits poorly at 0 (negative stopping distances for positive speed?)</li>
+</ul></li>
+<li>A quadratic fits better?</li>
+<li>A cubic does something funky at 0.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L14-Nonlinear_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="432"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="choosing-order-with-anova" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-order-with-anova">Choosing Order with ANOVA</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dist =</span> cars<span class="sc">$</span>dist, <span class="at">x1 =</span> cars<span class="sc">$</span>speed, <span class="at">x2 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">2</span>, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x3 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">3</span>, <span class="at">x4 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(dist <span class="sc">~</span> ., <span class="at">data =</span> X) <span class="sc">|&gt;</span> <span class="fu">anova</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: dist
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+x1         1 21185.5 21185.5 92.5775 1.716e-12 ***
+x2         1   528.8   528.8  2.3108    0.1355    
+x3         1   190.4   190.4  0.8318    0.3666    
+x4         1   336.5   336.5  1.4707    0.2316    
+Residuals 45 10297.8   228.8                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>In this situation, Sequential Sum-of-Squares makes sense! (Disagrees with theory, though. Go with theory.)</p>
+</section>
+<section id="stopping-distance-propto-speed2" class="level3">
+<h3 class="anchored" data-anchor-id="stopping-distance-propto-speed2">Stopping Distance <span class="math inline">\(\propto\)</span> Speed<span class="math inline">\(^2\)</span></h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>A second order polynomial is: <span class="math display">\[
+y = \beta_0 + \beta_1x + \beta_2x^2
+\]</span></p>
+<p>The implied model is: <span class="math display">\[
+y = \beta_2x^2
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L14-Nonlinear_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="432"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="unconventional-ess" class="level3">
+<h3 class="anchored" data-anchor-id="unconventional-ess">Unconventional ESS</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dist =</span> cars<span class="sc">$</span>dist, <span class="at">x1 =</span> cars<span class="sc">$</span>speed, <span class="at">x2 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">2</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x3 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">3</span>, <span class="at">x4 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(dist <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> X)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(dist <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> x2, <span class="at">data =</span> X)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m2, m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: dist ~ -1 + x2
+Model 2: dist ~ x1 + x2
+  Res.Df   RSS Df Sum of Sq      F Pr(&gt;F)
+1     49 11936                           
+2     47 10825  2    1111.2 2.4123 0.1006</code></pre>
+</div>
+</div>
+<p>Not a significant difference in models, so go with simpler one: <span class="math inline">\(y = \beta_2x^2\)</span></p>
+<ul>
+<li>This is <em>highly</em> specific to this situation - see cautions later.</li>
 </ul>
 </section>
-<section id="about-this-book" class="level2">
-<h2 class="anchored" data-anchor-id="about-this-book">About This Book</h2>
-<p>Some features:</p>
+<section id="polynomial-models-will-overfit" class="level3">
+<h3 class="anchored" data-anchor-id="polynomial-models-will-overfit">Polynomial Models <em>will</em> Overfit!</h3>
+<p>True model: <span class="math inline">\(f(x) = 2 + 25x + 5x^2 - x^3\)</span> (cubic), Var(<span class="math inline">\(\epsilon\)</span>) = 40</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L14-Nonlinear_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="multiple-regression-polynomial-models" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-regression-polynomial-models">Multiple Regression Polynomial Models</h3>
+<p>A full polynomial model of order 2 with two predictors is: <span class="math display">\[
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \beta_{12}x_1x_2
+\]</span> In R this can be specified as:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> (x1 <span class="sc">+</span> x2)<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
-<li>The GitHub logo takes you to the repo for this book. Feel free to fork and adapt as you please (under the CC BY-SA 4.0 license).</li>
-<li>The little toggle next to the logo puts this into night mode. Try it out!</li>
-<li>Each lecture had a “Jam”, where I played music at the start of class that related to a particular slide. When that slide showed up, a student would say “That’s my Jam!” and I would throw chocolate at them.
+<li>This is why you can’t use <code>y ~ x + x^2</code> to get a polynomial model - R tries to interpret this as a model specification rather than a transformation. </li>
+<li>We’ll learn more about interactions and transformations in the next few lectures.</li>
+</ul>
+</section>
+</section>
+<section id="cautions-about-polynomials" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="cautions-about-polynomials"><span class="header-section-number">13.2</span> Cautions about Polynomials</h2>
+<section id="lower-order-terms" class="level3">
+<h3 class="anchored" data-anchor-id="lower-order-terms">Lower Order Terms</h3>
+<p>Unless there’s a strong physical reason,</p>
 <ul>
-<li>The jams are still there, and you may wish to listen to them while reading the slides!</li>
+<li><span class="math inline">\((ax - b)^2\)</span> is the model, not <span class="math inline">\(\beta_0 + \beta_1x + \beta_{11}x^2\)</span></li>
+</ul>
+</section>
+<section id="orders-higher-than-3-are-rarely-jutified" class="level3">
+<h3 class="anchored" data-anchor-id="orders-higher-than-3-are-rarely-jutified">Orders higher than 3 are rarely jutified</h3>
+<p>Recall the interpretation of a slope:</p>
+<ul>
+<li>A one unit increase in <span class="math inline">\(x\)</span> is associated with a <span class="math inline">\(\beta_1\)</span> unit increase in <span class="math inline">\(y\)</span>.
+<ul>
+<li>This interpretation fails in quadratrics, and fails spectacularly in higher orders.</li>
 </ul></li>
 </ul>
-<p>This book is very much a work in progress. There are missing sections and typos in the slides. I am working on adding speaker notes to the slides, which will show up as text in this book.</p>
-<p>I am also working on a major re-write of the first few chapters to walk through the concepts in a better order. In particular, I would like to stay in simple linear regression for a lot longer, demonstrating correlation, Cook’s distance, correlation between <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>, etc., then moving into binary and categorical predictors as a first step into multiple regression, polynomial as a second step, then a lecture demonstrating that all of these concepts generalize into multiple dimensions.</p>
-<p>This is a quarto book based on my lecture slides. The “Lectures” are quarto files that were rendered into beamer PDF slides. I have included the configs to render the slides. To re-create my slides, you can use the code:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render L01-Introduction.qmd <span class="at">--profile</span> slides</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>--profile</code> argument tells Quarto to use the configuration in the file <code>_quarto-slides.yml</code>. I will add speaker notes in a <code>notes</code> environment, which means that the notes will appear in the book but not the pdf slides.</p>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 Unported License</a>.</p>
+<p>See <strong>splines</strong> for more flexibility</p>
+</section>
+<section id="extrapolation-is-fraught-with-peril" class="level3">
+<h3 class="anchored" data-anchor-id="extrapolation-is-fraught-with-peril">Extrapolation is Fraught with Peril</h3>
+<p>Unless you have the true order (you don’t), polynomials diverge almost immediately.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/polyFit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="x-and-x2-are-correlated" class="level3">
+<h3 class="anchored" data-anchor-id="x-and-x2-are-correlated"><span class="math inline">\(x\)</span> and <span class="math inline">\(x^2\)</span> are correlated</h3>
+<p>This strongly affects parameter estimates.</p>
+<p>… unless…</p>
+</section>
+<section id="poly-uses-orthogonal-polynomials" class="level3">
+<h3 class="anchored" data-anchor-id="poly-uses-orthogonal-polynomials"><code>poly()</code> uses <strong>orthogonal</strong> polynomials</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">10</span>), </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> (x <span class="sc">-</span> <span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">10</span>)))))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">t</span>(betas))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After squaring, cubing, etc., each column of X is transformed to be orthogonal to the previous.</p>
+<ul>
+<li>Takes care of transformations for you when using <code>predict()</code>.</li>
+<li>The <code>coef()</code> function is useless.</li>
+<li>Mean-centering also helps!</li>
+</ul>
+</section>
+<section id="orthogonal-polynomials" class="level3">
+<h3 class="anchored" data-anchor-id="orthogonal-polynomials">Orthogonal Polynomials</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">runif</span>(<span class="dv">60</span>, <span class="dv">0</span>, <span class="dv">10</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x, <span class="fu">poly</span>(x, <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>)[,i])</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x, <span class="fu">poly</span>(x, <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">FALSE</span>)[,i])</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="should-i-use-a-polynomial" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="should-i-use-a-polynomial"><span class="header-section-number">13.3</span> Should I Use a Polynomial?</h2>
+<section id="example-mtcars" class="level3">
+<h3 class="anchored" data-anchor-id="example-mtcars">Example: mtcars</h3>
+<p>[code]</p>
+</section>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+</section>
+</section>
+<section id="participation-questions" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">13.4</span> Participation Questions</h2>
+<section id="q1" class="level3">
+<h3 class="anchored" data-anchor-id="q1">Q1</h3>
+<p>Given a correctly structured model matrix (<span class="math inline">\(X\)</span>), polynomial models can be fit with the same routines as linear models (without modification).</p>
+<ol type="1">
+<li>True</li>
+<li>False</li>
+</ol>
+</section>
+<section id="q2" class="level3">
+<h3 class="anchored" data-anchor-id="q2">Q2</h3>
+<p>Any smooth function can be approximated by a polynomial.</p>
+<ol type="1">
+<li>True</li>
+<li>False</li>
+</ol>
+</section>
+<section id="q3" class="level3">
+<h3 class="anchored" data-anchor-id="q3">Q3</h3>
+<p>Orthogonal polynomials are used because:</p>
+<ol type="1">
+<li>They remove covariance between <span class="math inline">\(x\)</span>, <span class="math inline">\(x^2\)</span>, <span class="math inline">\(x^3\)</span>, etc.</li>
+<li>They remove the covariance between <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_{11}\)</span>, <span class="math inline">\(\beta_{111}\)</span>, etc.</li>
+<li>They result in p-values that make sense.</li>
+<li>All of the above.</li>
+</ol>
+</section>
+<section id="q4" class="level3">
+<h3 class="anchored" data-anchor-id="q4">Q4</h3>
+<p>Which statement is <em>true</em>?</p>
+<ol type="1">
+<li>We should start with a high order polynomial and use Sequential Sum-of-Squares to choose the order.</li>
+<li>We should try second order polynomials if we think there’s a curve to our model, but should generally avoid polynomials unless there’s a strong contextual reason.</li>
+<li>We saw last week that estimates are still unbiased in the presence of extraneous predictors, so it’s fine to include a higher order polynomial in our model.</li>
+</ol>
 
 
 </section>
@@ -737,10 +984,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./L13-Wrong_Model.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L01-Introduction.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Lb02-OLS_Estimates.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
