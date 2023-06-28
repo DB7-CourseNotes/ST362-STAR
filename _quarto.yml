@@ -13,7 +13,10 @@ book:
   author: "Dr. Devan Becker"
   date: "2023-06-27"
   repo-url: https://github.com/DB7-CourseNotes/ST362_S23
-  repo-actions: [issue]
+  repo-actions: [issue]  
+  page-footer:
+    left: |
+      Copyright Devan Becker, released under Creative Commons Attribution-ShareAlike 4.0.
   chapters:
     - index.qmd
     - part: Lectures
