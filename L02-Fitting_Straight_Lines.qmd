@@ -438,6 +438,10 @@ nrow(dse03a)
 
 :::notes
 Good textbook questions: A, K, O, P, T, U, X (using `data(anscombe)` in R), Z, AA, CC. Note that all data sets in the textbook are available in an R package found [here](https://search.r-project.org/CRAN/refmans/aprean3/html/00Index.html).
+
+Please see [Lab 2](Lb02-OLS_Estimates.html).
 :::
+
+
 
 

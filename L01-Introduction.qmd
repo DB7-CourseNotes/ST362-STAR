@@ -1,6 +1,6 @@
 ---
 title: "L01: Distributions"
-institute: "Jam: \\emph{Gamma Ray} by Beck"
+institute: "Jam: **Gamma Ray** by Beck"
 ---
 
 ## Introduction
