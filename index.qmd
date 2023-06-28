@@ -1,5 +1,35 @@
 # Introduction {.unnumbered}
 
-This repo contains the course notes for the Spring 2023 offering of ST362 Regression Analysis, based on the textbook Applied Regression Analysis, 3rd edition, by Norman R. Draper and Harry Smith and drawing from Introduction to Linear Regression Anaysis by Montgomery and Peck along with the online course notes from [Stat 501](https://online.stat.psu.edu/stat501/lesson/1) at Penn State.
 
-This is very much a work in progress.
+## About This Course
+
+This book contains the course notes for the Spring 2023 offering of ST362 Regression Analysis, based on the following sources:
+
+- *Applied Regression Analysis*, 3rd edition, by Draper and Smith 
+    - A PDF of this textbook is available through the WLU library
+- *Introduction to Linear Regression Anaysis*, 2nd edition, by Montgomery and Peck
+    - This textbook is excellent but expensive, and I am striving to use free and OER materials.
+- The online course notes from [Stat 501](https://online.stat.psu.edu/stat501/lesson/1) at Penn State.
+
+## About This Book
+
+Some features:
+
+- The GitHub logo takes you to the repo for this book. Feel free to fork and adapt as you please (under the CC BY-SA 4.0 license).
+- The little toggle next to the logo puts this into night mode. Try it out!
+- Each lecture had a "Jam", where I played music at the start of class that related to a particular slide. When that slide showed up, a student would say "That's my Jam!" and I would throw chocolate at them. 
+    - The jams are still there, and you may wish to listen to them while reading the slides!
+
+This book is very much a work in progress. There are missing sections and typos in the slides. I am working on adding speaker notes to the slides, which will show up as text in this book. 
+
+I am also working on a major re-write of the first few chapters to walk through the concepts in a better order. In particular, I would like to stay in simple linear regression for a lot longer, demonstrating correlation, Cook's distance, correlation between $\hat\beta_0$ and $\hat\beta_1$, etc., then moving into binary and categorical predictors as a first step into multiple regression, polynomial as a second step, then a lecture demonstrating that all of these concepts generalize into multiple dimensions. 
+
+This is a quarto book based on my lecture slides. The "Lectures" are quarto files that were rendered into beamer PDF slides. I have included the configs to render the slides. To re-create my slides, you can use the code:
+
+```bash
+quarto render L01-Introduction.qmd --profile slides
+```
+
+The `--profile` argument tells Quarto to use the configuration in the file `_quarto-slides.yml`. I will add speaker notes in a `notes` environment, which means that the notes will appear in the book but not the pdf slides.
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 Unported License</a>.
