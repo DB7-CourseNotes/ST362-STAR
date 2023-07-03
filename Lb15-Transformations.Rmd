@@ -1,0 +1,124 @@
+# Lab 15: Transformations
+
+## Finding a model for `mpg ~ disp`
+
+### Polynomial Models
+
+First, let's consider the polynomial models from previous lecture:
+
+```{r}
+plot(mpg ~ disp, data = mtcars)
+```
+
+A reasonable model for this looks to be $mpg_i = \beta_0 + \beta_1disp_i + \beta_{11}disp_i^2$:
+
+```{r}
+plot(mpg ~ disp, data = mtcars)
+disp_seq <- seq(min(mtcars$disp), max(mtcars$disp), 0.1)
+poly_seq <- lm(mpg ~ poly(disp, 2), data = mtcars) |>
+    predict(newdata = list(disp = disp_seq))
+lines(disp_seq, poly_seq)
+```
+
+It fits! However, the point of the polynomial lecture was that polynomials are tempting, but must be justified by theory. I'm not sure it's reasonable to assume that the fuel efficiency is proportional to the square of the displacement.
+
+Maybe a transformation will help?
+
+### Transformations
+
+Let's try the two main transformations we talked about in class.
+
+```{r}
+par(mfrow = c(2,2))
+disp_seq <- seq(min(mtcars$disp), max(mtcars$disp), 0.1)
+lm_seq <- lm(mpg ~ disp, data = mtcars) |>
+    predict(newdata = list(disp = disp_seq))
+
+plot(mpg ~ disp, data = mtcars,
+    main = "Polynomial Model")
+poly_seq <- lm(mpg ~ poly(disp, 2), data = mtcars) |>
+    predict(newdata = list(disp = disp_seq))
+lines(disp_seq, lm_seq, col = "#4a4a4a", lty = 2)
+lines(disp_seq, poly_seq, col = 2, lwd = 2)
+
+plot(sqrt(mpg) ~ disp, data = mtcars,
+    main = "Square Root Transfomation")
+sqrt_seq <- lm(sqrt(mpg) ~ disp, data = mtcars) |>
+    predict(newdata = list(disp = disp_seq))
+lines(disp_seq, sqrt(lm_seq), col = "#4a4a4a", lty = 2)
+lines(disp_seq, sqrt_seq, col = 2, lwd = 2)
+
+plot(log(mpg) ~ disp, data = mtcars,
+    main = "Log Transfomation")
+log_seq <- lm(log(mpg) ~ disp, data = mtcars) |>
+    predict(newdata = list(disp = disp_seq))
+lines(disp_seq, log(lm_seq), col = "#4a4a4a", lty = 2)
+lines(disp_seq, log_seq, col = 2, lwd = 2)
+
+plot(exp(mpg) ~ disp, data = mtcars,
+    main = "Exponential Transfomation")
+exp_seq <- lm(exp(mpg) ~ disp, data = mtcars) |>
+    predict(newdata = list(disp = disp_seq))
+lines(disp_seq, exp(lm_seq), col = "#4a4a4a", lty = 2)
+lines(disp_seq, exp_seq, col = 2, lwd = 2)
+
+```
+
+I also added the linear model, transformed to the scale of the data. Notice how the linear model is curved on these non-linear scales!
+
+In the end, the log-transform is actually pretty good! Let's evaluate that one!
+
+I'm going to add `log_mpg` as a column in mtcars because we're only going to be working on that scale. With transformations, all of our assumptions about the residuals are on the transformed scale!!! This is important!!!
+
+```{r}
+mtcars$log_mpg <- log(mtcars$mpg)
+
+log_lm <- lm(log_mpg ~ disp, data = mtcars)
+raw_lm <- lm(mpg ~ disp, data = mtcars)
+
+par(mfrow = c(3,2), mar = c(3,3,2,2))
+plot(raw_lm, which = 1)
+plot(log_lm, which = 1)
+plot(raw_lm, which = 2)
+plot(log_lm, which = 2)
+plot(raw_lm, which = 3)
+plot(log_lm, which = 3)
+```
+
+-   Resids versus fitted looks better for `log_lm`!
+-   Normal Q-Q looks about the same
+-   Scale-location looks better for `log_lm`!
+
+It's worth noting that we always use "fitted" rather than, say, `disp`. When using a polynomial model, the fitted values go from the lowest to highest. For a positive coefficient for `disp^2`, this means that it starts from the lowest point in the parabola and goes upward in both directions! Keep that in mind when interpreting residual plots of polynomial functions!
+
+## The Box-Cox Transformation
+
+```{r}
+library(MASS)
+boxcox(lm(mtcars$mpg ~ mtcars$disp), data = mtcars)
+```
+
+Since 0 is the the top 5% of log-Likelihood values, the log transform is reasonable according to Box-Cox!
+
+```{r}
+bc <- boxcox(lm(mtcars$mpg ~ mtcars$disp), data = mtcars, plotit = FALSE)
+print(bc)
+print(paste0("Optimal value of lamba is: ", bc$x[which.max(bc$y)]))
+```
+
+```{r}
+mtcars$opt_mpg <- (mtcars$mpg^(-0.3) - 1)/0.3
+
+optimal_lm <- lm(opt_mpg ~ disp, data = mtcars)
+raw_lm <- lm(mpg ~ disp, data = mtcars)
+
+par(mfrow = c(3,2), mar = c(3,3,2,2))
+plot(log_lm, which = 1)
+plot(optimal_lm, which = 1)
+plot(log_lm, which = 2)
+plot(optimal_lm, which = 2)
+plot(log_lm, which = 3)
+plot(optimal_lm, which = 3)
+```
+
+It does look a little bit better, but the log is simpler to interpret and should probably be used.

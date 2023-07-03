@@ -1,0 +1,281 @@
+---
+title: "L15: Transforming the Response"
+institute: "Jam: *Stabilise* by Nilüfer Yanya"
+---
+
+## Preamble
+
+### Announcements
+
+## Transformations
+
+### Transforming the Predictors
+
+Suppose we found that the following second order polynomial model was a "good" fit:
+$$
+y_i = \beta_0 + \beta_1x_{i1} + \beta_{11}x_{i1}^2 +\beta_2x_{i2} + \beta_{22}x_{i2}^2 + \beta_{12}x_{i1}x_{i2} + \epsilon_i
+$$
+
+\pause Now consider the model:
+$$
+\ln(y_i) = \beta_0 + \beta_1x_{i1} + \beta-2x_{i2} + \epsilon_i
+$$
+
+- 3 parameters instead of 6!
+    - No interaction term!
+- If we're okay with the log scale for $y$, easier to interpret.
+
+### Transforming the predictors
+
+:::: {.columns}
+::: {.column width="50%"}
+Original scale 
+```{r}
+#| echo: false
+#| eval: true
+#| fig-width: 5
+#| fig-height: 5
+library(plot3D)
+library(ggplot2)
+set.seed(2112)
+n <- 200
+x1 <- runif(n, 3, 10)
+x2 <- runif(n, 3, 10)
+y <- 20 + 5*x1 + 15*x1^2 + 5*x2 + 15*x2^2  + 2*x1*x2 + rnorm(n, 0, 2)
+
+scatter3D(x1, x2, y, phi = 20, theta = 45, bty = "g",
+    xlab = "x1", ylab = "x2", zlab = "y")
+```
+
+:::
+::: {.column width="50%"}
+Log scale
+```{r}
+#| echo: false
+#| eval: true
+#| fig-width: 5
+#| fig-height: 5
+scatter3D(x1, x2, log(y), phi = 20, theta = 45, bty = "g",
+    xlab = "x1", ylab = "x2", zlab = "ln(y)")
+```
+:::
+::::
+
+The logarithm made it more linear, even if it's not quite right.
+
+### Consequences of Logarithms
+
+Consider the simple model $E(y_i) = \beta x^2$. Taking the logarithm of both sides:
+$$
+\ln(E(y_i)) = \ln(\beta) + 2\ln(x) = \beta_0 + \beta_1 \ln(x)
+$$
+and we have something that looks more like a linear model.
+
+\pspace
+
+- Note that, instead of $x^2$, $x^{2.1}$ would also work as a model.
+    - The power of $x$ can be estimated.\lspace
+- It's also possible that the log scale is the *correct* scale for $y$
+    - $E(\ln(y_i)) = \beta_0 + \beta_1x$
+    - In other words, don't get too bogged down by whether we take the ln of $x$.
+
+
+### Logarithms and Errors
+
+If we believe that the log scale is a better scale for $y$, we may postulate the model:
+$$
+\ln(y_i) = \beta_0 + \beta_1\ln x_{i1} + \beta_2\ln x_{i2} + \epsilon
+$$
+which implies that the orginal scale for $y$ has the form:
+$$
+y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2}e^{\epsilon_i}
+$$
+*The errors are multiplicative!!!*
+
+- Option 1: Accept this
+    - Allows us to use least squares.\lspace
+- Option 2: Use the model $y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2} + \epsilon_i$
+    - Might be better, but requires a bespoke estimation algorithm.
+
+### General Practice
+
+We often simply use the model:
+$$
+\ln \underline y = X\beta + \underline \epsilon
+$$
+and do *everything* on the log scale.
+
+- Simpler, but still useful.\lspace
+- Good predictions of $\ln y_i$ can be transformed to good predictions of $y_i$.\lspace
+
+\pspace
+
+In general: Decide on a functional relationship between $f(y)$ and $X$, then use additive errors on the scale of $f(y)$.
+
+This has *consequences*:
+
+## Residuals in Transformed Space
+
+### Variance Stabilization
+
+The two main purposes of transformations:
+
+1. Fit non-linear functional forms.\lspace
+2. Stabilize the variance!
+    - Scale-Location plot in the R defaults.
+
+\pspace
+
+For example, the log function brings large values down a lot, small values down a little.
+
+- The scale of large residuals is decreased more than the scale of small residuals.
+
+
+### $f(\underline y) = X\beta + \underline\epsilon$
+
+The estimated residuals are $\hat\epsilon_i = f(y_i) - \widehat{f(y_i)}$
+
+- Note the awkwardly long hat! 
+    - We're estimating the value of the function, not the value of $y_i$.
+    - If $f(y_i) - \widehat{f(y_i)} = f(y_i - \widehat{y_i})$, then the original function must have been linear (and a transformation was useless).\lspace
+- We're assuming $\epsilon_i\stackrel{iid}{\sim} N(0, \sigma^2)$, which is difficult to translate to $f^{-1}(X\beta + \underline\epsilon)$.
+    - In the special case of $\ln$, $\exp{\epsilon_i} \sim \text{LogNormal}(0, \sigma^2)$.
+    - No assumption of **independence** on the original scale!!!\lspace
+- We assume that the residuals have the same variance on the *transformed* scale.
+    - Likely not true for the original scale of $y$. 
+
+### Some Good News
+
+If $(a,b)$ is a $(1-\alpha)$ CI on the scale of $f(y)$, then $(f^{-1}(a), f^{-1}(b))$ is a valid CI on the scale of $y$.
+
+\pspace
+
+- It's not the only valid CI!
+    - Note that it's not a symmetric CI!\lspace
+- Works for $y$ as well as the $\beta$ parameters.
+    - Transformation might induce dependence among the parameters.
+    - A CI for $\beta_1$ is useless if there's high covariance with $\beta_2$. 
+
+## Choosing Transformations
+
+### Methods for Choosing Transformations
+
+1. Theory.
+    - If theory says that the log transform makes sense, use that.
+        - Don't even consider the next steps. Just go with theory.
+    - Example: Forest fire burn sizes are right skewed, the log-transform makes sense.
+        - In my research, I used the lognorman lodel for the residuals to acheive the same effect.\lspace
+2. Experimentation after looking at the Scale-Location plot.
+    - If log or sqrt don't work, move on to step three.\lspace
+3. The Box-Cox Transformation
+    - Finds an appropriate transformation using maximum likelihood.
+
+### Box-Cox
+
+We use the transformation:
+$$
+V = \begin{cases}
+\frac{Y^\lambda - 1}{\lambda \dot{Y}^{\lambda - 1}} & \text{if }\lambda \ne 0\\
+\dot{Y}\ln(Y) & \text{if }\lambda = 0
+\end{cases}
+$$
+where $\dot Y$ is the geometric mean of $y$.
+
+\pspace
+
+$\lambda$ is chosen through maximum likelihood
+
+- Essentially, refit with each value of $\lambda$ and see which minimizes the residual variance.
+    - Plot the likelihhods and choose the highest.
+
+### Simpler Box-Cox
+
+The textbook recommends the previous formula, however R uses:
+$$
+W = \begin{cases}
+\frac{Y^\lambda - 1}{\lambda} & \text{if }\lambda \ne 0\\
+\ln(Y) & \text{if }\lambda = 0
+\end{cases}
+$$
+
+### Variance of $\lambda$
+
+If we had a different data set, we'd get a different value of $\lambda$!
+
+\pspace
+
+R reports the the log-likelihood values, along with the top 5%.
+
+- Anything in the top 5% is reasonable.
+    - It's not an exact science.\lspace
+- Usually, we check the best $\lambda$ values and round to something nice.
+    - log, sqrt, squared, inverse, etc.
+
+### Summary
+
+- Choosing a transformation:
+    1. Theory
+    2. Exploration
+    3. Round the value from Box-Cox.\lspace
+- Working with a transformation:
+    - Choose functional form, assume additive errors (usually, not always!)
+    - Stay on the transformed scale
+        - All assumptions about residuals apply to the transformed scale!
+
+\pspace
+
+To be useful, all transformations should consider the context of the problem!
+
+## Participation Questions
+
+### Q1
+
+If the true relationship has the form $y = f(X) + \epsilon_i$, we can always find a transformation $f^{-1}$ to make it linear.
+
+\pspace
+
+1. True
+2. False
+
+### Q2
+
+If we find that $\lambda = 2$ is the best transformation, then the following models are equivalent:
+$$
+\frac{Y^2 - 1}{2} = X\beta\quad\text{and}\quad Y^2 = 2X\beta + 1
+$$
+
+\pspace
+
+1. True
+2. False
+3. Technically not, but good enough in practice.
+
+### Q3
+
+A transformation of the form $y = f(X) + \epsilon$ leads to multiplicative errors.
+
+\pspace
+
+1. True 
+2. False
+
+### Q4
+
+Which of the following is *not* a good reason to investigate transformations?
+
+\pspace
+
+1. If the variance looks unstable.
+2. If the theory says a transformation is necessary.
+3. If a transformation might lead to a much simpler model.
+4. If $y$ doesn't look normal.
+
+### Q5
+
+The default residual plots in R can help diagnose the need for a transformation.
+
+1. True
+2. False
+
+
+
