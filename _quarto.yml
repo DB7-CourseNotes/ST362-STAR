@@ -34,6 +34,7 @@ book:
         - L12-Extra_Topics.qmd
         - L13-Wrong_Model.qmd
         - L14-Nonlinear.qmd
+        - L15-Transforming_Response.qmd
     - part: Lab Notes
       chapters:
         - Lb02-OLS_Estimates.Rmd
@@ -43,6 +44,7 @@ book:
         - Lb11-R_hat_resids_cook.Rmd
         - Lb12-Corr_in_Betas.qmd
         - Lb13-Wrong_Model.Rmd
+        - Lb15-Transformations.Rmd
 
 format:
   html:

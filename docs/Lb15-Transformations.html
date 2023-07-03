@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Regression Analysis - 6&nbsp; L06: Extra Sum-of-Squares (Part 1)</title>
+<title>Regression Analysis - 22&nbsp; Lab 15: Transformations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L07-Exampless.html" rel="next">
-<link href="./L05-General_Regression.html" rel="prev">
+<link href="./Lb13-Wrong_Model.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L06-Extra_Sums_of_Squares-1.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L06: Extra Sum-of-Squares (Part 1)</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Lab Notes</a></li><li class="breadcrumb-item"><a href="./Lb15-Transformations.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lab 15: Transformations</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L06-Extra_Sums_of_Squares-1.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L06-Extra_Sums_of_Squares-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L06: Extra Sum-of-Squares (Part 1)</span></span></a>
   </div>
 </li>
@@ -295,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lab 15: Transformations</span></span></a>
   </div>
 </li>
@@ -311,21 +310,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">6.1</span> Introduction</a>
+  <li><a href="#finding-a-model-for-mpg-disp" id="toc-finding-a-model-for-mpg-disp" class="nav-link active" data-scroll-target="#finding-a-model-for-mpg-disp"><span class="header-section-number">22.1</span> Finding a model for <code>mpg ~ disp</code></a>
   <ul class="collapse">
-  <li><a href="#todays-main-idea" id="toc-todays-main-idea" class="nav-link" data-scroll-target="#todays-main-idea">Today’s Main Idea</a></li>
-  <li><a href="#sum-of-squares-due-to-regression" id="toc-sum-of-squares-due-to-regression" class="nav-link" data-scroll-target="#sum-of-squares-due-to-regression">Sum-of-Squares due to Regression</a></li>
-  <li><a href="#ssreg-in-two-different-penguin-models" id="toc-ssreg-in-two-different-penguin-models" class="nav-link" data-scroll-target="#ssreg-in-two-different-penguin-models">SSReg in two different penguin models</a></li>
-  <li><a href="#extra-sum-of-squares" id="toc-extra-sum-of-squares" class="nav-link" data-scroll-target="#extra-sum-of-squares">Extra Sum-of-Squares</a></li>
-  <li><a href="#special-case-corrected-sum-of-squares" id="toc-special-case-corrected-sum-of-squares" class="nav-link" data-scroll-target="#special-case-corrected-sum-of-squares">Special Case: Corrected Sum-of-Squares</a></li>
-  <li><a href="#unspecial-case-correction-doesnt-matter" id="toc-unspecial-case-correction-doesnt-matter" class="nav-link" data-scroll-target="#unspecial-case-correction-doesnt-matter">Unspecial Case: Correction doesn’t matter!</a></li>
-  <li><a href="#unspecial-case-ssreg-versus-sse-doesnt-matter" id="toc-unspecial-case-ssreg-versus-sse-doesnt-matter" class="nav-link" data-scroll-target="#unspecial-case-ssreg-versus-sse-doesnt-matter">Unspecial Case: SSReg versus SSE doesn’t matter!</a></li>
-  <li><a href="#anova-tests-for-ess" id="toc-anova-tests-for-ess" class="nav-link" data-scroll-target="#anova-tests-for-ess">ANOVA Tests for ESS</a></li>
-  <li><a href="#in-general" id="toc-in-general" class="nav-link" data-scroll-target="#in-general">In General</a></li>
-  <li><a href="#omnibus-tests-for-multiple-predictors" id="toc-omnibus-tests-for-multiple-predictors" class="nav-link" data-scroll-target="#omnibus-tests-for-multiple-predictors">Omnibus Tests for Multiple Predictors</a></li>
-  <li><a href="#in-r" id="toc-in-r" class="nav-link" data-scroll-target="#in-r">In R</a></li>
-  <li><a href="#next-time" id="toc-next-time" class="nav-link" data-scroll-target="#next-time">Next time</a></li>
+  <li><a href="#polynomial-models" id="toc-polynomial-models" class="nav-link" data-scroll-target="#polynomial-models">Polynomial Models</a></li>
+  <li><a href="#transformations" id="toc-transformations" class="nav-link" data-scroll-target="#transformations">Transformations</a></li>
   </ul></li>
+  <li><a href="#the-box-cox-transformation" id="toc-the-box-cox-transformation" class="nav-link" data-scroll-target="#the-box-cox-transformation"><span class="header-section-number">22.2</span> The Box-Cox Transformation</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -334,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L06: Extra Sum-of-Squares (Part 1)</span></h1>
+<h1 class="title"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lab 15: Transformations</span></h1>
 </div>
 
 
@@ -362,188 +352,152 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introduction" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">6.1</span> Introduction</h2>
-<section id="todays-main-idea" class="level3">
-<h3 class="anchored" data-anchor-id="todays-main-idea">Today’s Main Idea</h3>
-<p>If you add or remove predictors, the variance of the residuals changes!</p>
-<ul>
-<li>As always, we ask if it’s a “big” change.</li>
-<li>Different predictors have a different effect on the residuals.</li>
-</ul>
-<p>Which predictors have a meaningful (significant?) effect on the residuals?</p>
-</section>
-<section id="sum-of-squares-due-to-regression" class="level3">
-<h3 class="anchored" data-anchor-id="sum-of-squares-due-to-regression">Sum-of-Squares due to Regression</h3>
-<ul>
-<li>Since SSE = SST - SSReg and SST never changes, we’re focusing on SSReg.</li>
-<li>Recall: SSReg is the variance of the line itself!</li>
-</ul>
-<p><span class="math display">\[
-SSReg = \sum_{i=1}^n(\hat y_i - \bar y)
-\]</span></p>
-</section>
-<section id="ssreg-in-two-different-penguin-models" class="level3">
-<h3 class="anchored" data-anchor-id="ssreg-in-two-different-penguin-models">SSReg in two different penguin models</h3>
-<p>In the <code>penguins</code> data, we’re determining which predictors are associated with body mass.</p>
-<ul>
-<li><span class="math inline">\(SS_1\)</span> = SSReg for model 1
-<ul>
-<li><span class="math inline">\(\texttt{body\_mass\_g} = \beta_0 + \beta_1 \texttt{flipper\_length\_mm} + \beta_2 \texttt{bill\_length\_mm} + \beta_3 \texttt{bill\_depth\_mm}\)</span></li>
-</ul></li>
-<li><span class="math inline">\(SS_2\)</span> = SSReg for model 2
-<ul>
-<li><span class="math inline">\(\texttt{body\_mass\_g} = \beta_0 + \beta_1 \texttt{flipper\_length\_mm} + \beta_2 \texttt{bill\_length\_mm}\)</span></li>
-</ul></li>
-</ul>
-<p>Note: M2 is <strong>nested</strong> in M1 - M1 has all the same predictors and then some.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\beta_1\)</span> in the first model is <strong>different</strong> from <span class="math inline">\(\beta_1\)</span> in the second model.</p>
-</div>
-</div>
-</section>
-<section id="extra-sum-of-squares" class="level3">
-<h3 class="anchored" data-anchor-id="extra-sum-of-squares">Extra Sum-of-Squares</h3>
-<p>If M2 is <strong>nested</strong> within M1, :</p>
-<ul>
-<li>M1: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}\)</span></li>
-<li>M2: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength}\)</span></li>
-</ul>
-<p>Then the Extra sum of squares is defined as: <span class="math display">\[
-SS(\hat\beta_3 | \hat\beta_0, \hat\beta_1, \hat\beta_2) = S_1 - S_2
-\]</span></p>
-<p>Convince yourself that S1 &gt; S2.</p>
-</section>
-<section id="special-case-corrected-sum-of-squares" class="level3">
-<h3 class="anchored" data-anchor-id="special-case-corrected-sum-of-squares">Special Case: Corrected Sum-of-Squares</h3>
-<p>We’ve already seen this notation: <span class="math display">\[
-SSReg(\hat\beta_0) = n\bar{\underline y}^2
-\]</span> and <span class="math display">\[
-SSReg(corrected) = \hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2 = S_1 - S_2
-\]</span> where <span class="math inline">\(S_2\)</span> is the sum-of-squares for the null model!</p>
-</section>
-<section id="unspecial-case-correction-doesnt-matter" class="level3">
-<h3 class="anchored" data-anchor-id="unspecial-case-correction-doesnt-matter">Unspecial Case: Correction doesn’t matter!</h3>
-<p>Consider <span class="math inline">\(S_{1c}\)</span> and <span class="math inline">\(S_{2c}\)</span>, the corrected versions of <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span>. Then</p>
-<p><span class="math display">\[\begin{align*}
-S_{1c} - S_{2c} = (S_2 - n\bar{\underline y}^2) - (S_1 - n\bar{\underline y}^2) = S_1 - S_2
-\end{align*}\]</span></p>
-<p>In other words, the correction term doesn’t matter.</p>
-<p>This is useful because R outputs the corrected versions.</p>
-</section>
-<section id="unspecial-case-ssreg-versus-sse-doesnt-matter" class="level3">
-<h3 class="anchored" data-anchor-id="unspecial-case-ssreg-versus-sse-doesnt-matter">Unspecial Case: SSReg versus SSE doesn’t matter!</h3>
-<p>Consider <span class="math inline">\(SSE_1\)</span> and <span class="math inline">\(SSE_2\)</span>. Since SST is the same for both models,</p>
-<p><span class="math display">\[\begin{align*}
-SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
-\end{align*}\]</span></p>
-<p>Notice that the order is switched, which is fine.</p>
-</section>
-<section id="anova-tests-for-ess" class="level3">
-<h3 class="anchored" data-anchor-id="anova-tests-for-ess">ANOVA Tests for ESS</h3>
-<p>Consider the models:</p>
-<ul>
-<li>M1: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}\)</span>
-<ul>
-<li><span class="math inline">\(df_1 = 4\)</span></li>
-</ul></li>
-<li>M2: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength}\)</span>
-<ul>
-<li><span class="math inline">\(df_2 = 3\)</span></li>
-</ul></li>
-</ul>
-<p>If we choose <span class="math inline">\(H_0: \beta_3 = 0\)</span> in model 1, then <span class="math display">\[
-\frac{S_1 - S_2}{(4 - 3)s^2} \sim F_{1,\nu}
-\]</span></p>
-<p>where <span class="math inline">\(s^2\)</span> is the error variance (MSE) in the larger model with degress of freedom <span class="math inline">\(\nu = df_1\)</span>.</p>
-<p>This is almost identical to the F-test for only one predictor (with one important difference).</p>
-</section>
-<section id="in-general" class="level3">
-<h3 class="anchored" data-anchor-id="in-general">In General</h3>
-<p>If M1 has <span class="math inline">\(p\)</span> df, M2 has <span class="math inline">\(q\)</span> df, and one is nested in the other, then <span class="math inline">\(\nu = \max(p, q)\)</span> and</p>
-<p><span class="math display">\[
-\frac{S_1 - S_2}{(p - q)s^2} \sim F_{|p-q|,\nu}
-\]</span></p>
-<p>Note that it doesn’t matter which is nested: <span class="math inline">\(S_1 - S_2\)</span> has the same sign as <span class="math inline">\(p-q\)</span>, so it’s always positive.</p>
-</section>
-<section id="omnibus-tests-for-multiple-predictors" class="level3">
-<h3 class="anchored" data-anchor-id="omnibus-tests-for-multiple-predictors">Omnibus Tests for Multiple Predictors</h3>
-<p>Suppose we want to test if <em>any</em> bill measurement is useful.</p>
-<ul>
-<li>Bill length and depth are highly correlated - marginal CIs won’t be valid.</li>
-<li>Confidence Regions are hard (and only work in 2D)</li>
-</ul>
-<p>Instead, we can use the ESS to test for a subset of predictors!</p>
-<ul>
-<li>M1: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}\)</span></li>
-<li>M2: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength}\)</span></li>
-</ul>
-<p><span class="math inline">\(S_1 = S_2\)</span> is equivalent to <span class="math inline">\(\beta_2 = \beta_3 = 0\)</span>, and it accounts for their covariance!</p>
-<p>If significant, then at least one of <span class="math inline">\((\beta_2, \beta_3)\)</span> is not 0.</p>
-</section>
-<section id="in-r" class="level3">
-<h3 class="anchored" data-anchor-id="in-r">In R</h3>
+<section id="finding-a-model-for-mpg-disp" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="finding-a-model-for-mpg-disp"><span class="header-section-number">22.1</span> Finding a model for <code>mpg ~ disp</code></h2>
+<section id="polynomial-models" class="level3">
+<h3 class="anchored" data-anchor-id="polynomial-models">Polynomial Models</h3>
+<p>First, let’s consider the polynomial models from previous lecture:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m1, m2) <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;">Res.Df</th>
-<th style="text-align: right;">RSS</th>
-<th style="text-align: right;">Df</th>
-<th style="text-align: right;">Sum of Sq</th>
-<th style="text-align: right;">F</th>
-<th style="text-align: right;">Pr(&gt;F)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">329</td>
-<td style="text-align: right;">50814912</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">331</td>
-<td style="text-align: right;">51211963</td>
-<td style="text-align: right;">-2</td>
-<td style="text-align: right;">-397050.9</td>
-<td style="text-align: right;">1.285349</td>
-<td style="text-align: right;">0.2779392</td>
-</tr>
-</tbody>
-</table>
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>A reasonable model for this looks to be <span class="math inline">\(mpg_i = \beta_0 + \beta_1disp_i + \beta_{11}disp_i^2\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>disp_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(mtcars<span class="sc">$</span>disp), <span class="fu">max</span>(mtcars<span class="sc">$</span>disp), <span class="fl">0.1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>poly_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="fu">poly</span>(disp, <span class="dv">2</span>), <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, poly_seq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It fits! However, the point of the polynomial lecture was that polynomials are tempting, but must be justified by theory. I’m not sure it’s reasonable to assume that the fuel efficiency is proportional to the square of the displacement.</p>
+<p>Maybe a transformation will help?</p>
 </section>
-<section id="next-time" class="level3">
-<h3 class="anchored" data-anchor-id="next-time">Next time</h3>
+<section id="transformations" class="level3">
+<h3 class="anchored" data-anchor-id="transformations">Transformations</h3>
+<p>Let’s try the two main transformations we talked about in class.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>disp_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(mtcars<span class="sc">$</span>disp), <span class="fu">max</span>(mtcars<span class="sc">$</span>disp), <span class="fl">0.1</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>lm_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Polynomial Model"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>poly_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="fu">poly</span>(disp, <span class="dv">2</span>), <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, lm_seq, <span class="at">col =</span> <span class="st">"#4a4a4a"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, poly_seq, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">sqrt</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Square Root Transfomation"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>sqrt_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">sqrt</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, <span class="fu">sqrt</span>(lm_seq), <span class="at">col =</span> <span class="st">"#4a4a4a"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, sqrt_seq, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Log Transfomation"</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>log_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, <span class="fu">log</span>(lm_seq), <span class="at">col =</span> <span class="st">"#4a4a4a"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, log_seq, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">exp</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars,</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Exponential Transfomation"</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>exp_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">exp</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, <span class="fu">exp</span>(lm_seq), <span class="at">col =</span> <span class="st">"#4a4a4a"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, exp_seq, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>I also added the linear model, transformed to the scale of the data. Notice how the linear model is curved on these non-linear scales!</p>
+<p>In the end, the log-transform is actually pretty good! Let’s evaluate that one!</p>
+<p>I’m going to add <code>log_mpg</code> as a column in mtcars because we’re only going to be working on that scale. With transformations, all of our assumptions about the residuals are on the transformed scale!!! This is important!!!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>log_mpg <span class="ot">&lt;-</span> <span class="fu">log</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>log_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>raw_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(raw_lm, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(raw_lm, <span class="at">which =</span> <span class="dv">2</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">2</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(raw_lm, <span class="at">which =</span> <span class="dv">3</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <ul>
-<li>When to check ESS</li>
-<li>How to check all ESS</li>
-<li>What is R’s <code>anova()</code> function even doing??</li>
+<li>Resids versus fitted looks better for <code>log_lm</code>!</li>
+<li>Normal Q-Q looks about the same</li>
+<li>Scale-location looks better for <code>log_lm</code>!</li>
 </ul>
-
-
+<p>It’s worth noting that we always use “fitted” rather than, say, <code>disp</code>. When using a polynomial model, the fitted values go from the lowest to highest. For a positive coefficient for <code>disp^2</code>, this means that it starts from the lowest point in the parabola and goes upward in both directions! Keep that in mind when interpreting residual plots of polynomial functions!</p>
 </section>
+</section>
+<section id="the-box-cox-transformation" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="the-box-cox-transformation"><span class="header-section-number">22.2</span> The Box-Cox Transformation</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcox</span>(<span class="fu">lm</span>(mtcars<span class="sc">$</span>mpg <span class="sc">~</span> mtcars<span class="sc">$</span>disp), <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Since 0 is the the top 5% of log-Likelihood values, the log transform is reasonable according to Box-Cox!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bc <span class="ot">&lt;-</span> <span class="fu">boxcox</span>(<span class="fu">lm</span>(mtcars<span class="sc">$</span>mpg <span class="sc">~</span> mtcars<span class="sc">$</span>disp), <span class="at">data =</span> mtcars, <span class="at">plotit =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$x
+ [1] -2.0 -1.9 -1.8 -1.7 -1.6 -1.5 -1.4 -1.3 -1.2 -1.1 -1.0 -0.9 -0.8 -0.7 -0.6
+[16] -0.5 -0.4 -0.3 -0.2 -0.1  0.0  0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9
+[31]  1.0  1.1  1.2  1.3  1.4  1.5  1.6  1.7  1.8  1.9  2.0
+
+$y
+ [1] -3.57059866 -2.41311198 -1.29583952 -0.22262913  0.80247262  1.77526399
+ [7]  2.69144571  3.54669319  4.33674248  5.05748822  5.70509010  6.27608329
+[13]  6.76748690  7.17690379  7.50260505  7.74359272  7.89963620  7.97127900
+[19]  7.95981574  7.86724092  7.69617369  7.44976444  7.13158953  6.74554135
+[25]  6.29571958  5.78632931  5.22158959  4.60565519  3.94255266  3.23613075
+[31]  2.49002447  1.70763143  0.89209868  0.04631829 -0.82707014 -1.72567168
+[37] -2.64732452 -3.59008589 -4.55221639 -5.53216368 -6.52854602</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"Optimal value of lamba is: "</span>, bc<span class="sc">$</span>x[<span class="fu">which.max</span>(bc<span class="sc">$</span>y)]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Optimal value of lamba is: -0.3"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>opt_mpg <span class="ot">&lt;-</span> (mtcars<span class="sc">$</span>mpg<span class="sc">^</span>(<span class="sc">-</span><span class="fl">0.3</span>) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fl">0.3</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>optimal_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(opt_mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>raw_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(optimal_lm, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">2</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(optimal_lm, <span class="at">which =</span> <span class="dv">2</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">3</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(optimal_lm, <span class="at">which =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It does look a little bit better, but the log is simpler to interpret and should probably be used.</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -897,14 +851,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L05-General_Regression.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">L05: The General Regression Situation</span></span>
+      <a href="./Lb13-Wrong_Model.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L07-Exampless.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L07: ESS Exampless</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

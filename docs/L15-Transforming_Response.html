@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Regression Analysis - 6&nbsp; L06: Extra Sum-of-Squares (Part 1)</title>
+<title>Regression Analysis - 14&nbsp; L15: Transforming the Response</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,8 +31,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L07-Exampless.html" rel="next">
-<link href="./L05-General_Regression.html" rel="prev">
+<link href="./Lb02-OLS_Estimates.html" rel="next">
+<link href="./L14-Nonlinear.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L06-Extra_Sums_of_Squares-1.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L06: Extra Sum-of-Squares (Part 1)</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L15-Transforming_Response.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">L15: Transforming the Response</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L06-Extra_Sums_of_Squares-1.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L06-Extra_Sums_of_Squares-1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L06: Extra Sum-of-Squares (Part 1)</span></span></a>
   </div>
 </li>
@@ -236,7 +202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">L15: Transforming the Response</span></span></a>
   </div>
 </li>
@@ -311,20 +277,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">6.1</span> Introduction</a>
+  <li><a href="#preamble" id="toc-preamble" class="nav-link active" data-scroll-target="#preamble"><span class="header-section-number">14.1</span> Preamble</a>
   <ul class="collapse">
-  <li><a href="#todays-main-idea" id="toc-todays-main-idea" class="nav-link" data-scroll-target="#todays-main-idea">Today’s Main Idea</a></li>
-  <li><a href="#sum-of-squares-due-to-regression" id="toc-sum-of-squares-due-to-regression" class="nav-link" data-scroll-target="#sum-of-squares-due-to-regression">Sum-of-Squares due to Regression</a></li>
-  <li><a href="#ssreg-in-two-different-penguin-models" id="toc-ssreg-in-two-different-penguin-models" class="nav-link" data-scroll-target="#ssreg-in-two-different-penguin-models">SSReg in two different penguin models</a></li>
-  <li><a href="#extra-sum-of-squares" id="toc-extra-sum-of-squares" class="nav-link" data-scroll-target="#extra-sum-of-squares">Extra Sum-of-Squares</a></li>
-  <li><a href="#special-case-corrected-sum-of-squares" id="toc-special-case-corrected-sum-of-squares" class="nav-link" data-scroll-target="#special-case-corrected-sum-of-squares">Special Case: Corrected Sum-of-Squares</a></li>
-  <li><a href="#unspecial-case-correction-doesnt-matter" id="toc-unspecial-case-correction-doesnt-matter" class="nav-link" data-scroll-target="#unspecial-case-correction-doesnt-matter">Unspecial Case: Correction doesn’t matter!</a></li>
-  <li><a href="#unspecial-case-ssreg-versus-sse-doesnt-matter" id="toc-unspecial-case-ssreg-versus-sse-doesnt-matter" class="nav-link" data-scroll-target="#unspecial-case-ssreg-versus-sse-doesnt-matter">Unspecial Case: SSReg versus SSE doesn’t matter!</a></li>
-  <li><a href="#anova-tests-for-ess" id="toc-anova-tests-for-ess" class="nav-link" data-scroll-target="#anova-tests-for-ess">ANOVA Tests for ESS</a></li>
-  <li><a href="#in-general" id="toc-in-general" class="nav-link" data-scroll-target="#in-general">In General</a></li>
-  <li><a href="#omnibus-tests-for-multiple-predictors" id="toc-omnibus-tests-for-multiple-predictors" class="nav-link" data-scroll-target="#omnibus-tests-for-multiple-predictors">Omnibus Tests for Multiple Predictors</a></li>
-  <li><a href="#in-r" id="toc-in-r" class="nav-link" data-scroll-target="#in-r">In R</a></li>
-  <li><a href="#next-time" id="toc-next-time" class="nav-link" data-scroll-target="#next-time">Next time</a></li>
+  <li><a href="#announcements" id="toc-announcements" class="nav-link" data-scroll-target="#announcements">Announcements</a></li>
+  </ul></li>
+  <li><a href="#transformations" id="toc-transformations" class="nav-link" data-scroll-target="#transformations"><span class="header-section-number">14.2</span> Transformations</a>
+  <ul class="collapse">
+  <li><a href="#transforming-the-predictors" id="toc-transforming-the-predictors" class="nav-link" data-scroll-target="#transforming-the-predictors">Transforming the Predictors</a></li>
+  <li><a href="#transforming-the-predictors-1" id="toc-transforming-the-predictors-1" class="nav-link" data-scroll-target="#transforming-the-predictors-1">Transforming the predictors</a></li>
+  <li><a href="#consequences-of-logarithms" id="toc-consequences-of-logarithms" class="nav-link" data-scroll-target="#consequences-of-logarithms">Consequences of Logarithms</a></li>
+  <li><a href="#logarithms-and-errors" id="toc-logarithms-and-errors" class="nav-link" data-scroll-target="#logarithms-and-errors">Logarithms and Errors</a></li>
+  <li><a href="#general-practice" id="toc-general-practice" class="nav-link" data-scroll-target="#general-practice">General Practice</a></li>
+  </ul></li>
+  <li><a href="#residuals-in-transformed-space" id="toc-residuals-in-transformed-space" class="nav-link" data-scroll-target="#residuals-in-transformed-space"><span class="header-section-number">14.3</span> Residuals in Transformed Space</a>
+  <ul class="collapse">
+  <li><a href="#variance-stabilization" id="toc-variance-stabilization" class="nav-link" data-scroll-target="#variance-stabilization">Variance Stabilization</a></li>
+  <li><a href="#funderline-y-xbeta-underlineepsilon" id="toc-funderline-y-xbeta-underlineepsilon" class="nav-link" data-scroll-target="#funderline-y-xbeta-underlineepsilon"><span class="math inline">\(f(\underline y) = X\beta + \underline\epsilon\)</span></a></li>
+  <li><a href="#some-good-news" id="toc-some-good-news" class="nav-link" data-scroll-target="#some-good-news">Some Good News</a></li>
+  </ul></li>
+  <li><a href="#choosing-transformations" id="toc-choosing-transformations" class="nav-link" data-scroll-target="#choosing-transformations"><span class="header-section-number">14.4</span> Choosing Transformations</a>
+  <ul class="collapse">
+  <li><a href="#methods-for-choosing-transformations" id="toc-methods-for-choosing-transformations" class="nav-link" data-scroll-target="#methods-for-choosing-transformations">Methods for Choosing Transformations</a></li>
+  <li><a href="#box-cox" id="toc-box-cox" class="nav-link" data-scroll-target="#box-cox">Box-Cox</a></li>
+  <li><a href="#simpler-box-cox" id="toc-simpler-box-cox" class="nav-link" data-scroll-target="#simpler-box-cox">Simpler Box-Cox</a></li>
+  <li><a href="#variance-of-lambda" id="toc-variance-of-lambda" class="nav-link" data-scroll-target="#variance-of-lambda">Variance of <span class="math inline">\(\lambda\)</span></a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul></li>
+  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">14.5</span> Participation Questions</a>
+  <ul class="collapse">
+  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
+  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
+  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
+  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
+  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -334,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L06: Extra Sum-of-Squares (Part 1)</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">L15: Transforming the Response</span></h1>
 </div>
 
 
@@ -347,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Wilfrid Laurier University
+            Jam: <em>Stabilise</em> by Nilüfer Yanya
           </p>
       </div>
     </div>
@@ -362,185 +347,285 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introduction" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">6.1</span> Introduction</h2>
-<section id="todays-main-idea" class="level3">
-<h3 class="anchored" data-anchor-id="todays-main-idea">Today’s Main Idea</h3>
-<p>If you add or remove predictors, the variance of the residuals changes!</p>
-<ul>
-<li>As always, we ask if it’s a “big” change.</li>
-<li>Different predictors have a different effect on the residuals.</li>
-</ul>
-<p>Which predictors have a meaningful (significant?) effect on the residuals?</p>
+<section id="preamble" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="preamble"><span class="header-section-number">14.1</span> Preamble</h2>
+<section id="announcements" class="level3">
+<h3 class="anchored" data-anchor-id="announcements">Announcements</h3>
 </section>
-<section id="sum-of-squares-due-to-regression" class="level3">
-<h3 class="anchored" data-anchor-id="sum-of-squares-due-to-regression">Sum-of-Squares due to Regression</h3>
-<ul>
-<li>Since SSE = SST - SSReg and SST never changes, we’re focusing on SSReg.</li>
-<li>Recall: SSReg is the variance of the line itself!</li>
-</ul>
-<p><span class="math display">\[
-SSReg = \sum_{i=1}^n(\hat y_i - \bar y)
+</section>
+<section id="transformations" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="transformations"><span class="header-section-number">14.2</span> Transformations</h2>
+<section id="transforming-the-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="transforming-the-predictors">Transforming the Predictors</h3>
+<p>Suppose we found that the following second order polynomial model was a “good” fit: <span class="math display">\[
+y_i = \beta_0 + \beta_1x_{i1} + \beta_{11}x_{i1}^2 +\beta_2x_{i2} + \beta_{22}x_{i2}^2 + \beta_{12}x_{i1}x_{i2} + \epsilon_i
 \]</span></p>
-</section>
-<section id="ssreg-in-two-different-penguin-models" class="level3">
-<h3 class="anchored" data-anchor-id="ssreg-in-two-different-penguin-models">SSReg in two different penguin models</h3>
-<p>In the <code>penguins</code> data, we’re determining which predictors are associated with body mass.</p>
-<ul>
-<li><span class="math inline">\(SS_1\)</span> = SSReg for model 1
-<ul>
-<li><span class="math inline">\(\texttt{body\_mass\_g} = \beta_0 + \beta_1 \texttt{flipper\_length\_mm} + \beta_2 \texttt{bill\_length\_mm} + \beta_3 \texttt{bill\_depth\_mm}\)</span></li>
-</ul></li>
-<li><span class="math inline">\(SS_2\)</span> = SSReg for model 2
-<ul>
-<li><span class="math inline">\(\texttt{body\_mass\_g} = \beta_0 + \beta_1 \texttt{flipper\_length\_mm} + \beta_2 \texttt{bill\_length\_mm}\)</span></li>
-</ul></li>
-</ul>
-<p>Note: M2 is <strong>nested</strong> in M1 - M1 has all the same predictors and then some.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\beta_1\)</span> in the first model is <strong>different</strong> from <span class="math inline">\(\beta_1\)</span> in the second model.</p>
-</div>
-</div>
-</section>
-<section id="extra-sum-of-squares" class="level3">
-<h3 class="anchored" data-anchor-id="extra-sum-of-squares">Extra Sum-of-Squares</h3>
-<p>If M2 is <strong>nested</strong> within M1, :</p>
-<ul>
-<li>M1: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}\)</span></li>
-<li>M2: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength}\)</span></li>
-</ul>
-<p>Then the Extra sum of squares is defined as: <span class="math display">\[
-SS(\hat\beta_3 | \hat\beta_0, \hat\beta_1, \hat\beta_2) = S_1 - S_2
+<p>Now consider the model: <span class="math display">\[
+\ln(y_i) = \beta_0 + \beta_1x_{i1} + \beta-2x_{i2} + \epsilon_i
 \]</span></p>
-<p>Convince yourself that S1 &gt; S2.</p>
-</section>
-<section id="special-case-corrected-sum-of-squares" class="level3">
-<h3 class="anchored" data-anchor-id="special-case-corrected-sum-of-squares">Special Case: Corrected Sum-of-Squares</h3>
-<p>We’ve already seen this notation: <span class="math display">\[
-SSReg(\hat\beta_0) = n\bar{\underline y}^2
-\]</span> and <span class="math display">\[
-SSReg(corrected) = \hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2 = S_1 - S_2
-\]</span> where <span class="math inline">\(S_2\)</span> is the sum-of-squares for the null model!</p>
-</section>
-<section id="unspecial-case-correction-doesnt-matter" class="level3">
-<h3 class="anchored" data-anchor-id="unspecial-case-correction-doesnt-matter">Unspecial Case: Correction doesn’t matter!</h3>
-<p>Consider <span class="math inline">\(S_{1c}\)</span> and <span class="math inline">\(S_{2c}\)</span>, the corrected versions of <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span>. Then</p>
-<p><span class="math display">\[\begin{align*}
-S_{1c} - S_{2c} = (S_2 - n\bar{\underline y}^2) - (S_1 - n\bar{\underline y}^2) = S_1 - S_2
-\end{align*}\]</span></p>
-<p>In other words, the correction term doesn’t matter.</p>
-<p>This is useful because R outputs the corrected versions.</p>
-</section>
-<section id="unspecial-case-ssreg-versus-sse-doesnt-matter" class="level3">
-<h3 class="anchored" data-anchor-id="unspecial-case-ssreg-versus-sse-doesnt-matter">Unspecial Case: SSReg versus SSE doesn’t matter!</h3>
-<p>Consider <span class="math inline">\(SSE_1\)</span> and <span class="math inline">\(SSE_2\)</span>. Since SST is the same for both models,</p>
-<p><span class="math display">\[\begin{align*}
-SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
-\end{align*}\]</span></p>
-<p>Notice that the order is switched, which is fine.</p>
-</section>
-<section id="anova-tests-for-ess" class="level3">
-<h3 class="anchored" data-anchor-id="anova-tests-for-ess">ANOVA Tests for ESS</h3>
-<p>Consider the models:</p>
 <ul>
-<li>M1: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}\)</span>
+<li>3 parameters instead of 6!
 <ul>
-<li><span class="math inline">\(df_1 = 4\)</span></li>
+<li>No interaction term!</li>
 </ul></li>
-<li>M2: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength}\)</span>
-<ul>
-<li><span class="math inline">\(df_2 = 3\)</span></li>
-</ul></li>
+<li>If we’re okay with the log scale for <span class="math inline">\(y\)</span>, easier to interpret.</li>
 </ul>
-<p>If we choose <span class="math inline">\(H_0: \beta_3 = 0\)</span> in model 1, then <span class="math display">\[
-\frac{S_1 - S_2}{(4 - 3)s^2} \sim F_{1,\nu}
-\]</span></p>
-<p>where <span class="math inline">\(s^2\)</span> is the error variance (MSE) in the larger model with degress of freedom <span class="math inline">\(\nu = df_1\)</span>.</p>
-<p>This is almost identical to the F-test for only one predictor (with one important difference).</p>
 </section>
-<section id="in-general" class="level3">
-<h3 class="anchored" data-anchor-id="in-general">In General</h3>
-<p>If M1 has <span class="math inline">\(p\)</span> df, M2 has <span class="math inline">\(q\)</span> df, and one is nested in the other, then <span class="math inline">\(\nu = \max(p, q)\)</span> and</p>
-<p><span class="math display">\[
-\frac{S_1 - S_2}{(p - q)s^2} \sim F_{|p-q|,\nu}
-\]</span></p>
-<p>Note that it doesn’t matter which is nested: <span class="math inline">\(S_1 - S_2\)</span> has the same sign as <span class="math inline">\(p-q\)</span>, so it’s always positive.</p>
-</section>
-<section id="omnibus-tests-for-multiple-predictors" class="level3">
-<h3 class="anchored" data-anchor-id="omnibus-tests-for-multiple-predictors">Omnibus Tests for Multiple Predictors</h3>
-<p>Suppose we want to test if <em>any</em> bill measurement is useful.</p>
-<ul>
-<li>Bill length and depth are highly correlated - marginal CIs won’t be valid.</li>
-<li>Confidence Regions are hard (and only work in 2D)</li>
-</ul>
-<p>Instead, we can use the ESS to test for a subset of predictors!</p>
-<ul>
-<li>M1: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}\)</span></li>
-<li>M2: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength}\)</span></li>
-</ul>
-<p><span class="math inline">\(S_1 = S_2\)</span> is equivalent to <span class="math inline">\(\beta_2 = \beta_3 = 0\)</span>, and it accounts for their covariance!</p>
-<p>If significant, then at least one of <span class="math inline">\((\beta_2, \beta_3)\)</span> is not 0.</p>
-</section>
-<section id="in-r" class="level3">
-<h3 class="anchored" data-anchor-id="in-r">In R</h3>
+<section id="transforming-the-predictors-1" class="level3">
+<h3 class="anchored" data-anchor-id="transforming-the-predictors-1">Transforming the predictors</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Original scale</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m1, m2) <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;">Res.Df</th>
-<th style="text-align: right;">RSS</th>
-<th style="text-align: right;">Df</th>
-<th style="text-align: right;">Sum of Sq</th>
-<th style="text-align: right;">F</th>
-<th style="text-align: right;">Pr(&gt;F)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">329</td>
-<td style="text-align: right;">50814912</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">331</td>
-<td style="text-align: right;">51211963</td>
-<td style="text-align: right;">-2</td>
-<td style="text-align: right;">-397050.9</td>
-<td style="text-align: right;">1.285349</td>
-<td style="text-align: right;">0.2779392</td>
-</tr>
-</tbody>
-</table>
+<p><img src="L15-Transforming_Response_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
+</div><div class="column" style="width:50%;">
+<p>Log scale</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L15-Transforming_Response_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</div>
+</div>
+<p>The logarithm made it more linear, even if it’s not quite right.</p>
 </section>
-<section id="next-time" class="level3">
-<h3 class="anchored" data-anchor-id="next-time">Next time</h3>
+<section id="consequences-of-logarithms" class="level3">
+<h3 class="anchored" data-anchor-id="consequences-of-logarithms">Consequences of Logarithms</h3>
+<p>Consider the simple model <span class="math inline">\(E(y_i) = \beta x^2\)</span>. Taking the logarithm of both sides: <span class="math display">\[
+\ln(E(y_i)) = \ln(\beta) + 2\ln(x) = \beta_0 + \beta_1 \ln(x)
+\]</span> and we have something that looks more like a linear model.</p>
 <ul>
-<li>When to check ESS</li>
-<li>How to check all ESS</li>
-<li>What is R’s <code>anova()</code> function even doing??</li>
+<li>Note that, instead of <span class="math inline">\(x^2\)</span>, <span class="math inline">\(x^{2.1}\)</span> would also work as a model.
+<ul>
+<li>The power of <span class="math inline">\(x\)</span> can be estimated.</li>
+</ul></li>
+<li>It’s also possible that the log scale is the <em>correct</em> scale for <span class="math inline">\(y\)</span>
+<ul>
+<li><span class="math inline">\(E(\ln(y_i)) = \beta_0 + \beta_1x\)</span></li>
+<li>In other words, don’t get too bogged down by whether we take the ln of <span class="math inline">\(x\)</span>.</li>
+</ul></li>
 </ul>
+</section>
+<section id="logarithms-and-errors" class="level3">
+<h3 class="anchored" data-anchor-id="logarithms-and-errors">Logarithms and Errors</h3>
+<p>If we believe that the log scale is a better scale for <span class="math inline">\(y\)</span>, we may postulate the model: <span class="math display">\[
+\ln(y_i) = \beta_0 + \beta_1\ln x_{i1} + \beta_2\ln x_{i2} + \epsilon
+\]</span> which implies that the orginal scale for <span class="math inline">\(y\)</span> has the form: <span class="math display">\[
+y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2}e^{\epsilon_i}
+\]</span> <em>The errors are multiplicative!!!</em></p>
+<ul>
+<li>Option 1: Accept this
+<ul>
+<li>Allows us to use least squares.</li>
+</ul></li>
+<li>Option 2: Use the model <span class="math inline">\(y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2} + \epsilon_i\)</span>
+<ul>
+<li>Might be better, but requires a bespoke estimation algorithm.</li>
+</ul></li>
+</ul>
+</section>
+<section id="general-practice" class="level3">
+<h3 class="anchored" data-anchor-id="general-practice">General Practice</h3>
+<p>We often simply use the model: <span class="math display">\[
+\ln \underline y = X\beta + \underline \epsilon
+\]</span> and do <em>everything</em> on the log scale.</p>
+<ul>
+<li>Simpler, but still useful.</li>
+<li>Good predictions of <span class="math inline">\(\ln y_i\)</span> can be transformed to good predictions of <span class="math inline">\(y_i\)</span>.</li>
+</ul>
+<p>In general: Decide on a functional relationship between <span class="math inline">\(f(y)\)</span> and <span class="math inline">\(X\)</span>, then use additive errors on the scale of <span class="math inline">\(f(y)\)</span>.</p>
+<p>This has <em>consequences</em>:</p>
+</section>
+</section>
+<section id="residuals-in-transformed-space" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="residuals-in-transformed-space"><span class="header-section-number">14.3</span> Residuals in Transformed Space</h2>
+<section id="variance-stabilization" class="level3">
+<h3 class="anchored" data-anchor-id="variance-stabilization">Variance Stabilization</h3>
+<p>The two main purposes of transformations:</p>
+<ol type="1">
+<li>Fit non-linear functional forms.</li>
+<li>Stabilize the variance!
+<ul>
+<li>Scale-Location plot in the R defaults.</li>
+</ul></li>
+</ol>
+<p>For example, the log function brings large values down a lot, small values down a little.</p>
+<ul>
+<li>The scale of large residuals is decreased more than the scale of small residuals.</li>
+</ul>
+</section>
+<section id="funderline-y-xbeta-underlineepsilon" class="level3">
+<h3 class="anchored" data-anchor-id="funderline-y-xbeta-underlineepsilon"><span class="math inline">\(f(\underline y) = X\beta + \underline\epsilon\)</span></h3>
+<p>The estimated residuals are <span class="math inline">\(\hat\epsilon_i = f(y_i) - \widehat{f(y_i)}\)</span></p>
+<ul>
+<li>Note the awkwardly long hat!
+<ul>
+<li>We’re estimating the value of the function, not the value of <span class="math inline">\(y_i\)</span>.</li>
+<li>If <span class="math inline">\(f(y_i) - \widehat{f(y_i)} = f(y_i - \widehat{y_i})\)</span>, then the original function must have been linear (and a transformation was useless).</li>
+</ul></li>
+<li>We’re assuming <span class="math inline">\(\epsilon_i\stackrel{iid}{\sim} N(0, \sigma^2)\)</span>, which is difficult to translate to <span class="math inline">\(f^{-1}(X\beta + \underline\epsilon)\)</span>.
+<ul>
+<li>In the special case of <span class="math inline">\(\ln\)</span>, <span class="math inline">\(\exp{\epsilon_i} \sim \text{LogNormal}(0, \sigma^2)\)</span>.</li>
+<li>No assumption of <strong>independence</strong> on the original scale!!!</li>
+</ul></li>
+<li>We assume that the residuals have the same variance on the <em>transformed</em> scale.
+<ul>
+<li>Likely not true for the original scale of <span class="math inline">\(y\)</span>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="some-good-news" class="level3">
+<h3 class="anchored" data-anchor-id="some-good-news">Some Good News</h3>
+<p>If <span class="math inline">\((a,b)\)</span> is a <span class="math inline">\((1-\alpha)\)</span> CI on the scale of <span class="math inline">\(f(y)\)</span>, then <span class="math inline">\((f^{-1}(a), f^{-1}(b))\)</span> is a valid CI on the scale of <span class="math inline">\(y\)</span>.</p>
+<ul>
+<li>It’s not the only valid CI!
+<ul>
+<li>Note that it’s not a symmetric CI!</li>
+</ul></li>
+<li>Works for <span class="math inline">\(y\)</span> as well as the <span class="math inline">\(\beta\)</span> parameters.
+<ul>
+<li>Transformation might induce dependence among the parameters.</li>
+<li>A CI for <span class="math inline">\(\beta_1\)</span> is useless if there’s high covariance with <span class="math inline">\(\beta_2\)</span>.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="choosing-transformations" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="choosing-transformations"><span class="header-section-number">14.4</span> Choosing Transformations</h2>
+<section id="methods-for-choosing-transformations" class="level3">
+<h3 class="anchored" data-anchor-id="methods-for-choosing-transformations">Methods for Choosing Transformations</h3>
+<ol type="1">
+<li>Theory.
+<ul>
+<li>If theory says that the log transform makes sense, use that.
+<ul>
+<li>Don’t even consider the next steps. Just go with theory.</li>
+</ul></li>
+<li>Example: Forest fire burn sizes are right skewed, the log-transform makes sense.
+<ul>
+<li>In my research, I used the lognorman lodel for the residuals to acheive the same effect.</li>
+</ul></li>
+</ul></li>
+<li>Experimentation after looking at the Scale-Location plot.
+<ul>
+<li>If log or sqrt don’t work, move on to step three.</li>
+</ul></li>
+<li>The Box-Cox Transformation
+<ul>
+<li>Finds an appropriate transformation using maximum likelihood.</li>
+</ul></li>
+</ol>
+</section>
+<section id="box-cox" class="level3">
+<h3 class="anchored" data-anchor-id="box-cox">Box-Cox</h3>
+<p>We use the transformation: <span class="math display">\[
+V = \begin{cases}
+\frac{Y^\lambda - 1}{\lambda \dot{Y}^{\lambda - 1}} &amp; \text{if }\lambda \ne 0\\
+\dot{Y}\ln(Y) &amp; \text{if }\lambda = 0
+\end{cases}
+\]</span> where <span class="math inline">\(\dot Y\)</span> is the geometric mean of <span class="math inline">\(y\)</span>.</p>
+<p><span class="math inline">\(\lambda\)</span> is chosen through maximum likelihood</p>
+<ul>
+<li>Essentially, refit with each value of <span class="math inline">\(\lambda\)</span> and see which minimizes the residual variance.
+<ul>
+<li>Plot the likelihhods and choose the highest.</li>
+</ul></li>
+</ul>
+</section>
+<section id="simpler-box-cox" class="level3">
+<h3 class="anchored" data-anchor-id="simpler-box-cox">Simpler Box-Cox</h3>
+<p>The textbook recommends the previous formula, however R uses: <span class="math display">\[
+W = \begin{cases}
+\frac{Y^\lambda - 1}{\lambda} &amp; \text{if }\lambda \ne 0\\
+\ln(Y) &amp; \text{if }\lambda = 0
+\end{cases}
+\]</span></p>
+</section>
+<section id="variance-of-lambda" class="level3">
+<h3 class="anchored" data-anchor-id="variance-of-lambda">Variance of <span class="math inline">\(\lambda\)</span></h3>
+<p>If we had a different data set, we’d get a different value of <span class="math inline">\(\lambda\)</span>!</p>
+<p>R reports the the log-likelihood values, along with the top 5%.</p>
+<ul>
+<li>Anything in the top 5% is reasonable.
+<ul>
+<li>It’s not an exact science.</li>
+</ul></li>
+<li>Usually, we check the best <span class="math inline">\(\lambda\)</span> values and round to something nice.
+<ul>
+<li>log, sqrt, squared, inverse, etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+<ul>
+<li>Choosing a transformation:
+<ol type="1">
+<li>Theory</li>
+<li>Exploration</li>
+<li>Round the value from Box-Cox.</li>
+</ol></li>
+<li>Working with a transformation:
+<ul>
+<li>Choose functional form, assume additive errors (usually, not always!)</li>
+<li>Stay on the transformed scale
+<ul>
+<li>All assumptions about residuals apply to the transformed scale!</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>To be useful, all transformations should consider the context of the problem!</p>
+</section>
+</section>
+<section id="participation-questions" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">14.5</span> Participation Questions</h2>
+<section id="q1" class="level3">
+<h3 class="anchored" data-anchor-id="q1">Q1</h3>
+<p>If the true relationship has the form <span class="math inline">\(y = f(X) + \epsilon_i\)</span>, we can always find a transformation <span class="math inline">\(f^{-1}\)</span> to make it linear.</p>
+<ol type="1">
+<li>True</li>
+<li>False</li>
+</ol>
+</section>
+<section id="q2" class="level3">
+<h3 class="anchored" data-anchor-id="q2">Q2</h3>
+<p>If we find that <span class="math inline">\(\lambda = 2\)</span> is the best transformation, then the following models are equivalent: <span class="math display">\[
+\frac{Y^2 - 1}{2} = X\beta\quad\text{and}\quad Y^2 = 2X\beta + 1
+\]</span></p>
+<ol type="1">
+<li>True</li>
+<li>False</li>
+<li>Technically not, but good enough in practice.</li>
+</ol>
+</section>
+<section id="q3" class="level3">
+<h3 class="anchored" data-anchor-id="q3">Q3</h3>
+<p>A transformation of the form <span class="math inline">\(y = f(X) + \epsilon\)</span> leads to multiplicative errors.</p>
+<ol type="1">
+<li>True</li>
+<li>False</li>
+</ol>
+</section>
+<section id="q4" class="level3">
+<h3 class="anchored" data-anchor-id="q4">Q4</h3>
+<p>Which of the following is <em>not</em> a good reason to investigate transformations?</p>
+<ol type="1">
+<li>If the variance looks unstable.</li>
+<li>If the theory says a transformation is necessary.</li>
+<li>If a transformation might lead to a much simpler model.</li>
+<li>If <span class="math inline">\(y\)</span> doesn’t look normal.</li>
+</ol>
+</section>
+<section id="q5" class="level3">
+<h3 class="anchored" data-anchor-id="q5">Q5</h3>
+<p>The default residual plots in R can help diagnose the need for a transformation.</p>
+<ol type="1">
+<li>True</li>
+<li>False</li>
+</ol>
 
 
 </section>
@@ -897,13 +982,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L05-General_Regression.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">L05: The General Regression Situation</span></span>
+      <a href="./L14-Nonlinear.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L14: Non-Linear Relationships with Linear Models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L07-Exampless.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L07: ESS Exampless</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Lb02-OLS_Estimates.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

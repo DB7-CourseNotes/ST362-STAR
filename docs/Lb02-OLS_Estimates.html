@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Regression Analysis - 14&nbsp; Lab 2: OLS Estimates</title>
+<title>Regression Analysis - 15&nbsp; Lab 2: OLS Estimates</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./Lb03-MSE.html" rel="next">
-<link href="./L14-Nonlinear.html" rel="prev">
+<link href="./L15-Transforming_Response.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Lab Notes</a></li><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Lab Notes</a></li><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -234,6 +234,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L14: Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">L15: Transforming the Response</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -248,43 +254,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb02-OLS_Estimates.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb03-MSE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Lab 11: Hat Matrix and Residuals in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lab 11: Hat Matrix and Residuals in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lab 15: Transformations</span></span></a>
   </div>
 </li>
       </ul>
@@ -299,8 +311,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#analysis-of-variance" id="toc-analysis-of-variance" class="nav-link active" data-scroll-target="#analysis-of-variance"><span class="header-section-number">14.1</span> Analysis of Variance</a></li>
-  <li><a href="#dependence-and-centering" id="toc-dependence-and-centering" class="nav-link" data-scroll-target="#dependence-and-centering"><span class="header-section-number">14.2</span> Dependence and Centering</a></li>
+  <li><a href="#analysis-of-variance" id="toc-analysis-of-variance" class="nav-link active" data-scroll-target="#analysis-of-variance"><span class="header-section-number">15.1</span> Analysis of Variance</a></li>
+  <li><a href="#dependence-and-centering" id="toc-dependence-and-centering" class="nav-link" data-scroll-target="#dependence-and-centering"><span class="header-section-number">15.2</span> Dependence and Centering</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -309,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></h1>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></h1>
 </div>
 
 
@@ -441,8 +453,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The empirical and the theoretical CIs line up pretty well! However, the sample CI is fundamentally different. The sample CI is centered at the estimated value, and we expect it to <em>contain</em> the true population value 89% of the time!</p>
 <p>We practically never know the actual DGP, so this is just a demonstration that the math works.</p>
 <p>Note that we treated <span class="math inline">\(\underline x\)</span> as if it were fixed. The value <span class="math inline">\(S_{XX}\)</span> will be different for different <span class="math inline">\(\underline x\)</span>, and we don’t make any assumptions about what distribution <span class="math inline">\(\underline x\)</span> follows.</p>
-<section id="analysis-of-variance" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="analysis-of-variance"><span class="header-section-number">14.1</span> Analysis of Variance</h2>
+<section id="analysis-of-variance" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="analysis-of-variance"><span class="header-section-number">15.1</span> Analysis of Variance</h2>
 <p>The code below demonstrates how the ANOVA tables are calculated.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mydata<span class="sc">$</span>y</span>
@@ -482,8 +494,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </section>
-<section id="dependence-and-centering" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="dependence-and-centering"><span class="header-section-number">14.2</span> Dependence and Centering</h2>
+<section id="dependence-and-centering" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="dependence-and-centering"><span class="header-section-number">15.2</span> Dependence and Centering</h2>
 <p>Something not touched on in class is that <span class="math inline">\(cov(\hat\beta_0, \hat\beta_1)\)</span> is not 0! This should be clear from the formula got <span class="math inline">\(\hat\beta_0\)</span>, which is <span class="math inline">\(\hat\beta_0 = \bar y - \hat\beta_1\bar x\)</span>.</p>
 <p>The code below repeats what we did before, but with higher variance to better demonstrate the problem.</p>
 <p>It also records the estimates based on <em>centering</em> <span class="math inline">\(\underline x\)</span>. Notice how the formula for <span class="math inline">\(\hat\beta_0\)</span> is no longer dependent on <span class="math inline">\(\hat\beta_1\)</span> if the mean of <span class="math inline">\(\underline x\)</span> is 0!</p>
@@ -873,13 +885,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L14-Nonlinear.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L14: Non-Linear Relationships with Linear Models</span></span>
+      <a href="./L15-Transforming_Response.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">L15: Transforming the Response</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./Lb03-MSE.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
