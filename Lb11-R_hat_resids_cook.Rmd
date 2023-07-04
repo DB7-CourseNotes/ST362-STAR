@@ -3,6 +3,13 @@ title: "Lab 11: Hat Matrix and Residuals in R"
 output: html_notebook
 ---
 
+
+```{r}
+#| include: false
+set.seed(2112)
+```
+
+
 ## The Hat Matrix
 
 $$

@@ -3,6 +3,11 @@ title: "L05: The General Regression Situation"
 institute: "Jam: \\emph{I Predict a Riot} by The Kaiser Chefs"
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 ## Chapter Summary
 
 ### The Normal Equations

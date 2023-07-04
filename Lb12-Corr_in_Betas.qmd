@@ -2,6 +2,13 @@
 title: "Lab 12: Extra Topics"
 ---
 
+
+```{r}
+#| include: false
+set.seed(2112)
+```
+
+
 ```{r}
 n_sim <- 1000
 n <- 30

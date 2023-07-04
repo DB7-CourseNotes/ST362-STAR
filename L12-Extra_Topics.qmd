@@ -3,6 +3,13 @@ title: "L12: Extra Topics"
 institute: "Jam: \\emph{Hypotheticals} by Lake Street Drive"
 ---
 
+
+```{r}
+#| include: false
+set.seed(2112)
+```
+
+
 ## Standardizing $X$
 
 ### Mean-Centering

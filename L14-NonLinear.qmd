@@ -3,6 +3,13 @@ title: "L14: Non-Linear Relationships with Linear Models"
 institute: "Jam: **Higher Order** by Empire Me"
 ---
 
+
+```{r}
+#| include: false
+set.seed(2112)
+```
+
+
 ## Non-Linear Relationships
 
 ### Arbitrarily Shaped Functions
