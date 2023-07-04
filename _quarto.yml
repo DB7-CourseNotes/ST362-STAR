@@ -35,6 +35,7 @@ book:
         - L13-Wrong_Model.qmd
         - L14-Nonlinear.qmd
         - L15-Transforming_Response.qmd
+        - L16-Dummies.qmd
     - part: Lab Notes
       chapters:
         - Lb02-OLS_Estimates.Rmd
@@ -45,6 +46,7 @@ book:
         - Lb12-Corr_in_Betas.qmd
         - Lb13-Wrong_Model.Rmd
         - Lb15-Transformations.Rmd
+        - Lb16-Regression_with_Dummies.Rmd
 
 format:
   html:
