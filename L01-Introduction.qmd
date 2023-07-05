@@ -34,9 +34,14 @@ Shiny: [https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory](https://
 shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
     subdir = "Tools/pnorm")
 ```
-:::
 
-### $t$
+The normal distribution is the foundation for pretty much everything that we're going to do in this class. In general, things aren't normally distributed, but the assumption is very robust and works out in a lot of cases.
+
+In this lecture we're going to build up an important result that we'll use frequently. In particular, we want some background into why the F and $t$ distributions show up so often!
+
+
+
+:::
 
 ### But first, Gamma!
 
