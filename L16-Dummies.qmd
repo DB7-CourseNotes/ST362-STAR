@@ -1,5 +1,5 @@
 ---
-title: "L15: Dummy Variables"
+title: "L16: Dummy Variables"
 institute: "Jam: ** by "
 ---
 
@@ -133,8 +133,9 @@ If `g` is a categorical variable, then:
 Main idea: Is the covariance (or correlation) between $x$ and $y$ different for different categories of $g$?
 
 - Only a small extension to ANOVA
-    - ANOVA: means
-    - ANCOVA: covariances
+    - t-test: exactly 2 means
+    - ANOVA: 2+ means
+    - ANCOVA: 2+ covariances
 
 ### Beyond $x$ and $g$
 
@@ -148,8 +149,64 @@ Main idea: Is the covariance (or correlation) between $x$ and $y$ different for 
 
 ### Q1
 
-1.
-2.
+A dummy variable is:
+
+\pspace
+
+1. A stupid variable. Just a dumb, stupid variable that only idiots use.
+2. A variable that naturaly takes the values 0 and 1.
+3. A variable that has been coded as 0 and 1 to indicate different groups.
+
+### Q2
+
+A reference category is used because:
+
+\pspace
+
+1. We are always more interested in one particular category and how the other categories compare to it.
+2. The intercept is the mean of y when all predictors are 0, so we need a case where all predictors are 0.
+
+### Q3
+
+In the `mpg ~ factor(cyl)` there will be a dummy variable labelled:
+
+\pspace
+
+1. `6`
+2. `cyl6`
+3. `factor(cyl)6`
+4. `factor(cyl)4`
+
+### Q4
+
+Which statement is false?
+
+\pspace
+
+1. t-test is a special case of linear regression.
+2. ANCOVA is a special case of linear regression.
+3. Welch's t-test for samples with unequal variances is a special case of regression.
+4. ANOVA is a special case where Sequential Sum-of-Squares makes sense.
+
+### Q5
+
+It is possible to have interaction terms between two categorical variables.
+
+\pspace
+
+1. True
+2. False
+
+### Q6
+
+In the regression `mpg ~ factor(cyl) + disp + factor(cyl):disp`, if we find that `disp` is not significant then we can safely remove it.
+
+\pspace
+
+1. True
+2. False
+
+
 
 ## Significance of a Group
 
@@ -160,4 +217,28 @@ The output compares each slope to 0.
 \pspace
 
 - For a categorical predictor, this tests if a category is different *from the reference*. 
+
+\pspace
+
+There is not an easy built-in way to check significance of a specific group
+
+- For example, we may want to test for equality of intercepts and slopes for 6 and 8 cylinder cars, allowing 4 to have separate values.
+    - Test for equality of slopes is something covered in the textbook
+    - Alternative: Change Reference group and use ESS
+
+### Changing the reference group
+
+Suppose we want to compare 6 and 8 cylinder cars. We can set up our model as:
+$$
+y = \beta_0 + \beta_1I(8) + \beta_2I(4) + \beta_3disp + \beta_4dispI(8) + \beta_5dispI(4)
+$$
+where now `6` is the reference group.
+
+We can test $\beta_1=\beta_4 = 0$ using ESS to test whether mpg versus disp is the same in these two categories.
+
+\pspace
+
+In R, we need to set up our own dummies to do this. 
+
+
 

@@ -51,8 +51,8 @@ book:
 format:
   html:
     theme:
-      light: flatly
-      dark: darkly
+      light: [flatly, smaller_lists.scss]
+      dark: [darkly, smaller_lists.scss]
     mainfont: ubuntu, sans-serif
     execute:
         code-fold: true

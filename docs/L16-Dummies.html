@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Regression Analysis - 15&nbsp; L15: Dummy Variables</title>
+<title>Regression Analysis - 15&nbsp; L16: Dummy Variables</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L16-Dummies.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L15: Dummy Variables</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L16-Dummies.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L16: Dummy Variables</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -209,7 +209,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L15: Dummy Variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L16: Dummy Variables</span></span></a>
   </div>
 </li>
       </ul>
@@ -311,10 +311,16 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">15.4</span> Participation Questions</a>
   <ul class="collapse">
   <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
+  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
+  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
+  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
+  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
+  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
   </ul></li>
   <li><a href="#significance-of-a-group" id="toc-significance-of-a-group" class="nav-link" data-scroll-target="#significance-of-a-group"><span class="header-section-number">15.5</span> Significance of a Group</a>
   <ul class="collapse">
   <li><a href="#output-of-summary.lm" id="toc-output-of-summary.lm" class="nav-link" data-scroll-target="#output-of-summary.lm">Output of <code>summary.lm()</code></a></li>
+  <li><a href="#changing-the-reference-group" id="toc-changing-the-reference-group" class="nav-link" data-scroll-target="#changing-the-reference-group">Changing the reference group</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -324,7 +330,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L15: Dummy Variables</span></h1>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L16: Dummy Variables</span></h1>
 </div>
 
 
@@ -473,8 +479,9 @@ y_i = \begin{cases}\beta_0  + \beta_3 disp&amp; \text{if }\; cyl == 4\\ (\beta_0
 <ul>
 <li>Only a small extension to ANOVA
 <ul>
-<li>ANOVA: means</li>
-<li>ANCOVA: covariances</li>
+<li>t-test: exactly 2 means</li>
+<li>ANOVA: 2+ means</li>
+<li>ANCOVA: 2+ covariances</li>
 </ul></li>
 </ul>
 </section>
@@ -497,9 +504,55 @@ y_i = \begin{cases}\beta_0  + \beta_3 disp&amp; \text{if }\; cyl == 4\\ (\beta_0
 <h2 data-number="15.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">15.4</span> Participation Questions</h2>
 <section id="q1" class="level3">
 <h3 class="anchored" data-anchor-id="q1">Q1</h3>
+<p>A dummy variable is:</p>
 <ol type="1">
-<li></li>
-<li></li>
+<li>A stupid variable. Just a dumb, stupid variable that only idiots use.</li>
+<li>A variable that naturaly takes the values 0 and 1.</li>
+<li>A variable that has been coded as 0 and 1 to indicate different groups.</li>
+</ol>
+</section>
+<section id="q2" class="level3">
+<h3 class="anchored" data-anchor-id="q2">Q2</h3>
+<p>A reference category is used because:</p>
+<ol type="1">
+<li>We are always more interested in one particular category and how the other categories compare to it.</li>
+<li>The intercept is the mean of y when all predictors are 0, so we need a case where all predictors are 0.</li>
+</ol>
+</section>
+<section id="q3" class="level3">
+<h3 class="anchored" data-anchor-id="q3">Q3</h3>
+<p>In the <code>mpg ~ factor(cyl)</code> there will be a dummy variable labelled:</p>
+<ol type="1">
+<li><code>6</code></li>
+<li><code>cyl6</code></li>
+<li><code>factor(cyl)6</code></li>
+<li><code>factor(cyl)4</code></li>
+</ol>
+</section>
+<section id="q4" class="level3">
+<h3 class="anchored" data-anchor-id="q4">Q4</h3>
+<p>Which statement is false?</p>
+<ol type="1">
+<li>t-test is a special case of linear regression.</li>
+<li>ANCOVA is a special case of linear regression.</li>
+<li>Welch’s t-test for samples with unequal variances is a special case of regression.</li>
+<li>ANOVA is a special case where Sequential Sum-of-Squares makes sense.</li>
+</ol>
+</section>
+<section id="q5" class="level3">
+<h3 class="anchored" data-anchor-id="q5">Q5</h3>
+<p>It is possible to have interaction terms between two categorical variables.</p>
+<ol type="1">
+<li>True</li>
+<li>False</li>
+</ol>
+</section>
+<section id="q6" class="level3">
+<h3 class="anchored" data-anchor-id="q6">Q6</h3>
+<p>In the regression <code>mpg ~ factor(cyl) + disp + factor(cyl):disp</code>, if we find that <code>disp</code> is not significant then we can safely remove it.</p>
+<ol type="1">
+<li>True</li>
+<li>False</li>
 </ol>
 </section>
 </section>
@@ -511,6 +564,22 @@ y_i = \begin{cases}\beta_0  + \beta_3 disp&amp; \text{if }\; cyl == 4\\ (\beta_0
 <ul>
 <li>For a categorical predictor, this tests if a category is different <em>from the reference</em>.</li>
 </ul>
+<p>There is not an easy built-in way to check significance of a specific group</p>
+<ul>
+<li>For example, we may want to test for equality of intercepts and slopes for 6 and 8 cylinder cars, allowing 4 to have separate values.
+<ul>
+<li>Test for equality of slopes is something covered in the textbook</li>
+<li>Alternative: Change Reference group and use ESS</li>
+</ul></li>
+</ul>
+</section>
+<section id="changing-the-reference-group" class="level3">
+<h3 class="anchored" data-anchor-id="changing-the-reference-group">Changing the reference group</h3>
+<p>Suppose we want to compare 6 and 8 cylinder cars. We can set up our model as: <span class="math display">\[
+y = \beta_0 + \beta_1I(8) + \beta_2I(4) + \beta_3disp + \beta_4dispI(8) + \beta_5dispI(4)
+\]</span> where now <code>6</code> is the reference group.</p>
+<p>We can test <span class="math inline">\(\beta_1=\beta_4 = 0\)</span> using ESS to test whether mpg versus disp is the same in these two categories.</p>
+<p>In R, we need to set up our own dummies to do this.</p>
 
 
 </section>

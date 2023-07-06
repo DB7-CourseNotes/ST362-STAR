@@ -243,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L15: Dummy Variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L16: Dummy Variables</span></span></a>
   </div>
 </li>
       </ul>
@@ -330,7 +330,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions"><span class="header-section-number">1.2</span> Distributions</a>
   <ul class="collapse">
   <li><a href="#normal" id="toc-normal" class="nav-link" data-scroll-target="#normal">Normal</a></li>
-  <li><a href="#t" id="toc-t" class="nav-link" data-scroll-target="#t"><span class="math inline">\(t\)</span></a></li>
   <li><a href="#but-first-gamma" id="toc-but-first-gamma" class="nav-link" data-scroll-target="#but-first-gamma">But first, Gamma!</a></li>
   <li><a href="#the-t-distribution" id="toc-the-t-distribution" class="nav-link" data-scroll-target="#the-t-distribution">The <span class="math inline">\(t\)</span> Distribution</a></li>
   <li><a href="#the-chi2-distribution---variances" id="toc-the-chi2-distribution---variances" class="nav-link" data-scroll-target="#the-chi2-distribution---variances">The <span class="math inline">\(\chi^2\)</span> distribution - variances</a></li>
@@ -422,10 +421,9 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{(x-\mu)^2}{-2\sigma^2}\right
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pnorm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The normal distribution is the foundation for pretty much everything that we’re going to do in this class. In general, things aren’t normally distributed, but the assumption is very robust and works out in a lot of cases.</p>
+<p>In this lecture we’re going to build up an important result that we’ll use frequently. In particular, we want some background into why the F and <span class="math inline">\(t\)</span> distributions show up so often!</p>
 </div>
-</section>
-<section id="t" class="level3">
-<h3 class="anchored" data-anchor-id="t"><span class="math inline">\(t\)</span></h3>
 </section>
 <section id="but-first-gamma" class="level3">
 <h3 class="anchored" data-anchor-id="but-first-gamma">But first, Gamma!</h3>
