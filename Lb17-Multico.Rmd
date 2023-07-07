@@ -1,0 +1,183 @@
+---
+title: "Multicollinearity"
+output: html_notebook
+---
+
+```{r}
+#| include: false
+set.seed(2112)
+```
+
+## The problem with multicollinearity
+
+Consider the model $$
+y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i
+$$ with the added assumption that $x_{i1} = a + bx_{i2} + z_i$, where $z_i$ is some variation.
+
+(As a technical note, none of this is assumed to be random; just uncertain. We'll use the language of probability in this section, but it's just to quantify uncertainty rather than make modelling assumptions.)
+
+```{r}
+library(plot3D)
+n <- 100
+x1 <- runif(n, 0, 10)
+x2 <- 2 + x1 + runif(n, -1, 1)
+y <- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)
+
+scatter3D(x1, x2, y, phi = 30, theta = 15, bty = "g",
+    xlab = "x1", ylab = "x2", zlab = "y")
+```
+
+The 3D plot looks like a tube! By "tube", we can think of the 3D plot as being a 2D plot that's in the wrong coordinate system. In other words, the data define a single axis, which is different from the x1, x2, and y axes. When fitting multiple linear regression, we're fitting a hyperplane. If the relationship is **multicollinear**, then we might imagine rotating a hyperplane around the axis defined by the "tube" in the plot above. Since any rotation of the plane around fits the line of data pretty well, the coefficients that define that plane are not well-estimated.
+
+It's hard to imagine 3D sets of points, so let's do a 2D analogy. In the 3D example, we actually had a 2D relationship, so let's consider a 2D example that's almost 1D.
+
+In the plot below, I've made $x$ *almost* one-dimensional. That is, I've given it a vary small range. I intentionally changed the x limits of the plot to emphasize this.
+
+```{r}
+x <- c(rep(-0.025, 10), rep(0.025, 10))
+y <- x + rnorm(20, 0, 3)
+plot(y ~ x, xlim = c(-2, 2))
+```
+
+If we were to fit a regression line to this, there are many many slopes that would make this work!
+
+```{r}
+plot(y ~ x, xlim = c(-1, 1))
+for(i in 1:20) abline(a = mean(y), b = runif(1, -20, 20))
+```
+
+All of the lines I added will fit the data pretty well, even though they all have completely different slopes! Yes, there's one with a "best" slope, but slightly different data would have given us a very different slope:
+
+```{r}
+# Set up empty plot
+plot(NA, xlab = "x", ylab = "y",
+    xlim = c(-2, 2), ylim = c(-6,6))
+# Generate data from same dgp as before
+for(i in 1:100) {
+    y <- x + rnorm(20, 0, 3)
+    abline(lm(y ~ x))
+}
+```
+
+All of these lines would have worked for our data!
+
+This can easily be seen the *variance of the parameters*:
+
+```{r}
+summary(lm(y ~ x))$coef
+```
+
+## Exact Multicollinearity
+
+In the example above, the line was very sensitive to a slight change in the data because we essentially had one dimension. If we *actually* had one dimension, then any line that cgoes through $\bar y$ has the exact same error, regardless of the slope. We can see this in the design matrix: $X$ has a column of 1s for the intercept (which is good), but also has a column for $x_1$ that has zero variance. This means that it's a linear combination of the first column, and thus is rank-deficient.
+
+```{r}
+X <- cbind(rep(1, 20), rep(0, 20))
+try(solve(t(X) %*% X))
+```
+
+Since one column is a linear combination of the other, $X^TX$ cannot be inverted. In this case, the variance fo $\hat\beta_1$ is infinite!
+
+This can also happen if one column is "close" to being a linear combination of the others, such as:
+
+```{r}
+# Change the first element in the second column to 10^-23
+X[1, 2] <- 1e-23
+try(solve(t(X) %*% X))
+```
+
+The rows are mathematically different, but the difference is so small that computers cannot tell.
+
+```{r}
+x <- runif(20, 0, 1) / 1e7
+X <- cbind(1, x)
+try(solve(t(X) %*% X))
+```
+
+In the next code chunk, try playing around with the power of 10 (i.e., try `10^50`, `10^-50`, etc., for both positive and negative powers). At some point, the matrix is not invertible and the coefficient table stops reporting the slope! At the other end, the line is a near perfect fit (why?).
+
+```{r}
+x <- runif(20, 0, 1) / (10^350)
+y <- x + rnorm(20, 0, 3)
+summary(lm(y ~ x))$coef
+```
+
+## Back to Regression
+
+We can kinda detect multicollinearity mainly using the standard error of the estimates:
+
+```{r}
+library(palmerpenguins)
+peng_lm <- lm(body_mass_g ~ flipper_length_mm + bill_length_mm + bill_depth_mm,
+    data = penguins)
+summary(peng_lm)
+```
+
+It looks like `bill_depth_mm` has a large standard error! Of course, this might be because:
+
+-   The variance of `bill_depth_mm` is high to begin with.
+-   The other predictors have explained most of the variance and any estimate for `bill_depth_mm` will do.
+-   Multicollinearity
+
+Multico. is just one of the possible reasons why the SE might be high, we need to look into it more to be sure.
+
+```{r}
+library(car)
+vif(peng_lm)
+```
+
+It actually has quite a small VIF!
+
+## Centering and Scaling
+
+```{r}
+X <- model.matrix(body_mass_g ~ flipper_length_mm + bill_length_mm + bill_depth_mm,
+    data = penguins)
+
+Z <- cbind(1, apply(X[, -1], 2, scale))
+print("correlation of X")
+round(cor(X), 4)
+print("Also correlation of X")
+round(t(Z) %*% Z/ (nrow(Z) - 1), 4)
+```
+
+By simulation:
+
+```{r}
+n <- 100
+x1 <- runif(n, 0, 10)
+x2 <- 2 + x1 + runif(n, -3, 3)
+
+reps_1 <- replicate(1000, {
+    y <- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)
+    coef(lm(y ~ x1 + x2))
+}) |> t()
+cor(reps_1)
+```
+
+```{r}
+x1 <- scale(x1)
+x2 <- scale(x2)
+
+reps_2 <- replicate(1000, {
+    y <- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)
+    coef(lm(y ~ x1 + x2))
+}) |> t()
+cor(reps_2)
+```
+
+The correlation is... slightly lower? It's much lower for the intercept, but it doesn't make much of a difference for the correlation between the slopes. (It will generally be lower, and should be with a large enough number of simulations.)
+
+Just for fun, here's the VIF for these data. I've added a parameter `x1_around_x2` to allow you to play around with the correlation of `x1` and `x2.`
+
+```{r}
+x2_around_x1 <- 3
+x1 <- runif(n, 0, 10)
+x2 <- 2 + x1 + runif(n, -x2_around_x1, x2_around_x1)
+y <- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)
+
+vif(lm(y ~ x1 + x2))
+```
+
+
+

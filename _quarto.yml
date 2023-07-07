@@ -36,6 +36,7 @@ book:
         - L14-Nonlinear.qmd
         - L15-Transforming_Response.qmd
         - L16-Dummies.qmd
+        - L17-Multicollinearity.qmd
     - part: Lab Notes
       chapters:
         - Lb02-OLS_Estimates.Rmd
@@ -47,6 +48,7 @@ book:
         - Lb13-Wrong_Model.Rmd
         - Lb15-Transformations.Rmd
         - Lb16-Regression_with_Dummies.Rmd
+        - Lb17-Multico.Rmd
 
 format:
   html:

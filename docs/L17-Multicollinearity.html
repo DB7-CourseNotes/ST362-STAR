@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
+<meta name="dcterms.date" content="2023-07-10">
 
-<title>Regression Analysis - 1&nbsp; L01: Distributions</title>
+<title>Regression Analysis - 16&nbsp; L17: Multicollinearity</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L02-Fitting_Straight_Lines.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./Lb02-OLS_Estimates.html" rel="next">
+<link href="./L16-Dummies.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L01-Introduction.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L17-Multicollinearity.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">L17: Multicollinearity</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -158,7 +159,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></span></a>
   </div>
 </li>
@@ -248,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">L17: Multicollinearity</span></span></a>
   </div>
 </li>
@@ -335,36 +336,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1.1</span> Introduction</a>
+  <li><a href="#the-problem" id="toc-the-problem" class="nav-link active" data-scroll-target="#the-problem"><span class="header-section-number">16.1</span> The Problem</a>
   <ul class="collapse">
-  <li><a href="#todays-learning-outcomes" id="toc-todays-learning-outcomes" class="nav-link" data-scroll-target="#todays-learning-outcomes">Today’s Learning Outcomes</a></li>
+  <li><a href="#the-problem-with-multicollinearity" id="toc-the-problem-with-multicollinearity" class="nav-link" data-scroll-target="#the-problem-with-multicollinearity">The Problem with Multicollinearity</a></li>
+  <li><a href="#consequences-of-the-problem" id="toc-consequences-of-the-problem" class="nav-link" data-scroll-target="#consequences-of-the-problem">Consequences of the Problem</a></li>
+  <li><a href="#another-formulation-of-the-problem" id="toc-another-formulation-of-the-problem" class="nav-link" data-scroll-target="#another-formulation-of-the-problem">Another Formulation of the Problem</a></li>
+  <li><a href="#the-source-of-the-problem" id="toc-the-source-of-the-problem" class="nav-link" data-scroll-target="#the-source-of-the-problem">The Source of the Problem</a></li>
+  <li><a href="#detecting-the-problem" id="toc-detecting-the-problem" class="nav-link" data-scroll-target="#detecting-the-problem">Detecting the Problem</a></li>
+  <li><a href="#plotting-corx" id="toc-plotting-corx" class="nav-link" data-scroll-target="#plotting-corx">Plotting <span class="math inline">\(Cor(X)\)</span></a></li>
+  <li><a href="#detecting-the-problem-vhatunderlinebeta" id="toc-detecting-the-problem-vhatunderlinebeta" class="nav-link" data-scroll-target="#detecting-the-problem-vhatunderlinebeta">Detecting the Problem: <span class="math inline">\(V(\hat{\underline\beta})\)</span></a></li>
+  <li><a href="#the-variance-inflation-factor" id="toc-the-variance-inflation-factor" class="nav-link" data-scroll-target="#the-variance-inflation-factor">The Variance Inflation Factor</a></li>
+  <li><a href="#interpreting-the-variance-inflation-factor" id="toc-interpreting-the-variance-inflation-factor" class="nav-link" data-scroll-target="#interpreting-the-variance-inflation-factor">Interpreting the Variance Inflation Factor</a></li>
   </ul></li>
-  <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions"><span class="header-section-number">1.2</span> Distributions</a>
+  <li><a href="#will-scaling-fix-the-problem" id="toc-will-scaling-fix-the-problem" class="nav-link" data-scroll-target="#will-scaling-fix-the-problem"><span class="header-section-number">16.2</span> Will Scaling Fix the Problem</a>
   <ul class="collapse">
-  <li><a href="#normal" id="toc-normal" class="nav-link" data-scroll-target="#normal">Normal</a></li>
-  <li><a href="#but-first-gamma" id="toc-but-first-gamma" class="nav-link" data-scroll-target="#but-first-gamma">But first, Gamma!</a></li>
-  <li><a href="#the-t-distribution" id="toc-the-t-distribution" class="nav-link" data-scroll-target="#the-t-distribution">The <span class="math inline">\(t\)</span> Distribution</a></li>
-  <li><a href="#the-chi2-distribution---variances" id="toc-the-chi2-distribution---variances" class="nav-link" data-scroll-target="#the-chi2-distribution---variances">The <span class="math inline">\(\chi^2\)</span> distribution - variances</a></li>
-  <li><a href="#the-f-distribution---ratio-of-variances" id="toc-the-f-distribution---ratio-of-variances" class="nav-link" data-scroll-target="#the-f-distribution---ratio-of-variances">The <span class="math inline">\(F\)</span> distribution - ratio of variances</a></li>
+  <li><a href="#scaling-the-predictors" id="toc-scaling-the-predictors" class="nav-link" data-scroll-target="#scaling-the-predictors">Scaling the Predictors</a></li>
   </ul></li>
-  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">1.3</span> Confidence Intervals</a>
+  <li><a href="#fixing-the-problem" id="toc-fixing-the-problem" class="nav-link" data-scroll-target="#fixing-the-problem"><span class="header-section-number">16.3</span> Fixing The Problem</a>
   <ul class="collapse">
-  <li><a href="#general-idea-terminology" id="toc-general-idea-terminology" class="nav-link" data-scroll-target="#general-idea-terminology">General Idea: Terminology</a></li>
-  <li><a href="#general-idea-distributional-assumptions" id="toc-general-idea-distributional-assumptions" class="nav-link" data-scroll-target="#general-idea-distributional-assumptions">General Idea: Distributional Assumptions</a></li>
-  <li><a href="#general-idea-distribution-to-quantiles" id="toc-general-idea-distribution-to-quantiles" class="nav-link" data-scroll-target="#general-idea-distribution-to-quantiles">General Idea: Distribution to Quantiles</a></li>
-  <li><a href="#general-idea-distribution-to-ci" id="toc-general-idea-distribution-to-ci" class="nav-link" data-scroll-target="#general-idea-distribution-to-ci">General Idea: Distribution to CI</a></li>
-  <li><a href="#what-is-the-standard-error" id="toc-what-is-the-standard-error" class="nav-link" data-scroll-target="#what-is-the-standard-error">What is the Standard Error?</a></li>
-  <li><a href="#ci-for-variance" id="toc-ci-for-variance" class="nav-link" data-scroll-target="#ci-for-variance">CI for Variance</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#one-way-to-fix-the-problem" id="toc-one-way-to-fix-the-problem" class="nav-link" data-scroll-target="#one-way-to-fix-the-problem">One way to fix the problem</a></li>
+  <li><a href="#removing-predictors" id="toc-removing-predictors" class="nav-link" data-scroll-target="#removing-predictors">Removing predictors</a></li>
   </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">1.4</span> Participation Questions</a>
+  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">16.4</span> Participation Questions</a>
   <ul class="collapse">
   <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
   <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
   <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
   <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -374,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></h1>
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">L17: Multicollinearity</span></h1>
 </div>
 
 
@@ -387,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: <strong>Gamma Ray</strong> by Beck
+            Wilfrid Laurier University
           </p>
       </div>
     </div>
@@ -395,6 +393,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
       
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2023-07-10</p>
+    </div>
+  </div>
   
     
   </div>
@@ -402,273 +406,240 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introduction" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1.1</span> Introduction</h2>
-<section id="todays-learning-outcomes" class="level3">
-<h3 class="anchored" data-anchor-id="todays-learning-outcomes">Today’s Learning Outcomes</h3>
-<ul>
-<li>Important facts about distributions.</li>
-<li>CIs and t-tests.</li>
-</ul>
-</section>
-</section>
-<section id="distributions" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="distributions"><span class="header-section-number">1.2</span> Distributions</h2>
-<section id="normal" class="level3">
-<h3 class="anchored" data-anchor-id="normal">Normal</h3>
-<p><span class="math display">\[
-f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{(x-\mu)^2}{-2\sigma^2}\right);\;-\infty&lt;x&lt;\infty
-\]</span></p>
-<p>Shiny: <a href="https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory">https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory</a></p>
-<ul>
-<li>Completely determined by <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</li>
-<li>If <span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span>, then <span class="math inline">\(Z=\frac{X-\mu}{\sigma} \sim N(0,1)\)</span>.
-<ul>
-<li>Often called “standardizing”</li>
-</ul></li>
-<li>You won’t <em>need</em> to memorize the pdf, but it’s useful!</li>
-</ul>
-<div class="notes">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pnorm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The normal distribution is the foundation for pretty much everything that we’re going to do in this class. In general, things aren’t normally distributed, but the assumption is very robust and works out in a lot of cases.</p>
-<p>In this lecture we’re going to build up an important result that we’ll use frequently. In particular, we want some background into why the F and <span class="math inline">\(t\)</span> distributions show up so often!</p>
-</div>
-</section>
-<section id="but-first-gamma" class="level3">
-<h3 class="anchored" data-anchor-id="but-first-gamma">But first, Gamma!</h3>
+<section id="the-problem" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="the-problem"><span class="header-section-number">16.1</span> The Problem</h2>
+<section id="the-problem-with-multicollinearity" class="level3">
+<h3 class="anchored" data-anchor-id="the-problem-with-multicollinearity">The Problem with Multicollinearity</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><span class="math inline">\(t\)</span> is based on the Gamma (<span class="math inline">\(\Gamma\)</span>) function:</p>
-<p><span class="math display">\[
-\Gamma(q) = \int_0^\infty e^{-t}t^{q-1}dt
-\]</span></p>
 <ul>
-<li>Interesting property: <span class="math inline">\(\Gamma(k+1) = k!\)</span> for integer <span class="math inline">\(k\)</span>.
+<li>Multiple regression fits a hyperplane</li>
+<li>If the points form a “tube”, an infinite number of hyperplanes work.
 <ul>
-<li>In general, <span class="math inline">\(\Gamma(q) = (q-1)\Gamma(q-1)\)</span></li>
-</ul></li>
-<li>Also, <span class="math inline">\(\Gamma(1/2) = \pi^{1/2}\)</span>
-<ul>
-<li><span class="math inline">\(\Gamma(3/2) = (3/2-1)\gamma(1/2) = \sqrt{\pi}/2\)</span></li>
+<li>Rotate plane around axis of tube.</li>
 </ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<p></p>
-</div>
-</div>
-</section>
-<section id="the-t-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="the-t-distribution">The <span class="math inline">\(t\)</span> Distribution</h3>
-<p><span class="math display">\[
-f(x; \nu) = \frac{\Gamma\left(\frac{\nu + 1}{2}\right)}{\sqrt{\nu\pi}\Gamma(\nu/2)}\left(1 + \frac{x^2}{\nu}\right)^{-(\nu + 1)/2}
-\]</span></p>
-<ul>
-<li>The notation <span class="math inline">\(f(x; \nu)\)</span> means “function of <span class="math inline">\(x\)</span>, given a value of <span class="math inline">\(\nu\)</span>.”</li>
-<li>Completely determined by <span class="math inline">\(\nu\)</span></li>
-<li>As <span class="math inline">\(\nu\rightarrow\infty\)</span>, this becomes <span class="math inline">\(N(0,1)\)</span>.
-<ul>
-<li><span class="math inline">\(\nu&gt;30\)</span> is pretty much normal already.</li>
-<li>For <span class="math inline">\(\nu&lt;\infty\)</span>, <span class="math inline">\(t\)</span> has wider tails than normal.</li>
-</ul></li>
-</ul>
-</section>
-<section id="the-chi2-distribution---variances" class="level3">
-<h3 class="anchored" data-anchor-id="the-chi2-distribution---variances">The <span class="math inline">\(\chi^2\)</span> distribution - variances</h3>
-<p>If <span class="math inline">\(Z_1, Z_2, ..., Z_k\)</span> are iid <span class="math inline">\(N(0,1)\)</span>, then <span class="math inline">\(\chi^2_k = \sum_{i=1}^kZ_i^2\)</span> has a chi-square distribution on <span class="math inline">\(k\)</span> degrees of freedom.</p>
-<p><span class="math display">\[
-f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}
-\]</span></p>
-<ul>
-<li>If <span class="math inline">\(X_i\sim N(\mu_i\sigma_i)\)</span>, then we can just standardize each first.</li>
-<li>As <span class="math inline">\(k\rightarrow\infty\)</span>, <span class="math inline">\((\chi^2_k-k)/\sqrt{2k}\stackrel{d}{\rightarrow} N(0,1)\)</span>.
-<ul>
-<li>That is, for large <span class="math inline">\(k\)</span> this can be approximated by a normal distribution.</li>
-</ul></li>
-<li>Very related to the <em>variance</em>
-<ul>
-<li><span class="math inline">\((n-1)s^2/\sigma^2\)</span> follows a <span class="math inline">\(\chi^2_n\)</span> distribution.</li>
-</ul></li>
-</ul>
-</section>
-<section id="the-f-distribution---ratio-of-variances" class="level3">
-<h3 class="anchored" data-anchor-id="the-f-distribution---ratio-of-variances">The <span class="math inline">\(F\)</span> distribution - ratio of variances</h3>
-<p>If <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span> are independent <span class="math inline">\(\chi^2\)</span> distributions with degrees of freedom <span class="math inline">\(\nu_1\)</span> and <span class="math inline">\(\nu_2\)</span>, then <span class="math inline">\(\frac{S_1/\nu_1}{S_2/\nu_2}\)</span> follows an <span class="math inline">\(F_{\nu_1,\nu_2}\)</span> distribution.</p>
-<p><span class="math display">\[
-f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}
-\]</span></p>
-<ul>
-<li>If <span class="math inline">\(s_1^2\)</span> and <span class="math inline">\(s_2^2\)</span> are the sample-based estimates of the true values <span class="math inline">\(\sigma_1^2\)</span> and <span class="math inline">\(\sigma_2^2\)</span>, then <span class="math inline">\(\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}\)</span> follows an <span class="math inline">\(F_{\nu_1, \nu_2}\)</span> distribution.
-<ul>
-<li>Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(\sigma_1=\sigma_2\)</span>, so we don’t need the true values.</li>
-<li>Note: <span class="math inline">\(s_1^2\)</span> is calculated from <span class="math inline">\(S_1^2/\nu_1\)</span>.</li>
-</ul></li>
-</ul>
-</section>
-</section>
-<section id="confidence-intervals" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">1.3</span> Confidence Intervals</h2>
-<section id="general-idea-terminology" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-terminology">General Idea: Terminology</h3>
-<p>Consider the <strong>statistic</strong> <span class="math inline">\(t = \frac{\hat\theta - \theta_0}{se(\hat\theta)}\)</span> (a statistic is any number that can be calculated from data alone).</p>
-<ul>
-<li><span class="math inline">\(\theta\)</span> is the “““<strong>true</strong>”“” value of the parameter.
-<ul>
-<li>Unknown, unknowable, not used in formula - hypothesize <span class="math inline">\(\theta = \theta_0\)</span> instead.</li>
-</ul></li>
-<li><span class="math inline">\(\hat\theta\)</span> is our <strong>estimator</strong> of <span class="math inline">\(\theta\)</span>.
-<ul>
-<li><strong>Estimator</strong> is a function, like <span class="math inline">\(\hat\mu = \bar X =(1/n)\sum_{i=1}^nX_i\)</span>.
-<ul>
-<li><span class="math inline">\(X\)</span> is a random variable.</li>
-</ul></li>
-<li><strong>Estimate</strong> is a number, like the calculated mean of a sample.</li>
-</ul></li>
-<li><span class="math inline">\(se(\hat\theta)\)</span> is the <strong>standard error</strong> of <span class="math inline">\(\hat\theta\)</span>.
-<ul>
-<li>If we had a different sample, the value of <span class="math inline">\(\hat\theta\)</span> would be different. It has <strong>variance</strong>.</li>
-<li><strong>Standard error</strong>: the standard deviation of the <strong>sampling distribution</strong>.</li>
-</ul></li>
-</ul>
-</section>
-<section id="general-idea-distributional-assumptions" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-distributional-assumptions">General Idea: Distributional Assumptions</h3>
-<p>Consider the quantity (<em>not</em> statistic) <span class="math inline">\(t = \frac{\hat\theta - \theta}{se(\hat\theta)}\)</span>.</p>
-<p>If we assume <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> and <span class="math inline">\(\hat\theta = \bar X\)</span> is an unbiased estimate of <span class="math inline">\(\theta\)</span> on <span class="math inline">\(\nu=n-1\)</span> degrees of freedom, then <span class="math inline">\(t \sim t_\nu\)</span></p>
-<p>From this, we can find the lower and upper <span class="math inline">\(\alpha/2\)</span>% of the <span class="math inline">\(t\)</span>$ curve.</p>
-<ul>
-<li><span class="math inline">\(t_\nu(\alpha/2)\)</span> is the lower <span class="math inline">\(\alpha/2\)</span>%.
-<ul>
-<li>i.e., if <span class="math inline">\(\alpha = 0.11\)</span>, then it’s <span class="math inline">\(t(\nu, 0.055)\)</span>, the lower 5.5% area.</li>
-</ul></li>
-<li><span class="math inline">\(t_\nu(1 - \alpha/2)\)</span> is the upper <span class="math inline">\(\alpha/2\)</span>%.</li>
-<li>Since <span class="math inline">\(t\)</span> is symmetric, <span class="math inline">\(t_\nu(1 - \alpha/2) = -t_\nu(\alpha/2)\)</span>.</li>
-</ul>
-<div class="notes">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pvalues"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </div>
 </div>
 </section>
-<section id="general-idea-distribution-to-quantiles" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-distribution-to-quantiles">General Idea: Distribution to Quantiles</h3>
-<p>Under the null hypothesis, <span class="math inline">\(\theta = \theta_0\)</span>, so <span class="math display">\[
-t = \frac{\hat\theta - \theta}{se(\hat\theta)} = \frac{\hat\theta - \theta_0}{se(\hat\theta)} \sim t_\nu
-\]</span></p>
-<p>We know that <span class="math inline">\(\bar X\)</span> is a random variable, and we want everything in between its 5.5% and 94.5% <strong>quantiles</strong>. </p>
+<section id="consequences-of-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="consequences-of-the-problem">Consequences of the Problem</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>High cor. in <span class="math inline">\(X\)</span> <span class="math inline">\(\implies\)</span> high cor. in <span class="math inline">\(\hat{\underline\beta}\)</span>.</p>
 <ul>
-<li>This is a confidence interval!</li>
+<li>Many combos of <span class="math inline">\(\hat{\underline\beta}\)</span> are equally likely</li>
+<li>No meaningful CIs</li>
 </ul>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="at">xlab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta)[<span class="dv">1</span>]), </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta[<span class="dv">2</span>])),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Estimated betas for correlated</span><span class="sc">\n</span><span class="st">predictors, many samples"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="general-idea-distribution-to-ci" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-distribution-to-ci">General Idea: Distribution to CI</h3>
-<p>We can do this easily for the <span class="math inline">\(t_\nu\)</span> distribution: we want all values <span class="math inline">\(t_0\)</span> such that</p>
-<p><span class="math display">\[\begin{align*}
-t_\nu(5.5) &amp;\le t_0 \le t_\nu(94.5)\\
-t_\nu(5.5) &amp;\le \frac{\hat\theta - \theta_0}{se(\hat\theta)} \le t_\nu(94.5)\\
-se(\hat\theta)t_\nu(5.5) &amp;\le \hat\theta - \theta_0 \le se(\hat\theta)t_\nu(94.5)\\
-\hat\theta + se(\hat\theta)t_\nu(5.5) &amp;\le \theta_0 \le \hat\theta + se(\hat\theta)t_\nu(94.5)
-\end{align*}\]</span></p>
-<p>The CI is all values <span class="math inline">\(\theta_0\)</span> that would <em>not</em> be rejected by the null hypothesis <span class="math inline">\(\theta = \theta_0\)</span> at the <span class="math inline">\(\alpha\)</span>% level.</p>
-<p>Since <span class="math inline">\(t_\nu(1 - \alpha/2) = -t_\nu(\alpha/2)\)</span>, our 89% CI is <span class="math inline">\(\hat\theta \pm se(\hat\theta)t_\nu(5.5)\)</span>.</p>
+<section id="another-formulation-of-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="another-formulation-of-the-problem">Another Formulation of the Problem</h3>
+<p>Consider the model <span class="math inline">\(y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i\)</span>, where <span class="math display">\[
+x_{i1} = a + bx_{i2} + z_i
+\]</span> where <span class="math inline">\(z_i\)</span> represents some extra uncertainty.</p>
+<p>Fitting the model, we could:</p>
+<ul>
+<li>Set <span class="math inline">\(\hat\beta_1\)</span> to 0, let <span class="math inline">\(x_2\)</span> model all of the variance.</li>
+<li>Set <span class="math inline">\(\hat\beta_2\)</span> to 0, let <span class="math inline">\(x_1\)</span> model all of the variance.</li>
+<li>Let <span class="math inline">\(x_1\)</span> model any proportion of the variance, let <span class="math inline">\(x_2\)</span> model the rest.</li>
+</ul>
+<p>The parameter estimates are <strong>not unique</strong>.</p>
 </section>
-<section id="what-is-the-standard-error" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-the-standard-error">What is the Standard Error?</h3>
-<p>If we’re estimating the mean, <span class="math inline">\(\hat\theta = (1/n)\sum_{i=1}^nX_i\)</span>, where we assume <span class="math inline">\(X_i \stackrel{iid}{\sim} N(\mu, \sigma)\)</span>. <span class="math display">\[
-E(\hat\theta) = E\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n}\sum_{i=1}^nE(X_i) = \frac{n\mu}{n} = \mu
-\]</span> From this, we see that the mean is an unbiased estimator! (This is nice, but not required.)</p>
+<section id="the-source-of-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="the-source-of-the-problem">The Source of the Problem</h3>
 <p><span class="math display">\[
-V(\hat\theta) = V\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n^2}V\left(\sum_{i=1}^nX_i\right) \stackrel{indep}{=} \frac{1}{n^2}\sum_{i=1}^nV(X_i) = \sigma^2/n \stackrel{plug-in}{=} s^2/n
-\]</span> where <span class="math inline">\(s^2\)</span> is the estimate variance since we cannot know the true mean. Note that <span class="math inline">\(s^2\)</span> is a biased estimator for <span class="math inline">\(\sigma\)</span>.</p>
-</section>
-<section id="ci-for-variance" class="level3">
-<h3 class="anchored" data-anchor-id="ci-for-variance">CI for Variance</h3>
-<p>From before: <span class="math inline">\(\frac{(n-1)s^2}{\sigma^2} \sim \chi^2_n\)</span>.</p>
-<p>Let <span class="math inline">\(\chi^2_n(0.055)\)</span> be the lower 5.5% quantile, <span class="math inline">\(\chi^2_n(0.945)\)</span> be the upper.</p>
-<p>For homework, find the CI from: <span class="math display">\[
-\chi^2_n(0.055) \le \frac{(n-1)s^2}{\sigma^2} \le \chi^2_n(0.945)
-\]</span> Note that <span class="math inline">\(\chi^2_n(0.055)\ne-\chi^2_n(0.945)\)</span>.</p>
-</section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+\hat{\underline{\beta}} = (X^TX)^{-1}X^TY,\quad V(\hat{\underline{\beta}}) = (X^TX)^{-1}\sigma^2
+\]</span></p>
 <ul>
-<li>Distributions exist and are important
+<li>If two columns of <span class="math inline">\(X\)</span> are <strong>linearly dependent</strong>, then <span class="math inline">\(X^TX\)</span> is <strong>singular</strong>.
 <ul>
-<li>Most things will be normal, which leads to <span class="math inline">\(t\)</span>, <span class="math inline">\(\chi^2\)</span>, and <span class="math inline">\(F\)</span>.</li>
+<li>Constant predictor value (linearly dependent with column of 1s).</li>
+<li>Unit change (one column for Celcius, one for Fahrenheit).</li>
 </ul></li>
-<li>CIs are all values that would not be rejected by a hypothesis test.
+<li>If two columns of <span class="math inline">\(X\)</span> are <strong>nearly linearly dependent</strong>, then some elements of <span class="math inline">\((X^TX)^{-1}\)</span> are <em>humungous</em>.
 <ul>
-<li>The null hypothesis determines the distribution of the test statistic, which allows us to find the CI.</li>
+<li>Two proxy measure for the same thing (e.g., daily high and low temperatures).</li>
+<li>Nearly linear transformation (e.g., polynomial or BMI)</li>
 </ul></li>
 </ul>
-<p>For Next Class:</p>
+</section>
+<section id="detecting-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="detecting-the-problem">Detecting the Problem</h3>
+<p>The variance-covariance matrix of <span class="math inline">\(X\)</span> can be useful: <span class="math display">\[
+Cov(X) = \begin{bmatrix}
+0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots\\
+0 &amp; V(X_1) &amp; Cov(X_1, X_2) &amp; Cov(X_1, X_3) &amp; \cdots\\
+0 &amp; Cov(X_1, X_2) &amp; V(X_2) &amp; Cov(X_2, X_3) &amp; \cdots\\
+0 &amp; Cov(X_1, X_3) &amp; Cov(X_2, X_3) &amp; V(X_3) &amp; \cdots\\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots
+\end{bmatrix}
+\]</span> Why are the first column/row 0?</p>
+</section>
+<section id="plotting-corx" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-corx">Plotting <span class="math inline">\(Cor(X)\)</span></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins); <span class="fu">library</span>(GGally)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorr</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggcorr(penguins): data in column(s) 'species', 'island', 'sex' are
+not numeric and were ignored</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+</section>
+<section id="detecting-the-problem-vhatunderlinebeta" class="level3">
+<h3 class="anchored" data-anchor-id="detecting-the-problem-vhatunderlinebeta">Detecting the Problem: <span class="math inline">\(V(\hat{\underline\beta})\)</span></h3>
+<p>Unfortunately, the var-covar matrix is hard to get from R.</p>
 <ul>
-<li>Read through Ch01, especially procedure for least squares estimation.</li>
+<li>We can look at the SE column of the summary output!
+<ul>
+<li>Very very very much not conclusive.</li>
+</ul></li>
+<li>The <strong>Variance Inflation Factor</strong></li>
 </ul>
-<p>&lt;—</p>
+</section>
+<section id="the-variance-inflation-factor" class="level3">
+<h3 class="anchored" data-anchor-id="the-variance-inflation-factor">The Variance Inflation Factor</h3>
+<p>We can write the variance of each estimated coefficeint as: <span class="math display">\[
+V(\hat\beta_i) = VIF_i\frac{\sigma^2}{S_{ii}}
+\]</span> where <span class="math inline">\(S_{ii} = \sum_{k=1}^n(x_{ki} - \bar{x_i})^2\)</span> is the “SS” for the <span class="math inline">\(i\)</span>th column of <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li>If there is no “Variance Inflation”, then VIF = 1
+<ul>
+<li>“Inflation” comes from the idea of rotating a plane around a “tube”.</li>
+<li>Also interpreted as a measure of linear dependence with other columns of <span class="math inline">\(X\)</span>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="interpreting-the-variance-inflation-factor" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-variance-inflation-factor">Interpreting the Variance Inflation Factor</h3>
+<p>Consider a regression of <span class="math inline">\(X_i\)</span> against all other columns of <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li>The <span class="math inline">\(R^2\)</span> measures how well the other predictors can model <span class="math inline">\(X_i\)</span>
+<ul>
+<li>Label this <span class="math inline">\(R_i^2\)</span> to indicate it’s the <span class="math inline">\(R^2\)</span> for <span class="math inline">\(X_i\)</span> against other columns.</li>
+</ul></li>
+<li>Important: We’re not considering <span class="math inline">\(\underline y\)</span> at all!</li>
+</ul>
+<p>The VIF can be calculated as: <span class="math display">\[
+VIF_i = \frac{1}{1 - R_i^2}
+\]</span></p>
+<ul>
+<li>If <span class="math inline">\(R_i^2=0\)</span>, then <span class="math inline">\(VIF_i = 1\)</span></li>
+<li>If <span class="math inline">\(R_i^2\rightarrow 1\)</span>, then <span class="math inline">\(VIF_i \rightarrow \infty\)</span></li>
+</ul>
 </section>
 </section>
-<section id="participation-questions" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">1.4</span> Participation Questions</h2>
+<section id="will-scaling-fix-the-problem" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="will-scaling-fix-the-problem"><span class="header-section-number">16.2</span> Will Scaling Fix the Problem</h2>
+<section id="scaling-the-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="scaling-the-predictors">Scaling the Predictors</h3>
+<p>If we subtract the mean and divide by the sd, <em>some of</em> the correlation goes away.</p>
+<ul>
+<li>This is actually kinda bad - we’ve hidden some multicollinearity from ourselves!</li>
+</ul>
+<p>If <span class="math inline">\(Z\)</span> is the <strong>standardized</strong> version of <span class="math inline">\(X\)</span>, then <span class="math display">\[
+Cor(X) = Z^TZ/(n-1)
+\]</span></p>
+<p>If <span class="math inline">\(Z\)</span> is the <strong>mean-centered</strong> version of <span class="math inline">\(X\)</span>, then <span class="math display">\[
+Cov(X) = Z^TZ/(n-1)
+\]</span></p>
+</section>
+</section>
+<section id="fixing-the-problem" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="fixing-the-problem"><span class="header-section-number">16.3</span> Fixing The Problem</h2>
+<section id="one-way-to-fix-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="one-way-to-fix-the-problem">One way to fix the problem</h3>
+<p>Don’t.</p>
+<p>We can’t get good estimates of the <span class="math inline">\(\hat\beta\)</span>s, but we can still get good predictions.</p>
+<ul>
+<li>This <em>only</em> works if the new values are in the same “tube” as the others.</li>
+<li>If the multicollinearity is real, what estimates do you expect?
+<ul>
+<li>Without a controlled experiment, there <em>isn’t</em> a good way to estimate the effect of <span class="math inline">\(X_1\)</span> on it’s own!</li>
+</ul></li>
+</ul>
+</section>
+<section id="removing-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="removing-predictors">Removing predictors</h3>
+<p>If two predictors are measuring the same thing, then just include one?</p>
+<ul>
+<li>This might lose some information!
+<ul>
+<li>It also might not!</li>
+</ul></li>
+<li>The estimated <span class="math inline">\(\beta\)</span> won’t be meaningful.
+<ul>
+<li>Inferences will be difficult.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="participation-questions" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">16.4</span> Participation Questions</h2>
 <section id="q1" class="level3">
 <h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>Which of the following is a Normal distribution?</p>
+<p>Multicollinearity can come from:</p>
 <ol type="1">
-<li><span class="math inline">\(f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}\)</span></li>
-<li><span class="math inline">\(f(x) = \frac{1}{\sqrt{2\pi}}\exp\left(-x^2/2\right)\)</span></li>
-<li><span class="math inline">\(f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}\)</span></li>
-<li><span class="math inline">\(f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}\)</span></li>
+<li>Unit changes</li>
+<li>Polynomial terms</li>
+<li>Proxy measures</li>
+<li>All of the above</li>
 </ol>
 </section>
 <section id="q2" class="level3">
 <h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>If you know <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, then you know the exact shape of the normal distribution.</p>
+<p>Multicollinearity is a problem because</p>
 <ol type="1">
-<li>True</li>
-<li>False</li>
+<li>Strong correlation in <span class="math inline">\(X\)</span> makes estimates of <span class="math inline">\(\beta\)</span> invalid.</li>
+<li>Strong correlation in <span class="math inline">\(X\)</span> means there are many values of <span class="math inline">\(\underline\beta\)</span> that are equally probable.</li>
+<li>There’s no way to fix strong correlation in <span class="math inline">\(X\)</span>.</li>
 </ol>
 </section>
 <section id="q3" class="level3">
 <h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>A confidence interval for <span class="math inline">\(\theta\)</span> contains all values <span class="math inline">\(\theta_0\)</span> that would not be rejected by a hypothesis test (assume that both are at the same significance level).</p>
+<p>When multicollinearity is present, which of the following is still valid?</p>
 <ol type="1">
-<li>True</li>
-<li>False</li>
+<li>Inferences about the effect of one of the predictors.</li>
+<li>Confidence intervals for a single coefficients.</li>
+<li>Predictions.</li>
+<li>Overall F test for significance of any slope parameter.</li>
 </ol>
 </section>
 <section id="q4" class="level3">
 <h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>Which of the following is the correct value for <span class="math inline">\(E(\hat\theta)\)</span>, where <span class="math inline">\(\hat\theta = \sum_{i=1}^n\left(a + bX_i\right)\)</span> and <span class="math inline">\(E(X_i)=\mu\)</span> for all <span class="math inline">\(i\)</span>?</p>
+<p>The VIF is defined as:</p>
 <ol type="1">
-<li></li>
-<li><span class="math inline">\(a + b\mu\)</span></li>
-<li><span class="math inline">\(b\mu\)</span></li>
-<li><span class="math inline">\(na + nb\mu\)</span></li>
+<li>The amount that the MSE increases due to the variance in <span class="math inline">\(\hat{\underline\beta}\)</span>.</li>
+<li>The coefficient of determination of <span class="math inline">\(X_i\)</span> against all other predictors.</li>
+<li>The correlation between <span class="math inline">\(X_i\)</span> and all other predictors.</li>
+<li>The <span class="math inline">\(R^2\)</span> value for <span class="math inline">\(Y\)</span> against <span class="math inline">\(X_i\)</span>.</li>
 </ol>
-</section>
-<section id="q5" class="level3">
-<h3 class="anchored" data-anchor-id="q5">Q5</h3>
-<p>Which of the following is the definition of an estimator?</p>
-<ol type="1">
-<li>A value calculated from data.</li>
-<li>A function that returns the estimate for a parameter.</li>
-<li>Any function of the data.</li>
-<li>A person who estimates.</li>
-</ol>
-</section>
-<section id="q6" class="level3">
-<h3 class="anchored" data-anchor-id="q6">Q6</h3>
-<p>The general approach to finding confidence intervals is to find a function of the statistic and the parameter it’s estimating that follows a known distribution and then solve for the unknown parameter.</p>
-<ol type="1">
-<li></li>
-<li>False</li>
-<li>True</li>
-<li></li>
-</ol>
-<p>—&gt;</p>
 
 
 </section>
@@ -1025,13 +996,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      <a href="./L16-Dummies.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L16: Dummy Variables</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L02-Fitting_Straight_Lines.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">L02: Straight Line Fitting</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Lb02-OLS_Estimates.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

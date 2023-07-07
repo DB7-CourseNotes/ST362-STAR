@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Regression Analysis - 1&nbsp; L01: Distributions</title>
+<title>Regression Analysis - 26&nbsp; Multicollinearity</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L02-Fitting_Straight_Lines.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./Lb16-Regression_with_Dummies.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L01-Introduction.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Lab Notes</a></li><li class="breadcrumb-item"><a href="./Lb17-Multico.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Multicollinearity</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -158,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></span></a>
   </div>
 </li>
@@ -319,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb17-Multico.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb17-Multico.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
@@ -335,37 +334,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1.1</span> Introduction</a>
-  <ul class="collapse">
-  <li><a href="#todays-learning-outcomes" id="toc-todays-learning-outcomes" class="nav-link" data-scroll-target="#todays-learning-outcomes">Today’s Learning Outcomes</a></li>
-  </ul></li>
-  <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions"><span class="header-section-number">1.2</span> Distributions</a>
-  <ul class="collapse">
-  <li><a href="#normal" id="toc-normal" class="nav-link" data-scroll-target="#normal">Normal</a></li>
-  <li><a href="#but-first-gamma" id="toc-but-first-gamma" class="nav-link" data-scroll-target="#but-first-gamma">But first, Gamma!</a></li>
-  <li><a href="#the-t-distribution" id="toc-the-t-distribution" class="nav-link" data-scroll-target="#the-t-distribution">The <span class="math inline">\(t\)</span> Distribution</a></li>
-  <li><a href="#the-chi2-distribution---variances" id="toc-the-chi2-distribution---variances" class="nav-link" data-scroll-target="#the-chi2-distribution---variances">The <span class="math inline">\(\chi^2\)</span> distribution - variances</a></li>
-  <li><a href="#the-f-distribution---ratio-of-variances" id="toc-the-f-distribution---ratio-of-variances" class="nav-link" data-scroll-target="#the-f-distribution---ratio-of-variances">The <span class="math inline">\(F\)</span> distribution - ratio of variances</a></li>
-  </ul></li>
-  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">1.3</span> Confidence Intervals</a>
-  <ul class="collapse">
-  <li><a href="#general-idea-terminology" id="toc-general-idea-terminology" class="nav-link" data-scroll-target="#general-idea-terminology">General Idea: Terminology</a></li>
-  <li><a href="#general-idea-distributional-assumptions" id="toc-general-idea-distributional-assumptions" class="nav-link" data-scroll-target="#general-idea-distributional-assumptions">General Idea: Distributional Assumptions</a></li>
-  <li><a href="#general-idea-distribution-to-quantiles" id="toc-general-idea-distribution-to-quantiles" class="nav-link" data-scroll-target="#general-idea-distribution-to-quantiles">General Idea: Distribution to Quantiles</a></li>
-  <li><a href="#general-idea-distribution-to-ci" id="toc-general-idea-distribution-to-ci" class="nav-link" data-scroll-target="#general-idea-distribution-to-ci">General Idea: Distribution to CI</a></li>
-  <li><a href="#what-is-the-standard-error" id="toc-what-is-the-standard-error" class="nav-link" data-scroll-target="#what-is-the-standard-error">What is the Standard Error?</a></li>
-  <li><a href="#ci-for-variance" id="toc-ci-for-variance" class="nav-link" data-scroll-target="#ci-for-variance">CI for Variance</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">1.4</span> Participation Questions</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
-  </ul></li>
+  <li><a href="#the-problem-with-multicollinearity" id="toc-the-problem-with-multicollinearity" class="nav-link active" data-scroll-target="#the-problem-with-multicollinearity"><span class="header-section-number">26.1</span> The problem with multicollinearity</a></li>
+  <li><a href="#exact-multicollinearity" id="toc-exact-multicollinearity" class="nav-link" data-scroll-target="#exact-multicollinearity"><span class="header-section-number">26.2</span> Exact Multicollinearity</a></li>
+  <li><a href="#back-to-regression" id="toc-back-to-regression" class="nav-link" data-scroll-target="#back-to-regression"><span class="header-section-number">26.3</span> Back to Regression</a></li>
+  <li><a href="#centering-and-scaling" id="toc-centering-and-scaling" class="nav-link" data-scroll-target="#centering-and-scaling"><span class="header-section-number">26.4</span> Centering and Scaling</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -374,7 +346,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></h1>
+<h1 class="title"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Multicollinearity</span></h1>
 </div>
 
 
@@ -387,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: <strong>Gamma Ray</strong> by Beck
+            Wilfrid Laurier University
           </p>
       </div>
     </div>
@@ -402,276 +374,245 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introduction" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1.1</span> Introduction</h2>
-<section id="todays-learning-outcomes" class="level3">
-<h3 class="anchored" data-anchor-id="todays-learning-outcomes">Today’s Learning Outcomes</h3>
-<ul>
-<li>Important facts about distributions.</li>
-<li>CIs and t-tests.</li>
-</ul>
-</section>
-</section>
-<section id="distributions" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="distributions"><span class="header-section-number">1.2</span> Distributions</h2>
-<section id="normal" class="level3">
-<h3 class="anchored" data-anchor-id="normal">Normal</h3>
-<p><span class="math display">\[
-f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{(x-\mu)^2}{-2\sigma^2}\right);\;-\infty&lt;x&lt;\infty
-\]</span></p>
-<p>Shiny: <a href="https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory">https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory</a></p>
-<ul>
-<li>Completely determined by <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</li>
-<li>If <span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span>, then <span class="math inline">\(Z=\frac{X-\mu}{\sigma} \sim N(0,1)\)</span>.
-<ul>
-<li>Often called “standardizing”</li>
-</ul></li>
-<li>You won’t <em>need</em> to memorize the pdf, but it’s useful!</li>
-</ul>
-<div class="notes">
+<section id="the-problem-with-multicollinearity" class="level2" data-number="26.1">
+<h2 data-number="26.1" class="anchored" data-anchor-id="the-problem-with-multicollinearity"><span class="header-section-number">26.1</span> The problem with multicollinearity</h2>
+<p>Consider the model <span class="math display">\[
+y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i
+\]</span> with the added assumption that <span class="math inline">\(x_{i1} = a + bx_{i2} + z_i\)</span>, where <span class="math inline">\(z_i\)</span> is some variation.</p>
+<p>(As a technical note, none of this is assumed to be random; just uncertain. We’ll use the language of probability in this section, but it’s just to quantify uncertainty rather than make modelling assumptions.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pnorm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The normal distribution is the foundation for pretty much everything that we’re going to do in this class. In general, things aren’t normally distributed, but the assumption is very robust and works out in a lot of cases.</p>
-<p>In this lecture we’re going to build up an important result that we’ll use frequently. In particular, we want some background into why the F and <span class="math inline">\(t\)</span> distributions show up so often!</p>
-</div>
-</section>
-<section id="but-first-gamma" class="level3">
-<h3 class="anchored" data-anchor-id="but-first-gamma">But first, Gamma!</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><span class="math inline">\(t\)</span> is based on the Gamma (<span class="math inline">\(\Gamma\)</span>) function:</p>
-<p><span class="math display">\[
-\Gamma(q) = \int_0^\infty e^{-t}t^{q-1}dt
-\]</span></p>
-<ul>
-<li>Interesting property: <span class="math inline">\(\Gamma(k+1) = k!\)</span> for integer <span class="math inline">\(k\)</span>.
-<ul>
-<li>In general, <span class="math inline">\(\Gamma(q) = (q-1)\Gamma(q-1)\)</span></li>
-</ul></li>
-<li>Also, <span class="math inline">\(\Gamma(1/2) = \pi^{1/2}\)</span>
-<ul>
-<li><span class="math inline">\(\Gamma(3/2) = (3/2-1)\gamma(1/2) = \sqrt{\pi}/2\)</span></li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<p></p>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plot3D)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> x1 <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter3D</span>(x1, x2, y, <span class="at">phi =</span> <span class="dv">30</span>, <span class="at">theta =</span> <span class="dv">15</span>, <span class="at">bty =</span> <span class="st">"g"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"x1"</span>, <span class="at">ylab =</span> <span class="st">"x2"</span>, <span class="at">zlab =</span> <span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="the-t-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="the-t-distribution">The <span class="math inline">\(t\)</span> Distribution</h3>
-<p><span class="math display">\[
-f(x; \nu) = \frac{\Gamma\left(\frac{\nu + 1}{2}\right)}{\sqrt{\nu\pi}\Gamma(\nu/2)}\left(1 + \frac{x^2}{\nu}\right)^{-(\nu + 1)/2}
-\]</span></p>
-<ul>
-<li>The notation <span class="math inline">\(f(x; \nu)\)</span> means “function of <span class="math inline">\(x\)</span>, given a value of <span class="math inline">\(\nu\)</span>.”</li>
-<li>Completely determined by <span class="math inline">\(\nu\)</span></li>
-<li>As <span class="math inline">\(\nu\rightarrow\infty\)</span>, this becomes <span class="math inline">\(N(0,1)\)</span>.
-<ul>
-<li><span class="math inline">\(\nu&gt;30\)</span> is pretty much normal already.</li>
-<li>For <span class="math inline">\(\nu&lt;\infty\)</span>, <span class="math inline">\(t\)</span> has wider tails than normal.</li>
-</ul></li>
-</ul>
-</section>
-<section id="the-chi2-distribution---variances" class="level3">
-<h3 class="anchored" data-anchor-id="the-chi2-distribution---variances">The <span class="math inline">\(\chi^2\)</span> distribution - variances</h3>
-<p>If <span class="math inline">\(Z_1, Z_2, ..., Z_k\)</span> are iid <span class="math inline">\(N(0,1)\)</span>, then <span class="math inline">\(\chi^2_k = \sum_{i=1}^kZ_i^2\)</span> has a chi-square distribution on <span class="math inline">\(k\)</span> degrees of freedom.</p>
-<p><span class="math display">\[
-f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}
-\]</span></p>
-<ul>
-<li>If <span class="math inline">\(X_i\sim N(\mu_i\sigma_i)\)</span>, then we can just standardize each first.</li>
-<li>As <span class="math inline">\(k\rightarrow\infty\)</span>, <span class="math inline">\((\chi^2_k-k)/\sqrt{2k}\stackrel{d}{\rightarrow} N(0,1)\)</span>.
-<ul>
-<li>That is, for large <span class="math inline">\(k\)</span> this can be approximated by a normal distribution.</li>
-</ul></li>
-<li>Very related to the <em>variance</em>
-<ul>
-<li><span class="math inline">\((n-1)s^2/\sigma^2\)</span> follows a <span class="math inline">\(\chi^2_n\)</span> distribution.</li>
-</ul></li>
-</ul>
-</section>
-<section id="the-f-distribution---ratio-of-variances" class="level3">
-<h3 class="anchored" data-anchor-id="the-f-distribution---ratio-of-variances">The <span class="math inline">\(F\)</span> distribution - ratio of variances</h3>
-<p>If <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span> are independent <span class="math inline">\(\chi^2\)</span> distributions with degrees of freedom <span class="math inline">\(\nu_1\)</span> and <span class="math inline">\(\nu_2\)</span>, then <span class="math inline">\(\frac{S_1/\nu_1}{S_2/\nu_2}\)</span> follows an <span class="math inline">\(F_{\nu_1,\nu_2}\)</span> distribution.</p>
-<p><span class="math display">\[
-f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}
-\]</span></p>
-<ul>
-<li>If <span class="math inline">\(s_1^2\)</span> and <span class="math inline">\(s_2^2\)</span> are the sample-based estimates of the true values <span class="math inline">\(\sigma_1^2\)</span> and <span class="math inline">\(\sigma_2^2\)</span>, then <span class="math inline">\(\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}\)</span> follows an <span class="math inline">\(F_{\nu_1, \nu_2}\)</span> distribution.
-<ul>
-<li>Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(\sigma_1=\sigma_2\)</span>, so we don’t need the true values.</li>
-<li>Note: <span class="math inline">\(s_1^2\)</span> is calculated from <span class="math inline">\(S_1^2/\nu_1\)</span>.</li>
-</ul></li>
-</ul>
-</section>
-</section>
-<section id="confidence-intervals" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">1.3</span> Confidence Intervals</h2>
-<section id="general-idea-terminology" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-terminology">General Idea: Terminology</h3>
-<p>Consider the <strong>statistic</strong> <span class="math inline">\(t = \frac{\hat\theta - \theta_0}{se(\hat\theta)}\)</span> (a statistic is any number that can be calculated from data alone).</p>
-<ul>
-<li><span class="math inline">\(\theta\)</span> is the “““<strong>true</strong>”“” value of the parameter.
-<ul>
-<li>Unknown, unknowable, not used in formula - hypothesize <span class="math inline">\(\theta = \theta_0\)</span> instead.</li>
-</ul></li>
-<li><span class="math inline">\(\hat\theta\)</span> is our <strong>estimator</strong> of <span class="math inline">\(\theta\)</span>.
-<ul>
-<li><strong>Estimator</strong> is a function, like <span class="math inline">\(\hat\mu = \bar X =(1/n)\sum_{i=1}^nX_i\)</span>.
-<ul>
-<li><span class="math inline">\(X\)</span> is a random variable.</li>
-</ul></li>
-<li><strong>Estimate</strong> is a number, like the calculated mean of a sample.</li>
-</ul></li>
-<li><span class="math inline">\(se(\hat\theta)\)</span> is the <strong>standard error</strong> of <span class="math inline">\(\hat\theta\)</span>.
-<ul>
-<li>If we had a different sample, the value of <span class="math inline">\(\hat\theta\)</span> would be different. It has <strong>variance</strong>.</li>
-<li><strong>Standard error</strong>: the standard deviation of the <strong>sampling distribution</strong>.</li>
-</ul></li>
-</ul>
-</section>
-<section id="general-idea-distributional-assumptions" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-distributional-assumptions">General Idea: Distributional Assumptions</h3>
-<p>Consider the quantity (<em>not</em> statistic) <span class="math inline">\(t = \frac{\hat\theta - \theta}{se(\hat\theta)}\)</span>.</p>
-<p>If we assume <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> and <span class="math inline">\(\hat\theta = \bar X\)</span> is an unbiased estimate of <span class="math inline">\(\theta\)</span> on <span class="math inline">\(\nu=n-1\)</span> degrees of freedom, then <span class="math inline">\(t \sim t_\nu\)</span></p>
-<p>From this, we can find the lower and upper <span class="math inline">\(\alpha/2\)</span>% of the <span class="math inline">\(t\)</span>$ curve.</p>
-<ul>
-<li><span class="math inline">\(t_\nu(\alpha/2)\)</span> is the lower <span class="math inline">\(\alpha/2\)</span>%.
-<ul>
-<li>i.e., if <span class="math inline">\(\alpha = 0.11\)</span>, then it’s <span class="math inline">\(t(\nu, 0.055)\)</span>, the lower 5.5% area.</li>
-</ul></li>
-<li><span class="math inline">\(t_\nu(1 - \alpha/2)\)</span> is the upper <span class="math inline">\(\alpha/2\)</span>%.</li>
-<li>Since <span class="math inline">\(t\)</span> is symmetric, <span class="math inline">\(t_\nu(1 - \alpha/2) = -t_\nu(\alpha/2)\)</span>.</li>
-</ul>
-<div class="notes">
+<p>The 3D plot looks like a tube! By “tube”, we can think of the 3D plot as being a 2D plot that’s in the wrong coordinate system. In other words, the data define a single axis, which is different from the x1, x2, and y axes. When fitting multiple linear regression, we’re fitting a hyperplane. If the relationship is <strong>multicollinear</strong>, then we might imagine rotating a hyperplane around the axis defined by the “tube” in the plot above. Since any rotation of the plane around fits the line of data pretty well, the coefficients that define that plane are not well-estimated.</p>
+<p>It’s hard to imagine 3D sets of points, so let’s do a 2D analogy. In the 3D example, we actually had a 2D relationship, so let’s consider a 2D example that’s almost 1D.</p>
+<p>In the plot below, I’ve made <span class="math inline">\(x\)</span> <em>almost</em> one-dimensional. That is, I’ve given it a vary small range. I intentionally changed the x limits of the plot to emphasize this.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pvalues"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="sc">-</span><span class="fl">0.025</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="fl">0.025</span>, <span class="dv">10</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>If we were to fit a regression line to this, there are many many slopes that would make this work!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) <span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">mean</span>(y), <span class="at">b =</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">20</span>, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>All of the lines I added will fit the data pretty well, even though they all have completely different slopes! Yes, there’s one with a “best” slope, but slightly different data would have given us a very different slope:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up empty plot</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="dv">6</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data from same dgp as before</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>All of these lines would have worked for our data!</p>
+<p>This can easily be seen the <em>variance of the parameters</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Estimate Std. Error    t value  Pr(&gt;|t|)
+(Intercept) -0.6205096  0.6779798 -0.9152331 0.3721680
+x            6.0310840 27.1191916  0.2223917 0.8265128</code></pre>
 </div>
 </div>
 </section>
-<section id="general-idea-distribution-to-quantiles" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-distribution-to-quantiles">General Idea: Distribution to Quantiles</h3>
-<p>Under the null hypothesis, <span class="math inline">\(\theta = \theta_0\)</span>, so <span class="math display">\[
-t = \frac{\hat\theta - \theta}{se(\hat\theta)} = \frac{\hat\theta - \theta_0}{se(\hat\theta)} \sim t_\nu
-\]</span></p>
-<p>We know that <span class="math inline">\(\bar X\)</span> is a random variable, and we want everything in between its 5.5% and 94.5% <strong>quantiles</strong>. </p>
+<section id="exact-multicollinearity" class="level2" data-number="26.2">
+<h2 data-number="26.2" class="anchored" data-anchor-id="exact-multicollinearity"><span class="header-section-number">26.2</span> Exact Multicollinearity</h2>
+<p>In the example above, the line was very sensitive to a slight change in the data because we essentially had one dimension. If we <em>actually</em> had one dimension, then any line that cgoes through <span class="math inline">\(\bar y\)</span> has the exact same error, regardless of the slope. We can see this in the design matrix: <span class="math inline">\(X\)</span> has a column of 1s for the intercept (which is good), but also has a column for <span class="math inline">\(x_1\)</span> that has zero variance. This means that it’s a linear combination of the first column, and thus is rank-deficient.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">20</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in solve.default(t(X) %*% X) : 
+  Lapack routine dgesv: system is exactly singular: U[2,2] = 0</code></pre>
+</div>
+</div>
+<p>Since one column is a linear combination of the other, <span class="math inline">\(X^TX\)</span> cannot be inverted. In this case, the variance fo <span class="math inline">\(\hat\beta_1\)</span> is infinite!</p>
+<p>This can also happen if one column is “close” to being a linear combination of the others, such as:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the first element in the second column to 10^-23</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X[<span class="dv">1</span>, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fl">1e-23</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in solve.default(t(X) %*% X) : 
+  system is computationally singular: reciprocal condition number = 4.75e-48</code></pre>
+</div>
+</div>
+<p>The rows are mathematically different, but the difference is so small that computers cannot tell.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">/</span> <span class="fl">1e7</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                            x
+   1.697904e-01 -2.406244e+06
+x -2.406244e+06  4.833450e+13</code></pre>
+</div>
+</div>
+<p>In the next code chunk, try playing around with the power of 10 (i.e., try <code>10^50</code>, <code>10^-50</code>, etc., for both positive and negative powers). At some point, the matrix is not invertible and the coefficient table stops reporting the slope! At the other end, the line is a near perfect fit (why?).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">/</span> (<span class="dv">10</span><span class="sc">^</span><span class="dv">350</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Estimate Std. Error   t value  Pr(&gt;|t|)
+(Intercept) 0.1092976  0.6173655 0.1770387 0.8613516</code></pre>
+</div>
+</div>
+</section>
+<section id="back-to-regression" class="level2" data-number="26.3">
+<h2 data-number="26.3" class="anchored" data-anchor-id="back-to-regression"><span class="header-section-number">26.3</span> Back to Regression</h2>
+<p>We can kinda detect multicollinearity mainly using the standard error of the estimates:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>peng_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(peng_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = body_mass_g ~ flipper_length_mm + bill_length_mm + 
+    bill_depth_mm, data = penguins)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1054.94  -290.33   -21.91   239.04  1276.64 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       -6424.765    561.469 -11.443   &lt;2e-16 ***
+flipper_length_mm    50.269      2.477  20.293   &lt;2e-16 ***
+bill_length_mm        4.162      5.329   0.781    0.435    
+bill_depth_mm        20.050     13.694   1.464    0.144    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 393.4 on 338 degrees of freedom
+  (2 observations deleted due to missingness)
+Multiple R-squared:  0.7615,    Adjusted R-squared:  0.7594 
+F-statistic: 359.7 on 3 and 338 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>It looks like <code>bill_depth_mm</code> has a large standard error! Of course, this might be because:</p>
 <ul>
-<li>This is a confidence interval!</li>
+<li>The variance of <code>bill_depth_mm</code> is high to begin with.</li>
+<li>The other predictors have explained most of the variance and any estimate for <code>bill_depth_mm</code> will do.</li>
+<li>Multicollinearity</li>
 </ul>
+<p>Multico. is just one of the possible reasons why the SE might be high, we need to look into it more to be sure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(peng_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>flipper_length_mm    bill_length_mm     bill_depth_mm 
+         2.673338          1.865090          1.611292 </code></pre>
+</div>
+</div>
+<p>It actually has quite a small VIF!</p>
 </section>
-<section id="general-idea-distribution-to-ci" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-distribution-to-ci">General Idea: Distribution to CI</h3>
-<p>We can do this easily for the <span class="math inline">\(t_\nu\)</span> distribution: we want all values <span class="math inline">\(t_0\)</span> such that</p>
-<p><span class="math display">\[\begin{align*}
-t_\nu(5.5) &amp;\le t_0 \le t_\nu(94.5)\\
-t_\nu(5.5) &amp;\le \frac{\hat\theta - \theta_0}{se(\hat\theta)} \le t_\nu(94.5)\\
-se(\hat\theta)t_\nu(5.5) &amp;\le \hat\theta - \theta_0 \le se(\hat\theta)t_\nu(94.5)\\
-\hat\theta + se(\hat\theta)t_\nu(5.5) &amp;\le \theta_0 \le \hat\theta + se(\hat\theta)t_\nu(94.5)
-\end{align*}\]</span></p>
-<p>The CI is all values <span class="math inline">\(\theta_0\)</span> that would <em>not</em> be rejected by the null hypothesis <span class="math inline">\(\theta = \theta_0\)</span> at the <span class="math inline">\(\alpha\)</span>% level.</p>
-<p>Since <span class="math inline">\(t_\nu(1 - \alpha/2) = -t_\nu(\alpha/2)\)</span>, our 89% CI is <span class="math inline">\(\hat\theta \pm se(\hat\theta)t_\nu(5.5)\)</span>.</p>
-</section>
-<section id="what-is-the-standard-error" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-the-standard-error">What is the Standard Error?</h3>
-<p>If we’re estimating the mean, <span class="math inline">\(\hat\theta = (1/n)\sum_{i=1}^nX_i\)</span>, where we assume <span class="math inline">\(X_i \stackrel{iid}{\sim} N(\mu, \sigma)\)</span>. <span class="math display">\[
-E(\hat\theta) = E\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n}\sum_{i=1}^nE(X_i) = \frac{n\mu}{n} = \mu
-\]</span> From this, we see that the mean is an unbiased estimator! (This is nice, but not required.)</p>
-<p><span class="math display">\[
-V(\hat\theta) = V\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n^2}V\left(\sum_{i=1}^nX_i\right) \stackrel{indep}{=} \frac{1}{n^2}\sum_{i=1}^nV(X_i) = \sigma^2/n \stackrel{plug-in}{=} s^2/n
-\]</span> where <span class="math inline">\(s^2\)</span> is the estimate variance since we cannot know the true mean. Note that <span class="math inline">\(s^2\)</span> is a biased estimator for <span class="math inline">\(\sigma\)</span>.</p>
-</section>
-<section id="ci-for-variance" class="level3">
-<h3 class="anchored" data-anchor-id="ci-for-variance">CI for Variance</h3>
-<p>From before: <span class="math inline">\(\frac{(n-1)s^2}{\sigma^2} \sim \chi^2_n\)</span>.</p>
-<p>Let <span class="math inline">\(\chi^2_n(0.055)\)</span> be the lower 5.5% quantile, <span class="math inline">\(\chi^2_n(0.945)\)</span> be the upper.</p>
-<p>For homework, find the CI from: <span class="math display">\[
-\chi^2_n(0.055) \le \frac{(n-1)s^2}{\sigma^2} \le \chi^2_n(0.945)
-\]</span> Note that <span class="math inline">\(\chi^2_n(0.055)\ne-\chi^2_n(0.945)\)</span>.</p>
-</section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary">Summary</h3>
-<ul>
-<li>Distributions exist and are important
-<ul>
-<li>Most things will be normal, which leads to <span class="math inline">\(t\)</span>, <span class="math inline">\(\chi^2\)</span>, and <span class="math inline">\(F\)</span>.</li>
-</ul></li>
-<li>CIs are all values that would not be rejected by a hypothesis test.
-<ul>
-<li>The null hypothesis determines the distribution of the test statistic, which allows us to find the CI.</li>
-</ul></li>
-</ul>
-<p>For Next Class:</p>
-<ul>
-<li>Read through Ch01, especially procedure for least squares estimation.</li>
-</ul>
-<p>&lt;—</p>
-</section>
-</section>
-<section id="participation-questions" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">1.4</span> Participation Questions</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>Which of the following is a Normal distribution?</p>
-<ol type="1">
-<li><span class="math inline">\(f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}\)</span></li>
-<li><span class="math inline">\(f(x) = \frac{1}{\sqrt{2\pi}}\exp\left(-x^2/2\right)\)</span></li>
-<li><span class="math inline">\(f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}\)</span></li>
-<li><span class="math inline">\(f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}\)</span></li>
-</ol>
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>If you know <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, then you know the exact shape of the normal distribution.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>A confidence interval for <span class="math inline">\(\theta\)</span> contains all values <span class="math inline">\(\theta_0\)</span> that would not be rejected by a hypothesis test (assume that both are at the same significance level).</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>Which of the following is the correct value for <span class="math inline">\(E(\hat\theta)\)</span>, where <span class="math inline">\(\hat\theta = \sum_{i=1}^n\left(a + bX_i\right)\)</span> and <span class="math inline">\(E(X_i)=\mu\)</span> for all <span class="math inline">\(i\)</span>?</p>
-<ol type="1">
-<li></li>
-<li><span class="math inline">\(a + b\mu\)</span></li>
-<li><span class="math inline">\(b\mu\)</span></li>
-<li><span class="math inline">\(na + nb\mu\)</span></li>
-</ol>
-</section>
-<section id="q5" class="level3">
-<h3 class="anchored" data-anchor-id="q5">Q5</h3>
-<p>Which of the following is the definition of an estimator?</p>
-<ol type="1">
-<li>A value calculated from data.</li>
-<li>A function that returns the estimate for a parameter.</li>
-<li>Any function of the data.</li>
-<li>A person who estimates.</li>
-</ol>
-</section>
-<section id="q6" class="level3">
-<h3 class="anchored" data-anchor-id="q6">Q6</h3>
-<p>The general approach to finding confidence intervals is to find a function of the statistic and the parameter it’s estimating that follows a known distribution and then solve for the unknown parameter.</p>
-<ol type="1">
-<li></li>
-<li>False</li>
-<li>True</li>
-<li></li>
-</ol>
-<p>—&gt;</p>
+<section id="centering-and-scaling" class="level2" data-number="26.4">
+<h2 data-number="26.4" class="anchored" data-anchor-id="centering-and-scaling"><span class="header-section-number">26.4</span> Centering and Scaling</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="fu">apply</span>(X[, <span class="sc">-</span><span class="dv">1</span>], <span class="dv">2</span>, scale))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"correlation of X"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "correlation of X"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(X), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  (Intercept) flipper_length_mm bill_length_mm bill_depth_mm
+(Intercept)                 1                NA             NA            NA
+flipper_length_mm          NA            1.0000         0.6562       -0.5839
+bill_length_mm             NA            0.6562         1.0000       -0.2351
+bill_depth_mm              NA           -0.5839        -0.2351        1.0000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Also correlation of X"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Also correlation of X"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">t</span>(Z) <span class="sc">%*%</span> Z<span class="sc">/</span> (<span class="fu">nrow</span>(Z) <span class="sc">-</span> <span class="dv">1</span>), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                         flipper_length_mm bill_length_mm bill_depth_mm
+                  1.0029            0.0000         0.0000        0.0000
+flipper_length_mm 0.0000            1.0000         0.6562       -0.5839
+bill_length_mm    0.0000            0.6562         1.0000       -0.2351
+bill_depth_mm     0.0000           -0.5839        -0.2351        1.0000</code></pre>
+</div>
+</div>
+<p>By simulation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> x1 <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>reps_1 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(reps_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            (Intercept)         x1         x2
+(Intercept)   1.0000000  0.1764180 -0.6112093
+x1            0.1764180  1.0000000 -0.8609998
+x2           -0.6112093 -0.8609998  1.0000000</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">scale</span>(x1)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">scale</span>(x2)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>reps_2 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(reps_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            (Intercept)          x1          x2
+(Intercept)  1.00000000 -0.01364783  0.03646404
+x1          -0.01364783  1.00000000 -0.85526575
+x2           0.03646404 -0.85526575  1.00000000</code></pre>
+</div>
+</div>
+<p>The correlation is… slightly lower? It’s much lower for the intercept, but it doesn’t make much of a difference for the correlation between the slopes. (It will generally be lower, and should be with a large enough number of simulations.)</p>
+<p>Just for fun, here’s the VIF for these data. I’ve added a parameter <code>x1_around_x2</code> to allow you to play around with the correlation of <code>x1</code> and <code>x2.</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x2_around_x1 <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> x1 <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span>x2_around_x1, x2_around_x1)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      x1       x2 
+4.494537 4.494537 </code></pre>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1025,14 +966,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      <a href="./Lb16-Regression_with_Dummies.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Lab 16 - Regression with Categorical Predictors</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L02-Fitting_Straight_Lines.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">L02: Straight Line Fitting</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

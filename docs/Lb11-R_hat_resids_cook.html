@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Regression Analysis - 20&nbsp; Lab 11: Hat Matrix and Residuals in R</title>
+<title>Regression Analysis - 21&nbsp; Lab 11: Hat Matrix and Residuals in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Lab Notes</a></li><li class="breadcrumb-item"><a href="./Lb11-R_hat_resids_cook.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lab 11: Hat Matrix and Residuals in R</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Lab Notes</a></li><li class="breadcrumb-item"><a href="./Lb11-R_hat_resids_cook.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lab 11: Hat Matrix and Residuals in R</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -246,6 +246,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L16: Dummy Variables</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">L17: Multicollinearity</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -260,55 +266,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb03-MSE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lab 11: Hat Matrix and Residuals in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lab 11: Hat Matrix and Residuals in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Lab 15: Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Lab 15: Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb16-Regression_with_Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Lab 16 - Regression with Categorical Predictors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Lab 16 - Regression with Categorical Predictors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb17-Multico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
       </ul>
@@ -323,16 +335,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-hat-matrix" id="toc-the-hat-matrix" class="nav-link active" data-scroll-target="#the-hat-matrix"><span class="header-section-number">20.1</span> The Hat Matrix</a></li>
-  <li><a href="#extracting-the-diagonals-from-h" id="toc-extracting-the-diagonals-from-h" class="nav-link" data-scroll-target="#extracting-the-diagonals-from-h"><span class="header-section-number">20.2</span> Extracting the Diagonals from H</a></li>
-  <li><a href="#features-of-h" id="toc-features-of-h" class="nav-link" data-scroll-target="#features-of-h"><span class="header-section-number">20.3</span> Features of H</a></li>
-  <li><a href="#extracting-the-residuals" id="toc-extracting-the-residuals" class="nav-link" data-scroll-target="#extracting-the-residuals"><span class="header-section-number">20.4</span> Extracting the residuals</a></li>
-  <li><a href="#the-broom-package" id="toc-the-broom-package" class="nav-link" data-scroll-target="#the-broom-package"><span class="header-section-number">20.5</span> The <code>broom</code> package</a></li>
-  <li><a href="#plotting-the-residuals" id="toc-plotting-the-residuals" class="nav-link" data-scroll-target="#plotting-the-residuals"><span class="header-section-number">20.6</span> Plotting the residuals</a></li>
-  <li><a href="#demonstrations" id="toc-demonstrations" class="nav-link" data-scroll-target="#demonstrations"><span class="header-section-number">20.7</span> Demonstrations</a></li>
-  <li><a href="#adding-an-outlier" id="toc-adding-an-outlier" class="nav-link" data-scroll-target="#adding-an-outlier"><span class="header-section-number">20.8</span> Adding an Outlier</a></li>
-  <li><a href="#using-rs-built-in-diagnostics" id="toc-using-rs-built-in-diagnostics" class="nav-link" data-scroll-target="#using-rs-built-in-diagnostics"><span class="header-section-number">20.9</span> Using R’s Built-In Diagnostics</a></li>
-  <li><a href="#what-to-do-with-a-large-residual" id="toc-what-to-do-with-a-large-residual" class="nav-link" data-scroll-target="#what-to-do-with-a-large-residual"><span class="header-section-number">20.10</span> What to do with a large residual?</a></li>
+  <li><a href="#the-hat-matrix" id="toc-the-hat-matrix" class="nav-link active" data-scroll-target="#the-hat-matrix"><span class="header-section-number">21.1</span> The Hat Matrix</a></li>
+  <li><a href="#extracting-the-diagonals-from-h" id="toc-extracting-the-diagonals-from-h" class="nav-link" data-scroll-target="#extracting-the-diagonals-from-h"><span class="header-section-number">21.2</span> Extracting the Diagonals from H</a></li>
+  <li><a href="#features-of-h" id="toc-features-of-h" class="nav-link" data-scroll-target="#features-of-h"><span class="header-section-number">21.3</span> Features of H</a></li>
+  <li><a href="#extracting-the-residuals" id="toc-extracting-the-residuals" class="nav-link" data-scroll-target="#extracting-the-residuals"><span class="header-section-number">21.4</span> Extracting the residuals</a></li>
+  <li><a href="#the-broom-package" id="toc-the-broom-package" class="nav-link" data-scroll-target="#the-broom-package"><span class="header-section-number">21.5</span> The <code>broom</code> package</a></li>
+  <li><a href="#plotting-the-residuals" id="toc-plotting-the-residuals" class="nav-link" data-scroll-target="#plotting-the-residuals"><span class="header-section-number">21.6</span> Plotting the residuals</a></li>
+  <li><a href="#demonstrations" id="toc-demonstrations" class="nav-link" data-scroll-target="#demonstrations"><span class="header-section-number">21.7</span> Demonstrations</a></li>
+  <li><a href="#adding-an-outlier" id="toc-adding-an-outlier" class="nav-link" data-scroll-target="#adding-an-outlier"><span class="header-section-number">21.8</span> Adding an Outlier</a></li>
+  <li><a href="#using-rs-built-in-diagnostics" id="toc-using-rs-built-in-diagnostics" class="nav-link" data-scroll-target="#using-rs-built-in-diagnostics"><span class="header-section-number">21.9</span> Using R’s Built-In Diagnostics</a></li>
+  <li><a href="#what-to-do-with-a-large-residual" id="toc-what-to-do-with-a-large-residual" class="nav-link" data-scroll-target="#what-to-do-with-a-large-residual"><span class="header-section-number">21.10</span> What to do with a large residual?</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -341,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lab 11: Hat Matrix and Residuals in R</span></h1>
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lab 11: Hat Matrix and Residuals in R</span></h1>
 </div>
 
 
@@ -369,8 +381,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="the-hat-matrix" class="level2" data-number="20.1">
-<h2 data-number="20.1" class="anchored" data-anchor-id="the-hat-matrix"><span class="header-section-number">20.1</span> The Hat Matrix</h2>
+<section id="the-hat-matrix" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="the-hat-matrix"><span class="header-section-number">21.1</span> The Hat Matrix</h2>
 <p><span class="math display">\[
 H = X(X^TX)^{-1}X^T
 \]</span></p>
@@ -388,8 +400,8 @@ H = X(X^TX)^{-1}X^T
 </div>
 </div>
 </section>
-<section id="extracting-the-diagonals-from-h" class="level2" data-number="20.2">
-<h2 data-number="20.2" class="anchored" data-anchor-id="extracting-the-diagonals-from-h"><span class="header-section-number">20.2</span> Extracting the Diagonals from H</h2>
+<section id="extracting-the-diagonals-from-h" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="extracting-the-diagonals-from-h"><span class="header-section-number">21.2</span> Extracting the Diagonals from H</h2>
 <p>There isn’t a built-in function for the full hat matrix (the diagonals are usually all you’ll need). For demonstration, here are some demonstrations of the features of the hat matrix.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mylm)</span>
@@ -400,8 +412,8 @@ H = X(X^TX)^{-1}X^T
 </div>
 </div>
 </section>
-<section id="features-of-h" class="level2" data-number="20.3">
-<h2 data-number="20.3" class="anchored" data-anchor-id="features-of-h"><span class="header-section-number">20.3</span> Features of H</h2>
+<section id="features-of-h" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="features-of-h"><span class="header-section-number">21.3</span> Features of H</h2>
 <p>In the code below, I use the <code>unname()</code> function because mtcars has rownames which make the output harder to see (this used to be the norm in R, but it’s fallen out of fashion).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(H) <span class="sc">|&gt;</span> <span class="fu">unname</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -458,8 +470,8 @@ Volvo 142E             1</code></pre>
 </div>
 </div>
 </section>
-<section id="extracting-the-residuals" class="level2" data-number="20.4">
-<h2 data-number="20.4" class="anchored" data-anchor-id="extracting-the-residuals"><span class="header-section-number">20.4</span> Extracting the residuals</h2>
+<section id="extracting-the-residuals" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="extracting-the-residuals"><span class="header-section-number">21.4</span> Extracting the residuals</h2>
 <p>See <code>?influence.measures</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>?rstandard</span>
@@ -484,8 +496,8 @@ Volvo 142E             1</code></pre>
 </div>
 </div>
 </section>
-<section id="the-broom-package" class="level2" data-number="20.5">
-<h2 data-number="20.5" class="anchored" data-anchor-id="the-broom-package"><span class="header-section-number">20.5</span> The <code>broom</code> package</h2>
+<section id="the-broom-package" class="level2" data-number="21.5">
+<h2 data-number="21.5" class="anchored" data-anchor-id="the-broom-package"><span class="header-section-number">21.5</span> The <code>broom</code> package</h2>
 <p>The <code>broom</code> package has a wonderful function called <code>augment()</code>. This function sets up our data so that it’s super easy to see what we need.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
@@ -517,8 +529,8 @@ Volvo 142E             1</code></pre>
 <li><code>.std.resid</code> = standardized or studentized residuals?</li>
 </ul>
 </section>
-<section id="plotting-the-residuals" class="level2" data-number="20.6">
-<h2 data-number="20.6" class="anchored" data-anchor-id="plotting-the-residuals"><span class="header-section-number">20.6</span> Plotting the residuals</h2>
+<section id="plotting-the-residuals" class="level2" data-number="21.6">
+<h2 data-number="21.6" class="anchored" data-anchor-id="plotting-the-residuals"><span class="header-section-number">21.6</span> Plotting the residuals</h2>
 <p>If you’ve ever accidentally typed <code>plot(mylm)</code>, you’ve seen some plots of the residuals.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
@@ -537,8 +549,8 @@ Volvo 142E             1</code></pre>
 </div>
 <p>99% of the time, the default plots are the ones you’ll want to look at. For teaching purposes, we’ll look at a few extra.</p>
 </section>
-<section id="demonstrations" class="level2" data-number="20.7">
-<h2 data-number="20.7" class="anchored" data-anchor-id="demonstrations"><span class="header-section-number">20.7</span> Demonstrations</h2>
+<section id="demonstrations" class="level2" data-number="21.7">
+<h2 data-number="21.7" class="anchored" data-anchor-id="demonstrations"><span class="header-section-number">21.7</span> Demonstrations</h2>
 <p>We’ll use the <code>Ozone</code> data from the <code>mlbench</code> package.</p>
 <ul>
 <li>V4 is response (measurement of Ozone)</li>
@@ -631,8 +643,8 @@ Volvo 142E             1</code></pre>
 </div>
 </div>
 </section>
-<section id="adding-an-outlier" class="level2" data-number="20.8">
-<h2 data-number="20.8" class="anchored" data-anchor-id="adding-an-outlier"><span class="header-section-number">20.8</span> Adding an Outlier</h2>
+<section id="adding-an-outlier" class="level2" data-number="21.8">
+<h2 data-number="21.8" class="anchored" data-anchor-id="adding-an-outlier"><span class="header-section-number">21.8</span> Adding an Outlier</h2>
 <p>Let’s add an outlier to see what happens with these data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>newzone <span class="ot">&lt;-</span> Ozone[, <span class="fu">c</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>)]</span>
@@ -658,8 +670,8 @@ Volvo 142E             1</code></pre>
 </div>
 </div>
 </section>
-<section id="using-rs-built-in-diagnostics" class="level2" data-number="20.9">
-<h2 data-number="20.9" class="anchored" data-anchor-id="using-rs-built-in-diagnostics"><span class="header-section-number">20.9</span> Using R’s Built-In Diagnostics</h2>
+<section id="using-rs-built-in-diagnostics" class="level2" data-number="21.9">
+<h2 data-number="21.9" class="anchored" data-anchor-id="using-rs-built-in-diagnostics"><span class="header-section-number">21.9</span> Using R’s Built-In Diagnostics</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">4</span>))</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(V4 <span class="sc">~</span> ., <span class="at">data =</span> newzone))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -698,8 +710,8 @@ Volvo 142E             1</code></pre>
 <li>Last plot also shows it as something different (harder to interpret)</li>
 </ol>
 </section>
-<section id="what-to-do-with-a-large-residual" class="level2" data-number="20.10">
-<h2 data-number="20.10" class="anchored" data-anchor-id="what-to-do-with-a-large-residual"><span class="header-section-number">20.10</span> What to do with a large residual?</h2>
+<section id="what-to-do-with-a-large-residual" class="level2" data-number="21.10">
+<h2 data-number="21.10" class="anchored" data-anchor-id="what-to-do-with-a-large-residual"><span class="header-section-number">21.10</span> What to do with a large residual?</h2>
 <ul>
 <li>Misrecorded: remove or fix, if possible
 <ul>
@@ -1071,12 +1083,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./Lb12-Corr_in_Betas.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

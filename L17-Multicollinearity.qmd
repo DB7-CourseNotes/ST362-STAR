@@ -1,0 +1,268 @@
+---
+title: "L17: Multicollinearity"
+date: "2023-07-10"
+---
+
+```{r}
+#| include: false
+
+set.seed(2112)
+library(palmerpenguins)
+library(GGally)
+```
+
+## The Problem
+
+### The Problem with Multicollinearity
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+- Multiple regression fits a hyperplane\lspace
+- If the points form a "tube", an infinite number of hyperplanes work.
+    - Rotate plane around axis of tube.
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+library(plot3D)
+n <- 100
+x1 <- runif(n, 0, 10)
+x2 <- 2 + x1 + runif(n, -1, 1)
+y <- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)
+
+scatter3D(x1, x2, y, bty = "g", colkey = FALSE,
+    xlab = "x1", ylab = "x2", zlab = "y")
+```
+:::
+::::
+
+### Consequences of the Problem
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+High cor. in $X$ $\implies$ high cor. in $\hat{\underline\beta}$.
+
+\pspace
+
+- Many combos of $\hat{\underline\beta}$ are equally likely\lspace
+- No meaningful CIs\lspace
+
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| fig-width: 4
+set.seed(2112)
+replicate(1000, {
+    y <- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)
+    coef(lm(y ~ x1 + x2))[-1]
+}) |> 
+    t() |> 
+    plot(xlab = expression(hat(beta)[1]), 
+        ylab = expression(hat(beta[2])),
+        main = "Estimated betas for correlated\npredictors, many samples")
+```
+:::
+::::
+
+### Another Formulation of the Problem
+
+Consider the model $y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i$, where
+$$
+x_{i1} = a + bx_{i2} + z_i
+$$
+where $z_i$ represents some extra uncertainty. 
+
+\pspace
+
+Fitting the model, we could:
+
+- Set $\hat\beta_1$ to 0, let $x_2$ model all of the variance.
+- Set $\hat\beta_2$ to 0, let $x_1$ model all of the variance.
+- Let $x_1$ model any proportion of the variance, let $x_2$ model the rest.
+
+The parameter estimates are **not unique**.
+
+### The Source of the Problem
+
+$$
+\hat{\underline{\beta}} = (X^TX)^{-1}X^TY,\quad V(\hat{\underline{\beta}}) = (X^TX)^{-1}\sigma^2
+$$
+
+- If two columns of $X$ are **linearly dependent**, then $X^TX$ is **singular**.
+    - Constant predictor value (linearly dependent with column of 1s).
+    - Unit change (one column for Celcius, one for Fahrenheit).\lspace
+- If two columns of $X$ are **nearly linearly dependent**, then some elements of $(X^TX)^{-1}$ are *humungous*.
+    - Two proxy measure for the same thing (e.g., daily high and low temperatures).
+    - Nearly linear transformation (e.g., polynomial or BMI)
+
+### Detecting the Problem
+
+The variance-covariance matrix of $X$ can be useful:
+$$
+Cov(X) = \begin{bmatrix}
+0 & 0 & 0 & 0 & \cdots\\
+0 & V(X_1) & Cov(X_1, X_2) & Cov(X_1, X_3) & \cdots\\
+0 & Cov(X_1, X_2) & V(X_2) & Cov(X_2, X_3) & \cdots\\
+0 & Cov(X_1, X_3) & Cov(X_2, X_3) & V(X_3) & \cdots\\
+\vdots & \vdots & \vdots & \vdots & \ddots
+\end{bmatrix}
+$$
+Why are the first column/row 0?
+
+### Plotting $Cor(X)$
+
+```{r}
+#| warning: true
+#| echo: true
+#| fig-height: 2
+#| fig-width: 10
+library(palmerpenguins); library(GGally)
+ggcorr(penguins)
+```
+
+### Detecting the Problem: $V(\hat{\underline\beta})$
+
+Unfortunately, the var-covar matrix is hard to get from R.
+
+\pspace
+
+- We can look at the SE column of the summary output!
+    - Very very very much not conclusive.
+- The **Variance Inflation Factor**
+
+### The Variance Inflation Factor
+
+We can write the variance of each estimated coefficeint as:
+$$
+V(\hat\beta_i) = VIF_i\frac{\sigma^2}{S_{ii}}
+$$
+where $S_{ii} = \sum_{k=1}^n(x_{ki} - \bar{x_i})^2$ is the "SS" for the $i$th column of $X$.
+
+\pspace
+
+- If there is no "Variance Inflation", then VIF = 1
+    - "Inflation" comes from the idea of rotating a plane around a "tube".
+    - Also interpreted as a measure of linear dependence with other columns of $X$.
+
+### Interpreting the Variance Inflation Factor
+
+Consider a regression of $X_i$ against all other columns of $X$.
+
+- The $R^2$ measures how well the other predictors can model $X_i$
+    - Label this $R_i^2$ to indicate it's the $R^2$ for $X_i$ against other columns.
+- Important: We're not considering $\underline y$ at all!
+
+\pspace
+
+The VIF can be calculated as:
+$$
+VIF_i = \frac{1}{1 - R_i^2}
+$$
+
+- If $R_i^2=0$, then $VIF_i = 1$
+- If $R_i^2\rightarrow 1$, then $VIF_i \rightarrow \infty$
+
+## Will Scaling Fix the Problem
+
+### Scaling the Predictors
+
+If we subtract the mean and divide by the sd, *some of* the correlation goes away.
+
+- This is actually kinda bad - we've hidden some multicollinearity from ourselves!
+
+\pspace
+
+If $Z$ is the **standardized** version of $X$, then
+$$
+Cor(X) = Z^TZ/(n-1)
+$$
+
+If $Z$ is the **mean-centered** version of $X$, then
+$$
+Cov(X) = Z^TZ/(n-1)
+$$
+
+## Fixing The Problem
+
+### One way to fix the problem
+
+Don't.
+
+\pause\pspace
+
+We can't get good estimates of the $\hat\beta$s, but we can still get good predictions.
+
+- This *only* works if the new values are in the same "tube" as the others.\lspace
+- If the multicollinearity is real, what estimates do you expect?
+    - Without a controlled experiment, there *isn't* a good way to estimate the effect of $X_1$ on it's own!\lspace
+
+### Removing predictors
+
+If two predictors are measuring the same thing, then just include one?
+
+\pspace
+
+- This might lose some information!
+    - It also might not!\lspace
+- The estimated $\beta$ won't be meaningful.
+    - Inferences will be difficult.
+
+## Participation Questions
+
+### Q1
+
+Multicollinearity can come from:
+
+\pspace
+
+1. Unit changes
+2. Polynomial terms
+3. Proxy measures
+4. All of the above
+
+### Q2
+
+Multicollinearity is a problem because
+
+\pspace
+
+1. Strong correlation in $X$ makes estimates of $\beta$ invalid.
+2. Strong correlation in $X$ means there are many values of $\underline\beta$ that are equally probable.
+3. There's no way to fix strong correlation in $X$.
+
+
+### Q3
+
+When multicollinearity is present, which of the following is still valid?
+
+\pspace
+
+1. Inferences about the effect of one of the predictors.
+2. Confidence intervals for a single coefficients.
+3. Predictions.
+4. Overall F test for significance of any slope parameter.
+
+### Q4
+
+The VIF is defined as:
+
+\pspace
+
+1. The amount that the MSE increases due to the variance in $\hat{\underline\beta}$.
+2. The coefficient of determination of $X_i$ against all other predictors.
+3. The correlation between $X_i$ and all other predictors.
+4. The $R^2$ value for $Y$ against $X_i$.
+
+
+
+
+
