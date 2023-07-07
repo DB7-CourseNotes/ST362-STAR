@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Dr.&nbsp;Devan Becker">
+<meta name="author" content="Devan Becker">
+<meta name="dcterms.date" content="2020-09-05">
 
-<title>Regression Analysis - 26&nbsp; Multicollinearity</title>
+<title>Regression Analysis - 27&nbsp; Backwards p-values</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Lb18-Backwards_Selection_is_Bad.html" rel="next">
-<link href="./Lb16-Regression_with_Dummies.html" rel="prev">
+<link href="./Lb17-Multico.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Lab Notes</a></li><li class="breadcrumb-item"><a href="./Lb17-Multico.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Multicollinearity</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Lab Notes</a></li><li class="breadcrumb-item"><a href="./Lb18-Backwards_Selection_is_Bad.html"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Backwards p-values</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -319,13 +319,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb17-Multico.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Lb17-Multico.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb18-Backwards_Selection_is_Bad.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb18-Backwards_Selection_is_Bad.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Backwards p-values</span></span></a>
   </div>
 </li>
@@ -341,10 +341,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-problem-with-multicollinearity" id="toc-the-problem-with-multicollinearity" class="nav-link active" data-scroll-target="#the-problem-with-multicollinearity"><span class="header-section-number">26.1</span> The problem with multicollinearity</a></li>
-  <li><a href="#exact-multicollinearity" id="toc-exact-multicollinearity" class="nav-link" data-scroll-target="#exact-multicollinearity"><span class="header-section-number">26.2</span> Exact Multicollinearity</a></li>
-  <li><a href="#back-to-regression" id="toc-back-to-regression" class="nav-link" data-scroll-target="#back-to-regression"><span class="header-section-number">26.3</span> Back to Regression</a></li>
-  <li><a href="#centering-and-scaling" id="toc-centering-and-scaling" class="nav-link" data-scroll-target="#centering-and-scaling"><span class="header-section-number">26.4</span> Centering and Scaling</a></li>
+  <li><a href="#algorithmic-model-selection" id="toc-algorithmic-model-selection" class="nav-link active" data-scroll-target="#algorithmic-model-selection"><span class="header-section-number">28</span> Algorithmic model selection</a>
+  <ul class="collapse">
+  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
+  <li><a href="#distribution-of-a-p-value" id="toc-distribution-of-a-p-value" class="nav-link" data-scroll-target="#distribution-of-a-p-value">Distribution of a p-value</a></li>
+  </ul></li>
+  <li><a href="#backwards-selection" id="toc-backwards-selection" class="nav-link" data-scroll-target="#backwards-selection"><span class="header-section-number">29</span> Backwards Selection</a>
+  <ul class="collapse">
+  <li><a href="#what-about-aic" id="toc-what-about-aic" class="nav-link" data-scroll-target="#what-about-aic">What about AIC?</a></li>
+  </ul></li>
+  <li><a href="#so-whats-the-right-way" id="toc-so-whats-the-right-way" class="nav-link" data-scroll-target="#so-whats-the-right-way"><span class="header-section-number">30</span> So what’s the right way?</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -353,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Multicollinearity</span></h1>
+<h1 class="title"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Backwards p-values</span></h1>
 </div>
 
 
@@ -362,7 +368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Dr.&nbsp;Devan Becker </p>
+    <p class="author">Devan Becker </p>
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -374,6 +380,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
       
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2020-09-05</p>
+    </div>
+  </div>
   
     
   </div>
@@ -381,243 +393,122 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="the-problem-with-multicollinearity" class="level2" data-number="26.1">
-<h2 data-number="26.1" class="anchored" data-anchor-id="the-problem-with-multicollinearity"><span class="header-section-number">26.1</span> The problem with multicollinearity</h2>
-<p>Consider the model <span class="math display">\[
-y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i
-\]</span> with the added assumption that <span class="math inline">\(x_{i1} = a + bx_{i2} + z_i\)</span>, where <span class="math inline">\(z_i\)</span> is some variation.</p>
-<p>(As a technical note, none of this is assumed to be random; just uncertain. We’ll use the language of probability in this section, but it’s just to quantify uncertainty rather than make modelling assumptions.)</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plot3D)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> x1 <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<section id="algorithmic-model-selection" class="level1" data-number="28">
+<h1 data-number="28"><span class="header-section-number">28</span> Algorithmic model selection</h1>
+<section id="description" class="level3">
+<h3 class="anchored" data-anchor-id="description">Description</h3>
+<p>Backwards and forward model selection are sequential model selection techniques where predictors are sequentially removed or added until all predictors are significant and no other predictors would be significant if they were added.</p>
+</section>
+<section id="distribution-of-a-p-value" class="level3">
+<h3 class="anchored" data-anchor-id="distribution-of-a-p-value">Distribution of a p-value</h3>
+<p>Under the null hypothesis, a p-value is <strong>uniform</strong>. That is, all p-values are equally likely. This is not a coincidence, this is how p-values are defined. The p-value is the area of the sampling distribution further away from the hypothesized mean than the observed data. The area “further away” means we are looking at the CDF of a distribution, and the CDF of any continuous distribution follows a normal distribution.</p>
+<p>To demonstrate, let’s simulate!</p>
+<div class="cell" data-hash="Lb18-Backwards_Selection_is_Bad_cache/html/sim1_ab94f7228b68383a88e6cfe5c6aca95e">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr) <span class="co"># pipes and `extract` function</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># uncorrelated with x - null is true.</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter3D</span>(x1, x2, y, <span class="at">phi =</span> <span class="dv">30</span>, <span class="at">theta =</span> <span class="dv">15</span>, <span class="at">bty =</span> <span class="st">"g"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"x1"</span>, <span class="at">ylab =</span> <span class="st">"x2"</span>, <span class="at">zlab =</span> <span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>The 3D plot looks like a tube! By “tube”, we can think of the 3D plot as being a 2D plot that’s in the wrong coordinate system. In other words, the data define a single axis, which is different from the x1, x2, and y axes. When fitting multiple linear regression, we’re fitting a hyperplane. If the relationship is <strong>multicollinear</strong>, then we might imagine rotating a hyperplane around the axis defined by the “tube” in the plot above. Since any rotation of the plane around fits the line of data pretty well, the coefficients that define that plane are not well-estimated.</p>
-<p>It’s hard to imagine 3D sets of points, so let’s do a 2D analogy. In the 3D example, we actually had a 2D relationship, so let’s consider a 2D example that’s almost 1D.</p>
-<p>In the plot below, I’ve made <span class="math inline">\(x\)</span> <em>almost</em> one-dimensional. That is, I’ve given it a vary small range. I intentionally changed the x limits of the plot to emphasize this.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="sc">-</span><span class="fl">0.025</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="fl">0.025</span>, <span class="dv">10</span>))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>If we were to fit a regression line to this, there are many many slopes that would make this work!</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) <span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">mean</span>(y), <span class="at">b =</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">20</span>, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>All of the lines I added will fit the data pretty well, even though they all have completely different slopes! Yes, there’s one with a “best” slope, but slightly different data would have given us a very different slope:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up empty plot</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="dv">6</span>))</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data from same dgp as before</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>All of these lines would have worked for our data!</p>
-<p>This can easily be seen the <em>variance of the parameters</em>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>coef[<span class="dv">2</span>, <span class="dv">4</span>] <span class="co"># the p-value for x</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>              Estimate Std. Error    t value  Pr(&gt;|t|)
-(Intercept) -0.6205096  0.6779798 -0.9152331 0.3721680
-x            6.0310840 27.1191916  0.2223917 0.8265128</code></pre>
+<pre><code>[1] 0.1777488</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">10000</span> <span class="co"># Increase for better results</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">&lt;-</span> <span class="fu">double</span>(N)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N){</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    p_vals[i] <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>coef[<span class="dv">2</span>, <span class="dv">4</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(p_vals, <span class="at">freq =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">1</span>) <span class="co"># theoretical pdf</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb18-Backwards_Selection_is_Bad_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="exact-multicollinearity" class="level2" data-number="26.2">
-<h2 data-number="26.2" class="anchored" data-anchor-id="exact-multicollinearity"><span class="header-section-number">26.2</span> Exact Multicollinearity</h2>
-<p>In the example above, the line was very sensitive to a slight change in the data because we essentially had one dimension. If we <em>actually</em> had one dimension, then any line that cgoes through <span class="math inline">\(\bar y\)</span> has the exact same error, regardless of the slope. We can see this in the design matrix: <span class="math inline">\(X\)</span> has a column of 1s for the intercept (which is good), but also has a column for <span class="math inline">\(x_1\)</span> that has zero variance. This means that it’s a linear combination of the first column, and thus is rank-deficient.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">20</span>))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Error in solve.default(t(X) %*% X) : 
-  Lapack routine dgesv: system is exactly singular: U[2,2] = 0</code></pre>
-</div>
-</div>
-<p>Since one column is a linear combination of the other, <span class="math inline">\(X^TX\)</span> cannot be inverted. In this case, the variance fo <span class="math inline">\(\hat\beta_1\)</span> is infinite!</p>
-<p>This can also happen if one column is “close” to being a linear combination of the others, such as:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the first element in the second column to 10^-23</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X[<span class="dv">1</span>, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fl">1e-23</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Error in solve.default(t(X) %*% X) : 
-  system is computationally singular: reciprocal condition number = 4.75e-48</code></pre>
-</div>
-</div>
-<p>The rows are mathematically different, but the difference is so small that computers cannot tell.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">/</span> <span class="fl">1e7</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                            x
-   1.697904e-01 -2.406244e+06
-x -2.406244e+06  4.833450e+13</code></pre>
-</div>
-</div>
-<p>In the next code chunk, try playing around with the power of 10 (i.e., try <code>10^50</code>, <code>10^-50</code>, etc., for both positive and negative powers). At some point, the matrix is not invertible and the coefficient table stops reporting the slope! At the other end, the line is a near perfect fit (why?).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">/</span> (<span class="dv">10</span><span class="sc">^</span><span class="dv">350</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>             Estimate Std. Error   t value  Pr(&gt;|t|)
-(Intercept) 0.1092976  0.6173655 0.1770387 0.8613516</code></pre>
-</div>
-</div>
 </section>
-<section id="back-to-regression" class="level2" data-number="26.3">
-<h2 data-number="26.3" class="anchored" data-anchor-id="back-to-regression"><span class="header-section-number">26.3</span> Back to Regression</h2>
-<p>We can kinda detect multicollinearity mainly using the standard error of the estimates:</p>
+<section id="backwards-selection" class="level1" data-number="29">
+<h1 data-number="29"><span class="header-section-number">29</span> Backwards Selection</h1>
+<p>We’ve established that P(p.value &lt; 0.05) = 0.05, i.e.&nbsp;that p-values follow a uniform distribution. What about the minimum of two p-values?</p>
+<p><span class="math display">\[\begin{align*}
+F(z) = P(\min(X_1, X_2) &gt; z) &amp;= P(X_1 &gt; z, X_2 &gt; z)\\
+&amp;= 1 - P(X_1 &gt; z)(X_2 &gt; z)\\
+&amp;= 1 - (1-z)^2
+\end{align*}\]</span></p>
+<p>So the pdf is the derivative of this, which is <span class="math inline">\(f(z) = 2 - 2z\)</span>.</p>
+<div class="cell" data-hash="Lb18-Backwards_Selection_is_Bad_cache/html/sim2_44b85bcb56db8fa6321f2d3e849ef69a">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>min_p_vals <span class="ot">&lt;-</span> <span class="fu">double</span>(N)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N){</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    yxx <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x1 =</span> <span class="fu">runif</span>(<span class="dv">30</span>), <span class="at">x2 =</span> <span class="fu">runif</span>(<span class="dv">30</span>), <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    p_vals <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> yxx))<span class="sc">$</span>coef[<span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    max_p <span class="ot">&lt;-</span> <span class="fu">which.max</span>(p_vals) <span class="co"># to be removed</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    min_p_vals[i] <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> yxx[, <span class="sc">-</span>max_p]))<span class="sc">$</span>coef[<span class="dv">2</span>, <span class="dv">4</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>peng_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(peng_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(min_p_vals, <span class="at">freq =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">2</span>, <span class="at">b =</span> <span class="sc">-</span><span class="dv">2</span>) <span class="co"># Theoretical pdf</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb18-Backwards_Selection_is_Bad_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>So when we <em>remove</em> the largest p-value, we end up with a much larger chance that the remaining p-value is below 0.05 - <em>even though the null hypothesis is true.</em> This bears repeating - when we make a change in the model based on the p-value, the rest of the p-values must be interpreted <strong>carefully</strong>. They are <em>no longer</em> the probability of data at least as extreme under the null hypothesis - they have been artificially shrunk.</p>
+<section id="what-about-aic" class="level3">
+<h3 class="anchored" data-anchor-id="what-about-aic">What about AIC?</h3>
+<p>In R, <code>step()</code> performs stepwise model selection (by default, backwards) until the AIC no longer decreases. I’m going to simulate under the null hypothesis: none of the predictors are actually related to the response.</p>
+<div class="cell" data-hash="Lb18-Backwards_Selection_is_Bad_cache/html/sim3_91064d652a53f4583c5cf629ef31a1c5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">5000</span> <span class="co"># This will take a while</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>min_p <span class="ot">&lt;-</span> <span class="fu">double</span>(N)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>max_p <span class="ot">&lt;-</span> <span class="fu">double</span>(N)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">double</span>(N)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>num_signif <span class="ot">&lt;-</span> <span class="fu">double</span>(N)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N){</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># First columns is y, the rest are x1...x20</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    bigdf <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">rnorm</span>(<span class="dv">30</span> <span class="sc">*</span> <span class="dv">21</span>), <span class="at">nrow =</span> <span class="dv">30</span>, <span class="at">ncol =</span> <span class="dv">21</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(bigdf) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"y"</span>, <span class="fu">paste</span>(<span class="st">"x"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    bigdf <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(bigdf)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Regress y against everything</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    newmod <span class="ot">&lt;-</span> <span class="fu">step</span>(<span class="fu">lm</span>(y<span class="sc">~</span>., <span class="at">data =</span> bigdf), <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract the p-values</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    mycoefs <span class="ot">&lt;-</span> <span class="fu">summary</span>(newmod)<span class="sc">$</span>coef[<span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    num_signif[i] <span class="ot">&lt;-</span> <span class="fu">length</span>(mycoefs)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    min_p[i] <span class="ot">&lt;-</span> <span class="fu">min</span>(mycoefs)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    max_p[i] <span class="ot">&lt;-</span> <span class="fu">max</span>(mycoefs)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    p1[i] <span class="ot">&lt;-</span> mycoefs[<span class="dv">1</span>] <span class="co"># should be representative of p-values </span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> t0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = body_mass_g ~ flipper_length_mm + bill_length_mm + 
-    bill_depth_mm, data = penguins)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--1054.94  -290.33   -21.91   239.04  1276.64 
-
-Coefficients:
-                   Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)       -6424.765    561.469 -11.443   &lt;2e-16 ***
-flipper_length_mm    50.269      2.477  20.293   &lt;2e-16 ***
-bill_length_mm        4.162      5.329   0.781    0.435    
-bill_depth_mm        20.050     13.694   1.464    0.144    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 393.4 on 338 degrees of freedom
-  (2 observations deleted due to missingness)
-Multiple R-squared:  0.7615,    Adjusted R-squared:  0.7594 
-F-statistic: 359.7 on 3 and 338 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre><code>Time difference of 3.90838 mins</code></pre>
 </div>
 </div>
-<p>It looks like <code>bill_depth_mm</code> has a large standard error! Of course, this might be because:</p>
-<ul>
-<li>The variance of <code>bill_depth_mm</code> is high to begin with.</li>
-<li>The other predictors have explained most of the variance and any estimate for <code>bill_depth_mm</code> will do.</li>
-<li>Multicollinearity</li>
-</ul>
-<p>Multico. is just one of the possible reasons why the SE might be high, we need to look into it more to be sure.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(peng_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>flipper_length_mm    bill_length_mm     bill_depth_mm 
-         2.673338          1.865090          1.611292 </code></pre>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(min_p, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.01</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.05</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(max_p, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">0.55</span>, <span class="fl">0.01</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.05</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(num_signif), <span class="at">main =</span> <span class="st">"Number of remaining predictors"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(p1, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fl">0.45</span>, <span class="fl">0.01</span>))</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.05</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb18-Backwards_Selection_is_Bad_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>It actually has quite a small VIF!</p>
+<p>In the plots above, keep in mind that <strong>none</strong> of the predictors were related to the response. We see that the p-values are far from being uniform, and sometimes we took <em>all</em> of the predictors.</p>
+<p>The bottom right plot shows the distribution of the p-value for the first predictor. There’s nothing special about this predictor, so this plot is representative of the distribution of p-values resulting from stepwise AIC model selection with 20 predictors, none of which are actually related to the response.</p>
 </section>
-<section id="centering-and-scaling" class="level2" data-number="26.4">
-<h2 data-number="26.4" class="anchored" data-anchor-id="centering-and-scaling"><span class="header-section-number">26.4</span> Centering and Scaling</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="fu">apply</span>(X[, <span class="sc">-</span><span class="dv">1</span>], <span class="dv">2</span>, scale))</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"correlation of X"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "correlation of X"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(X), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                  (Intercept) flipper_length_mm bill_length_mm bill_depth_mm
-(Intercept)                 1                NA             NA            NA
-flipper_length_mm          NA            1.0000         0.6562       -0.5839
-bill_length_mm             NA            0.6562         1.0000       -0.2351
-bill_depth_mm              NA           -0.5839        -0.2351        1.0000</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Also correlation of X"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Also correlation of X"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">t</span>(Z) <span class="sc">%*%</span> Z<span class="sc">/</span> (<span class="fu">nrow</span>(Z) <span class="sc">-</span> <span class="dv">1</span>), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                         flipper_length_mm bill_length_mm bill_depth_mm
-                  1.0029            0.0000         0.0000        0.0000
-flipper_length_mm 0.0000            1.0000         0.6562       -0.5839
-bill_length_mm    0.0000            0.6562         1.0000       -0.2351
-bill_depth_mm     0.0000           -0.5839        -0.2351        1.0000</code></pre>
-</div>
-</div>
-<p>By simulation:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> x1 <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>reps_1 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(reps_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            (Intercept)         x1         x2
-(Intercept)   1.0000000  0.1764180 -0.6112093
-x1            0.1764180  1.0000000 -0.8609998
-x2           -0.6112093 -0.8609998  1.0000000</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">scale</span>(x1)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">scale</span>(x2)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>reps_2 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(reps_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            (Intercept)          x1          x2
-(Intercept)  1.00000000 -0.01364783  0.03646404
-x1          -0.01364783  1.00000000 -0.85526575
-x2           0.03646404 -0.85526575  1.00000000</code></pre>
-</div>
-</div>
-<p>The correlation is… slightly lower? It’s much lower for the intercept, but it doesn’t make much of a difference for the correlation between the slopes. (It will generally be lower, and should be with a large enough number of simulations.)</p>
-<p>Just for fun, here’s the VIF for these data. I’ve added a parameter <code>x1_around_x2</code> to allow you to play around with the correlation of <code>x1</code> and <code>x2.</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x2_around_x1 <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> x1 <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span>x2_around_x1, x2_around_x1)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      x1       x2 
-4.494537 4.494537 </code></pre>
-</div>
-</div>
+</section>
+<section id="so-whats-the-right-way" class="level1" data-number="30">
+<h1 data-number="30"><span class="header-section-number">30</span> So what’s the right way?</h1>
+<p>Best: Domain knowledge. Start with the model that you think will be the final model, then experiment with adding/removing predictors. For instance, if your model has economic predictors, try and see which of the economic predictors are best, with the rest of the predictors being “reasonable”.</p>
 
 
 </section>
@@ -973,14 +864,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Lb16-Regression_with_Dummies.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Lab 16 - Regression with Categorical Predictors</span></span>
+      <a href="./Lb17-Multico.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Lb18-Backwards_Selection_is_Bad.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Backwards p-values</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
