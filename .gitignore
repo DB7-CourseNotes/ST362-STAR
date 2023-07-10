@@ -1,4 +1,7 @@
 /.quarto/
 
 ./L*files/
+./L*cache/
+L*files/
+L*cache/
 ./site_libs

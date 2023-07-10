@@ -412,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>coef[<span class="dv">2</span>, <span class="dv">4</span>] <span class="co"># the p-value for x</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1777488</code></pre>
+<pre><code>[1] 0.93823</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">10000</span> <span class="co"># Increase for better results</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">&lt;-</span> <span class="fu">double</span>(N)</span>
@@ -432,9 +432,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="backwards-selection" class="level1" data-number="29">
 <h1 data-number="29"><span class="header-section-number">29</span> Backwards Selection</h1>
-<p>We’ve established that P(p.value &lt; 0.05) = 0.05, i.e.&nbsp;that p-values follow a uniform distribution. What about the minimum of two p-values?</p>
+<p>We’ve established that P(p.value &lt; 0.05) = 0.05, i.e.&nbsp;that p-values follow a uniform distribution. What about the probability of <em>at least one significant value</em> out of 2?</p>
 <p><span class="math display">\[\begin{align*}
-F(z) = P(\min(X_1, X_2) &gt; z) &amp;= P(X_1 &gt; z, X_2 &gt; z)\\
+F(z) &amp;= P(\text{at least one of }X_1\text{ and }X_2\text{ is less than }z)\\
+&amp;= 1 - P(\text{both }X_1\text{ and }X_2\text{ are greater than }z)\\
+&amp;= 1 - P(X_1 &gt; z, X_2 &gt; z)\\
 &amp;= 1 - P(X_1 &gt; z)(X_2 &gt; z)\\
 &amp;= 1 - (1-z)^2
 \end{align*}\]</span></p>
@@ -486,7 +488,7 @@ F(z) = P(\min(X_1, X_2) &gt; z) &amp;= P(X_1 &gt; z, X_2 &gt; z)\\
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> t0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 3.90838 mins</code></pre>
+<pre><code>Time difference of 4.974826 mins</code></pre>
 </div>
 </div>
 <div class="cell">

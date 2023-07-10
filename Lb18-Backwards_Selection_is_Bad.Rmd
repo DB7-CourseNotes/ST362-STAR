@@ -6,6 +6,7 @@ date: "09/05/2020"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+set.seed(2112)
 ```
 
 # Algorithmic model selection
@@ -45,10 +46,12 @@ abline(h = 1) # theoretical pdf
 
 # Backwards Selection
 
-We've established that P(p.value < 0.05) = 0.05, i.e. that p-values follow a uniform distribution. What about the minimum of two p-values? 
+We've established that P(p.value < 0.05) = 0.05, i.e. that p-values follow a uniform distribution. What about the probability of *at least one significant value* out of 2?
 
 \begin{align*}
-F(z) = P(\min(X_1, X_2) > z) &= P(X_1 > z, X_2 > z)\\
+F(z) &= P(\text{at least one of }X_1\text{ and }X_2\text{ is less than }z)\\
+&= 1 - P(\text{both }X_1\text{ and }X_2\text{ are greater than }z)\\
+&= 1 - P(X_1 > z, X_2 > z)\\
 &= 1 - P(X_1 > z)(X_2 > z)\\
 &= 1 - (1-z)^2
 \end{align*}
