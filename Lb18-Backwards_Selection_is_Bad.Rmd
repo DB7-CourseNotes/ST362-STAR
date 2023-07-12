@@ -81,7 +81,7 @@ So when we *remove* the largest p-value, we end up with a much larger chance tha
 In R, `step()` performs stepwise model selection (by default, backwards) until the AIC no longer decreases. I'm going to simulate under the null hypothesis: none of the predictors are actually related to the response.
 
 ```{r sim3, cache=TRUE, warning=FALSE}
-N <- 5000 # This will take a while
+N <- 1000 # This will take a while
 min_p <- double(N)
 max_p <- double(N)
 p1 <- double(N)
@@ -90,19 +90,19 @@ num_signif <- double(N)
 t0 <- Sys.time()
 for (i in 1:N){
     # First columns is y, the rest are x1...x20
-    bigdf <- matrix(data = rnorm(30 * 21), nrow = 30, ncol = 21)
-    names(bigdf) <- c("y", paste("x", 1:20))
+    bigdf <- matrix(data = rnorm(30 * 11), nrow = 30, ncol = 11)
+    names(bigdf) <- c("y", paste("x", 1:10))
     bigdf <- as.data.frame(bigdf)
 
     # Regress y against everything
-    newmod <- step(lm(y~., data = bigdf), trace = 0)
-    
+    newmod <- step(lm(y ~ ., data = bigdf), trace = 0)
+
     # Extract the p-values
     mycoefs <- summary(newmod)$coef[-1, 4]
     num_signif[i] <- length(mycoefs)
     min_p[i] <- min(mycoefs)
     max_p[i] <- max(mycoefs)
-    p1[i] <- mycoefs[1] # should be representative of p-values 
+    p1[i] <- mycoefs[1] # should be representative of p-values
 }
 Sys.time() - t0
 ```
@@ -124,7 +124,7 @@ The bottom right plot shows the distribution of the p-value for the first predic
 
 # So what's the right way?
 
-Best: Domain knowledge. Start with the model that you think will be the final model, then experiment with adding/removing predictors. For instance, if your model has economic predictors, try and see which of the economic predictors are best, with the rest of the predictors being "reasonable". 
+Best: Domain knowledge. Start with the model that you think will be the final model, then experiment with adding/removing predictors. For instance, if your model has weather predictors, start with the ones that are most meaningful (e.g. daily high temperature), then look at what changes when you switch it out for something else (e.g., daily average or low temperature). Check the residual diagnostic plots each time - ignore the p-values until the very end!
 
 
 

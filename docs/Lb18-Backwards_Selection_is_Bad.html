@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#so-whats-the-right-way" id="toc-so-whats-the-right-way" class="nav-link" data-scroll-target="#so-whats-the-right-way"><span class="header-section-number">30</span> So what’s the right way?</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/blob/main/Lb18-Backwards_Selection_is_Bad.Rmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -462,8 +462,8 @@ F(z) &amp;= P(\text{at least one of }X_1\text{ and }X_2\text{ is less than }z)\\
 <section id="what-about-aic" class="level3">
 <h3 class="anchored" data-anchor-id="what-about-aic">What about AIC?</h3>
 <p>In R, <code>step()</code> performs stepwise model selection (by default, backwards) until the AIC no longer decreases. I’m going to simulate under the null hypothesis: none of the predictors are actually related to the response.</p>
-<div class="cell" data-hash="Lb18-Backwards_Selection_is_Bad_cache/html/sim3_91064d652a53f4583c5cf629ef31a1c5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">5000</span> <span class="co"># This will take a while</span></span>
+<div class="cell" data-hash="Lb18-Backwards_Selection_is_Bad_cache/html/sim3_2a6670f6654881e69357d26e3dfeeaf1">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="co"># This will take a while</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>min_p <span class="ot">&lt;-</span> <span class="fu">double</span>(N)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>max_p <span class="ot">&lt;-</span> <span class="fu">double</span>(N)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">double</span>(N)</span>
@@ -472,23 +472,23 @@ F(z) &amp;= P(\text{at least one of }X_1\text{ and }X_2\text{ is less than }z)\\
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N){</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># First columns is y, the rest are x1...x20</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    bigdf <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">rnorm</span>(<span class="dv">30</span> <span class="sc">*</span> <span class="dv">21</span>), <span class="at">nrow =</span> <span class="dv">30</span>, <span class="at">ncol =</span> <span class="dv">21</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(bigdf) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"y"</span>, <span class="fu">paste</span>(<span class="st">"x"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    bigdf <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">rnorm</span>(<span class="dv">30</span> <span class="sc">*</span> <span class="dv">11</span>), <span class="at">nrow =</span> <span class="dv">30</span>, <span class="at">ncol =</span> <span class="dv">11</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(bigdf) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"y"</span>, <span class="fu">paste</span>(<span class="st">"x"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    bigdf <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(bigdf)</span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Regress y against everything</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    newmod <span class="ot">&lt;-</span> <span class="fu">step</span>(<span class="fu">lm</span>(y<span class="sc">~</span>., <span class="at">data =</span> bigdf), <span class="at">trace =</span> <span class="dv">0</span>)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    newmod <span class="ot">&lt;-</span> <span class="fu">step</span>(<span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> bigdf), <span class="at">trace =</span> <span class="dv">0</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract the p-values</span></span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    mycoefs <span class="ot">&lt;-</span> <span class="fu">summary</span>(newmod)<span class="sc">$</span>coef[<span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>]</span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    num_signif[i] <span class="ot">&lt;-</span> <span class="fu">length</span>(mycoefs)</span>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    min_p[i] <span class="ot">&lt;-</span> <span class="fu">min</span>(mycoefs)</span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    max_p[i] <span class="ot">&lt;-</span> <span class="fu">max</span>(mycoefs)</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    p1[i] <span class="ot">&lt;-</span> mycoefs[<span class="dv">1</span>] <span class="co"># should be representative of p-values </span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    p1[i] <span class="ot">&lt;-</span> mycoefs[<span class="dv">1</span>] <span class="co"># should be representative of p-values</span></span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> t0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 4.974826 mins</code></pre>
+<pre><code>Time difference of 23.05664 secs</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -510,7 +510,7 @@ F(z) &amp;= P(\text{at least one of }X_1\text{ and }X_2\text{ is less than }z)\\
 </section>
 <section id="so-whats-the-right-way" class="level1" data-number="30">
 <h1 data-number="30"><span class="header-section-number">30</span> So what’s the right way?</h1>
-<p>Best: Domain knowledge. Start with the model that you think will be the final model, then experiment with adding/removing predictors. For instance, if your model has economic predictors, try and see which of the economic predictors are best, with the rest of the predictors being “reasonable”.</p>
+<p>Best: Domain knowledge. Start with the model that you think will be the final model, then experiment with adding/removing predictors. For instance, if your model has weather predictors, start with the ones that are most meaningful (e.g.&nbsp;daily high temperature), then look at what changes when you switch it out for something else (e.g., daily average or low temperature). Check the residual diagnostic plots each time - ignore the p-values until the very end!</p>
 
 
 </section>
