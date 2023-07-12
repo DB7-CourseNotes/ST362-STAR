@@ -91,7 +91,7 @@ t0 <- Sys.time()
 for (i in 1:N){
     # First columns is y, the rest are x1...x20
     bigdf <- matrix(data = rnorm(30 * 11), nrow = 30, ncol = 11)
-    names(bigdf) <- c("y", paste("x", 1:10))
+    colnames(bigdf) <- c("y", paste("x", 1:10))
     bigdf <- as.data.frame(bigdf)
 
     # Regress y against everything
