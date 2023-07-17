@@ -353,14 +353,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#understanding-data" id="toc-understanding-data" class="nav-link active" data-scroll-target="#understanding-data"><span class="header-section-number">19</span> Understanding Data</a></li>
-  <li><a href="#plotting-the-data" id="toc-plotting-the-data" class="nav-link" data-scroll-target="#plotting-the-data"><span class="header-section-number">20</span> Plotting the Data</a></li>
-  <li><a href="#patterns-in-the-predictors" id="toc-patterns-in-the-predictors" class="nav-link" data-scroll-target="#patterns-in-the-predictors"><span class="header-section-number">21</span> Patterns in the Predictors</a>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link active" data-scroll-target="#exploratory-data-analysis"><span class="header-section-number">18.1</span> Exploratory Data Analysis</a>
   <ul class="collapse">
-  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">21.1</span> Conclusions</a></li>
+  <li><a href="#understanding-data" id="toc-understanding-data" class="nav-link" data-scroll-target="#understanding-data">Understanding Data</a></li>
+  <li><a href="#plotting-the-data" id="toc-plotting-the-data" class="nav-link" data-scroll-target="#plotting-the-data">Plotting the Data</a></li>
+  <li><a href="#patterns-in-the-predictors" id="toc-patterns-in-the-predictors" class="nav-link" data-scroll-target="#patterns-in-the-predictors">Patterns in the Predictors</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   </ul></li>
-  <li><a href="#relationship-with-response" id="toc-relationship-with-response" class="nav-link" data-scroll-target="#relationship-with-response"><span class="header-section-number">22</span> Relationship with Response</a></li>
-  <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling"><span class="header-section-number">23</span> Modelling</a></li>
+  <li><a href="#more-eda-relationships-with-the-response-interactions" id="toc-more-eda-relationships-with-the-response-interactions" class="nav-link" data-scroll-target="#more-eda-relationships-with-the-response-interactions"><span class="header-section-number">18.2</span> More EDA: Relationships with the Response / Interactions</a></li>
+  <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling"><span class="header-section-number">18.3</span> Modelling</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/blob/main/L19-Example_Analysis_mtcars.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -401,14 +402,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="understanding-data" class="level1" data-number="19">
-<h1 data-number="19"><span class="header-section-number">19</span> Understanding Data</h1>
+<section id="exploratory-data-analysis" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="exploratory-data-analysis"><span class="header-section-number">18.1</span> Exploratory Data Analysis</h2>
+<section id="understanding-data" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-data">Understanding Data</h3>
 <p>What do the column names mean?</p>
 <p>The help file gives a (very) brief description. I spent a few minutes just looking at the descriptions and trying to guess what relationships I might find.</p>
 <p>Overall, most of the predictors are trying to answer the question “Is this a powerful car?”</p>
 </section>
-<section id="plotting-the-data" class="level1" data-number="20">
-<h1 data-number="20"><span class="header-section-number">20</span> Plotting the Data</h1>
+<section id="plotting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-data">Plotting the Data</h3>
 <p>From a pairs plot (<code>pairs(mtcars)</code>, which I have not included to reduce the amount of output):</p>
 <ul>
 <li>Only 1 car has carb = 6, 1 has carb = 8</li>
@@ -423,8 +426,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>wt and disp are clearly multicollinear, and they’re measuring the same thing so I might want to include just one of them.</p>
 </section>
-<section id="patterns-in-the-predictors" class="level1" data-number="21">
-<h1 data-number="21"><span class="header-section-number">21</span> Patterns in the Predictors</h1>
+<section id="patterns-in-the-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="patterns-in-the-predictors">Patterns in the Predictors</h3>
 <p>In the following code, I tried x as am, cyl, gear, and carb. The y axis was wt, disp, drat, and qsec. I essentially tried every combination of these and wrote down the most interesting patterns.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous versus categorical</span></span>
@@ -480,14 +483,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Might be worth checking models where am is switched with vs.&nbsp;</li>
 </ul></li>
 </ul>
-<section id="conclusions" class="level2" data-number="21.1">
-<h2 data-number="21.1" class="anchored" data-anchor-id="conclusions"><span class="header-section-number">21.1</span> Conclusions</h2>
+</section>
+<section id="conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
 <p>Most things are measuring “how powerful is this car”, so we should just choose the ones that make sense to us and check a few categorical predictors.</p>
 <p><code>wt</code> and <code>disp</code> make the most sense as measures for <code>mpg</code>, and <code>am</code> and <code>cyl</code> also make some sense. I’ll try switching out some of the other predictors, but I expect that the final model will either be <code>wt*am</code> or <code>disp*cyl</code>.</p>
 </section>
 </section>
-<section id="relationship-with-response" class="level1" data-number="22">
-<h1 data-number="22"><span class="header-section-number">22</span> Relationship with Response</h1>
+<section id="more-eda-relationships-with-the-response-interactions" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="more-eda-relationships-with-the-response-interactions"><span class="header-section-number">18.2</span> More EDA: Relationships with the Response / Interactions</h2>
 <p>Now we’re finally looking at mpg!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
@@ -507,8 +511,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>I had also considered including qsec, but a plot of mpg versus qsec with colours from cyl revealed that cyl explains the relationship; if we include cyl, then the slope for mpg versus qsec is 0. The same thing happens with drat, so cyl is probably enough to include in the model rather than either qsec or drat.</p>
 </section>
-<section id="modelling" class="level1" data-number="23">
-<h1 data-number="23"><span class="header-section-number">23</span> Modelling</h1>
+<section id="modelling" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="modelling"><span class="header-section-number">18.3</span> Modelling</h2>
 <p>Let’s test out our models!</p>
 <p>Again, to reduce the amount of output I have to wade through, I changed the following code a bunch and left it at something meaningful to my final analysis.</p>
 <div class="cell">

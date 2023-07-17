@@ -11,7 +11,9 @@ theme_set(theme_bw())
 ```
 
 
-# Understanding Data
+## Exploratory Data Analysis
+
+### Understanding Data
 
 What do the column names mean?
 
@@ -19,7 +21,7 @@ The help file gives a (very) brief description. I spent a few minutes just looki
 
 Overall, most of the predictors are trying to answer the question "Is this a powerful car?" 
 
-# Plotting the Data
+### Plotting the Data
 
 From a pairs plot (`pairs(mtcars)`, which I have not included to reduce the amount of output):
 
@@ -33,7 +35,7 @@ From a pairs plot (`pairs(mtcars)`, which I have not included to reduce the amou
 
 wt and disp are clearly multicollinear, and they're measuring the same thing so I might want to include just one of them.
 
-# Patterns in the Predictors
+### Patterns in the Predictors
 
 In the following code, I tried x as am, cyl, gear, and carb. The y axis was wt, disp, drat, and qsec. I essentially tried every combination of these and wrote down the most interesting patterns. 
 
@@ -77,13 +79,13 @@ ggplot(mtcars) +
 - Very little relation between am and vs - they're measuring different things.
     - Might be worth checking models where am is switched with vs. 
 
-## Conclusions
+### Conclusions
 
 Most things are measuring "how powerful is this car", so we should just choose the ones that make sense to us and check a few categorical predictors.
 
 `wt` and `disp` make the most sense as measures for `mpg`, and `am` and `cyl` also make some sense. I'll try switching out some of the other predictors, but I expect that the final model will either be `wt*am` or `disp*cyl`.
 
-# Relationship with Response
+## More EDA: Relationships with the Response / Interactions
 
 
 Now we're finally looking at mpg!
@@ -105,7 +107,7 @@ From looking at many many plots, I propose the following candidate models:
 I had also considered including qsec, but a plot of mpg versus qsec with colours from cyl revealed that cyl explains the relationship; if we include cyl, then the slope for mpg versus qsec is 0. The same thing happens with drat, so cyl is probably enough to include in the model rather than either qsec or drat. 
 
 
-# Modelling 
+## Modelling 
 
 Let's test out our models!
 
