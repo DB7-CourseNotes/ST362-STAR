@@ -7,6 +7,7 @@ editor: visual
 
 ```{r}
 library(ggplot2)
+theme_set(theme_bw())
 ```
 
 
@@ -113,6 +114,7 @@ Again, to reduce the amount of output I have to wade through, I changed the foll
 ```{r}
 dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
 
+par(mfrow = c(2,2))
 plot(dispmodel, col = mtcars$cyl)
 ```
 
@@ -124,6 +126,8 @@ plot(dispmodel, col = mtcars$cyl)
 
 ```{r}
 wtmodel <- lm(mpg ~ wt * am, data = mtcars)
+
+par(mfrow = c(2,2))
 plot(wtmodel)
 ```
 
