@@ -1,0 +1,234 @@
+---
+title: "L18: Modelling Poorly"
+institute: "**Bad** by Michael Jackson"
+---
+
+## Preamble
+
+### Announcements
+
+- I actually have the exams today!
+
+## Motivation
+
+### Selecting Predictors
+
+As you've seen from the assignment, choosing predictors is hard!
+
+\pspace
+
+Wouldn't it be nice if the computer would choose the best model for you?
+
+### The "Best" Model
+
+- Best represents the Data Generating Process (DGP)
+    - Best for inference\lspace
+- Misses the DGP, but provides useful insights into the relationships
+    - Also best for inference\lspace
+- Fits the current data the best
+    - Overfitting?\lspace
+- Best able to predict new values
+    - Random Forests and Neural Nets
+
+\pspace
+
+The "best" model depends on the goal of the study!
+
+## Automatic Predictor Selection
+
+### Model Comparison Criteria
+
+- $R^2$, or adjusted $R^2$
+    - Lower is better, but $R^2$ increases as we add predictors\lspace
+- $s^2$, the residual variance.
+    - Adding predictors always decreases $s^2$\lspace
+- Mallow's $C_p$ statistic
+    - $C_p = RSS_p/s^2 - (n - 2p)$
+        - $RSS_p$ is the RSS of the smaller model, with $p$ parameters
+        - $s^2$ is the MSE from the largest model under consideration
+    - Adding predictors does *not* increase this statistic.\lspace
+- AIC, the Akiake Information Criterion
+    - $AIC = 2p - 2\ln(\hat L)$, where $\hat L$ is the likelihood evaluated at the estimated parameters.
+        - E.g., when $\epsilon_i\sim N(0,\sigma^2)$, the likelihood is the product of normal distributions with a mean of $X\hat{\underline\beta}$ and variance $s^2$.
+    - Does *not* increase with added predictors.
+
+### More on AIC
+$$
+AIC = 2p - 2\ln(\hat L)
+$$
+
+Recall from Maximum Likelihood Estimation, the likelihood is the likelihood of observing the particular data, given the parameters:
+$$
+L(y|\underline\beta, X, \sigma) = \prod_{i=1}^nf_Y(X|\underline\beta, \sigma^2),
+$$
+where $f_Y(X|\underline\beta, \sigma^2)$ is the normal distribution.
+
+- A high AIC means we either:
+    - Have too many parameters, or
+    - Our model doesn't fit the data well.
+- A low AIC means we've got a good model that isn't overly complicated
+    - "Low" is relative to other models
+
+### Best Subset
+
+1. Find the collection of predictors that optimizes the statistic of interest.
+
+\pspace
+
+That's it. You just try them all.
+
+### Backward and Forward Selection
+
+- **Backward Selection**
+    - Include all predictors, try removing one
+        - Check the $R^2$, p-values, Mallow's Cp, or AIC
+    - Put that one back in the model, try removing another\lspace
+- **Forward Selection**
+    - Find the best predictor to include first
+    - Find the best predictor to include second
+
+\pspace
+
+Both have some sort of stopping criteria. 
+
+### Backward Selection
+
+1. Fit a model with all $p$ predictors
+2. Try all models with $p-1$ predictors.
+    - Identify the best one, say remove $x_j$
+    - Check stopping criteria.
+3. If stopping critera not met, try all models with $p-2$ predictors, not including $x_j$.
+
+### Backward Selection Example
+
+1. Start with `mpg ~ disp + wt + am + cyl + qsec`.
+2. Check all of the AICs, remove `cyl`.
+3. Check all of the AICs, remove `disp`.
+4. Check all AICs, stop.
+
+\pspace
+
+Final model: `mpg ~ wt + am + qsec`
+
+### Forward Selection
+
+1. Start with `mpg ~ 1`.
+2. Test each predictor individually, check AIC, keep `wt`.
+3. Test each remaining predictor, check AIC, keep `cyl`.
+4. Test each remaining predictor, stop.
+
+\pspace
+
+Final model: `mpg ~ wt + cyl`
+
+### Best Subset Selection
+
+Test every combination of predictors, keep the one with the lowest AIC (or other stat).
+
+### Think-Pair-Share
+
+What might these methods be missing?
+
+\pspace
+
+When would these methods be useful?
+
+### Evaluating Algorithmic Predictor Selection
+
+Suppose we have measured 30 predictors that we know are *not* related to the response. 
+
+\pspace
+
+How many predictors should Backwards Selection select?
+
+## Paticipation Questions
+
+### Q1
+
+Why do Forward and Backward selection procedures not choose the same model?
+
+\pspace
+
+1. They do choose the same model.
+2. Because the order that the predictors enter the model matters.
+3. Because the best model is different depending on which approach you use.
+
+### Q2
+
+Best Subset selection will always choose the same model regardless of which statistic it's based on ($R^2$, Mallow's $C_p$, AIC, etc).
+
+\pspace
+
+1. True
+2. False
+
+### Q3
+
+Under the null hypothesis, p-values follow a uniform distribution.
+
+\pspace
+
+1. True
+2. False
+3. True, but only if you do the study right.
+
+### Q4
+
+Suppose we have 30 predictors in the model. How many should we keep?
+
+\pspace
+
+1. Most of them.
+2. About half of them.
+3. A few of them.
+4. What? What kind of question is that? How could I possibly know without seeing the context of the problem?!?
+
+## The Best Model
+
+### Neural Networks and Random Forests
+
+- **Neural Networks**
+    - Essentially a series of linear regressions with a minor non-linear transformation.
+    - A "deep" neural network is non-linear transformations *and* all interactions.
+    - Very finicky, but very powerful when necessary.\lspace
+- **Random Forests**
+    - Also a series of non-linear effects with interactions.
+    - Much much much less finicky.
+
+### Causal Inference
+
+**Experiments** are our way of controlling variables so that we can isolate their effect.
+
+\pspace
+
+Most data we tend to use is **observational**. 
+
+- Causal inference is statistical magic to determine causality from observation.
+    - ... with varying degrees of success.
+
+
+### Why are you telling us this, Devan?
+
+Which model is "best"?
+
+- Best predictions?
+    - NN and RF, with cross-validation.\lspace
+- Best inference?
+    - Build a model based on the context of the problem.
+    - Choose transformations and interactions appropriately.
+    - Only check p-values at the very end.\lspace
+- Best subset of predictors?
+    - Recall: multicollinearity. Without an experiment, correlated predictors mean that there's no way to tell which predictors are best.
+
+*Opinion:* Algorithmic selection methods are bad approximations to better techniques that are outside out the scope of this course.
+
+
+
+
+
+
+
+
+
+
+

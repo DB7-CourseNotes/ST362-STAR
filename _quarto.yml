@@ -37,6 +37,8 @@ book:
         - L15-Transforming_Response.qmd
         - L16-Dummies.qmd
         - L17-Multicollinearity.qmd
+        - L18-Modelling_Poorly.qmd
+        - L19-Example_Analysis_mtcars.qmd
     - part: Lab Notes
       chapters:
         - Lb02-OLS_Estimates.Rmd

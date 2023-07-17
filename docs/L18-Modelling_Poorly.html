@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Regression Analysis - 1&nbsp; L01: Distributions</title>
+<title>Regression Analysis - 17&nbsp; L18: Modelling Poorly</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,8 +31,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L02-Fitting_Straight_Lines.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./L19-Example_Analysis_mtcars.html" rel="next">
+<link href="./L17-Multicollinearity.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +78,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L01-Introduction.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L18-Modelling_Poorly.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">L18: Modelling Poorly</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -158,7 +124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></span></a>
   </div>
 </li>
@@ -254,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">L18: Modelling Poorly</span></span></a>
   </div>
 </li>
@@ -353,46 +319,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1.1</span> Introduction</a>
+  <li><a href="#preamble" id="toc-preamble" class="nav-link active" data-scroll-target="#preamble"><span class="header-section-number">17.1</span> Preamble</a>
   <ul class="collapse">
-  <li><a href="#todays-learning-outcomes" id="toc-todays-learning-outcomes" class="nav-link" data-scroll-target="#todays-learning-outcomes">Today’s Learning Outcomes</a></li>
+  <li><a href="#announcements" id="toc-announcements" class="nav-link" data-scroll-target="#announcements">Announcements</a></li>
   </ul></li>
-  <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions"><span class="header-section-number">1.2</span> Distributions</a>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation"><span class="header-section-number">17.2</span> Motivation</a>
   <ul class="collapse">
-  <li><a href="#normal" id="toc-normal" class="nav-link" data-scroll-target="#normal">Normal</a></li>
-  <li><a href="#but-first-gamma" id="toc-but-first-gamma" class="nav-link" data-scroll-target="#but-first-gamma">But first, Gamma!</a></li>
-  <li><a href="#the-t-distribution" id="toc-the-t-distribution" class="nav-link" data-scroll-target="#the-t-distribution">The <span class="math inline">\(t\)</span> Distribution</a></li>
-  <li><a href="#the-chi2-distribution---variances" id="toc-the-chi2-distribution---variances" class="nav-link" data-scroll-target="#the-chi2-distribution---variances">The <span class="math inline">\(\chi^2\)</span> distribution - variances</a></li>
-  <li><a href="#the-f-distribution---ratio-of-variances" id="toc-the-f-distribution---ratio-of-variances" class="nav-link" data-scroll-target="#the-f-distribution---ratio-of-variances">The <span class="math inline">\(F\)</span> distribution - ratio of variances</a></li>
+  <li><a href="#selecting-predictors" id="toc-selecting-predictors" class="nav-link" data-scroll-target="#selecting-predictors">Selecting Predictors</a></li>
+  <li><a href="#the-best-model" id="toc-the-best-model" class="nav-link" data-scroll-target="#the-best-model">The “Best” Model</a></li>
   </ul></li>
-  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">1.3</span> Confidence Intervals</a>
+  <li><a href="#automatic-predictor-selection" id="toc-automatic-predictor-selection" class="nav-link" data-scroll-target="#automatic-predictor-selection"><span class="header-section-number">17.3</span> Automatic Predictor Selection</a>
   <ul class="collapse">
-  <li><a href="#general-idea-terminology" id="toc-general-idea-terminology" class="nav-link" data-scroll-target="#general-idea-terminology">General Idea: Terminology</a></li>
-  <li><a href="#general-idea-distributional-assumptions" id="toc-general-idea-distributional-assumptions" class="nav-link" data-scroll-target="#general-idea-distributional-assumptions">General Idea: Distributional Assumptions</a></li>
-  <li><a href="#general-idea-distribution-to-quantiles" id="toc-general-idea-distribution-to-quantiles" class="nav-link" data-scroll-target="#general-idea-distribution-to-quantiles">General Idea: Distribution to Quantiles</a></li>
-  <li><a href="#general-idea-distribution-to-ci" id="toc-general-idea-distribution-to-ci" class="nav-link" data-scroll-target="#general-idea-distribution-to-ci">General Idea: Distribution to CI</a></li>
-  <li><a href="#what-is-the-standard-error" id="toc-what-is-the-standard-error" class="nav-link" data-scroll-target="#what-is-the-standard-error">What is the Standard Error?</a></li>
-  <li><a href="#ci-for-variance" id="toc-ci-for-variance" class="nav-link" data-scroll-target="#ci-for-variance">CI for Variance</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#model-comparison-criteria" id="toc-model-comparison-criteria" class="nav-link" data-scroll-target="#model-comparison-criteria">Model Comparison Criteria</a></li>
+  <li><a href="#more-on-aic" id="toc-more-on-aic" class="nav-link" data-scroll-target="#more-on-aic">More on AIC</a></li>
+  <li><a href="#best-subset" id="toc-best-subset" class="nav-link" data-scroll-target="#best-subset">Best Subset</a></li>
+  <li><a href="#backward-and-forward-selection" id="toc-backward-and-forward-selection" class="nav-link" data-scroll-target="#backward-and-forward-selection">Backward and Forward Selection</a></li>
+  <li><a href="#backward-selection" id="toc-backward-selection" class="nav-link" data-scroll-target="#backward-selection">Backward Selection</a></li>
+  <li><a href="#backward-selection-example" id="toc-backward-selection-example" class="nav-link" data-scroll-target="#backward-selection-example">Backward Selection Example</a></li>
+  <li><a href="#forward-selection" id="toc-forward-selection" class="nav-link" data-scroll-target="#forward-selection">Forward Selection</a></li>
+  <li><a href="#best-subset-selection" id="toc-best-subset-selection" class="nav-link" data-scroll-target="#best-subset-selection">Best Subset Selection</a></li>
+  <li><a href="#think-pair-share" id="toc-think-pair-share" class="nav-link" data-scroll-target="#think-pair-share">Think-Pair-Share</a></li>
+  <li><a href="#evaluating-algorithmic-predictor-selection" id="toc-evaluating-algorithmic-predictor-selection" class="nav-link" data-scroll-target="#evaluating-algorithmic-predictor-selection">Evaluating Algorithmic Predictor Selection</a></li>
   </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">1.4</span> Participation Questions</a>
+  <li><a href="#paticipation-questions" id="toc-paticipation-questions" class="nav-link" data-scroll-target="#paticipation-questions"><span class="header-section-number">17.4</span> Paticipation Questions</a>
   <ul class="collapse">
   <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
   <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
   <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
   <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
+  </ul></li>
+  <li><a href="#the-best-model-1" id="toc-the-best-model-1" class="nav-link" data-scroll-target="#the-best-model-1"><span class="header-section-number">17.5</span> The Best Model</a>
+  <ul class="collapse">
+  <li><a href="#neural-networks-and-random-forests" id="toc-neural-networks-and-random-forests" class="nav-link" data-scroll-target="#neural-networks-and-random-forests">Neural Networks and Random Forests</a></li>
+  <li><a href="#causal-inference" id="toc-causal-inference" class="nav-link" data-scroll-target="#causal-inference">Causal Inference</a></li>
+  <li><a href="#why-are-you-telling-us-this-devan" id="toc-why-are-you-telling-us-this-devan" class="nav-link" data-scroll-target="#why-are-you-telling-us-this-devan">Why are you telling us this, Devan?</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/blob/main/L01-Introduction.qmd" class="toc-action">View source</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/blob/main/L18-Modelling_Poorly.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></h1>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">L18: Modelling Poorly</span></h1>
 </div>
 
 
@@ -405,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: <strong>Gamma Ray</strong> by Beck
+            <strong>Bad</strong> by Michael Jackson
           </p>
       </div>
     </div>
@@ -420,230 +390,184 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introduction" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1.1</span> Introduction</h2>
-<section id="todays-learning-outcomes" class="level3">
-<h3 class="anchored" data-anchor-id="todays-learning-outcomes">Today’s Learning Outcomes</h3>
+<section id="preamble" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="preamble"><span class="header-section-number">17.1</span> Preamble</h2>
+<section id="announcements" class="level3">
+<h3 class="anchored" data-anchor-id="announcements">Announcements</h3>
 <ul>
-<li>Important facts about distributions.</li>
-<li>CIs and t-tests.</li>
+<li>I actually have the exams today!</li>
 </ul>
 </section>
 </section>
-<section id="distributions" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="distributions"><span class="header-section-number">1.2</span> Distributions</h2>
-<section id="normal" class="level3">
-<h3 class="anchored" data-anchor-id="normal">Normal</h3>
+<section id="motivation" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="motivation"><span class="header-section-number">17.2</span> Motivation</h2>
+<section id="selecting-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="selecting-predictors">Selecting Predictors</h3>
+<p>As you’ve seen from the assignment, choosing predictors is hard!</p>
+<p>Wouldn’t it be nice if the computer would choose the best model for you?</p>
+</section>
+<section id="the-best-model" class="level3">
+<h3 class="anchored" data-anchor-id="the-best-model">The “Best” Model</h3>
+<ul>
+<li>Best represents the Data Generating Process (DGP)
+<ul>
+<li>Best for inference</li>
+</ul></li>
+<li>Misses the DGP, but provides useful insights into the relationships
+<ul>
+<li>Also best for inference</li>
+</ul></li>
+<li>Fits the current data the best
+<ul>
+<li>Overfitting?</li>
+</ul></li>
+<li>Best able to predict new values
+<ul>
+<li>Random Forests and Neural Nets</li>
+</ul></li>
+</ul>
+<p>The “best” model depends on the goal of the study!</p>
+</section>
+</section>
+<section id="automatic-predictor-selection" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="automatic-predictor-selection"><span class="header-section-number">17.3</span> Automatic Predictor Selection</h2>
+<section id="model-comparison-criteria" class="level3">
+<h3 class="anchored" data-anchor-id="model-comparison-criteria">Model Comparison Criteria</h3>
+<ul>
+<li><span class="math inline">\(R^2\)</span>, or adjusted <span class="math inline">\(R^2\)</span>
+<ul>
+<li>Lower is better, but <span class="math inline">\(R^2\)</span> increases as we add predictors</li>
+</ul></li>
+<li><span class="math inline">\(s^2\)</span>, the residual variance.
+<ul>
+<li>Adding predictors always decreases <span class="math inline">\(s^2\)</span></li>
+</ul></li>
+<li>Mallow’s <span class="math inline">\(C_p\)</span> statistic
+<ul>
+<li><span class="math inline">\(C_p = RSS_p/s^2 - (n - 2p)\)</span>
+<ul>
+<li><span class="math inline">\(RSS_p\)</span> is the RSS of the smaller model, with <span class="math inline">\(p\)</span> parameters</li>
+<li><span class="math inline">\(s^2\)</span> is the MSE from the largest model under consideration</li>
+</ul></li>
+<li>Adding predictors does <em>not</em> increase this statistic.</li>
+</ul></li>
+<li>AIC, the Akiake Information Criterion
+<ul>
+<li><span class="math inline">\(AIC = 2p - 2\ln(\hat L)\)</span>, where <span class="math inline">\(\hat L\)</span> is the likelihood evaluated at the estimated parameters.
+<ul>
+<li>E.g., when <span class="math inline">\(\epsilon_i\sim N(0,\sigma^2)\)</span>, the likelihood is the product of normal distributions with a mean of <span class="math inline">\(X\hat{\underline\beta}\)</span> and variance <span class="math inline">\(s^2\)</span>.</li>
+</ul></li>
+<li>Does <em>not</em> increase with added predictors.</li>
+</ul></li>
+</ul>
+</section>
+<section id="more-on-aic" class="level3">
+<h3 class="anchored" data-anchor-id="more-on-aic">More on AIC</h3>
 <p><span class="math display">\[
-f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{(x-\mu)^2}{-2\sigma^2}\right);\;-\infty&lt;x&lt;\infty
+AIC = 2p - 2\ln(\hat L)
 \]</span></p>
-<p>Shiny: <a href="https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory">https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory</a></p>
+<p>Recall from Maximum Likelihood Estimation, the likelihood is the likelihood of observing the particular data, given the parameters: <span class="math display">\[
+L(y|\underline\beta, X, \sigma) = \prod_{i=1}^nf_Y(X|\underline\beta, \sigma^2),
+\]</span> where <span class="math inline">\(f_Y(X|\underline\beta, \sigma^2)\)</span> is the normal distribution.</p>
 <ul>
-<li>Completely determined by <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</li>
-<li>If <span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span>, then <span class="math inline">\(Z=\frac{X-\mu}{\sigma} \sim N(0,1)\)</span>.
+<li>A high AIC means we either:
 <ul>
-<li>Often called “standardizing”</li>
+<li>Have too many parameters, or</li>
+<li>Our model doesn’t fit the data well.</li>
 </ul></li>
-<li>You won’t <em>need</em> to memorize the pdf, but it’s useful!</li>
-</ul>
-<div class="notes">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pnorm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The normal distribution is the foundation for pretty much everything that we’re going to do in this class. In general, things aren’t normally distributed, but the assumption is very robust and works out in a lot of cases.</p>
-<p>In this lecture we’re going to build up an important result that we’ll use frequently. In particular, we want some background into why the F and <span class="math inline">\(t\)</span> distributions show up so often!</p>
-</div>
-</section>
-<section id="but-first-gamma" class="level3">
-<h3 class="anchored" data-anchor-id="but-first-gamma">But first, Gamma!</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><span class="math inline">\(t\)</span> is based on the Gamma (<span class="math inline">\(\Gamma\)</span>) function:</p>
-<p><span class="math display">\[
-\Gamma(q) = \int_0^\infty e^{-t}t^{q-1}dt
-\]</span></p>
+<li>A low AIC means we’ve got a good model that isn’t overly complicated
 <ul>
-<li>Interesting property: <span class="math inline">\(\Gamma(k+1) = k!\)</span> for integer <span class="math inline">\(k\)</span>.
-<ul>
-<li>In general, <span class="math inline">\(\Gamma(q) = (q-1)\Gamma(q-1)\)</span></li>
-</ul></li>
-<li>Also, <span class="math inline">\(\Gamma(1/2) = \pi^{1/2}\)</span>
-<ul>
-<li><span class="math inline">\(\Gamma(3/2) = (3/2-1)\gamma(1/2) = \sqrt{\pi}/2\)</span></li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<p></p>
-</div>
-</div>
-</section>
-<section id="the-t-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="the-t-distribution">The <span class="math inline">\(t\)</span> Distribution</h3>
-<p><span class="math display">\[
-f(x; \nu) = \frac{\Gamma\left(\frac{\nu + 1}{2}\right)}{\sqrt{\nu\pi}\Gamma(\nu/2)}\left(1 + \frac{x^2}{\nu}\right)^{-(\nu + 1)/2}
-\]</span></p>
-<ul>
-<li>The notation <span class="math inline">\(f(x; \nu)\)</span> means “function of <span class="math inline">\(x\)</span>, given a value of <span class="math inline">\(\nu\)</span>.”</li>
-<li>Completely determined by <span class="math inline">\(\nu\)</span></li>
-<li>As <span class="math inline">\(\nu\rightarrow\infty\)</span>, this becomes <span class="math inline">\(N(0,1)\)</span>.
-<ul>
-<li><span class="math inline">\(\nu&gt;30\)</span> is pretty much normal already.</li>
-<li>For <span class="math inline">\(\nu&lt;\infty\)</span>, <span class="math inline">\(t\)</span> has wider tails than normal.</li>
+<li>“Low” is relative to other models</li>
 </ul></li>
 </ul>
 </section>
-<section id="the-chi2-distribution---variances" class="level3">
-<h3 class="anchored" data-anchor-id="the-chi2-distribution---variances">The <span class="math inline">\(\chi^2\)</span> distribution - variances</h3>
-<p>If <span class="math inline">\(Z_1, Z_2, ..., Z_k\)</span> are iid <span class="math inline">\(N(0,1)\)</span>, then <span class="math inline">\(\chi^2_k = \sum_{i=1}^kZ_i^2\)</span> has a chi-square distribution on <span class="math inline">\(k\)</span> degrees of freedom.</p>
-<p><span class="math display">\[
-f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}
-\]</span></p>
-<ul>
-<li>If <span class="math inline">\(X_i\sim N(\mu_i\sigma_i)\)</span>, then we can just standardize each first.</li>
-<li>As <span class="math inline">\(k\rightarrow\infty\)</span>, <span class="math inline">\((\chi^2_k-k)/\sqrt{2k}\stackrel{d}{\rightarrow} N(0,1)\)</span>.
-<ul>
-<li>That is, for large <span class="math inline">\(k\)</span> this can be approximated by a normal distribution.</li>
-</ul></li>
-<li>Very related to the <em>variance</em>
-<ul>
-<li><span class="math inline">\((n-1)s^2/\sigma^2\)</span> follows a <span class="math inline">\(\chi^2_n\)</span> distribution.</li>
-</ul></li>
-</ul>
+<section id="best-subset" class="level3">
+<h3 class="anchored" data-anchor-id="best-subset">Best Subset</h3>
+<ol type="1">
+<li>Find the collection of predictors that optimizes the statistic of interest.</li>
+</ol>
+<p>That’s it. You just try them all.</p>
 </section>
-<section id="the-f-distribution---ratio-of-variances" class="level3">
-<h3 class="anchored" data-anchor-id="the-f-distribution---ratio-of-variances">The <span class="math inline">\(F\)</span> distribution - ratio of variances</h3>
-<p>If <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span> are independent <span class="math inline">\(\chi^2\)</span> distributions with degrees of freedom <span class="math inline">\(\nu_1\)</span> and <span class="math inline">\(\nu_2\)</span>, then <span class="math inline">\(\frac{S_1/\nu_1}{S_2/\nu_2}\)</span> follows an <span class="math inline">\(F_{\nu_1,\nu_2}\)</span> distribution.</p>
-<p><span class="math display">\[
-f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}
-\]</span></p>
+<section id="backward-and-forward-selection" class="level3">
+<h3 class="anchored" data-anchor-id="backward-and-forward-selection">Backward and Forward Selection</h3>
 <ul>
-<li>If <span class="math inline">\(s_1^2\)</span> and <span class="math inline">\(s_2^2\)</span> are the sample-based estimates of the true values <span class="math inline">\(\sigma_1^2\)</span> and <span class="math inline">\(\sigma_2^2\)</span>, then <span class="math inline">\(\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}\)</span> follows an <span class="math inline">\(F_{\nu_1, \nu_2}\)</span> distribution.
+<li><strong>Backward Selection</strong>
 <ul>
-<li>Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(\sigma_1=\sigma_2\)</span>, so we don’t need the true values.</li>
-<li>Note: <span class="math inline">\(s_1^2\)</span> is calculated from <span class="math inline">\(S_1^2/\nu_1\)</span>.</li>
+<li>Include all predictors, try removing one
+<ul>
+<li>Check the <span class="math inline">\(R^2\)</span>, p-values, Mallow’s Cp, or AIC</li>
+</ul></li>
+<li>Put that one back in the model, try removing another</li>
+</ul></li>
+<li><strong>Forward Selection</strong>
+<ul>
+<li>Find the best predictor to include first</li>
+<li>Find the best predictor to include second</li>
 </ul></li>
 </ul>
+<p>Both have some sort of stopping criteria.</p>
 </section>
-</section>
-<section id="confidence-intervals" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">1.3</span> Confidence Intervals</h2>
-<section id="general-idea-terminology" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-terminology">General Idea: Terminology</h3>
-<p>Consider the <strong>statistic</strong> <span class="math inline">\(t = \frac{\hat\theta - \theta_0}{se(\hat\theta)}\)</span> (a statistic is any number that can be calculated from data alone).</p>
+<section id="backward-selection" class="level3">
+<h3 class="anchored" data-anchor-id="backward-selection">Backward Selection</h3>
+<ol type="1">
+<li>Fit a model with all <span class="math inline">\(p\)</span> predictors</li>
+<li>Try all models with <span class="math inline">\(p-1\)</span> predictors.
 <ul>
-<li><span class="math inline">\(\theta\)</span> is the “““<strong>true</strong>”“” value of the parameter.
-<ul>
-<li>Unknown, unknowable, not used in formula - hypothesize <span class="math inline">\(\theta = \theta_0\)</span> instead.</li>
+<li>Identify the best one, say remove <span class="math inline">\(x_j\)</span></li>
+<li>Check stopping criteria.</li>
 </ul></li>
-<li><span class="math inline">\(\hat\theta\)</span> is our <strong>estimator</strong> of <span class="math inline">\(\theta\)</span>.
-<ul>
-<li><strong>Estimator</strong> is a function, like <span class="math inline">\(\hat\mu = \bar X =(1/n)\sum_{i=1}^nX_i\)</span>.
-<ul>
-<li><span class="math inline">\(X\)</span> is a random variable.</li>
-</ul></li>
-<li><strong>Estimate</strong> is a number, like the calculated mean of a sample.</li>
-</ul></li>
-<li><span class="math inline">\(se(\hat\theta)\)</span> is the <strong>standard error</strong> of <span class="math inline">\(\hat\theta\)</span>.
-<ul>
-<li>If we had a different sample, the value of <span class="math inline">\(\hat\theta\)</span> would be different. It has <strong>variance</strong>.</li>
-<li><strong>Standard error</strong>: the standard deviation of the <strong>sampling distribution</strong>.</li>
-</ul></li>
-</ul>
+<li>If stopping critera not met, try all models with <span class="math inline">\(p-2\)</span> predictors, not including <span class="math inline">\(x_j\)</span>.</li>
+</ol>
 </section>
-<section id="general-idea-distributional-assumptions" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-distributional-assumptions">General Idea: Distributional Assumptions</h3>
-<p>Consider the quantity (<em>not</em> statistic) <span class="math inline">\(t = \frac{\hat\theta - \theta}{se(\hat\theta)}\)</span>.</p>
-<p>If we assume <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> and <span class="math inline">\(\hat\theta = \bar X\)</span> is an unbiased estimate of <span class="math inline">\(\theta\)</span> on <span class="math inline">\(\nu=n-1\)</span> degrees of freedom, then <span class="math inline">\(t \sim t_\nu\)</span></p>
-<p>From this, we can find the lower and upper <span class="math inline">\(\alpha/2\)</span>% of the <span class="math inline">\(t\)</span>$ curve.</p>
-<ul>
-<li><span class="math inline">\(t_\nu(\alpha/2)\)</span> is the lower <span class="math inline">\(\alpha/2\)</span>%.
-<ul>
-<li>i.e., if <span class="math inline">\(\alpha = 0.11\)</span>, then it’s <span class="math inline">\(t(\nu, 0.055)\)</span>, the lower 5.5% area.</li>
-</ul></li>
-<li><span class="math inline">\(t_\nu(1 - \alpha/2)\)</span> is the upper <span class="math inline">\(\alpha/2\)</span>%.</li>
-<li>Since <span class="math inline">\(t\)</span> is symmetric, <span class="math inline">\(t_\nu(1 - \alpha/2) = -t_\nu(\alpha/2)\)</span>.</li>
-</ul>
-<div class="notes">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pvalues"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
+<section id="backward-selection-example" class="level3">
+<h3 class="anchored" data-anchor-id="backward-selection-example">Backward Selection Example</h3>
+<ol type="1">
+<li>Start with <code>mpg ~ disp + wt + am + cyl + qsec</code>.</li>
+<li>Check all of the AICs, remove <code>cyl</code>.</li>
+<li>Check all of the AICs, remove <code>disp</code>.</li>
+<li>Check all AICs, stop.</li>
+</ol>
+<p>Final model: <code>mpg ~ wt + am + qsec</code></p>
 </section>
-<section id="general-idea-distribution-to-quantiles" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-distribution-to-quantiles">General Idea: Distribution to Quantiles</h3>
-<p>Under the null hypothesis, <span class="math inline">\(\theta = \theta_0\)</span>, so <span class="math display">\[
-t = \frac{\hat\theta - \theta}{se(\hat\theta)} = \frac{\hat\theta - \theta_0}{se(\hat\theta)} \sim t_\nu
-\]</span></p>
-<p>We know that <span class="math inline">\(\bar X\)</span> is a random variable, and we want everything in between its 5.5% and 94.5% <strong>quantiles</strong>. </p>
-<ul>
-<li>This is a confidence interval!</li>
-</ul>
+<section id="forward-selection" class="level3">
+<h3 class="anchored" data-anchor-id="forward-selection">Forward Selection</h3>
+<ol type="1">
+<li>Start with <code>mpg ~ 1</code>.</li>
+<li>Test each predictor individually, check AIC, keep <code>wt</code>.</li>
+<li>Test each remaining predictor, check AIC, keep <code>cyl</code>.</li>
+<li>Test each remaining predictor, stop.</li>
+</ol>
+<p>Final model: <code>mpg ~ wt + cyl</code></p>
 </section>
-<section id="general-idea-distribution-to-ci" class="level3">
-<h3 class="anchored" data-anchor-id="general-idea-distribution-to-ci">General Idea: Distribution to CI</h3>
-<p>We can do this easily for the <span class="math inline">\(t_\nu\)</span> distribution: we want all values <span class="math inline">\(t_0\)</span> such that</p>
-<p><span class="math display">\[\begin{align*}
-t_\nu(5.5) &amp;\le t_0 \le t_\nu(94.5)\\
-t_\nu(5.5) &amp;\le \frac{\hat\theta - \theta_0}{se(\hat\theta)} \le t_\nu(94.5)\\
-se(\hat\theta)t_\nu(5.5) &amp;\le \hat\theta - \theta_0 \le se(\hat\theta)t_\nu(94.5)\\
-\hat\theta + se(\hat\theta)t_\nu(5.5) &amp;\le \theta_0 \le \hat\theta + se(\hat\theta)t_\nu(94.5)
-\end{align*}\]</span></p>
-<p>The CI is all values <span class="math inline">\(\theta_0\)</span> that would <em>not</em> be rejected by the null hypothesis <span class="math inline">\(\theta = \theta_0\)</span> at the <span class="math inline">\(\alpha\)</span>% level.</p>
-<p>Since <span class="math inline">\(t_\nu(1 - \alpha/2) = -t_\nu(\alpha/2)\)</span>, our 89% CI is <span class="math inline">\(\hat\theta \pm se(\hat\theta)t_\nu(5.5)\)</span>.</p>
+<section id="best-subset-selection" class="level3">
+<h3 class="anchored" data-anchor-id="best-subset-selection">Best Subset Selection</h3>
+<p>Test every combination of predictors, keep the one with the lowest AIC (or other stat).</p>
 </section>
-<section id="what-is-the-standard-error" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-the-standard-error">What is the Standard Error?</h3>
-<p>If we’re estimating the mean, <span class="math inline">\(\hat\theta = (1/n)\sum_{i=1}^nX_i\)</span>, where we assume <span class="math inline">\(X_i \stackrel{iid}{\sim} N(\mu, \sigma)\)</span>. <span class="math display">\[
-E(\hat\theta) = E\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n}\sum_{i=1}^nE(X_i) = \frac{n\mu}{n} = \mu
-\]</span> From this, we see that the mean is an unbiased estimator! (This is nice, but not required.)</p>
-<p><span class="math display">\[
-V(\hat\theta) = V\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n^2}V\left(\sum_{i=1}^nX_i\right) \stackrel{indep}{=} \frac{1}{n^2}\sum_{i=1}^nV(X_i) = \sigma^2/n \stackrel{plug-in}{=} s^2/n
-\]</span> where <span class="math inline">\(s^2\)</span> is the estimate variance since we cannot know the true mean. Note that <span class="math inline">\(s^2\)</span> is a biased estimator for <span class="math inline">\(\sigma\)</span>.</p>
+<section id="think-pair-share" class="level3">
+<h3 class="anchored" data-anchor-id="think-pair-share">Think-Pair-Share</h3>
+<p>What might these methods be missing?</p>
+<p>When would these methods be useful?</p>
 </section>
-<section id="ci-for-variance" class="level3">
-<h3 class="anchored" data-anchor-id="ci-for-variance">CI for Variance</h3>
-<p>From before: <span class="math inline">\(\frac{(n-1)s^2}{\sigma^2} \sim \chi^2_n\)</span>.</p>
-<p>Let <span class="math inline">\(\chi^2_n(0.055)\)</span> be the lower 5.5% quantile, <span class="math inline">\(\chi^2_n(0.945)\)</span> be the upper.</p>
-<p>For homework, find the CI from: <span class="math display">\[
-\chi^2_n(0.055) \le \frac{(n-1)s^2}{\sigma^2} \le \chi^2_n(0.945)
-\]</span> Note that <span class="math inline">\(\chi^2_n(0.055)\ne-\chi^2_n(0.945)\)</span>.</p>
-</section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary">Summary</h3>
-<ul>
-<li>Distributions exist and are important
-<ul>
-<li>Most things will be normal, which leads to <span class="math inline">\(t\)</span>, <span class="math inline">\(\chi^2\)</span>, and <span class="math inline">\(F\)</span>.</li>
-</ul></li>
-<li>CIs are all values that would not be rejected by a hypothesis test.
-<ul>
-<li>The null hypothesis determines the distribution of the test statistic, which allows us to find the CI.</li>
-</ul></li>
-</ul>
-<p>For Next Class:</p>
-<ul>
-<li>Read through Ch01, especially procedure for least squares estimation.</li>
-</ul>
-<p>&lt;—</p>
+<section id="evaluating-algorithmic-predictor-selection" class="level3">
+<h3 class="anchored" data-anchor-id="evaluating-algorithmic-predictor-selection">Evaluating Algorithmic Predictor Selection</h3>
+<p>Suppose we have measured 30 predictors that we know are <em>not</em> related to the response.</p>
+<p>How many predictors should Backwards Selection select?</p>
 </section>
 </section>
-<section id="participation-questions" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">1.4</span> Participation Questions</h2>
+<section id="paticipation-questions" class="level2" data-number="17.4">
+<h2 data-number="17.4" class="anchored" data-anchor-id="paticipation-questions"><span class="header-section-number">17.4</span> Paticipation Questions</h2>
 <section id="q1" class="level3">
 <h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>Which of the following is a Normal distribution?</p>
+<p>Why do Forward and Backward selection procedures not choose the same model?</p>
 <ol type="1">
-<li><span class="math inline">\(f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}\)</span></li>
-<li><span class="math inline">\(f(x) = \frac{1}{\sqrt{2\pi}}\exp\left(-x^2/2\right)\)</span></li>
-<li><span class="math inline">\(f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}\)</span></li>
-<li><span class="math inline">\(f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}\)</span></li>
+<li>They do choose the same model.</li>
+<li>Because the order that the predictors enter the model matters.</li>
+<li>Because the best model is different depending on which approach you use.</li>
 </ol>
 </section>
 <section id="q2" class="level3">
 <h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>If you know <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, then you know the exact shape of the normal distribution.</p>
+<p>Best Subset selection will always choose the same model regardless of which statistic it’s based on (<span class="math inline">\(R^2\)</span>, Mallow’s <span class="math inline">\(C_p\)</span>, AIC, etc).</p>
 <ol type="1">
 <li>True</li>
 <li>False</li>
@@ -651,42 +575,73 @@ V(\hat\theta) = V\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n^2}V\left(\
 </section>
 <section id="q3" class="level3">
 <h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>A confidence interval for <span class="math inline">\(\theta\)</span> contains all values <span class="math inline">\(\theta_0\)</span> that would not be rejected by a hypothesis test (assume that both are at the same significance level).</p>
+<p>Under the null hypothesis, p-values follow a uniform distribution.</p>
 <ol type="1">
 <li>True</li>
 <li>False</li>
+<li>True, but only if you do the study right.</li>
 </ol>
 </section>
 <section id="q4" class="level3">
 <h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>Which of the following is the correct value for <span class="math inline">\(E(\hat\theta)\)</span>, where <span class="math inline">\(\hat\theta = \sum_{i=1}^n\left(a + bX_i\right)\)</span> and <span class="math inline">\(E(X_i)=\mu\)</span> for all <span class="math inline">\(i\)</span>?</p>
+<p>Suppose we have 30 predictors in the model. How many should we keep?</p>
 <ol type="1">
-<li></li>
-<li><span class="math inline">\(a + b\mu\)</span></li>
-<li><span class="math inline">\(b\mu\)</span></li>
-<li><span class="math inline">\(na + nb\mu\)</span></li>
+<li>Most of them.</li>
+<li>About half of them.</li>
+<li>A few of them.</li>
+<li>What? What kind of question is that? How could I possibly know without seeing the context of the problem?!?</li>
 </ol>
 </section>
-<section id="q5" class="level3">
-<h3 class="anchored" data-anchor-id="q5">Q5</h3>
-<p>Which of the following is the definition of an estimator?</p>
-<ol type="1">
-<li>A value calculated from data.</li>
-<li>A function that returns the estimate for a parameter.</li>
-<li>Any function of the data.</li>
-<li>A person who estimates.</li>
-</ol>
 </section>
-<section id="q6" class="level3">
-<h3 class="anchored" data-anchor-id="q6">Q6</h3>
-<p>The general approach to finding confidence intervals is to find a function of the statistic and the parameter it’s estimating that follows a known distribution and then solve for the unknown parameter.</p>
-<ol type="1">
-<li></li>
-<li>False</li>
-<li>True</li>
-<li></li>
-</ol>
-<p>—&gt;</p>
+<section id="the-best-model-1" class="level2" data-number="17.5">
+<h2 data-number="17.5" class="anchored" data-anchor-id="the-best-model-1"><span class="header-section-number">17.5</span> The Best Model</h2>
+<section id="neural-networks-and-random-forests" class="level3">
+<h3 class="anchored" data-anchor-id="neural-networks-and-random-forests">Neural Networks and Random Forests</h3>
+<ul>
+<li><strong>Neural Networks</strong>
+<ul>
+<li>Essentially a series of linear regressions with a minor non-linear transformation.</li>
+<li>A “deep” neural network is non-linear transformations <em>and</em> all interactions.</li>
+<li>Very finicky, but very powerful when necessary.</li>
+</ul></li>
+<li><strong>Random Forests</strong>
+<ul>
+<li>Also a series of non-linear effects with interactions.</li>
+<li>Much much much less finicky.</li>
+</ul></li>
+</ul>
+</section>
+<section id="causal-inference" class="level3">
+<h3 class="anchored" data-anchor-id="causal-inference">Causal Inference</h3>
+<p><strong>Experiments</strong> are our way of controlling variables so that we can isolate their effect.</p>
+<p>Most data we tend to use is <strong>observational</strong>.</p>
+<ul>
+<li>Causal inference is statistical magic to determine causality from observation.
+<ul>
+<li>… with varying degrees of success.</li>
+</ul></li>
+</ul>
+</section>
+<section id="why-are-you-telling-us-this-devan" class="level3">
+<h3 class="anchored" data-anchor-id="why-are-you-telling-us-this-devan">Why are you telling us this, Devan?</h3>
+<p>Which model is “best”?</p>
+<ul>
+<li>Best predictions?
+<ul>
+<li>NN and RF, with cross-validation.</li>
+</ul></li>
+<li>Best inference?
+<ul>
+<li>Build a model based on the context of the problem.</li>
+<li>Choose transformations and interactions appropriately.</li>
+<li>Only check p-values at the very end.</li>
+</ul></li>
+<li>Best subset of predictors?
+<ul>
+<li>Recall: multicollinearity. Without an experiment, correlated predictors mean that there’s no way to tell which predictors are best.</li>
+</ul></li>
+</ul>
+<p><em>Opinion:</em> Algorithmic selection methods are bad approximations to better techniques that are outside out the scope of this course.</p>
 
 
 </section>
@@ -1043,13 +998,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      <a href="./L17-Multicollinearity.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">L17: Multicollinearity</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L02-Fitting_Straight_Lines.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">L02: Straight Line Fitting</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L19-Example_Analysis_mtcars.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
