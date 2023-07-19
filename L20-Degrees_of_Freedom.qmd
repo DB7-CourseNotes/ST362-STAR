@@ -1,0 +1,179 @@
+---
+title: "L20: Degrees of Freedom"
+institute: "Jam: **** by"
+execute: 
+    echo: true
+---
+
+## Generating Data (for the Project)
+
+### `model.matrix()` and Matrix Multiplication
+
+:::notes
+You may find it convenient to use the `model.matrix()` function to set up dummy variables and polynomial terms for you. It will make sure that there is a reference category, which it will choose alphabetically.
+
+Also note that you'll want to set `raw = TRUE` to ensure that people can find the coefficient values that you set. With `raw = FALSE` they will get the exact same predictions (and thus the same error), but not the same coefficient values.
+
+In the code below, I also demonstrate a log-transform for $y$. To get a log on the left side of the equation, we use an exponential on the right.
+:::
+
+```{r}
+mycat <- c("category", "category", "dogegory", "category", "birdegory")
+mycont <- c(12, 14, 4, 10,  20 )
+
+X <- model.matrix(~ mycat + poly(mycont, 2, raw = TRUE))
+X
+
+# Names are just for my own purposes, they don't need to be included.
+# The names help me keep track of which column in X they correspond to.
+betas <- c(intercpt = 10, cat = 20, dog = 0, c1 = 0, c2 = 0.05)
+X %*% betas
+
+mydf <- data.frame(
+    y = exp(X %*% betas + rnorm(5, 0, 0.01)), 
+    mycat = mycat, 
+    mycont = mycont
+)
+coef(lm(log(y) ~ mycat + poly(mycont, 2, raw = TRUE), data = mydf))
+```
+
+For the project, you ould only need to submit the `mydf` object; the others should be able to recover your coefficient values from that alone!
+
+
+## df
+
+### Degrees of Freedom
+
+A measure of how much information you chose to put in the model.
+
+- Continuous predictors add 1\lspace
+- Categorical predictors add $k-1$\lspace
+- Each term in a polynomial adds 1\lspace
+- Interactions add 1\lspace
+- etc.
+
+### Choose it and Use it
+
+- Decide on the df, try to use all of them
+    - Choice is based on how much information you think you can extract.
+    - Many rows = much information; you can probably use more predictors.
+
+### Bad use of df
+
+- Discretising a categorical variable
+    - You better have a *reeeaaaalllllyyyy* good justification
+    - For example, discretising age to match up with insurance categories.
+    - You should almost never choose to discretise based on your own logic; only to fit in with other analyses or use cases.\lspace
+- Polynomial terms when interactions would work.\lspace
+- Redundant categories
+    - Categories that are redundant
+    - If you have redundant categories, then you have categories that are redundant
+    - For example, if the "JobTitle" column has entries like "Data Scientist" as well as "Data Scientist and Machine Learning Expert", you could just code those both as "DS". 
+
+
+
+
+### Saving df
+
+- Combine categories
+    - Just "Data Scientist" or "Software Engineer"\lspace
+- Combine predictors
+    - Volume of beak = $\pi r^2h/3$?\lspace
+- Transform response rather than add polynomial terms
+    - Not always recommended.
+
+:::notes
+Here's an example of using transformations to (1) match the context of the problem and (2) get better results with fewer degrees of freedom.
+
+We'll use the `trees` dataset that's built into R. The "Girth" column is actually the diameter, and it's the only column measured in inches rather than feet. I'm going to make a new predictor based on Girth that's more useful for later models.
+
+```{r}
+# Saving df
+head(trees) # "Girth" is actually diameter, according to help file
+trees$Radius <- trees$Girth/24
+```
+
+A naive model might be a basic multiple linear regression.
+
+```{r}
+multiple_lm <- lm(Volume ~ Radius + Height, data = trees)
+summary(multiple_lm)
+```
+
+We could make this fit better by blindly adding polynomial terms and doing a transformation:
+
+```{r}
+transformed_and_poly <- lm(log(Volume) ~ poly(Girth, 2) + poly(Height, 2), data = trees)
+summary(transformed_and_poly)
+```
+
+- It is interesting that the squared term for height is *not* significant. Why is this so interesting to me? Look at the next equation in this lesson...
+
+A slightly better model might be one of the form
+$$
+V = \pi r^2h
+$$
+which assumes that trees are perfect cylinders. This can be accomplished by modelling:
+\begin{align*}
+\log(V) &= \beta_0 + \beta_1\log(r) + \beta_2\log(h) + \epsilon\\
+\implies V &= \exp(\beta_0)r^\beta_1h^\beta_2\exp(\epsilon)
+\end{align*}
+and expecting that $\exp(\beta_0)$ is close to $\pi$, $\beta_1 = 2$, and $\beta_2 = 1$.^[It makes me very happy that we're taking the "log" when talking about lumber.]
+
+```{r}
+volume_logs <- lm(log(Volume) ~ log(Girth) + log(Height), data = trees)
+summary(volume_logs)
+```
+
+- We get something close to our hopes!
+    - Except for $\beta_0$, which we'll talk about later.
+- With this model, we could do a hypothesis test for $\beta_1 = 2$ and $\beta_2 = 1$. 
+    - If these are reasonable values, loggers could confidently calculate the volume of a tree assuming that it's a cylinder!
+
+We could also assume these values from the start, and include a "naive" volume.
+
+```{r}
+trees$naive_volume <- pi * trees$Radius^2 * trees$Height
+```
+
+We could then model this according to
+\begin{align*}
+V & = \beta_0N + \epsilon
+\end{align*}
+where $N$ is our "naive" volumne. We might have the expectation that $\beta_0 = 1$ if the naive volume is correct.
+
+```{r} 
+# Assuming trees are cylinders
+diff_from_cylinder <- lm(Volume ~ -1 + naive_volume, data = trees)
+summary(diff_from_cylinder)
+```
+
+This tells us that the estimated usable lumber from a given tree is about 40\% of what we would expect if the tree were a perfect cylinder.
+
+Importantly for this lecture, we have an $R^2$ of 0.9949 on a single degree of freedom! $R^2$ is not the greatest measure, but it's informative in this case:
+
+```{r}
+#| echo: false
+
+data.frame(
+    model = c("multiple_lm", "transformed_and_poly", "volume_logs", "diff_from_cylinder"),
+    R2 = c(summary(multiple_lm)$adj.r.squared, summary(transformed_and_poly)$adj.r.squared, summary(volume_logs)$adj.r.squared, summary(diff_from_cylinder)$adj.r.squared),
+    df = c(multiple_lm$rank - 1, transformed_and_poly$rank - 1, volume_logs$rank - 1, diff_from_cylinder$rank)
+) |> knitr::kable()
+```
+
+By choosing our transformations carefully, we have a model that is both *better* and *simpler*! The coefficient estimate also relates to a physical quantity that is useful to us - the percent of usable wood we can get from a tree! Statistics is amazing.^[T-shirt idea: "If you don't think stats is lit af then you ain't woke, fam!"]
+:::
+
+### Researcher Degrees of Freedom
+
+You add information that isn't measured by df!
+
+- Choosing one predictor rather than another.
+    - Bill length *or* bill depth?\lspace
+- Transforming a predictor/response\lspace
+- Removing outliers\lspace
+- Using/not using autoregressive error structures\lspace
+- etc.
+
+This is why we use RMarkdown/Quarto/Jupyter - all of this is (should be) recorded!

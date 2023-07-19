@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Regression Analysis - 11&nbsp; L12: Extra Topics</title>
+<title>Regression Analysis - 19&nbsp; L20: Degrees of Freedom</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L13-Wrong_Model.html" rel="next">
-<link href="./L11-Admin_Slides.html" rel="prev">
+<link href="./Lb02-OLS_Estimates.html" rel="next">
+<link href="./L19-Example_Analysis_mtcars.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -78,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L12-Extra_Topics.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">L12: Extra Topics</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L20-Degrees_of_Freedom.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L20: Degrees of Freedom</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -184,7 +218,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">L12: Extra Topics</span></span></a>
   </div>
 </li>
@@ -232,7 +266,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L20: Degrees of Freedom</span></span></a>
   </div>
 </li>
@@ -325,48 +359,27 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#standardizing-x" id="toc-standardizing-x" class="nav-link active" data-scroll-target="#standardizing-x"><span class="header-section-number">11.1</span> Standardizing <span class="math inline">\(X\)</span></a>
+  <li><a href="#generating-data-for-the-project" id="toc-generating-data-for-the-project" class="nav-link active" data-scroll-target="#generating-data-for-the-project"><span class="header-section-number">19.1</span> Generating Data (for the Project)</a>
   <ul class="collapse">
-  <li><a href="#mean-centering" id="toc-mean-centering" class="nav-link" data-scroll-target="#mean-centering">Mean-Centering</a></li>
-  <li><a href="#mean-centering-and-covariance" id="toc-mean-centering-and-covariance" class="nav-link" data-scroll-target="#mean-centering-and-covariance">Mean-Centering and Covariance</a></li>
-  <li><a href="#comments-on-vhatunderlinebeta" id="toc-comments-on-vhatunderlinebeta" class="nav-link" data-scroll-target="#comments-on-vhatunderlinebeta">Comments on <span class="math inline">\(V(\hat{\underline\beta})\)</span></a></li>
-  <li><a href="#standardizing-underline-x" id="toc-standardizing-underline-x" class="nav-link" data-scroll-target="#standardizing-underline-x">Standardizing <span class="math inline">\(\underline x\)</span></a></li>
-  <li><a href="#standardizing-in-multiple-linear-regression" id="toc-standardizing-in-multiple-linear-regression" class="nav-link" data-scroll-target="#standardizing-in-multiple-linear-regression">Standardizing in Multiple Linear Regression</a></li>
+  <li><a href="#model.matrix-and-matrix-multiplication" id="toc-model.matrix-and-matrix-multiplication" class="nav-link" data-scroll-target="#model.matrix-and-matrix-multiplication"><code>model.matrix()</code> and Matrix Multiplication</a></li>
   </ul></li>
-  <li><a href="#general-linear-hypothesis" id="toc-general-linear-hypothesis" class="nav-link" data-scroll-target="#general-linear-hypothesis"><span class="header-section-number">11.2</span> General Linear Hypothesis</a>
+  <li><a href="#df" id="toc-df" class="nav-link" data-scroll-target="#df"><span class="header-section-number">19.2</span> df</a>
   <ul class="collapse">
-  <li><a href="#diet-vs.-exercise" id="toc-diet-vs.-exercise" class="nav-link" data-scroll-target="#diet-vs.-exercise">Diet vs.&nbsp;Exercise</a></li>
-  <li><a href="#linearly-independent-hypotheses" id="toc-linearly-independent-hypotheses" class="nav-link" data-scroll-target="#linearly-independent-hypotheses">Linearly Independent Hypotheses</a></li>
-  <li><a href="#linearly-independent-hypotheses-1" id="toc-linearly-independent-hypotheses-1" class="nav-link" data-scroll-target="#linearly-independent-hypotheses-1">Linearly Independent Hypotheses</a></li>
-  <li><a href="#linearly-dependent-hypotheses" id="toc-linearly-dependent-hypotheses" class="nav-link" data-scroll-target="#linearly-dependent-hypotheses">Linearly Dependent Hypotheses</a></li>
-  <li><a href="#testing-general-linear-hypotheses" id="toc-testing-general-linear-hypotheses" class="nav-link" data-scroll-target="#testing-general-linear-hypotheses">Testing General Linear Hypotheses</a></li>
-  </ul></li>
-  <li><a href="#generalized-least-squares" id="toc-generalized-least-squares" class="nav-link" data-scroll-target="#generalized-least-squares"><span class="header-section-number">11.3</span> Generalized Least Squares</a>
-  <ul class="collapse">
-  <li><a href="#main-idea" id="toc-main-idea" class="nav-link" data-scroll-target="#main-idea">Main Idea</a></li>
-  <li><a href="#transforming-the-instability-away" id="toc-transforming-the-instability-away" class="nav-link" data-scroll-target="#transforming-the-instability-away">Transforming the Instability Away</a></li>
-  <li><a href="#generalized-least-squares-results" id="toc-generalized-least-squares-results" class="nav-link" data-scroll-target="#generalized-least-squares-results">Generalized Least Squares Results</a></li>
-  <li><a href="#ols-when-you-should-have-used-gls" id="toc-ols-when-you-should-have-used-gls" class="nav-link" data-scroll-target="#ols-when-you-should-have-used-gls">OLS when you should have used GLS</a></li>
-  <li><a href="#choosing-v" id="toc-choosing-v" class="nav-link" data-scroll-target="#choosing-v">Choosing <span class="math inline">\(V\)</span></a></li>
-  </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">11.4</span> Participation Questions</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
+  <li><a href="#degrees-of-freedom" id="toc-degrees-of-freedom" class="nav-link" data-scroll-target="#degrees-of-freedom">Degrees of Freedom</a></li>
+  <li><a href="#choose-it-and-use-it" id="toc-choose-it-and-use-it" class="nav-link" data-scroll-target="#choose-it-and-use-it">Choose it and Use it</a></li>
+  <li><a href="#bad-use-of-df" id="toc-bad-use-of-df" class="nav-link" data-scroll-target="#bad-use-of-df">Bad use of df</a></li>
+  <li><a href="#saving-df" id="toc-saving-df" class="nav-link" data-scroll-target="#saving-df">Saving df</a></li>
+  <li><a href="#researcher-degrees-of-freedom" id="toc-researcher-degrees-of-freedom" class="nav-link" data-scroll-target="#researcher-degrees-of-freedom">Researcher Degrees of Freedom</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/blob/main/L12-Extra_Topics.qmd" class="toc-action">View source</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/blob/main/L20-Degrees_of_Freedom.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">L12: Extra Topics</span></h1>
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L20: Degrees of Freedom</span></h1>
 </div>
 
 
@@ -379,7 +392,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: by Lake Street Drive
+            Jam: **** by
           </p>
       </div>
     </div>
@@ -394,271 +407,338 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="standardizing-x" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="standardizing-x"><span class="header-section-number">11.1</span> Standardizing <span class="math inline">\(X\)</span></h2>
-<section id="mean-centering" class="level3">
-<h3 class="anchored" data-anchor-id="mean-centering">Mean-Centering</h3>
-<p>Consider <span class="math inline">\(y_i = \beta_0 + \beta_1 x'_i\)</span>, where <span class="math inline">\(x'_i\)</span> are the “centered” versions of <span class="math inline">\(x_i\)</span>: <span class="math display">\[
-x'_i = x_i - \bar x
-\]</span></p>
-<p>Then <span class="math inline">\(\bar{x'} = 0\)</span> and the coefficient estimates become: <span class="math display">\[\begin{align*}
-\hat\beta_0 &amp;= \bar y - \hat\beta_1\bar{x'} = \bar y\\
-&amp;\text{and}\\
-\hat\beta_1 &amp;= \frac{S_{XX}}{S_{YY}} = \frac{\sum_{i=1}^n(x_i' - \bar{x'})^2}{\sum_{i=1}^n(x_i' - \bar{x'})(y_i - \bar{y})} = \frac{\sum_{i=1}^nx_i'^2}{\sum_{i=1}^nx_i'(y_i - \bar{y})}
-\end{align*}\]</span></p>
+<section id="generating-data-for-the-project" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="generating-data-for-the-project"><span class="header-section-number">19.1</span> Generating Data (for the Project)</h2>
+<section id="model.matrix-and-matrix-multiplication" class="level3">
+<h3 class="anchored" data-anchor-id="model.matrix-and-matrix-multiplication"><code>model.matrix()</code> and Matrix Multiplication</h3>
+<div class="notes">
+<p>You may find it convenient to use the <code>model.matrix()</code> function to set up dummy variables and polynomial terms for you. It will make sure that there is a reference category, which it will choose alphabetically.</p>
+<p>Also note that you’ll want to set <code>raw = TRUE</code> to ensure that people can find the coefficient values that you set. With <code>raw = FALSE</code> they will get the exact same predictions (and thus the same error), but not the same coefficient values.</p>
+<p>In the code below, I also demonstrate a log-transform for <span class="math inline">\(y\)</span>. To get a log on the left side of the equation, we use an exponential on the right.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mycat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"category"</span>, <span class="st">"category"</span>, <span class="st">"dogegory"</span>, <span class="st">"category"</span>, <span class="st">"birdegory"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mycont <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">4</span>, <span class="dv">10</span>,  <span class="dv">20</span> )</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> mycat <span class="sc">+</span> <span class="fu">poly</span>(mycont, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  (Intercept) mycatcategory mycatdogegory poly(mycont, 2, raw = TRUE)1
+1           1             1             0                           12
+2           1             1             0                           14
+3           1             0             1                            4
+4           1             1             0                           10
+5           1             0             0                           20
+  poly(mycont, 2, raw = TRUE)2
+1                          144
+2                          196
+3                           16
+4                          100
+5                          400
+attr(,"assign")
+[1] 0 1 1 2 2
+attr(,"contrasts")
+attr(,"contrasts")$mycat
+[1] "contr.treatment"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Names are just for my own purposes, they don't need to be included.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The names help me keep track of which column in X they correspond to.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">intercpt =</span> <span class="dv">10</span>, <span class="at">cat =</span> <span class="dv">20</span>, <span class="at">dog =</span> <span class="dv">0</span>, <span class="at">c1 =</span> <span class="dv">0</span>, <span class="at">c2 =</span> <span class="fl">0.05</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>X <span class="sc">%*%</span> betas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [,1]
+1 37.2
+2 39.8
+3 10.8
+4 35.0
+5 30.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mydf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> betas <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="fl">0.01</span>)), </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mycat =</span> mycat, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mycont =</span> mycont</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(<span class="fu">log</span>(y) <span class="sc">~</span> mycat <span class="sc">+</span> <span class="fu">poly</span>(mycont, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> mydf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 (Intercept)                mycatcategory 
+                10.125207547                 19.928456324 
+               mycatdogegory poly(mycont, 2, raw = TRUE)1 
+                -0.121876262                 -0.002165429 
+poly(mycont, 2, raw = TRUE)2 
+                 0.049808409 </code></pre>
+</div>
+</div>
+<p>For the project, you ould only need to submit the <code>mydf</code> object; the others should be able to recover your coefficient values from that alone!</p>
 </section>
-<section id="mean-centering-and-covariance" class="level3">
-<h3 class="anchored" data-anchor-id="mean-centering-and-covariance">Mean-Centering and Covariance</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>For un-centered data: <span class="math display">\[\begin{align*}
-V(\hat{\underline\beta}) &amp;= (X^TX)^{-1}\sigma^2,\\
-\text{where }(X^TX)^{-1} &amp;= \frac{1}{nS_{XX}}\begin{bmatrix}\sum x_i^2 &amp; -n\bar x\\-n \bar x &amp; n\end{bmatrix}
-\end{align*}\]</span> Note also that <span class="math inline">\(S_{x'x'} = \sum_{i=1}^n{x'}_i^2\)</span>, so <span class="math display">\[\begin{align*}
-V(\hat{\underline\beta}^c) &amp;= \frac{\sigma^2}{nS_{X'X'}}\begin{bmatrix}\sum {x'}_i^2 &amp; 0\\0 &amp; n\end{bmatrix}\\
-&amp; = \sigma^2\begin{bmatrix}n^{-1} &amp; 0 \\ 0 &amp; (\sum_{i=1}^n{x'}_i^2)^{-1}\end{bmatrix}
-\end{align*}\]</span></p>
-<p><span class="math inline">\(\implies\)</span> <em>no covariance</em>!!!</p>
-</div><div class="column" style="width:50%;">
-<p>Simulations with same data, but one uses centered data (code in L02 Rmd).</p>
+</section>
+<section id="df" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="df"><span class="header-section-number">19.2</span> df</h2>
+<section id="degrees-of-freedom" class="level3">
+<h3 class="anchored" data-anchor-id="degrees-of-freedom">Degrees of Freedom</h3>
+<p>A measure of how much information you chose to put in the model.</p>
+<ul>
+<li>Continuous predictors add 1</li>
+<li>Categorical predictors add <span class="math inline">\(k-1\)</span></li>
+<li>Each term in a polynomial adds 1</li>
+<li>Interactions add 1</li>
+<li>etc.</li>
+</ul>
+</section>
+<section id="choose-it-and-use-it" class="level3">
+<h3 class="anchored" data-anchor-id="choose-it-and-use-it">Choose it and Use it</h3>
+<ul>
+<li>Decide on the df, try to use all of them
+<ul>
+<li>Choice is based on how much information you think you can extract.</li>
+<li>Many rows = much information; you can probably use more predictors.</li>
+</ul></li>
+</ul>
+</section>
+<section id="bad-use-of-df" class="level3">
+<h3 class="anchored" data-anchor-id="bad-use-of-df">Bad use of df</h3>
+<ul>
+<li>Discretising a categorical variable
+<ul>
+<li>You better have a <em>reeeaaaalllllyyyy</em> good justification</li>
+<li>For example, discretising age to match up with insurance categories.</li>
+<li>You should almost never choose to discretise based on your own logic; only to fit in with other analyses or use cases.</li>
+</ul></li>
+<li>Polynomial terms when interactions would work.</li>
+<li>Redundant categories
+<ul>
+<li>Categories that are redundant</li>
+<li>If you have redundant categories, then you have categories that are redundant</li>
+<li>For example, if the “JobTitle” column has entries like “Data Scientist” as well as “Data Scientist and Machine Learning Expert”, you could just code those both as “DS”.</li>
+</ul></li>
+</ul>
+</section>
+<section id="saving-df" class="level3">
+<h3 class="anchored" data-anchor-id="saving-df">Saving df</h3>
+<ul>
+<li>Combine categories
+<ul>
+<li>Just “Data Scientist” or “Software Engineer”</li>
+</ul></li>
+<li>Combine predictors
+<ul>
+<li>Volume of beak = <span class="math inline">\(\pi r^2h/3\)</span>?</li>
+</ul></li>
+<li>Transform response rather than add polynomial terms
+<ul>
+<li>Not always recommended.</li>
+</ul></li>
+</ul>
+<div class="notes">
+<p>Here’s an example of using transformations to (1) match the context of the problem and (2) get better results with fewer degrees of freedom.</p>
+<p>We’ll use the <code>trees</code> dataset that’s built into R. The “Girth” column is actually the diameter, and it’s the only column measured in inches rather than feet. I’m going to make a new predictor based on Girth that’s more useful for later models.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving df</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(trees) <span class="co"># "Girth" is actually diameter, according to help file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Girth Height Volume
+1   8.3     70   10.3
+2   8.6     65   10.3
+3   8.8     63   10.2
+4  10.5     72   16.4
+5  10.7     81   18.8
+6  10.8     83   19.7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>Radius <span class="ot">&lt;-</span> trees<span class="sc">$</span>Girth<span class="sc">/</span><span class="dv">24</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A naive model might be a basic multiple linear regression.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>multiple_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> Radius <span class="sc">+</span> Height, <span class="at">data =</span> trees)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multiple_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Volume ~ Radius + Height, data = trees)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-6.4065 -2.6493 -0.2876  2.2003  8.4847 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -57.9877     8.6382  -6.713 2.75e-07 ***
+Radius      112.9959     6.3424  17.816  &lt; 2e-16 ***
+Height        0.3393     0.1302   2.607   0.0145 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.882 on 28 degrees of freedom
+Multiple R-squared:  0.948, Adjusted R-squared:  0.9442 
+F-statistic:   255 on 2 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>We could make this fit better by blindly adding polynomial terms and doing a transformation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>transformed_and_poly <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Volume) <span class="sc">~</span> <span class="fu">poly</span>(Girth, <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">poly</span>(Height, <span class="dv">2</span>), <span class="at">data =</span> trees)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(transformed_and_poly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log(Volume) ~ poly(Girth, 2) + poly(Height, 2), 
+    data = trees)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.16094 -0.04023 -0.00295  0.05474  0.13434 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       3.27273    0.01492 219.360  &lt; 2e-16 ***
+poly(Girth, 2)1   2.51150    0.09732  25.808  &lt; 2e-16 ***
+poly(Girth, 2)2  -0.26046    0.09206  -2.829  0.00887 ** 
+poly(Height, 2)1  0.54845    0.09746   5.628 6.47e-06 ***
+poly(Height, 2)2 -0.05518    0.09191  -0.600  0.55349    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.08307 on 26 degrees of freedom
+Multiple R-squared:  0.9784,    Adjusted R-squared:  0.9751 
+F-statistic: 294.5 on 4 and 26 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<ul>
+<li>It is interesting that the squared term for height is <em>not</em> significant. Why is this so interesting to me? Look at the next equation in this lesson…</li>
+</ul>
+<p>A slightly better model might be one of the form <span class="math display">\[
+V = \pi r^2h
+\]</span> which assumes that trees are perfect cylinders. This can be accomplished by modelling: <span class="math display">\[\begin{align*}
+\log(V) &amp;= \beta_0 + \beta_1\log(r) + \beta_2\log(h) + \epsilon\\
+\implies V &amp;= \exp(\beta_0)r^\beta_1h^\beta_2\exp(\epsilon)
+\end{align*}\]</span> and expecting that <span class="math inline">\(\exp(\beta_0)\)</span> is close to <span class="math inline">\(\pi\)</span>, <span class="math inline">\(\beta_1 = 2\)</span>, and <span class="math inline">\(\beta_2 = 1\)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>volume_logs <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Volume) <span class="sc">~</span> <span class="fu">log</span>(Girth) <span class="sc">+</span> <span class="fu">log</span>(Height), <span class="at">data =</span> trees)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(volume_logs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log(Volume) ~ log(Girth) + log(Height), data = trees)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.168561 -0.048488  0.002431  0.063637  0.129223 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -6.63162    0.79979  -8.292 5.06e-09 ***
+log(Girth)   1.98265    0.07501  26.432  &lt; 2e-16 ***
+log(Height)  1.11712    0.20444   5.464 7.81e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.08139 on 28 degrees of freedom
+Multiple R-squared:  0.9777,    Adjusted R-squared:  0.9761 
+F-statistic: 613.2 on 2 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<ul>
+<li>We get something close to our hopes!
+<ul>
+<li>Except for <span class="math inline">\(\beta_0\)</span>, which we’ll talk about later.</li>
+</ul></li>
+<li>With this model, we could do a hypothesis test for <span class="math inline">\(\beta_1 = 2\)</span> and <span class="math inline">\(\beta_2 = 1\)</span>.
+<ul>
+<li>If these are reasonable values, loggers could confidently calculate the volume of a tree assuming that it’s a cylinder!</li>
+</ul></li>
+</ul>
+<p>We could also assume these values from the start, and include a “naive” volume.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>naive_volume <span class="ot">&lt;-</span> pi <span class="sc">*</span> trees<span class="sc">$</span>Radius<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> trees<span class="sc">$</span>Height</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We could then model this according to <span class="math display">\[\begin{align*}
+V &amp; = \beta_0N + \epsilon
+\end{align*}\]</span> where <span class="math inline">\(N\)</span> is our “naive” volumne. We might have the expectation that <span class="math inline">\(\beta_0 = 1\)</span> if the naive volume is correct.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming trees are cylinders</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>diff_from_cylinder <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> naive_volume, <span class="at">data =</span> trees)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(diff_from_cylinder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Volume ~ -1 + naive_volume, data = trees)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.6696 -1.0832 -0.3341  1.6045  4.2944 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+naive_volume 0.386513   0.004991   77.44   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.455 on 30 degrees of freedom
+Multiple R-squared:  0.995, Adjusted R-squared:  0.9949 
+F-statistic:  5996 on 1 and 30 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>This tells us that the estimated usable lumber from a given tree is about 40% of what we would expect if the tree were a perfect cylinder.</p>
+<p>Importantly for this lecture, we have an <span class="math inline">\(R^2\)</span> of 0.9949 on a single degree of freedom! <span class="math inline">\(R^2\)</span> is not the greatest measure, but it’s informative in this case:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L12-Extra_Topics_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="480"></p>
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">model</th>
+<th style="text-align: right;">R2</th>
+<th style="text-align: right;">df</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">multiple_lm</td>
+<td style="text-align: right;">0.9442322</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">transformed_and_poly</td>
+<td style="text-align: right;">0.9750853</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">volume_logs</td>
+<td style="text-align: right;">0.9760840</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diff_from_cylinder</td>
+<td style="text-align: right;">0.9948560</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
+<p>By choosing our transformations carefully, we have a model that is both <em>better</em> and <em>simpler</em>! The coefficient estimate also relates to a physical quantity that is useful to us - the percent of usable wood we can get from a tree! Statistics is amazing.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 </div>
-</div>
 </section>
-<section id="comments-on-vhatunderlinebeta" class="level3">
-<h3 class="anchored" data-anchor-id="comments-on-vhatunderlinebeta">Comments on <span class="math inline">\(V(\hat{\underline\beta})\)</span></h3>
-<p><span class="math display">\[
-V(\hat{\underline\beta}^c) = \sigma^2\begin{bmatrix}n^{-1} &amp; 0 \\ 0 &amp; (\sum_{i=1}^n{x'}_i^2)^{-1}\end{bmatrix}
-\]</span></p>
+<section id="researcher-degrees-of-freedom" class="level3">
+<h3 class="anchored" data-anchor-id="researcher-degrees-of-freedom">Researcher Degrees of Freedom</h3>
+<p>You add information that isn’t measured by df!</p>
 <ul>
-<li><span class="math inline">\(V(\hat\beta_0) = \sigma^2/n \implies sd(\hat\beta_0) = \sigma/\sqrt{n}\)</span>.
+<li>Choosing one predictor rather than another.
 <ul>
-<li>The t-test for significance of <span class="math inline">\(\beta_0\)</span> is just a hypothesis test for <span class="math inline">\(\bar y = 0\)</span>. </li>
+<li>Bill length <em>or</em> bill depth?</li>
 </ul></li>
-<li>Note that <span class="math inline">\(\underline y\)</span> hasn’t changed, so <span class="math inline">\(\hat{\underline\epsilon}\)</span> and <span class="math inline">\(\sigma^2\)</span> are unchanged.</li>
-<li><span class="math inline">\(V(\hat\beta_0) = \sigma^2/\sum_{i=1}^n{x'}_i^2\)</span> isn’t all that interesting…</li>
+<li>Transforming a predictor/response</li>
+<li>Removing outliers</li>
+<li>Using/not using autoregressive error structures</li>
+<li>etc.</li>
 </ul>
-</section>
-<section id="standardizing-underline-x" class="level3">
-<h3 class="anchored" data-anchor-id="standardizing-underline-x">Standardizing <span class="math inline">\(\underline x\)</span></h3>
-<p>In addition to mean-centering, divide by the sd of <span class="math inline">\(\underline x\)</span>: <span class="math display">\[
-z_i = \frac{x_i - \bar x}{\sqrt{S_{XX}/(n-1)}}
-\]</span></p>
-<p>Then <span class="math inline">\(\bar z = 0\)</span> and <span class="math inline">\(sd(z) = 0 \implies S_{ZZ} = n-1\)</span>.</p>
-<p>It can be shown that: <span class="math display">\[
-V(\hat{\underline\beta}^s) = \sigma^2\begin{bmatrix}n^{-1} &amp; 0 \\ 0 &amp; (n-1)^{-1}\end{bmatrix}
-\]</span></p>
-<ul>
-<li><span class="math inline">\(\underline x\)</span> doesn’t matter!!!</li>
-</ul>
-</section>
-<section id="standardizing-in-multiple-linear-regression" class="level3">
-<h3 class="anchored" data-anchor-id="standardizing-in-multiple-linear-regression">Standardizing in Multiple Linear Regression</h3>
-<p>Suppose we standardize each column of <span class="math inline">\(X\)</span> (except the first).</p>
-<p>Several things happen:</p>
-<ul>
-<li>All predictors are now in units of standard deviations!!!
-<ul>
-<li>Coefficients are directly comparable!</li>
-</ul></li>
-<li>Covariances disappear!!!</li>
-</ul>
-<p>Standardizing doesn’t hurt and can often help <span class="math inline">\(\implies\)</span> it’s almost always worth it!</p>
-</section>
-</section>
-<section id="general-linear-hypothesis" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="general-linear-hypothesis"><span class="header-section-number">11.2</span> General Linear Hypothesis</h2>
-<section id="diet-vs.-exercise" class="level3">
-<h3 class="anchored" data-anchor-id="diet-vs.-exercise">Diet vs.&nbsp;Exercise</h3>
-<p>Which is more important for weight loss?</p>
-<p>We can set this up in a linear regression framework: <span class="math display">\[
-\text{Loss}_i = \beta_0 + \beta_1\text{CaloriesConsumed}_i + \beta_2\text{ExercisesMinutes}_i
-\]</span> where we assume CaloriesConsumed and ExerciseMinutes are standardized.</p>
-<p>Our question about the importance of diet versus exercise becomes a hypothesis test: <span class="math display">\[
-H_0:\; \beta_1 = \beta_2\text{ vs. }H_a:\; \beta_1 \ne \beta_2
-\]</span> Alternatively, the null can be written as <span class="math inline">\(\beta_1 - \beta_2 = 0\)</span>.</p>
-</section>
-<section id="linearly-independent-hypotheses" class="level3">
-<h3 class="anchored" data-anchor-id="linearly-independent-hypotheses">Linearly Independent Hypotheses</h3>
-<p>In some cases, we might have a collection of hypotheses. For ANOVA: <span class="math display">\[
-H_0:\; \beta_2 - \beta_1 = 0,\; \beta_3 - \beta_2 = 0,\; \beta_4 - \beta_3 = 0,\...,\; and\; \beta_{p-1} - \beta_{p-2} = 0
-\]</span> These hypotheses are <strong>linearly indepenent</strong>. To see why, we can write them in matrix form: <span class="math display">\[
-\begin{bmatrix}
-0 &amp; -1 &amp; 1 &amp; 0 &amp; 0 &amp; ...\\
-0 &amp; 0 &amp; -1 &amp; 1 &amp; 0 &amp; ...\\
-0 &amp; 0 &amp; 0 &amp; -1 &amp; 1 &amp; ...\\
-\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; ...\\
-\end{bmatrix}\hat{\underline\beta} = \underline 0
-\]</span> where none of the rows are linear combinations of the others.</p>
-<p>We’ll use the notation <span class="math inline">\(C\underline\beta = \underline 0\)</span>.</p>
-</section>
-<section id="linearly-independent-hypotheses-1" class="level3">
-<h3 class="anchored" data-anchor-id="linearly-independent-hypotheses-1">Linearly Independent Hypotheses</h3>
-<p>The <span class="math inline">\(C\)</span> matrix can be row-reduced to the hypotheses <span class="math inline">\(\beta_i=0\;\forall i&gt;0\)</span>. In this case, our hypothesized model is: <span class="math display">\[
-Y_i = \beta_0 + \underline\epsilon
-\]</span></p>
-<p>We have reduced <span class="math inline">\(Y = X\underline\beta + \underline\epsilon\)</span> to <span class="math inline">\(Y = Z\underline\alpha + \underline\epsilon\)</span>, where <span class="math inline">\(\underline\alpha = (\beta_0)\)</span> and <span class="math inline">\(Z\)</span> is a column of ones.</p>
-</section>
-<section id="linearly-dependent-hypotheses" class="level3">
-<h3 class="anchored" data-anchor-id="linearly-dependent-hypotheses">Linearly Dependent Hypotheses</h3>
-<p>Consider the model <span class="math inline">\(Y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \underline\epsilon\)</span> and the hypotheses: <span class="math display">\[
-H_0:\; \beta_{11} = 0,\ \beta_1 - \beta_2 = 0,\; \beta_1 - \beta_2 + \beta_3 = 0,\; 2\beta_1 - 2\beta_2 + 3\beta_3 = 0
-\]</span> We can write this as: <span class="math display">\[
-\begin{bmatrix}
-0 &amp; 0 &amp; 0  &amp; 1\\
-0 &amp; 1 &amp; -1 &amp; 0\\
-0 &amp; 1 &amp; -1 &amp; 1\\
-0 &amp; 2 &amp; -2 &amp; 3
-\end{bmatrix}\begin{bmatrix}\beta_0\\\beta_1\\\beta_2\\\beta_{11}\end{bmatrix} = \begin{bmatrix}0\\0\\0\\0\end{bmatrix}
-\]</span> With a little work, we can show that this reduces to the model: <span class="math display">\[
-Y = \beta_0 + \beta(x_1 + x_2) + \underline\epsilon \Leftrightarrow Y = Z\underline\alpha + \underline\epsilon
-\]</span></p>
-</section>
-<section id="testing-general-linear-hypotheses" class="level3">
-<h3 class="anchored" data-anchor-id="testing-general-linear-hypotheses">Testing General Linear Hypotheses</h3>
-<p>Consider an arbitrary matrix for <span class="math inline">\(C\)</span> (not linearly dependent), such that we can row-reduce <span class="math inline">\(C\)</span> to <span class="math inline">\(q\)</span> linearly independent hypotheses.</p>
-<ul>
-<li><strong>Full Model</strong>
-<ul>
-<li><span class="math inline">\(SS_E = Y^TY - \hat{\underline\beta}^TX^TY\)</span> on <span class="math inline">\(n-p\)</span> df.</li>
-</ul></li>
-<li><strong>Hypothesized Model</strong>
-<ul>
-<li><span class="math inline">\(SS_W = Y^TY - \hat{\underline\alpha}^TZ^TY\)</span> on <span class="math inline">\(n-p-q\)</span> df.</li>
-</ul></li>
-</ul>
-<p>From these, we get: <span class="math display">\[
-\left(\frac{SSW-SSE}{q}\right)/\left(\frac{SSE}{n-p}\right) \sim F_{q, n-p}
-\]</span> In other words, we test whether the restrictions significantly change the <span class="math inline">\(SS_E\)</span>!</p>
-</section>
-</section>
-<section id="generalized-least-squares" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="generalized-least-squares"><span class="header-section-number">11.3</span> Generalized Least Squares</h2>
-<section id="main-idea" class="level3">
-<h3 class="anchored" data-anchor-id="main-idea">Main Idea</h3>
-<p>What if the variance of <span class="math inline">\(\epsilon_i\)</span> isn’t the same for all <span class="math inline">\(i\)</span>?</p>
-<p>In other words, <span class="math inline">\(V(\underline\epsilon) = V\sigma^2\)</span> for some matrix <span class="math inline">\(V\)</span>.</p>
-<ul>
-<li>The structure of <span class="math inline">\(V\)</span> changes how we approach this.
-<ul>
-<li>Weighted least squares: <span class="math inline">\(V\)</span> is diagonal.</li>
-<li>Generalized: <span class="math inline">\(V\)</span> is symmetric and positive-definite, but otherwise arbitrary.</li>
-</ul></li>
-</ul>
-</section>
-<section id="transforming-the-instability-away" class="level3">
-<h3 class="anchored" data-anchor-id="transforming-the-instability-away">Transforming the Instability Away</h3>
-<p>In the model <span class="math inline">\(Y = X\underline\beta + \underline\epsilon\)</span>, we want <span class="math inline">\(V(Y) = I\sigma^2\)</span>, but we have <span class="math inline">\(V(Y) = V\sigma^2\)</span></p>
-<p>Since <span class="math inline">\(V\)</span> is symmetric and positive-definite, we can find a matrix <span class="math inline">\(P\)</span> such that: <span class="math display">\[
-P^TP = PP = P^2 = V
-\]</span></p>
-<p>We can pre-multiply the model by <span class="math inline">\(P^{-1}\)</span> so that <span class="math inline">\(V(P^{-1}Y) = V^{-1}V\sigma^2 = I\sigma^2\)</span>: <span class="math display">\[
-P^{-1}Y = P^{-1}X\underline\beta + P^{-1}\underline\epsilon \Leftrightarrow Z = Q\underline\beta + \underline f
-\]</span></p>
-</section>
-<section id="generalized-least-squares-results" class="level3">
-<h3 class="anchored" data-anchor-id="generalized-least-squares-results">Generalized Least Squares Results</h3>
-<p><span class="math display">\[\begin{align*}
-\underline f^T\underline f &amp;= \underline\epsilon^TV^{-1}\underline\epsilon = (Y - X\underline\beta)^TV^{-1}(Y - X\underline\beta)\\
-\hat{\underline\beta} &amp;= (X^TV^{-1}X)^{-1}X^TV^{-1}Y\\
-SS_T &amp;= \hat{\underline\beta}^TQ^TZ = Y^TV^{-1}X(X^TV^{-1}X)^{-1}X^TV^{-1}Y\\
-SST &amp;= Z^TZ = Y^TV^{-1}Y\\
-\hat Y &amp;= X\hat{\underline\beta}\\
-\hat{\underline f} &amp;= P^{-1}(Y-\hat Y) = P^{-1}(I-X(X^TV^{-1}X)^{-1}X^TV^{-1})Y
-\end{align*}\]</span></p>
-<p>Most things are just switching <span class="math inline">\(Y\)</span> with <span class="math inline">\(P^{-1}Y\)</span>, etc., except one…</p>
-</section>
-<section id="ols-when-you-should-have-used-gls" class="level3">
-<h3 class="anchored" data-anchor-id="ols-when-you-should-have-used-gls">OLS when you should have used GLS</h3>
-<p>Suppose the true model has <span class="math inline">\(V(\underline\epsilon) = V\sigma^2\)</span>.</p>
-<p>Let <span class="math inline">\(\hat{\underline\beta}_O\)</span> be the estimate of <span class="math inline">\(\underline\beta\)</span> if we were to fit with Ordinary Least Squares. Then:</p>
-<ul>
-<li><span class="math inline">\(E(\hat{\underline\beta}_O) = \underline\beta\)</span></li>
-<li><span class="math inline">\(V(\hat{\underline\beta}_O) = (X^TX)^{-1}X^TVX(X^TX)^{-1}\sigma^2\)</span></li>
-</ul>
-<p>The OLS estimate is <strong>unbiased</strong>, but has a much higher <strong>variance</strong>!</p>
-</section>
-<section id="choosing-v" class="level3">
-<h3 class="anchored" data-anchor-id="choosing-v">Choosing <span class="math inline">\(V\)</span></h3>
-<ul>
-<li>For serially correlated data, <span class="math inline">\(V_{ii} = 1\)</span> and <span class="math inline">\(V_{ij} = \rho^{|i-j|}\)</span>
-<ul>
-<li>This is choosing <span class="math inline">\(V\)</span> based on <em>model assumptions</em>!</li>
-<li><span class="math inline">\(\rho\)</span> must be estimated ahead of time.</li>
-</ul></li>
-<li>If we have repeteated <span class="math inline">\(x\)</span>-values, we can use the estimated variance from there.
-<ul>
-<li>Choosing <span class="math inline">\(V\)</span> based on the data</li>
-</ul></li>
-<li>In a controlled experiment, where we have known weights for different <span class="math inline">\(x\)</span>-values
-<ul>
-<li>E.g., more skilled surgeons, machine age.</li>
-</ul></li>
-</ul>
-</section>
-</section>
-<section id="participation-questions" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">11.4</span> Participation Questions</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>Which of the following will result in no correlation between <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>?</p>
-<ol type="1">
-<li>Centering</li>
-<li>Standardizing</li>
-<li>Both centering and standardizing</li>
-<li>None of the above</li>
-</ol>
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>What’s the primary reason for standardizing the predictors?</p>
-<ol type="1">
-<li>Remove correlation between the <span class="math inline">\(\hat\beta\)</span>s</li>
-<li>Make it so that the variance is not a function of the <span class="math inline">\(X\)</span>-values.</li>
-<li>Ensure that the values of <span class="math inline">\(\hat\beta\)</span> are comparable.</li>
-<li>Make it so that general linear hypotheses are possible.</li>
-</ol>
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>In a general linear hypothesis, <span class="math inline">\(q\)</span> is the rank of the <span class="math inline">\(C\)</span> matrix in <span class="math inline">\(C\underline\beta = \underline 0\)</span>.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>Generalized Least Squares requires strong assumptions about the matrix <span class="math inline">\(V\)</span>.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q5" class="level3">
-<h3 class="anchored" data-anchor-id="q5">Q5</h3>
-<p>Ignoring correlation/unequal variance in <span class="math inline">\(\underline\epsilon\)</span> will lead to a biased estimate of <span class="math inline">\(\underline\beta\)</span></p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q6" class="level3">
-<h3 class="anchored" data-anchor-id="q6">Q6</h3>
-<p>What do you expect the hat matrix to be for GLS?</p>
-<ol type="1">
-<li><span class="math inline">\(X(X^TX)^{-1}X^TY\)</span></li>
-<li><span class="math inline">\(X(X^TV^{-1}X)^{-1}X^TV^{-1}Y\)</span></li>
-<li><span class="math inline">\(XV^{-1}(X^TV^{-1}X)^{-1}X^TV^{-1}Y\)</span></li>
-<li><span class="math inline">\(XV^{-T}(X^TV^{-1}X)^{-1}X^TV^{-1}Y\)</span></li>
-</ol>
+<p>This is why we use RMarkdown/Quarto/Jupyter - all of this is (should be) recorded!</p>
 
 
 </section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>It makes me very happy that we’re taking the “log” when talking about lumber.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>T-shirt idea: “If you don’t think stats is lit af then you ain’t woke, fam!”<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
@@ -1012,13 +1092,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L11-Admin_Slides.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">L11: The Hat Matrix 2</span></span>
+      <a href="./L19-Example_Analysis_mtcars.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L13-Wrong_Model.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Lb02-OLS_Estimates.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

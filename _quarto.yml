@@ -39,6 +39,7 @@ book:
         - L17-Multicollinearity.qmd
         - L18-Modelling_Poorly.qmd
         - L19-Example_Analysis_mtcars.qmd
+        - L20-Degrees_of_Freedom.qmd
     - part: Lab Notes
       chapters:
         - Lb02-OLS_Estimates.Rmd
