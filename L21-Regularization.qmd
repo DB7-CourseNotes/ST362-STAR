@@ -5,16 +5,6 @@ header-includes:
     - \usepackage{relsize}
 ---
 
-## Preamble
-
-### Announcements
-
-- Work through the lab code prior to the lab!
-    - Get your hands dirty!\lspace
-- Course Notes updated with some extras from last class.
-
-## Regularization Basics
-
 ## Loss Functions
 
 ### Why are we minimizing the *sum of squares*?
@@ -73,54 +63,9 @@ Ordinary least squares is a minimization problem:
 $$
 RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 $$
-
-\pause\quad
+=
 
 What if I don't like how big the $\underline\beta$ values are?
-
-### Regular Methods
-
-Ordinary least squares is a minimization problem:
-$$
-RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathlarger{\mathlarger{\beta}}_jx_{ij}\right)^2
-$$
-
-\quad
-
-No I wanted smaller.
-
-### Regular Methods
-
-Ordinary least squares is a minimization problem:
-$$
-RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathlarger{\mathlarger{\mathlarger{\mathlarger{\beta}}}}_jx_{ij}\right)^2
-$$
-
-\quad
-
-Devan stop.
-
-### Regular Methods
-
-Ordinary least squares is a minimization problem:
-$$
-RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathlarger{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\beta}}}}}}_jx_{ij}\right)^2
-$$
-
-\quad
-
-Devan that's enough.
-
-### Regular Methods
-
-Ordinary least squares is a minimization problem:
-$$
-RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathsmaller{\mathsmaller{\mathsmaller{\mathsmaller{\mathsmaller{\mathsmaller{\beta}}}}}}_jx_{ij}\right)^2
-$$
-
-\quad
-
-Oh wait that's perfect.
 
 ### Regularization Constraints
 
@@ -147,9 +92,13 @@ $$
 
 Or, in general, why choose a particular value of $s$ in $||\underline\beta||_p = s$?
 
-\quad
+:::notes
+There's no good reason to choose a *particular* value of $s$, but regularizing stops us from having steep slopes for predictors that aren't actually related. 
 
-Thoughts?
+In other words, we ignore spurious patterns!
+
+Too little regularization and we just have the OLS estimate. Too much regularization and we restrict the parameters too much.
+:::
 
 ### Choosing $s$ in $||\underline\beta||_p = s$
 

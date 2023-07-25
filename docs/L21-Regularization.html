@@ -366,25 +366,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preamble" id="toc-preamble" class="nav-link active" data-scroll-target="#preamble"><span class="header-section-number">20.1</span> Preamble</a>
-  <ul class="collapse">
-  <li><a href="#announcements" id="toc-announcements" class="nav-link" data-scroll-target="#announcements">Announcements</a></li>
-  </ul></li>
-  <li><a href="#regularization-basics" id="toc-regularization-basics" class="nav-link" data-scroll-target="#regularization-basics"><span class="header-section-number">20.2</span> Regularization Basics</a></li>
-  <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link" data-scroll-target="#loss-functions"><span class="header-section-number">20.3</span> Loss Functions</a>
+  <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link active" data-scroll-target="#loss-functions"><span class="header-section-number">20.1</span> Loss Functions</a>
   <ul class="collapse">
   <li><a href="#why-are-we-minimizing-the-sum-of-squares" id="toc-why-are-we-minimizing-the-sum-of-squares" class="nav-link" data-scroll-target="#why-are-we-minimizing-the-sum-of-squares">Why are we minimizing the <em>sum of squares</em>?</a></li>
   <li><a href="#other-loss-functions" id="toc-other-loss-functions" class="nav-link" data-scroll-target="#other-loss-functions">Other loss functions</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   <li><a href="#loss-function-summary" id="toc-loss-function-summary" class="nav-link" data-scroll-target="#loss-function-summary">Loss Function Summary</a></li>
   </ul></li>
-  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization"><span class="header-section-number">20.4</span> Regularization</a>
+  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization"><span class="header-section-number">20.2</span> Regularization</a>
   <ul class="collapse">
   <li><a href="#regular-methods" id="toc-regular-methods" class="nav-link" data-scroll-target="#regular-methods">Regular Methods</a></li>
-  <li><a href="#regular-methods-1" id="toc-regular-methods-1" class="nav-link" data-scroll-target="#regular-methods-1">Regular Methods</a></li>
-  <li><a href="#regular-methods-2" id="toc-regular-methods-2" class="nav-link" data-scroll-target="#regular-methods-2">Regular Methods</a></li>
-  <li><a href="#regular-methods-3" id="toc-regular-methods-3" class="nav-link" data-scroll-target="#regular-methods-3">Regular Methods</a></li>
-  <li><a href="#regular-methods-4" id="toc-regular-methods-4" class="nav-link" data-scroll-target="#regular-methods-4">Regular Methods</a></li>
   <li><a href="#regularization-constraints" id="toc-regularization-constraints" class="nav-link" data-scroll-target="#regularization-constraints">Regularization Constraints</a></li>
   <li><a href="#regularizing-with-norms" id="toc-regularizing-with-norms" class="nav-link" data-scroll-target="#regularizing-with-norms">Regularizing with Norms</a></li>
   <li><a href="#why-choose-underlinebeta_p-10" id="toc-why-choose-underlinebeta_p-10" class="nav-link" data-scroll-target="#why-choose-underlinebeta_p-10">Why choose <span class="math inline">\(||\underline\beta||_p = 10\)</span>?</a></li>
@@ -400,7 +391,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ridge-regularization" id="toc-ridge-regularization" class="nav-link" data-scroll-target="#ridge-regularization">Ridge Regularization</a></li>
   <li><a href="#lasso-feature-selection-as-we-vary-lambda" id="toc-lasso-feature-selection-as-we-vary-lambda" class="nav-link" data-scroll-target="#lasso-feature-selection-as-we-vary-lambda">LASSO Feature Selection as we Vary <span class="math inline">\(\lambda\)</span></a></li>
   </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">20.5</span> Participation Questions</a>
+  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">20.3</span> Participation Questions</a>
   <ul class="collapse">
   <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
   <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
@@ -450,24 +441,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="preamble" class="level2" data-number="20.1">
-<h2 data-number="20.1" class="anchored" data-anchor-id="preamble"><span class="header-section-number">20.1</span> Preamble</h2>
-<section id="announcements" class="level3">
-<h3 class="anchored" data-anchor-id="announcements">Announcements</h3>
-<ul>
-<li>Work through the lab code prior to the lab!
-<ul>
-<li>Get your hands dirty!</li>
-</ul></li>
-<li>Course Notes updated with some extras from last class.</li>
-</ul>
-</section>
-</section>
-<section id="regularization-basics" class="level2" data-number="20.2">
-<h2 data-number="20.2" class="anchored" data-anchor-id="regularization-basics"><span class="header-section-number">20.2</span> Regularization Basics</h2>
-</section>
-<section id="loss-functions" class="level2" data-number="20.3">
-<h2 data-number="20.3" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">20.3</span> Loss Functions</h2>
+<section id="loss-functions" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">20.1</span> Loss Functions</h2>
 <section id="why-are-we-minimizing-the-sum-of-squares" class="level3">
 <h3 class="anchored" data-anchor-id="why-are-we-minimizing-the-sum-of-squares">Why are we minimizing the <em>sum of squares</em>?</h3>
 <p>The MSE is defined as: <span class="math display">\[
@@ -522,42 +497,14 @@ MAE(\underline\beta) = \frac{1}{n}\sum_{i=1}^n\left|y_i-\beta_0-\sum_{j=1}^p\bet
 </ul>
 </section>
 </section>
-<section id="regularization" class="level2" data-number="20.4">
-<h2 data-number="20.4" class="anchored" data-anchor-id="regularization"><span class="header-section-number">20.4</span> Regularization</h2>
+<section id="regularization" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="regularization"><span class="header-section-number">20.2</span> Regularization</h2>
 <section id="regular-methods" class="level3">
 <h3 class="anchored" data-anchor-id="regular-methods">Regular Methods</h3>
 <p>Ordinary least squares is a minimization problem: <span class="math display">\[
 RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
-\]</span></p>
+\]</span> =</p>
 <p>What if I don’t like how big the <span class="math inline">\(\underline\beta\)</span> values are?</p>
-</section>
-<section id="regular-methods-1" class="level3">
-<h3 class="anchored" data-anchor-id="regular-methods-1">Regular Methods</h3>
-<p>Ordinary least squares is a minimization problem: <span class="math display">\[
-RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathlarger{\mathlarger{\beta}}_jx_{ij}\right)^2
-\]</span></p>
-<p>No I wanted smaller.</p>
-</section>
-<section id="regular-methods-2" class="level3">
-<h3 class="anchored" data-anchor-id="regular-methods-2">Regular Methods</h3>
-<p>Ordinary least squares is a minimization problem: <span class="math display">\[
-RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathlarger{\mathlarger{\mathlarger{\mathlarger{\beta}}}}_jx_{ij}\right)^2
-\]</span></p>
-<p>Devan stop.</p>
-</section>
-<section id="regular-methods-3" class="level3">
-<h3 class="anchored" data-anchor-id="regular-methods-3">Regular Methods</h3>
-<p>Ordinary least squares is a minimization problem: <span class="math display">\[
-RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathlarger{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\beta}}}}}}_jx_{ij}\right)^2
-\]</span></p>
-<p>Devan that’s enough.</p>
-</section>
-<section id="regular-methods-4" class="level3">
-<h3 class="anchored" data-anchor-id="regular-methods-4">Regular Methods</h3>
-<p>Ordinary least squares is a minimization problem: <span class="math display">\[
-RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathsmaller{\mathsmaller{\mathsmaller{\mathsmaller{\mathsmaller{\mathsmaller{\beta}}}}}}_jx_{ij}\right)^2
-\]</span></p>
-<p>Oh wait that’s perfect.</p>
 </section>
 <section id="regularization-constraints" class="level3">
 <h3 class="anchored" data-anchor-id="regularization-constraints">Regularization Constraints</h3>
@@ -584,7 +531,11 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathsmaller{\mathsmaller{\maths
 <section id="why-choose-underlinebeta_p-10" class="level3">
 <h3 class="anchored" data-anchor-id="why-choose-underlinebeta_p-10">Why choose <span class="math inline">\(||\underline\beta||_p = 10\)</span>?</h3>
 <p>Or, in general, why choose a particular value of <span class="math inline">\(s\)</span> in <span class="math inline">\(||\underline\beta||_p = s\)</span>?</p>
-<p>Thoughts?</p>
+<div class="notes">
+<p>There’s no good reason to choose a <em>particular</em> value of <span class="math inline">\(s\)</span>, but regularizing stops us from having steep slopes for predictors that aren’t actually related.</p>
+<p>In other words, we ignore spurious patterns!</p>
+<p>Too little regularization and we just have the OLS estimate. Too much regularization and we restrict the parameters too much.</p>
+</div>
 </section>
 <section id="choosing-s-in-underlinebeta_p-s" class="level3">
 <h3 class="anchored" data-anchor-id="choosing-s-in-underlinebeta_p-s">Choosing <span class="math inline">\(s\)</span> in <span class="math inline">\(||\underline\beta||_p = s\)</span></h3>
@@ -695,8 +646,8 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathsmaller{\mathsmaller{\maths
 </div>
 </section>
 </section>
-<section id="participation-questions" class="level2" data-number="20.5">
-<h2 data-number="20.5" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">20.5</span> Participation Questions</h2>
+<section id="participation-questions" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">20.3</span> Participation Questions</h2>
 <section id="q1" class="level3">
 <h3 class="anchored" data-anchor-id="q1">Q1</h3>
 <p>For Ridge regression (L2 norm): as <span class="math inline">\(\lambda\rightarrow\infty\)</span>, <span class="math inline">\(\sum_{j=1}^p|\beta_j| \rightarrow\infty\)</span>.</p>
@@ -837,8 +788,8 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathsmaller{\mathsmaller{\maths
 <pre><code>
 Call:  glmnet(x = X, y = y, lambda = cv_check$lambda.1se) 
 
-  Df  %Dev Lambda
-1 10 34.91 0.0153</code></pre>
+  Df  %Dev  Lambda
+1 10 35.29 0.01394</code></pre>
 </div>
 </div>
 <p>The output isn’t very informative, but the model can make predictions via the <code>predict()</code> function and these will be comparable or better than the predictions from an unconstrained linear model.</p>
@@ -860,23 +811,23 @@ Call:  glmnet(x = X, y = y, lambda = cv_check$lambda.1se)
 <div class="cell-output cell-output-stdout">
 <pre><code>17 x 3 sparse Matrix of class "dgCMatrix"
                              lasso     lm |lm|-|lasso|
-(Intercept)                 -5.272  4.654       -0.618
-year                         0.005  0.026        0.021
+(Intercept)                 -6.610  4.654       -1.956
+year                         0.005  0.026        0.020
 age                          0.002  0.029        0.027
-maritl2. Married             0.125  0.076       -0.049
+maritl2. Married             0.127  0.076       -0.051
 maritl3. Widowed             .      0.004        0.004
 maritl4. Divorced            .      0.012        0.012
 maritl5. Separated           .      0.017        0.017
 race2. Black                 .     -0.012        0.012
 race3. Asian                 .     -0.005        0.005
 race4. Other                 .     -0.007        0.007
-education2. HS Grad         -0.015  0.038        0.023
-education3. Some College     0.033  0.075        0.042
-education4. College Grad     0.143  0.119       -0.024
-education5. Advanced Degree  0.290  0.151       -0.139
-jobclass2. Information       0.015  0.013       -0.003
-health2. &gt;=Very Good         0.037  0.027       -0.010
-health_ins2. No             -0.188 -0.089       -0.099</code></pre>
+education2. HS Grad         -0.007  0.038        0.032
+education3. Some College     0.047  0.075        0.029
+education4. College Grad     0.155  0.119       -0.037
+education5. Advanced Degree  0.303  0.151       -0.151
+jobclass2. Information       0.016  0.013       -0.003
+health2. &gt;=Very Good         0.039  0.027       -0.013
+health_ins2. No             -0.189 -0.089       -0.100</code></pre>
 </div>
 </div>
 </div>
