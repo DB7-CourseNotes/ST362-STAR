@@ -3,6 +3,11 @@ title: "L21: Regularization Methods"
 institute: "Jam: **Ted Lasso Theme** by Marcus Mumford and Tom Howe"
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 ## Loss Functions
 
 ### Why are we minimizing the *sum of squares*?
@@ -171,7 +176,7 @@ So far, we've been talking about general $L_p$ norms, i.e. $||\underline\beta||_
 
 Wikipedia screenshot:
 
-\includegraphics[width=0.8\textwidth]{figs/Lagrange.png}
+![](figs/Lagrange.png)
 
 ### Lagrangian Multipliers and Estimation
 

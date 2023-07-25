@@ -609,7 +609,7 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 <section id="langrangian-multipliers-and-estimation" class="level3">
 <h3 class="anchored" data-anchor-id="langrangian-multipliers-and-estimation">Langrangian Multipliers and Estimation</h3>
 <p>Wikipedia screenshot:</p>
-<p></p>
+<p><img src="figs/Lagrange.png" class="img-fluid"></p>
 </section>
 <section id="lagrangian-multipliers-and-estimation" class="level3">
 <h3 class="anchored" data-anchor-id="lagrangian-multipliers-and-estimation">Lagrangian Multipliers and Estimation</h3>
@@ -775,7 +775,7 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cv_check <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> X, <span class="at">y =</span> y, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_check)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L21-Regularization_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="L21-Regularization_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The first dotted line indicates the value of <span class="math inline">\(\lambda\)</span> that minimizes the “loss function.” However, across different samples we would get different values of <span class="math inline">\(\lambda\)</span>. BEcause we know there’s randomness, we know that a slightly larger (more restrictive) value of <span class="math inline">\(\lambda\)</span> would also be consistent with our data. Since cross-validation emulates the idea of having many samples, we can get an estimate of the <strong>standard error</strong> of <span class="math inline">\(\lambda\)</span>. We can then choose the alue of <span class="math inline">\(\lambda\)</span> that is within 1 standard error of the minimum. This gives a much simpler model while still having a plausible <span class="math inline">\(\lambda\)</span>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
