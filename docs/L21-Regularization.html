@@ -594,7 +594,7 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 <h3 class="anchored" data-anchor-id="geometric-interpretation-contours-of-the-rss">Geometric Interpretation (Contours of the RSS)</h3>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p></p>
+<p><img src="figs/Reg_Geom.png" class="img-fluid"></p>
 </div><div class="column" style="width:40%;">
 <ul>
 <li>LASSO will set coefficients to 0.
@@ -787,8 +787,8 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 <pre><code>
 Call:  glmnet(x = X, y = y, lambda = cv_check$lambda.1se) 
 
-  Df  %Dev  Lambda
-1 10 35.29 0.01394</code></pre>
+  Df  %Dev Lambda
+1  9 35.59 0.0127</code></pre>
 </div>
 </div>
 <p>The output isn’t very informative, but the model can make predictions via the <code>predict()</code> function and these will be comparable or better than the predictions from an unconstrained linear model.</p>
@@ -810,22 +810,22 @@ Call:  glmnet(x = X, y = y, lambda = cv_check$lambda.1se)
 <div class="cell-output cell-output-stdout">
 <pre><code>17 x 3 sparse Matrix of class "dgCMatrix"
                              lasso     lm |lm|-|lasso|
-(Intercept)                 -6.610  4.654       -1.956
-year                         0.005  0.026        0.020
+(Intercept)                 -7.830  4.654       -3.176
+year                         0.006  0.026        0.019
 age                          0.002  0.029        0.027
-maritl2. Married             0.127  0.076       -0.051
+maritl2. Married             0.128  0.076       -0.052
 maritl3. Widowed             .      0.004        0.004
 maritl4. Divorced            .      0.012        0.012
 maritl5. Separated           .      0.017        0.017
 race2. Black                 .     -0.012        0.012
 race3. Asian                 .     -0.005        0.005
 race4. Other                 .     -0.007        0.007
-education2. HS Grad         -0.007  0.038        0.032
-education3. Some College     0.047  0.075        0.029
-education4. College Grad     0.155  0.119       -0.037
-education5. Advanced Degree  0.303  0.151       -0.151
-jobclass2. Information       0.016  0.013       -0.003
-health2. &gt;=Very Good         0.039  0.027       -0.013
+education2. HS Grad          .      0.038        0.038
+education3. Some College     0.058  0.075        0.018
+education4. College Grad     0.166  0.119       -0.047
+education5. Advanced Degree  0.313  0.151       -0.162
+jobclass2. Information       0.017  0.013       -0.004
+health2. &gt;=Very Good         0.041  0.027       -0.014
 health_ins2. No             -0.189 -0.089       -0.100</code></pre>
 </div>
 </div>

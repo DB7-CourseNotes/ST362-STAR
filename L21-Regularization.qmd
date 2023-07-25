@@ -155,8 +155,7 @@ So far, we've been talking about general $L_p$ norms, i.e. $||\underline\beta||_
 
 :::: {.columns}
 ::: {.column width="60%"}
-\centering
- \includegraphics[width=\textwidth]{figs/Reg_Geom.png}
+![](figs/Reg_Geom.png)
 :::
 ::: {.column width="40%"}
 
