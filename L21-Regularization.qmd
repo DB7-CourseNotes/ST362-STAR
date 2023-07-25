@@ -1,0 +1,455 @@
+---
+title: "L21: Regularization Methods"
+institute: "Jam: **Ted Lasso Theme** by Marcus Mumford and Tom Howe"
+header-includes:
+    - \usepackage{relsize}
+---
+
+## Preamble
+
+### Announcements
+
+- Work through the lab code prior to the lab!
+    - Get your hands dirty!\lspace
+- Course Notes updated with some extras from last class.
+
+## Regularization Basics
+
+## Loss Functions
+
+### Why are we minimizing the *sum of squares*?
+
+The MSE is defined as:
+$$
+MSE(\underline\beta) = \frac{1}{n}\sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
+$$
+This is the Maximum Likelihood Estimate, which seeks to model the *mean* of $Y$ at each value of $X$, $E(Y) = X\underline\beta$, with Gaussian errors. \pause
+
+MSE, seen as a function of $\underline\beta$, is a **loss function**, i.e. the function we minimize to find our estimates.
+
+\quad\pause
+
+But it's FAR from the only loss function.
+
+### Other loss functions
+
+By minimizing 
+$$
+MAE(\underline\beta) = \frac{1}{n}\sum_{i=1}^n\left|y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right|
+$$
+we end up estimating the $median$ of $Y$. \pause
+
+Others:
+
+- Mean Absolute Log Error
+    - Lower penalty for larger errors.
+    - More robust to outliers?
+- Mean Relative Error
+    - Penalize errors relative to size of $y$ (larger errors at large $y$ values aren't as big of a deal).
+    - Assumes that variance depends on mean (kinda like Poisson).
+- etc.
+
+### Examples
+
+- 0.5 hectares verus 4 hectares can make a huge difference
+    - 100 versus 150, congrats on the great prediction!\newline
+- Predicting an income of 15,000 versus 25,000 is big
+    - Modelling the average income is not usually reasonable.
+
+### Loss Function Summary
+
+- Minimize the loss function with respect to the parameters of interest.\newline
+- For the same parameters, there can be many loss functions.\newline
+- Other names:
+    - Likelihood function (special case of loss function)
+    - Cost function (synonym)
+
+
+## Regularization
+
+### Regular Methods
+
+Ordinary least squares is a minimization problem:
+$$
+RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
+$$
+
+\pause\quad
+
+What if I don't like how big the $\underline\beta$ values are?
+
+### Regular Methods
+
+Ordinary least squares is a minimization problem:
+$$
+RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathlarger{\mathlarger{\beta}}_jx_{ij}\right)^2
+$$
+
+\quad
+
+No I wanted smaller.
+
+### Regular Methods
+
+Ordinary least squares is a minimization problem:
+$$
+RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathlarger{\mathlarger{\mathlarger{\mathlarger{\beta}}}}_jx_{ij}\right)^2
+$$
+
+\quad
+
+Devan stop.
+
+### Regular Methods
+
+Ordinary least squares is a minimization problem:
+$$
+RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathlarger{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\mathlarger{\beta}}}}}}_jx_{ij}\right)^2
+$$
+
+\quad
+
+Devan that's enough.
+
+### Regular Methods
+
+Ordinary least squares is a minimization problem:
+$$
+RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\mathsmaller{\mathsmaller{\mathsmaller{\mathsmaller{\mathsmaller{\mathsmaller{\beta}}}}}}_jx_{ij}\right)^2
+$$
+
+\quad
+
+Oh wait that's perfect.
+
+### Regularization Constraints
+
+Let's arbitrarily say that $\sum_{j=1}^p \beta_j = 10$.
+
+\pause\quad
+
+With this constraint, one large $\beta_j$ can be countered by a large negative $\beta_k$.
+
+### Regularizing with Norms
+
+The $L_p$-norm of a vector is:
+$$
+||\beta||_p = \left(\sum_{j=1}^p|\beta|^p\right)^{1/p}
+$$
+
+- When $p = 2$, this is the Euclidean distance.
+    - Pythagoras strikes again!\newline
+- When $p = 1$, this is the sum of absolute values.\newline
+- When $p=\infty$, this ends up being max($|\underline\beta|$).
+    - Not useful for our purposes, but interesting!
+
+### Why choose $||\underline\beta||_p = 10$?
+
+Or, in general, why choose a particular value of $s$ in $||\underline\beta||_p = s$?
+
+\quad
+
+Thoughts?
+
+### Choosing $s$ in $||\underline\beta||_p = s$
+
+- Recall: more flexible models are able to estimate more subtle patterns, but may find patterns that aren't there.
+    - Too flexible = bad out-of-sample prediction.\newline
+- For linear models, the *least flexible* model is one where all $\beta_j$ values are given a fixed value.
+    - For example, all are 0. \newline
+
+\quad\pause
+
+For a linear model, restricting the values with $||\underline\beta||_p = s$ *reduces flexibility*, which can *improve out-of-sample* prediction performance. 
+
+### MLE estimates of $\underline\beta$ are *unbiased*
+
+... therefore constrained estimates are biased. 
+
+
+### But what about the scales of the features?
+
+What a great question! Thank you so much for asking! You must be smart.
+
+\quad
+
+For $||\underline\beta||_p$ to make sense, the predictors must all have the same scale. 
+
+This is accomplished by **standardizing** the features: Replace each $x_{ij}$ with
+$$
+\frac{x_{ij} - \bar \mathbf x_{j}}{\frac{1}{n}\sum_{i=1}^n(x_{ij} - \bar \mathbf x_{j})^2}
+$$
+
+
+### Choosing $\lambda$ via cross-validation
+
+- For each value of $\lambda$:
+    - Split data into 5 "folds". 
+    - For each "fold":
+        - Set aside the data points in the current fold.
+        - Fit the model to data in all other "folds" using your value of $\lambda$.
+        - Predict the missing points, record the average error.
+
+Choose the lambda with the lowest out-of-sample prediction error.
+
+### Cross-Validation
+
+![](figs/kfold.png)
+
+### Special Cases of Regularization: $L_1$ or $L_2$?
+
+So far, we've been talking about general $L_p$ norms, i.e. $||\underline\beta||_p$.
+
+\pspace
+
+- $L_1$: LASSO\lspace
+- $L_2$: Ridge
+
+### Geometric Interpretation (Contours of the RSS)
+
+:::: {.columns}
+::: {.column width="60%"}
+\centering
+ \includegraphics[width=\textwidth]{figs/Reg_Geom.png}
+:::
+::: {.column width="40%"}
+
+\vspace{2cm}
+
+- LASSO will set coefficients to 0.
+    - "Least Absolute Shrinkage and Selection Operator"\newline
+- Ridge has less variance (why?)
+:::
+::::
+
+### Langrangian Multipliers and Estimation
+
+Wikipedia screenshot:
+
+\includegraphics[width=0.8\textwidth]{figs/Lagrange.png}
+
+### Lagrangian Multipliers and Estimation
+
+\centering
+Minimize $MSE(\underline\beta)$ subject to $||\underline\beta||_p$.
+
+is equivalent to
+
+Minimize $MSE(\underline\beta) + \lambda||\underline\beta||_p$
+
+\quad\pause\raggedright
+
+For the rest of your life, this is the way you'll see Ridge and LASSO.
+
+- Ridge: Analytical solution, can calculate an arbitrary number of $\lambda$ values at once.
+- LASSO: Non-iterative numerical technique
+
+### Ridge Regularization
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figs/Ridge_Reg.png}
+\end{center}
+
+- One of the coefficients *increases* with a tighter constraint!
+
+### LASSO Feature Selection as we Vary $\lambda$
+
+:::: {.columns}
+::: {.column width="50%"}
+
+\vspace{2cm}
+- As $\lambda$ increases, more coefficients are allowed to be non-zero.\newline
+- If $\lambda$ doesn't constrain, we get the least squares estimate.
+    - Denoted as $\hat\beta$ in the plot.
+:::
+::: {.column width="50%"}
+
+\includegraphics[width=\textwidth]{figs/Feature_Selection.png}
+
+:::
+::::
+
+## Participation Questions
+
+### Q1
+
+For Ridge regression (L2 norm): as $\lambda\rightarrow\infty$, $\sum_{j=1}^p|\beta_j| \rightarrow\infty$.
+
+\pspace
+
+1. True
+2. False
+
+### Q2
+
+When we set the restriction on the sum of the absolute value of the coefficients, the intercept is included.
+
+\pspace
+
+1. True
+2. False
+
+### Q3
+
+Why would we restrict the value of the parameters?
+
+\pspace
+
+1. Depending on the context of the problem, we might have a specific maximum value for the sum of the coefficients.
+2. We want to avoid overfitting the data, and restricting the parameter stops us from modelling irrelevant patterns.
+3. Because in any given regression problem there are always predictors that should have a slope of 0.
+4. Because some parameter estimates are impossible.
+
+### Q4
+
+What's the primary practical difference between Ridge and LASSO?
+
+\pspace
+
+1. LASSO has a tighter restriction on the parameters than Ridge.
+2. LASSO will set parameters to 0, whereas Ridge will just shrink them towards 0 without making them exactly 0.
+3. Because coefficients are set to 0, LASSO has higher variance in its estimates. 
+4. The only difference is the norm that they use, which has no meaningful impact on the results.
+
+### Q5
+
+What is cross-validation trying to minimize?
+
+\pspace
+
+1. The out-of-sample prediction error. 
+2. The bias in the estimates.
+3. The loss function (MSE).
+4. $\mathlarger{\mathlarger{\beta}}$ $\beta$ $\mathsmaller{\beta}$ $\mathsmaller{\mathsmaller{\beta}}$
+
+### Q6
+
+When should you use regularization?
+
+\pspace
+
+1. When you want un unbiased estimate of the population parameters.
+2. When you want to avoid overfitting.
+3. When you want to be regular/normal/usual/typical.
+
+
+
+### Q7
+
+When should you use LASSO instead of Ridge?
+
+\pspace
+
+1. When you want to do subset selection in a way that minimizes out-of-sample prediction error.
+2. When you want most of the coefficients to be 0.
+3. When you want to minimize out-of-sample prediction error at all costs.
+4. When you only want coefficients with significant p-values left over in your model.
+
+### Personal Opinion Time
+
+With the existence of LASSO, there's no reason to do automated feature selection.
+
+Best subset selection can be written as:
+$$
+\text{Minimize } MSE(\underline\beta)\text{ subject to }\sum_{j=1}^pI(\beta\ne 0) \le s
+$$
+This can minimize out-of-sample error, but results in something that could be mistaken for inference.
+
+\quad
+
+With LASSO, you know the estimates are biased and you know why. Best subset tricks you into thinking your $\underline\beta$ estimates are accurate - *they are not*.
+
+### Implementation in R: `glmnet`
+
+- The `glm` in `glmnet` is because it fits all GLMs.
+    - Including Logistic Regression.
+    - The `family = binomial` argument works as in `glm()`
+        - However, `family = "binomial"` is an optimized version.\newline
+- The `net` in `glmnet` refers to elasticnet.
+    - Next slide or two.
+
+### Elastic Net: Like a lasso, but more "flexible" {.t}
+
+$$
+\text{Minimize } MSE(\underline\beta) + \lambda\left[\alpha||\underline\beta||_1 + (1-\alpha)||\underline\beta||_2\right] 
+$$
+
+\quad
+
+Elastic Net is "doubly regularized".
+
+Elastic net needs more time to fit and needs more data.
+
+### Elasticnet and LASSO/Ridge {.t}
+
+$$
+\text{Minimize } MSE(\underline\beta) + \lambda\left[\alpha||\underline\beta||_1 + (1-\alpha)||\underline\beta||_2\right] 
+$$
+
+\pspace
+
+- $\alpha = 0 \implies$ Ridge
+- $\alpha = 1 \implies$ LASSO
+
+
+:::notes
+
+Here's an example of LASSO in R. We'll load in the `Wage` data from `ISLR2` package^[ISLR stands for Introduction to Statistical Learning with R, a fantastic (and free) book if you want to learn more advanced topics in predictive modelling!].
+
+This data set has a column for `wage` and a column for `logwage`. We're going to use `wage` as our response, and removing `wage` makes it easier to tell R to use all columns other than `logwage`. I also remove `region` since there are some regions with too few observations and I am not going to set up cross-validation appropriately for this scenario.
+
+```{r}
+library(glmnet) # cv.glmnet() and glmnet()
+library(ISLR2) # Wage data set
+
+Wage <- ISLR2::Wage
+# From names(Wage), I want to remove "region" and "wage"
+Wage <- Wage[, -c(6, 11)]
+```
+
+`glmnet` doesn't use the formula notation (`y ~ x`); we have to manually set up the design matrix (including dummy variables) and the response vector.
+
+```{r}
+X <- model.matrix(logwage ~ ., data = Wage)[,-1]
+y <- as.numeric(Wage$logwage)
+```
+
+The first step to fitting a LASSO model is choosing $\lambda$ via cv. The `cv.glmnet()` function does this for us. The results are *not* a final model; the resultant object gives us an idea of which value of $\lambda$ is appropriate. 
+
+```{r}
+cv_check <- cv.glmnet(x = X, y = y, alpha = 1)
+plot(cv_check)
+```
+
+The first dotted line indicates the value of $\lambda$ that minimizes the "loss function." However, across different samples we would get different values of $\lambda$. BEcause we know there's randomness, we know that a slightly larger (more restrictive) value of $\lambda$ would also be consistent with our data. Since cross-validation emulates the idea of having many samples, we can get an estimate of the **standard error** of $\lambda$. We can then choose the alue of $\lambda$ that is within 1 standard error of the minimum. This gives a much simpler model while still having a plausible $\lambda$.^[This is similar to the Box-Cox transformation, where we find a bunch of plausible transformations, and go with a simple one like `\log()` or `sqrt()`.]
+
+Now that we have a way of telling R what value we want for lambda, we cna fit the model.
+
+```{r}
+my_lasso <- glmnet(X, y, lambda = cv_check$lambda.1se)
+my_lasso
+```
+
+The output isn't very informative, but the model can make predictions via the `predict()` function and these will be comparable or better than the predictions from an unconstrained linear model.
+
+Let's compare the coefficient values to see the shrinkage in action! Of course, glmnet standardizes by default, so we need to ensure that the linear model is based on standardized predictors.
+
+In the output, I include a column for the difference in the coefficients. Specifically, it's lm minus lasso, so we may expect "shrinkage" to mean that the lasso estimates are smaller.
+
+```{r}
+standardized_X <- apply(X, 2, scale)
+standardized_lm <- lm(y ~ standardized_X)
+coef_mat <- cbind(coef(my_lasso),
+    coef(standardized_lm))
+
+res <- cbind(
+        coef_mat, 
+        apply(coef_mat, 1, function(x) abs(x[2]) - abs(x[1]))
+    ) |> 
+    round(3)
+colnames(res) <- c("lasso", "lm", "|lm|-|lasso|")
+res
+```
+:::
+
+The estimates aren't all smaller! Lasso chose to set some to 0, which freed up some coefficient "budget" to spend elsewhere.
