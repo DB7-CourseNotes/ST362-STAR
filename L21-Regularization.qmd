@@ -124,9 +124,8 @@ For $||\underline\beta||_p$ to make sense, the predictors must all have the same
 
 This is accomplished by **standardizing** the features: Replace each $x_{ij}$ with
 $$
-\frac{x_{ij} - \bar \mathbf x_{j}}{\frac{1}{n}\sum_{i=1}^n(x_{ij} - \bar \mathbf x_{j})^2}
+\frac{x_{ij} - \bar{\mathbf{x}_{j}}}{\frac{1}{n}\sum_{i=1}^n(x_{ij} - \bar{\mathbf{x}_{j}})^2}
 $$
-
 
 ### Choosing $\lambda$ via cross-validation
 
