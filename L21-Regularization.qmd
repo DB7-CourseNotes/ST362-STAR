@@ -270,7 +270,6 @@ What is cross-validation trying to minimize?
 1. The out-of-sample prediction error. 
 2. The bias in the estimates.
 3. The loss function (MSE).
-4. $\mathlarger{\mathlarger{\beta}}$ $\beta$ $\mathsmaller{\beta}$ $\mathsmaller{\mathsmaller{\beta}}$
 
 ### Q6
 

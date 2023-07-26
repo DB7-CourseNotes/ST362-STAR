@@ -1,0 +1,526 @@
+---
+title: "L22: Classification"
+institute: "Jam: **Love's a Logistical Thing** by PJ Parker"
+---
+
+```{r}
+#| include: false
+set.seed(2112)
+```
+
+## Preamble
+
+### Announcements
+
+- Second part of Project out later today.
+
+## Logistic Regression
+
+### Goal: Predict a 1
+
+- Response: 0 or 1
+    - Predictions: probability of a 1?\lspace
+- 
+
+### The Logistic Function - A Sigmoidal Function
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+If $t\in\mathbb{R}$, then
+$$
+\sigma(t) = \dfrac{\exp(t)}{1 + \exp(t)}\in[0,1]
+$$
+where $\sigma(\cdot)$ is the **logistic** function.
+:::
+::: {.column width="50%"}
+
+```{r}
+#| fig-height: 4
+#| fig-width: 5
+library(ggplot2)
+t <- seq(-10, 10, 0.01)
+sigma_t <- exp(t)/(1 + exp(t))
+ggplot() + theme_minimal() +
+    geom_line(mapping = aes(x = t, y = sigma_t)) +
+    geom_hline(yintercept = c(0,1), linetype = "dashed") +
+    labs(x = "t", y = expression(sigma(t)))
+```
+
+:::
+::::
+
+### Logistic Function - Now with Parameters
+
+```{r}
+#| fig-height: 5
+#| fig-width: 4
+#| layout-ncol: 3
+library(ggplot2)
+t <- seq(-10, 10, 0.01)
+sigma <- function(t) exp(t)/(1 + exp(t))
+ggplot() + theme_minimal() +
+    geom_line(mapping = aes(x = t, y = sigma(t + 1))) +
+    geom_hline(yintercept = c(0,1), linetype = "dashed") +
+    labs(x = "t", y = expression(sigma(t)),
+        title = expression(sigma(t+1)))
+
+ggplot() + theme_minimal() +
+    geom_line(mapping = aes(x = t, y = sigma(t/3))) +
+    geom_hline(yintercept = c(0,1), linetype = "dashed") +
+    labs(x = "t", y = expression(sigma(t)),
+        title = expression(sigma(t*"/3")))
+
+ggplot() + theme_minimal() +
+    geom_line(mapping = aes(x = t, y = sigma(-t*3 - 10))) +
+    geom_hline(yintercept = c(0,1), linetype = "dashed") +
+    labs(x = "t", y = expression(sigma(t)),
+        title = expression(sigma("-3"*t-10)))
+```
+
+### Logistic Function - Now with Parameters *Estimated from DATA*
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+\begin{align*}
+\eta(x_i) &= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ...\\
+p(x_i) &= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
+\implies \log\left(\frac{p_i(x_i)}{1-p_i(x_i)}\right) &= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ...
+\end{align*}
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| fig-height: 3
+#| fig-width: 4
+library(ISLR2)
+library(ggplot2)
+library(dplyr)
+Default %>% 
+    mutate(default = as.numeric(factor(default)) - 1) %>%
+    ggplot() + theme_minimal() +
+        aes(x = balance, y = default) + 
+        geom_jitter(width = 0, height = 0.05) +
+        geom_smooth(method = "glm", se = FALSE,
+            method.args = list(family = "binomial")) +
+        labs(x = "Credit Card Balance",
+            y = "Default?")
+```
+
+\centering
+$\eta(x_i) = -10.65 + 0.0054\cdot\text{balance}_i$
+:::
+::::
+
+### Logistic Regression
+
+- The response is 0 or 1 (no or yes, dont' default or default, etc.)\lspace
+- The probability of a 1 increases according to the sigmoid function.
+    - The **linear predictor** is $\eta(x_i) = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \cdots$
+    - The probability of class 1 is $P(\text{class }1 | \text{predictors}) = \sigma(\eta(x_i))$\lspace
+- Instead of normality assumptions, we use a binomial distribution.
+
+It's just one step away from a linear model!
+
+### Interpreting Parameters
+
+- General structure: "For each one unit increase in $x_i$, some function of $y_i$ changes by some function of $\beta$"".\newline\pause
+- For logistic regression:
+    - For each one unit increase in $x_i$, $\log\left(\frac{p(x_i)}{1-p(x_i)}\right)$ increases by $\beta$.\pause\newline
+- The **odds** are $\frac{p(x_i)}{1-p(x_i)}$.
+    - "1 in 5 people with offs of 1/4 will default on their loan."\newline
+- $\beta$ represents the **change in log odds** for a one unit increase.
+    - "**log odds _ratio_**".
+
+### Estimating Parameters: Maximum Likelihood
+
+For all observations:
+
+- If $y_i = 0$, we want $p(x_i)$ to be as *low* as possible.
+    - Maximize $1 - P(Y_{i'} = 1|\beta_0,\beta_1,X)$\lspace
+- If $y_i = 1$, we want $p(x_i)$ to be as *high* as possible.
+    - Maximize $P(Y_{i'} = 1|\beta_0,\beta_1,X)$
+
+\quad
+
+These can be combined as:
+$$
+\ell(\beta_0,\beta_1) = \prod_{i':y_{i'} = 0}(1 - P(Y_{i'} = 1|\beta_0,\beta_1,X))\prod_{i:y_i=1}P(Y_i = 1|\beta_0,\beta_1,X)
+$$
+Which is NOT just the sum of squared errors!
+
+Unlike linear regression, there's no closed form for $\hat\beta_0$ and $\hat\beta_1$ $\Rightarrow$ need numerical methods.
+
+### Examples: Two different predictors in the `Default` data
+
+:::: {.columns}
+::: {.column width="45%"}
+```{r}
+#| fig-height: 1.75
+#| fig-width: 4
+
+Default$default <- as.numeric(factor(Default$default)) - 1
+Default$student <- as.numeric(factor(Default$student)) - 1
+
+ggplot(Default) + theme_minimal() +
+    aes(x = student, y = default) +
+    geom_jitter(alpha = 0.25, height = 0.1, width = 0.1) +
+    geom_smooth(method = "glm", se = TRUE,
+        method.args = list(family = "binomial")) +
+    labs(x = "Student (0 = No)", y = "Default (0 = No)")
+```
+
+$$
+\eta(x_i) = -3.5 + 0.5\cdot\text{student}
+$$
+
+The odds of a student defaulting are $\exp(0.5)\approx1.65$ times as high as a non-student.\pause
+:::
+::: {.column width="45%"}
+```{r}
+#| fig-height: 1.75
+#| fig-width: 4
+
+library(ggplot2)
+library(ISLR2)
+
+ggplot(Default) + theme_minimal() +
+    aes(x = balance, y = default) +
+    geom_jitter(alpha = 0.25, height = 0.1, width = 0) +
+    geom_smooth(method = "glm", se = FALSE,
+        method.args = list(family = "binomial")) +
+    labs(x = "Credit card balance", y = "Default (0 = No)")
+```
+
+$$
+\eta(x_i) = -10.65 + 0.005\cdot\text{balance}
+$$
+
+Each extra dollar of credit card balance increases the odds of defaulting by a factor of 1.005.
+:::
+::::
+
+\pause
+*The scale of the predictors matters.*
+
+### Odds versus Probabilities
+
+"The odds of a student defaulting are $\exp(0.5)\approx1.65$ times as high as a non-student."
+
+$$
+\frac{P(\text{defaulting} | \text{student} = 1)}{1 - P(\text{defaulting} | \text{student} = 1)} \biggm/ \frac{P(\text{defaulting} | \text{student} = 0)}{1 - P(\text{defaulting} | \text{student} = 0)} = 1.65
+$$
+This **cannot** be solved for $P(\text{defaulting} | \text{student} = 1)$!
+
+\quad\pause
+
+$$
+P(\text{defaulting} | \text{student} = 1) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))} = \dfrac{\exp(-3.5 + 0.5\cdot 1)}{1 + \exp(-3.5 + 0.5\cdot 1)} \approx 0.047
+$$
+
+
+### Multiple ~~Linear~~ Logistic Regression
+
+- Predictors can be **multicollinear**, **confounded**, and have **interactions**.
+    - Logistic is just Linear on a transformed scale!\lspace
+- We do *not* look for transformations of the response.
+    - It's already a transformation of the response $p_i(x_i)$!\lspace
+- We *do* look for transformations of the predictors!
+    - Sigmoid + Polynomial is where the real fun is.\lspace
+
+### Errors in Logistic Regression: Deviance
+
+- All "errors" are either $p(x_i)$ or $1 - p(x_i)$.
+    - Distance from either 0 or 1.
+
+\pspace
+
+Instead, we use the *deviance*.
+
+- If $p(x_i)$ were the true probability in a binomial distribution, what's the probability of the observed value (0 or 1)? 
+    - This is used more broadly in **Generalized Linear Models** (GLMs). Logistic Regression is one of many GLMs.
+
+
+
+
+### Logistic Decision Boundaries
+
+$$
+P(\text{defaulting} | \eta(x_i)) > p \implies a + bx_1 + cx_2 + dx_3 > e
+$$
+
+For some (linear) hyperplane $a + bx_1 + cx_2 + dx_3$ and some value $e$.
+
+\quad
+
+- Choosing $p=0.5$ is logical, but other thresholds can be chosen.
+    - Cancer example: want to be more admissive of false positives
+        - Would rather operate and be wrong than falsely tell the patient that they're healthy!
+
+
+
+### 
+
+
+```{r}
+#| label: decision_boundary
+#| cache: true
+#| fig-height: 4
+#| fig-width: 9
+
+library(ggplot2)
+library(ISLR2)
+
+Default$default <- as.numeric(factor(Default$default)) - 1
+Default$student <- as.numeric(factor(Default$student)) - 1
+
+decision_grid <- expand.grid(
+    student = c(0,1),
+    balance = seq(0, 2655, length.out = 250),
+    income= seq(770, 73555, length.out = 250)
+)
+
+my_glm <- glm(default ~ student + balance + income,
+    data = Default, family = binomial)
+decision_grid$pred <- predict(my_glm, newdata = decision_grid)
+
+student_labels <- c("Not Student", "Student")
+names(student_labels) <- c(0, 1)
+
+ggplot() + theme_minimal() +
+    geom_tile(data = decision_grid,
+        mapping = aes(x = balance, y = income, fill = factor(pred > 0.5))) +
+    scale_fill_manual(values = c("firebrick", "green", "firebrick", "green")) +
+    geom_point(data = Default, 
+        mapping = aes(x = balance, y = income, 
+            fill = factor(default == 1)),
+        shape = 21) +
+    facet_wrap(~ student, 
+        labeller = labeller(student = student_labels)) +
+    labs(x = "Credit Card Balance",
+        y = "Income",
+        fill = "Default?")
+
+```
+
+
+### Predictions - Just Plug it In!
+
+```{r}
+#| eval: false
+#| include: false
+
+library(ISLR2)
+
+mylm <- glm(default ~ student + balance + income, 
+    data = Default, family = binomial)
+predict(mylm, newdata = data.frame(student = "Yes", 
+    balance = 2000, income = 20000),
+    type = "link")
+predict(mylm, newdata = data.frame(student = "Yes", 
+    balance = 2000, income = 20000),
+    type = "response")
+```
+
+| | Intercept | Student | Balance | Income |
+| --- | --- | --- | --- | --- |
+| $\beta$ | -10.09 | -0.65 | 0.0057 | 0.000003 |
+
+We can make a prediction for a student with $2,000 balance and $20,000 income:
+\begin{align*}
+\eta(x) &= \beta_0 + \beta_1\cdot 1 + \beta_2\cdot 2000 + \beta_3\cdot 20000 \approx 0.0178\\
+&\\
+P(\text{defaulting} | x) &= \dfrac{\exp(\eta(x))}{1 + \exp(\eta(x))} \approx \dfrac{\exp(0.0178)}{1 + \exp(0.0178)} \approx 0.504\\
+&\\
+&P(\text{defaulting} | x) > 0.5 \implies \text{Predict Default}
+\end{align*}
+
+
+## Classification Basics
+
+### Goal: Predict a Category
+
+- **Binary:** Yes/no, success/failure, etc.\newline
+- **Categorical:** 2 or more categories.
+    - A.k.a. qualitative, but that's a social science word.
+
+\quad
+
+In both: predict whether an observation is in category $j$ given its predictors.
+$$
+P(Y_i = j| x = x_i) \stackrel{def}{=} p_j(x_i)
+$$
+
+
+### Classification Confusion
+
+**Confusion Matrix:** A tabular summary of classification errors.
+
+:::: {.columns}
+::: {.column width="50%"}
+
+| | True Pay ($\cdot 0$) | True Def ($\cdot 1$)|
+|---|---|---|
+| Pred Pay ($0 \cdot$) | Good (00) | Bad (01) |
+| Pred Def ($1 \cdot$) | Bad (10) | Good (11) |
+
+
+:::
+::: {.column width="50%"}
+\vspace{0.25cm}
+
+- Two ways to be wrong\newline
+- Two ways to be right\newline
+- Different applications have different needs
+:::
+::::
+\quad\pause 
+
+\quad\centering
+
+**Accuracy:** $\dfrac{\text{Correct Predictions}}{\text{Number of Predictions}} =\frac{00 + 11}{00 + 01 + 10 + 11}$
+
+
+### Is "Accuracy" Good?
+
+Task: Predict whether a person has cancer 
+
+(In this made up example, 0.02\% of people have cancer).
+
+\quad
+
+| | True Healthy | True Cancer |
+|---|---|---|
+| Pred. Healthy | Save a Life | Lose a Life |
+| Pred. Cancer | Expensive/Invasive | All good |
+
+\quad
+
+:::: {.columns}
+::: {.column width="50%"}
+- **Easy:**  99.8\% accuracy.
+    - Always guess "Not Cancer"
+:::
+::: {.column width="50%"}
+- **Very Hard:** 99.82\% accuracy.
+:::
+::::
+
+
+
+### The Confusion Matrix for Default Data
+
+```{r}
+#| eval: false
+#| include: false
+
+library(ISLR2)
+mylm <- glm(default ~ student + balance + income, 
+    data = Default, family = binomial)
+mypred <- predict(mylm, type = "response")
+
+conf <- table(mypred > 0.5, Default$default)
+
+```
+
+| | True Payment | True Default |
+| --- | --- | --- |
+| Pred Payment | 9627 | 228 |
+| Pred Default | 40 | 105 |
+
+- This model: 97.32% accuracy.
+    - Naive model: always predict "Pay" - 96.67% accuracy!
+
+Other important measures (not on exam): 
+
+- Sensitivity: $\dfrac{\text{True Positives}}{\text{All Positives in Data}} = \dfrac{9627}{9627 + 40} = 99.58%$ (Naive: 100%)\lspace
+- Specificity: $\dfrac{\text{True Negatives}}{\text{All Negatives in Data}} = \dfrac{105}{105 + 228} = 31.53$ (Naive: 0%)
+
+### Logistic Regression in R
+
+See Course Notes
+
+:::notes
+Model building works very similarly, but it's *very* difficult to interpret the residual plots.
+
+```{r}
+library(palmerpenguins)
+peng <- penguins[complete.cases(penguins), ]
+
+log_cont <- glm(sex ~ bill_length_mm + 
+        bill_depth_mm + flipper_length_mm,
+    data = peng, family = "binomial")
+
+anova(log_cont, test = "Chisq") # Sequential
+
+log_spec <- update(log_cont, ~ . + species * flipper_length_mm)
+
+anova(log_cont, log_spec, test = "Chisq")
+
+full_spec <- glm(sex ~ species*(bill_length_mm + 
+        bill_depth_mm + flipper_length_mm),
+    data = peng, family = "binomial")
+
+anova(log_spec, full_spec, test = "Chisq")
+anova(log_spec, update(log_spec, ~ . - species:flipper_length_mm), test = "Chisq")
+
+summary(log_spec)
+coef(log_spec)
+```
+
+The residual plots are the same as before:
+
+```{r}
+par(mfrow = c(2, 2))
+plot(log_spec)
+```
+
+The predictions can either be on the logit scale (`type = "link"`, the default) or on the response scale (probabilities).
+
+```{r}
+predict(log_spec, type = "response")
+```
+
+Regularization is often used with logistic regression (in python's scikit-learn package, Ridge regularization is used by default without warning the user).
+
+```{r}
+library(glmnet)
+
+X <- model.matrix(sex ~ species*(bill_length_mm + 
+        bill_depth_mm + flipper_length_mm),
+    data = peng)
+y <- as.factor(peng$sex)
+
+mycv <- cv.glmnet(X, y, family = binomial)
+
+mylasso <- glmnet(X, y,
+    data = peng, family = "binomial", alpha = 1,
+    lambda = mycv$lambda.1se)
+coef(mylasso)
+```
+:::
+
+## Multinomial Regression
+
+### Multinomial Logistic Regression: K Classes
+
+We have a total probability of 1 to distribute across the classes,\pause
+
+- **Stick breaking**
+    1. Fit a logistic regression of `class 1` versus `not class 1`.
+        - Remove obs. with `class 1`
+    2. Fit a logistic regression of `class 2` versus `not class 1`.
+        - Remove obs. with `class 2`
+    3. ...
+    4. Class $K$ gets whatever probability is left over.\pause\newline
+- **Softmaxing**
+    1. For all classes, fit a logistic regression of `class k` versus `not class k`.
+    2. In the end, divide by the total probability to make sure they sum to 1.
+    - Very often used in machine learning!
+
+These two give the same results!
+
+

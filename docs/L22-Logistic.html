@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.333">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Devan Becker">
+
+<title>Regression Analysis - 21&nbsp; L22: Classification</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Lb02-OLS_Estimates.html" rel="next">
+<link href="./L21-Regularization.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L22-Logistic.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">L22: Classification</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Regression Analysis</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST362-S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Lectures</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02-Fitting_Straight_Lines.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">L02: Straight Line Fitting</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03-Residuals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05-General_Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">L05: The General Regression Situation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L06-Extra_Sums_of_Squares-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L06: Extra Sum-of-Squares (Part 1)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07-Exampless.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L07: ESS Exampless</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">L09: Cereal Correlation in the Residuals</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">L10: The Hat Matrix</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">L11: The Hat Matrix 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">L12: Extra Topics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14-Nonlinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L14: Non-Linear Relationships with Linear Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">L15: Transforming the Response</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L16: Dummy Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">L17: Multicollinearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">L18: Modelling Poorly</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L20: Degrees of Freedom</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">L21: Regularization Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L22-Logistic.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">L22: Classification</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Lab Notes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb03-MSE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Lab 11: Hat Matrix and Residuals in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Lab 15: Transformations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb16-Regression_with_Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Lab 16 - Regression with Categorical Predictors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb17-Multico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb18-Backwards_Selection_is_Bad.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Backwards p-values</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#preamble" id="toc-preamble" class="nav-link active" data-scroll-target="#preamble"><span class="header-section-number">21.1</span> Preamble</a>
+  <ul class="collapse">
+  <li><a href="#announcements" id="toc-announcements" class="nav-link" data-scroll-target="#announcements">Announcements</a></li>
+  </ul></li>
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression"><span class="header-section-number">21.2</span> Logistic Regression</a>
+  <ul class="collapse">
+  <li><a href="#goal-predict-a-1" id="toc-goal-predict-a-1" class="nav-link" data-scroll-target="#goal-predict-a-1">Goal: Predict a 1</a></li>
+  <li><a href="#the-logistic-function---a-sigmoidal-function" id="toc-the-logistic-function---a-sigmoidal-function" class="nav-link" data-scroll-target="#the-logistic-function---a-sigmoidal-function">The Logistic Function - A Sigmoidal Function</a></li>
+  <li><a href="#logistic-function---now-with-parameters" id="toc-logistic-function---now-with-parameters" class="nav-link" data-scroll-target="#logistic-function---now-with-parameters">Logistic Function - Now with Parameters</a></li>
+  <li><a href="#logistic-function---now-with-parameters-estimated-from-data" id="toc-logistic-function---now-with-parameters-estimated-from-data" class="nav-link" data-scroll-target="#logistic-function---now-with-parameters-estimated-from-data">Logistic Function - Now with Parameters <em>Estimated from DATA</em></a></li>
+  <li><a href="#logistic-regression-1" id="toc-logistic-regression-1" class="nav-link" data-scroll-target="#logistic-regression-1">Logistic Regression</a></li>
+  <li><a href="#interpreting-parameters" id="toc-interpreting-parameters" class="nav-link" data-scroll-target="#interpreting-parameters">Interpreting Parameters</a></li>
+  <li><a href="#estimating-parameters-maximum-likelihood" id="toc-estimating-parameters-maximum-likelihood" class="nav-link" data-scroll-target="#estimating-parameters-maximum-likelihood">Estimating Parameters: Maximum Likelihood</a></li>
+  <li><a href="#examples-two-different-predictors-in-the-default-data" id="toc-examples-two-different-predictors-in-the-default-data" class="nav-link" data-scroll-target="#examples-two-different-predictors-in-the-default-data">Examples: Two different predictors in the <code>Default</code> data</a></li>
+  <li><a href="#odds-versus-probabilities" id="toc-odds-versus-probabilities" class="nav-link" data-scroll-target="#odds-versus-probabilities">Odds versus Probabilities</a></li>
+  <li><a href="#multiple-linear-logistic-regression" id="toc-multiple-linear-logistic-regression" class="nav-link" data-scroll-target="#multiple-linear-logistic-regression">Multiple <del>Linear</del> Logistic Regression</a></li>
+  <li><a href="#errors-in-logistic-regression-deviance" id="toc-errors-in-logistic-regression-deviance" class="nav-link" data-scroll-target="#errors-in-logistic-regression-deviance">Errors in Logistic Regression: Deviance</a></li>
+  <li><a href="#logistic-decision-boundaries" id="toc-logistic-decision-boundaries" class="nav-link" data-scroll-target="#logistic-decision-boundaries">Logistic Decision Boundaries</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#predictions---just-plug-it-in" id="toc-predictions---just-plug-it-in" class="nav-link" data-scroll-target="#predictions---just-plug-it-in">Predictions - Just Plug it In!</a></li>
+  </ul></li>
+  <li><a href="#classification-basics" id="toc-classification-basics" class="nav-link" data-scroll-target="#classification-basics"><span class="header-section-number">21.3</span> Classification Basics</a>
+  <ul class="collapse">
+  <li><a href="#goal-predict-a-category" id="toc-goal-predict-a-category" class="nav-link" data-scroll-target="#goal-predict-a-category">Goal: Predict a Category</a></li>
+  <li><a href="#classification-confusion" id="toc-classification-confusion" class="nav-link" data-scroll-target="#classification-confusion">Classification Confusion</a></li>
+  <li><a href="#is-accuracy-good" id="toc-is-accuracy-good" class="nav-link" data-scroll-target="#is-accuracy-good">Is “Accuracy” Good?</a></li>
+  <li><a href="#the-confusion-matrix-for-default-data" id="toc-the-confusion-matrix-for-default-data" class="nav-link" data-scroll-target="#the-confusion-matrix-for-default-data">The Confusion Matrix for Default Data</a></li>
+  <li><a href="#logistic-regression-in-r" id="toc-logistic-regression-in-r" class="nav-link" data-scroll-target="#logistic-regression-in-r">Logistic Regression in R</a></li>
+  </ul></li>
+  <li><a href="#multinomial-regression" id="toc-multinomial-regression" class="nav-link" data-scroll-target="#multinomial-regression"><span class="header-section-number">21.4</span> Multinomial Regression</a>
+  <ul class="collapse">
+  <li><a href="#multinomial-logistic-regression-k-classes" id="toc-multinomial-logistic-regression-k-classes" class="nav-link" data-scroll-target="#multinomial-logistic-regression-k-classes">Multinomial Logistic Regression: K Classes</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/blob/main/L22-Logistic.qmd" class="toc-action">View source</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">L22: Classification</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Jam: <strong>Love’s a Logistical Thing</strong> by PJ Parker
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="preamble" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="preamble"><span class="header-section-number">21.1</span> Preamble</h2>
+<section id="announcements" class="level3">
+<h3 class="anchored" data-anchor-id="announcements">Announcements</h3>
+<ul>
+<li>Second part of Project out later today.</li>
+</ul>
+</section>
+</section>
+<section id="logistic-regression" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">21.2</span> Logistic Regression</h2>
+<section id="goal-predict-a-1" class="level3">
+<h3 class="anchored" data-anchor-id="goal-predict-a-1">Goal: Predict a 1</h3>
+<ul>
+<li>Response: 0 or 1
+<ul>
+<li>Predictions: probability of a 1?</li>
+</ul></li>
+<li></li>
+</ul>
+</section>
+<section id="the-logistic-function---a-sigmoidal-function" class="level3">
+<h3 class="anchored" data-anchor-id="the-logistic-function---a-sigmoidal-function">The Logistic Function - A Sigmoidal Function</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>If <span class="math inline">\(t\in\mathbb{R}\)</span>, then <span class="math display">\[
+\sigma(t) = \dfrac{\exp(t)}{1 + \exp(t)}\in[0,1]
+\]</span> where <span class="math inline">\(\sigma(\cdot)\)</span> is the <strong>logistic</strong> function.</p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="fl">0.01</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sigma_t <span class="ot">&lt;-</span> <span class="fu">exp</span>(t)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(t))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> sigma_t)) <span class="sc">+</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"t"</span>, <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">sigma</span>(t)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="logistic-function---now-with-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="logistic-function---now-with-parameters">Logistic Function - Now with Parameters</h3>
+<div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="fl">0.01</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="cf">function</span>(t) <span class="fu">exp</span>(t)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(t))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> <span class="fu">sigma</span>(t <span class="sc">+</span> <span class="dv">1</span>))) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"t"</span>, <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">sigma</span>(t)),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="fu">expression</span>(<span class="fu">sigma</span>(t<span class="sc">+</span><span class="dv">1</span>)))</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> <span class="fu">sigma</span>(t<span class="sc">/</span><span class="dv">3</span>))) <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"t"</span>, <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">sigma</span>(t)),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="fu">expression</span>(<span class="fu">sigma</span>(t<span class="sc">*</span><span class="st">"/3"</span>)))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> <span class="fu">sigma</span>(<span class="sc">-</span>t<span class="sc">*</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">10</span>))) <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"t"</span>, <span class="at">y =</span> <span class="fu">expression</span>(<span class="fu">sigma</span>(t)),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="fu">expression</span>(<span class="fu">sigma</span>(<span class="st">"-3"</span><span class="sc">*</span>t<span class="dv">-10</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="384"></p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="logistic-function---now-with-parameters-estimated-from-data" class="level3">
+<h3 class="anchored" data-anchor-id="logistic-function---now-with-parameters-estimated-from-data">Logistic Function - Now with Parameters <em>Estimated from DATA</em></h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="math display">\[\begin{align*}
+\eta(x_i) &amp;= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ...\\
+p(x_i) &amp;= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
+\implies \log\left(\frac{p_i(x_i)}{1-p_i(x_i)}\right) &amp;= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ...
+\end{align*}\]</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Default <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">default =</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(default)) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x =</span> balance, <span class="at">y =</span> default) <span class="sc">+</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>)) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Credit Card Balance"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="st">"Default?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<p><span class="math inline">\(\eta(x_i) = -10.65 + 0.0054\cdot\text{balance}_i\)</span></p>
+</div>
+</div>
+</section>
+<section id="logistic-regression-1" class="level3">
+<h3 class="anchored" data-anchor-id="logistic-regression-1">Logistic Regression</h3>
+<ul>
+<li>The response is 0 or 1 (no or yes, dont’ default or default, etc.)</li>
+<li>The probability of a 1 increases according to the sigmoid function.
+<ul>
+<li>The <strong>linear predictor</strong> is <span class="math inline">\(\eta(x_i) = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \cdots\)</span></li>
+<li>The probability of class 1 is <span class="math inline">\(P(\text{class }1 | \text{predictors}) = \sigma(\eta(x_i))\)</span></li>
+</ul></li>
+<li>Instead of normality assumptions, we use a binomial distribution.</li>
+</ul>
+<p>It’s just one step away from a linear model!</p>
+</section>
+<section id="interpreting-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-parameters">Interpreting Parameters</h3>
+<ul>
+<li>General structure: “For each one unit increase in <span class="math inline">\(x_i\)</span>, some function of <span class="math inline">\(y_i\)</span> changes by some function of <span class="math inline">\(\beta\)</span>”“.</li>
+<li>For logistic regression:
+<ul>
+<li>For each one unit increase in <span class="math inline">\(x_i\)</span>, <span class="math inline">\(\log\left(\frac{p(x_i)}{1-p(x_i)}\right)\)</span> increases by <span class="math inline">\(\beta\)</span>.</li>
+</ul></li>
+<li>The <strong>odds</strong> are <span class="math inline">\(\frac{p(x_i)}{1-p(x_i)}\)</span>.
+<ul>
+<li>“1 in 5 people with offs of 1/4 will default on their loan.”</li>
+</ul></li>
+<li><span class="math inline">\(\beta\)</span> represents the <strong>change in log odds</strong> for a one unit increase.
+<ul>
+<li>“<strong>log odds <em>ratio</em></strong>”.</li>
+</ul></li>
+</ul>
+</section>
+<section id="estimating-parameters-maximum-likelihood" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-parameters-maximum-likelihood">Estimating Parameters: Maximum Likelihood</h3>
+<p>For all observations:</p>
+<ul>
+<li>If <span class="math inline">\(y_i = 0\)</span>, we want <span class="math inline">\(p(x_i)\)</span> to be as <em>low</em> as possible.
+<ul>
+<li>Maximize <span class="math inline">\(1 - P(Y_{i'} = 1|\beta_0,\beta_1,X)\)</span></li>
+</ul></li>
+<li>If <span class="math inline">\(y_i = 1\)</span>, we want <span class="math inline">\(p(x_i)\)</span> to be as <em>high</em> as possible.
+<ul>
+<li>Maximize <span class="math inline">\(P(Y_{i'} = 1|\beta_0,\beta_1,X)\)</span></li>
+</ul></li>
+</ul>
+<p>These can be combined as: <span class="math display">\[
+\ell(\beta_0,\beta_1) = \prod_{i':y_{i'} = 0}(1 - P(Y_{i'} = 1|\beta_0,\beta_1,X))\prod_{i:y_i=1}P(Y_i = 1|\beta_0,\beta_1,X)
+\]</span> Which is NOT just the sum of squared errors!</p>
+<p>Unlike linear regression, there’s no closed form for <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> <span class="math inline">\(\Rightarrow\)</span> need numerical methods.</p>
+</section>
+<section id="examples-two-different-predictors-in-the-default-data" class="level3">
+<h3 class="anchored" data-anchor-id="examples-two-different-predictors-in-the-default-data">Examples: Two different predictors in the <code>Default</code> data</h3>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Default<span class="sc">$</span>default <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(Default<span class="sc">$</span>default)) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Default<span class="sc">$</span>student <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(Default<span class="sc">$</span>student)) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Default) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> student, <span class="at">y =</span> default) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.25</span>, <span class="at">height =</span> <span class="fl">0.1</span>, <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>)) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Student (0 = No)"</span>, <span class="at">y =</span> <span class="st">"Default (0 = No)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<p><span class="math display">\[
+\eta(x_i) = -3.5 + 0.5\cdot\text{student}
+\]</span></p>
+<p>The odds of a student defaulting are <span class="math inline">\(\exp(0.5)\approx1.65\)</span> times as high as a non-student.</p>
+</div><div class="column" style="width:45%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Default) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> balance, <span class="at">y =</span> default) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.25</span>, <span class="at">height =</span> <span class="fl">0.1</span>, <span class="at">width =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"glm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>)) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Credit card balance"</span>, <span class="at">y =</span> <span class="st">"Default (0 = No)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+<p><span class="math display">\[
+\eta(x_i) = -10.65 + 0.005\cdot\text{balance}
+\]</span></p>
+<p>Each extra dollar of credit card balance increases the odds of defaulting by a factor of 1.005.</p>
+</div>
+</div>
+<p><em>The scale of the predictors matters.</em></p>
+</section>
+<section id="odds-versus-probabilities" class="level3">
+<h3 class="anchored" data-anchor-id="odds-versus-probabilities">Odds versus Probabilities</h3>
+<p>“The odds of a student defaulting are <span class="math inline">\(\exp(0.5)\approx1.65\)</span> times as high as a non-student.”</p>
+<p><span class="math display">\[
+\frac{P(\text{defaulting} | \text{student} = 1)}{1 - P(\text{defaulting} | \text{student} = 1)} \biggm/ \frac{P(\text{defaulting} | \text{student} = 0)}{1 - P(\text{defaulting} | \text{student} = 0)} = 1.65
+\]</span> This <strong>cannot</strong> be solved for <span class="math inline">\(P(\text{defaulting} | \text{student} = 1)\)</span>!</p>
+<p><span class="math display">\[
+P(\text{defaulting} | \text{student} = 1) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))} = \dfrac{\exp(-3.5 + 0.5\cdot 1)}{1 + \exp(-3.5 + 0.5\cdot 1)} \approx 0.047
+\]</span></p>
+</section>
+<section id="multiple-linear-logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-linear-logistic-regression">Multiple <del>Linear</del> Logistic Regression</h3>
+<ul>
+<li>Predictors can be <strong>multicollinear</strong>, <strong>confounded</strong>, and have <strong>interactions</strong>.
+<ul>
+<li>Logistic is just Linear on a transformed scale!</li>
+</ul></li>
+<li>We do <em>not</em> look for transformations of the response.
+<ul>
+<li>It’s already a transformation of the response <span class="math inline">\(p_i(x_i)\)</span>!</li>
+</ul></li>
+<li>We <em>do</em> look for transformations of the predictors!
+<ul>
+<li>Sigmoid + Polynomial is where the real fun is.</li>
+</ul></li>
+</ul>
+</section>
+<section id="errors-in-logistic-regression-deviance" class="level3">
+<h3 class="anchored" data-anchor-id="errors-in-logistic-regression-deviance">Errors in Logistic Regression: Deviance</h3>
+<ul>
+<li>All “errors” are either <span class="math inline">\(p(x_i)\)</span> or <span class="math inline">\(1 - p(x_i)\)</span>.
+<ul>
+<li>Distance from either 0 or 1.</li>
+</ul></li>
+</ul>
+<p>Instead, we use the <em>deviance</em>.</p>
+<ul>
+<li>If <span class="math inline">\(p(x_i)\)</span> were the true probability in a binomial distribution, what’s the probability of the observed value (0 or 1)?
+<ul>
+<li>This is used more broadly in <strong>Generalized Linear Models</strong> (GLMs). Logistic Regression is one of many GLMs.</li>
+</ul></li>
+</ul>
+</section>
+<section id="logistic-decision-boundaries" class="level3">
+<h3 class="anchored" data-anchor-id="logistic-decision-boundaries">Logistic Decision Boundaries</h3>
+<p><span class="math display">\[
+P(\text{defaulting} | \eta(x_i)) &gt; p \implies a + bx_1 + cx_2 + dx_3 &gt; e
+\]</span></p>
+<p>For some (linear) hyperplane <span class="math inline">\(a + bx_1 + cx_2 + dx_3\)</span> and some value <span class="math inline">\(e\)</span>.</p>
+<ul>
+<li>Choosing <span class="math inline">\(p=0.5\)</span> is logical, but other thresholds can be chosen.
+<ul>
+<li>Cancer example: want to be more admissive of false positives
+<ul>
+<li>Would rather operate and be wrong than falsely tell the patient that they’re healthy!</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+<div class="cell" data-hash="L22-Logistic_cache/html/decision_boundary_109245f194bb6291d42bc501dc177299">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>Default<span class="sc">$</span>default <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(Default<span class="sc">$</span>default)) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Default<span class="sc">$</span>student <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(Default<span class="sc">$</span>student)) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>decision_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">student =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">balance =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2655</span>, <span class="at">length.out =</span> <span class="dv">250</span>),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">income=</span> <span class="fu">seq</span>(<span class="dv">770</span>, <span class="dv">73555</span>, <span class="at">length.out =</span> <span class="dv">250</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>my_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> student <span class="sc">+</span> balance <span class="sc">+</span> income,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> Default, <span class="at">family =</span> binomial)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>decision_grid<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(my_glm, <span class="at">newdata =</span> decision_grid)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>student_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Not Student"</span>, <span class="st">"Student"</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(student_labels) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>(<span class="at">data =</span> decision_grid,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> balance, <span class="at">y =</span> income, <span class="at">fill =</span> <span class="fu">factor</span>(pred <span class="sc">&gt;</span> <span class="fl">0.5</span>))) <span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"firebrick"</span>, <span class="st">"green"</span>, <span class="st">"firebrick"</span>, <span class="st">"green"</span>)) <span class="sc">+</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> Default, </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> balance, <span class="at">y =</span> income, </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="fu">factor</span>(default <span class="sc">==</span> <span class="dv">1</span>)),</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> student, </span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">student =</span> student_labels)) <span class="sc">+</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Credit Card Balance"</span>,</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Income"</span>,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> <span class="st">"Default?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L22-Logistic_files/figure-html/decision_boundary-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+</section>
+<section id="predictions---just-plug-it-in" class="level3">
+<h3 class="anchored" data-anchor-id="predictions---just-plug-it-in">Predictions - Just Plug it In!</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Intercept</th>
+<th>Student</th>
+<th>Balance</th>
+<th>Income</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\beta\)</span></td>
+<td>-10.09</td>
+<td>-0.65</td>
+<td>0.0057</td>
+<td>0.000003</td>
+</tr>
+</tbody>
+</table>
+<p>We can make a prediction for a student with $2,000 balance and $20,000 income: <span class="math display">\[\begin{align*}
+\eta(x) &amp;= \beta_0 + \beta_1\cdot 1 + \beta_2\cdot 2000 + \beta_3\cdot 20000 \approx 0.0178\\
+&amp;\\
+P(\text{defaulting} | x) &amp;= \dfrac{\exp(\eta(x))}{1 + \exp(\eta(x))} \approx \dfrac{\exp(0.0178)}{1 + \exp(0.0178)} \approx 0.504\\
+&amp;\\
+&amp;P(\text{defaulting} | x) &gt; 0.5 \implies \text{Predict Default}
+\end{align*}\]</span></p>
+</section>
+</section>
+<section id="classification-basics" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="classification-basics"><span class="header-section-number">21.3</span> Classification Basics</h2>
+<section id="goal-predict-a-category" class="level3">
+<h3 class="anchored" data-anchor-id="goal-predict-a-category">Goal: Predict a Category</h3>
+<ul>
+<li><strong>Binary:</strong> Yes/no, success/failure, etc.</li>
+<li><strong>Categorical:</strong> 2 or more categories.
+<ul>
+<li>A.k.a. qualitative, but that’s a social science word.</li>
+</ul></li>
+</ul>
+<p>In both: predict whether an observation is in category <span class="math inline">\(j\)</span> given its predictors. <span class="math display">\[
+P(Y_i = j| x = x_i) \stackrel{def}{=} p_j(x_i)
+\]</span></p>
+</section>
+<section id="classification-confusion" class="level3">
+<h3 class="anchored" data-anchor-id="classification-confusion">Classification Confusion</h3>
+<p><strong>Confusion Matrix:</strong> A tabular summary of classification errors.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>True Pay (<span class="math inline">\(\cdot 0\)</span>)</th>
+<th>True Def (<span class="math inline">\(\cdot 1\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pred Pay (<span class="math inline">\(0 \cdot\)</span>)</td>
+<td>Good (00)</td>
+<td>Bad (01)</td>
+</tr>
+<tr class="even">
+<td>Pred Def (<span class="math inline">\(1 \cdot\)</span>)</td>
+<td>Bad (10)</td>
+<td>Good (11)</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Two ways to be wrong</li>
+<li>Two ways to be right</li>
+<li>Different applications have different needs</li>
+</ul>
+</div>
+</div>
+<p><strong>Accuracy:</strong> <span class="math inline">\(\dfrac{\text{Correct Predictions}}{\text{Number of Predictions}} =\frac{00 + 11}{00 + 01 + 10 + 11}\)</span></p>
+</section>
+<section id="is-accuracy-good" class="level3">
+<h3 class="anchored" data-anchor-id="is-accuracy-good">Is “Accuracy” Good?</h3>
+<p>Task: Predict whether a person has cancer</p>
+<p>(In this made up example, 0.02% of people have cancer).</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>True Healthy</th>
+<th>True Cancer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pred. Healthy</td>
+<td>Save a Life</td>
+<td>Lose a Life</td>
+</tr>
+<tr class="even">
+<td>Pred. Cancer</td>
+<td>Expensive/Invasive</td>
+<td>All good</td>
+</tr>
+</tbody>
+</table>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><strong>Easy:</strong> 99.8% accuracy.
+<ul>
+<li>Always guess “Not Cancer”</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><strong>Very Hard:</strong> 99.82% accuracy.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="the-confusion-matrix-for-default-data" class="level3">
+<h3 class="anchored" data-anchor-id="the-confusion-matrix-for-default-data">The Confusion Matrix for Default Data</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>True Payment</th>
+<th>True Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pred Payment</td>
+<td>9627</td>
+<td>228</td>
+</tr>
+<tr class="even">
+<td>Pred Default</td>
+<td>40</td>
+<td>105</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>This model: 97.32% accuracy.
+<ul>
+<li>Naive model: always predict “Pay” - 96.67% accuracy!</li>
+</ul></li>
+</ul>
+<p>Other important measures (not on exam):</p>
+<ul>
+<li>Sensitivity: <span class="math inline">\(\dfrac{\text{True Positives}}{\text{All Positives in Data}} = \dfrac{9627}{9627 + 40} = 99.58%\)</span> (Naive: 100%)</li>
+<li>Specificity: <span class="math inline">\(\dfrac{\text{True Negatives}}{\text{All Negatives in Data}} = \dfrac{105}{105 + 228} = 31.53\)</span> (Naive: 0%)</li>
+</ul>
+</section>
+<section id="logistic-regression-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="logistic-regression-in-r">Logistic Regression in R</h3>
+<p>See Course Notes</p>
+<div class="notes">
+<p>Model building works very similarly, but it’s <em>very</em> difficult to interpret the residual plots.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins), ]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>log_cont <span class="ot">&lt;-</span> <span class="fu">glm</span>(sex <span class="sc">~</span> bill_length_mm <span class="sc">+</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        bill_depth_mm <span class="sc">+</span> flipper_length_mm,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(log_cont, <span class="at">test =</span> <span class="st">"Chisq"</span>) <span class="co"># Sequential</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model: binomial, link: logit
+
+Response: sex
+
+Terms added sequentially (first to last)
+
+                  Df Deviance Resid. Df Resid. Dev  Pr(&gt;Chi)    
+NULL                                332     461.61              
+bill_length_mm     1   41.185       331     420.42 1.385e-10 ***
+bill_depth_mm      1   96.786       330     323.64 &lt; 2.2e-16 ***
+flipper_length_mm  1   72.666       329     250.97 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>log_spec <span class="ot">&lt;-</span> <span class="fu">update</span>(log_cont, <span class="sc">~</span> . <span class="sc">+</span> species <span class="sc">*</span> flipper_length_mm)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(log_cont, log_spec, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: sex ~ bill_length_mm + bill_depth_mm + flipper_length_mm
+Model 2: sex ~ bill_length_mm + bill_depth_mm + flipper_length_mm + species + 
+    flipper_length_mm:species
+  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+1       329     250.97                          
+2       325     174.71  4   76.265 1.076e-15 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>full_spec <span class="ot">&lt;-</span> <span class="fu">glm</span>(sex <span class="sc">~</span> species<span class="sc">*</span>(bill_length_mm <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>        bill_depth_mm <span class="sc">+</span> flipper_length_mm),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(log_spec, full_spec, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: sex ~ bill_length_mm + bill_depth_mm + flipper_length_mm + species + 
+    flipper_length_mm:species
+Model 2: sex ~ species * (bill_length_mm + bill_depth_mm + flipper_length_mm)
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+1       325     174.71                     
+2       321     170.32  4   4.3894   0.3559</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(log_spec, <span class="fu">update</span>(log_spec, <span class="sc">~</span> . <span class="sc">-</span> species<span class="sc">:</span>flipper_length_mm), <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: sex ~ bill_length_mm + bill_depth_mm + flipper_length_mm + species + 
+    flipper_length_mm:species
+Model 2: sex ~ bill_length_mm + bill_depth_mm + flipper_length_mm + species
+  Resid. Df Resid. Dev Df Deviance Pr(&gt;Chi)
+1       325     174.71                     
+2       327     178.78 -2  -4.0697   0.1307</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(log_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = sex ~ bill_length_mm + bill_depth_mm + flipper_length_mm + 
+    species + flipper_length_mm:species, family = "binomial", 
+    data = peng)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-3.2365  -0.3125   0.0033   0.3252   2.5852  
+
+Coefficients:
+                                    Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)                        -69.63032   10.83543  -6.426 1.31e-10 ***
+bill_length_mm                       0.65617    0.10521   6.237 4.47e-10 ***
+bill_depth_mm                        1.96180    0.29827   6.577 4.79e-11 ***
+flipper_length_mm                    0.04329    0.04375   0.990   0.3224    
+speciesChinstrap                   -38.57778   22.93391  -1.682   0.0925 .  
+speciesGentoo                      -34.58899   20.48998  -1.688   0.0914 .  
+flipper_length_mm:speciesChinstrap   0.15957    0.11696   1.364   0.1725    
+flipper_length_mm:speciesGentoo      0.15988    0.09666   1.654   0.0981 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 461.61  on 332  degrees of freedom
+Residual deviance: 174.71  on 325  degrees of freedom
+AIC: 190.71
+
+Number of Fisher Scoring iterations: 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(log_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                       (Intercept)                     bill_length_mm 
+                      -69.63031836                         0.65616618 
+                     bill_depth_mm                  flipper_length_mm 
+                        1.96180392                         0.04329349 
+                  speciesChinstrap                      speciesGentoo 
+                      -38.57777987                       -34.58899421 
+flipper_length_mm:speciesChinstrap    flipper_length_mm:speciesGentoo 
+                        0.15956974                         0.15987824 </code></pre>
+</div>
+</div>
+<p>The residual plots are the same as before:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The predictions can either be on the logit scale (<code>type = "link"</code>, the default) or on the response scale (probabilities).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(log_spec, <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           1            2            3            4            5            6 
+6.335863e-01 1.789059e-01 6.382736e-01 6.613775e-01 9.918045e-01 2.059974e-01 
+           7            8            9           10           11           12 
+9.518910e-01 4.366608e-01 9.961545e-01 9.543141e-01 6.385044e-02 8.145449e-01 
+          13           14           15           16           17           18 
+9.993860e-01 4.765189e-02 9.999853e-01 1.989040e-01 3.978832e-01 4.440235e-01 
+          19           20           21           22           23           24 
+2.598353e-01 6.690609e-02 2.152312e-01 8.056970e-01 5.390662e-01 3.045788e-01 
+          25           26           27           28           29           30 
+8.600052e-01 3.756519e-02 1.185697e-01 3.424333e-01 9.047345e-01 1.883593e-02 
+          31           32           33           34           35           36 
+9.974548e-01 9.641108e-01 8.953032e-01 6.770978e-01 8.723114e-01 7.667766e-02 
+          37           38           39           40           41           42 
+8.429950e-01 1.594434e-01 9.984056e-01 1.494400e-02 8.117678e-01 9.235650e-01 
+          43           44           45           46           47           48 
+6.499244e-02 9.996595e-01 2.953334e-01 8.698026e-01 3.480901e-02 9.921747e-01 
+          49           50           51           52           53           54 
+3.267095e-02 9.083431e-01 1.603427e-01 9.044420e-01 5.075777e-03 7.131886e-01 
+          55           56           57           58           59           60 
+6.423137e-03 9.993287e-01 2.663563e-02 7.949935e-01 1.430101e-02 7.843188e-01 
+          61           62           63           64           65           66 
+2.209084e-03 9.501566e-01 5.055323e-03 9.882087e-01 1.044514e-01 6.775277e-01 
+          67           68           69           70           71           72 
+1.950401e-01 9.975979e-01 2.233334e-02 9.604257e-01 1.728217e-01 6.908425e-01 
+          73           74           75           76           77           78 
+2.033060e-03 9.802946e-01 6.683069e-03 8.223693e-01 3.609544e-01 4.540682e-01 
+          79           80           81           82           83           84 
+1.228025e-01 9.966415e-01 6.613806e-01 3.217448e-01 7.941215e-01 7.314952e-01 
+          85           86           87           88           89           90 
+1.045715e-01 8.483769e-01 3.127071e-03 4.787881e-01 2.099992e-02 9.617423e-01 
+          91           92           93           94           95           96 
+5.212193e-01 8.309077e-01 1.804395e-04 9.651686e-01 3.783822e-02 9.950191e-01 
+          97           98           99          100          101          102 
+3.753586e-03 9.330557e-01 5.208817e-01 8.120787e-01 1.252230e-01 9.477014e-01 
+         103          104          105          106          107          108 
+3.096031e-02 9.892192e-01 2.439898e-02 9.997717e-01 3.773177e-01 9.921852e-01 
+         109          110          111          112          113          114 
+9.946869e-01 9.412829e-01 5.665446e-02 9.753270e-01 9.266403e-03 8.818569e-01 
+         115          116          117          118          119          120 
+1.732388e-02 9.257368e-01 9.261481e-02 9.291443e-01 6.832281e-04 9.478319e-01 
+         121          122          123          124          125          126 
+2.019315e-01 8.747711e-01 9.762164e-02 9.761239e-01 2.638859e-01 9.922007e-01 
+         127          128          129          130          131          132 
+3.027181e-01 4.712042e-01 1.184954e-01 4.738844e-01 2.483923e-02 9.921434e-01 
+         133          134          135          136          137          138 
+6.874007e-03 4.728796e-01 2.058788e-01 2.402951e-01 4.448793e-05 2.062096e-01 
+         139          140          141          142          143          144 
+2.014073e-02 6.581792e-01 6.914082e-01 1.748780e-01 6.623619e-02 2.762893e-01 
+         145          146          147          148          149          150 
+1.254750e-02 9.305999e-01 5.459055e-03 9.993221e-01 1.260305e-01 9.370179e-01 
+         151          152          153          154          155          156 
+2.978150e-01 1.038278e-02 5.128080e-02 7.178570e-01 8.612590e-04 5.945883e-01 
+         157          158          159          160          161          162 
+8.871113e-04 9.677971e-01 1.784040e-02 3.675006e-01 5.424351e-02 9.533925e-01 
+         163          164          165          166          167          168 
+5.473265e-04 9.418289e-01 4.763469e-02 9.215317e-01 7.437330e-01 7.598869e-02 
+         169          170          171          172          173          174 
+1.206965e-01 6.983820e-01 1.243935e-03 3.396417e-01 5.632619e-01 1.332823e-01 
+         175          176          177          178          179          180 
+9.645102e-01 8.740300e-01 2.973927e-03 1.592968e-02 9.999997e-01 8.495307e-01 
+         181          182          183          184          185          186 
+9.854329e-01 2.206053e-03 9.660485e-01 1.646019e-03 6.891227e-01 8.541204e-04 
+         187          188          189          190          191          192 
+9.956318e-01 7.018181e-03 8.373555e-01 9.945889e-01 1.402032e-02 1.179034e-02 
+         193          194          195          196          197          198 
+9.970512e-01 4.541793e-03 5.294214e-01 4.235907e-02 4.909915e-01 2.388852e-02 
+         199          200          201          202          203          204 
+9.780181e-01 2.027258e-01 5.542174e-01 2.597927e-03 4.405543e-01 5.668999e-03 
+         205          206          207          208          209          210 
+9.875994e-01 5.695476e-03 5.566050e-01 2.975088e-02 9.998931e-01 1.400737e-01 
+         211          212          213          214          215          216 
+9.997101e-01 9.985980e-01 4.226191e-02 9.777447e-01 5.967559e-01 8.496541e-01 
+         217          218          219          220          221          222 
+9.484849e-01 3.578696e-01 3.867367e-01 9.969475e-01 6.117373e-02 9.974925e-01 
+         223          224          225          226          227          228 
+2.175778e-02 9.488398e-01 3.815463e-01 9.967779e-01 1.974526e-01 9.949942e-01 
+         229          230          231          232          233          234 
+9.832791e-03 9.999153e-01 3.915490e-02 8.307658e-01 7.489930e-02 9.999567e-01 
+         235          236          237          238          239          240 
+6.608482e-01 9.999500e-01 5.493056e-02 9.953044e-01 6.281714e-02 9.970736e-01 
+         241          242          243          244          245          246 
+9.559294e-01 5.747705e-01 4.893765e-02 9.993856e-01 8.214810e-01 9.999946e-01 
+         247          248          249          250          251          252 
+6.988048e-01 9.769925e-01 8.527367e-01 4.713487e-03 9.981872e-01 2.277622e-03 
+         253          254          255          256          257          258 
+3.608702e-01 9.322383e-01 9.979272e-01 7.036563e-02 9.997466e-01 1.038896e-01 
+         259          260          261          262          263          264 
+9.999570e-01 9.908693e-01 5.251035e-02 1.449194e-01 9.914726e-01 7.918318e-02 
+         265          266          267          268          269          270 
+9.672008e-01 2.582266e-02 9.319210e-01 9.065708e-01 2.674930e-02 9.944014e-01 
+         271          272          273          274          275          276 
+3.040245e-02 2.140974e-03 7.543807e-01 1.997224e-01 9.906227e-01 2.770514e-02 
+         277          278          279          280          281          282 
+9.925774e-01 2.733643e-03 8.999531e-01 2.474572e-03 9.845589e-01 9.819642e-01 
+         283          284          285          286          287          288 
+8.157620e-01 6.131698e-02 3.403890e-01 5.951635e-05 3.537981e-02 8.606253e-05 
+         289          290          291          292          293          294 
+9.007432e-01 5.262429e-02 9.589431e-01 8.317571e-01 8.927408e-01 1.638286e-02 
+         295          296          297          298          299          300 
+9.992977e-01 1.902890e-05 9.998686e-01 6.615219e-05 9.650926e-01 6.109348e-01 
+         301          302          303          304          305          306 
+2.384338e-02 1.801625e-01 9.998909e-01 2.682769e-03 9.994601e-01 9.918415e-01 
+         307          308          309          310          311          312 
+3.589207e-03 9.185201e-01 5.268760e-03 5.170542e-01 8.997117e-01 1.579090e-01 
+         313          314          315          316          317          318 
+9.955145e-01 5.512239e-01 1.938953e-01 1.625225e-02 9.725786e-01 5.884727e-03 
+         319          320          321          322          323          324 
+9.925221e-01 2.146249e-04 9.473372e-01 7.192622e-04 9.874081e-01 9.303274e-01 
+         325          326          327          328          329          330 
+2.947431e-01 9.972460e-01 1.125270e-03 4.906345e-03 9.999032e-01 4.000797e-02 
+         331          332          333 
+3.089952e-01 9.933118e-01 8.297839e-01 </code></pre>
+</div>
+</div>
+<p>Regularization is often used with logistic regression (in python’s scikit-learn package, Ridge regularization is used by default without warning the user).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(sex <span class="sc">~</span> species<span class="sc">*</span>(bill_length_mm <span class="sc">+</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        bill_depth_mm <span class="sc">+</span> flipper_length_mm),</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(peng<span class="sc">$</span>sex)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>mycv <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(X, y, <span class="at">family =</span> binomial)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>mylasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(X, y,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">alpha =</span> <span class="dv">1</span>,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">lambda =</span> mycv<span class="sc">$</span>lambda<span class="fl">.1</span>se)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mylasso)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>13 x 1 sparse Matrix of class "dgCMatrix"
+                                             s0
+(Intercept)                        -46.90824021
+(Intercept)                          .         
+speciesChinstrap                    -3.49235983
+speciesGentoo                        .         
+bill_length_mm                       0.32778935
+bill_depth_mm                        1.26452716
+flipper_length_mm                    0.05765817
+speciesChinstrap:bill_length_mm      .         
+speciesGentoo:bill_length_mm         .         
+speciesChinstrap:bill_depth_mm       .         
+speciesGentoo:bill_depth_mm          .         
+speciesChinstrap:flipper_length_mm   .         
+speciesGentoo:flipper_length_mm      .         </code></pre>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="multinomial-regression" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="multinomial-regression"><span class="header-section-number">21.4</span> Multinomial Regression</h2>
+<section id="multinomial-logistic-regression-k-classes" class="level3">
+<h3 class="anchored" data-anchor-id="multinomial-logistic-regression-k-classes">Multinomial Logistic Regression: K Classes</h3>
+<p>We have a total probability of 1 to distribute across the classes,</p>
+<ul>
+<li><strong>Stick breaking</strong>
+<ol type="1">
+<li>Fit a logistic regression of <code>class 1</code> versus <code>not class 1</code>.
+<ul>
+<li>Remove obs. with <code>class 1</code></li>
+</ul></li>
+<li>Fit a logistic regression of <code>class 2</code> versus <code>not class 1</code>.
+<ul>
+<li>Remove obs. with <code>class 2</code></li>
+</ul></li>
+<li>…</li>
+<li>Class <span class="math inline">\(K\)</span> gets whatever probability is left over.</li>
+</ol></li>
+<li><strong>Softmaxing</strong>
+<ol type="1">
+<li>For all classes, fit a logistic regression of <code>class k</code> versus <code>not class k</code>.</li>
+<li>In the end, divide by the total probability to make sure they sum to 1.</li>
+</ol>
+<ul>
+<li>Very often used in machine learning!</li>
+</ul></li>
+</ul>
+<p>These two give the same results!</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./L21-Regularization.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">L21: Regularization Methods</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Lb02-OLS_Estimates.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright Devan Becker, released under Creative Commons Attribution-ShareAlike 4.0.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
