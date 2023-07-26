@@ -20,25 +20,21 @@ set.seed(2112)
 
 - Response: 0 or 1
     - Predictions: probability of a 1?\lspace
-- 
+
 
 ### The Logistic Function - A Sigmoidal Function
 
-:::: {.columns}
-::: {.column width="50%"}
-\vspace{1cm}
 
 If $t\in\mathbb{R}$, then
 $$
 \sigma(t) = \dfrac{\exp(t)}{1 + \exp(t)}\in[0,1]
 $$
 where $\sigma(\cdot)$ is the **logistic** function.
-:::
-::: {.column width="50%"}
 
 ```{r}
 #| fig-height: 4
 #| fig-width: 5
+#| echo: false
 library(ggplot2)
 t <- seq(-10, 10, 0.01)
 sigma_t <- exp(t)/(1 + exp(t))
@@ -48,8 +44,6 @@ ggplot() + theme_minimal() +
     labs(x = "t", y = expression(sigma(t)))
 ```
 
-:::
-::::
 
 ### Logistic Function - Now with Parameters
 
@@ -57,6 +51,7 @@ ggplot() + theme_minimal() +
 #| fig-height: 5
 #| fig-width: 4
 #| layout-ncol: 3
+#| echo: false
 library(ggplot2)
 t <- seq(-10, 10, 0.01)
 sigma <- function(t) exp(t)/(1 + exp(t))
@@ -81,8 +76,6 @@ ggplot() + theme_minimal() +
 
 ### Logistic Function - Now with Parameters *Estimated from DATA*
 
-:::: {.columns}
-::: {.column width="50%"}
 \vspace{1cm}
 \begin{align*}
 \eta(x_i) &= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ...\\
@@ -90,8 +83,6 @@ p(x_i) &= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
 \implies \log\left(\frac{p_i(x_i)}{1-p_i(x_i)}\right) &= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ...
 \end{align*}
 
-:::
-::: {.column width="50%"}
 
 ```{r}
 #| fig-height: 3
@@ -99,6 +90,7 @@ p(x_i) &= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
 library(ISLR2)
 library(ggplot2)
 library(dplyr)
+#| echo: false
 Default %>% 
     mutate(default = as.numeric(factor(default)) - 1) %>%
     ggplot() + theme_minimal() +
@@ -112,8 +104,7 @@ Default %>%
 
 \centering
 $\eta(x_i) = -10.65 + 0.0054\cdot\text{balance}_i$
-:::
-::::
+
 
 ### Logistic Regression
 
@@ -161,6 +152,7 @@ Unlike linear regression, there's no closed form for $\hat\beta_0$ and $\hat\bet
 ```{r}
 #| fig-height: 1.75
 #| fig-width: 4
+#| echo: false
 
 Default$default <- as.numeric(factor(Default$default)) - 1
 Default$student <- as.numeric(factor(Default$student)) - 1
@@ -183,6 +175,7 @@ The odds of a student defaulting are $\exp(0.5)\approx1.65$ times as high as a n
 ```{r}
 #| fig-height: 1.75
 #| fig-width: 4
+#| echo: false
 
 library(ggplot2)
 library(ISLR2)
@@ -312,6 +305,7 @@ ggplot() + theme_minimal() +
 ```{r}
 #| eval: false
 #| include: false
+#| echo: false
 
 library(ISLR2)
 

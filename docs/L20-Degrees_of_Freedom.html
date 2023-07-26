@@ -473,11 +473,11 @@ attr(,"contrasts")$mycat
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(<span class="fu">log</span>(y) <span class="sc">~</span> mycat <span class="sc">+</span> <span class="fu">poly</span>(mycont, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> mydf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 (Intercept)                mycatcategory 
-                  9.89545782                  19.92845955 
+                9.712145e+00                 1.978742e+01 
                mycatdogegory poly(mycont, 2, raw = TRUE)1 
-                 -0.01027981                   0.03119462 
+                5.406038e-04                 8.415754e-02 
 poly(mycont, 2, raw = TRUE)2 
-                  0.04865543 </code></pre>
+                4.652628e-02 </code></pre>
 </div>
 </div>
 <p>For the project, you ould only need to submit the <code>mydf</code> object; the others should be able to recover your coefficient values from that alone!</p>
