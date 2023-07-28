@@ -4,11 +4,6 @@ institute: "Jam: ** by "
 ---
 
 
-## Preamble
-
-### Announcements
-
-
 ## 0/1 Predictors
 
 ### Dummy Coding

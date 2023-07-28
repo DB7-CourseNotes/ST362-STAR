@@ -3,10 +3,6 @@ title: "L15: Transforming the Response"
 institute: "Jam: *Stabilise* by Nilüfer Yanya"
 ---
 
-## Preamble
-
-### Announcements
-
 ## Transformations
 
 ### Transforming the Predictors

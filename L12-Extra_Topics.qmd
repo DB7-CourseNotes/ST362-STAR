@@ -139,7 +139,7 @@ Several things happen:
 
 Standardizing doesn't hurt and can often help $\implies$ it's almost always worth it!
 
-## General Linear Hypothesis
+## General Linear Hypotheses
 
 ### Diet vs. Exercise
 
@@ -165,7 +165,7 @@ Alternatively, the null can be written as $\beta_1 - \beta_2 = 0$.
 
 In some cases, we might have a collection of hypotheses. For ANOVA:
 $$
-H_0:\; \beta_2 - \beta_1 = 0,\; \beta_3 - \beta_2 = 0,\; \beta_4 - \beta_3 = 0,\...,\; and\; \beta_{p-1} - \beta_{p-2} = 0
+H_0:\; \beta_2 - \beta_1 = 0,\; \beta_3 - \beta_2 = 0,\; \beta_4 - \beta_3 = 0,\dots,\; and\; \beta_{p-1} - \beta_{p-2} = 0
 $$
 These hypotheses are **linearly indepenent**. \pause To see why, we can write them in matrix form:
 $$

@@ -66,7 +66,7 @@ Ordinary least squares is a minimization problem:
 $$
 RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 $$
-=
+
 
 What if I don't like how big the $\underline\beta$ values are?
 
@@ -370,9 +370,9 @@ cv_check <- cv.glmnet(x = X, y = y, alpha = 1)
 plot(cv_check)
 ```
 
-The first dotted line indicates the value of $\lambda$ that minimizes the "loss function." However, across different samples we would get different values of $\lambda$. BEcause we know there's randomness, we know that a slightly larger (more restrictive) value of $\lambda$ would also be consistent with our data. Since cross-validation emulates the idea of having many samples, we can get an estimate of the **standard error** of $\lambda$. We can then choose the alue of $\lambda$ that is within 1 standard error of the minimum. This gives a much simpler model while still having a plausible $\lambda$.^[This is similar to the Box-Cox transformation, where we find a bunch of plausible transformations, and go with a simple one like `\log()` or `sqrt()`.]
+The first dotted line indicates the value of $\lambda$ that minimizes the "loss function." However, across different samples we would get different values of $\lambda$. Because we know there's randomness, we know that a slightly larger (more restrictive) value of $\lambda$ would also be consistent with our data. Since cross-validation emulates the idea of having many samples, we can get an estimate of the **standard error** of $\lambda$. We can then choose the value of $\lambda$ that is within 1 standard error of the minimum. This gives a much simpler model while still having a plausible $\lambda$.^[This is similar to the Box-Cox transformation, where we find a bunch of plausible transformations, and go with a simple one like `\log()` or `sqrt()`.]
 
-Now that we have a way of telling R what value we want for lambda, we cna fit the model.
+Now that we have a way of telling R what value we want for lambda, we can fit the model.
 
 ```{r}
 my_lasso <- glmnet(X, y, lambda = cv_check$lambda.1se)

@@ -42,6 +42,7 @@ book:
         - L20-Degrees_of_Freedom.qmd
         - L21-Regularization.qmd
         - L22-Logistic.qmd
+        - L23-Review.qmd
     - part: Lab Notes
       chapters:
         - Lb02-OLS_Estimates.Rmd

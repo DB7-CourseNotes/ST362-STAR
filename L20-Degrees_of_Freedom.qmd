@@ -145,7 +145,7 @@ We could then model this according to
 \begin{align*}
 V & = \beta_0N + \epsilon
 \end{align*}
-where $N$ is our "naive" volumne. We might have the expectation that $\beta_0 = 1$ if the naive volume is correct.
+where $N$ is our "naive" volume. We might have the expectation that $\beta_0 = 1$ if the naive volume is correct.
 
 ```{r} 
 # Assuming trees are cylinders

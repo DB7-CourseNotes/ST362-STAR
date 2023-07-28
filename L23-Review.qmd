@@ -1,0 +1,77 @@
+# Final Exam Review
+
+## Exam Structure
+
+### Format
+
+- ~10 MC\lspace
+- ~10 Fill-in-the-Blank?\lspace
+- ~5 TF\lspace
+- a handful of SA/Math questions
+    - More than the midterm
+
+### SA/Math Questions
+
+- "Explain how a hypotheses test based on the ratio $MS_{Reg}/MS_E$ in the ANOVA table is a test for whether any of the slope parameters are 0."\lspace
+- "Show that $E(\hat\beta) = ...$"\lspace
+
+## Summaries
+
+### Generally important things
+
+- The bias and variance of $\hat{\underline\beta}$.\lspace
+- Interpreting coefficients and inference.
+- Variance, rather than point estimates.
+
+### "Extra Topics" Lecture
+
+- Standardizing
+    - Effect on parameter estimates\lspace
+- General Linear Hypotheses
+    - Full versus hypothesized model, and the form of the F test
+        - (Not the math, but possibly the degrees of freedom)\lspace
+- Weighted/Generalized Least Squares
+    - Understand what $V$ and $P$ represent.
+    - Manipulate formulas by replacing $\underline f$ with $P^{-1}\underline \epsilon$.
+    - Suggest $V$ based on the context of the question.
+
+### Getting the Wrong Model
+
+- Bias due to missing predictors
+- What does it even mean to have the "right" model?
+    - Proxy measures and their effect on the other parameter estimates
+
+### Transforming the Predictors
+
+- Polynomial regression
+    - When to use them
+    - Lower order terms
+    - Extrapolation\lspace
+- Other transformations (e.g. log, combining predictors, etc.)
+
+### Transforming the Response
+
+- Explain "Stabilizing the variance"\lspace
+- Diagnosing the need for a transformation\lspace
+- Choosing transformations\lspace
+- The effect on the model
+    - E.g. multiplicative errors, changes to the parameter estimates\lspace
+
+### Dummy Variables
+
+- Definition and interpretation
+    - `factor(cyl)8` in the coefficients table\lspace
+- If there are three categories, we need two dummies
+    - "Reference" category is absorbed into the intercept.\lspace
+- Interaction terms: different intercept, different slope.\lspace
+- Significance of a dummy variable (or interaction with one)\lspace
+- Extra sum-of-squares to test whether categories are statistically different
+    - What kind of test is this? ANOVA? ANCOVA?
+
+### Multicollinearity
+
+- Why it increases variance (many different parameter combinations are equivalent)\lspace
+- Detecting via the variance inflation factor
+    - Approx 10 is bad, but this is just a rule-of-thumb.
+- What to do about it, and what it means for interpreting coefficients.
+

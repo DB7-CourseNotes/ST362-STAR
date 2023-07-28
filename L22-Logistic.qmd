@@ -8,12 +8,6 @@ institute: "Jam: **Love's a Logistical Thing** by PJ Parker"
 set.seed(2112)
 ```
 
-## Preamble
-
-### Announcements
-
-- Second part of Project out later today.
-
 ## Logistic Regression
 
 ### Goal: Predict a 1

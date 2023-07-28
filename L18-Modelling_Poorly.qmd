@@ -3,12 +3,6 @@ title: "L18: Modelling Poorly"
 institute: "**Bad** by Michael Jackson"
 ---
 
-## Preamble
-
-### Announcements
-
-- I actually have the exams today!
-
 ## Motivation
 
 ### Selecting Predictors
