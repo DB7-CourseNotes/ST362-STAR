@@ -8,6 +8,7 @@ institute: "Jam: **Love's a Logistical Thing** by PJ Parker"
 set.seed(2112)
 ```
 
+
 ## Logistic Regression
 
 ### Goal: Predict a 1
@@ -25,6 +26,7 @@ $$
 $$
 where $\sigma(\cdot)$ is the **logistic** function.
 
+
 ```{r}
 #| fig-height: 4
 #| fig-width: 5
@@ -39,7 +41,9 @@ ggplot() + theme_minimal() +
 ```
 
 
+
 ### Logistic Function - Now with Parameters
+
 
 ```{r}
 #| fig-height: 5
@@ -68,6 +72,7 @@ ggplot() + theme_minimal() +
         title = expression(sigma("-3"*t-10)))
 ```
 
+
 ### Logistic Function - Now with Parameters *Estimated from DATA*
 
 \vspace{1cm}
@@ -76,6 +81,7 @@ ggplot() + theme_minimal() +
 p(x_i) &= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
 \implies \log\left(\frac{p_i(x_i)}{1-p_i(x_i)}\right) &= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ...
 \end{align*}
+
 
 
 ```{r}
@@ -95,6 +101,7 @@ Default %>%
         labs(x = "Credit Card Balance",
             y = "Default?")
 ```
+
 
 \centering
 $\eta(x_i) = -10.65 + 0.0054\cdot\text{balance}_i$
@@ -143,6 +150,7 @@ Unlike linear regression, there's no closed form for $\hat\beta_0$ and $\hat\bet
 
 :::: {.columns}
 ::: {.column width="45%"}
+
 ```{r}
 #| fig-height: 1.75
 #| fig-width: 4
@@ -159,6 +167,7 @@ ggplot(Default) + theme_minimal() +
     labs(x = "Student (0 = No)", y = "Default (0 = No)")
 ```
 
+
 $$
 \eta(x_i) = -3.5 + 0.5\cdot\text{student}
 $$
@@ -166,6 +175,7 @@ $$
 The odds of a student defaulting are $\exp(0.5)\approx1.65$ times as high as a non-student.\pause
 :::
 ::: {.column width="45%"}
+
 ```{r}
 #| fig-height: 1.75
 #| fig-width: 4
@@ -181,6 +191,7 @@ ggplot(Default) + theme_minimal() +
         method.args = list(family = "binomial")) +
     labs(x = "Credit card balance", y = "Default (0 = No)")
 ```
+
 
 $$
 \eta(x_i) = -10.65 + 0.005\cdot\text{balance}
@@ -252,6 +263,7 @@ For some (linear) hyperplane $a + bx_1 + cx_2 + dx_3$ and some value $e$.
 ### 
 
 
+
 ```{r}
 #| label: decision_boundary
 #| cache: true
@@ -294,7 +306,9 @@ ggplot() + theme_minimal() +
 ```
 
 
+
 ### Predictions - Just Plug it In!
+
 
 ```{r}
 #| eval: false
@@ -312,6 +326,7 @@ predict(mylm, newdata = data.frame(student = "Yes",
     balance = 2000, income = 20000),
     type = "response")
 ```
+
 
 | | Intercept | Student | Balance | Income |
 | --- | --- | --- | --- | --- |
@@ -401,6 +416,7 @@ Task: Predict whether a person has cancer
 
 ### The Confusion Matrix for Default Data
 
+
 ```{r}
 #| eval: false
 #| include: false
@@ -413,6 +429,7 @@ mypred <- predict(mylm, type = "response")
 conf <- table(mypred > 0.5, Default$default)
 
 ```
+
 
 | | True Payment | True Default |
 | --- | --- | --- |
@@ -433,6 +450,7 @@ See Course Notes
 
 :::notes
 Model building works very similarly, but it's *very* difficult to interpret the residual plots.
+
 
 ```{r}
 library(palmerpenguins)
@@ -459,20 +477,26 @@ summary(log_spec)
 coef(log_spec)
 ```
 
+
 The residual plots are the same as before:
+
 
 ```{r}
 par(mfrow = c(2, 2))
 plot(log_spec)
 ```
 
+
 The predictions can either be on the logit scale (`type = "link"`, the default) or on the response scale (probabilities).
+
 
 ```{r}
 predict(log_spec, type = "response") |> head()
 ```
 
+
 Regularization is often used with logistic regression (in python's scikit-learn package, Ridge regularization is used by default without warning the user).
+
 
 ```{r}
 library(glmnet)
@@ -489,6 +513,7 @@ mylasso <- glmnet(X, y,
     lambda = mycv$lambda.1se)
 coef(mylasso)
 ```
+
 :::
 
 ## Multinomial Regression
@@ -510,5 +535,6 @@ We have a total probability of 1 to distribute across the classes,\pause
     - Very often used in machine learning!
 
 These two give the same results!
+
 
 
