@@ -343,12 +343,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#exam-structure" id="toc-exam-structure" class="nav-link active" data-scroll-target="#exam-structure"><span class="header-section-number">22.1</span> Exam Structure</a>
-  <ul class="collapse">
-  <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format">Format</a></li>
-  <li><a href="#samath-questions" id="toc-samath-questions" class="nav-link" data-scroll-target="#samath-questions">SA/Math Questions</a></li>
-  </ul></li>
-  <li><a href="#summaries" id="toc-summaries" class="nav-link" data-scroll-target="#summaries"><span class="header-section-number">22.2</span> Summaries</a>
+  <li><a href="#summaries" id="toc-summaries" class="nav-link active" data-scroll-target="#summaries"><span class="header-section-number">22.1</span> Summaries</a>
   <ul class="collapse">
   <li><a href="#generally-important-things" id="toc-generally-important-things" class="nav-link" data-scroll-target="#generally-important-things">Generally important things</a></li>
   <li><a href="#extra-topics-lecture" id="toc-extra-topics-lecture" class="nav-link" data-scroll-target="#extra-topics-lecture">“Extra Topics” Lecture</a></li>
@@ -357,6 +352,24 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#transforming-the-response" id="toc-transforming-the-response" class="nav-link" data-scroll-target="#transforming-the-response">Transforming the Response</a></li>
   <li><a href="#dummy-variables" id="toc-dummy-variables" class="nav-link" data-scroll-target="#dummy-variables">Dummy Variables</a></li>
   <li><a href="#multicollinearity" id="toc-multicollinearity" class="nav-link" data-scroll-target="#multicollinearity">Multicollinearity</a></li>
+  <li><a href="#best-subset-selection" id="toc-best-subset-selection" class="nav-link" data-scroll-target="#best-subset-selection">Best Subset Selection</a></li>
+  <li><a href="#degrees-of-freedom" id="toc-degrees-of-freedom" class="nav-link" data-scroll-target="#degrees-of-freedom">Degrees of Freedom</a></li>
+  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization">Regularization</a></li>
+  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification">Classification</a></li>
+  </ul></li>
+  <li><a href="#midterm-solutions" id="toc-midterm-solutions" class="nav-link" data-scroll-target="#midterm-solutions"><span class="header-section-number">22.2</span> Midterm Solutions</a>
+  <ul class="collapse">
+  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">ANOVA</a></li>
+  <li><a href="#biasvariance" id="toc-biasvariance" class="nav-link" data-scroll-target="#biasvariance">Bias/Variance</a></li>
+  <li><a href="#biasvariance-1" id="toc-biasvariance-1" class="nav-link" data-scroll-target="#biasvariance-1">Bias/Variance</a></li>
+  <li><a href="#biasvariance-2" id="toc-biasvariance-2" class="nav-link" data-scroll-target="#biasvariance-2">Bias/Variance</a></li>
+  </ul></li>
+  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">22.3</span> Participation Questions</a>
+  <ul class="collapse">
+  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
+  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
+  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
+  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/blob/main/L23-Review.qmd" class="toc-action">View source</a></p></div></div></nav>
@@ -394,36 +407,16 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="exam-structure" class="level2" data-number="22.1">
-<h2 data-number="22.1" class="anchored" data-anchor-id="exam-structure"><span class="header-section-number">22.1</span> Exam Structure</h2>
-<section id="format" class="level3">
-<h3 class="anchored" data-anchor-id="format">Format</h3>
-<ul>
-<li>~10 MC</li>
-<li>~10 Fill-in-the-Blank?</li>
-<li>~5 TF</li>
-<li>a handful of SA/Math questions
-<ul>
-<li>More than the midterm</li>
-</ul></li>
-</ul>
-</section>
-<section id="samath-questions" class="level3">
-<h3 class="anchored" data-anchor-id="samath-questions">SA/Math Questions</h3>
-<ul>
-<li>“Explain how a hypotheses test based on the ratio <span class="math inline">\(MS_{Reg}/MS_E\)</span> in the ANOVA table is a test for whether any of the slope parameters are 0.”</li>
-<li>“Show that <span class="math inline">\(E(\hat\beta) = ...\)</span>”</li>
-</ul>
-</section>
-</section>
-<section id="summaries" class="level2" data-number="22.2">
-<h2 data-number="22.2" class="anchored" data-anchor-id="summaries"><span class="header-section-number">22.2</span> Summaries</h2>
+<section id="summaries" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="summaries"><span class="header-section-number">22.1</span> Summaries</h2>
 <section id="generally-important-things" class="level3">
 <h3 class="anchored" data-anchor-id="generally-important-things">Generally important things</h3>
 <ul>
 <li>The bias and variance of <span class="math inline">\(\hat{\underline\beta}\)</span>.</li>
 <li>Interpreting coefficients and inference.</li>
 <li>Variance, rather than point estimates.</li>
+<li>Interpreting residual plots.</li>
+<li>Choosing a reasonable model given the context of the problem.</li>
 </ul>
 </section>
 <section id="extra-topics-lecture" class="level3">
@@ -451,7 +444,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="getting-the-wrong-model" class="level3">
 <h3 class="anchored" data-anchor-id="getting-the-wrong-model">Getting the Wrong Model</h3>
 <ul>
-<li>Bias due to missing predictors</li>
+<li>Bias due to missing predictors.</li>
 <li>What does it even mean to have the “right” model?
 <ul>
 <li>Proxy measures and their effect on the other parameter estimates</li>
@@ -511,6 +504,169 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 <li>What to do about it, and what it means for interpreting coefficients.</li>
 </ul>
+</section>
+<section id="best-subset-selection" class="level3">
+<h3 class="anchored" data-anchor-id="best-subset-selection">Best Subset Selection</h3>
+<ul>
+<li>Goal: Inference or prediction?
+<ul>
+<li>How does Subset Selection fit into this?</li>
+</ul></li>
+<li>General idea of the algorithms.
+<ul>
+<li>Don’t need to know Mallow’s Cp etc.</li>
+</ul></li>
+<li>Why the p-values can’t really be trusted.</li>
+<li>Useful as a preliminary step (sometimes).</li>
+</ul>
+</section>
+<section id="degrees-of-freedom" class="level3">
+<h3 class="anchored" data-anchor-id="degrees-of-freedom">Degrees of Freedom</h3>
+<ul>
+<li>General modelling strategies.</li>
+<li>Choosing transformations based on domain knowledge.</li>
+<li>Being explicit about the decisions made while modelling.</li>
+</ul>
+</section>
+<section id="regularization" class="level3">
+<h3 class="anchored" data-anchor-id="regularization">Regularization</h3>
+<ul>
+<li>It’s just linear regression with “smaller” slope estimates!
+<ul>
+<li>Intercept isn’t constrained.</li>
+<li>Some slopes can be bigger than the slopes for linear regression, but sum of abs/squares is smaller.</li>
+</ul></li>
+<li>Regularization prevents overfitting.
+<ul>
+<li>Choose the penalty parameter <span class="math inline">\(\lambda\)</span> by minimizing out-of-sample prediction error, measured via cross-validation.</li>
+<li>Within 1 SE of minimum MSE leads to a simpler (more regularized) model.</li>
+</ul></li>
+<li>Adds bias, which is a good thing?</li>
+<li><em>Requires</em> standardization of the predictors.</li>
+<li>LASSO sets parameters to 0, Ridge does not.</li>
+</ul>
+</section>
+<section id="classification" class="level3">
+<h3 class="anchored" data-anchor-id="classification">Classification</h3>
+<ul>
+<li>Response values are 0 or 1
+<ul>
+<li><em>Expected</em> value of <span class="math inline">\(y\)</span> is the proportion of 1s given a value of <span class="math inline">\(x\)</span>.</li>
+<li>Predictions can be converted to 0s and 1s, with two types of errors (confusion matrix).</li>
+</ul></li>
+<li>Logistic function looks like an “S”
+<ul>
+<li>Exact shape determined by linear predictor <span class="math inline">\(\eta(X) = X\underline\beta\)</span></li>
+</ul></li>
+<li>Other than transformations of response, all <code>lm</code> topics apply.
+<ul>
+<li>Including regularization!</li>
+</ul></li>
+<li>“Residuals” are weird
+<ul>
+<li>Not “observed minus expected” anymore!</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="midterm-solutions" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="midterm-solutions"><span class="header-section-number">22.2</span> Midterm Solutions</h2>
+<section id="anova" class="level3 t">
+<h3 class="t anchored" data-anchor-id="anova">ANOVA</h3>
+<p>Explain how a hypotheses test based on the ratio <span class="math inline">\(MS_{Reg}/MS_E\)</span> in the ANOVA table is a test for whether any of the slope parameters are 0.</p>
+<ul>
+<li>A line with all slopes equal to 0 is a horizontal line, which will have 0 variance around <span class="math inline">\(\bar y\)</span>, i.e.&nbsp;<span class="math inline">\(MS_{Reg} = 0\)</span>.</li>
+<li>Due to random chance, we will never actually get <span class="math inline">\(MS_{Reg} = 0\)</span>. Dividing by MSE gives us a way to evaluate the size of <span class="math inline">\(MS_{Reg}\)</span>.</li>
+</ul>
+</section>
+<section id="biasvariance" class="level3 t">
+<h3 class="t anchored" data-anchor-id="biasvariance">Bias/Variance</h3>
+<p>For this question, assume that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>.</p>
+<ol type="1">
+<li>Given the model <span class="math inline">\(y_i = \beta_0 + \epsilon_i\)</span>, show that <span class="math inline">\(\hat\beta_0 = \bar y\)</span> minimizes the sum of squared error.</li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+\frac{1}{n}\sum(y_i - \hat y)^2 &amp;= \frac{1}{n}\sum(y_i - \beta_0)^2\\
+\frac{d}{d\beta}\frac{1}{n} &amp;= \frac{1}{n}\sum(y_i - \beta_0)^2\\
+&amp;= \frac{2}{n}(\sum y_i - n\beta_0) \stackrel{set}{=}0\\
+\implies \frac{2}{n}\sum y_i &amp;= \frac{2}{n}n\beta_0 \implies \bar y = \beta_0
+\end{align*}\]</span></p>
+<p>This is a minimum since this is a polynomial in <span class="math inline">\(\beta_0\)</span> with a positive coefficient for <span class="math inline">\(\beta_0\)</span>.</p>
+</section>
+<section id="biasvariance-1" class="level3 t">
+<h3 class="t anchored" data-anchor-id="biasvariance-1">Bias/Variance</h3>
+<p>For this question, assume that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>.</p>
+<ol start="2" type="1">
+<li>Given the model <span class="math inline">\(y_i = \beta_0 + \epsilon_i\)</span>, show that <span class="math inline">\(E(\hat\beta_0) = \beta_0\)</span> and <span class="math inline">\(V(\hat\beta_0) = \sigma^2/n\)</span>.</li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+E(\hat\beta_0) &amp;= E\left(\frac{1}{n}\sum y_i\right)= \frac{1}{n}\sum E(y_i)\\
+&amp;= \frac{1}{n}\sum E(\beta_0 + \epsilon_i)= \frac{1}{n}n\beta_0 = \beta_0
+\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}
+V(\hat\beta_0) &amp;= V\left(\frac{1}{n}\sum y_i\right)= \frac{1}{n^2}\sum V(y_i)\\
+&amp;= \frac{1}{n^2}\sum V(\beta_0 + \epsilon_i)= \frac{1}{n^2}n\sigma^2 = \frac{\sigma^2}{n}
+\end{align*}\]</span></p>
+</section>
+<section id="biasvariance-2" class="level3 t">
+<h3 class="t anchored" data-anchor-id="biasvariance-2">Bias/Variance</h3>
+<p>For this question, assume that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>.</p>
+<ol start="3" type="1">
+<li>Now consider the multiple linear regression model <span class="math inline">\(Y = X\beta + \underline\epsilon\)</span>, where we know that <span class="math inline">\(\hat{\underline{\beta}} = (X^TX)^{-1}X^TY\)</span>. Show that <span class="math inline">\(E(\hat{\underline{\beta}}) = \underline{\beta}\)</span>.</li>
+</ol>
+<p><span class="math display">\[
+E(\hat{\underline{\beta}}) = E((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^TE(Y) = (X^TX)^{-1}X^TX\underline\beta = \underline\beta
+\]</span></p>
+</section>
+</section>
+<section id="participation-questions" class="level2" data-number="22.3">
+<h2 data-number="22.3" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">22.3</span> Participation Questions</h2>
+<section id="q1" class="level3">
+<h3 class="anchored" data-anchor-id="q1">Q1</h3>
+<p><span class="math display">\[
+y_i = \beta_0 + \beta_1x_{i1} + \beta_2\sin(\beta_3 x_{i2} + \beta_4) + \epsilon_i
+\]</span></p>
+<p>Which of the following could we minimize to find the estimates of <span class="math inline">\(\hat{\underline\beta}\)</span>?</p>
+<ol type="1">
+<li><span class="math inline">\(\sum(y_i - \beta_0 - \beta_1x_{i1} - \beta_2\sin(\beta_3 x_{i2} - \beta_4))^2\)</span></li>
+<li><span class="math inline">\(\sum(y_i - \beta_0 - \beta_1x_{i1} - \beta_2\sin(\beta_3 x_{i2} - \beta_4 - \epsilon_i))^2\)</span></li>
+<li><span class="math inline">\(\sum(\hat y_i - \beta_0 - \beta_1x_{i1} - \beta_2\sin(\beta_3 x_{i2} - \beta_4))^2\)</span></li>
+<li><span class="math inline">\(\sum(\hat y_i - \beta_0 - \beta_1x_{i1} - \beta_2\sin(\beta_3 x_{i2} - \beta_4 - \hat\epsilon_i))^2\)</span></li>
+<li>None of the above - this is not a linear model and cannot be minimized.</li>
+</ol>
+</section>
+<section id="q2" class="level3">
+<h3 class="anchored" data-anchor-id="q2">Q2</h3>
+<p><span class="math display">\[
+y_i = \beta_0 + \beta_1x_{i1} + \beta_2\sin(\beta_3 x_{i2} + \beta_4) + \epsilon_i
+\]</span></p>
+<p>What is <span class="math inline">\(E(y_i)\)</span>?</p>
+<ol type="1">
+<li><span class="math inline">\(\beta_0 + \beta_1x_{i1} + \beta_2\sin(\beta_3 x_{i2} + \beta_4)\)</span></li>
+<li><span class="math inline">\(\beta_0 + \beta_1x_{i1} + \beta_2\sin(\beta_3 x_{i2} + \beta_4) + \epsilon\)</span></li>
+<li><span class="math inline">\(\hat\beta_0 + \hat\beta_1x_{i1} + \hat\beta_2\sin(\hat\beta_3 x_{i2} + \hat\beta_4)\)</span></li>
+<li><span class="math inline">\(\hat\beta_0 + \hat\beta_1x_{i1} + \hat\beta_2\sin(\hat\beta_3 x_{i2} + \hat\beta_4) + \epsilon\)</span></li>
+</ol>
+</section>
+<section id="q3" class="level3">
+<h3 class="anchored" data-anchor-id="q3">Q3</h3>
+<p>Which statement is <em>false</em>?</p>
+<ol type="1">
+<li>Linear models are never the correct model, but are often useful.</li>
+<li>We expect that our parameter estimates will correspond to a specific relationship in the population.</li>
+<li>Assuming we have a representative sample, we expect that the relationships in our data are representative of the relationships in the population.</li>
+<li>There are situations in which a linear model is not appropriate.</li>
+</ol>
+</section>
+<section id="q4" class="level3">
+<h3 class="anchored" data-anchor-id="q4">Q4</h3>
+<p>Which assumption does <em>not</em> always need to be confirmed before attempting to make inferences or predictions?</p>
+<ol type="1">
+<li><span class="math inline">\(V(\epsilon_i) = \sigma^2\)</span> (stable variance).</li>
+<li>Apparent linear relationship.</li>
+<li>No serial correlation in residuals.</li>
+<li>Independence between observations</li>
+</ol>
 
 
 </section>

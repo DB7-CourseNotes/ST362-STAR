@@ -1,27 +1,16 @@
-# Final Exam Review
-
-## Exam Structure
-
-### Format
-
-- ~10 MC\lspace
-- ~10 Fill-in-the-Blank?\lspace
-- ~5 TF\lspace
-- a handful of SA/Math questions
-    - More than the midterm
-
-### SA/Math Questions
-
-- "Explain how a hypotheses test based on the ratio $MS_{Reg}/MS_E$ in the ANOVA table is a test for whether any of the slope parameters are 0."\lspace
-- "Show that $E(\hat\beta) = ...$"\lspace
+---
+title: Final Exam Review
+---
 
 ## Summaries
 
 ### Generally important things
 
 - The bias and variance of $\hat{\underline\beta}$.\lspace
-- Interpreting coefficients and inference.
-- Variance, rather than point estimates.
+- Interpreting coefficients and inference.\lspace
+- Variance, rather than point estimates.\lspace
+- Interpreting residual plots.\lspace
+- Choosing a reasonable model given the context of the problem.
 
 ### "Extra Topics" Lecture
 
@@ -37,7 +26,7 @@
 
 ### Getting the Wrong Model
 
-- Bias due to missing predictors
+- Bias due to missing predictors.\lspace
 - What does it even mean to have the "right" model?
     - Proxy measures and their effect on the other parameter estimates
 
@@ -72,6 +61,164 @@
 
 - Why it increases variance (many different parameter combinations are equivalent)\lspace
 - Detecting via the variance inflation factor
-    - Approx 10 is bad, but this is just a rule-of-thumb.
+    - Approx 10 is bad, but this is just a rule-of-thumb.\lspace
 - What to do about it, and what it means for interpreting coefficients.
+
+### Best Subset Selection
+
+- Goal: Inference or prediction?
+    - How does Subset Selection fit into this?\lspace
+- General idea of the algorithms.
+    - Don't need to know Mallow's Cp etc.\lspace
+- Why the p-values can't really be trusted.\lspace
+- Useful as a preliminary step (sometimes).\lspace
+
+### Degrees of Freedom
+
+- General modelling strategies.\lspace
+- Choosing transformations based on domain knowledge.\lspace
+- Being explicit about the decisions made while modelling.
+
+### Regularization
+
+- It's just linear regression with "smaller" slope estimates!
+    - Intercept isn't constrained.
+    - Some slopes can be bigger than the slopes for linear regression, but sum of abs/squares is smaller.\lspace
+- Regularization prevents overfitting.
+    - Choose the penalty parameter $\lambda$ by minimizing out-of-sample prediction error, measured via cross-validation.
+    - Within 1 SE of minimum MSE leads to a simpler (more regularized) model.\lspace
+- Adds bias, which is a good thing?\lspace
+- *Requires* standardization of the predictors.\lspace
+- LASSO sets parameters to 0, Ridge does not.
+
+### Classification
+
+- Response values are 0 or 1
+    - *Expected* value of $y$ is the proportion of 1s given a value of $x$.
+    - Predictions can be converted to 0s and 1s, with two types of errors (confusion matrix).\lspace
+- Logistic function looks like an "S"
+    - Exact shape determined by linear predictor $\eta(X) = X\underline\beta$\lspace
+- Other than transformations of response, all `lm` topics apply.
+    - Including regularization!\lspace
+- "Residuals" are weird 
+    - Not "observed minus expected" anymore!
+
+
+
+## Midterm Solutions
+
+### ANOVA {.t}
+
+Explain how a hypotheses test based on the ratio $MS_{Reg}/MS_E$ in the ANOVA table is a test for whether any of the slope parameters are 0. 
+
+\pause
+
+- A line with all slopes equal to 0 is a horizontal line, which will have 0 variance around $\bar y$, i.e. $MS_{Reg} = 0$.
+- Due to random chance, we will never actually get $MS_{Reg} = 0$. Dividing by MSE gives us a way to evaluate the size of $MS_{Reg}$.
+
+
+### Bias/Variance {.t}
+
+For this question, assume that $\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$.
+
+1. Given the model $y_i = \beta_0 + \epsilon_i$, show that $\hat\beta_0 = \bar y$ minimizes the sum of squared error.
+
+\pause
+
+\begin{align*}
+\frac{1}{n}\sum(y_i - \hat y)^2 &= \frac{1}{n}\sum(y_i - \beta_0)^2\\
+\frac{d}{d\beta}\frac{1}{n} &= \frac{1}{n}\sum(y_i - \beta_0)^2\\
+&= \frac{2}{n}(\sum y_i - n\beta_0) \stackrel{set}{=}0\\
+\implies \frac{2}{n}\sum y_i &= \frac{2}{n}n\beta_0 \implies \bar y = \beta_0
+\end{align*}
+
+This is a minimum since this is a polynomial in $\beta_0$ with a positive coefficient for $\beta_0$.
+
+### Bias/Variance {.t}
+
+For this question, assume that $\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$.
+
+2. Given the model $y_i = \beta_0 + \epsilon_i$, show that $E(\hat\beta_0) = \beta_0$ and $V(\hat\beta_0) = \sigma^2/n$.
+
+\pause
+
+\begin{align*}
+E(\hat\beta_0) &= E\left(\frac{1}{n}\sum y_i\right)= \frac{1}{n}\sum E(y_i)\\
+&= \frac{1}{n}\sum E(\beta_0 + \epsilon_i)= \frac{1}{n}n\beta_0 = \beta_0
+\end{align*}
+
+\begin{align*}
+V(\hat\beta_0) &= V\left(\frac{1}{n}\sum y_i\right)= \frac{1}{n^2}\sum V(y_i)\\
+&= \frac{1}{n^2}\sum V(\beta_0 + \epsilon_i)= \frac{1}{n^2}n\sigma^2 = \frac{\sigma^2}{n}
+\end{align*}
+
+
+### Bias/Variance {.t}
+
+For this question, assume that $\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$.
+
+3. Now consider the multiple linear regression model $Y = X\beta + \underline\epsilon$, where we know that $\hat{\underline{\beta}} = (X^TX)^{-1}X^TY$. Show that $E(\hat{\underline{\beta}}) = \underline{\beta}$.
+
+\pause
+
+$$
+E(\hat{\underline{\beta}}) = E((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^TE(Y) = (X^TX)^{-1}X^TX\underline\beta = \underline\beta
+$$
+
+## Participation Questions
+
+### Q1
+$$
+y_i = \beta_0 + \beta_1x_{i1} + \beta_2\sin(\beta_3 x_{i2} + \beta_4) + \epsilon_i
+$$
+
+Which of the following could we minimize to find the estimates of $\hat{\underline\beta}$?
+
+\pspace
+
+1. $\sum(y_i - \beta_0 - \beta_1x_{i1} - \beta_2\sin(\beta_3 x_{i2} - \beta_4))^2$\lspace
+2. $\sum(y_i - \beta_0 - \beta_1x_{i1} - \beta_2\sin(\beta_3 x_{i2} - \beta_4 - \epsilon_i))^2$\lspace
+3. $\sum(\hat y_i - \beta_0 - \beta_1x_{i1} - \beta_2\sin(\beta_3 x_{i2} - \beta_4))^2$\lspace
+4. $\sum(\hat y_i - \beta_0 - \beta_1x_{i1} - \beta_2\sin(\beta_3 x_{i2} - \beta_4 - \hat\epsilon_i))^2$\lspace
+5. None of the above - this is not a linear model and cannot be minimized.
+
+
+### Q2
+
+$$
+y_i = \beta_0 + \beta_1x_{i1} + \beta_2\sin(\beta_3 x_{i2} + \beta_4) + \epsilon_i
+$$
+
+What is $E(y_i)$?
+
+\pspace
+
+1. $\beta_0 + \beta_1x_{i1} + \beta_2\sin(\beta_3 x_{i2} + \beta_4)$\lspace
+2. $\beta_0 + \beta_1x_{i1} + \beta_2\sin(\beta_3 x_{i2} + \beta_4) + \epsilon$\lspace
+3. $\hat\beta_0 + \hat\beta_1x_{i1} + \hat\beta_2\sin(\hat\beta_3 x_{i2} + \hat\beta_4)$\lspace
+4. $\hat\beta_0 + \hat\beta_1x_{i1} + \hat\beta_2\sin(\hat\beta_3 x_{i2} + \hat\beta_4) + \epsilon$
+
+### Q3
+
+Which statement is *false*?
+
+1. Linear models are never the correct model, but are often useful.
+2. We expect that our parameter estimates will correspond to a specific relationship in the population.
+3. Assuming we have a representative sample, we expect that the relationships in our data are representative of the relationships in the population.
+4. There are situations in which a linear model is not appropriate.
+
+### Q4
+
+Which assumption does *not* always need to be confirmed before attempting to make inferences or predictions?
+
+\pspace
+
+1. $V(\epsilon_i) = \sigma^2$ (stable variance).
+2. Apparent linear relationship.
+3. No serial correlation in residuals.
+4. Independence between observations
+
+
+
+
 
