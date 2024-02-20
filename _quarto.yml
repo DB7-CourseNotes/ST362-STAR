@@ -21,6 +21,7 @@ book:
     - index.qmd
     - part: Lectures
       chapters:
+        - LX_ShinyTest.qmd
         - L01-Introduction.qmd
         - L02-Fitting_Straight_Lines.qmd
         - L03-Residuals.qmd

@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Regression Analysis - 15&nbsp; L15: Transforming the Response</title>
+<title>Regression Analysis - 1&nbsp; Nothing here but smoke and mirrors and test code</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,8 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L16-Dummies.html" rel="next">
-<link href="./L14-Nonlinear.html" rel="prev">
+<link href="./L01-Introduction.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -78,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./LX_ShinyTest.html">Lectures</a></li><li class="breadcrumb-item"><a href="./L15-Transforming_Response.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L15: Transforming the Response</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./LX_ShinyTest.html">Lectures</a></li><li class="breadcrumb-item"><a href="./LX_ShinyTest.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Nothing here but smoke and mirrors and test code</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -124,7 +124,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./LX_ShinyTest.html" class="sidebar-item-text sidebar-link">
+  <a href="./LX_ShinyTest.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Nothing here but smoke and mirrors and test code</span></span></a>
   </div>
 </li>
@@ -208,7 +208,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L15: Transforming the Response</span></span></a>
   </div>
 </li>
@@ -345,49 +345,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#transformations" id="toc-transformations" class="nav-link active" data-scroll-target="#transformations"><span class="header-section-number">15.1</span> Transformations</a>
-  <ul class="collapse">
-  <li><a href="#transforming-the-predictors" id="toc-transforming-the-predictors" class="nav-link" data-scroll-target="#transforming-the-predictors">Transforming the Predictors</a></li>
-  <li><a href="#transforming-the-predictors-1" id="toc-transforming-the-predictors-1" class="nav-link" data-scroll-target="#transforming-the-predictors-1">Transforming the predictors</a></li>
-  <li><a href="#consequences-of-logarithms" id="toc-consequences-of-logarithms" class="nav-link" data-scroll-target="#consequences-of-logarithms">Consequences of Logarithms</a></li>
-  <li><a href="#logarithms-and-errors" id="toc-logarithms-and-errors" class="nav-link" data-scroll-target="#logarithms-and-errors">Logarithms and Errors</a></li>
-  <li><a href="#general-practice" id="toc-general-practice" class="nav-link" data-scroll-target="#general-practice">General Practice</a></li>
-  </ul></li>
-  <li><a href="#residuals-in-transformed-space" id="toc-residuals-in-transformed-space" class="nav-link" data-scroll-target="#residuals-in-transformed-space"><span class="header-section-number">15.2</span> Residuals in Transformed Space</a>
-  <ul class="collapse">
-  <li><a href="#variance-stabilization" id="toc-variance-stabilization" class="nav-link" data-scroll-target="#variance-stabilization">Variance Stabilization</a></li>
-  <li><a href="#funderline-y-xbeta-underlineepsilon" id="toc-funderline-y-xbeta-underlineepsilon" class="nav-link" data-scroll-target="#funderline-y-xbeta-underlineepsilon"><span class="math inline">\(f(\underline y) = X\beta + \underline\epsilon\)</span></a></li>
-  <li><a href="#some-good-news" id="toc-some-good-news" class="nav-link" data-scroll-target="#some-good-news">Some Good News</a></li>
-  </ul></li>
-  <li><a href="#choosing-transformations" id="toc-choosing-transformations" class="nav-link" data-scroll-target="#choosing-transformations"><span class="header-section-number">15.3</span> Choosing Transformations</a>
-  <ul class="collapse">
-  <li><a href="#methods-for-choosing-transformations" id="toc-methods-for-choosing-transformations" class="nav-link" data-scroll-target="#methods-for-choosing-transformations">Methods for Choosing Transformations</a></li>
-  <li><a href="#box-cox" id="toc-box-cox" class="nav-link" data-scroll-target="#box-cox">Box-Cox</a></li>
-  <li><a href="#simpler-box-cox" id="toc-simpler-box-cox" class="nav-link" data-scroll-target="#simpler-box-cox">Simpler Box-Cox</a></li>
-  <li><a href="#variance-of-lambda" id="toc-variance-of-lambda" class="nav-link" data-scroll-target="#variance-of-lambda">Variance of <span class="math inline">\(\lambda\)</span></a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">15.4</span> Participation Questions</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/blob/main/L15-Transforming_Response.qmd" class="toc-action">View source</a></p></div></div></nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L15: Transforming the Response</span></h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Nothing here but smoke and mirrors and test code</span></h1>
 </div>
 
 
@@ -400,7 +365,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: <em>Stabilise</em> by Nilüfer Yanya
+            Wilfrid Laurier University
           </p>
       </div>
     </div>
@@ -415,283 +380,24 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="transformations" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="transformations"><span class="header-section-number">15.1</span> Transformations</h2>
-<section id="transforming-the-predictors" class="level3">
-<h3 class="anchored" data-anchor-id="transforming-the-predictors">Transforming the Predictors</h3>
-<p>Suppose we found that the following second order polynomial model was a “good” fit: <span class="math display">\[
-y_i = \beta_0 + \beta_1x_{i1} + \beta_{11}x_{i1}^2 +\beta_2x_{i2} + \beta_{22}x_{i2}^2 + \beta_{12}x_{i1}x_{i2} + \epsilon_i
-\]</span></p>
-<p>Now consider the model: <span class="math display">\[
-\ln(y_i) = \beta_0 + \beta_1x_{i1} + \beta-2x_{i2} + \epsilon_i
-\]</span></p>
-<ul>
-<li>3 parameters instead of 6!
-<ul>
-<li>No interaction term!</li>
-</ul></li>
-<li>If we’re okay with the log scale for <span class="math inline">\(y\)</span>, easier to interpret.</li>
-</ul>
-</section>
-<section id="transforming-the-predictors-1" class="level3">
-<h3 class="anchored" data-anchor-id="transforming-the-predictors-1">Transforming the predictors</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>Original scale</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="L15-Transforming_Response_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="480"></p>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<p>Log scale</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="L15-Transforming_Response_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="480"></p>
-</div>
-</div>
-</div>
-</div>
-<p>The logarithm made it more linear, even if it’s not quite right.</p>
-</section>
-<section id="consequences-of-logarithms" class="level3">
-<h3 class="anchored" data-anchor-id="consequences-of-logarithms">Consequences of Logarithms</h3>
-<p>Consider the simple model <span class="math inline">\(E(y_i) = \beta x^2\)</span>. Taking the logarithm of both sides: <span class="math display">\[
-\ln(E(y_i)) = \ln(\beta) + 2\ln(x) = \beta_0 + \beta_1 \ln(x)
-\]</span> and we have something that looks more like a linear model.</p>
-<ul>
-<li>Note that, instead of <span class="math inline">\(x^2\)</span>, <span class="math inline">\(x^{2.1}\)</span> would also work as a model.
-<ul>
-<li>The power of <span class="math inline">\(x\)</span> can be estimated.</li>
-</ul></li>
-<li>It’s also possible that the log scale is the <em>correct</em> scale for <span class="math inline">\(y\)</span>
-<ul>
-<li><span class="math inline">\(E(\ln(y_i)) = \beta_0 + \beta_1x\)</span></li>
-<li>In other words, don’t get too bogged down by whether we take the ln of <span class="math inline">\(x\)</span>.</li>
-</ul></li>
-</ul>
-</section>
-<section id="logarithms-and-errors" class="level3">
-<h3 class="anchored" data-anchor-id="logarithms-and-errors">Logarithms and Errors</h3>
-<p>If we believe that the log scale is a better scale for <span class="math inline">\(y\)</span>, we may postulate the model: <span class="math display">\[
-\ln(y_i) = \beta_0 + \beta_1\ln x_{i1} + \beta_2\ln x_{i2} + \epsilon
-\]</span> which implies that the orginal scale for <span class="math inline">\(y\)</span> has the form: <span class="math display">\[
-y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2}e^{\epsilon_i}
-\]</span> <em>The errors are multiplicative!!!</em></p>
-<ul>
-<li>Option 1: Accept this
-<ul>
-<li>Allows us to use least squares.</li>
-</ul></li>
-<li>Option 2: Use the model <span class="math inline">\(y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2} + \epsilon_i\)</span>
-<ul>
-<li>Might be better, but requires a bespoke estimation algorithm.</li>
-</ul></li>
-</ul>
-</section>
-<section id="general-practice" class="level3">
-<h3 class="anchored" data-anchor-id="general-practice">General Practice</h3>
-<p>We often simply use the model: <span class="math display">\[
-\ln \underline y = X\beta + \underline \epsilon
-\]</span> and do <em>everything</em> on the log scale.</p>
-<ul>
-<li>Simpler, but still useful.</li>
-<li>Good predictions of <span class="math inline">\(\ln y_i\)</span> can be transformed to good predictions of <span class="math inline">\(y_i\)</span>.</li>
-</ul>
-<p>In general: Decide on a functional relationship between <span class="math inline">\(f(y)\)</span> and <span class="math inline">\(X\)</span>, then use additive errors on the scale of <span class="math inline">\(f(y)\)</span>.</p>
-<p>This has <em>consequences</em>:</p>
-</section>
-</section>
-<section id="residuals-in-transformed-space" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="residuals-in-transformed-space"><span class="header-section-number">15.2</span> Residuals in Transformed Space</h2>
-<section id="variance-stabilization" class="level3">
-<h3 class="anchored" data-anchor-id="variance-stabilization">Variance Stabilization</h3>
-<p>The two main purposes of transformations:</p>
-<ol type="1">
-<li>Fit non-linear functional forms.</li>
-<li>Stabilize the variance!
-<ul>
-<li>Scale-Location plot in the R defaults.</li>
-</ul></li>
-</ol>
-<p>For example, the log function brings large values down a lot, small values down a little.</p>
-<ul>
-<li>The scale of large residuals is decreased more than the scale of small residuals.</li>
-</ul>
-</section>
-<section id="funderline-y-xbeta-underlineepsilon" class="level3">
-<h3 class="anchored" data-anchor-id="funderline-y-xbeta-underlineepsilon"><span class="math inline">\(f(\underline y) = X\beta + \underline\epsilon\)</span></h3>
-<p>The estimated residuals are <span class="math inline">\(\hat\epsilon_i = f(y_i) - \widehat{f(y_i)}\)</span></p>
-<ul>
-<li>Note the awkwardly long hat!
-<ul>
-<li>We’re estimating the value of the function, not the value of <span class="math inline">\(y_i\)</span>.</li>
-<li>If <span class="math inline">\(f(y_i) - \widehat{f(y_i)} = f(y_i - \widehat{y_i})\)</span>, then the original function must have been linear (and a transformation was useless).</li>
-</ul></li>
-<li>We’re assuming <span class="math inline">\(\epsilon_i\stackrel{iid}{\sim} N(0, \sigma^2)\)</span>, which is difficult to translate to <span class="math inline">\(f^{-1}(X\beta + \underline\epsilon)\)</span>.
-<ul>
-<li>In the special case of <span class="math inline">\(\ln\)</span>, <span class="math inline">\(\exp{\epsilon_i} \sim \text{LogNormal}(0, \sigma^2)\)</span>.</li>
-<li>No assumption of <strong>independence</strong> on the original scale!!!</li>
-</ul></li>
-<li>We assume that the residuals have the same variance on the <em>transformed</em> scale.
-<ul>
-<li>Likely not true for the original scale of <span class="math inline">\(y\)</span>.</li>
-</ul></li>
-</ul>
-</section>
-<section id="some-good-news" class="level3">
-<h3 class="anchored" data-anchor-id="some-good-news">Some Good News</h3>
-<p>If <span class="math inline">\((a,b)\)</span> is a <span class="math inline">\((1-\alpha)\)</span> CI on the scale of <span class="math inline">\(f(y)\)</span>, then <span class="math inline">\((f^{-1}(a), f^{-1}(b))\)</span> is a valid CI on the scale of <span class="math inline">\(y\)</span>.</p>
-<ul>
-<li>It’s not the only valid CI!
-<ul>
-<li>Note that it’s not a symmetric CI!</li>
-</ul></li>
-<li>Works for <span class="math inline">\(y\)</span> as well as the <span class="math inline">\(\beta\)</span> parameters.
-<ul>
-<li>Transformation might induce dependence among the parameters.</li>
-<li>A CI for <span class="math inline">\(\beta_1\)</span> is useless if there’s high covariance with <span class="math inline">\(\beta_2\)</span>.</li>
-</ul></li>
-</ul>
-</section>
-</section>
-<section id="choosing-transformations" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="choosing-transformations"><span class="header-section-number">15.3</span> Choosing Transformations</h2>
-<section id="methods-for-choosing-transformations" class="level3">
-<h3 class="anchored" data-anchor-id="methods-for-choosing-transformations">Methods for Choosing Transformations</h3>
-<ol type="1">
-<li>Theory.
-<ul>
-<li>If theory says that the log transform makes sense, use that.
-<ul>
-<li>Don’t even consider the next steps. Just go with theory.</li>
-</ul></li>
-<li>Example: Forest fire burn sizes are right skewed, the log-transform makes sense.
-<ul>
-<li>In my research, I used the lognorman lodel for the residuals to acheive the same effect.</li>
-</ul></li>
-</ul></li>
-<li>Experimentation after looking at the Scale-Location plot.
-<ul>
-<li>If log or sqrt don’t work, move on to step three.</li>
-</ul></li>
-<li>The Box-Cox Transformation
-<ul>
-<li>Finds an appropriate transformation using maximum likelihood.</li>
-</ul></li>
-</ol>
-</section>
-<section id="box-cox" class="level3">
-<h3 class="anchored" data-anchor-id="box-cox">Box-Cox</h3>
-<p>We use the transformation: <span class="math display">\[
-V = \begin{cases}
-\frac{Y^\lambda - 1}{\lambda \dot{Y}^{\lambda - 1}} &amp; \text{if }\lambda \ne 0\\
-\dot{Y}\ln(Y) &amp; \text{if }\lambda = 0
-\end{cases}
-\]</span> where <span class="math inline">\(\dot Y\)</span> is the geometric mean of <span class="math inline">\(y\)</span>.</p>
-<p><span class="math inline">\(\lambda\)</span> is chosen through maximum likelihood</p>
-<ul>
-<li>Essentially, refit with each value of <span class="math inline">\(\lambda\)</span> and see which minimizes the residual variance.
-<ul>
-<li>Plot the likelihhods and choose the highest.</li>
-</ul></li>
-</ul>
-</section>
-<section id="simpler-box-cox" class="level3">
-<h3 class="anchored" data-anchor-id="simpler-box-cox">Simpler Box-Cox</h3>
-<p>The textbook recommends the previous formula, however R uses: <span class="math display">\[
-W = \begin{cases}
-\frac{Y^\lambda - 1}{\lambda} &amp; \text{if }\lambda \ne 0\\
-\ln(Y) &amp; \text{if }\lambda = 0
-\end{cases}
-\]</span></p>
-</section>
-<section id="variance-of-lambda" class="level3">
-<h3 class="anchored" data-anchor-id="variance-of-lambda">Variance of <span class="math inline">\(\lambda\)</span></h3>
-<p>If we had a different data set, we’d get a different value of <span class="math inline">\(\lambda\)</span>!</p>
-<p>R reports the the log-likelihood values, along with the top 5%.</p>
-<ul>
-<li>Anything in the top 5% is reasonable.
-<ul>
-<li>It’s not an exact science.</li>
-</ul></li>
-<li>Usually, we check the best <span class="math inline">\(\lambda\)</span> values and round to something nice.
-<ul>
-<li>log, sqrt, squared, inverse, etc.</li>
-</ul></li>
-</ul>
-</section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary">Summary</h3>
-<ul>
-<li>Choosing a transformation:
-<ol type="1">
-<li>Theory</li>
-<li>Exploration</li>
-<li>Round the value from Box-Cox.</li>
-</ol></li>
-<li>Working with a transformation:
-<ul>
-<li>Choose functional form, assume additive errors (usually, not always!)</li>
-<li>Stay on the transformed scale
-<ul>
-<li>All assumptions about residuals apply to the transformed scale!</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>To be useful, all transformations should consider the context of the problem!</p>
-</section>
-</section>
-<section id="participation-questions" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">15.4</span> Participation Questions</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>If the true relationship has the form <span class="math inline">\(y = f(X) + \epsilon_i\)</span>, we can always find a transformation <span class="math inline">\(f^{-1}\)</span> to make it linear.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>If we find that <span class="math inline">\(\lambda = 2\)</span> is the best transformation, then the following models are equivalent: <span class="math display">\[
-\frac{Y^2 - 1}{2} = X\beta\quad\text{and}\quad Y^2 = 2X\beta + 1
-\]</span></p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-<li>Technically not, but good enough in practice.</li>
-</ol>
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>A transformation of the form <span class="math inline">\(y = f(X) + \epsilon\)</span> leads to multiplicative errors.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>Which of the following is <em>not</em> a good reason to investigate transformations?</p>
-<ol type="1">
-<li>If the variance looks unstable.</li>
-<li>If the theory says a transformation is necessary.</li>
-<li>If a transformation might lead to a much simpler model.</li>
-<li>If <span class="math inline">\(y\)</span> doesn’t look normal.</li>
-</ol>
-</section>
-<section id="q5" class="level3">
-<h3 class="anchored" data-anchor-id="q5">Q5</h3>
-<p>The default residual plots in R can help diagnose the need for a transformation.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
+<pre class="{shinylive-python}"><code>#| standalone: true
+
+from shiny import *
+
+app_ui = ui.page_fluid(
+    ui.input_slider("n", "N", 0, 100, 40),
+    ui.output_text_verbatim("txt"),
+)
+
+def server(input, output, session):
+    @output
+    @render.text
+    def txt():
+        return f"The value of n*2 is {input.n() * 2}"
+
+app = App(app_ui, server)</code></pre>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1044,13 +750,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L14-Nonlinear.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">L14: Non-Linear Relationships with Linear Models</span></span>
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L16-Dummies.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">L16: Dummy Variables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L01-Introduction.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">L01: Distributions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1060,7 +766,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">Copyright Devan Becker, released under Creative Commons Attribution-ShareAlike 4.0.</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
+    <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/blob/main/LX_ShinyTest.qmd" class="toc-action">View source</a></p></div></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
