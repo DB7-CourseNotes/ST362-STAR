@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Regression Analysis - 32&nbsp; Multicollinearity</title>
+<title>Regression Analysis - 33&nbsp; Multicollinearity</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Lab Notes</a></li><li class="breadcrumb-item"><a href="./Lb17-Multico.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multicollinearity</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Lab Notes</a></li><li class="breadcrumb-item"><a href="./Lb17-Multico.html"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Multicollinearity</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -158,134 +158,140 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./LX_ShinyTest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Nothing here but smoke and mirrors and test code</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">L01: Distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">L01: Distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L02-Fitting_Straight_Lines.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">L02: Straight Line Fitting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">L02: Straight Line Fitting</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L03-Residuals.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">L03: Assessing Fit</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">L04: Regression in Matrix Form</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L05-General_Regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">L05: The General Regression Situation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L05: The General Regression Situation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L06-Extra_Sums_of_Squares-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">L06: Extra Sum-of-Squares (Part 1)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L06: Extra Sum-of-Squares (Part 1)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L07-Exampless.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">L07: ESS Exampless</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">L07: ESS Exampless</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">L09: Cereal Correlation in the Residuals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">L09: Cereal Correlation in the Residuals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">L10: The Hat Matrix</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">L10: The Hat Matrix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">L11: The Hat Matrix 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">L11: The Hat Matrix 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">L12: Extra Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">L12: Extra Topics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L13: Getting the Wrong Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L14-Nonlinear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">L14: Non-Linear Relationships with Linear Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">L14: Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">L15: Transforming the Response</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L15: Transforming the Response</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">L16: Dummy Variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">L16: Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">L17: Multicollinearity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">L17: Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">L18: Modelling Poorly</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L18: Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L19-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L19: Analysis of MTCars</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L19: Analysis of MTCars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">L20: Degrees of Freedom</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">L20: Degrees of Freedom</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">L21: Regularization Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">L21: Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L22-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">L22: Classification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">L22: Classification</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L23-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -302,67 +308,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Lab 2: OLS Estimates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb03-MSE.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Lab 3: Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Lab 4: Verifying Matrix Identities</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Lab 5: ANOVA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Lab 11: Hat Matrix and Residuals in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Lab 11: Hat Matrix and Residuals in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Lab 12: Extra Topics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Lab 15: Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Lab 15: Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb16-Regression_with_Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Lab 16 - Regression with Categorical Predictors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Lab 16 - Regression with Categorical Predictors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb17-Multico.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb18-Backwards_Selection_is_Bad.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Backwards p-values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Backwards p-values</span></span></a>
   </div>
 </li>
       </ul>
@@ -377,10 +383,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-problem-with-multicollinearity" id="toc-the-problem-with-multicollinearity" class="nav-link active" data-scroll-target="#the-problem-with-multicollinearity"><span class="header-section-number">32.1</span> The problem with multicollinearity</a></li>
-  <li><a href="#exact-multicollinearity" id="toc-exact-multicollinearity" class="nav-link" data-scroll-target="#exact-multicollinearity"><span class="header-section-number">32.2</span> Exact Multicollinearity</a></li>
-  <li><a href="#back-to-regression" id="toc-back-to-regression" class="nav-link" data-scroll-target="#back-to-regression"><span class="header-section-number">32.3</span> Back to Regression</a></li>
-  <li><a href="#centering-and-scaling" id="toc-centering-and-scaling" class="nav-link" data-scroll-target="#centering-and-scaling"><span class="header-section-number">32.4</span> Centering and Scaling</a></li>
+  <li><a href="#the-problem-with-multicollinearity" id="toc-the-problem-with-multicollinearity" class="nav-link active" data-scroll-target="#the-problem-with-multicollinearity"><span class="header-section-number">33.1</span> The problem with multicollinearity</a></li>
+  <li><a href="#exact-multicollinearity" id="toc-exact-multicollinearity" class="nav-link" data-scroll-target="#exact-multicollinearity"><span class="header-section-number">33.2</span> Exact Multicollinearity</a></li>
+  <li><a href="#back-to-regression" id="toc-back-to-regression" class="nav-link" data-scroll-target="#back-to-regression"><span class="header-section-number">33.3</span> Back to Regression</a></li>
+  <li><a href="#centering-and-scaling" id="toc-centering-and-scaling" class="nav-link" data-scroll-target="#centering-and-scaling"><span class="header-section-number">33.4</span> Centering and Scaling</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-S23/blob/main/Lb17-Multico.Rmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -389,7 +395,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Multicollinearity</span></h1>
+<h1 class="title"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Multicollinearity</span></h1>
 </div>
 
 
@@ -417,8 +423,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="the-problem-with-multicollinearity" class="level2" data-number="32.1">
-<h2 data-number="32.1" class="anchored" data-anchor-id="the-problem-with-multicollinearity"><span class="header-section-number">32.1</span> The problem with multicollinearity</h2>
+<section id="the-problem-with-multicollinearity" class="level2" data-number="33.1">
+<h2 data-number="33.1" class="anchored" data-anchor-id="the-problem-with-multicollinearity"><span class="header-section-number">33.1</span> The problem with multicollinearity</h2>
 <p>Consider the model <span class="math display">\[
 y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i
 \]</span> with the added assumption that <span class="math inline">\(x_{i1} = a + bx_{i2} + z_i\)</span>, where <span class="math inline">\(z_i\)</span> is some variation.</p>
@@ -480,8 +486,8 @@ x            6.0310840 27.1191916  0.2223917 0.8265128</code></pre>
 </div>
 </div>
 </section>
-<section id="exact-multicollinearity" class="level2" data-number="32.2">
-<h2 data-number="32.2" class="anchored" data-anchor-id="exact-multicollinearity"><span class="header-section-number">32.2</span> Exact Multicollinearity</h2>
+<section id="exact-multicollinearity" class="level2" data-number="33.2">
+<h2 data-number="33.2" class="anchored" data-anchor-id="exact-multicollinearity"><span class="header-section-number">33.2</span> Exact Multicollinearity</h2>
 <p>In the example above, the line was very sensitive to a slight change in the data because we essentially had one dimension. If we <em>actually</em> had one dimension, then any line that cgoes through <span class="math inline">\(\bar y\)</span> has the exact same error, regardless of the slope. We can see this in the design matrix: <span class="math inline">\(X\)</span> has a column of 1s for the intercept (which is good), but also has a column for <span class="math inline">\(x_1\)</span> that has zero variance. This means that it’s a linear combination of the first column, and thus is rank-deficient.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">20</span>))</span>
@@ -524,8 +530,8 @@ x -2.406244e+06  4.833450e+13</code></pre>
 </div>
 </div>
 </section>
-<section id="back-to-regression" class="level2" data-number="32.3">
-<h2 data-number="32.3" class="anchored" data-anchor-id="back-to-regression"><span class="header-section-number">32.3</span> Back to Regression</h2>
+<section id="back-to-regression" class="level2" data-number="33.3">
+<h2 data-number="33.3" class="anchored" data-anchor-id="back-to-regression"><span class="header-section-number">33.3</span> Back to Regression</h2>
 <p>We can kinda detect multicollinearity mainly using the standard error of the estimates:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
@@ -574,8 +580,8 @@ F-statistic: 359.7 on 3 and 338 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p>It actually has quite a small VIF!</p>
 </section>
-<section id="centering-and-scaling" class="level2" data-number="32.4">
-<h2 data-number="32.4" class="anchored" data-anchor-id="centering-and-scaling"><span class="header-section-number">32.4</span> Centering and Scaling</h2>
+<section id="centering-and-scaling" class="level2" data-number="33.4">
+<h2 data-number="33.4" class="anchored" data-anchor-id="centering-and-scaling"><span class="header-section-number">33.4</span> Centering and Scaling</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins)</span>
@@ -1010,12 +1016,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./Lb16-Regression_with_Dummies.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Lab 16 - Regression with Categorical Predictors</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Lab 16 - Regression with Categorical Predictors</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./Lb18-Backwards_Selection_is_Bad.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Backwards p-values</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Backwards p-values</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
