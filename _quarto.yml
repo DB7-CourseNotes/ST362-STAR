@@ -5,6 +5,8 @@ date-format: iso
 author: "Dr. Devan Becker"
 execute: 
     warning: false
+    cache: true
+    freeze: auto
 format: 
     beamer:
         theme: Madrid

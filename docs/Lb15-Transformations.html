@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Regression Analysis - 9&nbsp; L10: The Hat Matrix</title>
+<title>Regression Analysis - Appendix H — Lab 15: Transformations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L11-Admin_Slides.html" rel="next">
-<link href="./L09-Serial_Correlation.html" rel="prev">
+<link href="./Lb16-Regression_with_Dummies.html" rel="next">
+<link href="./Lb13-Wrong_Model.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -78,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">OLS Basics</a></li><li class="breadcrumb-item"><a href="./L10-Hat-Resid_Plots-Cook.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">L10: The Hat Matrix</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Lb15-Transformations.html"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab 15: Transformations</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -172,7 +206,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">L10: The Hat Matrix</span></span></a>
   </div>
 </li>
@@ -342,7 +376,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab 15: Transformations</span></span></a>
   </div>
 </li>
@@ -376,47 +410,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#le-chapeau" id="toc-le-chapeau" class="nav-link active" data-scroll-target="#le-chapeau"><span class="header-section-number">9.1</span> Le Chapeau</a>
+  <li><a href="#finding-a-model-for-mpg-disp" id="toc-finding-a-model-for-mpg-disp" class="nav-link active" data-scroll-target="#finding-a-model-for-mpg-disp"><span class="header-section-number">H.1</span> Finding a model for <code>mpg ~ disp</code></a>
   <ul class="collapse">
-  <li><a href="#the-hat-matrix" id="toc-the-hat-matrix" class="nav-link" data-scroll-target="#the-hat-matrix">The Hat Matrix</a></li>
-  <li><a href="#variance-covariance-matrix-of-hatunderlineepsilon" id="toc-variance-covariance-matrix-of-hatunderlineepsilon" class="nav-link" data-scroll-target="#variance-covariance-matrix-of-hatunderlineepsilon">Variance-Covariance matrix of <span class="math inline">\(\hat{\underline\epsilon}\)</span></a></li>
-  <li><a href="#the-variance-of-a-residual" id="toc-the-variance-of-a-residual" class="nav-link" data-scroll-target="#the-variance-of-a-residual">The variance of a residual</a></li>
-  <li><a href="#more-h-facts" id="toc-more-h-facts" class="nav-link" data-scroll-target="#more-h-facts">More H Facts</a></li>
-  <li><a href="#proof-that-h1-1" id="toc-proof-that-h1-1" class="nav-link" data-scroll-target="#proof-that-h1-1">Proof that <span class="math inline">\(H1 = 1\)</span></a></li>
+  <li><a href="#polynomial-models" id="toc-polynomial-models" class="nav-link" data-scroll-target="#polynomial-models">Polynomial Models</a></li>
+  <li><a href="#transformations" id="toc-transformations" class="nav-link" data-scroll-target="#transformations">Transformations</a></li>
   </ul></li>
-  <li><a href="#studentized-residuals" id="toc-studentized-residuals" class="nav-link" data-scroll-target="#studentized-residuals"><span class="header-section-number">9.2</span> Studentized Residuals</a>
-  <ul class="collapse">
-  <li><a href="#internally-studentized-not-ideal" id="toc-internally-studentized-not-ideal" class="nav-link" data-scroll-target="#internally-studentized-not-ideal">Internally Studentized (not ideal)</a></li>
-  <li><a href="#internally-studentized" id="toc-internally-studentized" class="nav-link" data-scroll-target="#internally-studentized">“Internally” “Studentized”</a></li>
-  <li><a href="#externally-studentized-step-1" id="toc-externally-studentized-step-1" class="nav-link" data-scroll-target="#externally-studentized-step-1">Externally Studentized Step 1</a></li>
-  <li><a href="#externally-studentized-step-2" id="toc-externally-studentized-step-2" class="nav-link" data-scroll-target="#externally-studentized-step-2">Externally Studentized Step 2</a></li>
-  <li><a href="#externally-studentized-residuals" id="toc-externally-studentized-residuals" class="nav-link" data-scroll-target="#externally-studentized-residuals">Externally Studentized Residuals</a></li>
-  </ul></li>
-  <li><a href="#cooks-distance" id="toc-cooks-distance" class="nav-link" data-scroll-target="#cooks-distance"><span class="header-section-number">9.3</span> Cook’s Distance</a>
-  <ul class="collapse">
-  <li><a href="#better-measures-of-influence" id="toc-better-measures-of-influence" class="nav-link" data-scroll-target="#better-measures-of-influence">Better Measures of Influence</a></li>
-  <li><a href="#cooks-distance-change-in-hat-y_i." id="toc-cooks-distance-change-in-hat-y_i." class="nav-link" data-scroll-target="#cooks-distance-change-in-hat-y_i.">Cooks Distance: Change in <span class="math inline">\(\hat y_i\)</span>.</a></li>
-  <li><a href="#cooks-distance-alternate-form" id="toc-cooks-distance-alternate-form" class="nav-link" data-scroll-target="#cooks-distance-alternate-form">Cook’s Distance: Alternate Form</a></li>
-  <li><a href="#next-class" id="toc-next-class" class="nav-link" data-scroll-target="#next-class">Next Class</a></li>
-  </ul></li>
-  <li><a href="#participation" id="toc-participation" class="nav-link" data-scroll-target="#participation"><span class="header-section-number">9.4</span> Participation</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
-  </ul></li>
+  <li><a href="#the-box-cox-transformation" id="toc-the-box-cox-transformation" class="nav-link" data-scroll-target="#the-box-cox-transformation"><span class="header-section-number">H.2</span> The Box-Cox Transformation</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/blob/main/L10-Hat-Resid_Plots-Cook.qmd" class="toc-action">View source</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/blob/main/Lb15-Transformations.Rmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">L10: The Hat Matrix</span></h1>
+<h1 class="title">Appendix H — Lab 15: Transformations</h1>
 </div>
 
 
@@ -429,7 +437,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: by Trash.
+            Wilfrid Laurier University
           </p>
       </div>
     </div>
@@ -444,284 +452,152 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="le-chapeau" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="le-chapeau"><span class="header-section-number">9.1</span> Le Chapeau</h2>
-<section id="the-hat-matrix" class="level3">
-<h3 class="anchored" data-anchor-id="the-hat-matrix">The Hat Matrix</h3>
-<p><span class="math display">\[
-H = X(X^TX)^{-1}X^T
-\]</span></p>
-<p>Recall: The hat matrix projects <span class="math inline">\(Y\)</span> onto <span class="math inline">\(\hat Y\)</span>, based on <span class="math inline">\(X\)</span>.</p>
+<section id="finding-a-model-for-mpg-disp" class="level2" data-number="H.1">
+<h2 data-number="H.1" class="anchored" data-anchor-id="finding-a-model-for-mpg-disp"><span class="header-section-number">H.1</span> Finding a model for <code>mpg ~ disp</code></h2>
+<section id="polynomial-models" class="level3">
+<h3 class="anchored" data-anchor-id="polynomial-models">Polynomial Models</h3>
+<p>First, let’s consider the polynomial models from previous lecture:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>A reasonable model for this looks to be <span class="math inline">\(mpg_i = \beta_0 + \beta_1disp_i + \beta_{11}disp_i^2\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>disp_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(mtcars<span class="sc">$</span>disp), <span class="fu">max</span>(mtcars<span class="sc">$</span>disp), <span class="fl">0.1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>poly_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="fu">poly</span>(disp, <span class="dv">2</span>), <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, poly_seq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It fits! However, the point of the polynomial lecture was that polynomials are tempting, but must be justified by theory. I’m not sure it’s reasonable to assume that the fuel efficiency is proportional to the square of the displacement.</p>
+<p>Maybe a transformation will help?</p>
+</section>
+<section id="transformations" class="level3">
+<h3 class="anchored" data-anchor-id="transformations">Transformations</h3>
+<p>Let’s try the two main transformations we talked about in class.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>disp_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(mtcars<span class="sc">$</span>disp), <span class="fu">max</span>(mtcars<span class="sc">$</span>disp), <span class="fl">0.1</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>lm_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Polynomial Model"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>poly_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="fu">poly</span>(disp, <span class="dv">2</span>), <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, lm_seq, <span class="at">col =</span> <span class="st">"#4a4a4a"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, poly_seq, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">sqrt</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Square Root Transfomation"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>sqrt_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">sqrt</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, <span class="fu">sqrt</span>(lm_seq), <span class="at">col =</span> <span class="st">"#4a4a4a"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, sqrt_seq, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Log Transfomation"</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>log_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, <span class="fu">log</span>(lm_seq), <span class="at">col =</span> <span class="st">"#4a4a4a"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, log_seq, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">exp</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars,</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Exponential Transfomation"</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>exp_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">exp</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, <span class="fu">exp</span>(lm_seq), <span class="at">col =</span> <span class="st">"#4a4a4a"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, exp_seq, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>I also added the linear model, transformed to the scale of the data. Notice how the linear model is curved on these non-linear scales!</p>
+<p>In the end, the log-transform is actually pretty good! Let’s evaluate that one!</p>
+<p>I’m going to add <code>log_mpg</code> as a column in mtcars because we’re only going to be working on that scale. With transformations, all of our assumptions about the residuals are on the transformed scale!!! This is important!!!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>log_mpg <span class="ot">&lt;-</span> <span class="fu">log</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>log_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>raw_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(raw_lm, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(raw_lm, <span class="at">which =</span> <span class="dv">2</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">2</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(raw_lm, <span class="at">which =</span> <span class="dv">3</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <ul>
-<li><span class="math inline">\(\hat Y = HY\)</span>
-<ul>
-<li><span class="math inline">\(\hat Y_i = h_{ii} Y_i + \sum_{j\ne i}h_{ij}Y_j\)</span></li>
-</ul></li>
+<li>Resids versus fitted looks better for <code>log_lm</code>!</li>
+<li>Normal Q-Q looks about the same</li>
+<li>Scale-location looks better for <code>log_lm</code>!</li>
 </ul>
-</section>
-<section id="variance-covariance-matrix-of-hatunderlineepsilon" class="level3">
-<h3 class="anchored" data-anchor-id="variance-covariance-matrix-of-hatunderlineepsilon">Variance-Covariance matrix of <span class="math inline">\(\hat{\underline\epsilon}\)</span></h3>
-<p>Just like <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, each sample results in different <span class="math inline">\(\underline{\hat\epsilon}\)</span>.</p>
-<p>Across samples, we have: <span class="math display">\[
-\underline{\hat\epsilon} - E(\underline{\hat\epsilon}) = (I-H)(Y-X\underline{\beta}) = (I-H)\underline{\epsilon}
-\]</span> and therefore: <span class="math display">\[\begin{align*}
-V(\underline{\hat\epsilon}) &amp;= E([\underline{\hat\epsilon} - E(\underline{\hat\epsilon})][\underline{\hat\epsilon} - E(\underline{\hat\epsilon})]^T)\\
-&amp;= [I-H]E(\underline{\epsilon}\underline{\epsilon}^T)[I-H]^T\\
-&amp;= [I-H]\sigma^2[I-H]\\
-&amp;= [I-H]\sigma^2
-\end{align*}\]</span> where we used the idempotency and symmetry of <span class="math inline">\(I-H\)</span>.</p>
-</section>
-<section id="the-variance-of-a-residual" class="level3">
-<h3 class="anchored" data-anchor-id="the-variance-of-a-residual">The variance of a residual</h3>
-<p>Given that <span class="math inline">\(V(\underline{\hat\epsilon}) = (I-H)\sigma^2\)</span>, <span class="math display">\[
-V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
-\]</span></p>
-<ul>
-<li>The variance of the residual depends on how much <span class="math inline">\(Y_i\)</span> influences it’s own estimate.
-<ul>
-<li>High influence = low variance.</li>
-</ul></li>
-</ul>
-<p>The correlation between residuals is: <span class="math display">\[
-\rho_{ij} = \frac{Cov(\hat\epsilon_i, \hat\epsilon_j)}{\sqrt{V(\hat\epsilon_i)V(\hat\epsilon_j)}} = \frac{-h_{ij}}{\sqrt{(1-h_{ii})(1-h_{jj})}}
-\]</span></p>
-<ul>
-<li>The covariance is negative! A large residual tells us there are small residuals.
-<ul>
-<li>“Large” and “small” are relative</li>
-</ul></li>
-</ul>
-</section>
-<section id="more-h-facts" class="level3">
-<h3 class="anchored" data-anchor-id="more-h-facts">More H Facts</h3>
-<ol type="1">
-<li><span class="math inline">\(SS(\hat{\underline\beta}) = \hat{\underline\beta}^TX^TY = \hat Y^TY = Y^TH^TY = Y^TH^THY = \hat Y^T\hat Y\)</span>
-<ul>
-<li>We used the facts <span class="math inline">\(H^T= H^TH\)</span> and <span class="math inline">\(\hat Y = HY\)</span>.</li>
-</ul></li>
-<li><span class="math inline">\(\sum_{i=1}^nV(\hat Y_i) = trace(H\sigma^2) = p\sigma^2\)</span>
-<ul>
-<li><span class="math inline">\(p\)</span> is the number of parameters.</li>
-<li>Proof is part of the assignment</li>
-</ul></li>
-<li><span class="math inline">\(H1 = 1\)</span> if the model contains a <span class="math inline">\(\beta_0\)</span> term.
-<ul>
-<li><span class="math inline">\(1\)</span> is a <em>column</em> of 1s, not identity matrix.</li>
-<li>Proof on next slide.</li>
-<li><span class="math inline">\(h_{ii} = 1 - \sum_{j\ne i}h_{ij}\)</span>
-<ul>
-<li>Note that <span class="math inline">\(h_{ij}\in[-1, 1]\)</span>.</li>
-</ul></li>
-</ul></li>
-</ol>
-</section>
-<section id="proof-that-h1-1" class="level3">
-<h3 class="anchored" data-anchor-id="proof-that-h1-1">Proof that <span class="math inline">\(H1 = 1\)</span></h3>
-<p>Note that <span class="math inline">\(HX = X\)</span> (as proven on A1).</p>
-<ol type="1">
-<li>The first column of <span class="math inline">\(X\)</span> is all ones (<span class="math inline">\(\beta_0\)</span> term).
-<ul>
-<li><span class="math inline">\([X]_{i1} = 1\)</span></li>
-</ul></li>
-<li>Therefore <span class="math inline">\([HX]_{i1}\)</span> is a column of ones.
-<ul>
-<li>Every row of <span class="math inline">\(H\)</span> times the column of 1s in <span class="math inline">\(X\)</span> results in a column of ones.</li>
-</ul></li>
-<li><span class="math inline">\([HX]_{i1}\)</span> is every row of <span class="math inline">\(H\)</span> times the first column of <span class="math inline">\(X\)</span>.</li>
-</ol>
-<p>The first column of <span class="math inline">\(X\)</span> is 1s, which is equal to the first column of <span class="math inline">\(HX\)</span>, which is <span class="math inline">\(H\)</span> times a column of ones.</p>
-<p>In other words, <span class="math inline">\(H1 = 1\)</span></p>
+<p>It’s worth noting that we always use “fitted” rather than, say, <code>disp</code>. When using a polynomial model, the fitted values go from the lowest to highest. For a positive coefficient for <code>disp^2</code>, this means that it starts from the lowest point in the parabola and goes upward in both directions! Keep that in mind when interpreting residual plots of polynomial functions!</p>
 </section>
 </section>
-<section id="studentized-residuals" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="studentized-residuals"><span class="header-section-number">9.2</span> Studentized Residuals</h2>
-<section id="internally-studentized-not-ideal" class="level3">
-<h3 class="anchored" data-anchor-id="internally-studentized-not-ideal">Internally Studentized (not ideal)</h3>
-<p>How do you measure the size a residual?</p>
-<p>Divide by the variance, of course!</p>
-<p>We know that <span class="math inline">\(V(\hat \epsilon_i) = (1-h_{ii})\sigma^2\)</span>, and <span class="math display">\[
-s^2 = \frac{\sum_{y=1}^n(y_i-\hat y_i)^2}{n-p} = \frac{SSE}{df_E} = MSE
-\]</span> is an estimate of <span class="math inline">\(\sigma^2\)</span>. Then, <span class="math display">\[
-r_i = \frac{\hat\epsilon_i}{\sqrt{s^2(1-h_{ii})}}
-\]</span> is called the <strong>internally studentized residual</strong>.</p>
-</section>
-<section id="internally-studentized" class="level3">
-<h3 class="anchored" data-anchor-id="internally-studentized">“Internally” “Studentized”</h3>
-<p>Note that <span class="math display">\[
-s^2 = \frac{\sum_{i=1}^n(y_i-\hat y_i)^2}{n-p} = \frac{\sum_{i=1}^n(\hat\epsilon_i)^2}{n-p}
-\]</span> and therefore <span class="math display">\[
-r_i = \frac{\hat\epsilon_i}{\sqrt{s^2(1-h_{ii})}} = \frac{\hat\epsilon_i}{\sqrt{(\hat\epsilon_i^2 + \sum_{j\ne i}\hat\epsilon_j^2)(1-h_{ii})/(n-p)}}
-\]</span></p>
-<ul>
-<li>If <span class="math inline">\(\hat\epsilon_i\)</span> is large, then <span class="math inline">\(s^2\)</span> is large.
-<ul>
-<li>If <span class="math inline">\(s^2\)</span> is large, then <span class="math inline">\(s_i\)</span> is small!</li>
-<li>“<strong>Internally</strong>”: the variance includes the residual of interest.</li>
-</ul></li>
-<li>“<strong>Studentized</strong>” because Student made it popular.</li>
-<li>Often called “standardized”.</li>
-</ul>
-</section>
-<section id="externally-studentized-step-1" class="level3">
-<h3 class="anchored" data-anchor-id="externally-studentized-step-1">Externally Studentized Step 1</h3>
-<p>Like adding/removing predictors and checking the cahnge in SS, we can add/remove points!</p>
-<ol type="1">
-<li>Calculate SS</li>
-<li>Remove the first point. Estimate the model again and calculate new SS.</li>
-<li>Add the first point back, remove the second. Estimate the model again and check the SS.</li>
-</ol>
-<p>For each point, we have an estimate of the variance <strong>without</strong> itself.</p>
-</section>
-<section id="externally-studentized-step-2" class="level3">
-<h3 class="anchored" data-anchor-id="externally-studentized-step-2">Externally Studentized Step 2</h3>
-<p>Skipping the math, <span class="math display">\[
-s^2_{(i)} = \frac{(n-p)s^2 - \hat\epsilon_i^2/(1-h_{ii})}{n-p-1}
-\]</span> is the variance of the residuals <strong>without</strong> observation <span class="math inline">\(i\)</span>.</p>
-<ul>
-<li>The influence tells us how much a point influenced the model
-<ul>
-<li>We can see what happened without it</li>
-<li>No need to re-estimate the model!!!</li>
-</ul></li>
-</ul>
-</section>
-<section id="externally-studentized-residuals" class="level3">
-<h3 class="anchored" data-anchor-id="externally-studentized-residuals">Externally Studentized Residuals</h3>
-<p>Use <span class="math inline">\(s^2_{(i)}\)</span> in place of <span class="math inline">\(s^2\)</span>. <span class="math display">\[
-t_i = \frac{\hat\epsilon_i}{\sqrt{s_{(i)}^2(1-h_{ii})}} \sim t_{n-p-1}
-\]</span></p>
-<ul>
-<li>Follows a <span class="math inline">\(t\)</span> distribution!
-<ul>
-<li>Larger than 2 is suspect, 3 is definitely an outlier!</li>
-</ul></li>
-<li>A large <span class="math inline">\(t_i\)</span> is large <em>relative to the other residuals</em></li>
-<li>Usually just called “Studentized”</li>
-</ul>
-<p>Most software uses Studentized residuals for plots/diagnostics!</p>
-</section>
-</section>
-<section id="cooks-distance" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="cooks-distance"><span class="header-section-number">9.3</span> Cook’s Distance</h2>
-<section id="better-measures-of-influence" class="level3">
-<h3 class="anchored" data-anchor-id="better-measures-of-influence">Better Measures of Influence</h3>
-<p>The hat matrix is intepreted as influence, but it has problems.</p>
-<ul>
-<li><span class="math inline">\(y_i\)</span>’s influence on <em>it’s own</em> prediction,
-<ul>
-<li><em>given all other points.</em></li>
-</ul></li>
-<li><span class="math inline">\(0 \le h_{ii} \le 1\)</span>
-<ul>
-<li>What is a “big” influence?</li>
-</ul></li>
-<li>How do you explain <span class="math inline">\(h_{ii}\)</span> to nonstatisticians?</li>
-</ul>
-<p>A better measure is how much the predicted value changes with/without the obs.</p>
-</section>
-<section id="cooks-distance-change-in-hat-y_i." class="level3">
-<h3 class="anchored" data-anchor-id="cooks-distance-change-in-hat-y_i.">Cooks Distance: Change in <span class="math inline">\(\hat y_i\)</span>.</h3>
-<p><span class="math display">\[
-D_i = \frac{\sum_{i=1}^n(\hat y_i - \hat y_{(i)})^2}{ps^2}
-\]</span></p>
-<ul>
-<li><span class="math inline">\(\hat y_i\)</span> is the predicted value of <span class="math inline">\(y_i\)</span> when all data are considered.</li>
-<li><span class="math inline">\(\hat y_{(i)}\)</span> is the predicted value of <span class="math inline">\(y_i\)</span> when observation <span class="math inline">\(i\)</span> is removed.</li>
-<li><span class="math inline">\(s^2\)</span> is the MSE of the model with all of the data.</li>
-<li><span class="math inline">\(p\)</span> is the number of parameters
-<ul>
-<li><span class="math inline">\(D_i\)</span> decreases as <span class="math inline">\(p\)</span> increases!</li>
-</ul></li>
-</ul>
-<p>Again, this <em>would</em> involve re-fitting the model <span class="math inline">\(n\)</span> time (one for each obs).</p>
-</section>
-<section id="cooks-distance-alternate-form" class="level3">
-<h3 class="anchored" data-anchor-id="cooks-distance-alternate-form">Cook’s Distance: Alternate Form</h3>
-<p><span class="math display">\[
-D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\left[\frac{h_{ii}}{1 - h_{ii}}\right]\frac{1}{p} = r_i^2\frac{\text{variance of $i$th predicted value}}{\text{variance of $i$th residual}}\frac{1}{p}
-\]</span></p>
-<ul>
-<li>Again, use <span class="math inline">\(H\)</span> rather than re-fitting the model.</li>
-<li>Cook’s distance is a modification of the <em>internally</em> studentized residual.
-<ul>
-<li>Variances are based on same “deletion” idea as studentized.</li>
-</ul></li>
-<li>Ratio of Variances!
-<ul>
-<li><span class="math inline">\(F\)</span> distribution, mean approaches 1 for large values of <span class="math inline">\(n\)</span>
-<ul>
-<li>Cooks Distance of larger than 1 is suspect.</li>
-</ul></li>
-</ul></li>
-</ul>
-</section>
-<section id="next-class" class="level3">
-<h3 class="anchored" data-anchor-id="next-class">Next Class</h3>
-<p>Plots!</p>
-</section>
-</section>
-<section id="participation" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="participation"><span class="header-section-number">9.4</span> Participation</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>Which does <em>not</em> describe a residual?</p>
-<ol type="1">
-<li>The observed difference between the measured value <span class="math inline">\(y_i\)</span> and the one we predict with <span class="math inline">\(\hat y_i = X\hat{\underline\beta}\)</span>.</li>
-<li>Given the true relationship <span class="math inline">\(Y = X\underline\beta\)</span>, residuals are deviations that cannot be observed.</li>
-<li>Errors that should be fixed.</li>
-</ol>
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>Which of the following is <em>not</em> true about the hat matrix (<span class="math inline">\(H = X(X^TX)^{-1}X^T\)</span>)?</p>
-<ol type="1">
-<li><span class="math inline">\((I-H)(I-H)^T = (I-H)\)</span></li>
-<li><span class="math inline">\(\hat{\underline\beta} = (X^TX)^{-1}X^TY = X^{-1}HY\)</span></li>
-<li><span class="math inline">\(h_{ii} = 1 - \sum_{j\ne i}h_{ij}\)</span></li>
-<li><span class="math inline">\(H(I-H) = 0\)</span></li>
-</ol>
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>Suppose that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0,\sigma^2)\)</span>.</p>
-<p>Which of the following statements is <em>false</em>?</p>
-<ol type="1">
-<li><span class="math inline">\(V(\hat\epsilon_i) = (1 - h_{ii})\sigma^2\)</span></li>
-<li><span class="math inline">\(V(\epsilon_i) = \sigma^2\)</span></li>
-<li><span class="math inline">\(V(Y_i) = \sigma^2\)</span></li>
-<li><span class="math inline">\(V(\hat Y_i) \ge V(\hat \epsilon_i)\)</span></li>
-</ol>
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>The difference between internally and externally studentized residuals is:</p>
-<ol type="1">
-<li>“Internal” uses all of the observations, “external” uses all of the observations except <span class="math inline">\(i\)</span>.</li>
-<li>“External” uses all of the observations, “internal” uses all of the observations except <span class="math inline">\(i\)</span>.</li>
-</ol>
-</section>
-<section id="q5" class="level3">
-<h3 class="anchored" data-anchor-id="q5">Q5</h3>
-<p>Internally studentized residuals follow a <span class="math inline">\(t\)</span> distribution.</p>
-<ol type="1">
-<li>True - they are a normal r.v. divided by a chi-square r.v.</li>
-<li>False - they are a normal r.v. divided by a chi-square r.v., but the two are <em>not</em> independent.</li>
-<li>False - They include a normal and a chi-square, but the <span class="math inline">\(h_{ii}\)</span> make this not follow distributional assumptions.</li>
-<li>True - internally studentized residuals are a small modification to externally studentized residuals, which follow a <span class="math inline">\(t\)</span> distribution.</li>
-</ol>
-</section>
-<section id="q6" class="level3">
-<h3 class="anchored" data-anchor-id="q6">Q6</h3>
-<p>Which of the following is <em>not</em> useful for detecting outliers?</p>
-<ol type="1">
-<li>Standardized residuals</li>
-<li>Studentized residuals</li>
-<li>Cook’s distance</li>
-<li><span class="math inline">\(h_{ii}\)</span></li>
-</ol>
+<section id="the-box-cox-transformation" class="level2" data-number="H.2">
+<h2 data-number="H.2" class="anchored" data-anchor-id="the-box-cox-transformation"><span class="header-section-number">H.2</span> The Box-Cox Transformation</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcox</span>(<span class="fu">lm</span>(mtcars<span class="sc">$</span>mpg <span class="sc">~</span> mtcars<span class="sc">$</span>disp), <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Since 0 is the the top 5% of log-Likelihood values, the log transform is reasonable according to Box-Cox!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bc <span class="ot">&lt;-</span> <span class="fu">boxcox</span>(<span class="fu">lm</span>(mtcars<span class="sc">$</span>mpg <span class="sc">~</span> mtcars<span class="sc">$</span>disp), <span class="at">data =</span> mtcars, <span class="at">plotit =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$x
+ [1] -2.0 -1.9 -1.8 -1.7 -1.6 -1.5 -1.4 -1.3 -1.2 -1.1 -1.0 -0.9 -0.8 -0.7 -0.6
+[16] -0.5 -0.4 -0.3 -0.2 -0.1  0.0  0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9
+[31]  1.0  1.1  1.2  1.3  1.4  1.5  1.6  1.7  1.8  1.9  2.0
+
+$y
+ [1] -3.57059866 -2.41311198 -1.29583952 -0.22262913  0.80247262  1.77526399
+ [7]  2.69144571  3.54669319  4.33674248  5.05748822  5.70509010  6.27608329
+[13]  6.76748690  7.17690379  7.50260505  7.74359272  7.89963620  7.97127900
+[19]  7.95981574  7.86724092  7.69617369  7.44976444  7.13158953  6.74554135
+[25]  6.29571958  5.78632931  5.22158959  4.60565519  3.94255266  3.23613075
+[31]  2.49002447  1.70763143  0.89209868  0.04631829 -0.82707014 -1.72567168
+[37] -2.64732452 -3.59008589 -4.55221639 -5.53216368 -6.52854602</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"Optimal value of lamba is: "</span>, bc<span class="sc">$</span>x[<span class="fu">which.max</span>(bc<span class="sc">$</span>y)]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Optimal value of lamba is: -0.3"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>opt_mpg <span class="ot">&lt;-</span> (mtcars<span class="sc">$</span>mpg<span class="sc">^</span>(<span class="sc">-</span><span class="fl">0.3</span>) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fl">0.3</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>optimal_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(opt_mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>raw_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(optimal_lm, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">2</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(optimal_lm, <span class="at">which =</span> <span class="dv">2</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">3</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(optimal_lm, <span class="at">which =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It does look a little bit better, but the log is simpler to interpret and should probably be used.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1075,13 +951,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L09-Serial_Correlation.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">L09: Cereal Correlation in the Residuals</span></span>
+      <a href="./Lb13-Wrong_Model.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Lab 13: Missing/Extra Predictors</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L11-Admin_Slides.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">L11: The Hat Matrix 2</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Lb16-Regression_with_Dummies.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">I</span>&nbsp; <span class="chapter-title">Lab 16 - Regression with Categorical Predictors</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

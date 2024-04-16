@@ -50,18 +50,18 @@ book:
     - part: Review
       chapters:
         - L23-Review.qmd
-      appendices:
-        - Lb02-OLS_Estimates.Rmd
-        - Lb03-MSE.Rmd
-        - Lb04-R_Matrix_Form.Rmd
-        - Lb05-ANOVA-R2-F_test-CI.Rmd
-        - Lb11-R_hat_resids_cook.Rmd
-        - Lb12-Corr_in_Betas.qmd
-        - Lb13-Wrong_Model.Rmd
-        - Lb15-Transformations.Rmd
-        - Lb16-Regression_with_Dummies.Rmd
-        - Lb17-Multico.Rmd
-        - Lb18-Backwards_Selection_is_Bad.Rmd
+  appendices:
+    - Lb02-OLS_Estimates.Rmd
+    - Lb03-MSE.Rmd
+    - Lb04-R_Matrix_Form.Rmd
+    - Lb05-ANOVA-R2-F_test-CI.Rmd
+    - Lb11-R_hat_resids_cook.Rmd
+    - Lb12-Corr_in_Betas.qmd
+    - Lb13-Wrong_Model.Rmd
+    - Lb15-Transformations.Rmd
+    - Lb16-Regression_with_Dummies.Rmd
+    - Lb17-Multico.Rmd
+    - Lb18-Backwards_Selection_is_Bad.Rmd
 
 format:
   html:
