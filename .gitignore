@@ -5,3 +5,5 @@
 L*files/
 L*cache/
 ./site_libs
+
+Slides/*.pdf
