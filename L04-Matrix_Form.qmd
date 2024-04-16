@@ -1,6 +1,6 @@
 ---
-title: "L04: Regression in Matrix Form"
-institute: "Jam: \\emph{Monde Invers\\'e} by Cirque du Soleil"
+title: "Regression in Matrix Form"
+institute: "Jam: **Monde Inverse** by Cirque du Soleil"
 ---
 
 ## Chapter 04 Summary

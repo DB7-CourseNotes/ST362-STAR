@@ -1,6 +1,6 @@
 ---
-title: "L02: Straight Line Fitting"
-institute: "Jam: \\emph{Great Expectations} by The Gaslight Anthem"
+title: "Fitting Straight Lines"
+institute: "Jam: **Great Expectations** by The Gaslight Anthem"
 ---
 
 

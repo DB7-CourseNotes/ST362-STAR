@@ -1,6 +1,6 @@
 ---
-title: "L09: Cereal Correlation in the Residuals"
-institute: "Jam: \\emph{Like Yesterday} by Ryan Adams and The Cardinals"
+title: "Serial Correlation in the Residuals"
+institute: "Jam: **Like Yesterday** by Ryan Adams and The Cardinals"
 ---
 
 ## Serial Correlation in the Residuals

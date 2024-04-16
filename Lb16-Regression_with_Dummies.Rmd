@@ -1,5 +1,5 @@
 ---
-title: "Lab 16 - Regression with Categorical Predictors"
+title: "Regression with Categorical Predictors"
 output: html_notebook
 ---
 

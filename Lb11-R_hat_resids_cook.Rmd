@@ -1,5 +1,5 @@
 ---
-title: "Lab 11: Hat Matrix and Residuals in R"
+title: "Hat Matrix and Residuals in R"
 output: html_notebook
 ---
 

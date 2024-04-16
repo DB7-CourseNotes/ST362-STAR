@@ -1,6 +1,6 @@
 ---
-title: "L13: Getting the Wrong Model"
-institute: "Jam: **** by "
+title: "Getting the Wrong Model"
+institute: "**Jam TBD**"
 ---
 
 ## The Wrong Model

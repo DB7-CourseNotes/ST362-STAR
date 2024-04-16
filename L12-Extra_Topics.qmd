@@ -1,6 +1,6 @@
 ---
-title: "L12: Extra Topics"
-institute: "Jam: \\emph{Hypotheticals} by Lake Street Drive"
+title: "Extra Topics"
+institute: "Jam: **Hypotheticals** by Lake Street Drive"
 ---
 
 

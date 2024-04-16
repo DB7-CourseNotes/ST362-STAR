@@ -1,5 +1,5 @@
 ---
-title: "L19: Analysis of MTCars"
+title: "Analysis of MTCars"
 author: "Devan Becker"
 format: html
 editor: visual

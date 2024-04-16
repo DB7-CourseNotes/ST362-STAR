@@ -1,5 +1,5 @@
 ---
-title: "Lab 2: OLS Estimates"
+title: "OLS Estimates"
 output: pdf_document
 ---
 

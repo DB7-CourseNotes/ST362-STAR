@@ -1,6 +1,6 @@
 ---
-title: "L11: The Hat Matrix 2"
-institute: "Jam: \\emph{} by "
+title: "The Hat Matrix 2"
+institute: "**Jam TBD**"
 ---
 
 

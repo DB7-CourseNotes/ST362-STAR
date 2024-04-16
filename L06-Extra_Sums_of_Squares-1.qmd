@@ -1,6 +1,6 @@
 ---
-title: "L06: Extra Sum-of-Squares (Part 1)"
-
+title: "Extra Sum-of-Squares"
+institute: "**Jam TBD**"
 ---
 
 ## Introduction

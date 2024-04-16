@@ -1,6 +1,6 @@
 ---
-title: "L20: Degrees of Freedom"
-institute: "Jam: **** by"
+title: "Degrees of Freedom"
+institute: "**Jam TBD**"
 execute: 
     echo: true
 ---

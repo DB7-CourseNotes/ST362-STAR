@@ -1,6 +1,6 @@
 ---
-title: "L15: Transforming the Response"
-institute: "Jam: *Stabilise* by Nilüfer Yanya"
+title: "Transforming the Response"
+institute: "Jam: **Stabilise** by Nilüfer Yanya"
 ---
 
 ## Transformations

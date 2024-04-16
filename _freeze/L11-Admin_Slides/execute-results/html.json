@@ -1,0 +1,14 @@
+{
+  "hash": "16b8bc0344260e165cdf53638f877e32",
+  "result": {
+    "markdown": "---\ntitle: \"The Hat Matrix 2\"\ninstitute: \"**Jam TBD**\"\n---\n\n\n\n## Participation Questions\n\n### Q1\n\nWhich of these does *not* give the diagonal of the hat matrix?\n\n1. `hatvalues(mylm)`\n2. `diag(X %*% solve(t(X) %*% X) %*% t(X))`\n3. `augment(mylm)$hat`\n\n### Q2\n\nRemoving an outlier will *not* change:\n\n1. The diagonal of the hat matrix.\n2. The off-diagonal of the hat matrix.\n3. SST\n4. All of the above will change if we remove an outlier.\n\n### Q3\n\nA large residual means large influence.\n\n1. True\n2. False\n\n### Q4\n\nAll entries in the hat matrix are between -1 and 1.\n\n1. True\n2. False\n\n### Q5\n\nWhich plot corresponds to the model with the *most* predictors?\n\n(All models are nested.)\n\n\n::: {.cell hash='L11-Admin_Slides_cache/html/unnamed-chunk-1_6cbe6e02fb6bced8daad41ba300138e4'}\n::: {.cell-output-display}\n![](L11-Admin_Slides_files/figure-html/unnamed-chunk-1-1.png){width=1152}\n:::\n:::\n\n\n### Q6\n\nIn the output of `augment()` in the `broom` package, the `.sigma` column refers to:\n\n1. The MSE of the model.\n2. The MSE of the model *if it were fit without the observation in that row*.\n3. The variance of that residual, as calculated by $V(\\hat\\epsilon_i) = (1-h_{ii})s^2$.\n4. The variance of that residual, as calculated by $V(\\hat\\epsilon_i) = (1-h_{ii})s_{(i)}^2$.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

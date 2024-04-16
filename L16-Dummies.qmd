@@ -1,6 +1,6 @@
 ---
-title: "L16: Dummy Variables"
-institute: "Jam: ** by "
+title: "Dummy Variables"
+institute: "**Jam TBD**"
 ---
 
 

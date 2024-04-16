@@ -1,6 +1,6 @@
 ---
-title: "L10: The Hat Matrix"
-institute: "Jam: \\emph{Residual} by Trash."
+title: "The Hat Matrix"
+institute: "Jam: **Residual** by Trash."
 ---
 
 ## Le Chapeau

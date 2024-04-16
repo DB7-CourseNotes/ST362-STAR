@@ -1,4 +1,4 @@
-# Lab 13: Missing/Extra Predictors
+# Lab Missing/Extra Predictors
 
 ## Missing Predictors
 

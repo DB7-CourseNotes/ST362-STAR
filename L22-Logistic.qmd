@@ -1,5 +1,5 @@
 ---
-title: "L22: Classification"
+title: "Classification"
 institute: "Jam: **Love's a Logistical Thing** by PJ Parker"
 ---
 

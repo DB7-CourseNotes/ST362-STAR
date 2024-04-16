@@ -2,6 +2,7 @@ project:
   type: book
   output-dir: docs
 
+date: "last-modified"
 date-format: iso
 institute: "Wilfrid Laurier University"
 number-depth: 2

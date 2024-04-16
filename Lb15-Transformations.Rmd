@@ -1,4 +1,4 @@
-# Lab 15: Transformations
+# Lab Transformations
 
 ## Finding a model for `mpg ~ disp`
 

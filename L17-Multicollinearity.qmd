@@ -1,6 +1,6 @@
 ---
-title: "L17: Multicollinearity"
-date: "2023-07-10"
+title: "Multicollinearity"
+institute: "**Jam TBD**"
 ---
 
 ```{r}

@@ -1,6 +1,6 @@
 ---
-title: "L05: The General Regression Situation"
-institute: "Jam: \\emph{I Predict a Riot} by The Kaiser Chefs"
+title: "The General Regression Situation"
+institute: "Jam: **I Predict a Riot** by The Kaiser Chefs"
 ---
 
 ```{r}

@@ -1,5 +1,5 @@
 ---
-title: "Lab 4: Verifying Matrix Identities"
+title: "Verifying Matrix Identities"
 output: html_document
 ---
 

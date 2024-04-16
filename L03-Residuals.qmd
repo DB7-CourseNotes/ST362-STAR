@@ -1,6 +1,6 @@
 ---
-title: "L03: Assessing Fit"
-institute: "Jam: \\emph{Left Overs} by Joe Bonamassa"
+title: "Assessing Fit"
+institute: "Jam: **Left Overs** by Joe Bonamassa"
 ---
 
 

@@ -1,5 +1,5 @@
 ---
-title: "L21: Regularization Methods"
+title: "Regularization Methods"
 institute: "Jam: **Ted Lasso Theme** by Marcus Mumford and Tom Howe"
 ---
 

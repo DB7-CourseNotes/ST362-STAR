@@ -1,5 +1,5 @@
 ---
-title: "Lab 3: Bias/variance of $\\sigma^2$"
+title: "Bias/variance of $\\sigma^2$"
 output: html_document
 ---
 

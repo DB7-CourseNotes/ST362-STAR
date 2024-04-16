@@ -1,5 +1,5 @@
 ---
-title: "Lab 5: ANOVA"
+title: "ANOVA"
 output: html_notebook
 ---
 
