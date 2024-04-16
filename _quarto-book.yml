@@ -11,15 +11,16 @@ book:
   title: "Regression Analysis"
   subtitle: Theory, Simulation, and Application
   author: "Dr. Devan Becker"
-  date: "2023-06-27"
-  repo-url: https://github.com/DB7-CourseNotes/ST362-S23
+  date: "last-modified"
+  repo-url: https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes
   repo-actions: [issue, source]  
   page-footer:
     left: |
       Copyright Devan Becker, released under Creative Commons Attribution-ShareAlike 4.0.
+  page-navigation: true
   chapters:
     - index.qmd
-    - part: Lectures
+    - part: OLS Basics
       chapters:
         - L01-Introduction.qmd
         - L02-Fitting_Straight_Lines.qmd
@@ -32,6 +33,8 @@ book:
         - L10-Hat-Resid_Plots-Cook.qmd
         - L11-Admin_Slides.qmd
         - L12-Extra_Topics.qmd
+    - part: Choosing Models
+      chapters:
         - L13-Wrong_Model.qmd
         - L14-Nonlinear.qmd
         - L15-Transforming_Response.qmd
@@ -40,11 +43,14 @@ book:
         - L18-Modelling_Poorly.qmd
         - L19-Example_Analysis_mtcars.qmd
         - L20-Degrees_of_Freedom.qmd
+    - part: Regularization
+      chapters:
         - L21-Regularization.qmd
         - L22-Logistic.qmd
-        - L23-Review.qmd
-    - part: Lab Notes
+    - part: Review
       chapters:
+        - L23-Review.qmd
+      appendices:
         - Lb02-OLS_Estimates.Rmd
         - Lb03-MSE.Rmd
         - Lb04-R_Matrix_Form.Rmd

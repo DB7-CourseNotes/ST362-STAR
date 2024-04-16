@@ -2,6 +2,7 @@ project:
     title: "Lecture Slides"
     output-dir: Slides
 date-format: iso
+author: "Dr. Devan Becker"
 execute: 
     warning: false
 format: 

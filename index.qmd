@@ -3,7 +3,7 @@
 
 ## About This Course
 
-This book contains the course notes for the Spring 2023 offering of ST362 Regression Analysis, based on the following sources:
+This book contains the course notes for the Spring 2024 offering of ST362 Regression Analysis, based on the following sources:
 
 - *Applied Regression Analysis*, 3rd edition, by Draper and Smith 
     - A PDF of this textbook is available through the WLU library
@@ -13,23 +13,33 @@ This book contains the course notes for the Spring 2023 offering of ST362 Regres
 
 ## About This Book
 
+This book is a living document. Expect changes throughout each semester that I teach!
+
 Some features:
 
 - The GitHub logo takes you to the repo for this book. Feel free to fork and adapt as you please (under the CC BY-SA 4.0 license).
 - The little toggle next to the logo puts this into night mode. Try it out!
 - Each lecture had a "Jam", where I played music at the start of class that related to a particular slide. When that slide showed up, a student would say "That's my Jam!" and I would throw chocolate at them. 
-    - The jams are still there, and you may wish to listen to them while reading the slides!
+    - The jams are still there, and you may wish to listen to them while reading!
 
-This book is very much a work in progress. There are missing sections and typos in the slides. I am working on adding speaker notes to the slides, which will show up as text in this book. 
+This book is very much a work in progress. There are missing sections and typos. I am working on adding speaker notes to the slides, which will show up as text in this book. 
 
 I am also working on a major re-write of the first few chapters to walk through the concepts in a better order. In particular, I would like to stay in simple linear regression for a lot longer, demonstrating correlation, Cook's distance, correlation between $\hat\beta_0$ and $\hat\beta_1$, etc., then moving into binary and categorical predictors as a first step into multiple regression, polynomial as a second step, then a lecture demonstrating that all of these concepts generalize into multiple dimensions. 
 
 This is a quarto book based on my lecture slides. The "Lectures" are quarto files that were rendered into beamer PDF slides. I have included the configs to render the slides. To re-create my slides, you can use the code:
 
 ```bash
-quarto render L01-Introduction.qmd --profile slides
+quarto render L01-Introduction.qmd
 ```
 
-The `--profile` argument tells Quarto to use the configuration in the file `_quarto-slides.yml`. I will add speaker notes in a `notes` environment, which means that the notes will appear in the book but not the pdf slides.
+Alternatively, you can hit Cmd-Shift-K (Ctrl-Shift-K on Linux and other operating systems) inside VSCode or Rstudio to render the slides into a presentation. 
+
+To render the whole book (as html), use:
+
+```bash
+quarto render --profile book
+```
+
+The `--profile` argument tells Quarto to use the configuration in the file `_quarto-slides.yml`. I have added speaker notes in a `notes` environment, which means that the notes will appear in the book but not the pdf slides.
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 Unported License</a>.

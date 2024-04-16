@@ -1,13 +1,21 @@
 ---
-title: "L01: Distributions"
+title: "Stats Review"
+subtitle: "This is a test"
 institute: "Jam: **Gamma Ray** by Beck"
+date: "last-modified"
 ---
 
 ::: {.content-visible when-format="pdf"}
 
-## The Syllabus Part
+## Preamble
 
 ### Basic Info
+
+\centering
+\includegraphics[width=0.75\textwidth]{figs/phdSyllabus.png}
+
+\footnotesize{Source: Ph.D. Comics by Jorge Cham}
+\raggedright
 
 :::
 
@@ -218,13 +226,8 @@ Note that $\chi^2_n(0.055)\ne-\chi^2_n(0.945)$.
 - CIs are all values that would not be rejected by a hypothesis test.
     - The null hypothesis determines the distribution of the test statistic, which allows us to find the CI.
 
-\pspace
 
-For Next Class:\vspace{-3mm}
-
-- Read through Ch01, especially procedure for least squares estimation.
-
-<---
+::: {.content-visible when-format="pdf"}
 
 ## Participation Questions
 
@@ -286,4 +289,4 @@ The general approach to finding confidence intervals is to find a function of th
 3. True
 4. 
 
---->
+:::
