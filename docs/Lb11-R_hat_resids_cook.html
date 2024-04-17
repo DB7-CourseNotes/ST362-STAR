@@ -185,13 +185,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">OLS Basics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
@@ -262,13 +262,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
  <span class="menu-text">Choosing Models</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
@@ -321,13 +321,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
  <span class="menu-text">Regularization</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
@@ -344,13 +344,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
  <span class="menu-text">Review</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L23-Review.html" class="sidebar-item-text sidebar-link">
@@ -506,7 +506,7 @@ window.Quarto = {
 H = X(X^TX)^{-1}X^T
 \]</span></p>
 <p>In R, we can calculate the diagonal of the hat matrix as follows:</p>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-2_0408aa92a3c41cef04a0632670dae680">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hatvalues</span>(mylm) <span class="sc">|&gt;</span> <span class="fu">unname</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -522,7 +522,7 @@ H = X(X^TX)^{-1}X^T
 <section id="extracting-the-diagonals-from-h" class="level2" data-number="E.2">
 <h2 data-number="E.2" class="anchored" data-anchor-id="extracting-the-diagonals-from-h"><span class="header-section-number">E.2</span> Extracting the Diagonals from H</h2>
 <p>There isn’t a built-in function for the full hat matrix (the diagonals are usually all you’ll need). For demonstration, here are some demonstrations of the features of the hat matrix.</p>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-3_6fe2229860e831bc800462ba60bc7c36">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mylm)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>H <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">diag</span>(H), <span class="fu">hatvalues</span>(mylm))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -534,7 +534,7 @@ H = X(X^TX)^{-1}X^T
 <section id="features-of-h" class="level2" data-number="E.3">
 <h2 data-number="E.3" class="anchored" data-anchor-id="features-of-h"><span class="header-section-number">E.3</span> Features of H</h2>
 <p>In the code below, I use the <code>unname()</code> function because mtcars has rownames which make the output harder to see (this used to be the norm in R, but it’s fallen out of fashion).</p>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-4_ab6a824312d6abfd3547c1973c26c9a0">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(H) <span class="sc">|&gt;</span> <span class="fu">unname</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</code></pre>
@@ -592,7 +592,7 @@ Volvo 142E             1</code></pre>
 <section id="extracting-the-residuals" class="level2" data-number="E.4">
 <h2 data-number="E.4" class="anchored" data-anchor-id="extracting-the-residuals"><span class="header-section-number">E.4</span> Extracting the residuals</h2>
 <p>See <code>?influence.measures</code>.</p>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-5_eda8dda52a62eccb65bc2faf9023f130">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>?rstandard</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cooks.distance</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -618,7 +618,7 @@ Volvo 142E             1</code></pre>
 <section id="the-broom-package" class="level2" data-number="E.5">
 <h2 data-number="E.5" class="anchored" data-anchor-id="the-broom-package"><span class="header-section-number">E.5</span> The <code>broom</code> package</h2>
 <p>The <code>broom</code> package has a wonderful function called <code>augment()</code>. This function sets up our data so that it’s super easy to see what we need.</p>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-6_5ba9c7389a28cceddb52f3ed3428e406">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -651,7 +651,7 @@ Volvo 142E             1</code></pre>
 <section id="plotting-the-residuals" class="level2" data-number="E.6">
 <h2 data-number="E.6" class="anchored" data-anchor-id="plotting-the-residuals"><span class="header-section-number">E.6</span> Plotting the residuals</h2>
 <p>If you’ve ever accidentally typed <code>plot(mylm)</code>, you’ve seen some plots of the residuals.</p>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-7_7bf34ba7fbede5cb074b05319c6a7671">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mylm) <span class="co"># ?plot.lm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -663,7 +663,7 @@ Volvo 142E             1</code></pre>
 </div>
 </div>
 <p>You can access individual plots with the <code>which</code> argument.</p>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-8_06b60718abab4c2f99aba07641190c21">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mylm, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -686,7 +686,7 @@ Volvo 142E             1</code></pre>
 <li>V7 is humidity</li>
 <li>We’ll ignore the rest.</li>
 </ul>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-9_5fd9bb361d7cd1a0bedd1c41e803e157">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlbench)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Ozone)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Ozone) <span class="co"># V4 is response (measurement of Ozone)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -709,7 +709,7 @@ Volvo 142E             1</code></pre>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Ozone <span class="ot">&lt;-</span> Ozone[<span class="fu">complete.cases</span>(Ozone), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A small amount of exploration first:</p>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-10_285faa5660b259cc7e0b249867d797c9">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
@@ -739,7 +739,7 @@ Volvo 142E             1</code></pre>
 </ul></li>
 <li>Change <code>.hat</code> to <code>.cooksd</code>.</li>
 </ul>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-11_74cb2579f098ac1c4ae3ce1da4d7098b">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>olm <span class="ot">&lt;-</span> <span class="fu">lm</span>(V4 <span class="sc">~</span> V5 <span class="sc">+</span> V6 <span class="sc">+</span> V7, <span class="at">data =</span> Ozone)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(olm) <span class="sc">%&gt;%</span></span>
@@ -759,7 +759,7 @@ Volvo 142E             1</code></pre>
 </div>
 <p>Which ones have a large hat value?</p>
 <p>The plots below are the same as the ones above, but coloured according to the hat values.</p>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-12_98522f38dfe67362b2dc267224ddec4c">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>g5 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Ozone) <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> V5, <span class="at">y =</span> V4, <span class="at">col =</span> <span class="fu">hatvalues</span>(olm)) <span class="sc">+</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)</span>
@@ -785,7 +785,7 @@ Volvo 142E             1</code></pre>
 <section id="adding-an-outlier" class="level2" data-number="E.8">
 <h2 data-number="E.8" class="anchored" data-anchor-id="adding-an-outlier"><span class="header-section-number">E.8</span> Adding an Outlier</h2>
 <p>Let’s add an outlier to see what happens with these data.</p>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-13_0d01aec0602f1f0016ffa5e3508920b7">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>newzone <span class="ot">&lt;-</span> Ozone[, <span class="fu">c</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>)]</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>newzone <span class="ot">&lt;-</span> <span class="fu">rbind</span>(newzone,</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="at">V4 =</span> <span class="dv">30</span>, <span class="at">V5 =</span> <span class="dv">5300</span>, <span class="at">V6 =</span> <span class="dv">5</span>, <span class="at">V7 =</span> <span class="dv">40</span>))</span>
@@ -815,7 +815,7 @@ Volvo 142E             1</code></pre>
 </section>
 <section id="using-rs-built-in-diagnostics" class="level2" data-number="E.9">
 <h2 data-number="E.9" class="anchored" data-anchor-id="using-rs-built-in-diagnostics"><span class="header-section-number">E.9</span> Using R’s Built-In Diagnostics</h2>
-<div class="cell" data-hash="Lb11-R_hat_resids_cook_cache/html/unnamed-chunk-14_93acf55811f90ab0f9453dc455e64103">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">4</span>))</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(V4 <span class="sc">~</span> ., <span class="at">data =</span> newzone))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">

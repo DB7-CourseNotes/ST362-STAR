@@ -185,13 +185,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">OLS Basics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
@@ -262,13 +262,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
  <span class="menu-text">Choosing Models</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
@@ -321,13 +321,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
  <span class="menu-text">Regularization</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
@@ -344,13 +344,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
  <span class="menu-text">Review</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L23-Review.html" class="sidebar-item-text sidebar-link">
@@ -499,7 +499,7 @@ window.Quarto = {
 
 <section id="basic-anova" class="level2" data-number="D.1">
 <h2 data-number="D.1" class="anchored" data-anchor-id="basic-anova"><span class="header-section-number">D.1</span> Basic ANOVA</h2>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-1_185927e02cb6098a61d6ed1c8656cb81">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2221</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -511,7 +511,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-2_244f854bcdaa9a286d7941b2a14c80cb">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> qsec, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
@@ -524,7 +524,7 @@ Residuals 30 928.66  30.955
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-3_786fe58608e9b0e2467d02d692debcda">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> qsec, <span class="at">data =</span> mtcars))<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Estimate Std. Error    t value   Pr(&gt;|t|)
@@ -536,7 +536,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 </section>
 <section id="r2-always-increases-with-new-predictors" class="level2" data-number="D.2">
 <h2 data-number="D.2" class="anchored" data-anchor-id="r2-always-increases-with-new-predictors"><span class="header-section-number">D.2</span> <span class="math inline">\(R^2\)</span> always increases with new predictors</h2>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-4_6aaddb5d1e5eac0e52cc672e3baa5054">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>nx <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># Number of uncorrelated predictors</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>uncorr <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">50</span><span class="sc">*</span>(nx <span class="sc">+</span> <span class="dv">1</span>)), </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">50</span>, <span class="at">ncol =</span> nx <span class="sc">+</span> <span class="dv">1</span>)</span>
@@ -562,7 +562,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 </div>
 </div>
 <p>The one exception is when one of the predictors is a linear combination of the previous predictors. In this case, <span class="math inline">\(R^2\)</span> will not change!</p>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-5_9cf6f8f173d6058f83ba9b44c8cb7d2c">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>uncorr[, nx <span class="sc">+</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> uncorr[,<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>uncorr[,<span class="dv">3</span>]</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>rsquares <span class="ot">&lt;-</span> <span class="fu">c</span>(rsquares, <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> uncorr))<span class="sc">$</span>r.squared)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>rsquares</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -579,7 +579,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 </div>
 </div>
 </div>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-6_98d2ed2ac57515a9533538b0e2fa8d29">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">2</span>; b1 <span class="ot">&lt;-</span> <span class="dv">5</span>; sigma <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>b0s <span class="ot">&lt;-</span> b1s <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="dv">1000</span>)</span>
@@ -602,7 +602,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 </div>
 </div>
 <p>Let’s do that again, but record the values and only show the 89% quantiles!</p>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-7_b4f7cbb28412e78639937741e516866b">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">2</span>; b1 <span class="ot">&lt;-</span> <span class="dv">5</span>; sigma <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>all_lines <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
@@ -612,7 +612,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>eightnine <span class="ot">&lt;-</span> <span class="fu">apply</span>(all_lines, <span class="dv">1</span>, quantile, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.045</span>, <span class="fl">0.945</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-8_dff82bf6ecc13896ed871f83648af324">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">pch =</span> <span class="dv">0</span>, </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">65</span>),</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>,</span>
@@ -628,7 +628,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 </div>
 </div>
 <p>Note that the theoretical calculation of these bounds is built into R:</p>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-9_30e536737cf1eb5a2b7b9dce09eacca6">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">pch =</span> <span class="dv">0</span>, </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">65</span>),</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>,</span>
@@ -664,7 +664,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <section id="aside" class="level3">
 <h3 class="anchored" data-anchor-id="aside">Aside</h3>
 <p>Why did I use the same <span class="math inline">\(x\)</span> values for all of the simulations? Because that’s part of the assumptions (this isn’t an important point to make). Again, notice how the point <span class="math inline">\((\bar x, \bar y)\)</span> is always on the line, and how the variance at the point <span class="math inline">\(\bar x\)</span> is minimized. If <span class="math inline">\(\bar x\)</span> is randomly moved, then there’s extra variance in the line.</p>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-10_a93edabc2b8a04b2d131179e0de307bb">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">2</span>; b1 <span class="ot">&lt;-</span> <span class="dv">5</span>; sigma <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>all_lines2 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
@@ -674,7 +674,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>eightnine2 <span class="ot">&lt;-</span> <span class="fu">apply</span>(all_lines2, <span class="dv">1</span>, quantile, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.045</span>, <span class="fl">0.945</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-11_938e982af7449605ed34f2bf62a4bc7e">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">pch =</span> <span class="dv">0</span>, </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">65</span>),</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>,</span>
@@ -697,7 +697,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 </section>
 <section id="covariance-of-the-parameters" class="level2" data-number="D.3">
 <h2 data-number="D.3" class="anchored" data-anchor-id="covariance-of-the-parameters"><span class="header-section-number">D.3</span> Covariance of the parameters</h2>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-12_a09d0b730e4b7e3f9fc6de4d3f791896">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">2</span>; b1 <span class="ot">&lt;-</span> <span class="dv">5</span>; sigma <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>all_params <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
@@ -705,7 +705,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-13_8a8d6868fe54eae9e20c9c55ed461d42">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">t</span>(all_params))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
@@ -721,7 +721,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <section id="joint-normality-of-the-underlinehatbetas" class="level2" data-number="D.4">
 <h2 data-number="D.4" class="anchored" data-anchor-id="joint-normality-of-the-underlinehatbetas"><span class="header-section-number">D.4</span> Joint Normality of the <span class="math inline">\(\underline{\hat\beta}\)</span>s</h2>
 <p>Joint normality leads to marginal normality! This means we can create a confidence interval based on the marginal. However, if the joint distribution has a strong correlation, the marginal confidence intervals might contain unlikely points!</p>
-<div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-14_4b475eb7c1cea0d038f06d6900130f08">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Marginal distribution of beta_0</span></span>
