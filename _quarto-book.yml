@@ -37,7 +37,7 @@ book:
     - part: Choosing Models
       chapters:
         - L13-Wrong_Model.qmd
-        - L14-Nonlinear.qmd
+        - L14-NonLinear.qmd
         - L15-Transforming_Response.qmd
         - L16-Dummies.qmd
         - L17-Multicollinearity.qmd
