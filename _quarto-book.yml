@@ -13,8 +13,8 @@ execute:
     warning: false
 
 book:
-  title: "Regression Analysis"
-  subtitle: Theory, Simulation, and Application
+  title: "STAR Notes"
+  subtitle: "Simulation, Theory, and Application of Regression"
   author: "Dr. Devan Becker"
   date: "last-modified"
   repo-url: https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes
