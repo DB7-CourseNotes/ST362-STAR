@@ -455,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></h1>
-<p class="subtitle lead">This is a test</p>
+<p class="subtitle lead">Simulating Linear Models, Understanding Distributions</p>
 </div>
 
 
@@ -526,7 +526,9 @@ y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 <section id="sampling-distributions-of-estimates" class="level3">
 <h3 class="anchored" data-anchor-id="sampling-distributions-of-estimates">Sampling Distributions of Estimates</h3>
 <p>The following code will simulate from a linear model 1000 times. This is <em>not</em> the best way to do this, but it’s more clear what’s going on.</p>
-<div class="cell" data-hash="L01-Introduction_cache/html/sim-means_9b116ad9223ad83b6f18ebcb083008b5">
+<div class="cell" data-hash="L01-Introduction_cache/html/sim-means_41646abb08edeb9b858e1399b27d03f0">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">40</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="dv">10</span></span>
@@ -557,6 +559,7 @@ y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(sigma_ests<span class="sc">^</span><span class="dv">2</span>, <span class="at">breaks =</span> <span class="dv">30</span>)</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> sigma<span class="sc">^</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="L01-Introduction_files/figure-html/sim-means-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -566,7 +569,9 @@ y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 </section>
 <section id="but-whats-the-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="but-whats-the-distribution">But what’s the distribution?</h3>
-<div class="cell" data-hash="L01-Introduction_cache/html/sim-dists_b10d0e1937386c4a132a87a73dabad28">
+<div class="cell" data-hash="L01-Introduction_cache/html/sim-dists_721343371233052d9dba80fb59ef80cb">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(beta0_ests, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> beta0, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
@@ -580,6 +585,7 @@ y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(sigma_ests<span class="sc">^</span><span class="dv">2</span>, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> sigma<span class="sc">^</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x <span class="sc">*</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> sigma<span class="sc">^</span><span class="dv">2</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> sigma<span class="sc">^</span><span class="dv">2</span>, <span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">n =</span> <span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="L01-Introduction_files/figure-html/sim-dists-1.png" class="img-fluid" width="672"></p>
 </div>

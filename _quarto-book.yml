@@ -7,6 +7,10 @@ date-format: iso
 institute: "Wilfrid Laurier University"
 number-depth: 2
 author: "Dr. Devan Becker"
+execute:
+    code-fold: true
+    code-summary: "Show the code"
+    warning: false
 
 book:
   title: "Regression Analysis"
@@ -72,8 +76,4 @@ format:
       light: [flatly, smaller_lists.scss]
       dark: [darkly, smaller_lists.scss]
     mainfont: ubuntu, sans-serif
-    execute:
-        code-fold: true
-        code-summary: "Show the code"
-        warning: false
 

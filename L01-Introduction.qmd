@@ -1,6 +1,6 @@
 ---
 title: "Stats Review"
-subtitle: "This is a test"
+subtitle: "Simulating Linear Models, Understanding Distributions"
 institute: "Jam: **Gamma Ray** by Beck"
 date: "last-modified"
 ---
@@ -53,6 +53,8 @@ The following code will simulate from a linear model 1000 times. This is *not* t
 
 ```{r}
 #| label: sim-means
+#| code-fold: true
+#| code-summary: "Show the code"
 set.seed(2112)
 n <- 40
 beta0 <- 10
@@ -112,6 +114,8 @@ abline(v = sigma^2, col = "red", lwd = 3)
 
 ```{r}
 #| label: sim-dists
+#| code-fold: true
+#| code-summary: "Show the code"
 par(mfrow = c(1, 3))
 hist(beta0_ests, breaks = 30, freq = FALSE)
 abline(v = beta0, col = "red", lwd = 3)
