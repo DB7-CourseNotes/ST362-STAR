@@ -5,6 +5,7 @@ _freeze/*
 ./L*cache/
 L*files/
 L*cache/
+!docs/L*files/
 ./site_libs
 
 Slides/*.pdf
