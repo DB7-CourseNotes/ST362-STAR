@@ -1,0 +1,7 @@
+install.packages("aprean3")
+install.packages("GGally")
+install.packages("mlbench")
+install.packages("plot3D")
+install.packages("glmnet")
+install.packages("ISLR2")
+install.packages("car")
