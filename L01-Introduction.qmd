@@ -283,7 +283,7 @@ $$
 
 - If $s_1^2$ and $s_2^2$ are the sample-based estimates of the true values $\sigma_1^2$ and $\sigma_2^2$, then $\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}$ follows an $F_{\nu_1, \nu_2}$ distribution.
     - Under $H_0$, $\sigma_1=\sigma_2$, so we don't need the true values.
-    - Note: $s_1^2$ is calculated from $S_1^2/\nu_1$.
+    - Note: $s_1^2$ is calculated from $s_1^2/\nu_1$.
 
 ## Confidence Intervals
 
