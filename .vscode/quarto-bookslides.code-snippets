@@ -20,21 +20,21 @@
 		"scope": "quarto,qmd",
 		"prefix": "book-only",
 		"body": [
-			"::: {.content-visible when-format=\"html\"}",
+			"::: {.content-visible when-profile=\"book\"}",
 			"$0",
 			":::"
 		],
 		"description": "Content not visible in slides"
 	},
 
-	"slides only": {
+	"not-book only": {
 		"scope": "quarto,qmd",
-		"prefix": "slides-only",
+		"prefix": "not book",
 		"body": [
-			"::: {.content-visible when-format=\"pdf\"}",
+			"::: {.content-visible unless-profile=\"book\"}",
 			"$0",
 			":::"
 		],
-		"description": "Content only visible in slides"
+		"description": "Content not used in the book"
 	}
 }
