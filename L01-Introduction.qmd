@@ -5,7 +5,7 @@ institute: "Jam: **Gamma Ray** by Beck"
 date: "last-modified"
 ---
 
-::: {.content-visible when-format="pdf"}
+::: {.content-visible unless-profile="book"}
 
 ## Preamble
 
@@ -48,8 +48,8 @@ where
 
 ### Sampling Distributions of Estimates
 
-::: {.content-visible when-format="html"}
-The following code will simulate from a linear model 1000 times. This is *not* the best way to do this, but it's more clear what's going on.
+::: {.content-visible when-profile="book"}
+The following code will simulate from a linear model 1000 times. This is *not* the most efficient way to do this, but it's more clear what's going on and we're working with some pretty small numbers.
 
 ```{r}
 #| label: sim-means
@@ -92,7 +92,7 @@ Every time we generate new data, we get a different model! On average we're gett
 It's really nice to know that the average value of the estimates is equal to the true value. This is great! But we're statisticians - at the very least we want variance, if not a full distribution!
 :::
 
-::: {.content-visible when-format="pdf"}
+::: {.content-visible unless-profile="book"}
 
 ```{r}
 #| label: sim-means-pdf
@@ -131,19 +131,29 @@ abline(v = sigma^2, col = "red", lwd = 3)
 curve(dchisq(x * (n - 1) / sigma^2, df = n - 1) * (n - 1) / sigma^2, from = 1, to = 20, add = TRUE, col = 2, lwd = 3, n = 500)
 ```
 
+::: {.content-visible when-profile="book"}
+I was able to draw a curve that perfectly matches the distribution of the simulated data *based on theory*. You won't yet know what each of the distributions are, but you can see that all of the `curve()` function calls rely only on the true values.
+
+The $x$ values are also used in the calculation, which is not as important as it sounds. In regression, we assume that the $x$ values are fixed (or could have been known ahead of time). You may have noticed that I simulated $x$ values, but this was done once and it was outside the `for` loop. 
+:::
+
 ### Lessons 
 
-- All of the parameters have sampling distributions!\lspace
-- The variance of the sampling distributions is important\lspace
-- The distributions are well known to statisticians
+- All of the parameters **have sampling distributions**!\lspace
+- The **variance** of the sampling distributions is important\lspace
+- The **distributions** are well known to statisticians
     - Soon you'll know them too!\lspace
-- Simulations let us "touch" theory!
+- **Simulations** let us "touch" theory!
+
+::: {.content-visible when-profile="book"}
+In this course, we'll generally follow the pattern of learning theory, verifying via simulation, then applying it to real-world data. The theory is the point of the course, with the hopes that you'll either learn advanced theory or have the tools you need to apply it. Simulation is an intermediate step that helps you fully understand the assumptions that you're making!
+:::
 
 ## Linear Model Example
 
 ### `mtcars` data
 
-::: {.content-visible when-format="html"}
+::: {.content-visible when-profile="book"}
 We'll make great use of the `mtcars` data set in this course! We'll just focus on what's immediately relevant, and get to know it better a little later on.
 
 For now, here's the important bits:
@@ -159,10 +169,17 @@ For now, here's the important bits:
 
 ```{r}
 #| label: mtcars_residplots
+#| echo: false
 plot(mpg ~ hp, data = mtcars)
 abline(lm(mpg ~ hp, data = mtcars))
 ```
 :::
+:::
+
+::: {.content-visible when-profile="book"}
+From the plot, it looks like a linear model might be appropriate (although it might not be perfect).
+
+In the simulations, we had a perfect situation: the data were simulated from a perfectly linear relationship and the residuals were perfectly iid normal. In practice, we have to check this before we can do any sort of analysis! In other words, we need our real-world data to come to us as if they were simulated from a perfect model.
 :::
 
 ### Assumptions and Residual Diagnostics
@@ -195,6 +212,10 @@ plot(lm(mpg ~ hp, data = mtcars))
 :::
 :::
 
+::: {.content-visible when-profile="book"}
+
+:::
+
 ## Distributions
 
 ### Normal
@@ -212,7 +233,7 @@ Shiny: [https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory](https://
     - Often called "standardizing"\lspace
 - You won't *need* to memorize the pdf, but it's useful!
 
-:::notes
+::: {.content-visible when-profile="book"}
 ```{r}
 #| eval: false
 #| echo: true
@@ -224,33 +245,7 @@ The normal distribution is the foundation for pretty much everything that we're 
 
 In this lecture we're going to build up an important result that we'll use frequently. In particular, we want some background into why the F and $t$ distributions show up so often!
 
-
-
 :::
-
-### But first, Gamma!
-
-:::: {.columns}
-::: {.column width="50%"}
-\vspace{1cm}
-
-$t$ is based on the Gamma ($\Gamma$) function:
-
-$$
-\Gamma(q) = \int_0^\infty e^{-t}t^{q-1}dt
-$$
-
-- Interesting property: $\Gamma(k+1) = k!$ for integer $k$.
-    - In general, $\Gamma(q) = (q-1)\Gamma(q-1)$\lspace
-- Also, $\Gamma(1/2) = \pi^{1/2}$
-    - $\Gamma(3/2) = (3/2-1)\gamma(1/2) = \sqrt{\pi}/2$
-
-
-:::
-::: {.column width="50%"}
-\includegraphics[width=\textwidth]{figs/gamma.png}
-:::
-::::
 
 ### The $t$ Distribution
 
@@ -326,7 +321,7 @@ From this, we can find the lower and upper $\alpha/2$\% of the $t$$ curve.
 - Since $t$ is symmetric, $t_\nu(1 - \alpha/2) = -t_\nu(\alpha/2)$.
 
 
-:::notes
+::: {.content-visible when-profile="book"}
 ```{r}
 #| eval: false
 #| echo: true
@@ -396,7 +391,7 @@ Note that $\chi^2_n(0.055)\ne-\chi^2_n(0.945)$.
     - The null hypothesis determines the distribution of the test statistic, which allows us to find the CI.
 
 
-::: {.content-visible when-format="pdf"}
+::: {.content-visible unless-profile="book"}
 
 ## Participation Questions
 
