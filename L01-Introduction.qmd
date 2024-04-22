@@ -1,5 +1,5 @@
 ---
-title: "Stats Review"
+title: "Statistics Review"
 subtitle: "Simulating Linear Models, Understanding Distributions"
 institute: "Jam: **Gamma Ray** by Beck"
 date: "last-modified"
@@ -23,6 +23,7 @@ date: "last-modified"
 
 ### Today's Learning Outcomes
 
+- Validating theory with simulations\lspace
 - Important facts about distributions.\lspace
 - CIs and t-tests.\lspace
 
@@ -41,9 +42,9 @@ where
 
 ### Simulating from a linear model
 
-- Choose values for $\beta_0$ and $\beta_1$
-- Fix $x$
-- Simulate $\epsilon_i \sim N(0, \sigma^2)$
+- Choose values for $\beta_0$ and $\beta_1$\lspace
+- Fix $x$\lspace
+- Simulate $\epsilon_i \sim N(0, \sigma^2)$\lspace
 - Estimate $\hat\beta_0$, $\hat\beta_1$, **and** $\hat\sigma^2$.
 
 ### Sampling Distributions of Estimates
@@ -97,13 +98,13 @@ It's really nice to know that the average value of the estimates is equal to the
 ```{r}
 #| label: sim-means-pdf
 par(mfrow = c(1, 3))
-hist(beta0_ests, breaks = 30)
+hist(beta0_ests, breaks = 30, freq = FALSE)
 abline(v = beta0, col = "red", lwd = 3)
 
-hist(beta1_ests, breaks = 30)
+hist(beta1_ests, breaks = 30, freq = FALSE)
 abline(v = beta1, col = "red", lwd = 3)
 
-hist(sigma_ests^2, breaks = 30)
+hist(sigma_ests^2, breaks = 30, freq = FALSE)
 abline(v = sigma^2, col = "red", lwd = 3)
 ```
 :::
@@ -111,7 +112,7 @@ abline(v = sigma^2, col = "red", lwd = 3)
 
 ### But what's the distribution?
 
-
+\pause
 ```{r}
 #| label: sim-dists
 #| code-fold: true
@@ -137,13 +138,14 @@ I was able to draw a curve that perfectly matches the distribution of the simula
 The $x$ values are also used in the calculation, which is not as important as it sounds. In regression, we assume that the $x$ values are fixed (or could have been known ahead of time). You may have noticed that I simulated $x$ values, but this was done once and it was outside the `for` loop. 
 :::
 
-### Lessons 
+### Take-Home Lessons 
 
 - All of the parameters **have sampling distributions**!\lspace
 - The **variance** of the sampling distributions is important\lspace
 - The **distributions** are well known to statisticians
     - Soon you'll know them too!\lspace
 - **Simulations** let us "touch" theory!
+    - Simulations cannot "prove" anything!
 
 ::: {.content-visible when-profile="book"}
 In this course, we'll generally follow the pattern of learning theory, verifying via simulation, then applying it to real-world data. The theory is the point of the course, with the hopes that you'll either learn advanced theory or have the tools you need to apply it. Simulation is an intermediate step that helps you fully understand the assumptions that you're making!
@@ -184,6 +186,14 @@ In the simulations, we had a perfect situation: the data were simulated from a p
 
 ### Assumptions and Residual Diagnostics
 
+::: {.content-visible when-profile="book"}
+All statistical models require assumptions. Without assumptions, all we know is that the data we got have a set of properties, such as the mean and variance. With assumptions, we are able to say something about the population! Of course, this opens us up to the risk of being wrong!
+
+The assumptions in statistics exist because of the calculations we do. We don't just arbitrarily assume that the residuals are normal, we use this when we find the line of best fit; we can't find the line of best fit without making some sort of assumption about the residuals.
+
+In linear regression, the assumptions are as follows:
+:::
+
 ::: {.columns}
 ::: {.column}
 \vspace{0.5cm}
@@ -213,85 +223,18 @@ plot(lm(mpg ~ hp, data = mtcars))
 :::
 
 ::: {.content-visible when-profile="book"}
+Everything else in this semester is a direct result of these four assumptions. It's kind of amazing, isn't it? These four sentences, none of which are longer than six words, can form the basis of an entire semester!
 
+To assess the assumptions, the first thing to know is this: *There should be no patterns in the residual plots.* The word "residual" means "what's left behind". If there's a pattern left behind after fitting a linear model, then there was some violation of linearity in the model!
+
+From the data, it looks like there's a pattern in the residuals versus fitted plot, but the other plots all look fine to me. We'll explore this in great detail throughout the semester!
 :::
-
-## Distributions
-
-### Normal
-
-$$
-f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{(x-\mu)^2}{-2\sigma^2}\right);\;-\infty<x<\infty
-$$
-
-Shiny: [https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory](https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory)
-
-\pspace
-
-- Completely determined by $\mu$ and $\sigma$.\lspace
-- If $X \sim N(\mu,\sigma^2)$, then $Z=\frac{X-\mu}{\sigma} \sim N(0,1)$.
-    - Often called "standardizing"\lspace
-- You won't *need* to memorize the pdf, but it's useful!
-
-::: {.content-visible when-profile="book"}
-```{r}
-#| eval: false
-#| echo: true
-shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
-    subdir = "Tools/pnorm")
-```
-
-The normal distribution is the foundation for pretty much everything that we're going to do in this class. In general, things aren't normally distributed, but the assumption is very robust and works out in a lot of cases.
-
-In this lecture we're going to build up an important result that we'll use frequently. In particular, we want some background into why the F and $t$ distributions show up so often!
-
-:::
-
-### The $t$ Distribution
-
-$$
-f(x; \nu) = \frac{\Gamma\left(\frac{\nu + 1}{2}\right)}{\sqrt{\nu\pi}\Gamma(\nu/2)}\left(1 + \frac{x^2}{\nu}\right)^{-(\nu + 1)/2}
-$$
-
-- The notation $f(x; \nu)$ means "function of $x$, given a value of $\nu$."
-- Completely determined by $\nu$\lspace
-- As $\nu\rightarrow\infty$, this becomes $N(0,1)$.
-    - $\nu>30$ is pretty much normal already.
-    - For $\nu<\infty$, $t$ has wider tails than normal.
-
-### The $\chi^2$ distribution - variances
-
-If $Z_1, Z_2, ..., Z_k$ are iid $N(0,1)$, then $\chi^2_k = \sum_{i=1}^kZ_i^2$ has a chi-square distribution on $k$ degrees of freedom.
-
-$$
-f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}
-$$
-
-- If $X_i\sim N(\mu_i\sigma_i)$, then we can just standardize each first.\lspace
-- As $k\rightarrow\infty$, $(\chi^2_k-k)/\sqrt{2k}\stackrel{d}{\rightarrow} N(0,1)$.
-    - That is, for large $k$ this can be approximated by a normal distribution.\lspace
-- Very related to the *variance*
-    - $(n-1)s^2/\sigma^2$ follows a $\chi^2_n$ distribution.
-
-### The $F$ distribution - ratio of variances
-
-If $S_1$ and $S_2$ are independent $\chi^2$ distributions with degrees of freedom $\nu_1$ and $\nu_2$, then $\frac{S_1/\nu_1}{S_2/\nu_2}$ follows an $F_{\nu_1,\nu_2}$ distribution.
-
-$$
-f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}
-$$
-
-- If $s_1^2$ and $s_2^2$ are the sample-based estimates of the true values $\sigma_1^2$ and $\sigma_2^2$, then $\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}$ follows an $F_{\nu_1, \nu_2}$ distribution.
-    - Under $H_0$, $\sigma_1=\sigma_2$, so we don't need the true values.
-    - Note: $s_1^2$ is calculated from $s_1^2/\nu_1$.
 
 ## Confidence Intervals
 
 ### General Idea: Terminology
 
 Consider the **statistic** $t = \frac{\hat\theta - \theta_0}{se(\hat\theta)}$ (a statistic is any number that can be calculated from data alone).
-
-\pspace
 
 - $\theta$ is the """**true**""" value of the parameter.
     - Unknown, unknowable, not used in formula - hypothesize $\theta = \theta_0$ instead.\lspace
@@ -383,12 +326,13 @@ $$
 Note that $\chi^2_n(0.055)\ne-\chi^2_n(0.945)$.
 
 
-### Summary
+### Take-Home Lessons
 
-- Distributions exist and are important
-    - Most things will be normal, which leads to $t$, $\chi^2$, and $F$.\lspace
 - CIs are all values that would not be rejected by a hypothesis test.
-    - The null hypothesis determines the distribution of the test statistic, which allows us to find the CI.
+    - The null hypothesis determines the distribution of the test statistic, which allows us to find the CI.\lspace
+- CIs are found based on distributional assumptions
+    - Mathematical Statistics is a different course, unfortunately.\lspace
+- Standard errors are everywhere!
 
 
 ::: {.content-visible unless-profile="book"}
@@ -401,10 +345,12 @@ Which of the following is a Normal distribution?
 
 \pspace
 
-1. $f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}$
-1. $f(x) = \frac{1}{\sqrt{2\pi}}\exp\left(-x^2/2\right)$
-2. $f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}$
-3. $f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}$
+a. $f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}$
+b. $f(x) = \frac{1}{\sqrt{2\pi}}\exp\left(-x^2/2\right)$
+c. $f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}$
+d. $f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}$
+
+<!--- B --->
 
 ### Q2
 
@@ -412,15 +358,21 @@ If you know $\mu$ and $\sigma$, then you know the exact shape of the normal dist
 
 \pspace
 
-1. True
-2. False
+a. True
+b. False
+
+<!--- A --->
 
 ### Q3
 
 A confidence interval for $\theta$ contains all values $\theta_0$ that would not be rejected by a hypothesis test (assume that both are at the same significance level).
 
-1. True
-2. False
+\pspace
+
+a. True
+b. False
+
+<!--- A --->
 
 ### Q4
 
@@ -428,19 +380,25 @@ Which of the following is the correct value for $E(\hat\theta)$, where $\hat\the
 
 \pspace
 
-1. 
-2. $a + b\mu$
-3. $b\mu$
-4. $na + nb\mu$
+a. 
+b. $a + b\mu$
+c. $b\mu$
+d. $na + nb\mu$
+
+<!--- D --->
 
 ### Q5
 
 Which of the following is the definition of an estimator?
 
-1. A value calculated from data.
-2. A function that returns the estimate for a parameter.
-3. Any function of the data.
-4. A person who estimates.
+\pspace
+
+a. A value calculated from data.
+b. A function that returns the estimate for a parameter.
+c. Any function of the data.
+d. A person who estimates.
+
+<!--- B --->
 
 ### Q6
 
@@ -448,9 +406,84 @@ The general approach to finding confidence intervals is to find a function of th
 
 \pspace
 
-1.
-2. False
-3. True
-4. 
+a.
+b. False
+c. True
+d. 
+
+<!--- C --->
 
 :::
+
+
+
+## Distributions
+
+::: {.content-visible when-profile="book"}
+In this section, we'll just lay out some basic facts about some distributions. I try to also justify why these facts are important for this course! Otherwise, the following examples should act as a reference.
+:::
+
+### Normal
+
+$$
+f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{(x-\mu)^2}{-2\sigma^2}\right);\;-\infty<x<\infty
+$$
+
+Shiny: [https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory](https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory)
+
+\pspace
+
+- Completely determined by $\mu$ and $\sigma$.\lspace
+- If $X \sim N(\mu,\sigma^2)$, then $Z=\frac{X-\mu}{\sigma} \sim N(0,1)$.
+    - Often called "standardizing"\lspace
+- You won't *need* to memorize the pdf, but it's useful!
+
+::: {.content-visible when-profile="book"}
+```{r}
+#| eval: false
+#| echo: true
+shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+    subdir = "Tools/pnorm")
+```
+
+The normal distribution is the foundation for pretty much everything that we're going to do in this class. In general, things aren't normally distributed, but the assumption is very robust and works out in a lot of cases.
+
+In this lecture we're going to build up an important result that we'll use frequently. In particular, we want some background into why the F and $t$ distributions show up so often!
+
+:::
+
+### The $t$ Distribution
+
+$$
+f(x; \nu) = \frac{\Gamma\left(\frac{\nu + 1}{2}\right)}{\sqrt{\nu\pi}\Gamma(\nu/2)}\left(1 + \frac{x^2}{\nu}\right)^{-(\nu + 1)/2}
+$$
+
+- The notation $f(x; \nu)$ means "function of $x$, given a value of $\nu$."
+- Completely determined by $\nu$\lspace
+- As $\nu\rightarrow\infty$, this becomes $N(0,1)$.
+    - $\nu>30$ is pretty much normal already.
+    - For $\nu<\infty$, $t$ has wider tails than normal.
+
+### The $\chi^2$ distribution - variances
+
+If $Z_1, Z_2, ..., Z_k$ are iid $N(0,1)$, then $\chi^2_k = \sum_{i=1}^kZ_i^2$ has a chi-square distribution on $k$ degrees of freedom.
+$$
+f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}
+$$
+
+- If $X_i\sim N(\mu_i,\sigma_i)$, then we can just standardize each first.\lspace
+- As $k\rightarrow\infty$, $(\chi^2_k-k)/\sqrt{2k}\stackrel{d}{\rightarrow} N(0,1)$.
+    - That is, for large $k$ this can be approximated by a normal distribution.\lspace
+- Very related to the *variance*
+    - $(n-1)s^2/\sigma^2$ follows a $\chi^2_n$ distribution.
+
+### The $F$ distribution - ratio of variances
+
+If $S_1$ and $S_2$ are independent $\chi^2$ distributions with degrees of freedom $\nu_1$ and $\nu_2$, then $\frac{S_1/\nu_1}{S_2/\nu_2}$ follows an $F_{\nu_1,\nu_2}$ distribution.
+$$
+f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}
+$$
+
+- If $s_1^2$ and $s_2^2$ are the sample-based estimates of the true values $\sigma_1^2$ and $\sigma_2^2$, then $\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}$ follows an $F_{\nu_1, \nu_2}$ distribution.
+    - Under $H_0$, $\sigma_1=\sigma_2$, so we don't need the true values.
+    - Note: $s_1^2$ is calculated from $s_1^2/\nu_1$.
