@@ -6,6 +6,11 @@ editor: visual
 ---
 
 ```{r}
+#| include: false
+set.seed(2112)
+```
+
+```{r}
 library(ggplot2)
 theme_set(theme_bw())
 ```

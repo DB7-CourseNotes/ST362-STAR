@@ -2,6 +2,11 @@
 title: Final Exam Review
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 ## Summaries
 
 ### Generally important things

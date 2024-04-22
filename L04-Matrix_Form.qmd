@@ -3,6 +3,11 @@ title: "Regression in Matrix Form"
 institute: "Jam: **Monde Inverse** by Cirque du Soleil"
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 ## Chapter 04 Summary
 
 ### Matrix Forms of Things We've Seen

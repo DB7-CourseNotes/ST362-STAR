@@ -3,6 +3,10 @@ title: "Fitting Straight Lines"
 institute: "Jam: **Great Expectations** by The Gaslight Anthem"
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
 
 ## Why Fit Models?
 

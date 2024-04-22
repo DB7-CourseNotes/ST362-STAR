@@ -3,6 +3,10 @@ title: "The Hat Matrix 2"
 institute: "**Jam TBD**"
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
 
 ## Participation Questions
 

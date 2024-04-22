@@ -9,6 +9,11 @@ output: html_notebook
 set.seed(2112)
 ```
 
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 
 ## The Hat Matrix
 

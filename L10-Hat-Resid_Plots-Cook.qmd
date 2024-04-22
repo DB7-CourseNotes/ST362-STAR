@@ -3,6 +3,11 @@ title: "The Hat Matrix"
 institute: "Jam: **Residual** by Trash."
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 ## Le Chapeau
 
 ### The Hat Matrix

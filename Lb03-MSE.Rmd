@@ -3,6 +3,11 @@ title: "Bias/variance of $\\sigma^2$"
 output: html_document
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 ## Best estimator of $\sigma^2$
 
 We saw in the notes that $E(s^2) = \sigma^2$. Let's explore why this might not be the best estimator.

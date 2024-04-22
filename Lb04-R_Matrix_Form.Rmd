@@ -3,6 +3,11 @@ title: "Verifying Matrix Identities"
 output: html_document
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 ## Verifying Matrix Results
 
 We'll use the `mtcars` data for this. Here's what it looks like:

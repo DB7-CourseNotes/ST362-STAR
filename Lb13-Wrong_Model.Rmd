@@ -1,5 +1,11 @@
 # Lab Missing/Extra Predictors
 
+
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 ## Missing Predictors
 
 -   True model: $Y = X\underline\beta + X_2\underline\beta_2 + \underline\epsilon$

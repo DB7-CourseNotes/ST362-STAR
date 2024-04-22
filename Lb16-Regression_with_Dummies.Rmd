@@ -3,6 +3,11 @@ title: "Regression with Categorical Predictors"
 output: html_notebook
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 ## Regression as a t-test
 
 When we do regression against a dummy variable, we are actually just doing a t-test.

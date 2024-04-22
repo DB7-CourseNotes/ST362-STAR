@@ -10,6 +10,11 @@ execute:
 set.seed(2112)
 ```
 
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 ## Generating Data (for the Project)
 
 ### `model.matrix()` and Matrix Multiplication

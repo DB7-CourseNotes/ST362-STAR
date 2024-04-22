@@ -1,4 +1,9 @@
-# Lab Transformations
+# Transformations
+
+```{r}
+#| include: false
+set.seed(2112)
+```
 
 ## Finding a model for `mpg ~ disp`
 

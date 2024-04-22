@@ -3,6 +3,11 @@ title: "Modelling Poorly"
 institute: "**Bad** by Michael Jackson"
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
+
 ## Motivation
 
 ### Selecting Predictors

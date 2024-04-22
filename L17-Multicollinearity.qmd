@@ -5,6 +5,11 @@ institute: "**Jam TBD**"
 
 ```{r}
 #| include: false
+set.seed(2112)
+```
+
+```{r}
+#| include: false
 
 set.seed(2112)
 library(palmerpenguins)
