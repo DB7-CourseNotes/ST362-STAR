@@ -1,3 +1,7 @@
+install.packages("ggplot2")
+install.packages("patchwork")
+install.packages("broom")
+install.packages("palmerpenguins")
 install.packages("aprean3")
 install.packages("GGally")
 install.packages("mlbench")
