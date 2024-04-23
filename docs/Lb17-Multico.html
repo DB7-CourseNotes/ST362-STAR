@@ -464,6 +464,8 @@ y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i
 \]</span> with the added assumption that <span class="math inline">\(x_{i1} = a + bx_{i2} + z_i\)</span>, where <span class="math inline">\(z_i\)</span> is some variation.</p>
 <p>(As a technical note, none of this is assumed to be random; just uncertain. We’ll use the language of probability in this section, but it’s just to quantify uncertainty rather than make modelling assumptions.)</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-3_cd2306ed07187868b1c4364b52206d92">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plot3D)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
@@ -472,6 +474,7 @@ y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter3D</span>(x1, x2, y, <span class="at">phi =</span> <span class="dv">30</span>, <span class="at">theta =</span> <span class="dv">15</span>, <span class="at">bty =</span> <span class="st">"g"</span>,</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"x1"</span>, <span class="at">ylab =</span> <span class="st">"x2"</span>, <span class="at">zlab =</span> <span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -480,23 +483,31 @@ y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i
 <p>It’s hard to imagine 3D sets of points, so let’s do a 2D analogy. In the 3D example, we actually had a 2D relationship, so let’s consider a 2D example that’s almost 1D.</p>
 <p>In the plot below, I’ve made <span class="math inline">\(x\)</span> <em>almost</em> one-dimensional. That is, I’ve given it a vary small range. I intentionally changed the x limits of the plot to emphasize this.</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-4_d750eaa7e65e0335a5b3e16fe51dd68f">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="sc">-</span><span class="fl">0.025</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="fl">0.025</span>, <span class="dv">10</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>If we were to fit a regression line to this, there are many many slopes that would make this work!</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-5_2c2fb90f997532297fa2fcdafc4341f4">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) <span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">mean</span>(y), <span class="at">b =</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">20</span>, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>All of the lines I added will fit the data pretty well, even though they all have completely different slopes! Yes, there’s one with a “best” slope, but slightly different data would have given us a very different slope:</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-6_0f28e5a114c7f5da6326499662ff992a">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up empty plot</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>,<span class="dv">6</span>))</span>
@@ -505,6 +516,7 @@ y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb17-Multico_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -512,7 +524,10 @@ y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i
 <p>All of these lines would have worked for our data!</p>
 <p>This can easily be seen the <em>variance of the parameters</em>:</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-7_e14f4d56c2e35982c02ecd980e21bc4f">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>              Estimate Std. Error    t value  Pr(&gt;|t|)
 (Intercept) -0.6205096  0.6779798 -0.9152331 0.3721680
@@ -524,8 +539,11 @@ x            6.0310840 27.1191916  0.2223917 0.8265128</code></pre>
 <h2 data-number="J.2" class="anchored" data-anchor-id="exact-multicollinearity"><span class="header-section-number">J.2</span> Exact Multicollinearity</h2>
 <p>In the example above, the line was very sensitive to a slight change in the data because we essentially had one dimension. If we <em>actually</em> had one dimension, then any line that cgoes through <span class="math inline">\(\bar y\)</span> has the exact same error, regardless of the slope. We can see this in the design matrix: <span class="math inline">\(X\)</span> has a column of 1s for the intercept (which is good), but also has a column for <span class="math inline">\(x_1\)</span> that has zero variance. This means that it’s a linear combination of the first column, and thus is rank-deficient.</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-8_11da791cdf01e559b55418cee48533b1">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">20</span>))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Error in solve.default(t(X) %*% X) : 
   Lapack routine dgesv: system is exactly singular: U[2,2] = 0</code></pre>
@@ -534,9 +552,12 @@ x            6.0310840 27.1191916  0.2223917 0.8265128</code></pre>
 <p>Since one column is a linear combination of the other, <span class="math inline">\(X^TX\)</span> cannot be inverted. In this case, the variance fo <span class="math inline">\(\hat\beta_1\)</span> is infinite!</p>
 <p>This can also happen if one column is “close” to being a linear combination of the others, such as:</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-9_5fe489a6eadbc1a8ec81da928b08d598">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the first element in the second column to 10^-23</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X[<span class="dv">1</span>, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fl">1e-23</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Error in solve.default(t(X) %*% X) : 
   system is computationally singular: reciprocal condition number = 4.75e-48</code></pre>
@@ -544,9 +565,12 @@ x            6.0310840 27.1191916  0.2223917 0.8265128</code></pre>
 </div>
 <p>The rows are mathematically different, but the difference is so small that computers cannot tell.</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-10_2306e34a49c0e41ccdf4c1c2d7921d0f">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">/</span> <span class="fl">1e7</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(<span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                            x
    1.697904e-01 -2.406244e+06
@@ -555,9 +579,12 @@ x -2.406244e+06  4.833450e+13</code></pre>
 </div>
 <p>In the next code chunk, try playing around with the power of 10 (i.e., try <code>10^50</code>, <code>10^-50</code>, etc., for both positive and negative powers). At some point, the matrix is not invertible and the coefficient table stops reporting the slope! At the other end, the line is a near perfect fit (why?).</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-11_9affc6b0415a3dc250fe3816a34913f4">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">/</span> (<span class="dv">10</span><span class="sc">^</span><span class="dv">350</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Estimate Std. Error   t value  Pr(&gt;|t|)
 (Intercept) 0.1092976  0.6173655 0.1770387 0.8613516</code></pre>
@@ -568,10 +595,13 @@ x -2.406244e+06  4.833450e+13</code></pre>
 <h2 data-number="J.3" class="anchored" data-anchor-id="back-to-regression"><span class="header-section-number">J.3</span> Back to Regression</h2>
 <p>We can kinda detect multicollinearity mainly using the standard error of the estimates:</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-12_cff017818034878b23b09b2fcd5bccc4">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>peng_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(peng_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -605,8 +635,11 @@ F-statistic: 359.7 on 3 and 338 DF,  p-value: &lt; 2.2e-16</code></pre>
 </ul>
 <p>Multico. is just one of the possible reasons why the SE might be high, we need to look into it more to be sure.</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-13_6e1ff3e88d4e01f2a9c833a62f351338">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(peng_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>flipper_length_mm    bill_length_mm     bill_depth_mm 
          2.673338          1.865090          1.611292 </code></pre>
@@ -617,15 +650,21 @@ F-statistic: 359.7 on 3 and 338 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section id="centering-and-scaling" class="level2" data-number="J.4">
 <h2 data-number="J.4" class="anchored" data-anchor-id="centering-and-scaling"><span class="header-section-number">J.4</span> Centering and Scaling</h2>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-14_d0de98a2f8a69ea1d7aba8879e69ac6d">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> penguins)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="fu">apply</span>(X[, <span class="sc">-</span><span class="dv">1</span>], <span class="dv">2</span>, scale))</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"correlation of X"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "correlation of X"</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(X), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  (Intercept) flipper_length_mm bill_length_mm bill_depth_mm
 (Intercept)                 1                NA             NA            NA
@@ -633,11 +672,17 @@ flipper_length_mm          NA            1.0000         0.6562       -0.5839
 bill_length_mm             NA            0.6562         1.0000       -0.2351
 bill_depth_mm              NA           -0.5839        -0.2351        1.0000</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Also correlation of X"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Also correlation of X"</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">t</span>(Z) <span class="sc">%*%</span> Z<span class="sc">/</span> (<span class="fu">nrow</span>(Z) <span class="sc">-</span> <span class="dv">1</span>), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                         flipper_length_mm bill_length_mm bill_depth_mm
                   1.0029            0.0000         0.0000        0.0000
@@ -648,6 +693,8 @@ bill_depth_mm     0.0000           -0.5839        -0.2351        1.0000</code></
 </div>
 <p>By simulation:</p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-15_d613eb2773c8c03b0acfa7022fa83aa4">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> x1 <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>)</span>
@@ -657,6 +704,7 @@ bill_depth_mm     0.0000           -0.5839        -0.2351        1.0000</code></
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))</span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(reps_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>            (Intercept)         x1         x2
 (Intercept)   1.0000000  0.1764180 -0.6112093
@@ -665,6 +713,8 @@ x2           -0.6112093 -0.8609998  1.0000000</code></pre>
 </div>
 </div>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-16_733c55ae8f8191d95a34d9e98cf46fb3">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">scale</span>(x1)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">scale</span>(x2)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -673,6 +723,7 @@ x2           -0.6112093 -0.8609998  1.0000000</code></pre>
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))</span>
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(reps_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>            (Intercept)          x1          x2
 (Intercept)  1.00000000 -0.01364783  0.03646404
@@ -683,12 +734,15 @@ x2           0.03646404 -0.85526575  1.00000000</code></pre>
 <p>The correlation is… slightly lower? It’s much lower for the intercept, but it doesn’t make much of a difference for the correlation between the slopes. (It will generally be lower, and should be with a large enough number of simulations.)</p>
 <p>Just for fun, here’s the VIF for these data. I’ve added a parameter <code>x1_around_x2</code> to allow you to play around with the correlation of <code>x1</code> and <code>x2.</code></p>
 <div class="cell" data-hash="Lb17-Multico_cache/html/unnamed-chunk-17_5f47eba5f863af77057e8626a1aa91bb">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x2_around_x1 <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> x1 <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span>x2_around_x1, x2_around_x1)</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      x1       x2 
 4.494537 4.494537 </code></pre>

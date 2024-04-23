@@ -546,9 +546,12 @@ x_1 = x;\; x_2 = x^2;\; x_3 = x^3;\;...
 <section id="choosing-order-with-anova" class="level3">
 <h3 class="anchored" data-anchor-id="choosing-order-with-anova">Choosing Order with ANOVA</h3>
 <div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-5_c0ed04040e2568cef758d352b4079aa8">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dist =</span> cars<span class="sc">$</span>dist, <span class="at">x1 =</span> cars<span class="sc">$</span>speed, <span class="at">x2 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">2</span>, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x3 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">3</span>, <span class="at">x4 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">4</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(dist <span class="sc">~</span> ., <span class="at">data =</span> X) <span class="sc">|&gt;</span> <span class="fu">anova</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -587,11 +590,14 @@ y = \beta_2x^2
 <section id="unconventional-ess" class="level3">
 <h3 class="anchored" data-anchor-id="unconventional-ess">Unconventional ESS</h3>
 <div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-7_2ee557e1ccc5ac00e5c66b4bc17b785a">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dist =</span> cars<span class="sc">$</span>dist, <span class="at">x1 =</span> cars<span class="sc">$</span>speed, <span class="at">x2 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">2</span>, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x3 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">3</span>, <span class="at">x4 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">4</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(dist <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> X)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(dist <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> x2, <span class="at">data =</span> X)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m2, m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -622,7 +628,10 @@ Model 2: dist ~ x1 + x2
 y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \beta_{12}x_1x_2
 \]</span> In R this can be specified as:</p>
 <div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-9_552690820ca176af3af4d5ef9c5e9027">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> (x1 <span class="sc">+</span> x2)<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <ul>
 <li>This is why you can’t use <code>y ~ x + x^2</code> to get a polynomial model - R tries to interpret this as a model specification rather than a transformation. </li>
@@ -654,8 +663,11 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 <h3 class="anchored" data-anchor-id="extrapolation-is-fraught-with-peril">Extrapolation is Fraught with Peril</h3>
 <p>Unless you have the true order (you don’t), polynomials diverge almost immediately.</p>
 <div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-10_04b127c2484488d4fa266f7636474636">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/polyFit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="x-and-x2-are-correlated" class="level3">
@@ -666,11 +678,14 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 <section id="poly-uses-orthogonal-polynomials" class="level3">
 <h3 class="anchored" data-anchor-id="poly-uses-orthogonal-polynomials"><code>poly()</code> uses <strong>orthogonal</strong> polynomials</h3>
 <div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-11_a7cd8982144e856bde8b33fdf290b20f">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">10</span>), </span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> (x <span class="sc">-</span> <span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">10</span>)))))</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">t</span>(betas))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>After squaring, cubing, etc., each column of X is transformed to be orthogonal to the previous.</p>
 <ul>
@@ -682,6 +697,8 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 <section id="orthogonal-polynomials" class="level3">
 <h3 class="anchored" data-anchor-id="orthogonal-polynomials">Orthogonal Polynomials</h3>
 <div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-12_904ff332709d5deecccce92b9709004a">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">runif</span>(<span class="dv">60</span>, <span class="dv">0</span>, <span class="dv">10</span>))</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
@@ -690,6 +707,7 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x, <span class="fu">poly</span>(x, <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">FALSE</span>)[,i])</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 </section>

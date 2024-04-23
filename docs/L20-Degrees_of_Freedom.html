@@ -475,11 +475,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In the code below, I also demonstrate a log-transform for <span class="math inline">\(y\)</span>. To get a log on the left side of the equation, we use an exponential on the right.</p>
 </div>
 <div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-3_ada816f4e0076819cf9061ecea247b55">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mycat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"category"</span>, <span class="st">"category"</span>, <span class="st">"dogegory"</span>, <span class="st">"category"</span>, <span class="st">"birdegory"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mycont <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">4</span>, <span class="dv">10</span>,  <span class="dv">20</span> )</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> mycat <span class="sc">+</span> <span class="fu">poly</span>(mycont, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  (Intercept) mycatcategory mycatdogegory poly(mycont, 2, raw = TRUE)1
 1           1             1             0                           12
@@ -499,10 +502,13 @@ attr(,"contrasts")
 attr(,"contrasts")$mycat
 [1] "contr.treatment"</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Names are just for my own purposes, they don't need to be included.</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The names help me keep track of which column in X they correspond to.</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">intercpt =</span> <span class="dv">10</span>, <span class="at">cat =</span> <span class="dv">20</span>, <span class="at">dog =</span> <span class="dv">0</span>, <span class="at">c1 =</span> <span class="dv">0</span>, <span class="at">c2 =</span> <span class="fl">0.05</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>X <span class="sc">%*%</span> betas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [,1]
 1 37.2
@@ -511,12 +517,15 @@ attr(,"contrasts")$mycat
 4 35.0
 5 30.0</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mydf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> betas <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="fl">0.01</span>)), </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mycat =</span> mycat, </span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mycont =</span> mycont</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(<span class="fu">log</span>(y) <span class="sc">~</span> mycat <span class="sc">+</span> <span class="fu">poly</span>(mycont, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> mydf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 (Intercept)                mycatcategory 
                 9.712145e+00                 1.978742e+01 
@@ -590,8 +599,11 @@ poly(mycont, 2, raw = TRUE)2
 <p>Here’s an example of using transformations to (1) match the context of the problem and (2) get better results with fewer degrees of freedom.</p>
 <p>We’ll use the <code>trees</code> dataset that’s built into R. The “Girth” column is actually the diameter, and it’s the only column measured in inches rather than feet. I’m going to make a new predictor based on Girth that’s more useful for later models.</p>
 <div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-4_f33333e2d9113422c03ed511e6195ef3">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving df</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(trees) <span class="co"># "Girth" is actually diameter, according to help file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Girth Height Volume
 1   8.3     70   10.3
@@ -601,12 +613,18 @@ poly(mycont, 2, raw = TRUE)2
 5  10.7     81   18.8
 6  10.8     83   19.7</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>Radius <span class="ot">&lt;-</span> trees<span class="sc">$</span>Girth<span class="sc">/</span><span class="dv">24</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>A naive model might be a basic multiple linear regression.</p>
 <div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-5_fea486a2e23d0be26cb80284767594c7">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>multiple_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> Radius <span class="sc">+</span> Height, <span class="at">data =</span> trees)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multiple_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -631,8 +649,11 @@ F-statistic:   255 on 2 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p>We could make this fit better by blindly adding polynomial terms and doing a transformation:</p>
 <div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-6_acbbd59ea9bece600b9830460e8d6e41">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>transformed_and_poly <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Volume) <span class="sc">~</span> <span class="fu">poly</span>(Girth, <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">poly</span>(Height, <span class="dv">2</span>), <span class="at">data =</span> trees)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(transformed_and_poly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -668,8 +689,11 @@ V = \pi r^2h
 \implies V &amp;= \exp(\beta_0)r^\beta_1h^\beta_2\exp(\epsilon)
 \end{align*}\]</span> and expecting that <span class="math inline">\(\exp(\beta_0)\)</span> is close to <span class="math inline">\(\pi\)</span>, <span class="math inline">\(\beta_1 = 2\)</span>, and <span class="math inline">\(\beta_2 = 1\)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-7_1743ed60771bfa18614271310b013877">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>volume_logs <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Volume) <span class="sc">~</span> <span class="fu">log</span>(Girth) <span class="sc">+</span> <span class="fu">log</span>(Height), <span class="at">data =</span> trees)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(volume_logs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -704,15 +728,21 @@ F-statistic: 613.2 on 2 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
 </ul>
 <p>We could also assume these values from the start, and include a “naive” volume.</p>
 <div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-8_c18fee25cf92fc133027fa23c84ed379">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>naive_volume <span class="ot">&lt;-</span> pi <span class="sc">*</span> trees<span class="sc">$</span>Radius<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> trees<span class="sc">$</span>Height</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>We could then model this according to <span class="math display">\[\begin{align*}
 V &amp; = \beta_0N + \epsilon
 \end{align*}\]</span> where <span class="math inline">\(N\)</span> is our “naive” volume. We might have the expectation that <span class="math inline">\(\beta_0 = 1\)</span> if the naive volume is correct.</p>
 <div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-9_16bf70842d2ceabb5c41f665ebcc0f12">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming trees are cylinders</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>diff_from_cylinder <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> naive_volume, <span class="at">data =</span> trees)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(diff_from_cylinder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:

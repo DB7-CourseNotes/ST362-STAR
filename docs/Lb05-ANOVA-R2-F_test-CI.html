@@ -463,15 +463,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="basic-anova" class="level2" data-number="D.1">
 <h2 data-number="D.1" class="anchored" data-anchor-id="basic-anova"><span class="header-section-number">D.1</span> Basic ANOVA</h2>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-2_923fec07072429ef896cc8cc50df0e7d">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2221</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb05-ANOVA-R2-F_test-CI_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-3_51942251bced35bdcc8debbc38a31f64">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> qsec, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -484,7 +490,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-4_8bb708e816d0cd4f4c492cdf72ae25fc">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> qsec, <span class="at">data =</span> mtcars))<span class="sc">$</span>coef</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Estimate Std. Error    t value   Pr(&gt;|t|)
 (Intercept) -5.114038 10.0295433 -0.5098974 0.61385436
@@ -496,6 +505,8 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <section id="r2-always-increases-with-new-predictors" class="level2" data-number="D.2">
 <h2 data-number="D.2" class="anchored" data-anchor-id="r2-always-increases-with-new-predictors"><span class="header-section-number">D.2</span> <span class="math inline">\(R^2\)</span> always increases with new predictors</h2>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-5_24dd1b961f85f3f8aef9776504bb7bd8">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>nx <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># Number of uncorrelated predictors</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>uncorr <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">50</span><span class="sc">*</span>(nx <span class="sc">+</span> <span class="dv">1</span>)), </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">50</span>, <span class="at">ncol =</span> nx <span class="sc">+</span> <span class="dv">1</span>)</span>
@@ -512,25 +523,34 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Number of Uncorrelated Predictors"</span>,</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"R^2 Value"</span>,</span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"R^2 ALWAYS increases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb05-ANOVA-R2-F_test-CI_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The one exception is when one of the predictors is a linear combination of the previous predictors. In this case, <span class="math inline">\(R^2\)</span> will not change!</p>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-6_125d355fb6bf709134f4f92401820c03">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>uncorr[, nx <span class="sc">+</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> uncorr[,<span class="dv">2</span>] <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>uncorr[,<span class="dv">3</span>]</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>rsquares <span class="ot">&lt;-</span> <span class="fu">c</span>(rsquares, <span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> uncorr))<span class="sc">$</span>r.squared)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>rsquares</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]          NA 0.003898013 0.056398466 0.056407225 0.069142075 0.073155890
  [7] 0.105824965 0.122449599 0.145307322 0.168746574 0.172758068 0.172758068</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rsquares, <span class="at">type =</span> <span class="st">"b"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb05-ANOVA-R2-F_test-CI_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-7_9c1eae56bd028c78943a08aeff58d3fe">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">2</span>; b1 <span class="ot">&lt;-</span> <span class="dv">5</span>; sigma <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>b0s <span class="ot">&lt;-</span> b1s <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="dv">1000</span>)</span>
@@ -544,12 +564,15 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> b0 <span class="sc">+</span> b1<span class="sc">*</span>x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, sigma)</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x), <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.1</span>))</span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb05-ANOVA-R2-F_test-CI_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Let’s do that again, but record the values and only show the 89% quantiles!</p>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-8_599475ea445d130e0845dcf26a71ab72">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">2</span>; b1 <span class="ot">&lt;-</span> <span class="dv">5</span>; sigma <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>all_lines <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
@@ -558,20 +581,26 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>eightnine <span class="ot">&lt;-</span> <span class="fu">apply</span>(all_lines, <span class="dv">1</span>, quantile, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.045</span>, <span class="fl">0.945</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-9_e5dea1c0f3d640209bc302aaf80bc301">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">pch =</span> <span class="dv">0</span>, </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">65</span>),</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>,</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Variance of the line"</span>)</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="fl">0.1</span>), eightnine[<span class="dv">1</span>, ])</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="fl">0.1</span>), eightnine[<span class="dv">2</span>, ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb05-ANOVA-R2-F_test-CI_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Note that the theoretical calculation of these bounds is built into R:</p>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-10_280c38f7db2722f59c078aa9535f0663">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">pch =</span> <span class="dv">0</span>, </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">65</span>),</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>,</span>
@@ -594,6 +623,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co">#lines(xseq, xbeta[,"fit"], col = 4)</span></span>
 <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xseq, xbeta[,<span class="st">"upr"</span>], <span class="at">col =</span> <span class="dv">4</span>)</span>
 <span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xseq, xbeta[,<span class="st">"lwr"</span>], <span class="at">col =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb05-ANOVA-R2-F_test-CI_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -604,6 +634,8 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <h3 class="anchored" data-anchor-id="aside">Aside</h3>
 <p>Why did I use the same <span class="math inline">\(x\)</span> values for all of the simulations? Because that’s part of the assumptions (this isn’t an important point to make). Again, notice how the point <span class="math inline">\((\bar x, \bar y)\)</span> is always on the line, and how the variance at the point <span class="math inline">\(\bar x\)</span> is minimized. If <span class="math inline">\(\bar x\)</span> is randomly moved, then there’s extra variance in the line.</p>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-11_11f6624d721711530c97470629d4e2f4">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">2</span>; b1 <span class="ot">&lt;-</span> <span class="dv">5</span>; sigma <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>all_lines2 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
@@ -612,8 +644,11 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>eightnine2 <span class="ot">&lt;-</span> <span class="fu">apply</span>(all_lines2, <span class="dv">1</span>, quantile, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.045</span>, <span class="fl">0.945</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-12_565e26221521e248732c8b33d3691375">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">pch =</span> <span class="dv">0</span>, </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">65</span>),</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>,</span>
@@ -623,6 +658,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="fl">0.1</span>), eightnine2[<span class="dv">1</span>, ], <span class="at">col =</span> <span class="dv">2</span>)</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="fl">0.1</span>), eightnine2[<span class="dv">2</span>, ], <span class="at">col =</span> <span class="dv">2</span>)</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"non-random x"</span>, <span class="st">"random x"</span>), <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb05-ANOVA-R2-F_test-CI_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -633,15 +669,21 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <section id="covariance-of-the-parameters" class="level2" data-number="D.3">
 <h2 data-number="D.3" class="anchored" data-anchor-id="covariance-of-the-parameters"><span class="header-section-number">D.3</span> Covariance of the parameters</h2>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-13_7d9d2b11e0bd3bfdd9b5e9fcb9299456">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">2</span>; b1 <span class="ot">&lt;-</span> <span class="dv">5</span>; sigma <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>all_params <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> b0 <span class="sc">+</span> b1<span class="sc">*</span>x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="dv">0</span>, sigma)</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-14_4d1b88e44fcdd809197bdbe9e707018c">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">t</span>(all_params))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb05-ANOVA-R2-F_test-CI_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -653,6 +695,8 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <h2 data-number="D.4" class="anchored" data-anchor-id="joint-normality-of-the-underlinehatbetas"><span class="header-section-number">D.4</span> Joint Normality of the <span class="math inline">\(\underline{\hat\beta}\)</span>s</h2>
 <p>Joint normality leads to marginal normality! This means we can create a confidence interval based on the marginal. However, if the joint distribution has a strong correlation, the marginal confidence intervals might contain unlikely points!</p>
 <div class="cell" data-hash="Lb05-ANOVA-R2-F_test-CI_cache/html/unnamed-chunk-15_de4847aa90921e1fcf151b3d095a74ef">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Marginal distribution of beta_0</span></span>
@@ -675,6 +719,7 @@ qsec         1.412125  0.5592101  2.5252133 0.01708199</code></pre>
 <span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">quantile</span>(all_params[<span class="dv">1</span>,], <span class="fu">c</span>(<span class="fl">0.055</span>, <span class="fl">0.945</span>)), <span class="at">col =</span> <span class="dv">2</span>)</span>
 <span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">quantile</span>(all_params[<span class="dv">2</span>,], <span class="fu">c</span>(<span class="fl">0.055</span>, <span class="fl">0.945</span>)), <span class="at">col =</span> <span class="dv">2</span>)</span>
 <span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> <span class="dv">8</span>, <span class="at">y =</span> <span class="dv">6</span>, <span class="at">col =</span> <span class="dv">3</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb05-ANOVA-R2-F_test-CI_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>

@@ -465,18 +465,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="polynomial-models">Polynomial Models</h3>
 <p>First, let’s consider the polynomial models from previous lecture:</p>
 <div class="cell" data-hash="Lb15-Transformations_cache/html/unnamed-chunk-2_d100b94d06264b6ce347d580ace25639">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>A reasonable model for this looks to be <span class="math inline">\(mpg_i = \beta_0 + \beta_1disp_i + \beta_{11}disp_i^2\)</span>:</p>
 <div class="cell" data-hash="Lb15-Transformations_cache/html/unnamed-chunk-3_307281ecef5376adb0a4eca6b407c683">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>disp_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(mtcars<span class="sc">$</span>disp), <span class="fu">max</span>(mtcars<span class="sc">$</span>disp), <span class="fl">0.1</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>poly_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="fu">poly</span>(disp, <span class="dv">2</span>), <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, poly_seq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -488,6 +494,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="transformations">Transformations</h3>
 <p>Let’s try the two main transformations we talked about in class.</p>
 <div class="cell" data-hash="Lb15-Transformations_cache/html/unnamed-chunk-4_c2c11182316ba7904fa3c19d38e7f0a1">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>disp_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(mtcars<span class="sc">$</span>disp), <span class="fu">max</span>(mtcars<span class="sc">$</span>disp), <span class="fl">0.1</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>lm_seq <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span></span>
@@ -520,6 +528,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">predict</span>(<span class="at">newdata =</span> <span class="fu">list</span>(<span class="at">disp =</span> disp_seq))</span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, <span class="fu">exp</span>(lm_seq), <span class="at">col =</span> <span class="st">"#4a4a4a"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(disp_seq, exp_seq, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -528,6 +537,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In the end, the log-transform is actually pretty good! Let’s evaluate that one!</p>
 <p>I’m going to add <code>log_mpg</code> as a column in mtcars because we’re only going to be working on that scale. With transformations, all of our assumptions about the residuals are on the transformed scale!!! This is important!!!</p>
 <div class="cell" data-hash="Lb15-Transformations_cache/html/unnamed-chunk-5_28e95948d3e59cf00a697a87028f0ed2">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>log_mpg <span class="ot">&lt;-</span> <span class="fu">log</span>(mtcars<span class="sc">$</span>mpg)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>log_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
@@ -540,6 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">2</span>)</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(raw_lm, <span class="at">which =</span> <span class="dv">3</span>)</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -555,16 +567,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-box-cox-transformation" class="level2" data-number="H.2">
 <h2 data-number="H.2" class="anchored" data-anchor-id="the-box-cox-transformation"><span class="header-section-number">H.2</span> The Box-Cox Transformation</h2>
 <div class="cell" data-hash="Lb15-Transformations_cache/html/unnamed-chunk-6_23e149d9a18f6f84ab5ce8bed2a11c31">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcox</span>(<span class="fu">lm</span>(mtcars<span class="sc">$</span>mpg <span class="sc">~</span> mtcars<span class="sc">$</span>disp), <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Since 0 is the the top 5% of log-Likelihood values, the log transform is reasonable according to Box-Cox!</p>
 <div class="cell" data-hash="Lb15-Transformations_cache/html/unnamed-chunk-7_f834bdaa179747221aadd408fee01ffd">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bc <span class="ot">&lt;-</span> <span class="fu">boxcox</span>(<span class="fu">lm</span>(mtcars<span class="sc">$</span>mpg <span class="sc">~</span> mtcars<span class="sc">$</span>disp), <span class="at">data =</span> mtcars, <span class="at">plotit =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>$x
  [1] -2.0 -1.9 -1.8 -1.7 -1.6 -1.5 -1.4 -1.3 -1.2 -1.1 -1.0 -0.9 -0.8 -0.7 -0.6
@@ -580,12 +598,17 @@ $y
 [31]  2.49002447  1.70763143  0.89209868  0.04631829 -0.82707014 -1.72567168
 [37] -2.64732452 -3.59008589 -4.55221639 -5.53216368 -6.52854602</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">"Optimal value of lamba is: "</span>, bc<span class="sc">$</span>x[<span class="fu">which.max</span>(bc<span class="sc">$</span>y)]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Optimal value of lamba is: -0.3"</code></pre>
 </div>
 </div>
 <div class="cell" data-hash="Lb15-Transformations_cache/html/unnamed-chunk-8_1a70315ad658759e84b5f7051b95bfc1">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>opt_mpg <span class="ot">&lt;-</span> (mtcars<span class="sc">$</span>mpg<span class="sc">^</span>(<span class="sc">-</span><span class="fl">0.3</span>) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fl">0.3</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>optimal_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(opt_mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
@@ -598,6 +621,7 @@ $y
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(optimal_lm, <span class="at">which =</span> <span class="dv">2</span>)</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> <span class="dv">3</span>)</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(optimal_lm, <span class="at">which =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb15-Transformations_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>

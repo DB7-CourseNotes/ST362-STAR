@@ -459,11 +459,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="C.1" class="anchored" data-anchor-id="verifying-matrix-results"><span class="header-section-number">C.1</span> Verifying Matrix Results</h2>
 <p>We’ll use the <code>mtcars</code> data for this. Here’s what it looks like:</p>
 <div class="cell" data-hash="Lb04-R_Matrix_Form_cache/html/unnamed-chunk-2_7b40331bb882f95541f618dce459efb5">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>disp</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb04-R_Matrix_Form_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -471,10 +474,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It looks like the slope is negative, and the intercept will be somewhere between 25 and 35.</p>
 <p>Let’s use the formulae from the previous course: <span class="math inline">\(\hat\beta_1 = S_{XY}/S_{XX}\)</span> and <span class="math inline">\(\hat\beta_0 = \bar y - \hat\beta_1\bar x\)</span>.</p>
 <div class="cell" data-hash="Lb04-R_Matrix_Form_cache/html/unnamed-chunk-3_81b9701908242e0042e7876b0b930480">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">*</span> (y <span class="sc">-</span> <span class="fu">mean</span>(y))) <span class="sc">/</span> <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="fu">mean</span>(y) <span class="sc">-</span> <span class="fu">mean</span>(x) <span class="sc">*</span> b1</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="fu">c</span>(b0, b1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>            [,1]
 [1,] 29.59985476
@@ -483,8 +489,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>To make the matrix multiplication to work, we need <span class="math inline">\(X\)</span> to be a column of 1s and a column representing our covariate.</p>
 <div class="cell" data-hash="Lb04-R_Matrix_Form_cache/html/unnamed-chunk-4_f77a478f4e6a4e86411ce6f356d118b4">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         x
 [1,] 1 160
@@ -497,8 +506,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The estimates should be <span class="math inline">\((X^TX)^{-1}X^T\underline y\)</span>. In R, we find the transpose with the <code>t()</code> function and we find inverse with the <code>solve()</code> function.</p>
 <div class="cell" data-hash="Lb04-R_Matrix_Form_cache/html/unnamed-chunk-5_38df91d8a97bd33adcbb7795727eab4b">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>beta_hat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>beta_hat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
   29.59985476
@@ -508,6 +520,8 @@ x -0.04121512</code></pre>
 <p>It works!</p>
 <p>Now let’s check the ANOVA table!</p>
 <div class="cell" data-hash="Lb04-R_Matrix_Form_cache/html/unnamed-chunk-6_a6bb4916cac8b30fdb6f8c339d7fc219">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">source =</span> <span class="fu">c</span>(<span class="st">"Regression"</span>, <span class="st">"Error"</span>, <span class="st">"Total"</span>),</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">df =</span> <span class="fu">c</span>(<span class="dv">2</span>, n<span class="dv">-2</span>, n),</span>
@@ -515,6 +529,7 @@ x -0.04121512</code></pre>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">t</span>(y) <span class="sc">%*%</span> y <span class="sc">-</span> <span class="fu">t</span>(beta_hat) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y,</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">t</span>(y) <span class="sc">%*%</span> y)</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      source df         SS
 1 Regression  2 13725.1513
@@ -523,7 +538,10 @@ x -0.04121512</code></pre>
 </div>
 </div>
 <div class="cell" data-hash="Lb04-R_Matrix_Form_cache/html/unnamed-chunk-7_e0201b5409c1a6e776d553b9a5c18878">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -534,7 +552,10 @@ Residuals 30 317.16   10.57
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">anova</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       Df    Sum Sq   Mean Sq   F value    Pr(&gt;F) 
   31.0000 1126.0472  819.4605        NA        NA </code></pre>
@@ -543,6 +564,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>They’re slightly different? Why?</p>
 <p>Because the equation in the textbook is for the <em>uncorrected</em> sum of squares, which basically means we’re looking at estimating both <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> at the same time (hence the df of <span class="math inline">\(n-2\)</span>). The usual ANOVA table is the corrected sum of squares, which the textbook labels <span class="math inline">\(SS(\hat\beta_1|\hat\beta_1)\)</span> to make it clear that it’s estimating <span class="math inline">\(\beta_1\)</span> only; <span class="math inline">\(\beta_0\)</span> has already been estimated.</p>
 <div class="cell" data-hash="Lb04-R_Matrix_Form_cache/html/unnamed-chunk-8_acea9aea028a6ca87a04e6a01c94344f">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">source =</span> <span class="fu">c</span>(<span class="st">"Regression"</span>, <span class="st">"Error"</span>, <span class="st">"Total"</span>),</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">df =</span> <span class="fu">c</span>(<span class="dv">1</span>, n<span class="dv">-1</span>, n),</span>
@@ -550,6 +573,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">t</span>(y) <span class="sc">%*%</span> y <span class="sc">-</span> <span class="fu">t</span>(beta_hat) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y,</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">t</span>(y) <span class="sc">%*%</span> y <span class="sc">-</span> n <span class="sc">*</span> <span class="fu">mean</span>(y)<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      source df        SS
 1 Regression  1  808.8885
@@ -560,7 +584,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>The matrix form for <span class="math inline">\(R^2\)</span> is a little different from what you might expect. It uses this idea of “corrected” sum-of-squares as well. For homework, verify that the corrected sum-of-squares works out to the same formula.</p>
 <p>Here’s how to extract the <span class="math inline">\(R^2\)</span> value from R (note that the programming language R has nothing to do with the <span class="math inline">\(R^2\)</span>; R is named after S, which was the programming language that came before it (both chronologically and alphabetically); you’ll still find references to S and S-Plus).</p>
 <div class="cell" data-hash="Lb04-R_Matrix_Form_cache/html/unnamed-chunk-9_db62d71099a6c1e5b9d19195aa73a48a">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))<span class="sc">$</span>r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7183433</code></pre>
 </div>
@@ -569,9 +596,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 R^2 = \frac{\hat{\underline\beta}^TX^T\underline y - n\bar y^2}{\underline y^t\underline y - n\bar y^2}
 \]</span></p>
 <div class="cell" data-hash="Lb04-R_Matrix_Form_cache/html/unnamed-chunk-10_9075edba1765eb849db952c5a8518925">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>numerator <span class="ot">&lt;-</span> <span class="fu">t</span>(beta_hat) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y <span class="sc">-</span> n <span class="sc">*</span> <span class="fu">mean</span>(y)<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>denominator <span class="ot">&lt;-</span> <span class="fu">t</span>(y) <span class="sc">%*%</span> y <span class="sc">-</span> n <span class="sc">*</span> <span class="fu">mean</span>(y)<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>numerator <span class="sc">/</span> denominator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>          [,1]
 [1,] 0.7183433</code></pre>

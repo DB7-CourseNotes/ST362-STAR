@@ -599,6 +599,8 @@ SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 <section id="in-r" class="level3">
 <h3 class="anchored" data-anchor-id="in-r">In R</h3>
 <div class="cell" data-hash="L06-Extra_Sums_of_Squares-1_cache/html/unnamed-chunk-2_7d7988e1d004d002220b66714a9e3f97">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
@@ -606,6 +608,7 @@ SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm,</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m1, m2) <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>

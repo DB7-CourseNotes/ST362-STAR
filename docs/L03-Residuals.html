@@ -490,6 +490,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 \]</span></p>
 </div><div class="column" style="width:70%;">
 <div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-2_4ee51aa51f7b1a1fcd01105d36d6d1a5">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">1</span>), <span class="at">widths =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">18</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">25</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
@@ -516,6 +518,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">mean</span>(y), <span class="at">labels =</span> <span class="fu">bquote</span>(<span class="fu">bar</span>(y)), <span class="at">las =</span> <span class="dv">1</span>)</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="576"></p>
 </div>
@@ -559,6 +562,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </ul>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-3_e46fcbc2675de0acce659268caedde71">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
@@ -587,6 +592,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">/</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="480"></p>
 </div>
@@ -612,6 +618,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <section id="residual-plots-unstable-error" class="level3">
 <h3 class="anchored" data-anchor-id="residual-plots-unstable-error">Residual plots: unstable error</h3>
 <div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-4_39ba809241cd4ef88a9757c47abc9a8d">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>x</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> y0 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, <span class="dv">2</span> <span class="sc">*</span> x)</span>
@@ -631,6 +639,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals versus Fitted"</span>)</span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -639,6 +648,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <section id="residual-plots-non-linear-trend" class="level3">
 <h3 class="anchored" data-anchor-id="residual-plots-non-linear-trend">Residual plots: non-linear trend?</h3>
 <div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-5_44d13f91c71bf7082023def66816d4ba">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## fig-height: 4</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## fig-width: 8</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
@@ -657,6 +668,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals versus Fitted - non-linear trend?"</span>)</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -688,11 +700,14 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </div><div class="column" style="width:40%;">
 <p>If perfectly normal, expect a straight line!</p>
 <div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-6_909176b7b4fff2e501412d76d46ccd22">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>quants <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.125</span>, <span class="fl">0.25</span>, <span class="fl">0.375</span>, <span class="fl">0.5</span>, </span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.625</span>, <span class="fl">0.75</span>, <span class="fl">0.875</span>))</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mydata <span class="sc">~</span> quants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>

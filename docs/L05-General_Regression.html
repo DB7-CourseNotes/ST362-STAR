@@ -515,18 +515,27 @@ X^TX\underline{\hat\beta} &amp;= X^T\underline y
 <li>Prove that <span class="math inline">\(X^TX\)</span> is symmetric. Is <span class="math inline">\(A^TA\)</span> symmetric in general?</li>
 </ol>
 <div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-2_e7f12321c6135325909563a827cd0b99">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Demonstration that they're true (up to a rounding error)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">augment</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(mylm<span class="sc">$</span>.resid <span class="sc">*</span> mylm<span class="sc">$</span>.fitted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.241496e-12</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mylm<span class="sc">$</span>.resid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.77236e-15</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X, <span class="fu">t</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -593,8 +602,11 @@ F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-3_3e2ba3730bd132dc62bc8d439cd5c6f5">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)) <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>
@@ -637,8 +649,11 @@ F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)
 </ul>
 </div><div class="column" style="width:40%;">
 <div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-4_9e8d553d1c25dc5665d6097ae274a742">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="L05-General_Regression_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="384"></p>
 </div>
@@ -649,8 +664,11 @@ F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)
 <section id="example-f_1p-1-t2_p-1" class="level3">
 <h3 class="anchored" data-anchor-id="example-f_1p-1-t2_p-1">Example: <span class="math inline">\(F_{1,p-1} = t^2_{p-1}\)</span></h3>
 <div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-5_fc9bf28fca9239bba9a19adce37cca72">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> qsec, <span class="at">data =</span> mtcars)) <span class="sc">|&gt;</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>
@@ -683,8 +701,11 @@ F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)
 </tbody>
 </table>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> qsec, <span class="at">data =</span> mtcars))<span class="sc">$</span>coef <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>
@@ -720,8 +741,11 @@ F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)
 <section id="example-significance-of-regression-f_2p-1-ne-t2_p-1" class="level3">
 <h3 class="anchored" data-anchor-id="example-significance-of-regression-f_2p-1-ne-t2_p-1">Example: Significance of Regression (<span class="math inline">\(F_{2,p-1} \ne t^2_{p-1}\)</span>)</h3>
 <div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-6_953c4232c8be9c0896a551070c1d197e">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> qsec <span class="sc">+</span> disp, <span class="at">data =</span> mtcars)) <span class="sc">|&gt;</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>
@@ -762,8 +786,11 @@ F = \frac{MS(Reg|\hat\beta_0)}{MSE} = \frac{SS(Reg|\hat\beta_0)/(p-1)}{SSE/(n-p)
 </tbody>
 </table>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> qsec <span class="sc">+</span> disp, <span class="at">data =</span> mtcars))<span class="sc">$</span>coef <span class="sc">|&gt;</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>
@@ -815,6 +842,8 @@ R^2 = \frac{SS(Reg|\hat\beta_0)}{Y^TY - SS(\beta_0)} = \frac{\sum(\hat y_i - \ba
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-7_3e87b15b00bab330c6be449efc0cc860">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nx <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="co"># Number of uncorrelated predictores</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>uncorr <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">50</span><span class="sc">*</span>(nx <span class="sc">+</span> <span class="dv">1</span>)), </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">50</span>, <span class="at">ncol =</span> nx <span class="sc">+</span> <span class="dv">1</span>)</span>
@@ -832,6 +861,7 @@ R^2 = \frac{SS(Reg|\hat\beta_0)}{Y^TY - SS(\beta_0)} = \frac{\sum(\hat y_i - \ba
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Number of Uncorrelated Predictors"</span>,</span>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"R^2 Value"</span>,</span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"R^2 ALWAYS increases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-8_c7c750f984775b069b445f6a62128d78">

@@ -216,6 +216,7 @@ Assumptions:
 ```{r}
 #| fig-height: 5
 #| fig-width: 5
+#| label: mtcars-residplots
 par(mfrow = c(2, 2))
 plot(lm(mpg ~ hp, data = mtcars))
 ```
@@ -442,7 +443,8 @@ Shiny: [https://shiny.abdn.ac.uk/Stats/apps/app_normal/#section-theory](https://
 ```{r}
 #| eval: false
 #| echo: true
-shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+#| code-fold: false
+shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
     subdir = "Tools/pnorm")
 ```
 
@@ -487,3 +489,79 @@ $$
 - If $s_1^2$ and $s_2^2$ are the sample-based estimates of the true values $\sigma_1^2$ and $\sigma_2^2$, then $\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}$ follows an $F_{\nu_1, \nu_2}$ distribution.
     - Under $H_0$, $\sigma_1=\sigma_2$, so we don't need the true values.
     - Note: $s_1^2$ is calculated from $s_1^2/\nu_1$.
+
+::: {.content-visible when-profile="book"}
+## Homework Problems
+
+1. The code below demonstrates one of the topics covered in this lecture. Which is it?
+
+```{r}
+#| label: Q1
+#| code-fold: false
+
+n <- 60
+sigma1 <- 4
+sigma2 <- 8
+x1 <- runif(n, 0, 10)
+x2 <- runif(n, 0, 5)
+
+sim_vals <- double(1000)
+for (i in 1:1000) {
+    e1 <- rnorm(n, 0, sigma1)
+    e2 <- rnorm(n, 0, sigma2)
+    y1 <- x1 + 2 * x2 + e1
+    y2 <- x1 - 2 * x2 + e2
+
+    val1 <- summary(lm(y1 ~ x1 + x2))$sigma
+    val2 <- summary(lm(y2 ~ x1 + x2))$sigma
+
+    numerator <- val1^2 / sigma1^2
+    denominator <- val2^2 / sigma2^2
+    sim_vals[i] <- numerator / denominator
+}
+
+hist(sim_vals, freq = FALSE, breaks = 40)
+curve(df(x, n - 2, n - 2), add = TRUE, col = 2, lwd = 3)
+```
+:::
+
+<details>
+<summary>**Solution**</summary>
+It actually demonstrates a couple:
+
+- The x-values are assumed to be fixed; the errors are drawn at random to produce our sample.
+- The F distribution is the ratio of two variances, divided by their respective true variances.
+
+*****
+</details>
+
+2. True or False: As $n$ approaches infinity, the sampling distribution of the **variance** approaches a normal distribution?
+
+<details>
+<summary>**Solution**</summary>
+
+If $n = 3$, then the variance clearly does not follow a normal distribution. Instead, it is a transformation of a Chi-Square distribution. What happens as n gets larger? What if the true sd gets *smaller*? What if we use a uniform distribution, or something else?
+
+```{r}
+#| code-fold: false
+#| label: Q2
+
+# Change me to a different number!
+n <- 3
+# Change me to a different number!
+true_sd <- 1
+
+vals <- double(100000)
+for (i in seq_len(length(vals))) {
+    # Change me to a different distribution!
+    new_sample <- rnorm(n, 0, true_sd) 
+    vals[i] <- var(new_sample)
+}
+
+hist(vals, freq = FALSE, breaks = 40)
+curve(dnorm(x, mean(vals), sd(vals)), add = TRUE)
+
+```
+
+*****
+</details>

@@ -528,6 +528,8 @@ p(x_i) &amp;= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
 \implies \log\left(\frac{p_i(x_i)}{1-p_i(x_i)}\right) &amp;= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ...
 \end{align*}\]</span></p>
 <div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-4_032ecb047b0a01058b09f69e27122e91">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -541,6 +543,7 @@ p(x_i) &amp;= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">"binomial"</span>)) <span class="sc">+</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Credit Card Balance"</span>,</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="st">"Default?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="L22-Logistic_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="384"></p>
 </div>
@@ -685,6 +688,8 @@ P(\text{defaulting} | \eta(x_i)) &gt; p \implies a + bx_1 + cx_2 + dx_3 &gt; e
 <section id="section" class="level3">
 <h3 class="anchored" data-anchor-id="section"></h3>
 <div class="cell" data-hash="L22-Logistic_cache/html/decision_boundary_109245f194bb6291d42bc501dc177299">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -717,6 +722,7 @@ P(\text{defaulting} | \eta(x_i)) &gt; p \implies a + bx_1 + cx_2 + dx_3 &gt; e
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Credit Card Balance"</span>,</span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Income"</span>,</span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> <span class="st">"Default?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="L22-Logistic_files/figure-html/decision_boundary-1.png" class="img-fluid" width="864"></p>
 </div>
@@ -885,6 +891,8 @@ P(Y_i = j| x = x_i) \stackrel{def}{=} p_j(x_i)
 <div class="notes">
 <p>Model building works very similarly, but it’s <em>very</em> difficult to interpret the residual plots.</p>
 <div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-10_6e19880e949524d7b267a8fd1fbdd002">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins), ]</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -893,6 +901,7 @@ P(Y_i = j| x = x_i) \stackrel{def}{=} p_j(x_i)
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(log_cont, <span class="at">test =</span> <span class="st">"Chisq"</span>) <span class="co"># Sequential</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table
 
@@ -910,9 +919,12 @@ flipper_length_mm  1   72.666       329     250.97 &lt; 2.2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>log_spec <span class="ot">&lt;-</span> <span class="fu">update</span>(log_cont, <span class="sc">~</span> . <span class="sc">+</span> species <span class="sc">*</span> flipper_length_mm)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(log_cont, log_spec, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table
 
@@ -925,11 +937,14 @@ Model 2: sex ~ bill_length_mm + bill_depth_mm + flipper_length_mm + species +
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>full_spec <span class="ot">&lt;-</span> <span class="fu">glm</span>(sex <span class="sc">~</span> species<span class="sc">*</span>(bill_length_mm <span class="sc">+</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        bill_depth_mm <span class="sc">+</span> flipper_length_mm),</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(log_spec, full_spec, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table
 
@@ -940,7 +955,10 @@ Model 2: sex ~ species * (bill_length_mm + bill_depth_mm + flipper_length_mm)
 1       325     174.71                     
 2       321     170.32  4   4.3894   0.3559</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(log_spec, <span class="fu">update</span>(log_spec, <span class="sc">~</span> . <span class="sc">-</span> species<span class="sc">:</span>flipper_length_mm), <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table
 
@@ -951,7 +969,10 @@ Model 2: sex ~ bill_length_mm + bill_depth_mm + flipper_length_mm + species
 1       325     174.71                     
 2       327     178.78 -2  -4.0697   0.1307</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(log_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -984,7 +1005,10 @@ AIC: 190.71
 
 Number of Fisher Scoring iterations: 7</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(log_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                       (Intercept)                     bill_length_mm 
                       -69.63031836                         0.65616618 
@@ -998,15 +1022,21 @@ flipper_length_mm:speciesChinstrap    flipper_length_mm:speciesGentoo
 </div>
 <p>The residual plots are the same as before:</p>
 <div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-11_9e50c3d742d251650fcc7451eaffb86a">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="L22-Logistic_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The predictions can either be on the logit scale (<code>type = "link"</code>, the default) or on the response scale (probabilities).</p>
 <div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-12_56b33efc2dce282d84480efb3f042589">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(log_spec, <span class="at">type =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>        1         2         3         4         5         6 
 0.6335863 0.1789059 0.6382736 0.6613775 0.9918045 0.2059974 </code></pre>
@@ -1014,6 +1044,8 @@ flipper_length_mm:speciesChinstrap    flipper_length_mm:speciesGentoo
 </div>
 <p>Regularization is often used with logistic regression (in python’s scikit-learn package, Ridge regularization is used by default without warning the user).</p>
 <div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-13_ffac1882fb16317566de3b3fba070a09">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(sex <span class="sc">~</span> species<span class="sc">*</span>(bill_length_mm <span class="sc">+</span> </span>
@@ -1027,6 +1059,7 @@ flipper_length_mm:speciesChinstrap    flipper_length_mm:speciesGentoo
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">alpha =</span> <span class="dv">1</span>,</span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">lambda =</span> mycv<span class="sc">$</span>lambda<span class="fl">.1</span>se)</span>
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mylasso)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>13 x 1 sparse Matrix of class "dgCMatrix"
                                              s0

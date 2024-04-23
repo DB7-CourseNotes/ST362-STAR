@@ -457,6 +457,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>The code in this notebook demonstrates what we’ve seen in class.</p>
 <div class="cell" data-hash="Lb02-OLS_Estimates_cache/html/unnamed-chunk-2_5126cf8bd07702a836745cc6a02bdae1">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">1</span></span>
@@ -476,12 +478,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">sigma =</span> sigma)</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mydata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb02-OLS_Estimates_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Let’s find the estimate for <span class="math inline">\(\beta\)</span> as well as the variance.</p>
 <div class="cell" data-hash="Lb02-OLS_Estimates_cache/html/unnamed-chunk-3_898d3f8d5aba24e4e3d983a724e399b6">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Sdotdot <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) <span class="fu">sum</span>( (x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">*</span> (y <span class="sc">-</span> <span class="fu">mean</span>(y)) )</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Sxx <span class="ot">&lt;-</span> <span class="fu">Sdotdot</span>(mydata<span class="sc">$</span>x, mydata<span class="sc">$</span>x)</span>
@@ -490,18 +495,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> Sxy <span class="sc">/</span> Sxx</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>b1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.925759</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="fu">mean</span>(mydata<span class="sc">$</span>y) <span class="sc">-</span> b1 <span class="sc">*</span> <span class="fu">mean</span>(mydata<span class="sc">$</span>x)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>b0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.528286</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>errors <span class="ot">&lt;-</span> mydata<span class="sc">$</span>y <span class="sc">-</span> (b0 <span class="sc">+</span> b1 <span class="sc">*</span> mydata<span class="sc">$</span>x)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(errors)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>b1_var <span class="ot">&lt;-</span> s<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> Sxx</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>b1_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.005382233</code></pre>
 </div>
@@ -510,6 +522,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Now, let’s generate new data a bunch of times and see if our estimate of the <em>variance</em> of <span class="math inline">\(\hat\beta_1\)</span> is accurate. This is not a proof, just a demonstration.</p>
 <p>In the code below, I’m also keeping track of <span class="math inline">\(\hat\beta_0\)</span> from each sample. This will be useful later.</p>
 <div class="cell" data-hash="Lb02-OLS_Estimates_cache/html/unnamed-chunk-4_a430bef07f61fd9f59bbb7ac26b3d8a5">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>beta1s <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>beta0s <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, R)</span>
@@ -522,6 +536,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(beta1s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.005407588</code></pre>
 </div>
@@ -529,8 +544,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this example, we know the data generating process (dgp), so these randomly generated values are samples from the population.</p>
 <p>As we know, the standard error is the variance of the estimator over all possible samples from the population. We only took 1000, but that’s probably close enough to infinity to draw the sampling distribution.</p>
 <div class="cell" data-hash="Lb02-OLS_Estimates_cache/html/unnamed-chunk-5_32cbaa2cdf170ed3a93c03724e041b7c">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(beta1s)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">10</span>) <span class="co"># true value of beta</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb02-OLS_Estimates_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -538,20 +556,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>As you can see, <span class="math inline">\(\hat\beta_1\)</span> is unbiased and has some variance (at this stage, there’s nothing to compare this variance to so we can’t really call it “large” or “small”).</p>
 <p>Let’s use this to calculate an 89% Confidence Interval!</p>
 <div class="cell" data-hash="Lb02-OLS_Estimates_cache/html/unnamed-chunk-6_fe8dffb81b0ef03499af9687b3dffb20">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Empirical Ci</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(beta1s, <span class="fu">c</span>(<span class="fl">0.055</span>, <span class="fl">0.945</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>    5.5%    94.5% 
 4.883143 5.120293 </code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Theoretical CI</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Sxx <span class="ot">&lt;-</span> <span class="fu">Sdotdot</span>(mydata<span class="sc">$</span>x, mydata<span class="sc">$</span>x)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qt</span>(<span class="fl">0.945</span>, <span class="at">df =</span> <span class="fu">nrow</span>(mydata) <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(Sxx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.882763 5.117237</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Sample CI</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>b1 <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qt</span>(<span class="fl">0.945</span>, <span class="fu">nrow</span>(mydata) <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> s<span class="sc">/</span><span class="fu">sqrt</span>(Sxx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.804666 5.046851</code></pre>
 </div>
@@ -563,14 +590,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="A.1" class="anchored" data-anchor-id="analysis-of-variance"><span class="header-section-number">A.1</span> Analysis of Variance</h2>
 <p>The code below demonstrates how the ANOVA tables are calculated.</p>
 <div class="cell" data-hash="Lb02-OLS_Estimates_cache/html/unnamed-chunk-7_04a8d176b2b9bb7f0195c2d2179abb38">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mydata<span class="sc">$</span>y</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>yhat <span class="ot">&lt;-</span> b0 <span class="sc">+</span> b1<span class="sc">*</span>mydata<span class="sc">$</span>x</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">sum</span>((yhat <span class="sc">-</span> ybar)<span class="sc">^</span><span class="dv">2</span>), <span class="fu">sum</span>((y <span class="sc">-</span> yhat)<span class="sc">^</span><span class="dv">2</span>), <span class="fu">sum</span>((y <span class="sc">-</span> ybar)<span class="sc">^</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4809.33809   30.93852 4840.27661</code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ANOVA <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">Source =</span> <span class="fu">c</span>(<span class="st">"Regression"</span>, <span class="st">"Error"</span>, <span class="st">"Total (cor.)"</span>),</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">df =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(mydata) <span class="sc">-</span> <span class="dv">2</span>, <span class="fu">nrow</span>(mydata)),</span>
@@ -578,6 +610,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>ANOVA<span class="sc">$</span>MS <span class="ot">&lt;-</span> ANOVA<span class="sc">$</span>SS <span class="sc">/</span> ANOVA<span class="sc">$</span>df</span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>ANOVA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>        Source df         SS          MS
 1   Regression  1 4809.33809 4809.338089
@@ -587,7 +620,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This is equivalent to what R’s built-in functions do!</p>
 <div class="cell" data-hash="Lb02-OLS_Estimates_cache/html/unnamed-chunk-8_abf77f473bfa361e85b3072ed46b92b6">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> mydata))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -606,6 +642,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>The code below repeats what we did before, but with higher variance to better demonstrate the problem.</p>
 <p>It also records the estimates based on <em>centering</em> <span class="math inline">\(\underline x\)</span>. Notice how the formula for <span class="math inline">\(\hat\beta_0\)</span> is no longer dependent on <span class="math inline">\(\hat\beta_1\)</span> if the mean of <span class="math inline">\(\underline x\)</span> is 0!</p>
 <div class="cell" data-hash="Lb02-OLS_Estimates_cache/html/unnamed-chunk-9_aa67e0bdca614b87f487d7b828fe5498">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>b1s <span class="ot">&lt;-</span> <span class="fu">double</span>(R)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>b0s <span class="ot">&lt;-</span> <span class="fu">double</span>(R)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>b1cs <span class="ot">&lt;-</span> <span class="fu">double</span>(R)</span>
@@ -632,6 +670,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
 <span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(b1s, b0s)</span>
 <span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(b1cs, b0cs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb02-OLS_Estimates_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>

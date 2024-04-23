@@ -480,8 +480,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>A t-test has a df of <span class="math inline">\(n-1\)</span>, so does a regression with just one predictor.</li>
 </ul>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-2_9823aa6b6f939b510e2f8fe3b4cec9cf">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that I need the var.equal=TRUE to match the assumptions of regression.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Two Sample t-test
@@ -497,7 +500,10 @@ mean in group 0 mean in group 1
 </div>
 </div>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-3_aca0efae7ea8a4d3dca67de671a8a2b2">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -536,7 +542,10 @@ F-statistic: 16.86 on 1 and 30 DF,  p-value: 0.000285</code></pre>
 </ul></li>
 </ul>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-4_c5ae69d65bacb401249e376fcad4c3f0">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">aov</span>(mpg <span class="sc">~</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -549,7 +558,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-5_c95df5f348f2915b459c09166d495cd1">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -590,7 +602,10 @@ F-statistic:  39.7 on 2 and 29 DF,  p-value: 4.979e-09</code></pre>
 <p>With this setup, the intercept represents the estimate for 4 cylinder cars, <span class="math inline">\(\beta_1\)</span> represents the difference in 4 and 6 cylinder cars, while <span class="math inline">\(\beta_2\)</span> represents the difference in 4 and 8 cylinder cars (you can find the difference between 6 and 8 by doing the right math).</p>
 <p>From <code>model.matrix()</code>, we can see this in action:</p>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-6_775dd7efd660eff5b5652b215a6b2f9e">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">model.matrix</span>(mpg <span class="sc">~</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars), <span class="at">cyl =</span> <span class="fu">cbind</span>(mtcars<span class="sc">$</span>cyl)) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  (Intercept) factor(cyl)6 factor(cyl)8  
 Mazda RX4                   1            1            0 6
@@ -613,21 +628,30 @@ y_i = \begin{cases}\beta_0 &amp; \text{if }\; cyl == 4\\ \beta_0 + \beta_1 &amp;
 \]</span></p>
 <p>And indeed we can show that this is equivalent to fitting three separate models:</p>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-7_cbe8b5dba8337e6d3bd7fa23635a0498">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cyl4 <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> <span class="fu">subset</span>(mtcars, cyl <span class="sc">==</span> <span class="dv">4</span>)))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>cyl6 <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> <span class="fu">subset</span>(mtcars, cyl <span class="sc">==</span> <span class="dv">6</span>)))</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>cyl8 <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> <span class="fu">subset</span>(mtcars, cyl <span class="sc">==</span> <span class="dv">8</span>)))</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>allcyl <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars))</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">cyl4 =</span> <span class="fu">unname</span>(cyl4), <span class="at">beta0=</span><span class="fu">unname</span>(allcyl[<span class="dv">1</span>])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>    cyl4    beta0 
 26.66364 26.66364 </code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">cyl6 =</span> <span class="fu">unname</span>(cyl6), <span class="at">beta0_plus_beta1 =</span> <span class="fu">unname</span>(allcyl[<span class="dv">1</span>] <span class="sc">+</span> allcyl[<span class="dv">2</span>])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>            cyl6 beta0_plus_beta1 
         19.74286         19.74286 </code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">cyl8 =</span> <span class="fu">unname</span>(cyl8), <span class="at">beta0_plus_beta2 =</span> <span class="fu">unname</span>(allcyl[<span class="dv">1</span>] <span class="sc">+</span> allcyl[<span class="dv">3</span>])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>            cyl8 beta0_plus_beta2 
             15.1             15.1 </code></pre>
@@ -636,6 +660,8 @@ y_i = \begin{cases}\beta_0 &amp; \text{if }\; cyl == 4\\ \beta_0 + \beta_1 &amp;
 <p>The advantage of having all three in one is that we can test for significance easily!</p>
 <p>One way (a bad way) to visualize this is to treat <span class="math inline">\(I(cyl ==6)\)</span> and <span class="math inline">\(I(cyl==8)\)</span> as separate variables:</p>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-8_f67aa14dac642fb7e01f938a181bb1f7">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> <span class="fu">I</span>(<span class="fu">as.numeric</span>(<span class="fu">factor</span>(cyl)) <span class="sc">-</span> <span class="dv">1</span>), <span class="at">data =</span> <span class="fu">subset</span>(mtcars, cyl <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">6</span>)),</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Cyl (0 = 4, 1 = 6)"</span>, <span class="at">main =</span> <span class="st">"I(cyl == 6)"</span>)</span>
@@ -643,6 +669,7 @@ y_i = \begin{cases}\beta_0 &amp; \text{if }\; cyl == 4\\ \beta_0 + \beta_1 &amp;
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> <span class="fu">I</span>(<span class="fu">as.numeric</span>(<span class="fu">factor</span>(cyl)) <span class="sc">-</span> <span class="dv">1</span>), <span class="at">data =</span> <span class="fu">subset</span>(mtcars, cyl <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">8</span>)),</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Cyl (0 = 4, 1 = 8)"</span>, <span class="at">main =</span> <span class="st">"I(cyl == 8)"</span>)</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> <span class="fu">subset</span>(mtcars, cyl <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">8</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb16-Regression_with_Dummies_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -657,16 +684,22 @@ y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8) + \beta_3 disp
 y_i = \begin{cases}\beta_0  + \beta_3 disp&amp; \text{if }\; cyl == 4\\ \beta_0 + \beta_1  + \beta_3 disp&amp; \text{if }\; cyl == 6\\\beta_0  + \beta_2  + \beta_3 disp&amp; \text{if }\; cyl == 8\end{cases}
 \]</span> This is three different models of mpg versus disp, but with a different intercept depending on the value of <code>cyl</code>.</p>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-9_db18a0e301d09b02bb94d44841d72cef">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>cyldisp <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="fu">factor</span>(cyl) <span class="sc">+</span> disp, <span class="at">data =</span> mtcars))</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>cyldisp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code> (Intercept) factor(cyl)6 factor(cyl)8         disp 
  29.53476781  -4.78584624  -4.79208587  -0.02730864 </code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> disp, <span class="at">col =</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> cyldisp[<span class="dv">1</span>], <span class="at">b =</span> cyldisp[<span class="dv">4</span>], <span class="at">col =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">1</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> cyldisp[<span class="dv">1</span>] <span class="sc">+</span> cyldisp[<span class="dv">2</span>], <span class="at">b =</span> cyldisp[<span class="dv">4</span>], <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">1</span>)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> cyldisp[<span class="dv">1</span>] <span class="sc">+</span> cyldisp[<span class="dv">3</span>], <span class="at">b =</span> cyldisp[<span class="dv">4</span>], <span class="at">col =</span> <span class="dv">3</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb16-Regression_with_Dummies_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -684,14 +717,20 @@ y_i = \begin{cases}\beta_0  + \beta_3 disp&amp; \text{if }\; cyl == 4\\ (\beta_0
 \]</span></p>
 <p>In R, we cans use the fanciness of the formula notation. R interprets <code>*</code> as interaction <em>as well as lower order terms.</em></p>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-10_9795e055c0ffd2ed2e3f2670b0d70255">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>      (Intercept)              disp      factor(cyl)6      factor(cyl)8 
        40.8719553        -0.1351418       -21.7899679       -18.8391564 
 disp:factor(cyl)6 disp:factor(cyl)8 
         0.1387469         0.1155077 </code></pre>
 </div>
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> <span class="fu">subset</span>(mtcars, cyl <span class="sc">==</span> <span class="dv">4</span>))) <span class="co"># Others will be similar</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)        disp 
  40.8719553  -0.1351418 </code></pre>
@@ -699,11 +738,14 @@ disp:factor(cyl)6 disp:factor(cyl)8
 </div>
 <p><code>ggplot2</code> makes it super easy to plot this.</p>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-11_b3ee9f61dd0559d59cf44ba079c94b8e">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2); <span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg, <span class="at">colour =</span> <span class="fu">factor</span>(cyl)) <span class="sc">+</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> <span class="st">"y ~ x"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb16-Regression_with_Dummies_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -716,11 +758,16 @@ disp:factor(cyl)6 disp:factor(cyl)8
 <p>In previous lectures, we’ve looked at this same relationship using polynomial model for displacement and a transformation for mpg. Let’s see how these stack up!</p>
 <p>How do we compare such models? There isn’t a statistical test for which one fits best, but, as always, we want to know about the residuals!</p>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-12_55acd31c12bd075ae547452ec00b5681">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>poly_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="fu">poly</span>(disp, <span class="dv">2</span>), <span class="at">data =</span> mtcars)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>log_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(mpg) <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>interact_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="fu">factor</span>(cyl)<span class="sc">*</span>disp, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-13_d75d33bdc6e1bca48d12fb9f56b9580d">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>resid_plot <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># Re-run with different values to check other plots</span></span>
@@ -730,6 +777,7 @@ disp:factor(cyl)6 disp:factor(cyl)8
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(poly_lm, <span class="at">which =</span> resid_plot, <span class="at">main =</span> <span class="st">"Polynomial"</span>, <span class="at">col =</span> mycolours)</span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_lm, <span class="at">which =</span> resid_plot, <span class="at">main =</span> <span class="st">"Log Transform"</span>, <span class="at">col =</span> mycolours)</span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(interact_lm, <span class="at">which =</span> resid_plot, <span class="at">main =</span> <span class="st">"Interaction"</span>, <span class="at">col =</span> mycolours)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <p><img src="Lb16-Regression_with_Dummies_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -746,7 +794,10 @@ disp:factor(cyl)6 disp:factor(cyl)8
 <p>The plots are quite similar, but for the most part the interaction model seems to work best.</p>
 <p>ANOVA can be used to compare the residual variance across non-nested models, but is not appropriate for one of the three models we just saw. See if you can guess which !</p>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-14_017379997dee183ee92f14f8259c8115">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(poly_lm, log_lm, interact_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -761,7 +812,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>The models have a significantly <em>different</em> fit, so the one with the lowest residual variance probably fits better.</p>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-15_da1ee7b4856728dd75d2df75cfb5bc66">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">summary</span>(poly_lm)<span class="sc">$</span>sigma, <span class="fu">summary</span>(interact_lm)<span class="sc">$</span>sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.836907 2.371581</code></pre>
 </div>
@@ -780,7 +834,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="this-is-an-ancova-model" class="level3">
 <h3 class="anchored" data-anchor-id="this-is-an-ancova-model">This is an ANCOVA Model</h3>
 <div class="cell" data-hash="Lb16-Regression_with_Dummies_cache/html/unnamed-chunk-16_4b0cda7b02ffa6968b8f6ea98798f22b">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(interact_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
