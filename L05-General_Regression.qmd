@@ -281,6 +281,7 @@ $Y_{n+1} = X\beta + \epsilon_{n+1}$
 - A prediction interval around $Y_{n+1}$ is based on the variance of $\hat\beta$ *and* $\epsilon$!
 - $\hat Y_{n+1} \pm t * se(X\hat\beta + \epsilon_{n+1})$
 
+::: {.content-visible unless-profile="book"}
 
 ## Participation Questions
 
@@ -353,4 +354,5 @@ Which ANOVA table does the `anova()` function calculate?
 | Total | $n - 1$ | $\underline y^t\underline y$ |
 
 
+:::
 

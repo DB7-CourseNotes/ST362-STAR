@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2024-04-23">
 
 <title>STAR Notes - 13&nbsp; Non-Linear Relationships with Linear Models</title>
 <style>
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">Regularization</span></a>
+ <span class="menu-text">Advanced Topics</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -437,13 +437,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#example-mtcars" id="toc-example-mtcars" class="nav-link" data-scroll-target="#example-mtcars">Example: mtcars</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">13.4</span> Participation Questions</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/blob/main/L14-NonLinear.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -476,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-16</p>
+      <p class="date">2024-04-23</p>
     </div>
   </div>
   
@@ -496,9 +489,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 y = 2 + \frac{1}{5}x^2 - 8\log(x) - 0.005x^3 + 20\sin\left(\frac{x}{2}\right) + \epsilon
 \]</span></p>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-2_05df93bebaad8384e6fe5c00dd8745f2">
+<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-3_4d2470bee16fe74137b693de4da5e675">
 <div class="cell-output-display">
-<p><img src="L14-NonLinear_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="432"></p>
+<p><img src="L14-NonLinear_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="432"></p>
 </div>
 </div>
 </div>
@@ -542,9 +535,9 @@ x_1 = x;\; x_2 = x^2;\; x_3 = x^3;\;...
 <li>A cubic does something funky at 0.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-3_9a647a29a1b17db388e932c999c732c3">
+<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-4_401ddff5a600ae8129955d24830e8475">
 <div class="cell-output-display">
-<p><img src="L14-NonLinear_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="432"></p>
+<p><img src="L14-NonLinear_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="432"></p>
 </div>
 </div>
 </div>
@@ -552,7 +545,7 @@ x_1 = x;\; x_2 = x^2;\; x_3 = x^3;\;...
 </section>
 <section id="choosing-order-with-anova" class="level3">
 <h3 class="anchored" data-anchor-id="choosing-order-with-anova">Choosing Order with ANOVA</h3>
-<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-4_7de1eb3b1a281c9778ee5f9790505331">
+<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-5_c0ed04040e2568cef758d352b4079aa8">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dist =</span> cars<span class="sc">$</span>dist, <span class="at">x1 =</span> cars<span class="sc">$</span>speed, <span class="at">x2 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">2</span>, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x3 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">3</span>, <span class="at">x4 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">4</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(dist <span class="sc">~</span> ., <span class="at">data =</span> X) <span class="sc">|&gt;</span> <span class="fu">anova</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -583,9 +576,9 @@ y = \beta_0 + \beta_1x + \beta_2x^2
 y = \beta_2x^2
 \]</span></p>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-5_cef502394048c93a894e531c27f17b9d">
+<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-6_a636c1a041839c482c73479924f5105f">
 <div class="cell-output-display">
-<p><img src="L14-NonLinear_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="432"></p>
+<p><img src="L14-NonLinear_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="432"></p>
 </div>
 </div>
 </div>
@@ -593,7 +586,7 @@ y = \beta_2x^2
 </section>
 <section id="unconventional-ess" class="level3">
 <h3 class="anchored" data-anchor-id="unconventional-ess">Unconventional ESS</h3>
-<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-6_4d922c2a941e11563c77897320726f4b">
+<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-7_2ee557e1ccc5ac00e5c66b4bc17b785a">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dist =</span> cars<span class="sc">$</span>dist, <span class="at">x1 =</span> cars<span class="sc">$</span>speed, <span class="at">x2 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">2</span>, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x3 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">3</span>, <span class="at">x4 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">4</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(dist <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> X)</span>
@@ -617,9 +610,9 @@ Model 2: dist ~ x1 + x2
 <section id="polynomial-models-will-overfit" class="level3">
 <h3 class="anchored" data-anchor-id="polynomial-models-will-overfit">Polynomial Models <em>will</em> Overfit!</h3>
 <p>True model: <span class="math inline">\(f(x) = 2 + 25x + 5x^2 - x^3\)</span> (cubic), Var(<span class="math inline">\(\epsilon\)</span>) = 40</p>
-<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-7_48cc96dc3cceb7b31ad01b3f5319ad93">
+<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-8_c0f63269772bed3945fe9aed35521786">
 <div class="cell-output-display">
-<p><img src="L14-NonLinear_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="L14-NonLinear_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -628,7 +621,7 @@ Model 2: dist ~ x1 + x2
 <p>A full polynomial model of order 2 with two predictors is: <span class="math display">\[
 y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \beta_{12}x_1x_2
 \]</span> In R this can be specified as:</p>
-<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-8_b73371ec1f669ba15d0a32ca7d9434c1">
+<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-9_552690820ca176af3af4d5ef9c5e9027">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> (x1 <span class="sc">+</span> x2)<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
@@ -660,7 +653,7 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 <section id="extrapolation-is-fraught-with-peril" class="level3">
 <h3 class="anchored" data-anchor-id="extrapolation-is-fraught-with-peril">Extrapolation is Fraught with Peril</h3>
 <p>Unless you have the true order (you don’t), polynomials diverge almost immediately.</p>
-<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-9_4120a1d986c51d476f620715923e2656">
+<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-10_04b127c2484488d4fa266f7636474636">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/polyFit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -672,7 +665,7 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 </section>
 <section id="poly-uses-orthogonal-polynomials" class="level3">
 <h3 class="anchored" data-anchor-id="poly-uses-orthogonal-polynomials"><code>poly()</code> uses <strong>orthogonal</strong> polynomials</h3>
-<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-10_f6ae4c71cc15fe043244dab0e6d765e5">
+<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-11_a7cd8982144e856bde8b33fdf290b20f">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">10</span>), </span>
@@ -688,7 +681,7 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 </section>
 <section id="orthogonal-polynomials" class="level3">
 <h3 class="anchored" data-anchor-id="orthogonal-polynomials">Orthogonal Polynomials</h3>
-<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-11_9bad6783a1f1fbcfe2c78f3236003a55">
+<div class="cell" data-hash="L14-NonLinear_cache/html/unnamed-chunk-12_904ff332709d5deecccce92b9709004a">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">runif</span>(<span class="dv">60</span>, <span class="dv">0</span>, <span class="dv">10</span>))</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
@@ -708,44 +701,6 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 </section>
 <section id="summary" class="level3">
 <h3 class="anchored" data-anchor-id="summary">Summary</h3>
-</section>
-</section>
-<section id="participation-questions" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">13.4</span> Participation Questions</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>Given a correctly structured model matrix (<span class="math inline">\(X\)</span>), polynomial models can be fit with the same routines as linear models (without modification).</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>Any smooth function can be approximated by a polynomial.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>Orthogonal polynomials are used because:</p>
-<ol type="1">
-<li>They remove covariance between <span class="math inline">\(x\)</span>, <span class="math inline">\(x^2\)</span>, <span class="math inline">\(x^3\)</span>, etc.</li>
-<li>They remove the covariance between <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_{11}\)</span>, <span class="math inline">\(\beta_{111}\)</span>, etc.</li>
-<li>They result in p-values that make sense.</li>
-<li>All of the above.</li>
-</ol>
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>Which statement is <em>true</em>?</p>
-<ol type="1">
-<li>We should start with a high order polynomial and use Sequential Sum-of-Squares to choose the order.</li>
-<li>We should try second order polynomials if we think there’s a curve to our model, but should generally avoid polynomials unless there’s a strong contextual reason.</li>
-<li>We saw last week that estimates are still unbiased in the presence of extraneous predictors, so it’s fine to include a higher order polynomial in our model.</li>
-</ol>
 
 
 </section>

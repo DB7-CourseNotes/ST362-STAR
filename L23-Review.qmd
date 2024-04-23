@@ -170,7 +170,10 @@ $$
 E(\hat{\underline{\beta}}) = E((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^TE(Y) = (X^TX)^{-1}X^TX\underline\beta = \underline\beta
 $$
 
-## Participation Questions
+::: {.content-visible unless-profile="book"}
+
+
+## Participation
 
 ### Q1
 $$
@@ -223,6 +226,7 @@ Which assumption does *not* always need to be confirmed before attempting to mak
 3. No serial correlation in residuals.
 4. Independence between observations
 
+:::
 
 
 

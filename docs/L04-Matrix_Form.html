@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2024-04-23">
 
 <title>STAR Notes - 4&nbsp; Regression in Matrix Form</title>
 <style>
@@ -126,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -253,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">Regularization</span></a>
+ <span class="menu-text">Advanced Topics</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -344,7 +344,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -392,15 +392,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#variance-of-hat-y_n1" id="toc-variance-of-hat-y_n1" class="nav-link" data-scroll-target="#variance-of-hat-y_n1">Variance of <span class="math inline">\(\hat Y_{n+1}\)</span></a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">4.3</span> Participation Questions</a>
-  <ul class="collapse">
-  <li><a href="#q01" id="toc-q01" class="nav-link" data-scroll-target="#q01">Q01</a></li>
-  <li><a href="#q02" id="toc-q02" class="nav-link" data-scroll-target="#q02">Q02</a></li>
-  <li><a href="#q03" id="toc-q03" class="nav-link" data-scroll-target="#q03">Q03</a></li>
-  <li><a href="#q04" id="toc-q04" class="nav-link" data-scroll-target="#q04">Q04</a></li>
-  <li><a href="#q05" id="toc-q05" class="nav-link" data-scroll-target="#q05">Q05</a></li>
-  <li><a href="#q06" id="toc-q06" class="nav-link" data-scroll-target="#q06">Q06</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/blob/main/L04-Matrix_Form.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -433,7 +424,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-16</p>
+      <p class="date">2024-04-23</p>
     </div>
   </div>
   
@@ -607,65 +598,6 @@ V(\hat Y_0) &amp;= \sigma^2X_0(X^TX)^{-1}X_0^T\\
 V(\hat Y_{n+1}) &amp;= \sigma^2(X_{n+1}(X^TX)^{-1}X_{n+1}^T + 1)\\
 \end{align*}\]</span></p>
 <p>This will <em>not</em> change when we add predictors!</p>
-</section>
-</section>
-<section id="participation-questions" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">4.3</span> Participation Questions</h2>
-<section id="q01" class="level3">
-<h3 class="anchored" data-anchor-id="q01">Q01</h3>
-<p>Which statement about matrix multiplication is <em>false</em>?</p>
-<ol type="1">
-<li><span class="math inline">\((AB)^T = B^TA^T\)</span></li>
-<li><span class="math inline">\((AB)^{-1} = B^{-1}A^{-1}\)</span></li>
-<li><span class="math inline">\((A + B)^T = A^T + B^T\)</span></li>
-<li><span class="math inline">\(A^{-1}A = AA^{-1}\)</span></li>
-</ol>
-</section>
-<section id="q02" class="level3">
-<h3 class="anchored" data-anchor-id="q02">Q02</h3>
-<p>The Normal Equations come from:</p>
-<ol type="1">
-<li>Setting the partial derivatives of <span class="math inline">\(\underline\epsilon^T\underline\epsilon\)</span> to 0.</li>
-<li>Setting the partial derivatives of <span class="math inline">\(\hat{\underline\epsilon}^T\hat{\underline\epsilon}\)</span> to 0.</li>
-<li>Rearranging the equation <span class="math inline">\(\sum_{i=1}^n(y_i - \hat y_i)^2\)</span> for <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span></li>
-<li>Rearranging the equation <span class="math inline">\(\sum_{i=1}^n(y_i - \beta_0 + \beta_1x_i + \epsilon_i)^2\)</span> for <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span></li>
-</ol>
-</section>
-<section id="q03" class="level3">
-<h3 class="anchored" data-anchor-id="q03">Q03</h3>
-<p><span class="math inline">\(MS_E = MS_T - MS_Reg\)</span></p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q04" class="level3">
-<h3 class="anchored" data-anchor-id="q04">Q04</h3>
-<p>For vector-valued r.v. <span class="math inline">\(Z\)</span>, <span class="math inline">\(V(Z)\)</span> is a symmetric matrix.</p>
-<ol type="1">
-<li>No, since the <span class="math inline">\(i,j\)</span> element is <span class="math inline">\(cov(Z_i, Z_j)\)</span> and the <span class="math inline">\(j,i\)</span> element is <span class="math inline">\(cov(Z_j, Z_i)\)</span>.</li>
-<li>No, since the <span class="math inline">\(i,i\)</span> element is <span class="math inline">\(V(Z_i)\)</span>, which is different for different <span class="math inline">\(i\)</span>.</li>
-<li>Yes, because it is a scalar.</li>
-<li>Yes, because <span class="math inline">\(cov(Z_i, Z_j) = cov(Z_j, Z_i)\)</span></li>
-</ol>
-</section>
-<section id="q05" class="level3">
-<h3 class="anchored" data-anchor-id="q05">Q05</h3>
-<p>For scalar-valued random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, which statement is <em>true</em>?</p>
-<ol type="1">
-<li><span class="math inline">\(cov(a + bX, Y) = b cov(X,Y)\)</span></li>
-<li><span class="math inline">\(cov(a + bX, bY) = b cov(X,Y)\)</span></li>
-<li><span class="math inline">\(cov(bX, X) = b^2V(X)\)</span></li>
-<li><span class="math inline">\(cov(a + bX, a + bY) = a + b cov(X,Y)\)</span></li>
-</ol>
-</section>
-<section id="q06" class="level3">
-<h3 class="anchored" data-anchor-id="q06">Q06</h3>
-<p>The variance of the line evaluated at an existing point is smaller than the variance of the line evaluated at a new point, even if the new point is the same as an existing point.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
 
 
 </section>

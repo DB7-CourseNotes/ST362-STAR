@@ -193,6 +193,8 @@ Most of the time, just check the PACF.
     - Change estimation to account for autocorrelation.\lspace
 - If it's complicated, get a PhD student to do it for you.
 
+::: {.content-visible unless-profile="book"}
+
 ## Participation
 
 ### Q1
@@ -254,6 +256,7 @@ Autocorrelation means that there are no possible insights into the data.
 2. False, there are standard methods that will work for any situation.
 3. False, but we won't get into the details in this course.
 
+:::
 
 
 

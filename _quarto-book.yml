@@ -50,7 +50,7 @@ book:
         - L18-Modelling_Poorly.qmd
         - L19-Example_Analysis_mtcars.qmd
         - L20-Degrees_of_Freedom.qmd
-    - part: Regularization
+    - part: Advanced Topics
       chapters:
         - L21-Regularization.qmd
         - L22-Logistic.qmd

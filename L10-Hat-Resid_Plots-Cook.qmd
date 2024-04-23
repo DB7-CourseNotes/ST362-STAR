@@ -223,6 +223,7 @@ $$
 \centering
 Plots!
 
+::: {.content-visible unless-profile="book"}
 
 ## Participation
 
@@ -291,6 +292,7 @@ Which of the following is *not* useful for detecting outliers?
 3. Cook's distance
 4. $h_{ii}$
 
+:::
 
 
 

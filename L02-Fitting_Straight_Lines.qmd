@@ -242,6 +242,7 @@ $$
 \hat\beta_1 \pm t_\nu(\alpha/2)\sqrt{\frac{s^2}{S_{XX}}}
 $$
 
+::: {.content-visible unless-profile="book"}
 
 ## Participation Questions
 
@@ -306,6 +307,7 @@ The sum of squared errors is the best way to estimate the model parameters.
 
 1. True\lspace
 2. False
+:::
 
 
 

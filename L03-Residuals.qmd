@@ -245,6 +245,9 @@ plot(mydata ~ quants)
 
 - More in Ch08
 
+::: {.content-visible unless-profile="book"}
+
+
 ## Participation Quiz
 
 ### Q01
@@ -306,6 +309,8 @@ Which of the following statements about $R^2$ is *false*?
 2. $R^2 = r^2$, where $r$ is the correlation between $\underline x$ and $\underline y$
 3. $R^2$ compares the variance of the line to the variance of $y$ alone
 4. $R^2$ is not a random variable
+
+:::
 
 ## Maximum Likelihood
 

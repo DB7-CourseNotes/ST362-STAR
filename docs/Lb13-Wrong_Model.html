@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2024-04-22">
 
 <title>STAR Notes - Appendix G — Lab Missing/Extra Predictors</title>
 <style>
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">Regularization</span></a>
+ <span class="menu-text">Advanced Topics</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -449,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-16</p>
+      <p class="date">2024-04-22</p>
     </div>
   </div>
   
@@ -466,7 +466,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Estimated model: <span class="math inline">\(Y = X\underline\beta + \underline\epsilon\)</span></li>
 </ul>
 <p>We’re going to do this a little differently than other days. Let’s look at the penguins data again:</p>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-1_2f649ea311d4fe77e0f590ee508830e6">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-2_d86da32a309a75565f29ef5c06b28d4c">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2121</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Remove NAs and take continuous variables</span></span>
@@ -488,7 +488,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Let’s “““make”“” a true model:</p>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-2_f24d904abcebd0e3c0f4f8ec0db75ac3">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-3_35183183223233a65087aad35e220392">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penglm <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> ., <span class="at">data =</span> peng)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">coef</span>(penglm)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">summary</span>(penglm)<span class="sc">$</span>sigma</span>
@@ -515,7 +515,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 bodymass = 4207 + 18*billlength + 35*billdepth + 711.5*flipperlength + \epsilon
 \]</span> where <span class="math inline">\(\epsilon_i \sim N(0, 393)\)</span>.</p>
 <p>We can simulate from this as follows:</p>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-3_b62408368263b34b63e622cd55b61594">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-4_0b9ee32aee48260ef9ef8eae6117a138">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, <span class="fu">as.matrix</span>(peng[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>body_mass_g <span class="ot">&lt;-</span> X <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sigma)</span>
@@ -534,7 +534,7 @@ bodymass = 4207 + 18*billlength + 35*billdepth + 711.5*flipperlength + \epsilon
 </div>
 </div>
 <p>Now let’s do this 1000s of times!</p>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-4_ca158e275e1c03b6cce33ca712c3591c">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-5_37685c3c5cf2866fd8b7a28003c79df6">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">0</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>) {</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    body_mass_g <span class="ot">&lt;-</span> X <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sigma)</span>
@@ -547,7 +547,7 @@ bodymass = 4207 + 18*billlength + 35*billdepth + 711.5*flipperlength + \epsilon
 <pre><code>[1] 10000     4</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-5_b4be108b76c5b708704229c71e588e2b">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-6_a26cea57a39036f74d25e482d563d21f">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) {</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(beta[i] <span class="sc">-</span> res[, i], </span>
@@ -557,7 +557,7 @@ bodymass = 4207 + 18*billlength + 35*billdepth + 711.5*flipperlength + \epsilon
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Lb13-Wrong_Model_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="Lb13-Wrong_Model_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>This looks good- we simulated according to the values in <code>beta</code>, and we were able to recover them. We’ve also shown that the linear model is unbiased!</p>
@@ -566,7 +566,7 @@ bodymass = 4207 + 18*billlength + 35*billdepth + 711.5*flipperlength + \epsilon
 <h2 data-number="G.3" class="anchored" data-anchor-id="estimating-the-wrong-model---too-few-predictors"><span class="header-section-number">G.3</span> Estimating the Wrong Model - Too few predictors</h2>
 <p>In the following code, I remove the “<code>flipper_length_mm</code>” (the third predictor) by only taking the first three columns of <code>X</code>, which includes the column of 1s.</p>
 <p>I then fit the model without flipper length, which we’ve seen before is an important predictor!</p>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-6_f6887c30f1d2a361fdb8654f7ffec19a">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-7_ef48a54c39d17bb663c02d05077708d6">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>res_reduced <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">0</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>X_reduced <span class="ot">&lt;-</span> X[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="co"># Still includes column of 1s</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>beta_reduced <span class="ot">&lt;-</span> beta[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
@@ -583,7 +583,7 @@ bodymass = 4207 + 18*billlength + 35*billdepth + 711.5*flipperlength + \epsilon
 <pre><code>[1] 10000     3</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-7_2f7d5f3f0949664da5cb386841e67ae5">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-8_fb1b00c9a530e9e20f109bed20edf36b">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    bias <span class="ot">&lt;-</span> beta[i] <span class="sc">-</span> res_reduced[, i]</span>
@@ -595,7 +595,7 @@ bodymass = 4207 + 18*billlength + 35*billdepth + 711.5*flipperlength + \epsilon
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Lb13-Wrong_Model_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="Lb13-Wrong_Model_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Everything is biased! Since <code>flipper_length_mm</code> was an important predictor, the estimates from the other predictors are biased!</p>
@@ -618,7 +618,7 @@ E(\hat{\underline\beta}) &amp;= E((X^TX)^{-1}X^TY)\\
 \]</span></p>
 <p>This isn’t directly applicable, but might help you think about what happens when <span class="math inline">\(\underline\beta\)</span> is too big.</p>
 <p>Since we already have the objects created, let’s pretend that <code>X_reduced</code> is correct.</p>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-8_fb13f5198d4eb29cf4b098bd1ca21511">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-9_4852872ddf5cc2c9168c29453a7219e8">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">0</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>X_reduced <span class="ot">&lt;-</span> X[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="co"># Still includes column of 1s</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>beta_reduced <span class="ot">&lt;-</span> beta[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
@@ -642,21 +642,21 @@ E(\hat{\underline\beta}) &amp;= E((X^TX)^{-1}X^TY)\\
 <span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Lb13-Wrong_Model_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="Lb13-Wrong_Model_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>It’s unbiased! In this case, the estimate of <span class="math inline">\(\beta\)</span> for <code>flipper_length_mm</code> is 0, and it’s successfully estimating this:</p>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-9_1a4788dfacaef8822ecd11a28ae4e72d">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-10_9815afc2580b2c42a526b2b007ba275a">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(res[, <span class="dv">4</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Lb13-Wrong_Model_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="Lb13-Wrong_Model_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="too-many-and-too-few" class="level2" data-number="G.5">
 <h2 data-number="G.5" class="anchored" data-anchor-id="too-many-and-too-few"><span class="header-section-number">G.5</span> Too many <em>and</em> too few</h2>
 <p>So let’s get to the final case. As we know, bill length and bill depth are correlated:</p>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-10_ec561b5afe48d593a17f8f2113931f0a">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-11_e758d887476d321a58ac6b82d2c1c44b">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(X[, <span class="sc">-</span><span class="dv">1</span>]) <span class="co"># correlation matrix, without column of 1s</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  bill_length_mm bill_depth_mm flipper_length_mm
@@ -666,7 +666,7 @@ flipper_length_mm      0.4716073     0.5801429         1.0000000</code></pre>
 </div>
 </div>
 <p>Let’s simulate with the coefficient for bill depth as 0, but include it in the model.</p>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-11_0b298fb6447dfd54d53a8bb313d02179">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-12_687d543369e289976ffbcaed37b6203d">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(beta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      (Intercept)    bill_length_mm     bill_depth_mm flipper_length_mm 
@@ -688,7 +688,7 @@ flipper_length_mm      0.4716073     0.5801429         1.0000000</code></pre>
 <li>Data Generating Process: body mass = <span class="math inline">\(\beta_0\)</span> + <span class="math inline">\(\beta_1\)</span> bill length + <span class="math inline">\(\beta_3\)</span> flipper length</li>
 <li>Estimating: body mass = <span class="math inline">\(\beta_0\)</span> + <span class="math inline">\(\beta_2\)</span> bill depth + <span class="math inline">\(\beta_3\)</span> flipper length</li>
 </ul>
-<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-12_a2102f6f69835ba7ea11c83c4b855dc2">
+<div class="cell" data-hash="Lb13-Wrong_Model_cache/html/unnamed-chunk-13_54ed866ff09cf3d468ff71e443d9f3e1">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">0</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>beta_fewmany <span class="ot">&lt;-</span> beta</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>beta_fewmany[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># True coefficient for depth is 0, length != 0</span></span>
@@ -719,7 +719,7 @@ flipper_length_mm      0.4716073     0.5801429         1.0000000</code></pre>
 <span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"="</span>, <span class="fu">round</span>(beta[<span class="dv">4</span>] <span class="sc">-</span> <span class="fu">mean</span>(res[, <span class="dv">3</span>]), <span class="dv">2</span>)))</span>
 <span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> beta[<span class="dv">4</span>], <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Lb13-Wrong_Model_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="Lb13-Wrong_Model_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -1109,7 +1109,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./Lb15-Transformations.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab Transformations</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

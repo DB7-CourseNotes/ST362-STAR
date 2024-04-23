@@ -8,6 +8,9 @@ institute: "**Jam TBD**"
 set.seed(2112)
 ```
 
+::: {.content-visible unless-profile="book"}
+
+
 ## Participation Questions
 
 ### Q1
@@ -86,3 +89,4 @@ In the output of `augment()` in the `broom` package, the `.sigma` column refers 
 2. The MSE of the model *if it were fit without the observation in that row*.
 3. The variance of that residual, as calculated by $V(\hat\epsilon_i) = (1-h_{ii})s^2$.
 4. The variance of that residual, as calculated by $V(\hat\epsilon_i) = (1-h_{ii})s_{(i)}^2$.
+:::

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2024-04-23">
 
 <title>STAR Notes - 2&nbsp; Fitting Straight Lines</title>
 <style>
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">Regularization</span></a>
+ <span class="menu-text">Advanced Topics</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -432,16 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#variance-of-hatbeta_1" id="toc-variance-of-hatbeta_1" class="nav-link" data-scroll-target="#variance-of-hatbeta_1">Variance of <span class="math inline">\(\hat\beta_1\)</span></a></li>
   <li><a href="#confidence-interval-and-test-statistic-for-hatbeta_1" id="toc-confidence-interval-and-test-statistic-for-hatbeta_1" class="nav-link" data-scroll-target="#confidence-interval-and-test-statistic-for-hatbeta_1">Confidence Interval and Test Statistic for <span class="math inline">\(\hat\beta_1\)</span></a></li>
   </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">2.3</span> Participation Questions</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
-  </ul></li>
-  <li><a href="#analysis-of-variance" id="toc-analysis-of-variance" class="nav-link" data-scroll-target="#analysis-of-variance"><span class="header-section-number">2.4</span> Analysis of Variance</a>
+  <li><a href="#analysis-of-variance" id="toc-analysis-of-variance" class="nav-link" data-scroll-target="#analysis-of-variance"><span class="header-section-number">2.3</span> Analysis of Variance</a>
   <ul class="collapse">
   <li><a href="#statistics-is-the-study-of-variance" id="toc-statistics-is-the-study-of-variance" class="nav-link" data-scroll-target="#statistics-is-the-study-of-variance">Statistics is the Study of Variance</a></li>
   <li><a href="#a-useful-identity-and-its-interpretations" id="toc-a-useful-identity-and-its-interpretations" class="nav-link" data-scroll-target="#a-useful-identity-and-its-interpretations">A Useful Identity, and its Interpretations</a></li>
@@ -484,7 +475,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-16</p>
+      <p class="date">2024-04-23</p>
     </div>
   </div>
   
@@ -521,7 +512,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="all-linear-models-are-wrong">All Linear Models are Wrong</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/unnamed-chunk-1_dc391d3c0fbd79af686aa99ca9c95106">
+<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/unnamed-chunk-2_24b2b57d057acaa02bbf19a3fd82b4b1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
@@ -535,11 +526,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Flipper Length (mm)"</span>,</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Body Mass (g)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L02-Fitting_Straight_Lines_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+<p><img src="L02-Fitting_Straight_Lines_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/unnamed-chunk-2_bee496116d3b31b79e1b6b158933c92f">
+<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/unnamed-chunk-3_7467dd94a6cd119274804f67f8ef315f">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg) <span class="sc">+</span> </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
@@ -550,7 +541,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Engine Displacement (1000 cu.in)"</span>, </span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Fuel Efficiency (mpg)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L02-Fitting_Straight_Lines_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<p><img src="L02-Fitting_Straight_Lines_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -558,7 +549,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="some-linear-models-are-useful" class="level3">
 <h3 class="anchored" data-anchor-id="some-linear-models-are-useful">Some Linear Models are Useful</h3>
-<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/unnamed-chunk-3_6260eda0a710df66ff2394e5f0643399">
+<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/unnamed-chunk-4_65f398e852ce7d7da04b1ae7e44e601a">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>xpred <span class="ot">&lt;-</span> <span class="dv">200</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ypred <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> penguins),</span>
@@ -583,7 +574,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">xend =</span> xpred, </span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">yend =</span> ypred, <span class="at">y =</span> ypred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L02-Fitting_Straight_Lines_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="L02-Fitting_Straight_Lines_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -717,67 +708,8 @@ t = \frac{\hat\beta_1 - \beta_1}{se(\hat\beta_1)} = \frac{(\hat\beta_1 - \beta_1
 \]</span></p>
 </section>
 </section>
-<section id="participation-questions" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">2.3</span> Participation Questions</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>All models are useful, but some are wrong.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>For a one unit increase in <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> increases by</p>
-<ol type="1">
-<li><span class="math inline">\(\beta_0\)</span></li>
-<li><span class="math inline">\(\beta_1\)</span></li>
-<li><span class="math inline">\(\beta_1x\)</span></li>
-<li><span class="math inline">\(\beta_0 + \beta_1x\)</span></li>
-</ol>
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>The standard error of <span class="math inline">\(\beta_1\)</span> refers to:</p>
-<ol type="1">
-<li>The variance of the population slope</li>
-<li>The amount by which the slope might be off</li>
-<li>The variance of the estimated slope across different samples</li>
-<li>A big chicken. Not, like, worryingly big, but big enough that you’d be like, “Wow, that’s a big chicken!”</li>
-</ol>
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>Which is <em>not</em> an assumption that we usually make in linear regression?</p>
-<ol type="1">
-<li><span class="math inline">\(V(\epsilon_i) = \sigma^2\)</span></li>
-<li><span class="math inline">\(E(\epsilon_i) = 0\)</span></li>
-<li><span class="math inline">\(E(X) = 0\)</span></li>
-<li><span class="math inline">\(\epsilon_i\stackrel{iid}{\sim}N(0,\sigma^2)\)</span></li>
-</ol>
-</section>
-<section id="q5" class="level3">
-<h3 class="anchored" data-anchor-id="q5">Q5</h3>
-<p>Which of the following is <em>not</em> a linear model?</p>
-<ol type="1">
-<li><span class="math inline">\(y_i = \beta_0 + \beta_1^2x_i + \epsilon_i\)</span></li>
-<li><span class="math inline">\(y_i = \beta_0 + \beta_1x_i + \beta_2x_i^2 + \epsilon_i\)</span></li>
-<li><span class="math inline">\(y_i = \beta_0 + \beta_0x_i +\epsilon_i\)</span></li>
-<li><span class="math inline">\(y_i = \beta_0 + \beta_1\sin\left(x_i^{x_i}\right) + \beta_2x_i^{\sin(x_i)} + \epsilon_i\)</span></li>
-</ol>
-</section>
-<section id="q6" class="level3">
-<h3 class="anchored" data-anchor-id="q6">Q6</h3>
-<p>The sum of squared errors is the best way to estimate the model parameters.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-</section>
-<section id="analysis-of-variance" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="analysis-of-variance"><span class="header-section-number">2.4</span> Analysis of Variance</h2>
+<section id="analysis-of-variance" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="analysis-of-variance"><span class="header-section-number">2.3</span> Analysis of Variance</h2>
 <section id="statistics-is-the-study-of-variance" class="level3">
 <h3 class="anchored" data-anchor-id="statistics-is-the-study-of-variance">Statistics is the Study of Variance</h3>
 <ul>
@@ -926,7 +858,7 @@ F_{df_{Reg}, df_E} = \dfrac{MS_{Reg}}{MS_E} = \dfrac{MS_{Reg}}{s^2}
 <li>What are the confidence limits (at = 0.05) for <span class="math inline">\(\beta_1\)</span>?</li>
 </ol>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/unnamed-chunk-4_396783e1a32453d959021fc1ee48e31d">
+<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/unnamed-chunk-5_8b97429b9fb81a32eb9844d7386ee6b4">
 <div class="sourceCode cell-code" id="cb4" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(aprean3) <span class="co"># Data from textbook</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dse03a) <span class="co"># Data Set Exercise Ch03A</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1306,7 +1238,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./L01-Introduction.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2024-04-22">
 
 <title>STAR Notes - 19&nbsp; Degrees of Freedom</title>
 <style>
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">Regularization</span></a>
+ <span class="menu-text">Advanced Topics</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -455,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-16</p>
+      <p class="date">2024-04-22</p>
     </div>
   </div>
   
@@ -474,7 +474,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Also note that you’ll want to set <code>raw = TRUE</code> to ensure that people can find the coefficient values that you set. With <code>raw = FALSE</code> they will get the exact same predictions (and thus the same error), but not the same coefficient values.</p>
 <p>In the code below, I also demonstrate a log-transform for <span class="math inline">\(y\)</span>. To get a log on the left side of the equation, we use an exponential on the right.</p>
 </div>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-2_2c9dd3241dc91b423456be97e6016af7">
+<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-3_ada816f4e0076819cf9061ecea247b55">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mycat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"category"</span>, <span class="st">"category"</span>, <span class="st">"dogegory"</span>, <span class="st">"category"</span>, <span class="st">"birdegory"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mycont <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">4</span>, <span class="dv">10</span>,  <span class="dv">20</span> )</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -589,7 +589,7 @@ poly(mycont, 2, raw = TRUE)2
 <div class="notes">
 <p>Here’s an example of using transformations to (1) match the context of the problem and (2) get better results with fewer degrees of freedom.</p>
 <p>We’ll use the <code>trees</code> dataset that’s built into R. The “Girth” column is actually the diameter, and it’s the only column measured in inches rather than feet. I’m going to make a new predictor based on Girth that’s more useful for later models.</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-3_bbc43704285db23378c5d53f86f8b5b7">
+<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-4_f33333e2d9113422c03ed511e6195ef3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving df</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(trees) <span class="co"># "Girth" is actually diameter, according to help file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -604,7 +604,7 @@ poly(mycont, 2, raw = TRUE)2
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>Radius <span class="ot">&lt;-</span> trees<span class="sc">$</span>Girth<span class="sc">/</span><span class="dv">24</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A naive model might be a basic multiple linear regression.</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-4_648233dc4597a6dd5175ef2fa365326b">
+<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-5_fea486a2e23d0be26cb80284767594c7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>multiple_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> Radius <span class="sc">+</span> Height, <span class="at">data =</span> trees)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multiple_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -630,7 +630,7 @@ F-statistic:   255 on 2 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>We could make this fit better by blindly adding polynomial terms and doing a transformation:</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-5_0fbb34abdd9bacdb863d083a5f71b1c9">
+<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-6_acbbd59ea9bece600b9830460e8d6e41">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>transformed_and_poly <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Volume) <span class="sc">~</span> <span class="fu">poly</span>(Girth, <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">poly</span>(Height, <span class="dv">2</span>), <span class="at">data =</span> trees)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(transformed_and_poly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -667,7 +667,7 @@ V = \pi r^2h
 \log(V) &amp;= \beta_0 + \beta_1\log(r) + \beta_2\log(h) + \epsilon\\
 \implies V &amp;= \exp(\beta_0)r^\beta_1h^\beta_2\exp(\epsilon)
 \end{align*}\]</span> and expecting that <span class="math inline">\(\exp(\beta_0)\)</span> is close to <span class="math inline">\(\pi\)</span>, <span class="math inline">\(\beta_1 = 2\)</span>, and <span class="math inline">\(\beta_2 = 1\)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-6_f1cc3fe43894e360418052bfd4c30875">
+<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-7_1743ed60771bfa18614271310b013877">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>volume_logs <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Volume) <span class="sc">~</span> <span class="fu">log</span>(Girth) <span class="sc">+</span> <span class="fu">log</span>(Height), <span class="at">data =</span> trees)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(volume_logs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -703,13 +703,13 @@ F-statistic: 613.2 on 2 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
 </ul></li>
 </ul>
 <p>We could also assume these values from the start, and include a “naive” volume.</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-7_6dcc14dc702d5de4254e1d98b8d5778b">
+<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-8_c18fee25cf92fc133027fa23c84ed379">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>naive_volume <span class="ot">&lt;-</span> pi <span class="sc">*</span> trees<span class="sc">$</span>Radius<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> trees<span class="sc">$</span>Height</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We could then model this according to <span class="math display">\[\begin{align*}
 V &amp; = \beta_0N + \epsilon
 \end{align*}\]</span> where <span class="math inline">\(N\)</span> is our “naive” volume. We might have the expectation that <span class="math inline">\(\beta_0 = 1\)</span> if the naive volume is correct.</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-8_358190f275a22b71e52dd9fa3fdd756c">
+<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-9_16bf70842d2ceabb5c41f665ebcc0f12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming trees are cylinders</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>diff_from_cylinder <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> naive_volume, <span class="at">data =</span> trees)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(diff_from_cylinder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -735,7 +735,7 @@ F-statistic:  5996 on 1 and 30 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p>This tells us that the estimated usable lumber from a given tree is about 40% of what we would expect if the tree were a perfect cylinder.</p>
 <p>Importantly for this lecture, we have an <span class="math inline">\(R^2\)</span> of 0.9949 on a single degree of freedom! <span class="math inline">\(R^2\)</span> is not the greatest measure, but it’s informative in this case:</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-9_18cc5d323382feee8e87dbbbe28ebaaa">
+<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-10_037bfbd80fbd9ed79fa1280ebbd5dfa2">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>

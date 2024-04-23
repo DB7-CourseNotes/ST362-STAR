@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2024-04-23">
 
 <title>STAR Notes - 8&nbsp; Serial Correlation in the Residuals</title>
 <style>
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">Regularization</span></a>
+ <span class="menu-text">Advanced Topics</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -431,16 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#dw-acf-and-pacf-in-practice" id="toc-dw-acf-and-pacf-in-practice" class="nav-link" data-scroll-target="#dw-acf-and-pacf-in-practice">DW, ACF, and PACF in practice</a></li>
   <li><a href="#what-to-do-if-there-is-autocorrelation" id="toc-what-to-do-if-there-is-autocorrelation" class="nav-link" data-scroll-target="#what-to-do-if-there-is-autocorrelation">What to do if there is autocorrelation?</a></li>
   </ul></li>
-  <li><a href="#participation" id="toc-participation" class="nav-link" data-scroll-target="#participation"><span class="header-section-number">8.4</span> Participation</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
-  </ul></li>
-  <li><a href="#non-parametric-test-for-autocorrelation" id="toc-non-parametric-test-for-autocorrelation" class="nav-link" data-scroll-target="#non-parametric-test-for-autocorrelation"><span class="header-section-number">8.5</span> Non-Parametric Test for Autocorrelation</a>
+  <li><a href="#non-parametric-test-for-autocorrelation" id="toc-non-parametric-test-for-autocorrelation" class="nav-link" data-scroll-target="#non-parametric-test-for-autocorrelation"><span class="header-section-number">8.4</span> Non-Parametric Test for Autocorrelation</a>
   <ul class="collapse">
   <li><a href="#runs" id="toc-runs" class="nav-link" data-scroll-target="#runs">Runs</a></li>
   <li><a href="#defining-a-lot-of-runs" id="toc-defining-a-lot-of-runs" class="nav-link" data-scroll-target="#defining-a-lot-of-runs">Defining “A Lot Of Runs”</a></li>
@@ -479,7 +470,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-16</p>
+      <p class="date">2024-04-23</p>
     </div>
   </div>
   
@@ -627,12 +618,12 @@ d = \dfrac{\sum_{s=2}^n(\hat\epsilon_s - \hat\epsilon_{s-1})^2}{\sum_{s=1}^n\hat
 <p>The x-axis shows the lag, the y axis shows the correlations</p>
 <p>The plot on the right shows an example of time series data.</p>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L09-Serial_Correlation_cache/html/unnamed-chunk-1_532ebc91f6d7b706dc436c2a85ea14c6">
+<div class="cell" data-hash="L09-Serial_Correlation_cache/html/unnamed-chunk-2_81cb634b252e05531e26afe77584f388">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(co2, <span class="at">main =</span> <span class="st">"Time series of CO2 data"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(co2, <span class="at">main =</span> <span class="st">"ACF of CO2 data (not residuals)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L09-Serial_Correlation_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="576"></p>
+<p><img src="L09-Serial_Correlation_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 </div>
@@ -657,12 +648,12 @@ d = \dfrac{\sum_{s=2}^n(\hat\epsilon_s - \hat\epsilon_{s-1})^2}{\sum_{s=1}^n\hat
 <p>This is the PACF, and it’s often much more useful.</p>
 <p>The plot on the right shows a cyclic trend.</p>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L09-Serial_Correlation_cache/html/unnamed-chunk-2_10593d3c13efa91968bd84900b3e9136">
+<div class="cell" data-hash="L09-Serial_Correlation_cache/html/unnamed-chunk-3_7041c4200109b76b481890cbf0fc1f42">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(co2, <span class="at">main =</span> <span class="st">"Time series of CO2 data"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(co2, <span class="at">main =</span> <span class="st">"PACF of CO2 data (not residuals)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L09-Serial_Correlation_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="576"></p>
+<p><img src="L09-Serial_Correlation_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 </div>
@@ -695,70 +686,8 @@ d = \dfrac{\sum_{s=2}^n(\hat\epsilon_s - \hat\epsilon_{s-1})^2}{\sum_{s=1}^n\hat
 </ul>
 </section>
 </section>
-<section id="participation" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="participation"><span class="header-section-number">8.4</span> Participation</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>Serial correlation can be tested for any data set.</p>
-<ol type="1">
-<li></li>
-<li>True</li>
-<li>False</li>
-<li></li>
-</ol>
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>A non-significant result from the DW test means there is no autocorrelation in the residuals.</p>
-<ol type="1">
-<li>True</li>
-<li></li>
-<li></li>
-<li>False</li>
-</ol>
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>The quantity <span class="math inline">\(d = \dfrac{\sum_{s=2}^n(\hat\epsilon_s - \hat\epsilon_{s-1})^2}{\sum_{s=1}^n\hat\epsilon_s^2}\)</span> is a statistic because:</p>
-<ol type="1">
-<li>It’s a value calculated from the data, possibly including information from outside the data.</li>
-<li>It’s a value calculated from the data only, with no other information.</li>
-<li>It’s a value calculated from the data only, with no other information, and has a known distribution.</li>
-<li>It’s not a statistic since it’s not estimating a population parameter.</li>
-</ol>
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>The “partial” in PACF refers to:</p>
-<ol type="1">
-<li>The PACF plot only contains some of (partial) information.</li>
-<li>The PACF evaluates the lag <span class="math inline">\(k\)</span> correlation after controlling for lags 1 to <span class="math inline">\(k-1\)</span>.</li>
-<li>The PACF is only evaluated for a portion of the data.</li>
-<li>The PACF for a lag of <span class="math inline">\(k\)</span> cannot use the first <span class="math inline">\(k-1\)</span> data points (they are the NAs in the table).</li>
-</ol>
-</section>
-<section id="q5" class="level3">
-<h3 class="anchored" data-anchor-id="q5">Q5</h3>
-<p>Which of the following is <em>not</em> an assumption of the DW test?</p>
-<ol type="1">
-<li>The time points are all equally spaced.</li>
-<li>The correlation between two residuals is equal to <span class="math inline">\(\rho\)</span>.</li>
-<li>The further apart two residuals are, the less correlated they are.</li>
-<li>There is no missing data.</li>
-</ol>
-</section>
-<section id="q6" class="level3">
-<h3 class="anchored" data-anchor-id="q6">Q6</h3>
-<p>Autocorrelation means that there are no possible insights into the data.</p>
-<ol type="1">
-<li>True, the study was worthless.</li>
-<li>False, there are standard methods that will work for any situation.</li>
-<li>False, but we won’t get into the details in this course.</li>
-</ol>
-</section>
-</section>
-<section id="non-parametric-test-for-autocorrelation" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="non-parametric-test-for-autocorrelation"><span class="header-section-number">8.5</span> Non-Parametric Test for Autocorrelation</h2>
+<section id="non-parametric-test-for-autocorrelation" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="non-parametric-test-for-autocorrelation"><span class="header-section-number">8.4</span> Non-Parametric Test for Autocorrelation</h2>
 <section id="runs" class="level3">
 <h3 class="anchored" data-anchor-id="runs">Runs</h3>
 <p><span class="math inline">\(\sum_{i=1}^n\hat\epsilon_i = 0\)</span>, so some residuals are positive and some are negative.</p>
@@ -793,7 +722,7 @@ d = \dfrac{\sum_{s=2}^n(\hat\epsilon_s - \hat\epsilon_{s-1})^2}{\sum_{s=1}^n\hat
 </section>
 <section id="example" class="level3">
 <h3 class="anchored" data-anchor-id="example">Example</h3>
-<div class="cell" data-hash="L09-Serial_Correlation_cache/html/unnamed-chunk-3_b5e903cc79b70afc7e54d8b111752bfa">
+<div class="cell" data-hash="L09-Serial_Correlation_cache/html/unnamed-chunk-4_3fdbc779b64892542ce498b5934866a3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/SerialCorrelation"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

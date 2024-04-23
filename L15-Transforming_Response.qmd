@@ -227,7 +227,10 @@ R reports the the log-likelihood values, along with the top 5%.
 
 To be useful, all transformations should consider the context of the problem!
 
-## Participation Questions
+::: {.content-visible unless-profile="book"}
+
+
+## Participation 
 
 ### Q1
 
@@ -278,5 +281,6 @@ The default residual plots in R can help diagnose the need for a transformation.
 1. True
 2. False
 
+:::
 
 

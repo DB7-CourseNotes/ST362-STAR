@@ -145,7 +145,10 @@ Main idea: Is the covariance (or correlation) between $x$ and $y$ different for 
 - Choosing interaction terms is *hard*.
     - `ggplot2` makes parts of it a lot easier.
 
-## Participation Questions
+::: {.content-visible unless-profile="book"}
+
+
+## Participation 
 
 ### Q1
 
@@ -207,6 +210,7 @@ In the regression `mpg ~ factor(cyl) + disp + factor(cyl):disp`, if we find that
 2. False
 
 
+:::
 
 ## Significance of a Group
 

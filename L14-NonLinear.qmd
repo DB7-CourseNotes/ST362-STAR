@@ -344,9 +344,10 @@ for(i in 1:3) {
 ### Summary
 
 
+::: {.content-visible unless-profile="book"}
 
 
-## Participation Questions
+## Participation
 
 ### Q1
 
@@ -378,3 +379,5 @@ Which statement is *true*?
 1. We should start with a high order polynomial and use Sequential Sum-of-Squares to choose the order.
 2. We should try second order polynomials if we think there's a curve to our model, but should generally avoid polynomials unless there's a strong contextual reason.
 3. We saw last week that estimates are still unbiased in the presence of extraneous predictors, so it's fine to include a higher order polynomial in our model.
+
+:::

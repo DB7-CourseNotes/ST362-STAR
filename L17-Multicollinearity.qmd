@@ -221,7 +221,10 @@ If two predictors are measuring the same thing, then just include one?
 - The estimated $\beta$ won't be meaningful.
     - Inferences will be difficult.
 
-## Participation Questions
+::: {.content-visible unless-profile="book"}
+
+
+## Participation
 
 ### Q1
 
@@ -267,6 +270,7 @@ The VIF is defined as:
 3. The correlation between $X_i$ and all other predictors.
 4. The $R^2$ value for $Y$ against $X_i$.
 
+:::
 
 
 

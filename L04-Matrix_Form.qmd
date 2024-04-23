@@ -171,6 +171,9 @@ V(\hat Y_{n+1}) &= \sigma^2(X_{n+1}(X^TX)^{-1}X_{n+1}^T + 1)\\
 
 This will *not* change when we add predictors!
 
+::: {.content-visible unless-profile="book"}
+
+
 ## Participation Questions
 
 ### Q01
@@ -235,3 +238,4 @@ The variance of the line evaluated at an existing point is smaller than the vari
 
 1. True\lspace
 2. False
+:::

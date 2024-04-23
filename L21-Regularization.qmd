@@ -219,7 +219,10 @@ For the rest of your life, this is the way you'll see Ridge and LASSO.
 :::
 ::::
 
-## Participation Questions
+::: {.content-visible unless-profile="book"}
+
+
+## Participation 
 
 ### Q1
 
@@ -293,6 +296,8 @@ When should you use LASSO instead of Ridge?
 2. When you want most of the coefficients to be 0.
 3. When you want to minimize out-of-sample prediction error at all costs.
 4. When you only want coefficients with significant p-values left over in your model.
+
+:::
 
 ### Personal Opinion Time
 

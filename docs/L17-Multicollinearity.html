@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2024-04-23">
 
 <title>STAR Notes - 16&nbsp; Multicollinearity</title>
 <style>
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">Regularization</span></a>
+ <span class="menu-text">Advanced Topics</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -432,13 +432,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#one-way-to-fix-the-problem" id="toc-one-way-to-fix-the-problem" class="nav-link" data-scroll-target="#one-way-to-fix-the-problem">One way to fix the problem</a></li>
   <li><a href="#removing-predictors" id="toc-removing-predictors" class="nav-link" data-scroll-target="#removing-predictors">Removing predictors</a></li>
   </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">16.4</span> Participation Questions</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/blob/main/L17-Multicollinearity.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -471,7 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-16</p>
+      <p class="date">2024-04-23</p>
     </div>
   </div>
   
@@ -495,9 +488,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L17-Multicollinearity_cache/html/unnamed-chunk-2_cbaad353b6a734ca17054dc92f1795cc">
+<div class="cell" data-hash="L17-Multicollinearity_cache/html/unnamed-chunk-3_0e80ed02f81c4b121cc95879ad3f88f7">
 <div class="cell-output-display">
-<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -513,7 +506,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>No meaningful CIs</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L17-Multicollinearity_cache/html/unnamed-chunk-3_ea422bb245dbfbe11bfe8021894a8adb">
+<div class="cell" data-hash="L17-Multicollinearity_cache/html/unnamed-chunk-4_00c1642cb1e0a2c77d63124d285c4aaf">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
@@ -524,7 +517,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta[<span class="dv">2</span>])),</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Estimated betas for correlated</span><span class="sc">\n</span><span class="st">predictors, many samples"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="384"></p>
+<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="384"></p>
 </div>
 </div>
 </div>
@@ -575,7 +568,7 @@ Cov(X) = \begin{bmatrix}
 </section>
 <section id="plotting-corx" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-corx">Plotting <span class="math inline">\(Cor(X)\)</span></h3>
-<div class="cell" data-hash="L17-Multicollinearity_cache/html/unnamed-chunk-4_c155f19b7ad9099f1f38b6c36aa34f24">
+<div class="cell" data-hash="L17-Multicollinearity_cache/html/unnamed-chunk-5_3408570db0a3767e2d956ed4f19ddb3c">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins); <span class="fu">library</span>(GGally)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorr</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -583,7 +576,7 @@ Cov(X) = \begin{bmatrix}
 not numeric and were ignored</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="960"></p>
+<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section>
@@ -673,48 +666,6 @@ Cov(X) = Z^TZ/(n-1)
 <li>Inferences will be difficult.</li>
 </ul></li>
 </ul>
-</section>
-</section>
-<section id="participation-questions" class="level2" data-number="16.4">
-<h2 data-number="16.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">16.4</span> Participation Questions</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>Multicollinearity can come from:</p>
-<ol type="1">
-<li>Unit changes</li>
-<li>Polynomial terms</li>
-<li>Proxy measures</li>
-<li>All of the above</li>
-</ol>
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>Multicollinearity is a problem because</p>
-<ol type="1">
-<li>Strong correlation in <span class="math inline">\(X\)</span> makes estimates of <span class="math inline">\(\beta\)</span> invalid.</li>
-<li>Strong correlation in <span class="math inline">\(X\)</span> means there are many values of <span class="math inline">\(\underline\beta\)</span> that are equally probable.</li>
-<li>There’s no way to fix strong correlation in <span class="math inline">\(X\)</span>.</li>
-</ol>
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>When multicollinearity is present, which of the following is still valid?</p>
-<ol type="1">
-<li>Inferences about the effect of one of the predictors.</li>
-<li>Confidence intervals for a single coefficients.</li>
-<li>Predictions.</li>
-<li>Overall F test for significance of any slope parameter.</li>
-</ol>
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>The VIF is defined as:</p>
-<ol type="1">
-<li>The amount that the MSE increases due to the variance in <span class="math inline">\(\hat{\underline\beta}\)</span>.</li>
-<li>The coefficient of determination of <span class="math inline">\(X_i\)</span> against all other predictors.</li>
-<li>The correlation between <span class="math inline">\(X_i\)</span> and all other predictors.</li>
-<li>The <span class="math inline">\(R^2\)</span> value for <span class="math inline">\(Y\)</span> against <span class="math inline">\(X_i\)</span>.</li>
-</ol>
 
 
 </section>

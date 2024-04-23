@@ -299,7 +299,9 @@ The OLS estimate is **unbiased**, but has a much higher **variance**!
 - In a controlled experiment, where we have known weights for different $x$-values
     - E.g., more skilled surgeons, machine age.
 
-## Participation Questions
+::: {.content-visible unless-profile="book"}
+
+## Participation
 
 ### Q1
 
@@ -360,4 +362,5 @@ What do you expect the hat matrix to be for GLS?
 3. $XV^{-1}(X^TV^{-1}X)^{-1}X^TV^{-1}Y$
 4. $XV^{-T}(X^TV^{-1}X)^{-1}X^TV^{-1}Y$
 
+:::
 

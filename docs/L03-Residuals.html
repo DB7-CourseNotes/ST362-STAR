@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2024-04-23">
 
 <title>STAR Notes - 3&nbsp; Assessing Fit</title>
 <style>
@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -287,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">Regularization</span></a>
+ <span class="menu-text">Advanced Topics</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -422,16 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#testing-normality-quantile-quantile-plots" id="toc-testing-normality-quantile-quantile-plots" class="nav-link" data-scroll-target="#testing-normality-quantile-quantile-plots">Testing Normality: Quantile-Quantile Plots</a></li>
   <li><a href="#other-residual-plots" id="toc-other-residual-plots" class="nav-link" data-scroll-target="#other-residual-plots">Other Residual Plots:</a></li>
   </ul></li>
-  <li><a href="#participation-quiz" id="toc-participation-quiz" class="nav-link" data-scroll-target="#participation-quiz"><span class="header-section-number">3.2</span> Participation Quiz</a>
-  <ul class="collapse">
-  <li><a href="#q01" id="toc-q01" class="nav-link" data-scroll-target="#q01">Q01</a></li>
-  <li><a href="#q02" id="toc-q02" class="nav-link" data-scroll-target="#q02">Q02</a></li>
-  <li><a href="#q03" id="toc-q03" class="nav-link" data-scroll-target="#q03">Q03</a></li>
-  <li><a href="#q04" id="toc-q04" class="nav-link" data-scroll-target="#q04">Q04</a></li>
-  <li><a href="#q05" id="toc-q05" class="nav-link" data-scroll-target="#q05">Q05</a></li>
-  <li><a href="#q06" id="toc-q06" class="nav-link" data-scroll-target="#q06">Q06</a></li>
-  </ul></li>
-  <li><a href="#maximum-likelihood" id="toc-maximum-likelihood" class="nav-link" data-scroll-target="#maximum-likelihood"><span class="header-section-number">3.3</span> Maximum Likelihood</a>
+  <li><a href="#maximum-likelihood" id="toc-maximum-likelihood" class="nav-link" data-scroll-target="#maximum-likelihood"><span class="header-section-number">3.2</span> Maximum Likelihood</a>
   <ul class="collapse">
   <li><a href="#main-idea" id="toc-main-idea" class="nav-link" data-scroll-target="#main-idea">Main Idea</a></li>
   <li><a href="#the-likelihood" id="toc-the-likelihood" class="nav-link" data-scroll-target="#the-likelihood">The Likelihood</a></li>
@@ -478,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-16</p>
+      <p class="date">2024-04-23</p>
     </div>
   </div>
   
@@ -498,7 +489,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 \]</span></p>
 </div><div class="column" style="width:70%;">
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-1_646003392f6dc41e3bd7f81bf22b8ff4">
+<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-2_4ee51aa51f7b1a1fcd01105d36d6d1a5">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">1</span>), <span class="at">widths =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">18</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">25</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
@@ -526,7 +517,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">mean</span>(y), <span class="at">labels =</span> <span class="fu">bquote</span>(<span class="fu">bar</span>(y)), <span class="at">las =</span> <span class="dv">1</span>)</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="576"></p>
+<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 </div>
@@ -567,7 +558,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-2_a41902005cefa8807424bcb0d89e3499">
+<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-3_e46fcbc2675de0acce659268caedde71">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
@@ -597,7 +588,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">/</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="480"></p>
+<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
 </div>
@@ -620,7 +611,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </section>
 <section id="residual-plots-unstable-error" class="level3">
 <h3 class="anchored" data-anchor-id="residual-plots-unstable-error">Residual plots: unstable error</h3>
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-3_230deb700bdabc5e088228c60b17dd67">
+<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-4_39ba809241cd4ef88a9757c47abc9a8d">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>x</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> y0 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, <span class="dv">2</span> <span class="sc">*</span> x)</span>
@@ -641,13 +632,13 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="residual-plots-non-linear-trend" class="level3">
 <h3 class="anchored" data-anchor-id="residual-plots-non-linear-trend">Residual plots: non-linear trend?</h3>
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-4_552986226fc9602649cd4c0929cab163">
+<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-5_44d13f91c71bf7082023def66816d4ba">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## fig-height: 4</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## fig-width: 8</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
@@ -667,7 +658,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -696,14 +687,14 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </ul>
 </div><div class="column" style="width:40%;">
 <p>If perfectly normal, expect a straight line!</p>
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-5_980cf636f4a656b5f1a2ce617081ccd4">
+<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-6_909176b7b4fff2e501412d76d46ccd22">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>quants <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.125</span>, <span class="fl">0.25</span>, <span class="fl">0.375</span>, <span class="fl">0.5</span>, </span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.625</span>, <span class="fl">0.75</span>, <span class="fl">0.875</span>))</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mydata <span class="sc">~</span> quants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -728,71 +719,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </ul>
 </section>
 </section>
-<section id="participation-quiz" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="participation-quiz"><span class="header-section-number">3.2</span> Participation Quiz</h2>
-<section id="q01" class="level3">
-<h3 class="anchored" data-anchor-id="q01">Q01</h3>
-<p>Which of the following is not an assumption of linear models?</p>
-<ol type="1">
-<li>$$</li>
-<li>The variance is constant across all values of <span class="math inline">\(X\)</span>.</li>
-<li>The height of the line is the mean value of <span class="math inline">\(Y\)</span> for a given <span class="math inline">\(X\)</span>.</li>
-<li>None of the above.</li>
-</ol>
-</section>
-<section id="q02" class="level3">
-<h3 class="anchored" data-anchor-id="q02">Q02</h3>
-<p>Which of the following is a confidence interval for <span class="math inline">\(s\)</span>?</p>
-<ol type="1">
-<li><span class="math inline">\(\chi^2_n(0.055) \le \frac{(n-1)s^2}{\sigma^2} \le \chi^2_n(0.945)\)</span></li>
-<li><span class="math inline">\(\chi^2_n(0.945) \le \frac{(n-1)s^2}{\sigma^2} \le \chi^2_n(0.055)\)</span></li>
-<li><span class="math inline">\(s^2 \pm \text{Critical Value } * \text{ se}(s^2)\)</span></li>
-<li><span class="math inline">\(s \pm \text{Critical Value } * \text{ se}(s)\)</span></li>
-<li>None of the above</li>
-</ol>
-</section>
-<section id="q03" class="level3">
-<h3 class="anchored" data-anchor-id="q03">Q03</h3>
-<p>Which of the following is <em>not</em> a random variable?</p>
-<ol type="1">
-<li><span class="math inline">\(Y\)</span></li>
-<li><span class="math inline">\(\hat\epsilon_i\)</span></li>
-<li><span class="math inline">\(\hat Y\)</span></li>
-<li><span class="math inline">\(\underline\epsilon\)</span></li>
-</ol>
-</section>
-<section id="q04" class="level3">
-<h3 class="anchored" data-anchor-id="q04">Q04</h3>
-<p><span class="math inline">\(F = t^2\)</span></p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-<li>Sometimes true</li>
-</ol>
-</section>
-<section id="q05" class="level3">
-<h3 class="anchored" data-anchor-id="q05">Q05</h3>
-<p>Which of the following is the definition of a residual?</p>
-<ol type="1">
-<li><span class="math inline">\(y_i - \hat y_i\)</span></li>
-<li><span class="math inline">\((y_i - \hat y_i)^2\)</span></li>
-<li><span class="math inline">\(\hat y_i - y_i\)</span></li>
-<li><span class="math inline">\((\hat y_i - y_i)^2\)</span></li>
-</ol>
-</section>
-<section id="q06" class="level3">
-<h3 class="anchored" data-anchor-id="q06">Q06</h3>
-<p>Which of the following statements about <span class="math inline">\(R^2\)</span> is <em>false</em>?</p>
-<ol type="1">
-<li><span class="math inline">\(R^2 = SSReg / SST\)</span></li>
-<li><span class="math inline">\(R^2 = r^2\)</span>, where <span class="math inline">\(r\)</span> is the correlation between <span class="math inline">\(\underline x\)</span> and <span class="math inline">\(\underline y\)</span></li>
-<li><span class="math inline">\(R^2\)</span> compares the variance of the line to the variance of <span class="math inline">\(y\)</span> alone</li>
-<li><span class="math inline">\(R^2\)</span> is not a random variable</li>
-</ol>
-</section>
-</section>
-<section id="maximum-likelihood" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="maximum-likelihood"><span class="header-section-number">3.3</span> Maximum Likelihood</h2>
+<section id="maximum-likelihood" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="maximum-likelihood"><span class="header-section-number">3.2</span> Maximum Likelihood</h2>
 <section id="main-idea" class="level3">
 <h3 class="anchored" data-anchor-id="main-idea">Main Idea</h3>
 <p>Find the values <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, and <span class="math inline">\(\hat\sigma^2\)</span> that <strong>maximize the likelihood of seeing our data</strong>.</p>

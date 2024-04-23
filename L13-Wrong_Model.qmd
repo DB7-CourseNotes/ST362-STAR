@@ -74,8 +74,10 @@ This may be useful for a future assignment question (will notify if you need it)
 
 - Choosing the wrong set of predictors can affect the model!
 
+::: {.content-visible unless-profile="book"}
 
-## Participation Questions
+
+## Participation
 
 ### Q1
 
@@ -106,3 +108,4 @@ Proxy measures of important predictors help remove bias, but the coefficient has
 1. True
 2. False
 
+:::

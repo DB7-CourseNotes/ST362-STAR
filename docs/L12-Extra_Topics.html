@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2024-04-23">
 
 <title>STAR Notes - 11&nbsp; Extra Topics</title>
 <style>
@@ -126,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -253,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">Regularization</span></a>
+ <span class="menu-text">Advanced Topics</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -344,7 +344,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -401,15 +401,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#ols-when-you-should-have-used-gls" id="toc-ols-when-you-should-have-used-gls" class="nav-link" data-scroll-target="#ols-when-you-should-have-used-gls">OLS when you should have used GLS</a></li>
   <li><a href="#choosing-v" id="toc-choosing-v" class="nav-link" data-scroll-target="#choosing-v">Choosing <span class="math inline">\(V\)</span></a></li>
   </ul></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">11.4</span> Participation Questions</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/blob/main/L12-Extra_Topics.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -442,7 +433,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-16</p>
+      <p class="date">2024-04-23</p>
     </div>
   </div>
   
@@ -657,63 +648,6 @@ SST &amp;= Z^TZ = Y^TV^{-1}Y\\
 <li>E.g., more skilled surgeons, machine age.</li>
 </ul></li>
 </ul>
-</section>
-</section>
-<section id="participation-questions" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">11.4</span> Participation Questions</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>Which of the following will result in no correlation between <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>?</p>
-<ol type="1">
-<li>Centering</li>
-<li>Standardizing</li>
-<li>Both centering and standardizing</li>
-<li>None of the above</li>
-</ol>
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>What’s the primary reason for standardizing the predictors?</p>
-<ol type="1">
-<li>Remove correlation between the <span class="math inline">\(\hat\beta\)</span>s</li>
-<li>Make it so that the variance is not a function of the <span class="math inline">\(X\)</span>-values.</li>
-<li>Ensure that the values of <span class="math inline">\(\hat\beta\)</span> are comparable.</li>
-<li>Make it so that general linear hypotheses are possible.</li>
-</ol>
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>In a general linear hypothesis, <span class="math inline">\(q\)</span> is the rank of the <span class="math inline">\(C\)</span> matrix in <span class="math inline">\(C\underline\beta = \underline 0\)</span>.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>Generalized Least Squares requires strong assumptions about the matrix <span class="math inline">\(V\)</span>.</p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q5" class="level3">
-<h3 class="anchored" data-anchor-id="q5">Q5</h3>
-<p>Ignoring correlation/unequal variance in <span class="math inline">\(\underline\epsilon\)</span> will lead to a biased estimate of <span class="math inline">\(\underline\beta\)</span></p>
-<ol type="1">
-<li>True</li>
-<li>False</li>
-</ol>
-</section>
-<section id="q6" class="level3">
-<h3 class="anchored" data-anchor-id="q6">Q6</h3>
-<p>What do you expect the hat matrix to be for GLS?</p>
-<ol type="1">
-<li><span class="math inline">\(X(X^TX)^{-1}X^TY\)</span></li>
-<li><span class="math inline">\(X(X^TV^{-1}X)^{-1}X^TV^{-1}Y\)</span></li>
-<li><span class="math inline">\(XV^{-1}(X^TV^{-1}X)^{-1}X^TV^{-1}Y\)</span></li>
-<li><span class="math inline">\(XV^{-T}(X^TV^{-1}X)^{-1}X^TV^{-1}Y\)</span></li>
-</ol>
 
 
 </section>

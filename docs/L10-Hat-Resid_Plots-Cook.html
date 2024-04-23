@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-16">
+<meta name="dcterms.date" content="2024-04-23">
 
 <title>STAR Notes - 9&nbsp; The Hat Matrix</title>
 <style>
@@ -126,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Stats Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -253,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">Regularization</span></a>
+ <span class="menu-text">Advanced Topics</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -344,7 +344,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Lab Transformations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -400,15 +400,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#cooks-distance-alternate-form" id="toc-cooks-distance-alternate-form" class="nav-link" data-scroll-target="#cooks-distance-alternate-form">Cook’s Distance: Alternate Form</a></li>
   <li><a href="#next-class" id="toc-next-class" class="nav-link" data-scroll-target="#next-class">Next Class</a></li>
   </ul></li>
-  <li><a href="#participation" id="toc-participation" class="nav-link" data-scroll-target="#participation"><span class="header-section-number">9.4</span> Participation</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/blob/main/L10-Hat-Resid_Plots-Cook.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -441,7 +432,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-16</p>
+      <p class="date">2024-04-23</p>
     </div>
   </div>
   
@@ -665,67 +656,6 @@ D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\left[\frac{h_{
 <section id="next-class" class="level3">
 <h3 class="anchored" data-anchor-id="next-class">Next Class</h3>
 <p>Plots!</p>
-</section>
-</section>
-<section id="participation" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="participation"><span class="header-section-number">9.4</span> Participation</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>Which does <em>not</em> describe a residual?</p>
-<ol type="1">
-<li>The observed difference between the measured value <span class="math inline">\(y_i\)</span> and the one we predict with <span class="math inline">\(\hat y_i = X\hat{\underline\beta}\)</span>.</li>
-<li>Given the true relationship <span class="math inline">\(Y = X\underline\beta\)</span>, residuals are deviations that cannot be observed.</li>
-<li>Errors that should be fixed.</li>
-</ol>
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>Which of the following is <em>not</em> true about the hat matrix (<span class="math inline">\(H = X(X^TX)^{-1}X^T\)</span>)?</p>
-<ol type="1">
-<li><span class="math inline">\((I-H)(I-H)^T = (I-H)\)</span></li>
-<li><span class="math inline">\(\hat{\underline\beta} = (X^TX)^{-1}X^TY = X^{-1}HY\)</span></li>
-<li><span class="math inline">\(h_{ii} = 1 - \sum_{j\ne i}h_{ij}\)</span></li>
-<li><span class="math inline">\(H(I-H) = 0\)</span></li>
-</ol>
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>Suppose that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0,\sigma^2)\)</span>.</p>
-<p>Which of the following statements is <em>false</em>?</p>
-<ol type="1">
-<li><span class="math inline">\(V(\hat\epsilon_i) = (1 - h_{ii})\sigma^2\)</span></li>
-<li><span class="math inline">\(V(\epsilon_i) = \sigma^2\)</span></li>
-<li><span class="math inline">\(V(Y_i) = \sigma^2\)</span></li>
-<li><span class="math inline">\(V(\hat Y_i) \ge V(\hat \epsilon_i)\)</span></li>
-</ol>
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>The difference between internally and externally studentized residuals is:</p>
-<ol type="1">
-<li>“Internal” uses all of the observations, “external” uses all of the observations except <span class="math inline">\(i\)</span>.</li>
-<li>“External” uses all of the observations, “internal” uses all of the observations except <span class="math inline">\(i\)</span>.</li>
-</ol>
-</section>
-<section id="q5" class="level3">
-<h3 class="anchored" data-anchor-id="q5">Q5</h3>
-<p>Internally studentized residuals follow a <span class="math inline">\(t\)</span> distribution.</p>
-<ol type="1">
-<li>True - they are a normal r.v. divided by a chi-square r.v.</li>
-<li>False - they are a normal r.v. divided by a chi-square r.v., but the two are <em>not</em> independent.</li>
-<li>False - They include a normal and a chi-square, but the <span class="math inline">\(h_{ii}\)</span> make this not follow distributional assumptions.</li>
-<li>True - internally studentized residuals are a small modification to externally studentized residuals, which follow a <span class="math inline">\(t\)</span> distribution.</li>
-</ol>
-</section>
-<section id="q6" class="level3">
-<h3 class="anchored" data-anchor-id="q6">Q6</h3>
-<p>Which of the following is <em>not</em> useful for detecting outliers?</p>
-<ol type="1">
-<li>Standardized residuals</li>
-<li>Studentized residuals</li>
-<li>Cook’s distance</li>
-<li><span class="math inline">\(h_{ii}\)</span></li>
-</ol>
 
 
 </section>
