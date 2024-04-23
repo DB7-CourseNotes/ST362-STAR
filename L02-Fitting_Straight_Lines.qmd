@@ -252,8 +252,10 @@ All models are useful, but some are wrong.
 
 \pspace
 
-1. True\lspace
-2. False
+a. True\lspace
+b. False
+
+<!--- B --->
 
 ### Q2
 
@@ -261,10 +263,12 @@ For a one unit increase in $x$, $y$ increases by
 
 \pspace
 
-1. $\beta_0$\lspace
-2. $\beta_1$\lspace
-3. $\beta_1x$\lspace
-4. $\beta_0 + \beta_1x$\lspace
+a. $\beta_0$\lspace
+b. $\beta_1$\lspace
+c. $\beta_1x$\lspace
+d. $\beta_0 + \beta_1x$\lspace
+
+<!--- B --->
 
 ### Q3
 
@@ -272,10 +276,12 @@ The standard error of $\beta_1$ refers to:
 
 \pspace
 
-1. The variance of the population slope\lspace
-2. The amount by which the slope might be off\lspace
-3. The variance of the estimated slope across different samples\lspace
-4. A big chicken. Not, like, worryingly big, but big enough that you'd be like, "Wow, that's a big chicken!"\lspace
+a. The variance of the population slope\lspace
+b. The amount by which the slope might be off\lspace
+c. The variance of the estimated slope across different samples\lspace
+d. A big chicken. Not, like, worryingly big, but big enough that you'd be like, "Wow, that's a big chicken!"\lspace
+
+<!--- C --->
 
 ### Q4
 
@@ -283,10 +289,12 @@ Which is *not* an assumption that we usually make in linear regression?
 
 \pspace
 
-1. $V(\epsilon_i) = \sigma^2$\lspace
-2. $E(\epsilon_i) = 0$\lspace
-3. $E(X) = 0$
-4. $\epsilon_i\stackrel{iid}{\sim}N(0,\sigma^2)$
+a. $V(\epsilon_i) = \sigma^2$\lspace
+b. $E(\epsilon_i) = 0$\lspace
+c. $E(X) = 0$
+d. $\epsilon_i\stackrel{iid}{\sim}N(0,\sigma^2)$
+
+<!--- C --->
 
 ### Q5
 
@@ -294,19 +302,24 @@ Which of the following is *not* a linear model?
 
 \pspace
 
-1. $y_i = \beta_0 + \beta_1^2x_i + \epsilon_i$\lspace
-2. $y_i = \beta_0 + \beta_1x_i + \beta_2x_i^2 + \epsilon_i$\lspace
-3. $y_i = \beta_0 + \beta_0x_i +\epsilon_i$\lspace
-4. $y_i = \beta_0 + \beta_1\sin\left(x_i^{x_i}\right) + \beta_2x_i^{\sin(x_i)} + \epsilon_i$\lspace
+a. $y_i = \beta_0 + \beta_1^2x_i + \epsilon_i$\lspace
+b. $y_i = \beta_0 + \beta_1x_i + \beta_2x_i^2 + \epsilon_i$\lspace
+c. $y_i = \beta_0 + \beta_0x_i +\epsilon_i$\lspace
+d. $y_i = \beta_0 + \beta_1\sin\left(x_i^{x_i}\right) + \beta_2x_i^{\sin(x_i)} + \epsilon_i$\lspace
+
+<!--- A --->
 
 ### Q6
 
-The sum of squared errors is the best way to estimate the model parameters.
+The sum of squared errors is clearly the best way to estimate the model parameters in all situations.
 
 \pspace
 
-1. True\lspace
-2. False
+a. True\lspace
+b. False
+
+<!--- B --->
+
 :::
 
 
