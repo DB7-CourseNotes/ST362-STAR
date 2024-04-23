@@ -26,8 +26,9 @@ make_all_qs <- function(anss) {
         }), collapse = "")
 }
 
-ans <- lec[grepl("<!--- [ABCDabcd] --->", lec)] |>
-    gsub(pattern = "<!--- (.*) --->", "\\1", x = _) |>
-    paste0(collapse = "")
+ans <- lec[grepl("<!--+ [ABCDabcd] --+>", lec)] |>
+    gsub(pattern = "<!--+ (.*) --+>", "\\1", x = _) |>
+    paste0(collapse = "") |>
+    toupper()
 
 print(make_all_qs(ans))
