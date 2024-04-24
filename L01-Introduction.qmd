@@ -326,6 +326,10 @@ $$
 $$
 Note that $\chi^2_n(0.055)\ne-\chi^2_n(0.945)$.
 
+::: {.content-visible when-profile="book"}
+In the standard normal distribution, $\Phi(0.055)$ is the usual notation for the CDF evaluated at 0.055, *i.e.* you tell it that you want 5.5\% of the data below a certain point on the x-axis, and it tells you that point. For the standard normal distribution, it is always true that $\Phi(\alpha) = - \Phi(1 - \alpha)$ since it is symmetric around 0. This is not the case for the Chi-Square distribution.
+:::
+
 
 ### Take-Home Lessons
 
@@ -463,7 +467,7 @@ $$
 - The notation $f(x; \nu)$ means "function of $x$, given a value of $\nu$."
 - Completely determined by $\nu$\lspace
 - As $\nu\rightarrow\infty$, this becomes $N(0,1)$.
-    - $\nu>30$ is pretty much normal already.
+    - $\nu>60$ is pretty much normal already.
     - For $\nu<\infty$, $t$ has wider tails than normal.
 
 ### The $\chi^2$ distribution - variances
@@ -473,11 +477,40 @@ $$
 f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}
 $$
 
-- If $X_i\sim N(\mu_i,\sigma_i)$, then we can just standardize each first.\lspace
 - As $k\rightarrow\infty$, $(\chi^2_k-k)/\sqrt{2k}\stackrel{d}{\rightarrow} N(0,1)$.
     - That is, for large $k$ this can be approximated by a normal distribution.\lspace
 - Very related to the *variance*
     - $(n-1)s^2/\sigma^2$ follows a $\chi^2_n$ distribution.
+
+::: {.content-visible when-profile="book"}
+Note that, if $X_i\sim N(\mu, \sigma)$, then $\frac{X_i - \mu}{\sigma} = Z = N(0,1)$ and:
+
+$$
+\dfrac{(n-1)S^2}{\sigma} = \dfrac{(n-1)\frac{1}{n-1}\sum_{i=1}^n(X_i - \bar X)^2}{sigma^2} = \sum_{i=1}^n\left(\dfrac{X_i - \bar X}{\sigma}\right) = \sum_{i=1}^nZ_i^2
+$$
+
+So $n-1$ times the estimated variance divided by the true variance does follow a Chi-square distribution. There's some advanced math with distributions going on here; the takeaway message is that the variance follows a Chi-Square distribution **because** $X_i$ are assumed to be normal!
+
+:::
+
+### The $t$ distribution in practice
+
+If the sampling distribution of the sample mean is normal, i.e. $\bar X\sim N(\mu, \sigma)$, then:
+
+1. $\dfrac{S^2(n-1)}{\sigma^2} = \chi^2_{n-1} \implies S / \sigma = \sqrt{\chi^2_{n-1}/(n-1)}$, and\lspace
+2. $\dfrac{\bar X - \mu}{\sigma / \sqrt{n}} = N(0,1)$
+
+With a little trickery,
+
+::: {.content-visible when-profile="book"}
+The following math will *not* be on the exam! This is graduate level math. The rest of this course is going to focus on much simpler ideas! The takeaway message is that $(\bar x - \mu)/(\sigma/\sqrt{n})$ follows a $t$ distribution **because** the $X_i$ are assumed to be normal.
+:::
+
+$$
+\dfrac{\bar X - \mu}{S / \sqrt{n}} = \dfrac{\bar X - \mu}{S / \sqrt{n}}\cdot\dfrac{\sigma}{\sigma} = \dfrac{\bar X - \mu}{\sigma / \sqrt{n}}\cdot\dfrac{1}{S / \sigma} = \dfrac{Z}{\sqrt{\chi^2_{n-1}/(n-1)}} = t_{n-1}
+$$
+
+In other words, if the sampling distribution is normal, then $\dfrac{\bar x - \mu}{s / \sqrt n}$ is from a $t_{n-1}$ distribution!!!
 
 ### The $F$ distribution - ratio of variances
 
@@ -488,15 +521,119 @@ $$
 
 - If $s_1^2$ and $s_2^2$ are the sample-based estimates of the true values $\sigma_1^2$ and $\sigma_2^2$, then $\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}$ follows an $F_{\nu_1, \nu_2}$ distribution.
     - Under $H_0$, $\sigma_1=\sigma_2$, so we don't need the true values.
-    - Note: $s_1^2$ is calculated from $s_1^2/\nu_1$.
+    - Note: $s_1^2$ is calculated from $S_1^2/\nu_1$.
 
 ::: {.content-visible when-profile="book"}
+
+One last time: We assume that the $X_i$ are normal, and all of the other distributions fall into place.
+
+In the rest of the course, we're assuming that the residuals of a linear model follow a normal distribution. Every other distribution we see is a **result** of this, we are not making further assumptions. When we do an F test for the ratio of variances, we're not assuming an F distribution - we're assuming normal residuals, and this results in an F distribution!
+
 ## Homework Problems
 
-1. The code below demonstrates one of the topics covered in this lecture. Which is it?
+Textbook questions for chapters 1-3 are grouped together at the end of chapter 3. There are no relevant excercises yet. However, it's a good time to review some distributions with simulations!
+
+1. Find the following values using R:
+    a. The probability of a standard normal value less than -1.
+    b. The probability of a standard normal value less than -1 or greater than 1.
+    c. The 0.055 percentile of a standard normal distribution.
+    d. The 0.945 percentile of a standard normal distribution.
+    e. The 0.945 percentile of a Chi-Square distribution of 30 degrees of freedom.
+    f. The 0.945 percentile of an F distribution of 30 and 32 degrees of freedom.
+    g. The probability of an $F_{30, 32}$ value larger than 1.5
+
+<details>
+<summary>**Solution**</summary>
 
 ```{r}
-#| label: Q1
+#| label: Q-pq
+#| code-fold: false
+
+# a.
+pnorm(-1)
+# b.
+pnorm(-1) + (1 - pnorm(1))
+# b. (alternative solution)
+2 * pnorm(-1)
+# c.
+qnorm(0.055)
+# d.
+qnorm(0.945)
+# e.
+qchisq(0.945, df = 30)
+# f. 
+qf(0.945, df1 = 30, df2 = 32)
+# g.
+1 - pf(1.5, df1 = 30, df2 = 32)
+```
+
+</details>
+*****
+
+
+2. Calculate an 89% CI for the mean eruption time of the Old Faithful geyser.
+    - The data are stored in the built-in R data set `faithful`, shown below. The eruption times are `faithful$eruptions`
+    - Also make a plot - is a CI meaningful in this case?
+    - Also find a CI for the **variance** of the eruption times.
+
+```{r}
+#| code-fold: false
+#| label: Q-faithful-data
+data(faithful)
+```
+
+<details>
+<summary>**Solution**</summary>
+
+```{r}
+#| code-fold: false
+#| label: Q-faithful-mean
+
+xbar <- mean(faithful$eruptions)
+s <- sd(faithful$eruptions)
+n <- length(faithful$eruptions)
+
+# 89% CI (one liner)
+xbar + c(1, -1) * qt(0.055, df = n - 1) * s / sqrt(n)
+
+plot(faithful)
+```
+
+Note that `t.test(faithful$eruptions, conf.level = 0.89)` includes the exact same CI in its output.
+
+From the plot, it looks like the mean is *not* a reasonable measure of the average eruption times! There are clearly two groups, i.e. the distribution is bimodal. It would be better to separate the two clusters and make CIs for the means in each of those.
+
+**However**, the sampling distribution of the sample mean is likely normal because the sample size is large enough, so even though the mean is not a valid measure because of what we know from the context of the data, there's no issue with the CI. If we were to repeat these measurements many many times, 89\% of the sample means that we get will be in our 89\% CI. The CI is valid, the mean is just not meaningful here.
+
+The CI for the variance can be found as follows:
+
+```{r}
+#| label: Q-faithful-sd
+#| code-fold: false
+
+xbar <- mean(faithful$eruptions)
+s <- sd(faithful$eruptions)
+n <- length(faithful$eruptions)
+
+# I've included the estimate for reference.
+sd_ci <- c("low" = qchisq(0.055, df = n - 1) * s^2 / (n - 1),
+    "estimate" = s^2,
+    "high" = qchisq(0.945, df = n - 1) * s^22 / (n - 1))
+sd_ci
+sqrt(sd_ci)
+```
+
+We are 89\% confident that the true population variance is between 1.1290 and 20.925. This corresponds to standard deviations of 1.0625 and 4.5745, respectively.
+
+</details>
+*****
+
+
+
+2. The code below demonstrates one of the topics covered in this lecture. Which is it?
+
+```{r}
+#| label: Q-sim1
 #| code-fold: false
 
 n <- 60
@@ -523,7 +660,6 @@ for (i in 1:1000) {
 hist(sim_vals, freq = FALSE, breaks = 40)
 curve(df(x, n - 2, n - 2), add = TRUE, col = 2, lwd = 3)
 ```
-:::
 
 <details>
 <summary>**Solution**</summary>
@@ -532,10 +668,10 @@ It actually demonstrates a couple:
 - The x-values are assumed to be fixed; the errors are drawn at random to produce our sample.
 - The F distribution is the ratio of two variances, divided by their respective true variances.
 
-*****
 </details>
+*****
 
-2. True or False: As $n$ approaches infinity, the sampling distribution of the **variance** approaches a normal distribution?
+3. True or False: As $n$ approaches infinity, the sampling distribution of the **sample variance** approaches a normal distribution?
 
 <details>
 <summary>**Solution**</summary>
@@ -563,5 +699,67 @@ curve(dnorm(x, mean(vals), sd(vals)), add = TRUE)
 
 ```
 
-*****
+With a little investigation, the sample variance does indeed approach normality! The sample variance is something like an average - it's the average of the squared deviations - so the CLT applies.
+
 </details>
+*****
+
+4. Write a simulation to show that $(n-1)s^2/\sigma^2\sim \chi^2_n$. You may use the simulation from the previous question as a starting point. 
+
+<details>
+<summary>**Solution**</summary>
+
+You will know you've got the right answer when the line added by `curve(dchisq(x, n), add = TRUE, col = 2, lwd = 3)` fits the histogram of your simulated values!
+
+</details>
+*****
+
+5. Show that the square of a $t_\eta$ distribution is equal to an F distribution on 1 and $\eta$ degrees of freedom. Use the following facts:
+    - $t_\eta$ is defined as $\frac{Z}{\sqrt{\chi^2_\eta/\eta}}$.
+    - $F_{\eta_1,\eta_2} = \frac{\chi^2_{\eta_1}/\eta_1}{\chi^2_{\eta_2}/\eta_2}$
+    - For any variable $X$, $X^2 = \sum_{i = 1}^1X^2 / 1$
+
+Note that this sort of question will not be on the test, but the result is important for later!
+
+<details>
+<summary>**Solution**</summary>
+
+First note that $Z^2$ can be written as $Z^2 = \sum_{i=1}^1Z^2/1 = \chi^2_1/1$, that is, a squared normal distribution is equal to the sum of a single squared normal distribution divided by it's degrees of freedom (which is 1), which is exactly a Chi-Square distribution.
+
+$$
+t^2_\eta = \left(\frac{Z}{\sqrt{\chi^2_\eta/\eta}}\right)^2
+= \frac{Z^2}{\chi^2_\eta/\eta}
+= \frac{\chi^2_1/1}{\chi^2_\eta/\eta}
+= F_{1, \eta}
+$$
+
+</details>
+*****
+
+6. Interpret the following plot.
+    - What concept does it demonstrate?
+    - What does it mean for **Confidence Intervals**?
+
+```{r}
+#| echo: true
+#| code-fold: false
+#| label: Q5
+
+norm_quantile <- qnorm(p = 0.055)
+t_quantile <- qt(p = 0.055, df = (2:200) - 1)
+plot(x = (2:200) - 1, y = t_quantile,
+    ylab = "'p' such that P(X <= 0.055) = p",
+    xlab = "Sample Size")
+abline(h = norm_quantile, col = 2, lwd = 3)
+```
+
+<details>
+<summary>**Solution**</summary>
+As the sample size increases, the $t$ distribution approaches a normal distribution. The y axis shows the critical value for an 89\% CI from a t distribution, and as we approach infinity (or even 60 or so) it becomes the same as the critical value of a normal CI. However, there is still a slight difference.
+
+We could use a normal distribution to approximate the t distribution when n is large, but we may as well just keep using the t distribution. It's the correct one and it's still easy to use.
+
+</details>
+*****
+
+:::
