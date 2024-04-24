@@ -14,6 +14,14 @@ set.seed(2112)
 
 "All models are wrong, some are useful." - George Box
 
+::: {.content-visible when-profile="book"}
+This quote is something that you should tattoo on the inside of your eyelids so that you see it every time you blink.
+
+... okay that's a little extreme, but this quote perfectly encapsulates the required mindset for modelling. No model is ever going to perfectly describe complex phenomena. However, a good model will at least say something useful about the world!
+
+Of course, it's not a guarantee that a model is going to be useful. There are an infinite amount of useless models out there, and only a finite number of useful ones.
+:::
+
 ### All Models Are Wrong, But Some Are Useful
 
 Model: A mathematical equation that explains something about the world.
@@ -24,7 +32,7 @@ Model: A mathematical equation that explains something about the world.
     - Varies according to air resistance.\lspace
 - Every additional cigarette decreases your lifespan by 11 minutes.
     - Very, very much wrong.
-    - Very, very useful for communication.
+    - Very, very useful for health communication.
 
 ### All Linear Models are Wrong
 
@@ -32,6 +40,7 @@ Model: A mathematical equation that explains something about the world.
 ::: {.column width="50%"}
 ```{r}
 #| fig-height: 5
+#| label: penguins-straight
 library(ggplot2)
 theme_set(theme_bw())
 library(palmerpenguins)
@@ -52,6 +61,7 @@ ggplot(penguins) +
 
 ```{r}
 #| fig-height: 5
+#| label: mtcars-curved
 ggplot(mtcars) +
     aes(x = disp, y = mpg) + 
     geom_point(size = 2) + 
@@ -65,10 +75,16 @@ ggplot(mtcars) +
 :::
 ::::
 
+::: {.content-visible when-profile="book"}
+The plot on the left shows penguins' body mass against their flipper length. A straight line seems to fit pretty well. There's still a fair bit of variance above and below the line so we can't perfectly say exactly how much a penguin weighs if we only know their height, but the overall pattern is pretty straight.
+
+On the right, we see the mtcars data again (definitely not the last time!), showing the fuel efficiency versus the engine displacement. The straight blue line is clearly missing important features of the data. We might be able to say that the fuel efficiency decreases with larger engines, but the line we've fit isn't going to be a useful description of the true pattern. The red curve seems to fit better, but we'll learn about a more useful model later in this course.
+:::
+
 ### Some Linear Models are Useful
 
 ```{r}
-
+#| label: penguins-annotated
 xpred <- 200
 ypred <- predict(
     lm(body_mass_g ~ flipper_length_mm, data = penguins),
@@ -97,7 +113,7 @@ ggplot(penguins) +
 ### A Model is an Equation
 
 $$
-y_i = \beta_0 + \beta_1x_i + \epsilon_i \Leftrightarrow Y = X\underline\beta + \underline\epsilon \Leftrightarrow E(Y|X) = X\underline \beta;\; V(Y|X)=\sigma^2
+y_i = \beta_0 + \beta_1x_i + \epsilon_i;\; E(y_i|x_i) = \beta_0 + \beta_1 x_i;\; V(y_i|x_i)=\sigma^2
 $$
 
 - For a one unit increase in $x_i$, $y_i$ increases by $\beta_1$.
@@ -111,19 +127,21 @@ $$
 $$
 where the "hats" mean we've found estimates for the $\beta$ values.
 
-### Aside: My notation differs from the text
+::: {.content-visible when-profile="book"}
+Side note: there are many models that are systems of equations - not just a single equation!
+:::
+
+### Notes on Notation
 
 I will make mistakes, but in general:
 
-- $Y$ is a random variable (usually a vector) representing the **response**.
-    - $Y_i$ is also a random variable (not a vector)\lspace
-- $\underline y$ is the response vector; the observed values of $Y$\lspace
-- $\underline x$ is the vector of **covariates** in **simple** linear regression\lspace
+- $Y$ is definitely a random variable (usually a vector) representing the **response**.
+    - $Y_i$ is also a random variable (not a vector)
+    - I also use $y_i$ as a random variable sometimes - context should make this clear!\lspace
 - $X$ is a matrix of covariates
     - *Not* a random variable!!! Capital letters could be either random or matrix (or both). I will specify when necessary.
     - I will avoid the notation $X_i$.
-    - When necessary, the first column is all ones so that $X\underline\beta=\beta_0 + \beta_1\underline x_1 + \beta_1\underline x_2 + ...$.
-        - Context should make this clear.
+    - Entries of $X$ are labelled $x_{ij}$.
 
 ### The Mean of $Y$ at any value of $X$
 
@@ -132,6 +150,14 @@ E(Y|X) = X\underline\beta
 $$
 
 \includegraphics[width=0.9\textwidth]{figs/mean.png}
+
+::: {.content-visible when-profile="book"}
+The plot above shows the height of a child against the average height of their parents.
+
+The yellow dots are caclulated as follows: a "bin" of x-values is defined - in this case, a bin is all values between, say, 60 to 63, and the next bin might be 61 to 64, and the next is 62 to 65, etc. The average height of the y-values was found within each bin. The yellow dot is the average y height, plotted at the x-axis value in the middle of the bin. 
+
+The takeaway message of this plot is just how well the red line follows the yellow dots. A linear model can be seen as the average y-value for each x-value. This is a very useful way to think of linear models - they're just fancy averages!
+:::
 
 
 
@@ -151,6 +177,10 @@ The following are *not* linear:
 - $y_i = \beta_0 + \beta_0\beta_1x_i +\epsilon_i$
 - $y_i = \beta_0 + \sin(\beta_1)x_i +\epsilon_i$
 
+::: {.content-visible when-profile="book"}
+In the "not linear" list, note that it's the $\beta$s that are non-linear.
+:::
+
 ## Estimation
 
 ### Goal: Find $\beta$ values which minimize the error
@@ -161,7 +191,41 @@ Error: $\hat\epsilon_i = y_i - \hat y_i$
 
 \pspace
 
-Why is this a bad way to do it?
+To fit the model, why not just find the one that minimizes the sum of the errors?
+
+::: {.content-visible when-profile="book"}
+Answer: the errors can be negative, and the negatives can just cancel out the positives. If we just add the errors, then we can always get the sum to be 0 even if the model isn't actually fitting well.
+
+Here's an example:
+
+```{r}
+#| label: sum-raw-errors
+
+set.seed(2112)
+x <- runif(50, 0, 10)
+y <- 4 + 5 * x + rnorm(50, 0, 4)
+
+par(mfrow = c(1, 2))
+plot(x, y)
+
+sum_of_errors <- c()
+beta0s <- seq(24, 68, 4)
+for (beta0 in beta0s) {
+    abline(a = beta0, b = -4, lty = 2,col = 2)
+    text(x = 5, y = beta0 - 4 * 5,
+        labels = bquote(beta[0] ~ "=" ~ .(beta0)))
+    errors <- y - beta0 + 4 * x
+    sum_of_errors <- c(sum_of_errors, sum(errors))
+}
+
+plot(beta0s, sum_of_errors)
+abline(h = 0)
+```
+
+In the plot above, the value of $\hat\beta_0$ is varied from 24 to 68 by 4 (24, 28, 32, ...), with the value of $\hat\beta_1$ fixed at -4. These lines are shown on the left.
+
+The right plots the sum of the errors in these lines. The sum starts above 0, then at some point goes below 0. This means that we can have a slope of $\hat\beta_1 = -4$, then still find an intercept that makes the sum of the errors equal to 0!
+:::
 
 ### Least Squares
 
