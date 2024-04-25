@@ -237,11 +237,19 @@ This ensures errors don't cancel out. It also penalizes large errors more.
 
 \pspace
 
-Could we have used $|\epsilon_i|$, or some other function? $|ly|$!
+Could we have used $|\epsilon_i|$, or some other function that removes negatives? $|ly|$!
+
+::: {.content-visible when-profile="book"}
+The expression $|ly|$ represents the absolute value of "ly". It's a short form for "absolutely" that I'm trying to get the youths to use. It's not going well.
+
+We'll see in other lectures and homework problems that we can define different errors, which prioritizes different aspects of the data. Squaring the errors means that large errors get even larger, so outliers are penalized more. Absolute errors penalize all values according to the size. You could also use exponential errors ($\exp(\hat\epsilon_i)$) if you really wanted to. 
+
+We use squared errors for one main reason: because the math is easy. (This is not true, but it's a big selling point of squared errors.)
+:::
 
 ### Least Squares Estimates
 
-I assume that you can do the Least Squares estimate in your sleep (be ready for tests). 
+I will assume that you can do the Least Squares estimate in your sleep (be ready for tests). 
 
 The final results are:
 \begin{align*}
@@ -252,6 +260,12 @@ The final results are:
 \pspace
 
 The textbook was written in 1998 and gives formulas to make the calculation easier to do on pocket calculators. You will not need a pocket calculator for this course.
+
+::: {.content-visible when-profile="book"}
+If you've never done this before, try it! Make sure you get the same final answer, and then do it again without looking at your notes. This sort of derivation is a major part of any regression course.
+
+An important point about these estimates is that we *have not yet assumed normality*. These are the values that minimize the squared errors. That's it; we did nothing else, assumed nothing else, and apply this to nothing else.
+:::
 
 ### Let's Add Assumptions
 
@@ -421,8 +435,8 @@ $$
 SS_E = SS_T - SS_{Reg}
 $$
 
-- $SS_E$: Sum of Squared Errors
-- $SS_T$: Sum of Squares Total (i.e., without $\underline x$)
+- $SS_E$: Sum of Squared Errors\lspace
+- $SS_T$: Sum of Squares Total (i.e., without $\underline x$)\lspace
 - $SS_{Reg}$: Sum of Squares due to the regression.
     - It's the variance of the line (calculated at observed $\underline x$ values) around the mean of $\underline y$???
         - This is incredibly useful, but weird.
@@ -486,6 +500,7 @@ $$
 - Recall that $SS_{Reg} = SS_E + SS_T > SS_E$, but the $df$ make a difference.\lspace
 - For homework, show that $E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2$\lspace
 - This implies that $E(MS_{Reg}) > E(MS_E) = \sigma^2$.
+    - **UNLESS** $\beta_1 = 0$
 
 
 ### Exercise A from Chapter 3 (Ch03 Exercises cover Ch1-3)
@@ -500,7 +515,7 @@ A study was made on the effect of temperature on the yield of a chemical process
 
 1. Assuming $y_i = \beta_0 + \beta_1x_i + \epsilon_i$, what are the least squares estimates of $\beta_0$ and $\beta_1$? 
 2. Construct the analysis of variance table and test the hypothesis $H_0: \beta_1=0$ at the  0.05 level.
-3. What are the confidence limits (at = 0.05) for $\beta_1$?
+3. What are the confidence limits (at $\alpha$ = 0.05) for $\beta_1$?
 
 :::
 ::: {.column width="50%"}
@@ -518,13 +533,119 @@ nrow(dse03a)
 ::::
 
 
-
-:::notes
-Good textbook questions: A, K, O, P, T, U, X (using `data(anscombe)` in R), Z, AA, CC. Note that all data sets in the textbook are available in an R package found [here](https://search.r-project.org/CRAN/refmans/aprean3/html/00Index.html).
+::: {.content-visible when-profile="book"}
 
 Please see [Lab 2](Lb02-OLS_Estimates.html).
+
+## Exercises
+
+Good textbook questions: A, K, O, P, T, U, X (using `data(anscombe)` in R), Z, AA, CC. Note that all data sets in the textbook are available in an R package found [here](https://search.r-project.org/CRAN/refmans/aprean3/html/00Index.html).
+
+1. Find the OLS estimates of $\beta_0$ and $\beta_1$ for the model $y_i = \beta_0 + \beta_1x_i + \epsilon_i$.
+2. Find the OLS estimates of $\beta_0$ and $\beta_1$ for the model $y_i = \beta_1x_i + \epsilon_i$.
+    - Comment on these estimates compared to the previous question. What happened to $\bar x$ and $\bar y$?
+    - Investigate what happens to $\hat\beta_1$ if the true intercept is not 0.
+
+Solution
+
+We're trying to minimize:
+$$
+\sum_{i=1}^n(\epsilon_i)^2 = \sum_{i=1}^n(y_i - \beta_1x_i)^2
+$$
+Setting the derivative to 0 (and putting on our hats, since we're now working with the value of $\beta_1$ that minimizes the equation, not the true value of $\beta_1$):
+$$
+0 = -2\sum(y_i -\hat\beta_1x_i)x_i = -2\sum(y_ix_i) + 2\hat\beta_1\sum x_i^2\implies\hat\beta_1 = \frac{\sum x_iy_i}{\sum x_i^2}
+$$
+
+Note that this is the exact same formula as the estimate for $\hat\beta_1$ in the model with an intercept, but with $\bar x = \bar y = 0$. In the intercept model, the line is guaranteed to pass through the point $(\bar x, \bar y)$ (prove this!). In the intercept model, the line is guaranteed to pass through the point $(0, 0)$. 
+
+In the following simulation, the true slope is the exact same no matter what. However, the true intercept varies. When $\beta_0 = 0$, we get the true value for $\beta_1$. When the true intercept is negative, the estimate for the slope is too low. When $\beta_0$ is positive, the slope is too high. The plots on the right show why this is the case.
+
+For further homework, change the range of `x` (to be far from 0 or to cover 0), the value of `beta1` (try small, large, and negative values), and the standard deviation of `e` (small and large) and see if you can guess the pattern before you run the code.
+
+```{r}
+n <- 75
+x <- runif(n, 0, 10)
+beta1 <- 5
+
+beta_hats <- c()
+beta0s <- seq(-10, 10, by = 1)
+for (beta0 in beta0s) {
+    e <- rnorm(n, 0, 3)
+    y <- beta0 + beta1*x + e
+    beta1_est <- sum(x * y) / sum(x^2)
+    beta_hats <- c(beta_hats, beta1_est)
+}
+
+layout(matrix(c(1,1,2,1,1,3,1,1,4), ncol = 3, byrow = TRUE))
+
+plot(beta0s, beta_hats)
+abline(h = 5, col = 2, lwd = 3)
+
+beta0 <- -10
+e <- rnorm(n, 0, 3)
+y <- beta0 + beta1*x + e
+plot(y ~ x, main = "True b0 = -10")
+abline(a = 0, b = sum(x * y) / sum(x^2), col = 2, lwd = 3)
+
+beta0 <- 0
+e <- rnorm(n, 0, 3)
+y <- beta0 + beta1*x + e
+plot(y ~ x, main = "True b0 = 0")
+abline(a = 0, b = sum(x * y) / sum(x^2), col = 2, lwd = 3)
+
+beta0 <- 10
+e <- rnorm(n, 0, 3)
+y <- beta0 + beta1*x + e
+plot(y ~ x, main = "True b0 = 10",
+    ylim = c(0, max(y)))
+abline(a = 0, b = sum(x * y) / sum(x^2), col = 2, lwd = 3)
+```
+
+3. Given that $\hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2}$, find $E(\hat\beta)$.
+4. Complete the derivation of $V(\hat\beta_1)$.
+5. Suppose that we fit the model without an intercept, but there actually is an intercept term. That is, suppose $y_i = \beta_0 + \beta_1x_i +\epsilon_i$, but our estimator is what was found in Question 2, and find $E(\hat\beta_1)$. Hint: it's *not* $\beta_1$!
+6. Show that $E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2$
+7. Use R to calculate the values in the ANOVA table, i.e. the "Sum of Squares" section, for a linear regression of `waiting` versus `eruptions` in the `faithful` data. Compare the the `anova()` output, shown below.
+
+```{r}
+#| label: faithful-anova
+data(faithful)
+
+y <- faithful$waiting
+y_bar <- mean(y)
+n <- length(y)
+
+faithful_lm <- lm(waiting ~ eruptions, data = faithful)
+y_hat <- predict(faithful_lm)
+
+anova(faithful_lm)
+```
 :::
 
+8. Use a simulation to demonstrate that, assuming $\beta_1 = 0$, $MS_{Reg} / MS_E \sim F_{df_{Reg}, df_E}$.
+    - Explain why this is only true when $\beta_1 = 0$
 
+```{r}
+n <- 100
+x <- runif(n, 0, 10)
 
+f_vals <- c()
+for (i in 1:1000) {
+    e <- rnorm(n, 0, 1)
+    y <- -3 + 0*x + e
+    mylm <- lm(y ~ x)
+    
+    y_hat <- predict(mylm)
+    y_bar <- mean(y)
+    ms_reg <- sum((y_hat - y_bar)^2) / 1
+    ms_e <- sum((y - y_hat)^2) / (n - 2)
+    f_vals <- c(f_vals, ms_reg / ms_e)
+}
+
+hist(f_vals, freq = FALSE, breaks = 40)
+curve(df(x, 1, n - 2), col = 2, lwd = 3, add = TRUE)
+```
+
+Why is this
 
