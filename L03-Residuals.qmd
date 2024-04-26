@@ -61,7 +61,7 @@ abline(h = mean(y))
 
 - **Residual**: what's left over
     - $\hat\epsilon_i = y_i - \hat y_i$\lspace
-- Assumptions (from before):
+- Assumptions:
     - $E(\epsilon_i) = 0$
     - $V(\epsilon_i) = \sigma^2$
     - $\epsilon_i \sim N(0,\sigma^2)$
@@ -71,6 +71,10 @@ abline(h = mean(y))
 We must check our assumptions!
 
 - There are statistical tests, but they'll never tell you as much as a plot!
+
+::: {.content-visible when-profile="book"}
+The statistical tests try to give a p-value for the hypothesis that the residuals are normal, but looking at the residual plot will always be superior!
+:::
 
 ### Residuals versus *fitted* values: $\hat{\underline\epsilon}$ versus $\hat{\underline{y}}$
 
@@ -132,9 +136,9 @@ g1 / g2
 Mathematics is the process of making assumptions and seeing if we can break them.
 
 - $E(\epsilon_i) = 0$ is a given since $\sum_{i=1}^n\hat\epsilon_i=0$.\lspace
-- $V(\epsilon_i) = \sigma^2$
+- $V(\epsilon_i) = \sigma^2$ (regardless of $i$)
     - Check if the variance looks stable.\lspace
-- $\epsilon_i \sim N(0,\sigma^2)$ is harder to see
+- $\epsilon_i \sim N(0,\sigma^2)$ is harder to see on a residuals versus fitted plot
     - Expect more points close to 0, fewer further away, no outliers
 
 ### Residual plots: unstable error
@@ -478,3 +482,77 @@ $$
 E(s) < \sqrt{E(s^2)} = \sqrt{\sigma^2} = \sigma
 $$
 
+
+::: {.content-visible when-profile="book"}
+## Exercises
+
+Recommended textbook exercises: fdsafqewfg43rgv qwerk
+
+1. Explore why we use residuals versus fitted, rather than residuals versus observed. 
+    - Fit a regression, then plot $\underline\epsilon$ versus $\underline y$. What do you notice?
+    - Find $cor(\epsilon_i, y_i)$ mathematically. Compare this with what you see in the plot.
+
+solution
+
+```{r}
+n <- 100
+x <- runif(n, 0, 10)
+e <- rnorm(n, 0, 3)
+y <- 5 + 2*x + e
+
+mylm <- lm(y ~ x)
+plot(mylm$residuals ~ y)
+```
+
+Note that $y_i = \hat y_i + \hat \epsilon_i$
+
+$$
+cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\epsilon_i, \hat y_i) + cov(\hat\epsilon_i, \hat \epsilon_i) = 0 + \sigma^2
+$$
+
+Empiricially:
+
+```{r}
+cov(mylm$residuals, y)
+var(mylm$residuals)
+```
+
+2. Find the MLE estimate for $\sigma^2$.
+    - Comment on the difference between this formula and the usual variance formula.
+    - Comment on the variance formula from least squares
+
+solution
+
+Derivation left as an exercise.
+
+- MLE versus usual formula: We're dividing by $n$, not $n - 1$ or even $n - 2$! The mle is actually **biased**. We'll explore this in the next question.
+- There is no variance formula in least squares! MLE allows us to incorporate our assumption about the distribution of the residuals, giving us more to work with!
+
+3. The MLE of $\sigma^2$ divides by $n$. Demonstrate via simulation that this is actually a biased estimate.
+
+```{r}
+n <- 100
+true_sigma <- 3
+
+n_minus <- seq(-3, 3, 1)
+vals <- matrix(ncol = length(n_minus), nrow = 10000)
+for (i in 1:10000) {
+    y <- rnorm(n, 0, true_sigma)
+    vals[i, ] <- sum((y - mean(y))^2) / (n - n_minus)
+}
+
+apply(vals, 2, mean) |> plot(x = n_minus, y = _)
+abline(h = true_sigma^2, lwd = 3, col = 2)
+```
+
+From the plot, we get closest to the true value when we subtract 1 from $n$. However, the MLE subtracts nothing from $n$! Why not? Let's check the MSE.
+
+```{r}
+apply(vals, 2, function(x) {
+    sum((x - true_sigma^2)^2)
+}) |> plot(x = n_minus, y = _)
+```
+
+The MSE is lowest when we divide by... $n+1$???? Yes, this is just how it is. See [here](https://alemorales.info/post/variance-estimators/) for a bit more discussion on this issue. Basically, the estimator with $n-1$ is unbiased, and $n$ is lower variance without too much bias, while $n+1$ is more bias than we're comfortable with.
+
+:::
