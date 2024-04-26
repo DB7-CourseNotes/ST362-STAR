@@ -7,6 +7,14 @@ title: Final Exam Review
 set.seed(2112)
 ```
 
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ## Summaries
 
 ### Generally important things

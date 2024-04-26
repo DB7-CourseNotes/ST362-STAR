@@ -8,6 +8,15 @@ institute: "Jam: **Like Yesterday** by Ryan Adams and The Cardinals"
 set.seed(2112)
 ```
 
+
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ## Serial Correlation in the Residuals
 
 ### Assumptions and Definitions

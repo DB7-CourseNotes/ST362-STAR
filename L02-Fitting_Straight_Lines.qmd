@@ -8,6 +8,14 @@ institute: "Jam: **Great Expectations** by The Gaslight Anthem"
 set.seed(2112)
 ```
 
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ## Why Fit Models?
 
 ### The Quote.

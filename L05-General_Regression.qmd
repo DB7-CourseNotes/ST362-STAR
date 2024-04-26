@@ -8,6 +8,15 @@ institute: "Jam: **I Predict a Riot** by The Kaiser Chefs"
 set.seed(2112)
 ```
 
+
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ## Chapter Summary
 
 ### The Normal Equations

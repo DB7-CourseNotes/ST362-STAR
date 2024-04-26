@@ -8,6 +8,14 @@ institute: "**Bad** by Michael Jackson"
 set.seed(2112)
 ```
 
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ## Motivation
 
 ### Selecting Predictors
@@ -139,6 +147,12 @@ Suppose we have measured 30 predictors that we know are *not* related to the res
 \pspace
 
 How many predictors should Backwards Selection select?
+
+### A Special Case: Race
+
+- In general, we *almost always* want to include race if it was measured.
+    - If our model is using race to make a decision, *we want to know about it*!
+- Possible approach: [not dummy variables](https://drkowal.github.io/lmabc/reference/lmabc.html).
 
 ## Paticipation Questions
 

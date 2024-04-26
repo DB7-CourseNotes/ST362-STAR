@@ -12,6 +12,7 @@ library(ggplot2)
 theme_set(theme_bw())
 ```
 
+
 ::: {.content-visible unless-profile="book"}
 ## Preamble
 
@@ -48,12 +49,14 @@ wt and disp are clearly multicollinear, and they're measuring the same thing so 
 
 In the following code, I tried x as am, cyl, gear, and carb. The y axis was wt, disp, drat, and qsec. I essentially tried every combination of these and wrote down the most interesting patterns. 
 
+
 ```{r}
 # Continuous versus categorical
 ggplot(mtcars) +
     aes(x = factor(am), y = wt) +
     geom_boxplot()
 ```
+
 
 - wt is different across categories of am, cyl, carb, gear (all positive)
     - disp has same relationships
@@ -62,12 +65,14 @@ ggplot(mtcars) +
     
 I did something similar with the following code, checking every combination of all relevant predictors and writing down anything that stuck out to me. 
     
+
 ```{r}
 # Continuous vs. continuous
 ggplot(mtcars) +
     aes(x = disp, y = wt, colour = factor(cyl)) +
     geom_point()
 ```
+
 
 - Clear separation between disp and wt when coloured by am or cyl.
     - In other words, there are distinct groups. This probably means that one of the continuous predictors has all of the information necessary, and it won't be necessary to include an interaction between continuous predictors (it rarely is).
@@ -76,12 +81,14 @@ ggplot(mtcars) +
 
 The following plot was also used with all combinations of categorical predictors. 
 
+
 ```{r}
 # categorical variables
 ggplot(mtcars) + 
     aes(x = factor(am), fill = factor(vs)) +
     geom_bar(position = "dodge")
 ```
+
 
 - Some kind of "correlation" between am and cyl.
     - Measuring something similar, but from different perspectives.
@@ -99,12 +106,14 @@ Most things are measuring "how powerful is this car", so we should just choose t
 
 Now we're finally looking at mpg!
 
+
 ```{r}
 ggplot(mtcars) +
     aes(y = mpg, x = disp, colour = factor(cyl)) +
     geom_point() +
     geom_smooth(method = "lm", se = TRUE, formula = y ~ x)
 ```
+
 
 From looking at many many plots, I propose the following candidate models:
 
@@ -122,6 +131,7 @@ Let's test out our models!
 
 Again, to reduce the amount of output I have to wade through, I changed the following code a bunch and left it at something meaningful to my final analysis.
 
+
 ```{r}
 dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
 
@@ -129,11 +139,13 @@ par(mfrow = c(2,2))
 plot(dispmodel, col = mtcars$cyl)
 ```
 
+
 - Residuals versus fitted looks good
 - QQ norm looks great! For this small of a data set, we don't expect much from the qq-plot, so this is actually very nice.
 - Scale-Location has a slight U shape, which isn't ideal. There may still be a predictor that's worth including.
 - There's a high influence point. This is likely due to the interaction between cyl and disp.
     - When we have this kind of interaction, there are essentially three lines, each with fewer observations. It is much easier for a point to be influential with interaction present. 
+
 
 ```{r}
 wtmodel <- lm(mpg ~ wt * am, data = mtcars)
@@ -142,12 +154,14 @@ par(mfrow = c(2,2))
 plot(wtmodel)
 ```
 
+
 - First plot looks good!
 - QQplot has some heavy tails - not bad, but not ideal. `dispmodel` was better.
 - Scale-location is great!
 - No high leverage points.
 
 Both models are good in different ways. Let's check their summaries.
+
 
 ```{r}
 summary(dispmodel)
@@ -157,13 +171,17 @@ summary(dispmodel)
 summary(wtmodel)
 ```
 
+
 The $R^2$ for `dispmodel` is a fair bit higher (although there's no standard for how much an $R^2$ should change, so this might not be a meaningful difference). As we saw in class, the $R^2$ is based on the same quantities as the F-test for different models. 
+
 
 ```{r}
 anova(dispmodel, wtmodel)
 ```
 
+
 The models fit significantly differently. Which one fits better?
+
 
 ```{r}
 # MSE values
@@ -171,15 +189,18 @@ summary(dispmodel)$sigma
 summary(wtmodel)$sigma
 ```
 
+
 `dispmodel` has a higher $R^2$ and a lower MSE, so it seems to be the winner.
 
 From the pairs plot, I saw that disp has a slight relationship with other continuous predictors, and the scale-location plot wasn't perfect. Perhaps another predictor will help?
 
 I can do this with the magical `update()` function. The `~ . + hp` notation means the response versus (`~`) everything `.`, then add `hp`. The `~` means "versus" (with the response on the left, which isn't allowed to change in this case, and the predictors on the right), and the `.` means "everything", which in this case refers to everything that was already in the model. The form `lm(mpg ~ ., data = mtcars)` will fit mpg against everything else it sees in the mtcars dataset. 
 
+
 ```{r}
 summary(update(dispmodel, ~ . + hp)) 
 ```
+
 
 I checked qsec, drat, and hp, and none seemed worth including in the model. I'll just leave it as is.
 
@@ -197,6 +218,7 @@ $$
 - For 6 cylinder cars, the baseline mpg is about 21.5 and isn't really related to the displacement.
 - For 8 cylinder cars, the baseline mpg is about 24.5 and decreases by about 0.02 for each one-unit increase in displacement.
     - Note that displacement has really large units, so 0.02 over hundreds of one-unit increases is still a lot!
+
 
 
 

@@ -10,6 +10,15 @@ peng <- penguins[complete.cases(penguins), ]
 head(peng)
 ```
 
+
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ## Review
 
 From last time, we basically learned what the following means:

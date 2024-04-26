@@ -3,6 +3,14 @@ title: "Multicollinearity"
 institute: "**Jam TBD**"
 ---
 
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ```{r}
 #| include: false
 set.seed(2112)

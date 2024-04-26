@@ -13,6 +13,13 @@ set.seed(2112)
 set.seed(2112)
 ```
 
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
 
 ## Non-Linear Relationships
 

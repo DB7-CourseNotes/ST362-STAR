@@ -8,6 +8,15 @@ institute: "**Jam TBD**"
 set.seed(2112)
 ```
 
+
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ## Introduction
 
 ### Today's Main Idea

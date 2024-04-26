@@ -9,6 +9,14 @@ set.seed(2112)
 ```
 
 
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ## The residual: what's left over
 
 ### $R^2$: percent of variance explained by the regression model

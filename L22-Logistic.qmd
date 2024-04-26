@@ -8,6 +8,14 @@ institute: "Jam: **Love's a Logistical Thing** by PJ Parker"
 set.seed(2112)
 ```
 
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ## Logistic Regression
 
 ### Goal: Predict a 1

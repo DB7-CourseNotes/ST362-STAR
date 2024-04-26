@@ -8,6 +8,15 @@ institute: "Jam: **Residual** by Trash."
 set.seed(2112)
 ```
 
+
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ## Le Chapeau
 
 ### The Hat Matrix

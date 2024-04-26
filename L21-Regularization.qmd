@@ -8,6 +8,15 @@ institute: "Jam: **Ted Lasso Theme** by Marcus Mumford and Tom Howe"
 set.seed(2112)
 ```
 
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Mental health check-in!
+    - See MyLS.
+:::
+
 ## Loss Functions
 
 ### Why are we minimizing the *sum of squares*?

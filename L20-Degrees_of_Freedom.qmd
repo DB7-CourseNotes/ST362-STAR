@@ -5,6 +5,14 @@ execute:
     echo: true
 ---
 
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Check discussions!
+:::
+
 ```{r}
 #| include: false
 set.seed(2112)

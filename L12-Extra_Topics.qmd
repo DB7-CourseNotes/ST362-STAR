@@ -1,8 +1,16 @@
 ---
-title: "Extra Topics"
+title: "Special Topics"
 institute: "Jam: **Hypotheticals** by Lake Street Drive"
 ---
 
+::: {.content-visible unless-profile="book"}
+## Preamble
+
+### Announcements
+
+- Mental health check-in!
+    - See MyLS for supports!\lspace
+:::
 
 ```{r}
 #| include: false
