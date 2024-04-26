@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-23">
+<meta name="dcterms.date" content="2024-04-26">
 
 <title>STAR Notes - 3&nbsp; Assessing Fit</title>
 <style>
@@ -437,6 +437,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#mse-of-a-parameter-bias-of-s2" id="toc-mse-of-a-parameter-bias-of-s2" class="nav-link" data-scroll-target="#mse-of-a-parameter-bias-of-s2">MSE of a Parameter: Bias of <span class="math inline">\(s^2\)</span></a></li>
   <li><a href="#mse-of-a-parameter-bias-of-s" id="toc-mse-of-a-parameter-bias-of-s" class="nav-link" data-scroll-target="#mse-of-a-parameter-bias-of-s">MSE of a Parameter: Bias of <span class="math inline">\(s\)</span></a></li>
   </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">3.3</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/blob/main/L03-Residuals.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -469,7 +470,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-23</p>
+      <p class="date">2024-04-26</p>
     </div>
   </div>
   
@@ -533,7 +534,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <ul>
 <li><span class="math inline">\(\hat\epsilon_i = y_i - \hat y_i\)</span></li>
 </ul></li>
-<li>Assumptions (from before):
+<li>Assumptions:
 <ul>
 <li><span class="math inline">\(E(\epsilon_i) = 0\)</span></li>
 <li><span class="math inline">\(V(\epsilon_i) = \sigma^2\)</span></li>
@@ -544,6 +545,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <ul>
 <li>There are statistical tests, but they’ll never tell you as much as a plot!</li>
 </ul>
+<p>The statistical tests try to give a p-value for the hypothesis that the residuals are normal, but looking at the residual plot will always be superior!</p>
 </section>
 <section id="residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney" class="level3">
 <h3 class="anchored" data-anchor-id="residuals-versus-fitted-values-hatunderlineepsilon-versus-hatunderliney">Residuals versus <em>fitted</em> values: <span class="math inline">\(\hat{\underline\epsilon}\)</span> versus <span class="math inline">\(\hat{\underline{y}}\)</span></h3>
@@ -605,11 +607,11 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <p>Mathematics is the process of making assumptions and seeing if we can break them.</p>
 <ul>
 <li><span class="math inline">\(E(\epsilon_i) = 0\)</span> is a given since <span class="math inline">\(\sum_{i=1}^n\hat\epsilon_i=0\)</span>.</li>
-<li><span class="math inline">\(V(\epsilon_i) = \sigma^2\)</span>
+<li><span class="math inline">\(V(\epsilon_i) = \sigma^2\)</span> (regardless of <span class="math inline">\(i\)</span>)
 <ul>
 <li>Check if the variance looks stable.</li>
 </ul></li>
-<li><span class="math inline">\(\epsilon_i \sim N(0,\sigma^2)\)</span> is harder to see
+<li><span class="math inline">\(\epsilon_i \sim N(0,\sigma^2)\)</span> is harder to see on a residuals versus fitted plot
 <ul>
 <li>Expect more points close to 0, fewer further away, no outliers</li>
 </ul></li>
@@ -881,9 +883,106 @@ V(s) = E(s^2) - (E(s))^2 \Leftrightarrow E(s) = \sqrt{E(s^2) - V(s)}
 \]</span> since <span class="math inline">\(V(s) &gt; 0\)</span>, <span class="math inline">\(E(s^2) - V(s) &lt; E(s^2)\)</span>, and therefore <span class="math display">\[
 E(s) &lt; \sqrt{E(s^2)} = \sqrt{\sigma^2} = \sigma
 \]</span></p>
-
-
 </section>
+</section>
+<section id="exercises" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="exercises"><span class="header-section-number">3.3</span> Exercises</h2>
+<p>Recommended textbook exercises: fdsafqewfg43rgv qwerk</p>
+<ol type="1">
+<li>Explore why we use residuals versus fitted, rather than residuals versus observed.
+<ul>
+<li>Fit a regression, then plot <span class="math inline">\(\underline\epsilon\)</span> versus <span class="math inline">\(\underline y\)</span>. What do you notice?</li>
+<li>Find <span class="math inline">\(cor(\epsilon_i, y_i)\)</span> mathematically. Compare this with what you see in the plot.</li>
+</ul></li>
+</ol>
+<p>solution</p>
+<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-7_80fecd29264074550140fb075378eb1b">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> e</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mylm<span class="sc">$</span>residuals <span class="sc">~</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Note that <span class="math inline">\(y_i = \hat y_i + \hat \epsilon_i\)</span></p>
+<p><span class="math display">\[
+cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\epsilon_i, \hat y_i) + cov(\hat\epsilon_i, \hat \epsilon_i) = 0 + \sigma^2
+\]</span></p>
+<p>Empiricially:</p>
+<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-8_452c55f8749c639c787789e53a0170e7">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(mylm<span class="sc">$</span>residuals, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.987392</code></pre>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(mylm<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.987392</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Find the MLE estimate for <span class="math inline">\(\sigma^2\)</span>.
+<ul>
+<li>Comment on the difference between this formula and the usual variance formula.</li>
+<li>Comment on the variance formula from least squares</li>
+</ul></li>
+</ol>
+<p>solution</p>
+<p>Derivation left as an exercise.</p>
+<ul>
+<li>MLE versus usual formula: We’re dividing by <span class="math inline">\(n\)</span>, not <span class="math inline">\(n - 1\)</span> or even <span class="math inline">\(n - 2\)</span>! The mle is actually <strong>biased</strong>. We’ll explore this in the next question.</li>
+<li>There is no variance formula in least squares! MLE allows us to incorporate our assumption about the distribution of the residuals, giving us more to work with!</li>
+</ul>
+<ol start="3" type="1">
+<li>The MLE of <span class="math inline">\(\sigma^2\)</span> divides by <span class="math inline">\(n\)</span>. Demonstrate via simulation that this is actually a biased estimate.</li>
+</ol>
+<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-9_11d8fcad731921c522d631a48d3804fe">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>true_sigma <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>n_minus <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="fu">length</span>(n_minus), <span class="at">nrow =</span> <span class="dv">10000</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>) {</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, true_sigma)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    vals[i, ] <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> n_minus)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(vals, <span class="dv">2</span>, mean) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">x =</span> n_minus, <span class="at">y =</span> _)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> true_sigma<span class="sc">^</span><span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From the plot, we get closest to the true value when we subtract 1 from <span class="math inline">\(n\)</span>. However, the MLE subtracts nothing from <span class="math inline">\(n\)</span>! Why not? Let’s check the MSE.</p>
+<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-10_c7209793f9e442d94b458d469d7021c4">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(vals, <span class="dv">2</span>, <span class="cf">function</span>(x) {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>((x <span class="sc">-</span> true_sigma<span class="sc">^</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">x =</span> n_minus, <span class="at">y =</span> _)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The MSE is lowest when we divide by… <span class="math inline">\(n+1\)</span>???? Yes, this is just how it is. See <a href="https://alemorales.info/post/variance-estimators/">here</a> for a bit more discussion on this issue. Basically, the estimator with <span class="math inline">\(n-1\)</span> is unbiased, and <span class="math inline">\(n\)</span> is lower variance without too much bias, while <span class="math inline">\(n+1\)</span> is more bias than we’re comfortable with.</p>
+
+
 </section>
 
 </main> <!-- /main -->
