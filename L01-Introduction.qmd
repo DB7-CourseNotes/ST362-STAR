@@ -17,6 +17,15 @@ date: "last-modified"
 \footnotesize{Source: Ph.D. Comics by Jorge Cham}
 \raggedright
 
+### Announcements
+
+- Assignment 1 is a Group Assignment!
+    - Teach each other to code some simulations!\lspace
+- See discussion posts!
+    - Bonus marks for one good post + one good reply.
+        - Can also get for one post + two short replies.
+
+
 :::
 
 ## Introduction
@@ -112,7 +121,6 @@ abline(v = sigma^2, col = "red", lwd = 3)
 
 ### But what's the distribution?
 
-\pause
 ```{r}
 #| label: sim-dists
 #| code-fold: true
@@ -312,7 +320,19 @@ From this, we see that the mean is an unbiased estimator! (This is nice, but not
 $$
 V(\hat\theta) = V\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n^2}V\left(\sum_{i=1}^nX_i\right) \stackrel{indep}{=} \frac{1}{n^2}\sum_{i=1}^nV(X_i) = \sigma^2/n \stackrel{plug-in}{=} s^2/n
 $$
-where $s^2$ is the estimate variance since we cannot know the true mean. Note that $s^2$ is a biased estimator for $\sigma$.
+where $s^2$ is the estimated variance since we cannot know the true mean.
+
+Note that $s$ is a biased estimator for $\sigma$.
+
+::: {.content-visible when-profile="book"}
+Here's a quick proof, taken from [StackExchange](https://stats.stackexchange.com/a/232049):
+
+Let $S_n$ be a random variable denoting the sample standard deviation. Note that $E(S_n^2) = \sigma^2$. What's $E(S_n)$? 
+
+A tricky way to find $E(S_n)$ is to start with $V(S_n)$. We know that $V(S_n) = E(S_n^2) - (E(S_n))^2$, therefore $E(S_n) = \sqrt{E(S_n^2) - V(S_n)}$. Note that $E(S_n^2) = \sigma^2$, so this becomes $E(S_n) = \sqrt{\sigma^2 - V(S_n)}$. Already, we can see that $E(S_n) \ne \sigma$.
+
+Assuming that the variance is strictly larger than 0, then removing it from the equation makes the right hand side larger, i.e. $\sqrt{\sigma^2 - V(S_n)} < \sqrt{\sigma^2} = \sigma$. If we replace  $\sqrt{\sigma^2 - V(S_n)}$ by $\sigma$, the right hand side is larger than the left, i.e. $E(S_n) < \sigma$.
+:::
 
 ### CI for Variance
 
@@ -346,27 +366,27 @@ In the standard normal distribution, $\Phi(0.055)$ is the usual notation for the
 
 ### Q1
 
-Which of the following is a Normal distribution?
+I simulated 1,000 random values from a distribution with a $\mu= 3$. The average of the 1,000 sample means of 3.14. This means:
 
 \pspace
 
-a. $f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}$
-b. $f(x) = \frac{1}{\sqrt{2\pi}}\exp\left(-x^2/2\right)$
-c. $f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\nu_1}{\nu_2}\right)^{\nu_1/2}}{\Gamma(\nu_1/2)\Gamma(\nu_2/2)}\frac{x^{\nu_1/2-1}}{(1 + x\nu_1/\nu_2)^{(\nu_1+\nu_2)/2}}$
-d. $f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}$
+a. Since $E(\bar X)\ne \mu$, the sample mean is a biased estimate of the true mean.
+b. Since $E(\bar X) = \mu$, the sample mean is an unbiased estimate of the true mean.
+c. 3.14 is too far from 3 and thus the simulation proves that the sample mean is biased.
+d. Simulations cannot definitively prove biasedness. 
 
-<!--- B --->
+<!--- D --->
 
 ### Q2
 
-If you know $\mu$ and $\sigma$, then you know the exact shape of the normal distribution.
+Which of the following is assumed to be random in a linear regression model?
 
 \pspace
 
-a. True
-b. False
-
-<!--- A --->
+a. X
+b. x
+c. $\beta$
+e. $\hat\beta$
 
 ### Q3
 
@@ -378,6 +398,19 @@ a. True
 b. False
 
 <!--- A --->
+
+### Q3 Notes
+
+This actually isn't true for everything!
+
+\pspace
+
+For proportions, the standard error uses $p$, the population proportion.
+
+- For hypothesis tests, we use $p_0$ in the standard error.
+- For confidence intervals, we use $\hat p$ in the standard error.
+
+The two are (slightly) different! However, it's still generally fine to use CIs as hypothesis tests.
 
 ### Q4
 
@@ -418,14 +451,21 @@ d.
 
 <!--- C --->
 
+### Q6 Notes
+
+In mathematical statistics, you'll learn that expressions like:
+$$
+\frac{X - \mu}{s/\sqrt{n}}
+$$
+are called **pivotal quantities**, and are very useful for a great many things!
 :::
 
 
 
-## Distributions
+## Distributions (for reference)
 
 ::: {.content-visible when-profile="book"}
-In this section, we'll just lay out some basic facts about some distributions. I try to also justify why these facts are important for this course! Otherwise, the following examples should act as a reference.
+In this section, we'll just lay out some basic facts about some distributions. I try to also justify why these facts are important for this course! Otherwise, the following examples should act as a reference, and won't be tested on an exam or assignment.
 :::
 
 ### Normal
@@ -676,7 +716,7 @@ It actually demonstrates a couple:
 <details>
 <summary>**Solution**</summary>
 
-If $n = 3$, then the variance clearly does not follow a normal distribution. Instead, it is a transformation of a Chi-Square distribution. What happens as n gets larger? What if the true sd gets *smaller*? What if we use a uniform distribution, or something else?
+Let's start small. If $n = 3$, then the variance clearly does not follow a normal distribution. Instead, it is a transformation of a Chi-Square distribution. What happens as n gets larger? What if the true sd gets *smaller*? What if we use a uniform distribution, or something else?
 
 ```{r}
 #| code-fold: false
