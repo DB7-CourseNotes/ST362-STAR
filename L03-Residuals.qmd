@@ -15,7 +15,8 @@ set.seed(2112)
 
 ### Announcements
 
-- Check discussions!
+- Check discussions!\lspace
+- Lab 2 is Wednesday!
 :::
 
 ## The residual: what's left over
@@ -513,6 +514,7 @@ Recommended textbook exercises: fdsafqewfg43rgv qwerk
 
 ```{r}
 #| label: resids-vs-observed
+#| code-fold: false
 n <- 100
 x <- runif(n, 0, 10)
 e <- rnorm(n, 0, 3)
@@ -532,6 +534,7 @@ Empiricially:
 
 ```{r}
 #| label: var-covar-resids
+#| code-fold: false
 cov(mylm$residuals, y)
 var(mylm$residuals)
 ```
@@ -562,6 +565,7 @@ Derivation left as an exercise.
 
 ```{r}
 #| label: mle_bias_1
+#| code-fold: false
 n <- 100
 true_sigma <- 3
 
@@ -580,6 +584,7 @@ From the plot, we get closest to the true value when we subtract 1 from $n$. How
 
 ```{r}
 #| label: mle_bias_2
+#| code-fold: false
 apply(vals, 2, function(x) {
     sum((x - true_sigma^2)^2)
 }) |> plot(x = n_minus, y = _)

@@ -14,8 +14,9 @@ set.seed(2112)
 
 ### Announcements
 
-- Check discussions!
-- Assignment 1 groups are assigned
+- Check discussions!\lspace
+- Assignment 1 is out, groups are assigned\lspace
+- May 10 is last day to drop without tuition charge.
 
 :::
 
@@ -597,6 +598,7 @@ For further homework, change the range of `x` (to be far from 0 or to cover 0), 
 #| label: bias-without-intercept
 #| fig-height: 7
 #| fig-width: 7
+#| code-fold: false
 n <- 75
 x <- runif(n, 0, 10)
 beta1 <- 5
@@ -646,6 +648,7 @@ abline(a = 0, b = sum(x * y) / sum(x^2), col = 2, lwd = 3)
 
 ```{r}
 #| label: faithful-anova
+#| code-fold: false
 data(faithful)
 
 y <- faithful$waiting
@@ -669,6 +672,7 @@ anova(faithful_lm)
 
 ```{r}
 #| label: dist_msreg
+#| code-fold: false
 n <- 100
 x <- runif(n, 0, 10)
 
@@ -697,6 +701,7 @@ Mathematically, this has to do with the fact that $E(MS_{Reg}) = \sigma^2 + \bet
 
 ```{r}
 #| label: dist-msreg-2
+#| code-fold: false
 par(mfrow = c(1, 2))
 hist(msreg_vals, breaks = 40, freq = FALSE)
 curve(dchisq(x, 1), add = TRUE, col = 2, lwd = 3)

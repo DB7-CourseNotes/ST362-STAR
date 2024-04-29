@@ -13,7 +13,9 @@ set.seed(2112)
 
 ### Announcements
 
-- Check discussions!
+- Check discussions!\lspace
+- July 2nd is last date to drop without failure on transcript.\lspace
+- Apply to graduate by June 30th for fall convocation.
 :::
 
 ## Transformations
