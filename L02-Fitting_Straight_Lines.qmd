@@ -14,6 +14,8 @@ set.seed(2112)
 ### Announcements
 
 - Check discussions!
+- Assignment 1 groups are assigned
+
 :::
 
 ## Why Fit Models?
@@ -255,6 +257,20 @@ We'll see in other lectures and homework problems that we can define different e
 We use squared errors for one main reason: because the math is easy. (This is not true, but it's a big selling point of squared errors.)
 :::
 
+### Least Squares Estimates - Start
+
+To find the minimum of a function, we take the derivative and set it to 0!
+
+\begin{align*}
+R(\underline \beta) \stackrel{def}{=}\sum_{i=1}^n\hat\epsilon_i^2 &= \sum_{i=1}^n(y_i - \hat y_i)^2 = \sum_{i=1}^n(y_i - \beta_0 - \beta_1x_1)\\
+\implies \frac{dR(\underline\beta)}{d\beta_0} &= -2\sum_{i=1}^n(y_i - \beta_0 - \beta_1x_i)\\
+\text{and }\frac{dR(\underline\beta)}{d\beta_1} &= -2\sum_{i=1}^n(y_i - \beta_0- \beta_1^2)x_i = -2\sum y_ix_i + 2\beta_0\sum x_i + 2\beta_1\sum x_i^2
+\end{align*}
+
+\pspace
+
+Homework: complete the derivation.
+
 ### Least Squares Estimates
 
 I will assume that you can do the Least Squares estimate in your sleep (be ready for tests). 
@@ -297,9 +313,11 @@ It is easy to show that
 $$
 \hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2} = \frac{\sum_{i-1}^n(x_i - \bar x)y_i}{\sum_{i-1}^n(x_i - \bar x)^2}
 $$
-since $\sum(x_i - \bar x) = 0$. 
+since $\sum(x_i - \bar x) = 0$ (show this). 
 
-Homework: show that $E(\hat\beta_1) = \beta_1$ (*Hint: use the fact that $E(y_i) = \beta_0 + \beta_1x_i$ and the "pocket calculator" expansions*). 
+\pspace
+
+Homework: show that $E(\hat\beta_1) = \beta_1$ (*Hint: use the fact that $E(y_i) = \beta_0 + \beta_1x_i$). 
 
 ### Variance of $\hat\beta_1$
 
@@ -365,7 +383,7 @@ The standard error of $\beta_1$ refers to:
 a. The variance of the population slope\lspace
 b. The amount by which the slope might be off\lspace
 c. The variance of the estimated slope across different samples\lspace
-d. A big chicken. Not, like, worryingly big, but big enough that you'd be like, "Wow, that's a big chicken!"\lspace
+d. A big chicken. Not, like, disturbingly big, but big enough that you'd be like, "Wow, that's a big chicken!"\lspace
 
 <!--- C --->
 
@@ -377,7 +395,7 @@ Which is *not* an assumption that we usually make in linear regression?
 
 a. $V(\epsilon_i) = \sigma^2$\lspace
 b. $E(\epsilon_i) = 0$\lspace
-c. $E(X) = 0$
+c. $E(X) = 0$\lspace
 d. $\epsilon_i\stackrel{iid}{\sim}N(0,\sigma^2)$
 
 <!--- C --->
@@ -419,6 +437,7 @@ b. False
     - This is just the variance of a single variable.\lspace
 - Once we've incorporated the linear relationship with $\underline x$, $V(\hat\beta \underline x + \underline\epsilon)=0+V(\underline\epsilon) = \sigma^2$ 
     - Mathematically, $\sigma^2 \le \sigma_y^2$.
+        - Homework: when are they equal?
 
 \pspace
 
@@ -431,11 +450,11 @@ The variance in $Y$ is **explained** by $X$!
 \hat\epsilon_i &= y_i - \hat y_i \\&= y_i - \bar y - (\hat y_i - \bar y)\\
 \implies \sum_{i=1}^n\hat\epsilon_i^2 &= \sum_{i=1}^n(y_i-\bar y)^2 - \sum_{i=1}^n(\hat y_i - \bar y)^2
 \end{align*}
-where we've simply added and subtracted $\bar y$. The final line skips a few steps (try them yourself)!
+where we've simply added and subtracted $\bar y$. The final line skips a few steps (try them yourself, or see textbook page 28.)!
 
 \pspace
 
-The last line is often written as: $SS_E = SS_T - SS_{Reg}$
+The last line is often written as: $SS_E = SS_T - SS_{Reg}$. 
 
 ### Sums of Squares
 
@@ -448,7 +467,7 @@ $$
 - $SS_{Reg}$: Sum of Squares due to the regression.
     - It's the variance of the line (calculated at observed $\underline x$ values) around the mean of $\underline y$???
         - This is incredibly useful, but weird.
-    - I use $SS_{Reg}$ instead of $SS_R$ because some textbooks use $SS_R$ as the Sume of Squared *Residuals*, which is confusing.
+    - I use $SS_{Reg}$ instead of $SS_R$; some textbooks use $SS_R$ as the Sum of Squared *Residuals* (same as $SS_E$), which is confusing.
 
 ### Aside: Degrees of Freedom
 
@@ -543,7 +562,7 @@ nrow(dse03a)
 
 ::: {.content-visible when-profile="book"}
 
-Please see [Lab 2](Lb02-OLS_Estimates.html).
+Solution: see [Lab 2](Lb02-OLS_Estimates.html).
 
 ## Exercises
 
@@ -572,6 +591,8 @@ In the following simulation, the true slope is the exact same no matter what. Ho
 For further homework, change the range of `x` (to be far from 0 or to cover 0), the value of `beta1` (try small, large, and negative values), and the standard deviation of `e` (small and large) and see if you can guess the pattern before you run the code.
 
 ```{r}
+#| fig-height: 7
+#| fig-width: 7
 n <- 75
 x <- runif(n, 0, 10)
 beta1 <- 5
@@ -629,7 +650,6 @@ y_hat <- predict(faithful_lm)
 
 anova(faithful_lm)
 ```
-:::
 
 8. Use a simulation to demonstrate that, assuming $\beta_1 = 0$, $MS_{Reg} / MS_E \sim F_{df_{Reg}, df_E}$.
     - Explain why this is only true when $\beta_1 = 0$
@@ -641,7 +661,7 @@ x <- runif(n, 0, 10)
 f_vals <- c()
 for (i in 1:1000) {
     e <- rnorm(n, 0, 1)
-    y <- -3 + 0*x + e
+    y <- -3 + 0.005*x + e
     mylm <- lm(y ~ x)
     
     y_hat <- predict(mylm)
@@ -655,5 +675,7 @@ hist(f_vals, freq = FALSE, breaks = 40)
 curve(df(x, 1, n - 2), col = 2, lwd = 3, add = TRUE)
 ```
 
-Why is this
+Why is this 
 
+
+:::
