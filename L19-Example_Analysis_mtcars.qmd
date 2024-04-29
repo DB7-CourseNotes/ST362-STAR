@@ -6,6 +6,7 @@ editor: visual
 ---
 
 ```{r}
+#| label: setup
 #| include: false
 set.seed(2112)
 library(ggplot2)
@@ -49,6 +50,7 @@ wt and disp are clearly multicollinear, and they're measuring the same thing so 
 In the following code, I tried x as am, cyl, gear, and carb. The y axis was wt, disp, drat, and qsec. I essentially tried every combination of these and wrote down the most interesting patterns. 
 
 ```{r}
+#| label: cont_v_cat
 # Continuous versus categorical
 ggplot(mtcars) +
     aes(x = factor(am), y = wt) +
@@ -63,6 +65,7 @@ ggplot(mtcars) +
 I did something similar with the following code, checking every combination of all relevant predictors and writing down anything that stuck out to me. 
     
 ```{r}
+#| label: cont_v_cont
 # Continuous vs. continuous
 ggplot(mtcars) +
     aes(x = disp, y = wt, colour = factor(cyl)) +
@@ -77,6 +80,7 @@ ggplot(mtcars) +
 The following plot was also used with all combinations of categorical predictors. 
 
 ```{r}
+#| label: cats
 # categorical variables
 ggplot(mtcars) + 
     aes(x = factor(am), fill = factor(vs)) +
@@ -100,6 +104,7 @@ Most things are measuring "how powerful is this car", so we should just choose t
 Now we're finally looking at mpg!
 
 ```{r}
+#| label: mpg_v_disp
 ggplot(mtcars) +
     aes(y = mpg, x = disp, colour = factor(cyl)) +
     geom_point() +
@@ -123,6 +128,7 @@ Let's test out our models!
 Again, to reduce the amount of output I have to wade through, I changed the following code a bunch and left it at something meaningful to my final analysis.
 
 ```{r}
+#| label: dispmodel_plot
 dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
 
 par(mfrow = c(2,2))
@@ -136,6 +142,7 @@ plot(dispmodel, col = mtcars$cyl)
     - When we have this kind of interaction, there are essentially three lines, each with fewer observations. It is much easier for a point to be influential with interaction present. 
 
 ```{r}
+#| label: wtmodel_plot
 wtmodel <- lm(mpg ~ wt * am, data = mtcars)
 
 par(mfrow = c(2,2))
@@ -150,10 +157,12 @@ plot(wtmodel)
 Both models are good in different ways. Let's check their summaries.
 
 ```{r}
+#| label: dispmodel_summary
 summary(dispmodel)
 ```
 
 ```{r}
+#| label: wtmodel_summary
 summary(wtmodel)
 ```
 

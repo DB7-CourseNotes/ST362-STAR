@@ -4,6 +4,7 @@ institute: "Jam: **Great Expectations** by The Gaslight Anthem"
 ---
 
 ```{r}
+#| label: setup
 #| include: false
 set.seed(2112)
 ```
@@ -548,6 +549,7 @@ A study was made on the effect of temperature on the yield of a chemical process
 ::: {.column width="50%"}
 
 ```{r}
+#| label: load-text-data
 #| echo: true
 #| eval: true
 #| code-line-numbers: false
@@ -573,7 +575,8 @@ Good textbook questions: A, K, O, P, T, U, X (using `data(anscombe)` in R), Z, A
     - Comment on these estimates compared to the previous question. What happened to $\bar x$ and $\bar y$?
     - Investigate what happens to $\hat\beta_1$ if the true intercept is not 0.
 
-Solution
+<details>
+<summary>**Solution**</summary>
 
 We're trying to minimize:
 $$
@@ -591,6 +594,7 @@ In the following simulation, the true slope is the exact same no matter what. Ho
 For further homework, change the range of `x` (to be far from 0 or to cover 0), the value of `beta1` (try small, large, and negative values), and the standard deviation of `e` (small and large) and see if you can guess the pattern before you run the code.
 
 ```{r}
+#| label: bias-without-intercept
 #| fig-height: 7
 #| fig-width: 7
 n <- 75
@@ -631,6 +635,9 @@ plot(y ~ x, main = "True b0 = 10",
 abline(a = 0, b = sum(x * y) / sum(x^2), col = 2, lwd = 3)
 ```
 
+</details>
+*****
+
 3. Given that $\hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2}$, find $E(\hat\beta)$.
 4. Complete the derivation of $V(\hat\beta_1)$.
 5. Suppose that we fit the model without an intercept, but there actually is an intercept term. That is, suppose $y_i = \beta_0 + \beta_1x_i +\epsilon_i$, but our estimator is what was found in Question 2, and find $E(\hat\beta_1)$. Hint: it's *not* $\beta_1$!
@@ -655,7 +662,13 @@ anova(faithful_lm)
 8. Use a simulation to demonstrate that, assuming $\beta_1 = 0$, $MS_{Reg} / MS_E \sim F_{df_{Reg}, df_E}$.
     - Explain why this is only true when $\beta_1 = 0$
 
+<details>
+<summary>**Solution**</summary>
+
+
+
 ```{r}
+#| label: dist_msreg
 n <- 100
 x <- runif(n, 0, 10)
 
@@ -683,6 +696,7 @@ Why is this  only true when $\beta_1=0$? For intuition, this only *should* be tr
 Mathematically, this has to do with the fact that $E(MS_{Reg}) = \sigma^2 + \beta_1S_{XX}$, not just $\sigma^2$. Since this is not equal to $\sigma^2$, this does not follow a Chi-Square distribution.
 
 ```{r}
+#| label: dist-msreg-2
 par(mfrow = c(1, 2))
 hist(msreg_vals, breaks = 40, freq = FALSE)
 curve(dchisq(x, 1), add = TRUE, col = 2, lwd = 3)
@@ -693,6 +707,7 @@ abline(a = 0, b = 1)
 ```
 
 ... actually it kinda does follow a Chi-Square distribution. Not sure what to make of that.
+</details>
+*****
 
-:::
 :::
