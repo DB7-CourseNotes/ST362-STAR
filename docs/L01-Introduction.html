@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-24">
+<meta name="dcterms.date" content="2024-04-26">
 
 <title>STAR Notes - 1&nbsp; Statistics Review</title>
 <style>
@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Extra Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
       </ul>
@@ -438,7 +438,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ci-for-variance" id="toc-ci-for-variance" class="nav-link" data-scroll-target="#ci-for-variance">CI for Variance</a></li>
   <li><a href="#take-home-lessons-1" id="toc-take-home-lessons-1" class="nav-link" data-scroll-target="#take-home-lessons-1">Take-Home Lessons</a></li>
   </ul></li>
-  <li><a href="#distributions" id="toc-distributions" class="nav-link" data-scroll-target="#distributions"><span class="header-section-number">1.5</span> Distributions</a>
+  <li><a href="#distributions-for-reference" id="toc-distributions-for-reference" class="nav-link" data-scroll-target="#distributions-for-reference"><span class="header-section-number">1.5</span> Distributions (for reference)</a>
   <ul class="collapse">
   <li><a href="#normal" id="toc-normal" class="nav-link" data-scroll-target="#normal">Normal</a></li>
   <li><a href="#the-t-distribution" id="toc-the-t-distribution" class="nav-link" data-scroll-target="#the-t-distribution">The <span class="math inline">\(t\)</span> Distribution</a></li>
@@ -480,7 +480,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-24</p>
+      <p class="date">2024-04-26</p>
     </div>
   </div>
   
@@ -757,7 +757,12 @@ E(\hat\theta) = E\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n}\sum_{i=1}
 \]</span> From this, we see that the mean is an unbiased estimator! (This is nice, but not required.)</p>
 <p><span class="math display">\[
 V(\hat\theta) = V\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n^2}V\left(\sum_{i=1}^nX_i\right) \stackrel{indep}{=} \frac{1}{n^2}\sum_{i=1}^nV(X_i) = \sigma^2/n \stackrel{plug-in}{=} s^2/n
-\]</span> where <span class="math inline">\(s^2\)</span> is the estimate variance since we cannot know the true mean. Note that <span class="math inline">\(s^2\)</span> is a biased estimator for <span class="math inline">\(\sigma\)</span>.</p>
+\]</span> where <span class="math inline">\(s^2\)</span> is the estimated variance since we cannot know the true mean.</p>
+<p>Note that <span class="math inline">\(s\)</span> is a biased estimator for <span class="math inline">\(\sigma\)</span>.</p>
+<p>Here’s a quick proof, taken from <a href="https://stats.stackexchange.com/a/232049">StackExchange</a>:</p>
+<p>Let <span class="math inline">\(S_n\)</span> be a random variable denoting the sample standard deviation. Note that <span class="math inline">\(E(S_n^2) = \sigma^2\)</span>. What’s <span class="math inline">\(E(S_n)\)</span>?</p>
+<p>A tricky way to find <span class="math inline">\(E(S_n)\)</span> is to start with <span class="math inline">\(V(S_n)\)</span>. We know that <span class="math inline">\(V(S_n) = E(S_n^2) - (E(S_n))^2\)</span>, therefore <span class="math inline">\(E(S_n) = \sqrt{E(S_n^2) - V(S_n)}\)</span>. Note that <span class="math inline">\(E(S_n^2) = \sigma^2\)</span>, so this becomes <span class="math inline">\(E(S_n) = \sqrt{\sigma^2 - V(S_n)}\)</span>. Already, we can see that <span class="math inline">\(E(S_n) \ne \sigma\)</span>.</p>
+<p>Assuming that the variance is strictly larger than 0, then removing it from the equation makes the right hand side larger, i.e.&nbsp;<span class="math inline">\(\sqrt{\sigma^2 - V(S_n)} &lt; \sqrt{\sigma^2} = \sigma\)</span>. If we replace <span class="math inline">\(\sqrt{\sigma^2 - V(S_n)}\)</span> by <span class="math inline">\(\sigma\)</span>, the right hand side is larger than the left, i.e.&nbsp;<span class="math inline">\(E(S_n) &lt; \sigma\)</span>.</p>
 </section>
 <section id="ci-for-variance" class="level3">
 <h3 class="anchored" data-anchor-id="ci-for-variance">CI for Variance</h3>
@@ -783,9 +788,9 @@ V(\hat\theta) = V\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n^2}V\left(\
 </ul>
 </section>
 </section>
-<section id="distributions" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="distributions"><span class="header-section-number">1.5</span> Distributions</h2>
-<p>In this section, we’ll just lay out some basic facts about some distributions. I try to also justify why these facts are important for this course! Otherwise, the following examples should act as a reference.</p>
+<section id="distributions-for-reference" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="distributions-for-reference"><span class="header-section-number">1.5</span> Distributions (for reference)</h2>
+<p>In this section, we’ll just lay out some basic facts about some distributions. I try to also justify why these facts are important for this course! Otherwise, the following examples should act as a reference, and won’t be tested on an exam or assignment.</p>
 <section id="normal" class="level3">
 <h3 class="anchored" data-anchor-id="normal">Normal</h3>
 <p><span class="math display">\[
@@ -1042,7 +1047,7 @@ f(x; \nu_1, \nu_2) = \frac{\Gamma\left(\frac{\nu_1+\nu_2}{2}\right)\left(\frac{\
 <summary>
 <strong>Solution</strong>
 </summary>
-<p>If <span class="math inline">\(n = 3\)</span>, then the variance clearly does not follow a normal distribution. Instead, it is a transformation of a Chi-Square distribution. What happens as n gets larger? What if the true sd gets <em>smaller</em>? What if we use a uniform distribution, or something else?</p>
+<p>Let’s start small. If <span class="math inline">\(n = 3\)</span>, then the variance clearly does not follow a normal distribution. Instead, it is a transformation of a Chi-Square distribution. What happens as n gets larger? What if the true sd gets <em>smaller</em>? What if we use a uniform distribution, or something else?</p>
 <div class="cell" data-hash="L01-Introduction_cache/html/Q2_ad5d3e13be81f26d57fa53d744069f3c">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change me to a different number!</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">3</span></span>

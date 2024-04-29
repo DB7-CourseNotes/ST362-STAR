@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-22">
+<meta name="dcterms.date" content="2024-04-26">
 
 <title>STAR Notes - 17&nbsp; Modelling Poorly</title>
 <style>
@@ -186,7 +186,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Extra Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
       </ul>
@@ -394,6 +394,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#best-subset-selection" id="toc-best-subset-selection" class="nav-link" data-scroll-target="#best-subset-selection">Best Subset Selection</a></li>
   <li><a href="#think-pair-share" id="toc-think-pair-share" class="nav-link" data-scroll-target="#think-pair-share">Think-Pair-Share</a></li>
   <li><a href="#evaluating-algorithmic-predictor-selection" id="toc-evaluating-algorithmic-predictor-selection" class="nav-link" data-scroll-target="#evaluating-algorithmic-predictor-selection">Evaluating Algorithmic Predictor Selection</a></li>
+  <li><a href="#a-special-case-race" id="toc-a-special-case-race" class="nav-link" data-scroll-target="#a-special-case-race">A Special Case: Race</a></li>
   </ul></li>
   <li><a href="#paticipation-questions" id="toc-paticipation-questions" class="nav-link" data-scroll-target="#paticipation-questions"><span class="header-section-number">17.3</span> Paticipation Questions</a>
   <ul class="collapse">
@@ -440,7 +441,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-22</p>
+      <p class="date">2024-04-26</p>
     </div>
   </div>
   
@@ -603,6 +604,16 @@ L(y|\underline\beta, X, \sigma) = \prod_{i=1}^nf_Y(X|\underline\beta, \sigma^2),
 <h3 class="anchored" data-anchor-id="evaluating-algorithmic-predictor-selection">Evaluating Algorithmic Predictor Selection</h3>
 <p>Suppose we have measured 30 predictors that we know are <em>not</em> related to the response.</p>
 <p>How many predictors should Backwards Selection select?</p>
+</section>
+<section id="a-special-case-race" class="level3">
+<h3 class="anchored" data-anchor-id="a-special-case-race">A Special Case: Race</h3>
+<ul>
+<li>In general, we <em>almost always</em> want to include race if it was measured.
+<ul>
+<li>If our model is using race to make a decision, <em>we want to know about it</em>!</li>
+</ul></li>
+<li>Possible approach: <a href="https://drkowal.github.io/lmabc/reference/lmabc.html">not dummy variables</a>.</li>
+</ul>
 </section>
 </section>
 <section id="paticipation-questions" class="level2" data-number="17.3">
