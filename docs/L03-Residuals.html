@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-26">
+<meta name="dcterms.date" content="2024-04-29">
 
 <title>STAR Notes - 3&nbsp; Assessing Fit</title>
 <style>
@@ -470,7 +470,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-26</p>
+      <p class="date">2024-04-29</p>
     </div>
   </div>
   
@@ -490,7 +490,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 \]</span></p>
 </div><div class="column" style="width:70%;">
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-2_4ee51aa51f7b1a1fcd01105d36d6d1a5">
+<div class="cell" data-hash="L03-Residuals_cache/html/R2_demo_c127336de43f0c1f5a390452986d63dd">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">1</span>), <span class="at">widths =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
@@ -521,7 +521,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="576"></p>
+<p><img src="L03-Residuals_files/figure-html/R2_demo-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 </div>
@@ -563,7 +563,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-3_e46fcbc2675de0acce659268caedde71">
+<div class="cell" data-hash="L03-Residuals_cache/html/resids_vs_fitted_df4246a1f2af5f92fddea67748e997a0">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -596,7 +596,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">/</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="480"></p>
+<p><img src="L03-Residuals_files/figure-html/resids_vs_fitted-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
 </div>
@@ -619,7 +619,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </section>
 <section id="residual-plots-unstable-error" class="level3">
 <h3 class="anchored" data-anchor-id="residual-plots-unstable-error">Residual plots: unstable error</h3>
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-4_39ba809241cd4ef88a9757c47abc9a8d">
+<div class="cell" data-hash="L03-Residuals_cache/html/heteroskedastic_ab35680f817d5848818b263156d657f1">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
@@ -643,13 +643,13 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Residuals_files/figure-html/heteroskedastic-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="residual-plots-non-linear-trend" class="level3">
 <h3 class="anchored" data-anchor-id="residual-plots-non-linear-trend">Residual plots: non-linear trend?</h3>
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-5_44d13f91c71bf7082023def66816d4ba">
+<div class="cell" data-hash="L03-Residuals_cache/html/non-linear-trend_5ce2dcbdad259944362c3ebc6089aca7">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## fig-height: 4</span></span>
@@ -672,7 +672,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Residuals_files/figure-html/non-linear-trend-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -701,7 +701,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </ul>
 </div><div class="column" style="width:40%;">
 <p>If perfectly normal, expect a straight line!</p>
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-6_909176b7b4fff2e501412d76d46ccd22">
+<div class="cell" data-hash="L03-Residuals_cache/html/qq-demo_ceaaeb6e5d27d4efee084ecd79de0b6f">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
@@ -711,7 +711,7 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mydata <span class="sc">~</span> quants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Residuals_files/figure-html/qq-demo-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -895,8 +895,11 @@ E(s) &lt; \sqrt{E(s^2)} = \sqrt{\sigma^2} = \sigma
 <li>Find <span class="math inline">\(cor(\epsilon_i, y_i)\)</span> mathematically. Compare this with what you see in the plot.</li>
 </ul></li>
 </ol>
-<p>solution</p>
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-7_80fecd29264074550140fb075378eb1b">
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell" data-hash="L03-Residuals_cache/html/resids-vs-observed_0e51131fc3eb9abf8d0513b6d55de2dc">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
@@ -908,7 +911,7 @@ E(s) &lt; \sqrt{E(s^2)} = \sqrt{\sigma^2} = \sigma
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mylm<span class="sc">$</span>residuals <span class="sc">~</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Residuals_files/figure-html/resids-vs-observed-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Note that <span class="math inline">\(y_i = \hat y_i + \hat \epsilon_i\)</span></p>
@@ -916,7 +919,7 @@ E(s) &lt; \sqrt{E(s^2)} = \sqrt{\sigma^2} = \sigma
 cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\epsilon_i, \hat y_i) + cov(\hat\epsilon_i, \hat \epsilon_i) = 0 + \sigma^2
 \]</span></p>
 <p>Empiricially:</p>
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-8_452c55f8749c639c787789e53a0170e7">
+<div class="cell" data-hash="L03-Residuals_cache/html/var-covar-resids_1aa3e01e26bc8527325139262ff3d1d3">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(mylm<span class="sc">$</span>residuals, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -932,6 +935,8 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 <pre><code>[1] 7.987392</code></pre>
 </div>
 </div>
+</details>
+<hr>
 <ol start="2" type="1">
 <li>Find the MLE estimate for <span class="math inline">\(\sigma^2\)</span>.
 <ul>
@@ -939,16 +944,25 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 <li>Comment on the variance formula from least squares</li>
 </ul></li>
 </ol>
-<p>solution</p>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
 <p>Derivation left as an exercise.</p>
 <ul>
 <li>MLE versus usual formula: We’re dividing by <span class="math inline">\(n\)</span>, not <span class="math inline">\(n - 1\)</span> or even <span class="math inline">\(n - 2\)</span>! The mle is actually <strong>biased</strong>. We’ll explore this in the next question.</li>
 <li>There is no variance formula in least squares! MLE allows us to incorporate our assumption about the distribution of the residuals, giving us more to work with!</li>
 </ul>
+</details>
+<hr>
 <ol start="3" type="1">
 <li>The MLE of <span class="math inline">\(\sigma^2\)</span> divides by <span class="math inline">\(n\)</span>. Demonstrate via simulation that this is actually a biased estimate.</li>
 </ol>
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-9_11d8fcad731921c522d631a48d3804fe">
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell" data-hash="L03-Residuals_cache/html/mle_bias_1_8c43dbd9c5afd3d50df2c22d86f0e174">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
@@ -965,11 +979,11 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> true_sigma<span class="sc">^</span><span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Residuals_files/figure-html/mle_bias_1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>From the plot, we get closest to the true value when we subtract 1 from <span class="math inline">\(n\)</span>. However, the MLE subtracts nothing from <span class="math inline">\(n\)</span>! Why not? Let’s check the MSE.</p>
-<div class="cell" data-hash="L03-Residuals_cache/html/unnamed-chunk-10_c7209793f9e442d94b458d469d7021c4">
+<div class="cell" data-hash="L03-Residuals_cache/html/mle_bias_2_0d1795a8a00441e925e1a4d6ed76d132">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(vals, <span class="dv">2</span>, <span class="cf">function</span>(x) {</span>
@@ -977,10 +991,12 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">x =</span> n_minus, <span class="at">y =</span> _)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L03-Residuals_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Residuals_files/figure-html/mle_bias_2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The MSE is lowest when we divide by… <span class="math inline">\(n+1\)</span>???? Yes, this is just how it is. See <a href="https://alemorales.info/post/variance-estimators/">here</a> for a bit more discussion on this issue. Basically, the estimator with <span class="math inline">\(n-1\)</span> is unbiased, and <span class="math inline">\(n\)</span> is lower variance without too much bias, while <span class="math inline">\(n+1\)</span> is more bias than we’re comfortable with.</p>
+</details>
+<hr>
 
 
 </section>
