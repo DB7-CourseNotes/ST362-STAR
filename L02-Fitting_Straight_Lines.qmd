@@ -621,7 +621,7 @@ y_hat <- predict(faithful_lm)
 
 anova(faithful_lm)
 ```
-:::
+
 
 8. Use a simulation to demonstrate that, assuming $\beta_1 = 0$, $MS_{Reg} / MS_E \sim F_{df_{Reg}, df_E}$.
     - Explain why this is only true when $\beta_1 = 0$
@@ -631,14 +631,16 @@ n <- 100
 x <- runif(n, 0, 10)
 
 f_vals <- c()
+msreg_vals <-c()
 for (i in 1:1000) {
     e <- rnorm(n, 0, 1)
-    y <- -3 + 0*x + e
+    y <- -3 + 0.05*x + e
     mylm <- lm(y ~ x)
     
     y_hat <- predict(mylm)
     y_bar <- mean(y)
     ms_reg <- sum((y_hat - y_bar)^2) / 1
+    msreg_vals[i] <- ms_reg
     ms_e <- sum((y - y_hat)^2) / (n - 2)
     f_vals <- c(f_vals, ms_reg / ms_e)
 }
@@ -647,5 +649,20 @@ hist(f_vals, freq = FALSE, breaks = 40)
 curve(df(x, 1, n - 2), col = 2, lwd = 3, add = TRUE)
 ```
 
-Why is this
+Why is this only true when $\beta_1=0$? For intuition, this only *should* be true when the null is true: recall that p-values are always calculated *assuming that the null is true*, and the F-stat is no different.
 
+Mathematically, this has to do with the fact that $E(MS_{Reg}) = \sigma^2 + \beta_1S_{XX}$, not just $\sigma^2$. Since this is not equal to $\sigma^2$, this does not follow a Chi-Square distribution.
+
+```{r}
+par(mfrow = c(1, 2))
+hist(msreg_vals, breaks = 40, freq = FALSE)
+curve(dchisq(x, 1), add = TRUE, col = 2, lwd = 3)
+
+# qqplot, just to check
+qqplot(x = qchisq(ppoints(length(msreg_vals)), 1), y = msreg_vals)
+abline(a = 0, b = 1)
+```
+
+... actually it kinda does follow a Chi-Square distribution. Not sure what to make of that.
+
+:::
