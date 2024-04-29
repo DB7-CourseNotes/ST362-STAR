@@ -33,7 +33,7 @@ book:
         - L04-Matrix_Form.qmd
         - L05-General_Regression.qmd
         - L06-Extra_Sums_of_Squares-1.qmd
-        - L07-Exampless.Rmd
+        - L07-Exampless.qmd
         - L09-Serial_Correlation.qmd
         - L10-Hat-Resid_Plots-Cook.qmd
         - L11-Admin_Slides.qmd
