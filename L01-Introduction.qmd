@@ -34,8 +34,8 @@ date: "last-modified"
 ### Today's Learning Outcomes
 
 - Validating theory with simulations\lspace
-- Important facts about distributions.\lspace
 - CIs and t-tests.\lspace
+- Important facts about distributions.\lspace
 
 ## Simulating Distributions from Linear Models
 
