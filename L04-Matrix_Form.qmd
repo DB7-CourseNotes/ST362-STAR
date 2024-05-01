@@ -18,9 +18,13 @@ set.seed(2112)
 - No class on Monday.\lspace
 - Assignment 1 is due next Wednesday!\lspace
 - May 17th is last day to drop with 10% tuition charge\lspace
+
+\pspace
 :::
 
-## Chapter 04 Summary
+For the most part, this chapter is a couple of identities and a lot of exercises!!!
+
+## Putting Things in Boxes
 
 ### Matrix Forms of Things We've Seen
 
@@ -79,20 +83,6 @@ X^TX\hat{\underline\beta} = X^T\underline y\quad \Leftrightarrow\quad \hat{\unde
 $$
 Try this out using the definition of $(X^TX)^{-1}$ on the previous slide.
 
-
-### (Corrected) ANOVA in Matrix Form
-
-| Source | $df$ | $SS$ | $MS$ |
-|--------|------|------|------|
-| Regression (corrected) | 1 | $\hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2$  | $SS/df$ |
-| Error | $n-2$ | $\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y$ | $SS/df$ |
-| Total (corrected) | $n - 1$ | $\underline y^t\underline y - n\bar{\underline y}^2$ | $SS/df$ |
-
-- The "corrected" ANOVA is the ANOVA table for comparing the errors due to $\hat\beta_1$ to the errors due to $\hat\beta_0$.\lspace
-- This is different from comparing a model with $\hat\beta_0$ *and* $\hat\beta_1$ to a model with neither parameter.
-    - The value of the "correction" is based on $\bar x$. If the slope is 0, then the estimate for $\hat\beta_0$ is $\bar x$.
-
-## Variances
 
 ### Variance of a Vector: the Variance-Covariance Matrix
 
@@ -169,6 +159,18 @@ V(\hat Y_{n+1}) &= V(X_{n+1}\hat{\underline\beta} + \epsilon_{n+1})\\
 HWK: Verify (empirically or mathematically) that this is smallest when $x_0 = \bar x$. 
 
 
+### (Corrected) ANOVA in Matrix Form
+
+| Source | $df$ | $SS$ | $MS$ |
+|--------|------|------|------|
+| Regression (corrected) | 1 | $\hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2$  | $SS/df$ |
+| Error | $n-2$ | $\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y$ | $SS/df$ |
+| Total (corrected) | $n - 1$ | $\underline y^t\underline y - n\bar{\underline y}^2$ | $SS/df$ |
+
+- The "corrected" ANOVA is the ANOVA table for comparing the errors due to $\hat\beta_1$ to the errors due to $\hat\beta_0$.\lspace
+- This is different from comparing a model with $\hat\beta_0$ *and* $\hat\beta_1$ to a model with neither parameter.
+    - The value of the "correction" is based on $\bar x$. If the slope is 0, then the estimate for $\hat\beta_0$ is $\bar x$.
+
 ### Summary
 
 When we have one predictor, it is clear that:
@@ -189,76 +191,87 @@ This will *not* change when we add predictors!
 
 ## Participation Questions
 
-### Q01
+### Q1
 
 Which statement about matrix multiplication is *false*?
 
 \pspace
 
-1. $(AB)^T = B^TA^T$\lspace
-2. $(AB)^{-1} = B^{-1}A^{-1}$\lspace
-3. $(A + B)^T = A^T + B^T$\lspace
-4. $A^{-1}A = AA^{-1}$\lspace
+a. $(AB)^T = B^TA^T$\lspace
+b. $(AB)^{-1} = B^{-1}A^{-1}$\lspace
+c. $(A + B)^T = A^T + B^T$\lspace
+d. $A^{-1}A = AA^{-1}$\lspace
 
-### Q02
+<!--- B --->
+
+### Q2
 
 The Normal Equations come from:
 
 \pspace
 
-1. Setting the partial derivatives of $\underline\epsilon^T\underline\epsilon$ to 0.\lspace
-2. Setting the partial derivatives of $\hat{\underline\epsilon}^T\hat{\underline\epsilon}$ to 0.\lspace
-3. Rearranging the equation $\sum_{i=1}^n(y_i - \hat y_i)^2$ for $\hat\beta_0$ and $\hat\beta_1$\lspace
-4. Rearranging the equation $\sum_{i=1}^n(y_i - \beta_0 + \beta_1x_i + \epsilon_i)^2$ for $\hat\beta_0$ and $\hat\beta_1$\lspace
+a. Setting the partial derivatives of $\underline\epsilon^T\underline\epsilon$ to 0.\lspace
+b. Setting the partial derivatives of $\hat{\underline\epsilon}^T\hat{\underline\epsilon}$ to 0.\lspace
+c. Rearranging the equation $\sum_{i=1}^n(y_i - \hat y_i)^2$ for $\hat\beta_0$ and $\hat\beta_1$\lspace
+d. Rearranging the equation $\sum_{i=1}^n(y_i - \beta_0 + \beta_1x_i + \epsilon_i)^2$ for $\hat\beta_0$ and $\hat\beta_1$\lspace
 
-### Q03
+<!--- B --->
 
-$MS_E = MS_T - MS_Reg$
+### Q3
+
+$MS_E = MS_T - MS_{Reg}$
 
 \pspace
 
-1. True\lspace
-2. False
+a. True\lspace
+b. False
 
-### Q04
+<!--- A --->
+
+### Q4
 
 For vector-valued r.v. $Z$, $V(Z)$ is a symmetric matrix.
 
 \pspace
 
-1. No, since the $i,j$ element is $cov(Z_i, Z_j)$ and the $j,i$ element is $cov(Z_j, Z_i)$.\lspace
-2. No, since the $i,i$ element is $V(Z_i)$, which is different for different $i$.\lspace
-3. Yes, because it is a scalar.\lspace
-4. Yes, because $cov(Z_i, Z_j) = cov(Z_j, Z_i)$
+a. No, since the $i,j$ element is $cov(Z_i, Z_j)$ and the $j,i$ element is $cov(Z_j, Z_i)$.\lspace
+b. No, since the $i,i$ element is $V(Z_i)$, which is different for different $i$.\lspace
+c. Yes, because it is a scalar.\lspace
+d. Yes, because $cov(Z_i, Z_j) = cov(Z_j, Z_i)$
 
-### Q05
+<!--- D --->
+
+### Q5
 
 For scalar-valued random variables $X$ and $Y$, which statement is *true*?
 
 \pspace
 
-1. $cov(a + bX, Y) = b cov(X,Y)$\lspace
-2. $cov(a + bX, bY) =  b cov(X,Y)$\lspace
-3. $cov(bX, X) = b^2V(X)$\lspace
-4. $cov(a + bX, a + bY) =  a + b cov(X,Y)$
+a. $cov(a + bX, Y) = b cov(X,Y)$\lspace
+b. $cov(a + bX, bY) =  b cov(X,Y)$\lspace
+c. $cov(bX, X) = b^2V(X)$\lspace
+d. $cov(a + bX, a + bY) =  a + b cov(X,Y)$
 
+<!--- A --->
 
-### Q06
+### Q6
 
 The variance of the line evaluated at an existing point is smaller than the variance of the line evaluated at a new point, even if the new point is the same as an existing point.
 
 \pspace
 
-1. True\lspace
-2. False
+a. True\lspace
+b. False
+
+<!--- A --->
 :::
 
 ::: {.content-visible when-profile="book"}
 ## Exercises
 
-1. Show that $X^TX &= \begin{bmatrix}n & \sum x_i\\ \sum x_i & \sum x_i^2\end{bmatrix}$. *Hint: the first column of $X$ is all 1s, and this is always important.*
-2. Verify that $X^TX\hat{\underline\beta} = X^T\underline y\quad \Leftrightarrow\quad \hat{\underline\beta} = (X^TX)^{-1}X^T\underline y$.
-3. Show that $V(\hat\beta_0) = \frac{\sigma^2\sum x_i^2}{S_{XX}}$ and $V(\hat\beta_1) = \frac{\sigma^2}{S_{XX}}$. *Hint: Show $V(\hat\beta_1)$ first, then use the fact that $\hat\beta_0 = \bar y - \hat\beta_1\bar x$.
+1. Show that $X^TX = \begin{bmatrix}n & \sum x_i\\ \sum x_i & \sum x_i^2\end{bmatrix}$. *Hint: the first column of $X$ is all 1s, and this is always important.* Also find the inverse of this 2x2 matrix.
+2. Verify that $X^TX\hat{\underline\beta} = X^T\underline y$ is solved by $\hat{\underline\beta} = (X^TX)^{-1}X^T\underline y$ (i.e., plug $\hat{\underline\beta}$ into the first equation and simplify).
+3. Show that $V(\hat\beta_0) = \frac{\sigma^2\sum x_i^2}{S_{XX}}$ and $V(\hat\beta_1) = \frac{\sigma^2}{S_{XX}}$. *Hint: Show $V(\hat\beta_1)$ first, then use the fact that $\hat\beta_0 = \bar y - \hat\beta_1\bar x$.*
 4. Verify that $X_0(X^TX)^{-1}X_0$ is a scalar.
 5. Verify (empirically or mathematically) that $V(\hat Y_{n + 1})$ is smallest when $x_0 = \bar x$.
 6. Explain why $V(\hat y_{n+1}) > V(\hat y)$. In other words, explain why there's less variance when predicting values in our data rather than predicting values outside our data.
@@ -267,7 +280,7 @@ The variance of the line evaluated at an existing point is smaller than the vari
 <summary>**Solution**</summary>
 The values in our data set were used to fit the model, and thus we've already dealt with them as a source of variance. A new data point comes with a new source of variance, and this is accounted for in $V(\hat y_{n+1})$.
 
-Somewhat paradoxically, there might be a data point at $x = 1$ in our data, and we get two different variances depending on whether we're treating it as an observation or a new value!
+Somewhat paradoxically, we get two different variances depending on whether we're treating it as an observation or a new value!
 </details>
 *****
 
@@ -280,7 +293,8 @@ For the next few questions, we'll use the `mtcars` data. In the following block 
 data(mtcars)
 y <- mtcars$mpg
 X <- cbind(1, mtcars$wt)
-XTX1 <- solve(t(X) %*% X) # (X^TX)^-1
+# (X^TX)^-1
+XTX1 <- solve(t(X) %*% X) 
 ```
 
 7. Verify that $\hat{\underline{\beta}} = (X^TX)^{-1}X^T\underline y$ is the same as the output from R.
@@ -288,7 +302,7 @@ XTX1 <- solve(t(X) %*% X) # (X^TX)^-1
 9. using the matrix forms, verify that $V(\hat\beta_0)$ and $V(\hat\beta_1)$ (using $s^2$ rather than $\sigma^2$) are what are found in the summary table of a linear model in R.
 
 <details>
-<summary>**Solutions to questions 7-8**</summary>
+<summary>**Solutions to questions 7-9**</summary>
 
 ```{r}
 #| label: matrix-properties
@@ -352,7 +366,7 @@ cov(beta0s, beta1s)
 
 <details>
 <summary>**Solution**</summary>
-No. Play around all you like, and you'll never get a positive correlation.
+Yes! Make it so $\bar x$ is negative. (It does not matter if the signs of $\beta_0$ or $\beta_1$ are positive or negative, it only matters if $\bar x > 0$.)
 
 </details>
 *****
@@ -365,12 +379,12 @@ No. Play around all you like, and you'll never get a positive correlation.
 R(\beta_1) &= \sum(y_i - \beta_0 - \beta_1x_i)^2\\
 \implies \frac{dR(\beta_1)}{d\beta_1} &= -2\sum(y_ix_i - \beta_0x_i - \beta_1x_i^2)\stackrel{set}{=}0\\
 \implies &= \sum y_ix_i - \beta_0\sum x_i - \hat\beta_1\sum x_i^2\\
-\implies \hat\beta_1 = \frac{\sum y_ix_i - \beta_0\sum x_i}{\sum x_i^2}
+\implies \hat\beta_1 &= \frac{\sum y_ix_i - \beta_0\sum x_i}{\sum x_i^2}
 \end{align*}
 </details>
 *****
 
-13. Use your answer to question 12 to demonstrate how increasing the intercept will always lead to a decrease in the slope, thus explaining the negative correlation between $\hat\beta_0$ and $\hat\beta_1$.
+13. Use your answer to question 12 to demonstrate how increasing the intercept will always lead to a decrease in the slope whenever $\bar x > 0$, thus explaining the negative correlation between $\hat\beta_0$ and $\hat\beta_1$. Repeat for $\bar x < 0$.
 
 <details>
 <summary>**Solution**</summary>
@@ -399,5 +413,7 @@ As a side note, all of the lines go through the same point. It isn't $(\bar x, \
 
 </details>
 *****
+
+14. What happens to the correlation of $\hat\beta_0$ and $\hat\beta_1$ when $\bar x = 0$? Use your answers above to explain this intuitively
 
 :::
