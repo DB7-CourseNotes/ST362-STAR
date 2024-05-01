@@ -15,7 +15,7 @@ book:
   subtitle: "Simulation, Theory, and Application of Regression"
   author: "Dr. Devan Becker"
   date: "last-modified"
-  repo-url: https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes
+#  repo-url: https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes
   page-footer:
     left: |
       Copyright Devan Becker, released under Creative Commons Attribution-ShareAlike 4.0.
