@@ -291,6 +291,8 @@ XTX1 <- solve(t(X) %*% X) # (X^TX)^-1
 <summary>**Solutions to questions 7-8**</summary>
 
 ```{r}
+#| label: matrix-properties
+#| code-fold: false
 # 7.
 coef(lm(mpg ~ wt, data = mtcars))
 XTX1 %*% t(X) %*% y
@@ -322,6 +324,8 @@ c(
 <summary>**Solution**</summary>
 
 ```{r}
+#| label: beta-correlation
+#| code-fold: false
 n <- 100
 x <- runif(n, 0, 10)
 X <- cbind(1, x)
@@ -372,6 +376,8 @@ R(\beta_1) &= \sum(y_i - \beta_0 - \beta_1x_i)^2\\
 <summary>**Solution**</summary>
 
 ```{r}
+#| label: beta0-fixed-correlation-demo
+#| code-fold: false
 n <- 100
 x <- runif(n, 0, 10)
 true_beta0 <- 2

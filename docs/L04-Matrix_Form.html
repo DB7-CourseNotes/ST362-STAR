@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-26">
+<meta name="dcterms.date" content="2024-05-01">
 
 <title>STAR Notes - 4&nbsp; Regression in Matrix Form</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -392,6 +426,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#variance-of-hat-y_n1" id="toc-variance-of-hat-y_n1" class="nav-link" data-scroll-target="#variance-of-hat-y_n1">Variance of <span class="math inline">\(\hat Y_{n+1}\)</span></a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">4.3</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/blob/main/L04-Matrix_Form.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -424,7 +459,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-26</p>
+      <p class="date">2024-05-01</p>
     </div>
   </div>
   
@@ -438,8 +473,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="4.1" class="anchored" data-anchor-id="chapter-04-summary"><span class="header-section-number">4.1</span> Chapter 04 Summary</h2>
 <section id="matrix-forms-of-things-weve-seen" class="level3">
 <h3 class="anchored" data-anchor-id="matrix-forms-of-things-weve-seen">Matrix Forms of Things We’ve Seen</h3>
-<p>Using</p>
-<p><span class="math display">\[
+<p>Using <span class="math display">\[
 Y = \begin{bmatrix}Y_1\\ Y_2\\ \vdots\\ Y_n\end{bmatrix};\quad \underline y = \begin{bmatrix}y_1\\ y_2\\ \vdots\\ y_n\end{bmatrix};\quad X = \begin{bmatrix}1 &amp; x_1\\1 &amp;x_2\\ \vdots &amp; \vdots\\ 1 &amp; x_n\end{bmatrix};\quad \underline\beta = \begin{bmatrix}\beta_0\\\beta_1\end{bmatrix};\quad\underline\epsilon \begin{bmatrix}\epsilon_1\\ \epsilon_2\\ \vdots\\ \epsilon_n\end{bmatrix}
 \]</span></p>
 <p><span class="math inline">\(Y = X\underline\beta + \underline\epsilon\)</span> is the same as <span class="math display">\[\begin{align*}
@@ -455,7 +489,7 @@ Y_n &amp;= \beta_0 + \beta_1x_n + \epsilon_n\\
 \underline\epsilon^T\underline\epsilon &amp;= \epsilon_1^2 + \epsilon_2^2 + ... + \epsilon_n^2 = \sum_{i=1}^n\epsilon_i^2\\
 Y^TY &amp;= \sum Y_i^2\\
 \mathbf{1}^T\underline y &amp;= \sum y_i = n\bar y\\
-X^TX &amp;= \begin{bmatrix}n &amp; \sum x_i\\ \sum x_i &amp; \sum x_i^2\end{bmatrix}\\
+X^TX &amp;= \begin{bmatrix}n &amp; \sum x_i\\ \sum x_i &amp; \sum x_i^2\end{bmatrix}\;\text{ (show this)}\\
 (X^TX)^{-1} &amp;= \frac{1}{nS_{XX}}\begin{bmatrix}\sum x_i^2 &amp; -n\bar x\\-n \bar x &amp; n\end{bmatrix}\\
 X^TY &amp;= \begin{bmatrix}\sum Y_i\\ \sum x_iY_i\end{bmatrix}
 \end{align*}\]</span></p>
@@ -598,9 +632,175 @@ V(\hat Y_0) &amp;= \sigma^2X_0(X^TX)^{-1}X_0^T\\
 V(\hat Y_{n+1}) &amp;= \sigma^2(X_{n+1}(X^TX)^{-1}X_{n+1}^T + 1)\\
 \end{align*}\]</span></p>
 <p>This will <em>not</em> change when we add predictors!</p>
-
-
 </section>
+</section>
+<section id="exercises" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.3</span> Exercises</h2>
+<ol type="1">
+<li>Show that <span class="math inline">\(X^TX &amp;= \begin{bmatrix}n &amp; \sum x_i\\ \sum x_i &amp; \sum x_i^2\end{bmatrix}\)</span>. <em>Hint: the first column of <span class="math inline">\(X\)</span> is all 1s, and this is always important.</em></li>
+<li>Verify that <span class="math inline">\(X^TX\hat{\underline\beta} = X^T\underline y\quad \Leftrightarrow\quad \hat{\underline\beta} = (X^TX)^{-1}X^T\underline y\)</span>.</li>
+<li>Show that <span class="math inline">\(V(\hat\beta_0) = \frac{\sigma^2\sum x_i^2}{S_{XX}}\)</span> and <span class="math inline">\(V(\hat\beta_1) = \frac{\sigma^2}{S_{XX}}\)</span>. *Hint: Show <span class="math inline">\(V(\hat\beta_1)\)</span> first, then use the fact that <span class="math inline">\(\hat\beta_0 = \bar y - \hat\beta_1\bar x\)</span>.</li>
+<li>Verify that <span class="math inline">\(X_0(X^TX)^{-1}X_0\)</span> is a scalar.</li>
+<li>Verify (empirically or mathematically) that <span class="math inline">\(V(\hat Y_{n + 1})\)</span> is smallest when <span class="math inline">\(x_0 = \bar x\)</span>.</li>
+<li>Explain why <span class="math inline">\(V(\hat y_{n+1}) &gt; V(\hat y)\)</span>. In other words, explain why there’s less variance when predicting values in our data rather than predicting values outside our data.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>The values in our data set were used to fit the model, and thus we’ve already dealt with them as a source of variance. A new data point comes with a new source of variance, and this is accounted for in <span class="math inline">\(V(\hat y_{n+1})\)</span>.</p>
+Somewhat paradoxically, there might be a data point at <span class="math inline">\(x = 1\)</span> in our data, and we get two different variances depending on whether we’re treating it as an observation or a new value!
+</details>
+<hr>
+<p>For the next few questions, we’ll use the <code>mtcars</code> data. In the following block of code, I will set up some of the matrices for you!</p>
+<div class="cell" data-hash="L04-Matrix_Form_cache/html/mtcars-design_7eccbbab7c48178a3342a4c42d879b00">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, mtcars<span class="sc">$</span>wt)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>XTX1 <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="co"># (X^TX)^-1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="7" type="1">
+<li>Verify that <span class="math inline">\(\hat{\underline{\beta}} = (X^TX)^{-1}X^T\underline y\)</span> is the same as the output from R.</li>
+<li>Verify via matrix multiplication in R that <span class="math inline">\(\hat{\underline{\beta}}\)</span> is the solution to <span class="math inline">\(X^TX\underline{\hat\beta} = X^T\underline y\)</span>.</li>
+<li>using the matrix forms, verify that <span class="math inline">\(V(\hat\beta_0)\)</span> and <span class="math inline">\(V(\hat\beta_1)\)</span> (using <span class="math inline">\(s^2\)</span> rather than <span class="math inline">\(\sigma^2\)</span>) are what are found in the summary table of a linear model in R.</li>
+</ol>
+<details>
+<summary>
+<strong>Solutions to questions 7-8</strong>
+</summary>
+<div class="cell" data-hash="L04-Matrix_Form_cache/html/matrix-properties_900e4eef929b76a7e8083c54723cd6be">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)          wt 
+  37.285126   -5.344472 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>XTX1 <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 37.285126
+[2,] -5.344472</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 8.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> XTX1 <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t</span>(X) <span class="sc">%*%</span> X <span class="sc">%*%</span> beta,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 9.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars))<span class="sc">$</span>coef[, <span class="st">"Std. Error"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)          wt 
+   1.877627    0.559101 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars))<span class="sc">$</span>sigma</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Sxx <span class="ot">&lt;-</span> <span class="fu">sum</span>((mtcars<span class="sc">$</span>wt <span class="sc">-</span> <span class="fu">mean</span>(mtcars<span class="sc">$</span>wt))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sqrt</span>(sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>(mtcars<span class="sc">$</span>wt<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">*</span> Sxx)),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sqrt</span>(sigma<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (Sxx))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.877627 0.559101</code></pre>
+</div>
+</div>
+<hr>
+</details>
+<ol start="10" type="1">
+<li>Using simulation, verify that <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> are negatively correlated. Show a plot of <span class="math inline">\(\hat\beta_1\)</span> versus <span class="math inline">\(\hat\beta_0\)</span> from each of the simulated data sets.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell" data-hash="L04-Matrix_Form_cache/html/beta-correlation_c2a2119f6cbcc103dbd4701de113fa85">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>beta0s <span class="ot">&lt;-</span> beta1s <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="dv">1000</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>) <span class="co"># sigma^2 = 9</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x <span class="sc">+</span> e</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    beta <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    beta0s[i] <span class="ot">&lt;-</span> beta[<span class="dv">1</span>]</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    beta1s[i] <span class="ot">&lt;-</span> beta[<span class="dv">2</span>]</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(beta0s, beta1s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L04-Matrix_Form_files/figure-html/beta-correlation-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is slightly off because cov(b0s, b1s) is based on s, not sigma</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(beta0s, beta1s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.04772858</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="dv">9</span> <span class="sc">*</span> <span class="fu">mean</span>(x) <span class="sc">/</span> <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.04864048</code></pre>
+</div>
+</div>
+</details>
+<hr>
+<ol start="11" type="1">
+<li>Is it possible to change the simulation above to get a positive correlation?</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>No.&nbsp;Play around all you like, and you’ll never get a positive correlation.</p>
+</details>
+<hr>
+<ol start="12" type="1">
+<li>In the simple linear regression case, derive an estimate for <span class="math inline">\(\beta_1\)</span> when <span class="math inline">\(\beta_0\)</span> is a fixed value.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<span class="math display">\[\begin{align*}
+R(\beta_1) &amp;= \sum(y_i - \beta_0 - \beta_1x_i)^2\\
+\implies \frac{dR(\beta_1)}{d\beta_1} &amp;= -2\sum(y_ix_i - \beta_0x_i - \beta_1x_i^2)\stackrel{set}{=}0\\
+\implies &amp;= \sum y_ix_i - \beta_0\sum x_i - \hat\beta_1\sum x_i^2\\
+\implies \hat\beta_1 = \frac{\sum y_ix_i - \beta_0\sum x_i}{\sum x_i^2}
+\end{align*}\]</span>
+</details>
+<hr>
+<ol start="13" type="1">
+<li>Use your answer to question 12 to demonstrate how increasing the intercept will always lead to a decrease in the slope, thus explaining the negative correlation between <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell" data-hash="L04-Matrix_Form_cache/html/beta0-fixed-correlation-demo_fee50413e99f87f680a58291cb306e36">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>true_beta0 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>true_beta1 <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> true_beta0 <span class="sc">+</span> true_beta1 <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (beta0 <span class="cf">in</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">8</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">12</span>, <span class="dv">17</span>)) {</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    b1hat <span class="ot">&lt;-</span> (<span class="fu">sum</span>(x <span class="sc">*</span> y) <span class="sc">-</span> beta0 <span class="sc">*</span> <span class="fu">sum</span>(x)) <span class="sc">/</span> (<span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">a =</span> beta0, <span class="at">b =</span> b1hat)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L04-Matrix_Form_files/figure-html/beta0-fixed-correlation-demo-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>As <span class="math inline">\(\beta_0\)</span> increases, <span class="math inline">\(\hat\beta_1\)</span> is forced to have a smaller slope in order to still fit the data well. If <span class="math inline">\(\beta_0\)</span> were 1000, the line would have to have a very large negative slope in order to even come close to the data!</p>
+<p>Conversely, if <span class="math inline">\(\beta_0\)</span> were very small, <span class="math inline">\(\hat\beta_1\)</span> would need to be very large. They’re negatively correlated!</p>
+<p>As a side note, all of the lines go through the same point. It isn’t <span class="math inline">\((\bar x, \bar y)\)</span>! What is it? <em>Hint: take any two lines and find the estimator of <span class="math inline">\(\beta_1\)</span>, then set them equal to each other. Do this with the values, then do this using <span class="math inline">\(\beta_0^{(1)}\)</span> and <span class="math inline">\(\beta_0^{(2)}\)</span></em>.</p>
+</details>
+<hr>
+
+
 </section>
 
 </main> <!-- /main -->
