@@ -51,4 +51,10 @@
             "</details>"
         ]
     },
+
+    "betahat" :{
+        "scope": "quarto",
+        "prefix": "betahat",
+        "body": "\\underline{\\hat{\\beta}}"
+    }
 }
