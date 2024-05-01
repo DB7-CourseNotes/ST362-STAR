@@ -411,22 +411,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#chapter-04-summary" id="toc-chapter-04-summary" class="nav-link active" data-scroll-target="#chapter-04-summary"><span class="header-section-number">4.1</span> Chapter 04 Summary</a>
+  <li><a href="#putting-things-in-boxes" id="toc-putting-things-in-boxes" class="nav-link active" data-scroll-target="#putting-things-in-boxes"><span class="header-section-number">4.1</span> Putting Things in Boxes</a>
   <ul class="collapse">
   <li><a href="#matrix-forms-of-things-weve-seen" id="toc-matrix-forms-of-things-weve-seen" class="nav-link" data-scroll-target="#matrix-forms-of-things-weve-seen">Matrix Forms of Things We’ve Seen</a></li>
   <li><a href="#some-fun-matrix-forms" id="toc-some-fun-matrix-forms" class="nav-link" data-scroll-target="#some-fun-matrix-forms">Some Fun Matrix Forms</a></li>
   <li><a href="#the-normal-equations" id="toc-the-normal-equations" class="nav-link" data-scroll-target="#the-normal-equations">The “Normal” Equations</a></li>
-  <li><a href="#corrected-anova-in-matrix-form" id="toc-corrected-anova-in-matrix-form" class="nav-link" data-scroll-target="#corrected-anova-in-matrix-form">(Corrected) ANOVA in Matrix Form</a></li>
-  </ul></li>
-  <li><a href="#variances" id="toc-variances" class="nav-link" data-scroll-target="#variances"><span class="header-section-number">4.2</span> Variances</a>
-  <ul class="collapse">
   <li><a href="#variance-of-a-vector-the-variance-covariance-matrix" id="toc-variance-of-a-vector-the-variance-covariance-matrix" class="nav-link" data-scroll-target="#variance-of-a-vector-the-variance-covariance-matrix">Variance of a Vector: the Variance-Covariance Matrix</a></li>
   <li><a href="#vhatunderlinebeta" id="toc-vhatunderlinebeta" class="nav-link" data-scroll-target="#vhatunderlinebeta"><span class="math inline">\(V(\hat{\underline\beta})\)</span></a></li>
   <li><a href="#variance-of-hat-y_0" id="toc-variance-of-hat-y_0" class="nav-link" data-scroll-target="#variance-of-hat-y_0">Variance of <span class="math inline">\(\hat Y_0\)</span></a></li>
   <li><a href="#variance-of-hat-y_n1" id="toc-variance-of-hat-y_n1" class="nav-link" data-scroll-target="#variance-of-hat-y_n1">Variance of <span class="math inline">\(\hat Y_{n+1}\)</span></a></li>
+  <li><a href="#corrected-anova-in-matrix-form" id="toc-corrected-anova-in-matrix-form" class="nav-link" data-scroll-target="#corrected-anova-in-matrix-form">(Corrected) ANOVA in Matrix Form</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">4.3</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">4.2</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/issues/new" class="toc-action">Report an issue</a></p><p><a href="https://github.com/DB7-CourseNotes/ST362-Regression-Course-Notes/blob/main/L04-Matrix_Form.qmd" class="toc-action">View source</a></p></div></div></nav>
     </div>
@@ -469,8 +466,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="chapter-04-summary" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="chapter-04-summary"><span class="header-section-number">4.1</span> Chapter 04 Summary</h2>
+<p>For the most part, this chapter is a couple of identities and a lot of exercises!!!</p>
+<section id="putting-things-in-boxes" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="putting-things-in-boxes"><span class="header-section-number">4.1</span> Putting Things in Boxes</h2>
 <section id="matrix-forms-of-things-weve-seen" class="level3">
 <h3 class="anchored" data-anchor-id="matrix-forms-of-things-weve-seen">Matrix Forms of Things We’ve Seen</h3>
 <p>Using <span class="math display">\[
@@ -514,55 +512,6 @@ X^T\underline y &amp;= \begin{bmatrix}\sum y_i\\ \sum x_iy_i\end{bmatrix}
 X^TX\hat{\underline\beta} = X^T\underline y\quad \Leftrightarrow\quad \hat{\underline\beta} = (X^TX)^{-1}X^T\underline y
 \]</span> Try this out using the definition of <span class="math inline">\((X^TX)^{-1}\)</span> on the previous slide.</p>
 </section>
-<section id="corrected-anova-in-matrix-form" class="level3">
-<h3 class="anchored" data-anchor-id="corrected-anova-in-matrix-form">(Corrected) ANOVA in Matrix Form</h3>
-<table class="table">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 23%">
-<col style="width: 23%">
-<col style="width: 23%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Source</th>
-<th><span class="math inline">\(df\)</span></th>
-<th><span class="math inline">\(SS\)</span></th>
-<th><span class="math inline">\(MS\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Regression (corrected)</td>
-<td>1</td>
-<td><span class="math inline">\(\hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2\)</span></td>
-<td><span class="math inline">\(SS/df\)</span></td>
-</tr>
-<tr class="even">
-<td>Error</td>
-<td><span class="math inline">\(n-2\)</span></td>
-<td><span class="math inline">\(\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y\)</span></td>
-<td><span class="math inline">\(SS/df\)</span></td>
-</tr>
-<tr class="odd">
-<td>Total (corrected)</td>
-<td><span class="math inline">\(n - 1\)</span></td>
-<td><span class="math inline">\(\underline y^t\underline y - n\bar{\underline y}^2\)</span></td>
-<td><span class="math inline">\(SS/df\)</span></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>The “corrected” ANOVA is the ANOVA table for comparing the errors due to <span class="math inline">\(\hat\beta_1\)</span> to the errors due to <span class="math inline">\(\hat\beta_0\)</span>.</li>
-<li>This is different from comparing a model with <span class="math inline">\(\hat\beta_0\)</span> <em>and</em> <span class="math inline">\(\hat\beta_1\)</span> to a model with neither parameter.
-<ul>
-<li>The value of the “correction” is based on <span class="math inline">\(\bar x\)</span>. If the slope is 0, then the estimate for <span class="math inline">\(\hat\beta_0\)</span> is <span class="math inline">\(\bar x\)</span>.</li>
-</ul></li>
-</ul>
-</section>
-</section>
-<section id="variances" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="variances"><span class="header-section-number">4.2</span> Variances</h2>
 <section id="variance-of-a-vector-the-variance-covariance-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="variance-of-a-vector-the-variance-covariance-matrix">Variance of a Vector: the Variance-Covariance Matrix</h3>
 <p>In general, for vector-valued random variable <span class="math inline">\(Z = (Z_1, Z_2, \dots, Z_n)\)</span>, <span class="math display">\[
@@ -622,6 +571,52 @@ V(\hat Y_{n+1}) &amp;= V(X_{n+1}\hat{\underline\beta} + \epsilon_{n+1})\\
 \end{align*}\]</span></p>
 <p>HWK: Verify (empirically or mathematically) that this is smallest when <span class="math inline">\(x_0 = \bar x\)</span>.</p>
 </section>
+<section id="corrected-anova-in-matrix-form" class="level3">
+<h3 class="anchored" data-anchor-id="corrected-anova-in-matrix-form">(Corrected) ANOVA in Matrix Form</h3>
+<table class="table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source</th>
+<th><span class="math inline">\(df\)</span></th>
+<th><span class="math inline">\(SS\)</span></th>
+<th><span class="math inline">\(MS\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Regression (corrected)</td>
+<td>1</td>
+<td><span class="math inline">\(\hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2\)</span></td>
+<td><span class="math inline">\(SS/df\)</span></td>
+</tr>
+<tr class="even">
+<td>Error</td>
+<td><span class="math inline">\(n-2\)</span></td>
+<td><span class="math inline">\(\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y\)</span></td>
+<td><span class="math inline">\(SS/df\)</span></td>
+</tr>
+<tr class="odd">
+<td>Total (corrected)</td>
+<td><span class="math inline">\(n - 1\)</span></td>
+<td><span class="math inline">\(\underline y^t\underline y - n\bar{\underline y}^2\)</span></td>
+<td><span class="math inline">\(SS/df\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The “corrected” ANOVA is the ANOVA table for comparing the errors due to <span class="math inline">\(\hat\beta_1\)</span> to the errors due to <span class="math inline">\(\hat\beta_0\)</span>.</li>
+<li>This is different from comparing a model with <span class="math inline">\(\hat\beta_0\)</span> <em>and</em> <span class="math inline">\(\hat\beta_1\)</span> to a model with neither parameter.
+<ul>
+<li>The value of the “correction” is based on <span class="math inline">\(\bar x\)</span>. If the slope is 0, then the estimate for <span class="math inline">\(\hat\beta_0\)</span> is <span class="math inline">\(\bar x\)</span>.</li>
+</ul></li>
+</ul>
+</section>
 <section id="summary" class="level3">
 <h3 class="anchored" data-anchor-id="summary">Summary</h3>
 <p>When we have one predictor, it is clear that: <span class="math display">\[\begin{align*}
@@ -634,12 +629,12 @@ V(\hat Y_{n+1}) &amp;= \sigma^2(X_{n+1}(X^TX)^{-1}X_{n+1}^T + 1)\\
 <p>This will <em>not</em> change when we add predictors!</p>
 </section>
 </section>
-<section id="exercises" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.3</span> Exercises</h2>
+<section id="exercises" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.2</span> Exercises</h2>
 <ol type="1">
-<li>Show that <span class="math inline">\(X^TX &amp;= \begin{bmatrix}n &amp; \sum x_i\\ \sum x_i &amp; \sum x_i^2\end{bmatrix}\)</span>. <em>Hint: the first column of <span class="math inline">\(X\)</span> is all 1s, and this is always important.</em></li>
-<li>Verify that <span class="math inline">\(X^TX\hat{\underline\beta} = X^T\underline y\quad \Leftrightarrow\quad \hat{\underline\beta} = (X^TX)^{-1}X^T\underline y\)</span>.</li>
-<li>Show that <span class="math inline">\(V(\hat\beta_0) = \frac{\sigma^2\sum x_i^2}{S_{XX}}\)</span> and <span class="math inline">\(V(\hat\beta_1) = \frac{\sigma^2}{S_{XX}}\)</span>. *Hint: Show <span class="math inline">\(V(\hat\beta_1)\)</span> first, then use the fact that <span class="math inline">\(\hat\beta_0 = \bar y - \hat\beta_1\bar x\)</span>.</li>
+<li>Show that <span class="math inline">\(X^TX = \begin{bmatrix}n &amp; \sum x_i\\ \sum x_i &amp; \sum x_i^2\end{bmatrix}\)</span>. <em>Hint: the first column of <span class="math inline">\(X\)</span> is all 1s, and this is always important.</em> Also find the inverse of this 2x2 matrix.</li>
+<li>Verify that <span class="math inline">\(X^TX\hat{\underline\beta} = X^T\underline y\)</span> is solved by <span class="math inline">\(\hat{\underline\beta} = (X^TX)^{-1}X^T\underline y\)</span> (i.e., plug <span class="math inline">\(\hat{\underline\beta}\)</span> into the first equation and simplify).</li>
+<li>Show that <span class="math inline">\(V(\hat\beta_0) = \frac{\sigma^2\sum x_i^2}{S_{XX}}\)</span> and <span class="math inline">\(V(\hat\beta_1) = \frac{\sigma^2}{S_{XX}}\)</span>. <em>Hint: Show <span class="math inline">\(V(\hat\beta_1)\)</span> first, then use the fact that <span class="math inline">\(\hat\beta_0 = \bar y - \hat\beta_1\bar x\)</span>.</em></li>
 <li>Verify that <span class="math inline">\(X_0(X^TX)^{-1}X_0\)</span> is a scalar.</li>
 <li>Verify (empirically or mathematically) that <span class="math inline">\(V(\hat Y_{n + 1})\)</span> is smallest when <span class="math inline">\(x_0 = \bar x\)</span>.</li>
 <li>Explain why <span class="math inline">\(V(\hat y_{n+1}) &gt; V(\hat y)\)</span>. In other words, explain why there’s less variance when predicting values in our data rather than predicting values outside our data.</li>
@@ -649,15 +644,16 @@ V(\hat Y_{n+1}) &amp;= \sigma^2(X_{n+1}(X^TX)^{-1}X_{n+1}^T + 1)\\
 <strong>Solution</strong>
 </summary>
 <p>The values in our data set were used to fit the model, and thus we’ve already dealt with them as a source of variance. A new data point comes with a new source of variance, and this is accounted for in <span class="math inline">\(V(\hat y_{n+1})\)</span>.</p>
-Somewhat paradoxically, there might be a data point at <span class="math inline">\(x = 1\)</span> in our data, and we get two different variances depending on whether we’re treating it as an observation or a new value!
+Somewhat paradoxically, we get two different variances depending on whether we’re treating it as an observation or a new value!
 </details>
 <hr>
 <p>For the next few questions, we’ll use the <code>mtcars</code> data. In the following block of code, I will set up some of the matrices for you!</p>
-<div class="cell" data-hash="L04-Matrix_Form_cache/html/mtcars-design_7eccbbab7c48178a3342a4c42d879b00">
+<div class="cell" data-hash="L04-Matrix_Form_cache/html/mtcars-design_6704404208a31321c8d3c6d10d10be53">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, mtcars<span class="sc">$</span>wt)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>XTX1 <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="co"># (X^TX)^-1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># (X^TX)^-1</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>XTX1 <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="7" type="1">
 <li>Verify that <span class="math inline">\(\hat{\underline{\beta}} = (X^TX)^{-1}X^T\underline y\)</span> is the same as the output from R.</li>
@@ -666,7 +662,7 @@ Somewhat paradoxically, there might be a data point at <span class="math inline"
 </ol>
 <details>
 <summary>
-<strong>Solutions to questions 7-8</strong>
+<strong>Solutions to questions 7-9</strong>
 </summary>
 <div class="cell" data-hash="L04-Matrix_Form_cache/html/matrix-properties_900e4eef929b76a7e8083c54723cd6be">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7.</span></span>
@@ -753,7 +749,7 @@ Somewhat paradoxically, there might be a data point at <span class="math inline"
 <summary>
 <strong>Solution</strong>
 </summary>
-<p>No.&nbsp;Play around all you like, and you’ll never get a positive correlation.</p>
+<p>Yes! Make it so <span class="math inline">\(\bar x\)</span> is negative. (It does not matter if the signs of <span class="math inline">\(\beta_0\)</span> or <span class="math inline">\(\beta_1\)</span> are positive or negative, it only matters if <span class="math inline">\(\bar x &gt; 0\)</span>.)</p>
 </details>
 <hr>
 <ol start="12" type="1">
@@ -767,12 +763,12 @@ Somewhat paradoxically, there might be a data point at <span class="math inline"
 R(\beta_1) &amp;= \sum(y_i - \beta_0 - \beta_1x_i)^2\\
 \implies \frac{dR(\beta_1)}{d\beta_1} &amp;= -2\sum(y_ix_i - \beta_0x_i - \beta_1x_i^2)\stackrel{set}{=}0\\
 \implies &amp;= \sum y_ix_i - \beta_0\sum x_i - \hat\beta_1\sum x_i^2\\
-\implies \hat\beta_1 = \frac{\sum y_ix_i - \beta_0\sum x_i}{\sum x_i^2}
+\implies \hat\beta_1 &amp;= \frac{\sum y_ix_i - \beta_0\sum x_i}{\sum x_i^2}
 \end{align*}\]</span>
 </details>
 <hr>
 <ol start="13" type="1">
-<li>Use your answer to question 12 to demonstrate how increasing the intercept will always lead to a decrease in the slope, thus explaining the negative correlation between <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>.</li>
+<li>Use your answer to question 12 to demonstrate how increasing the intercept will always lead to a decrease in the slope whenever <span class="math inline">\(\bar x &gt; 0\)</span>, thus explaining the negative correlation between <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>. Repeat for <span class="math inline">\(\bar x &lt; 0\)</span>.</li>
 </ol>
 <details>
 <summary>
@@ -799,6 +795,9 @@ R(\beta_1) &amp;= \sum(y_i - \beta_0 - \beta_1x_i)^2\\
 <p>As a side note, all of the lines go through the same point. It isn’t <span class="math inline">\((\bar x, \bar y)\)</span>! What is it? <em>Hint: take any two lines and find the estimator of <span class="math inline">\(\beta_1\)</span>, then set them equal to each other. Do this with the values, then do this using <span class="math inline">\(\beta_0^{(1)}\)</span> and <span class="math inline">\(\beta_0^{(2)}\)</span></em>.</p>
 </details>
 <hr>
+<ol start="14" type="1">
+<li>What happens to the correlation of <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> when <span class="math inline">\(\bar x = 0\)</span>? Use your answers above to explain this intuitively</li>
+</ol>
 
 
 </section>
