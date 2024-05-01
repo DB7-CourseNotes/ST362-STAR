@@ -275,10 +275,12 @@ Which of the following is not an assumption of linear models?
 
 \pspace
 
-1. $$
-2. The variance is constant across all values of $X$.
-3. The height of the line is the mean value of $Y$ for a given $X$.
-4. None of the above.
+a. The line is straight.
+b. The variance is constant across all values of $X$.
+c. The height of the line is the mean value of $Y$ for a given $X$.
+d. None of the above.
+
+<!--- D --->
 
 ### Q02
 
@@ -286,11 +288,12 @@ Which of the following is a confidence interval for $s$?
 
 \pspace
 
-1. $\chi^2_n(0.055) \le \frac{(n-1)s^2}{\sigma^2} \le \chi^2_n(0.945)$
-2. $\chi^2_n(0.945) \le \frac{(n-1)s^2}{\sigma^2} \le \chi^2_n(0.055)$
-3. $s^2 \pm \text{Critical Value } * \text{ se}(s^2)$
-4. $s \pm \text{Critical Value } * \text{ se}(s)$
-5. None of the above
+a. $\chi^2_n(0.055) \le \frac{(n-1)s^2}{\sigma^2} \le \chi^2_n(0.945)$
+b. $s^2 \pm \text{Critical Value } * \text{ se}(s^2)$
+c. $s \pm \text{Critical Value } * \text{ se}(s)$
+d. None of the above
+
+<!--- D --->
 
 ### Q03
 
@@ -298,36 +301,48 @@ Which of the following is *not* a random variable?
 
 \pspace
 
-1. $Y$
-2. $\hat\epsilon_i$
-3. $\hat Y$
-4. $\underline\epsilon$
+a. $Y$
+b. $\hat\epsilon_i$
+c. $\hat Y$
+d. $\underline\epsilon$
+
+<!--- D --->
 
 ### Q04
 
-$F = t^2$
+For simple linear regression, the percent of variance explained is the square of the correlation between $y$ and $x$, i.e., $r^2$. 
 
-1. True
-2. False
-3. Sometimes true
+a. True
+b. False
+c. Sometimes true
+
+<!--- A --->
 
 ### Q05
 
 Which of the following is the definition of a residual?
 
-1. $y_i - \hat y_i$
-2. $(y_i - \hat y_i)^2$
-3. $\hat y_i - y_i$
-4. $(\hat y_i - y_i)^2$
+a. $y_i - \hat y_i$
+b. $(y_i - \hat y_i)^2$
+c. $\hat y_i - y_i$
+d. $(\hat y_i - y_i)^2$
+
+\pause
+
+A is the *estimated residual*. The **true residual** is $y_i - \beta_0 + \beta_1x_i$, where $\beta_0$ and $\beta_1$ are the true intercept and slope.
+
+<!--- A --->
 
 ### Q06
 
-Which of the following statements about $R^2$ is *false*?
+Which of the following statements about $R^2$ in simple linear regression is *false*?
 
-1. $R^2 = SSReg / SST$
-2. $R^2 = r^2$, where $r$ is the correlation between $\underline x$ and $\underline y$
-3. $R^2$ compares the variance of the line to the variance of $y$ alone
-4. $R^2$ is not a random variable
+a. $R^2 = SSReg / SST$
+b. $R^2 = r^2$, where $r$ is the correlation between $\underline x$ and $\underline y$
+c. $R^2$ compares the variance of the line to the variance of $y$ alone
+d. $R^2$ is not a random variable
+
+<!--- D --->
 
 :::
 
@@ -466,7 +481,7 @@ Consider the Null hypothesis $\beta_1 =0$ (why is this a good null?).
 
 - Under this null, $\frac{MSReg}{s^2}\sim F_{1, n-2}$.
     - Obvious CI from this. \lspace
-- This is equivalent to the t-test for $\beta_1$! (See text.)
+- This is exactly equivalent to the t-test for $\beta_1$! (See text.)
 
 
 ### MSE of a Parameter: Bias of $s^2$
@@ -482,7 +497,13 @@ E\left(\frac{(n-2)s^2}{\sigma^2}\right) = n-2 \Leftrightarrow E(s^2) = \sigma^2
 $$
 and thus $s^2$ is unbiased.\pause
 
-This does *not necessarily* mean that $s^2$ is the best estimator for $\sigma^2$!
+\pspace
+
+This does *not necessarily* mean that $s^2$ is the best estimator for $\sigma^2$! 
+::: {.content-visible unless-profile="book"}
+See course notes for a simulation!
+:::
+
 
 ### MSE of a Parameter: Bias of $s$
 
@@ -497,11 +518,22 @@ $$
 E(s) < \sqrt{E(s^2)} = \sqrt{\sigma^2} = \sigma
 $$
 
+### Summary
+
+- Most of regression involves **analysing the residuals**.
+    - Residuals **are** regression.
+    - Residual plots will all be explained/explored thoroughly.\lspace
+- $R^2 = \frac{SSReg}{SST}$ is the **percent of variance explained**.
+    - This is a very important concept.\lspace
+- MLE usually involves writing out a product of normals
+    - Take the `ln()`, then derivative, then set to 0 and solve.\lspace
+- The MSE is best interpreted relative to a hypothesis or other model.
+    - The raw value is sometimes - but rarely - useful.\lspace
 
 ::: {.content-visible when-profile="book"}
 ## Exercises
 
-Recommended textbook exercises: fdsafqewfg43rgv qwerk
+Recommended textbook exercises: TODO
 
 1. Explore why we use residuals versus fitted, rather than residuals versus observed. 
     - Fit a regression, then plot $\underline\epsilon$ versus $\underline y$. What do you notice?
@@ -538,6 +570,9 @@ Empiricially:
 cov(mylm$residuals, y)
 var(mylm$residuals)
 ```
+
+This is why we use residuals versus fitted, not residuals versus observed! 
+
 </details>
 *****
 
@@ -548,9 +583,7 @@ var(mylm$residuals)
 <details>
 <summary>**Solution**</summary>
 
-
-
-Derivation left as an exercise.
+Derivation left as an exercise. Hint: You are allowed to take a derivative with respect to $\sigma^2$, not just $\sigma$. 
 
 - MLE versus usual formula: We're dividing by $n$, not $n - 1$ or even $n - 2$! The mle is actually **biased**. We'll explore this in the next question.
 - There is no variance formula in least squares! MLE allows us to incorporate our assumption about the distribution of the residuals, giving us more to work with!
@@ -590,9 +623,17 @@ apply(vals, 2, function(x) {
 }) |> plot(x = n_minus, y = _)
 ```
 
-The MSE is lowest when we divide by... $n+1$???? Yes, this is just how it is. See [here](https://alemorales.info/post/variance-estimators/) for a bit more discussion on this issue. Basically, the estimator with $n-1$ is unbiased, and $n$ is lower variance without too much bias, while $n+1$ is more bias than we're comfortable with.
+The MSE is lowest when we divide by... $n+1$???? Yes, this is just how it is. See [here](https://alemorales.info/post/variance-estimators/) for a bit more discussion on this issue. Basically, the estimator with $n-1$ is unbiased, and $n$ is lower variance without too much bias, while $n+1$ is much more bias than we're comfortable with.
 
 </details>
 *****
+
+4. Prove that $\sum_i=1^n\hat\epsilon_i = 0$. Really try it yourself, then check the hint below only if your're struggling.
+
+<details>
+<summary>**Hint**</summary>
+$\hat\epsilon_i = y_i - \hat\beta_0 - \hat\beta_1x_i$, $\sum_{i=1}^ny_i = n\bar y$, and $\beta_0 = \bar y - \hat\beta_1x_i$.
+*****
+</details>
 
 :::

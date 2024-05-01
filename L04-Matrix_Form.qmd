@@ -25,10 +25,11 @@ set.seed(2112)
 ### Matrix Forms of Things We've Seen
 
 Using
-
 $$
 Y = \begin{bmatrix}Y_1\\ Y_2\\ \vdots\\ Y_n\end{bmatrix};\quad \underline y = \begin{bmatrix}y_1\\ y_2\\ \vdots\\ y_n\end{bmatrix};\quad X = \begin{bmatrix}1 & x_1\\1 &x_2\\ \vdots & \vdots\\ 1 & x_n\end{bmatrix};\quad \underline\beta = \begin{bmatrix}\beta_0\\\beta_1\end{bmatrix};\quad\underline\epsilon \begin{bmatrix}\epsilon_1\\ \epsilon_2\\ \vdots\\ \epsilon_n\end{bmatrix}
 $$
+
+\pspace
 
 $Y = X\underline\beta + \underline\epsilon$ is the same as
 \begin{align*}
@@ -44,7 +45,7 @@ Y_n &= \beta_0 + \beta_1x_n + \epsilon_n\\
 \underline\epsilon^T\underline\epsilon &= \epsilon_1^2 + \epsilon_2^2 + ... + \epsilon_n^2 = \sum_{i=1}^n\epsilon_i^2\\
 Y^TY &= \sum Y_i^2\\
 \mathbf{1}^T\underline y &= \sum y_i = n\bar y\\
-X^TX &= \begin{bmatrix}n & \sum x_i\\ \sum x_i & \sum x_i^2\end{bmatrix}\\
+X^TX &= \begin{bmatrix}n & \sum x_i\\ \sum x_i & \sum x_i^2\end{bmatrix}\;\text{ (show this)}\\
 (X^TX)^{-1} &= \frac{1}{nS_{XX}}\begin{bmatrix}\sum x_i^2 & -n\bar x\\-n \bar x & n\end{bmatrix}\\
 X^TY &= \begin{bmatrix}\sum Y_i\\ \sum x_iY_i\end{bmatrix}
 \end{align*}
@@ -250,4 +251,147 @@ The variance of the line evaluated at an existing point is smaller than the vari
 
 1. True\lspace
 2. False
+:::
+
+::: {.content-visible when-profile="book"}
+## Exercises
+
+1. Show that $X^TX &= \begin{bmatrix}n & \sum x_i\\ \sum x_i & \sum x_i^2\end{bmatrix}$. *Hint: the first column of $X$ is all 1s, and this is always important.*
+2. Verify that $X^TX\hat{\underline\beta} = X^T\underline y\quad \Leftrightarrow\quad \hat{\underline\beta} = (X^TX)^{-1}X^T\underline y$.
+3. Show that $V(\hat\beta_0) = \frac{\sigma^2\sum x_i^2}{S_{XX}}$ and $V(\hat\beta_1) = \frac{\sigma^2}{S_{XX}}$. *Hint: Show $V(\hat\beta_1)$ first, then use the fact that $\hat\beta_0 = \bar y - \hat\beta_1\bar x$.
+4. Verify that $X_0(X^TX)^{-1}X_0$ is a scalar.
+5. Verify (empirically or mathematically) that $V(\hat Y_{n + 1})$ is smallest when $x_0 = \bar x$.
+6. Explain why $V(\hat y_{n+1}) > V(\hat y)$. In other words, explain why there's less variance when predicting values in our data rather than predicting values outside our data.
+
+<details>
+<summary>**Solution**</summary>
+The values in our data set were used to fit the model, and thus we've already dealt with them as a source of variance. A new data point comes with a new source of variance, and this is accounted for in $V(\hat y_{n+1})$.
+
+Somewhat paradoxically, there might be a data point at $x = 1$ in our data, and we get two different variances depending on whether we're treating it as an observation or a new value!
+</details>
+*****
+
+For the next few questions, we'll use the `mtcars` data. In the following block of code, I will set up some of the matrices for you!
+
+```{r}
+#| label: mtcars-design
+#| code-fold: false
+
+data(mtcars)
+y <- mtcars$mpg
+X <- cbind(1, mtcars$wt)
+XTX1 <- solve(t(X) %*% X) # (X^TX)^-1
+```
+
+7. Verify that $\hat{\underline{\beta}} = (X^TX)^{-1}X^T\underline y$ is the same as the output from R.
+8. Verify via matrix multiplication in R that $\hat{\underline{\beta}}$ is the solution to $X^TX\underline{\hat\beta} = X^T\underline y$.
+9. using the matrix forms, verify that $V(\hat\beta_0)$ and $V(\hat\beta_1)$ (using $s^2$ rather than $\sigma^2$) are what are found in the summary table of a linear model in R.
+
+<details>
+<summary>**Solutions to questions 7-8**</summary>
+
+```{r}
+# 7.
+coef(lm(mpg ~ wt, data = mtcars))
+XTX1 %*% t(X) %*% y
+
+# 8.
+beta <- XTX1 %*% t(X) %*% y
+all.equal(
+    t(X) %*% X %*% beta,
+    t(X) %*% y
+)
+
+# 9.
+summary(lm(mpg ~ wt, data = mtcars))$coef[, "Std. Error"]
+sigma <- summary(lm(mpg ~ wt, data = mtcars))$sigma
+Sxx <- sum((mtcars$wt - mean(mtcars$wt))^2)
+n <- length(mtcars$mpg)
+c(
+    sqrt(sigma^2 * sum(mtcars$wt^2) / (n * Sxx)),
+    sqrt(sigma^2 / (Sxx))
+)
+```
+
+*****
+</details>
+
+10. Using simulation, verify that $\hat\beta_0$ and $\hat\beta_1$ are negatively correlated. Show a plot of $\hat\beta_1$ versus $\hat\beta_0$ from each of the simulated data sets. 
+
+<details>
+<summary>**Solution**</summary>
+
+```{r}
+n <- 100
+x <- runif(n, 0, 10)
+X <- cbind(1, x)
+
+beta0s <- beta1s <- double(1000)
+for (i in 1:1000) {
+    e <- rnorm(n, 0, 3) # sigma^2 = 9
+    y <- -2 + 3 * x + e
+    beta <- solve(t(X) %*% X) %*% t(X) %*% y
+    beta0s[i] <- beta[1]
+    beta1s[i] <- beta[2]
+}
+
+plot(beta0s, beta1s)
+
+# This is slightly off because cov(b0s, b1s) is based on s, not sigma
+cov(beta0s, beta1s)
+-9 * mean(x) / sum((x - mean(x))^2)
+```
+</details>
+*****
+
+11. Is it possible to change the simulation above to get a positive correlation?
+
+<details>
+<summary>**Solution**</summary>
+No. Play around all you like, and you'll never get a positive correlation.
+
+</details>
+*****
+
+12. In the simple linear regression case, derive an estimate for $\beta_1$ when $\beta_0$ is a fixed value.
+
+<details>
+<summary>**Solution**</summary>
+\begin{align*}
+R(\beta_1) &= \sum(y_i - \beta_0 - \beta_1x_i)^2\\
+\implies \frac{dR(\beta_1)}{d\beta_1} &= -2\sum(y_ix_i - \beta_0x_i - \beta_1x_i^2)\stackrel{set}{=}0\\
+\implies &= \sum y_ix_i - \beta_0\sum x_i - \hat\beta_1\sum x_i^2\\
+\implies \hat\beta_1 = \frac{\sum y_ix_i - \beta_0\sum x_i}{\sum x_i^2}
+\end{align*}
+</details>
+*****
+
+13. Use your answer to question 12 to demonstrate how increasing the intercept will always lead to a decrease in the slope, thus explaining the negative correlation between $\hat\beta_0$ and $\hat\beta_1$.
+
+<details>
+<summary>**Solution**</summary>
+
+```{r}
+n <- 100
+x <- runif(n, 0, 10)
+true_beta0 <- 2
+true_beta1 <- 4
+y <- true_beta0 + true_beta1 * x + rnorm(n, 0, 3)
+plot(y ~ x)
+
+for (beta0 in c(-8, -3, 2, 7, 12, 17)) {
+    b1hat <- (sum(x * y) - beta0 * sum(x)) / (sum(x^2))
+    abline(a = beta0, b = b1hat)
+}
+```
+
+As $\beta_0$ increases, $\hat\beta_1$ is forced to have a smaller slope in order to still fit the data well. If $\beta_0$ were 1000, the line would have to have a very large negative slope in order to even come close to the data!
+
+Conversely, if $\beta_0$ were very small, $\hat\beta_1$ would need to be very large. They're negatively correlated!
+
+As a side note, all of the lines go through the same point. It isn't $(\bar x, \bar y)$! What is it? *Hint: take any two lines and find the estimator of $\beta_1$, then set them equal to each other. Do this with the values, then do this using $\beta_0^{(1)}$ and $\beta_0^{(2)}$*.
+
+</details>
+*****
+
 :::
