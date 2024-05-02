@@ -30,7 +30,7 @@ We then take the derivative with respect to $\underline\beta$. Note that $X^TX$ 
 \frac{\partial}{\partial\underline\beta}\underline\epsilon^T\underline\epsilon &= 0 - 2X^TY + 2X^TX\underline\beta
 \end{align*}
 
-- For the 1 predictor case, make sure the equations look the same!
+- For the 1 predictor case, verify that the equations look the same!
 
 Setting to 0, rearranging, and plugging in our data gets us the Normal equations:
 \begin{align*}
@@ -51,7 +51,7 @@ $$X^TX\underline{\hat\beta} = X^T\underline y$$
 ### Example Proof Problems
 
 1. Prove that $\sum_{i=1}^n\hat\epsilon_i\hat y_i = 0$.
-2. Prove that $(1/n)\sum_{i=1}^n\hat\epsilon_i = 0$.
+2. Prove that $\sum_{i=1}^n\hat\epsilon_i = 0$.
 3. Prove that $X^TX$ is symmetric. Is $A^TA$ symmetric in general?
 
 \small
@@ -363,5 +363,13 @@ Which ANOVA table does the `anova()` function calculate?
 | Total | $n - 1$ | $\underline y^t\underline y$ |
 
 
+:::
+
+::: {.content-visible when-profile="book"}
+## Exercises
+
+1. Prove that $\sum_{i=1}^n\hat\epsilon_i\hat y_i = 0$.
+2. Prove that $\sum_{i=1}^n\hat\epsilon_i = 0$.
+3. Prove that $X^TX$ is symmetric. Is $A^TA$ symmetric in general?
 :::
 
