@@ -8,17 +8,11 @@ institute: "Jam: **Higher Order** by Empire Me"
 set.seed(2112)
 ```
 
-```{r}
-#| include: false
-set.seed(2112)
-```
-
 ::: {.content-visible unless-profile="book"}
 ## Preamble
 
 ### Announcements
 
-- Check discussions!
 :::
 
 ## Non-Linear Relationships

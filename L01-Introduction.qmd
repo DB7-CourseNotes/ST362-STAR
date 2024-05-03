@@ -22,9 +22,6 @@ date: "last-modified"
 - Assignment 1 is a Group Assignment!
     - Teach each other to code some simulations!
     - Preference for group size?\lspace
-- See discussion posts!
-    - Bonus marks for one good post + one good reply.
-        - Can also get for one post + two short replies.
 
 
 :::

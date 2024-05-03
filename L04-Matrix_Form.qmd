@@ -14,7 +14,6 @@ set.seed(2112)
 
 ### Announcements
 
-- Check discussions!\lspace
 - No class on Monday.\lspace
 - Assignment 1 is due next Wednesday!\lspace
 - May 17th is last day to drop with 10% tuition charge\lspace

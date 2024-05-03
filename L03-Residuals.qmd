@@ -15,7 +15,6 @@ set.seed(2112)
 
 ### Announcements
 
-- Check discussions!\lspace
 - Lab 2 is Wednesday!
 :::
 
