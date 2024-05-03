@@ -12,6 +12,7 @@ institute: "**Jam TBD**"
 
 ```{r}
 #| include: false
+#| label: includes
 set.seed(2112)
 library(palmerpenguins)
 library(GGally)
@@ -33,6 +34,7 @@ library(GGally)
 ::: {.column width="50%"}
 
 ```{r}
+#| label: plot3d
 #| echo: false
 #| eval: true
 library(plot3D)
@@ -65,6 +67,7 @@ High cor. in $X$ $\implies$ high cor. in $\hat{\underline\beta}$.
 ::: {.column width="50%"}
 
 ```{r}
+#| label: multicor-consequences
 #| fig-width: 4
 set.seed(2112)
 replicate(1000, {
@@ -127,6 +130,7 @@ Why are the first column/row 0?
 ### Plotting $Cor(X)$
 
 ```{r}
+#| label: penguins-corr
 #| warning: true
 #| echo: true
 #| fig-height: 2
