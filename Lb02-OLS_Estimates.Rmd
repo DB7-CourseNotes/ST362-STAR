@@ -1,6 +1,9 @@
 ---
 title: "OLS Estimates"
 output: pdf_document
+format:
+    html:
+        code-fold: false
 ---
 
 ```{r}
