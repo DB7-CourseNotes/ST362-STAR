@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-03">
+<meta name="dcterms.date" content="2024-05-06">
 
 <title>STAR Notes - 2&nbsp; Fitting Straight Lines</title>
 <style>
@@ -438,7 +438,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#a-useful-identity-and-its-interpretations" id="toc-a-useful-identity-and-its-interpretations" class="nav-link" data-scroll-target="#a-useful-identity-and-its-interpretations">A Useful Identity, and its Interpretations</a></li>
   <li><a href="#sums-of-squares" id="toc-sums-of-squares" class="nav-link" data-scroll-target="#sums-of-squares">Sums of Squares</a></li>
   <li><a href="#aside-degrees-of-freedom" id="toc-aside-degrees-of-freedom" class="nav-link" data-scroll-target="#aside-degrees-of-freedom">Aside: Degrees of Freedom</a></li>
-  <li><a href="#sums-of-squares-1" id="toc-sums-of-squares-1" class="nav-link" data-scroll-target="#sums-of-squares-1">Sums of Squares</a></li>
+  <li><a href="#sums-of-squares-in-an-anova-table" id="toc-sums-of-squares-in-an-anova-table" class="nav-link" data-scroll-target="#sums-of-squares-in-an-anova-table">Sums of Squares in an ANOVA Table</a></li>
   <li><a href="#using-sumsmeans-of-squares" id="toc-using-sumsmeans-of-squares" class="nav-link" data-scroll-target="#using-sumsmeans-of-squares">Using Sums/Means of Squares</a></li>
   <li><a href="#the-f-test-for-significance-of-regression" id="toc-the-f-test-for-significance-of-regression" class="nav-link" data-scroll-target="#the-f-test-for-significance-of-regression">The F-test for Significance of Regression</a></li>
   <li><a href="#exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3" id="toc-exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3" class="nav-link" data-scroll-target="#exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3">Exercise A from Chapter 3 (Ch03 Exercises cover Ch1-3)</a></li>
@@ -476,7 +476,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-03</p>
+      <p class="date">2024-05-06</p>
     </div>
   </div>
   
@@ -501,7 +501,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Gravity: 9.8 <span class="math inline">\(m/s^2\)</span> right?
 <ul>
-<li>This is a <em>model</em> - it’s a relationship that explains something in the world.</li>
+<li>This is a <em>model</em> - it’s an equation that explains something in the world.</li>
 <li>Varies across the surface of the Earth.</li>
 <li>Varies according to air resistance.</li>
 </ul></li>
@@ -694,7 +694,7 @@ E(Y|X) = X\underline\beta
 </div>
 </div>
 <p>In the plot above, the value of <span class="math inline">\(\hat\beta_0\)</span> is varied from 24 to 68 by 4 (24, 28, 32, …), with the value of <span class="math inline">\(\hat\beta_1\)</span> fixed at -4. These lines are shown on the left.</p>
-<p>The right plots the sum of the errors in these lines. The sum starts above 0, then at some point goes below 0. This means that we can have a slope of <span class="math inline">\(\hat\beta_1 = -4\)</span>, then still find an intercept that makes the sum of the errors equal to 0!</p>
+<p>The right plots the sum of the errors in these lines. The sum starts above 0, then at some point goes below 0. This means that we can have a slope of <span class="math inline">\(\hat\beta_1 = -4\)</span>, but still find an intercept that makes the sum of the errors equal to 0!</p>
 </section>
 <section id="least-squares" class="level3">
 <h3 class="anchored" data-anchor-id="least-squares">Least Squares</h3>
@@ -747,7 +747,7 @@ R(\underline \beta) \stackrel{def}{=}\sum_{i=1}^n\hat\epsilon_i^2 &amp;= \sum_{i
 <p>It is easy to show that <span class="math display">\[
 \hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2} = \frac{\sum_{i-1}^n(x_i - \bar x)y_i}{\sum_{i-1}^n(x_i - \bar x)^2}
 \]</span> since <span class="math inline">\(\sum(x_i - \bar x) = 0\)</span> (show this).</p>
-<p>Homework: show that <span class="math inline">\(E(\hat\beta_1) = \beta_1\)</span> (*Hint: use the fact that <span class="math inline">\(E(y_i) = \beta_0 + \beta_1x_i\)</span>).</p>
+<p>Homework: show that <span class="math inline">\(E(\hat\beta_1) = \beta_1\)</span> (*Hint: use the fact that <span class="math inline">\(E(y_i) = \beta_0 + \beta_1x_i\)</span> - don’t mix up the estimated values <span class="math inline">\(\hat\beta\)</span> and the true values <span class="math inline">\(\beta\)</span>!).</p>
 </section>
 <section id="variance-of-hatbeta_1" class="level3">
 <h3 class="anchored" data-anchor-id="variance-of-hatbeta_1">Variance of <span class="math inline">\(\hat\beta_1\)</span></h3>
@@ -763,7 +763,7 @@ V(\hat\beta_1) = \sum_{i=1}^na_i^2V(y_i) = ... = \frac{\sigma^2}{S_{XX}} \stackr
 <section id="confidence-interval-and-test-statistic-for-hatbeta_1" class="level3">
 <h3 class="anchored" data-anchor-id="confidence-interval-and-test-statistic-for-hatbeta_1">Confidence Interval and Test Statistic for <span class="math inline">\(\hat\beta_1\)</span></h3>
 <p>The test statistic can be found as: <span class="math display">\[
-t = \frac{\hat\beta_1 - \beta_1}{se(\hat\beta_1)} = \frac{(\hat\beta_1 - \beta_1)\sqrt{S_{XX}}}{s} \sim t_\nu
+t = \frac{\hat\beta_1 - \beta_1}{se(\hat\beta_1)} = \frac{(\hat\beta_1 - \beta_1)}{s/\sqrt{S_{XX}}} \sim t_\nu
 \]</span></p>
 <p>Since this follows a <span class="math inline">\(t\)</span> distribution, we can get the CI: <span class="math display">\[
 \hat\beta_1 \pm t_\nu(\alpha/2)\sqrt{\frac{s^2}{S_{XX}}}
@@ -793,8 +793,8 @@ t = \frac{\hat\beta_1 - \beta_1}{se(\hat\beta_1)} = \frac{(\hat\beta_1 - \beta_1
 <h3 class="anchored" data-anchor-id="a-useful-identity-and-its-interpretations">A Useful Identity, and its Interpretations</h3>
 <p><span class="math display">\[\begin{align*}
 \hat\epsilon_i &amp;= y_i - \hat y_i \\&amp;= y_i - \bar y - (\hat y_i - \bar y)\\
-\implies \sum_{i=1}^n\hat\epsilon_i^2 &amp;= \sum_{i=1}^n(y_i-\bar y)^2 - \sum_{i=1}^n(\hat y_i - \bar y)^2
-\end{align*}\]</span> where we’ve simply added and subtracted <span class="math inline">\(\bar y\)</span>. The final line skips a few steps (try them yourself, or see textbook page 28.)!</p>
+\implies ... \implies \sum_{i=1}^n\hat\epsilon_i^2 &amp;= \sum_{i=1}^n(y_i-\bar y)^2 - \sum_{i=1}^n(\hat y_i - \bar y)^2
+\end{align*}\]</span> where we’ve simply added and subtracted <span class="math inline">\(\bar y\)</span>. The final line skips a few steps (try them yourself, or see textbook page 28)!</p>
 <p>The last line is often written as: <span class="math inline">\(SS_E = SS_T - SS_{Reg}\)</span>.</p>
 </section>
 <section id="sums-of-squares" class="level3">
@@ -804,14 +804,17 @@ SS_E = SS_T - SS_{Reg}
 \]</span></p>
 <ul>
 <li><span class="math inline">\(SS_E\)</span>: Sum of Squared Errors</li>
-<li><span class="math inline">\(SS_T\)</span>: Sum of Squares Total (i.e., without <span class="math inline">\(\underline x\)</span>)</li>
+<li><span class="math inline">\(SS_T\)</span>: Sum of Squares Total (i.e., without considering <span class="math inline">\(\underline x\)</span>)</li>
 <li><span class="math inline">\(SS_{Reg}\)</span>: Sum of Squares due to the regression.
 <ul>
 <li>It’s the variance of the line (calculated at observed <span class="math inline">\(\underline x\)</span> values) around the mean of <span class="math inline">\(\underline y\)</span>???
 <ul>
 <li>This is incredibly useful, but weird.</li>
 </ul></li>
-<li>I use <span class="math inline">\(SS_{Reg}\)</span> instead of <span class="math inline">\(SS_R\)</span>; some textbooks use <span class="math inline">\(SS_R\)</span> as the Sum of Squared <em>Residuals</em> (same as <span class="math inline">\(SS_E\)</span>), which is confusing.</li>
+<li>I use <span class="math inline">\(SS_{Reg}\)</span> instead of <span class="math inline">\(SS_R\)</span>
+<ul>
+<li>Some textbooks use <span class="math inline">\(SS_R\)</span> as SS <em>Residuals</em> (same as <span class="math inline">\(SS_E\)</span>), which is confusing.</li>
+</ul></li>
 </ul></li>
 </ul>
 </section>
@@ -836,8 +839,8 @@ SS_E = SS_T - SS_{Reg}
 <li>Can find <span class="math inline">\(\bar x\)</span> when <span class="math inline">\(x = (1)\)</span>, but can’t find <span class="math inline">\(s_x^2\)</span> because there aren’t enough <span class="math inline">\(df\)</span>!</li>
 </ul>
 </section>
-<section id="sums-of-squares-1" class="level3">
-<h3 class="anchored" data-anchor-id="sums-of-squares-1">Sums of Squares</h3>
+<section id="sums-of-squares-in-an-anova-table" class="level3">
+<h3 class="anchored" data-anchor-id="sums-of-squares-in-an-anova-table">Sums of Squares in an ANOVA Table</h3>
 <table class="table">
 <colgroup>
 <col style="width: 25%">
@@ -867,7 +870,7 @@ SS_E = SS_T - SS_{Reg}
 <td><span class="math inline">\(MS_E=s^2\)</span></td>
 </tr>
 <tr class="odd">
-<td>Total</td>
+<td>Total (corrected)</td>
 <td><span class="math inline">\(n-1\)</span></td>
 <td><span class="math inline">\(\sum_{i=1}^n(y_i - \bar y)^2\)</span></td>
 <td><span class="math inline">\(s_y^2\)</span></td>
@@ -879,6 +882,10 @@ SS_E = SS_T - SS_{Reg}
 <li>Why is <span class="math inline">\(df_E = n-2\)</span>? What two parameters have we estimated?
 <ul>
 <li><span class="math inline">\(df_{Reg}\)</span> is trickier to explain. It suffices to know that <span class="math inline">\(df_{Reg} = df_T-df_E\)</span>.</li>
+</ul></li>
+<li>“Corrected”: We estimated the mean of <span class="math inline">\(\underline y\)</span>, rather than just <span class="math inline">\(\sum y_i^2\)</span>.
+<ul>
+<li>This used a degree of freedom!</li>
 </ul></li>
 </ul>
 </section>

@@ -1,11 +1,11 @@
 ---
 title: "Statistics Review"
 subtitle: "Simulating Linear Models, Understanding Distributions"
-institute: "Jam: **Cold Empty Cars** by Andreas Goude"
+institute: "Jam: **Drop Me a Line** by Midnight Magic and **Shiny New Model** by BODEGA"
 date: "last-modified"
 ---
 
-<!--- Alternate jam: **Empty Cars** by Sea Of Is or by LWS --->
+<!--- Alternate jam: **Empty Cars** by Sea Of Is or by LWS; shiny new model by BODEGA; across that fine line by Nation of Language; ; the line by Meghan Tonjes; straight line by Christina Maria; **Love on the Line** by Early Sounds Recordings --->
 
 ::: {.content-visible unless-profile="book"}
 
@@ -24,6 +24,11 @@ date: "last-modified"
 - Assignment 1 is a Group Assignment!
     - Teach each other to code some simulations!
     - Preference for group size?\lspace
+
+### A Note on ChatGPT
+
+- Use for content/tutoring\lspace
+- Don't copy **_anything_**
 
 :::
 
@@ -527,7 +532,7 @@ $$
 Note that, if $X_i\sim N(\mu, \sigma)$, then $\frac{X_i - \mu}{\sigma} = Z = N(0,1)$ and:
 
 $$
-\dfrac{(n-1)S^2}{\sigma} = \dfrac{(n-1)\frac{1}{n-1}\sum_{i=1}^n(X_i - \bar X)^2}{sigma^2} = \sum_{i=1}^n\left(\dfrac{X_i - \bar X}{\sigma}\right) = \sum_{i=1}^nZ_i^2
+\dfrac{(n-1)S^2}{\sigma^2} = \dfrac{(n-1)\frac{1}{n-1}\sum_{i=1}^n(X_i - \bar X)^2}{\sigma^2} = \sum_{i=1}^n\left(\dfrac{X_i - \bar X}{\sigma}\right) = \sum_{i=1}^nZ_i^2
 $$
 
 So $n-1$ times the estimated variance divided by the true variance does follow a Chi-square distribution. There's some advanced math with distributions going on here; the takeaway message is that the variance follows a Chi-Square distribution **because** $X_i$ are assumed to be normal!
