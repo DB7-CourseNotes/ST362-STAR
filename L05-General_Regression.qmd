@@ -4,6 +4,7 @@ institute: "Jam: **I Predict a Riot** by The Kaiser Chefs"
 ---
 
 ```{r}
+#| label: setup
 #| include: false
 set.seed(2112)
 ```
@@ -55,6 +56,7 @@ $$X^TX\underline{\hat\beta} = X^T\underline y$$
 
 \small
 ```{r}
+#| label: XTX = XTXT
 #| echo: true
 #| eval: true
 ## Demonstration that they're true (up to a rounding error)
@@ -99,6 +101,7 @@ Again, note that a regression with no predictors always has $\hat\beta_0 = \bar 
 
 \small
 ```{r}
+#| label: mpg-anova-only
 #| echo: true
 anova(lm(mpg ~ disp, data = mtcars)) |> 
     knitr::kable()
@@ -115,6 +118,7 @@ anova(lm(mpg ~ disp, data = mtcars)) |>
 ::: {.column width="40%"}
 
 ```{r}
+#| label: plot-mpg
 #| fig-width: 4
 #| fig-height: 5
 plot(mpg ~ disp, data = mtcars)
@@ -127,6 +131,7 @@ abline(lm(mpg ~ disp, data = mtcars))
 
 \small
 ```{r}
+#| label: mpg-anova
 #| echo: true
 anova(lm(mpg ~ qsec, data = mtcars)) |> 
     knitr::kable()
@@ -143,6 +148,7 @@ What do you notice about these two tables?
 
 \scriptsize
 ```{r}
+#| label: mpg-anova-multi
 #| echo: true
 anova(lm(mpg ~ qsec + disp, data = mtcars)) |> 
     knitr::kable()
@@ -167,6 +173,7 @@ Works for multiple dimensions!\pause... kinda.
 ::: {.column width="60%"}
 \small
 ```{r}
+#| label: r-sq-increases-code
 #| echo: true
 #| eval: false
 nx <- 10 # Number of uncorrelated predictores
@@ -191,6 +198,7 @@ plot(1:10, rsquares[-1], type = "b",
 :::
 ::: {.column width="40%"}
 ```{r}
+#| label: r-sq-increases-plot
 #| echo: false
 #| eval: true
 #| fig-height: 4.5
