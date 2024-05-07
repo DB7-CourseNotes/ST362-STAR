@@ -18,6 +18,51 @@ set.seed(2112)
 - Lab 2 is Wednesday!
 :::
 
+## Rule Number 1: Always Plot Everything
+
+
+### Anscombe's Quartet
+
+Consider the following four data sets
+
+```{r}
+#| echo: false
+#| label: anscombe1
+
+xs <- paste0("x", 1:4)
+ys <- paste0("y", 1:4)
+
+df1 <- data.frame(data_set = 1:4,
+    xbar = sapply(xs, function(x) mean(anscombe[, x])),
+    sigma_x = sapply(xs, function(x) sd(anscombe[, x])),
+    ybar = sapply(ys, function(y) mean(anscombe[, y])),
+    sigma_y = sapply(ys, function(y) sd(anscombe[, y])),
+    corr = sapply(1:4, function(i) cor(anscombe[, xs[i]], anscombe[, ys[i]]))
+) 
+rownames(df1) <- NULL
+df1 |>
+    knitr::kable(row.names = FALSE)
+
+```
+
+Can you guess what the plots look like?
+
+### Anscombe's Quartet
+
+```{r}
+#| label: anscombe2
+#| echo: false
+
+par(mfrow = c(2, 2))
+for (i in 1:4) {
+    plot(x = anscombe[, xs[i]], y = anscombe[, ys[i]],
+        xlab = paste0("x", i), ylab = paste0("y", i),
+        ylim = c(0,13), xlim = c(4,20))
+    abline(lm(anscombe[, ys[i]] ~ anscombe[, xs[i]]))
+}
+```
+
+
 ## The residual: what's left over
 
 ### $R^2$: percent of variance explained by the regression model
@@ -26,9 +71,9 @@ set.seed(2112)
 ::: {.column width="30%"}
 \vspace{2cm}
 
-$$
-R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
-$$
+\begin{align*}
+R^2 &= \frac{SSReg}{SST}\\& = \frac{S_{XY}^2}{S_{XX}S_{YY}}
+\end{align*}
 
 :::
 ::: {.column width="70%"}
@@ -402,49 +447,6 @@ $$
 \hat\sigma^2 = \frac{1}{n}\sum_{i=1}^n\left(y_i - \hat\beta_0 - \hat\beta_1x_i\right)^2
 $$
 
-### Bias-Variance Decomposition
-
-On the next slide, we'll show that $E\left((Y_i - \hat Y_i)^2\right)$ can be decomposed into $V(\epsilon_i)$, squared bias, and the variance of the fitted model.
-
-\pspace
-
-- $V(\epsilon_i)$ is the variance of the *true* errors.\lspace
-- Bias is the difference between the true model and the estimated one.
-    - **Systematic** difference, not just random errors
-        - e.g. fitting a linear model to a non-linear trend\lspace
-- Variance of the fitted model *across all possible samples*
-
-\pspace
-
-Note that this is a slight deviation from how the text presents it.
-
-### Derivation
-
-Suppose the true value is $Y_i = g(x_i) + \epsilon_i$ (not necessarily linear), where $E(\epsilon_i) = 0$, $E(Y_i) = g(x_i)$, and $V(\epsilon_i) = \sigma^2$.
-\begin{align*}
-E\left((Y_i - \hat Y_i)^2\right) &= E(Y_i - 2Y_i\hat Y_i + \hat Y_i^2)\\
-&= E(Y_i^2) - 2E(Y_i\hat Y_i) + E(\hat Y_i^2)\\
-&= E((g(x_i) + \epsilon)^2) - 2E(g(x_i) + \epsilon_i)E(\hat Y_i) + E(\hat Y_i^2)\\
-&= g^2(x_i) + 2g(x_i)E(\epsilon_i) + E(\epsilon_i^2) - 2g(x_i)E(\hat Y_i) + E(\hat Y_i^2)\\
-&= g^2(x_i) + \sigma^2 - 2g(x_i)E(\hat Y_i) + E(\hat Y_i^2) + E(\hat Y_i)^2 - E(\hat Y_i)^2\\
-&= \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)\\
-&= \text{Error Variance} + \text{Bias}^2 + \text{Fitted Model Variance}
-\end{align*}
-
-### Not Interpreting the MSE
-
-$$
-E((Y_i - \hat{Y_i})^2) = \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)
-$$
-
-\pspace
-
-- We don't know any of the numbers on the right!!!
-
-\pspace
-
-The decomposition is theoretical, we can't tease apart $s^2$ into these terms.
-
 ### Interpreting the MSE
 
 The basic question of statistics: "How big is this number?"
@@ -472,13 +474,13 @@ Hypothesis test for $\sigma^2 = \sigma_0^2$ versus $\sigma^2 > \sigma_0^2$, wher
 
 ### Compare to other models
 
-It can be shown that $E(MSReg) = \sigma^2 + \beta_1S_{XX}$.
+It can be shown that $E(MS_{Reg}) = \sigma^2 + \beta_1S_{XX}$.
 
 \pspace
 
 Consider the Null hypothesis $\beta_1 =0$ (why is this a good null?).
 
-- Under this null, $\frac{MSReg}{s^2}\sim F_{1, n-2}$.
+- Under this null, $\frac{MS_{Reg}}{s^2}\sim F_{1, n-2}$.
     - Obvious CI from this. \lspace
 - This is exactly equivalent to the t-test for $\beta_1$! (See text.)
 
@@ -498,9 +500,10 @@ and thus $s^2$ is unbiased.\pause
 
 \pspace
 
-This does *not necessarily* mean that $s^2$ is the best estimator for $\sigma^2$! 
+This does *not necessarily* mean that $s^2$ is the best estimator for $\sigma^2$!
+
 ::: {.content-visible unless-profile="book"}
-See course notes for a simulation!
+See exercises in course notes for a simulation!
 :::
 
 
@@ -575,7 +578,9 @@ This is why we use residuals versus fitted, not residuals versus observed!
 </details>
 *****
 
-2. Find the MLE estimate for $\sigma^2$.
+2. Show that the estimates for $\hat\beta_0$ and $\hat\beta_1$ are the same as the OLS estimates.
+
+3. Find the MLE estimate for $\sigma^2$.
     - Comment on the difference between this formula and the usual variance formula.
     - Comment on the variance formula from least squares
 
@@ -589,7 +594,7 @@ Derivation left as an exercise. Hint: You are allowed to take a derivative with 
 </details>
 *****
 
-3. The MLE of $\sigma^2$ divides by $n$. Demonstrate via simulation that this is actually a biased estimate.
+4. The MLE of $\sigma^2$ divides by $n$. Demonstrate via simulation that this is actually a biased estimate.
 
 <details>
 <summary>**Solution**</summary>
@@ -627,12 +632,14 @@ The MSE is lowest when we divide by... $n+1$???? Yes, this is just how it is. Se
 </details>
 *****
 
-4. Prove that $\sum_i=1^n\hat\epsilon_i = 0$. Really try it yourself, then check the hint below only if your're struggling.
+5. Prove that $\sum_i=1^n\hat\epsilon_i = 0$. Really try it yourself, then check the hint below only if your're struggling.
 
 <details>
 <summary>**Hint**</summary>
 $\hat\epsilon_i = y_i - \hat\beta_0 - \hat\beta_1x_i$, $\sum_{i=1}^ny_i = n\bar y$, and $\beta_0 = \bar y - \hat\beta_1x_i$.
 *****
 </details>
+
+6. 
 
 :::
