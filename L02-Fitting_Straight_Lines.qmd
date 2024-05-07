@@ -642,7 +642,22 @@ nrow(dse03a)
 
 ::: {.content-visible when-profile="book"}
 
-Solution: see [Lab 2](Lb02-OLS_Estimates.html).
+Answers: 
+
+```{r}
+#| label: aprean
+#| code-fold: false
+# 1.
+coef(lm(y ~ x, data = dse03a))
+
+# 2. 
+anova(lm(y ~ x, data = dse03a))
+
+# 3.
+confint(lm(y ~ x, data = dse03a), conf.level = 0.95)
+```
+
+As homework, calculate all of these using the formulas in R!
 
 ## Exercises
 
