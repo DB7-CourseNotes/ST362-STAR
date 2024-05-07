@@ -19,7 +19,8 @@ set.seed(2112)
 - Monday's participation quiz is due tonight!\lspace
 - Forgotten syllabus info:
     - Office hours: Noon to 1pm on Mondays (and other times)\lspace
-- Discord server!\lspace
+- Discord server!
+    - If you don't want to join, I'll highlight anything important/interesting in class.\lspace
 - May 10 is last day to drop without tuition charge.
 
 :::
@@ -42,6 +43,11 @@ Of course, it's not a guarantee that a model is going to be useful. There are an
 
 Model: A mathematical equation that explains something about the world.
 
+:::: {.columns}
+::: {.column width="60%"}
+\vspace{1cm}
+
+
 - Gravity: 9.8 $m/s^2$ right?
     - This is a *model* - it's an equation that explains something in the world.
     - Varies across the surface of the Earth.
@@ -50,9 +56,17 @@ Model: A mathematical equation that explains something about the world.
     - Very, very much wrong.
     - Very, very useful for health communication.
 
+:::
+::: {.column width="40%"}
+
+![](figs/Gravity_anomalies_on_Earth.jpg)
+
+:::
+::::
 
 
-### All Linear Models are Wrong
+
+### All Linear Models are Wrong, Too!
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -118,11 +132,11 @@ ggplot(penguins) +
     annotate(geom = "point", shape = "*", size = 30, colour = 2,
         x = xpred, 
         y = ypred) + 
-    annotate(geom = "segment", colour = 2, size = 2, 
+    annotate(geom = "segment", colour = 2, linewidth = 2, 
         linetype = "dashed",
         x = xpred, xend = xpred, 
         yend = -Inf, y = ypred) + 
-    annotate(geom = "segment", colour = 2, size = 2, 
+    annotate(geom = "segment", colour = 2, linewidth = 2, 
         linetype = "dashed",
         x = -Inf, xend = xpred, 
         yend = ypred, y = ypred)
@@ -155,7 +169,8 @@ I will make mistakes, but in general:
 
 - $Y$ is definitely a random variable (usually a vector) representing the **response**.
     - $Y_i$ is also a random variable (not a vector)
-    - I also use $y_i$ as a random variable sometimes - context should make this clear!\lspace
+    - I also use $y_i$ as a random variable sometimes - context should make this clear!
+    - Note that $V(\underline y)$ may refer to the variance of a r.v. *or* the empirical variance of observed data. Context!\lspace
 - $X$ is a matrix of covariates
     - *Not* a random variable!!! Capital letters could be either random or matrix (or both). I will specify when necessary.
     - I will avoid the notation $X_i$.
@@ -167,7 +182,26 @@ $$
 E(Y|X) = X\underline\beta
 $$
 
-\includegraphics[width=0.9\textwidth]{figs/mean.png}
+```{r}
+#| label: peng-means
+
+peng <- penguins[complete.cases(penguins), ]
+x <- peng$flipper_length_mm
+y <- peng$body_mass_g
+
+x_range <- seq(min(x), max(x), by = 0.5)
+y_mean <- double(length(x_range))
+bin_width <- 2
+for (i in seq_along(x_range)) {
+    y_mean[i] <- mean(y[x > x_range[i] - bin_width & x < x_range[i] + bin_width])
+}
+
+plot(x, y, 
+    xlab = "Flipper Length (mm)", ylab = "Body Mass (g)")
+lines(x_range, y_mean, col = 2, lwd = 2)
+abline(lm(y ~ x), col = 3, lwd = 2)
+legend("topleft", legend = c("data", "mean of y at x +/- 2", "linear model"), pch = c("o", "-", "-"), col = c(1, 2, 3), lwd = c(NA, 2, 2), bty = "n")
+```
 
 ::: {.content-visible when-profile="book"}
 The plot above shows the height of a child against the average height of their parents.
@@ -268,7 +302,6 @@ We use squared errors for one main reason: because the math is easy. (This is no
 ### Least Squares Estimates - Start
 
 To find the minimum of a function, we take the derivative and set it to 0!
-
 \begin{align*}
 R(\underline \beta) \stackrel{def}{=}\sum_{i=1}^n\hat\epsilon_i^2 &= \sum_{i=1}^n(y_i - \hat y_i)^2 = \sum_{i=1}^n(y_i - \beta_0 - \beta_1x_1)\\
 \implies \frac{dR(\underline\beta)}{d\beta_0} &= -2\sum_{i=1}^n(y_i - \beta_0 - \beta_1x_i)\\
@@ -286,7 +319,7 @@ I will assume that you can do the Least Squares estimate in your sleep (be ready
 The final results are:
 \begin{align*}
 \hat\beta_0 &= \bar y - \hat\beta_1\bar x\\
-\hat\beta_1 &= \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2}\stackrel{def}{=}\frac{S_{XY}}{S_{XX}}
+\hat\beta_1 &= \frac{\sum_{i=1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^n(x_i - \bar x)^2}\stackrel{def}{=}\frac{S_{XY}}{S_{XX}}
 \end{align*}
 
 \pspace
@@ -298,6 +331,8 @@ If you've never done this before, try it! Make sure you get the same final answe
 
 An important point about these estimates is that we *have not yet assumed normality*. These are the values that minimize the squared errors. That's it; we did nothing else, assumed nothing else, and apply this to nothing else.
 :::
+
+Note: We'll use these definitions of $S_{XX}$ and $S_{YY}$ a lot! Get used to them!
 
 ### Let's Add Assumptions
 
@@ -614,7 +649,8 @@ Solution: see [Lab 2](Lb02-OLS_Estimates.html).
 Good textbook questions: A, K, O, P, T, U, X (using `data(anscombe)` in R), Z, AA, CC. Note that all data sets in the textbook are available in an R package found [here](https://search.r-project.org/CRAN/refmans/aprean3/html/00Index.html).
 
 1. Find the OLS estimates of $\beta_0$ and $\beta_1$ for the model $y_i = \beta_0 + \beta_1x_i + \epsilon_i$.
-2. Find the OLS estimates of $\beta_0$ and $\beta_1$ for the model $y_i = \beta_1x_i + \epsilon_i$.
+2. Prove that the point $(\bar x, \bar y)$ is always on the estimated line for simple linear regression.
+3. Find the OLS estimate of $\beta_1$ for the model $y_i = \beta_1x_i + \epsilon_i$.
     - Comment on these estimates compared to the previous question. What happened to $\bar x$ and $\bar y$?
     - Investigate what happens to $\hat\beta_1$ if the true intercept is not 0.
 
@@ -630,7 +666,7 @@ $$
 0 = -2\sum(y_i -\hat\beta_1x_i)x_i = -2\sum(y_ix_i) + 2\hat\beta_1\sum x_i^2\implies\hat\beta_1 = \frac{\sum x_iy_i}{\sum x_i^2}
 $$
 
-Note that this is the exact same formula as the estimate for $\hat\beta_1$ in the model with an intercept, but with $\bar x = \bar y = 0$. In the intercept model, the line is guaranteed to pass through the point $(\bar x, \bar y)$ (prove this!). In the intercept model, the line is guaranteed to pass through the point $(0, 0)$. 
+Note that this is the exact same formula as the estimate for $\hat\beta_1$ in the model with an intercept, except with $\bar x = \bar y = 0$. In the intercept model, the line is guaranteed to pass through the point $(\bar x, \bar y)$ (prove this!). In the intercept model, the line is guaranteed to pass through the point $(0, 0)$. 
 
 In the following simulation, the true slope is the exact same no matter what. However, the true intercept varies. When $\beta_0 = 0$, we get the true value for $\beta_1$. When the true intercept is negative, the estimate for the slope is too low. When $\beta_0$ is positive, the slope is too high. The plots on the right show why this is the case.
 
@@ -682,11 +718,11 @@ abline(a = 0, b = sum(x * y) / sum(x^2), col = 2, lwd = 3)
 </details>
 *****
 
-3. Given that $\hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2}$, find $E(\hat\beta)$.
-4. Complete the derivation of $V(\hat\beta_1)$.
-5. Suppose that we fit the model without an intercept, but there actually is an intercept term. That is, suppose $y_i = \beta_0 + \beta_1x_i +\epsilon_i$, but our estimator is what was found in Question 2, and find $E(\hat\beta_1)$. Hint: it's *not* $\beta_1$!
-6. Show that $E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2$. *Hint: $V(y_i) = E(y_i^2) - E(y_i)^2$, and you'll need to plug in the estimates for $\hat\beta_0$ and $\hat\beta_1$.
-7. Use R to calculate the values in the ANOVA table, i.e. the "Sum of Squares" section, for a linear regression of `waiting` versus `eruptions` in the `faithful` data. Compare the the `anova()` output, shown below.
+4. Given that $\hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2}$, find $E(\hat\beta)$.
+5. Complete the derivation of $V(\hat\beta_1)$.
+6. Suppose that we fit the model without an intercept, but there actually is an intercept term. That is, suppose $y_i = \beta_0 + \beta_1x_i +\epsilon_i$, but our estimator is what was found in Question 2, and find $E(\hat\beta_1)$. Hint: it's *not* $\beta_1$!
+7. Show that $E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2$. *Hint: $V(y_i) = E(y_i^2) - E(y_i)^2$, and you'll need to plug in the estimates for $\hat\beta_0$ and $\hat\beta_1$.
+8. Use R to calculate the values in the ANOVA table, i.e. the "Sum of Squares" section, for a linear regression of `waiting` versus `eruptions` in the `faithful` data. Compare the the `anova()` output, shown below.
 
 ```{r}
 #| label: faithful-anova
@@ -704,7 +740,7 @@ anova(faithful_lm)
 ```
 
 
-8. Use a simulation to demonstrate that, assuming $\beta_1 = 0$, $MS_{Reg} / MS_E \sim F_{df_{Reg}, df_E}$.
+9. Use a simulation to demonstrate that, assuming $\beta_1 = 0$, $MS_{Reg} / MS_E \sim F_{df_{Reg}, df_E}$.
     - Explain why this is only true when $\beta_1 = 0$?
 
 <details>
