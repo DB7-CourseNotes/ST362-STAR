@@ -14,8 +14,12 @@ set.seed(2112)
 
 ### Announcements
 
-- Check discussions!\lspace
-- Assignment 1 is out, groups are assigned\lspace
+- Assignment 1 is out, groups are assigned
+    - Q1 is a doozy - come to office for tips!\lspace
+- Monday's participation quiz is due tonight!\lspace
+- Forgotten syllabus info:
+    - Office hours: Noon to 1pm on Mondays (and other times)\lspace
+- Discord server!\lspace
 - May 10 is last day to drop without tuition charge.
 
 :::
@@ -39,12 +43,14 @@ Of course, it's not a guarantee that a model is going to be useful. There are an
 Model: A mathematical equation that explains something about the world.
 
 - Gravity: 9.8 $m/s^2$ right?
-    - This is a *model* - it's a relationship that explains something in the world.
+    - This is a *model* - it's an equation that explains something in the world.
     - Varies across the surface of the Earth.
     - Varies according to air resistance.\lspace
 - Every additional cigarette decreases your lifespan by 11 minutes.
     - Very, very much wrong.
     - Very, very useful for health communication.
+
+
 
 ### All Linear Models are Wrong
 
@@ -236,7 +242,7 @@ abline(h = 0)
 
 In the plot above, the value of $\hat\beta_0$ is varied from 24 to 68 by 4 (24, 28, 32, ...), with the value of $\hat\beta_1$ fixed at -4. These lines are shown on the left.
 
-The right plots the sum of the errors in these lines. The sum starts above 0, then at some point goes below 0. This means that we can have a slope of $\hat\beta_1 = -4$, then still find an intercept that makes the sum of the errors equal to 0!
+The right plots the sum of the errors in these lines. The sum starts above 0, then at some point goes below 0. This means that we can have a slope of $\hat\beta_1 = -4$, but still find an intercept that makes the sum of the errors equal to 0!
 :::
 
 ### Least Squares
@@ -319,7 +325,7 @@ since $\sum(x_i - \bar x) = 0$ (show this).
 
 \pspace
 
-Homework: show that $E(\hat\beta_1) = \beta_1$ (*Hint: use the fact that $E(y_i) = \beta_0 + \beta_1x_i$). 
+Homework: show that $E(\hat\beta_1) = \beta_1$ (*Hint: use the fact that $E(y_i) = \beta_0 + \beta_1x_i$ - don't mix up the estimated values $\hat\beta$ and the true values $\beta$!). 
 
 ### Variance of $\hat\beta_1$
 
@@ -340,7 +346,7 @@ $$
 
 The test statistic can be found as:
 $$
-t = \frac{\hat\beta_1 - \beta_1}{se(\hat\beta_1)} = \frac{(\hat\beta_1 - \beta_1)\sqrt{S_{XX}}}{s} \sim t_\nu
+t = \frac{\hat\beta_1 - \beta_1}{se(\hat\beta_1)} = \frac{(\hat\beta_1 - \beta_1)}{s/\sqrt{S_{XX}}} \sim t_\nu
 $$
 
 Since this follows a $t$ distribution, we can get the CI:
@@ -450,9 +456,9 @@ The variance in $Y$ is **explained** by $X$!
 
 \begin{align*}
 \hat\epsilon_i &= y_i - \hat y_i \\&= y_i - \bar y - (\hat y_i - \bar y)\\
-\implies \sum_{i=1}^n\hat\epsilon_i^2 &= \sum_{i=1}^n(y_i-\bar y)^2 - \sum_{i=1}^n(\hat y_i - \bar y)^2
+\implies ... \implies \sum_{i=1}^n\hat\epsilon_i^2 &= \sum_{i=1}^n(y_i-\bar y)^2 - \sum_{i=1}^n(\hat y_i - \bar y)^2
 \end{align*}
-where we've simply added and subtracted $\bar y$. The final line skips a few steps (try them yourself, or see textbook page 28.)!
+where we've simply added and subtracted $\bar y$. The final line skips a few steps (try them yourself, or see textbook page 28)!
 
 \pspace
 
@@ -465,11 +471,12 @@ SS_E = SS_T - SS_{Reg}
 $$
 
 - $SS_E$: Sum of Squared Errors\lspace
-- $SS_T$: Sum of Squares Total (i.e., without $\underline x$)\lspace
+- $SS_T$: Sum of Squares Total (i.e., without considering $\underline x$)\lspace
 - $SS_{Reg}$: Sum of Squares due to the regression.
     - It's the variance of the line (calculated at observed $\underline x$ values) around the mean of $\underline y$???
         - This is incredibly useful, but weird.
-    - I use $SS_{Reg}$ instead of $SS_R$; some textbooks use $SS_R$ as the Sum of Squared *Residuals* (same as $SS_E$), which is confusing.
+    - I use $SS_{Reg}$ instead of $SS_R$
+        - Some textbooks use $SS_R$ as SS *Residuals* (same as $SS_E$), which is confusing.
 
 ### Aside: Degrees of Freedom
 
@@ -487,19 +494,19 @@ Estimating one parameter takes away one degree of freedom for the rest!
 
 - Can find $\bar x$ when $x = (1)$, but can't find $s_x^2$ because there aren't enough $df$!
 
-### Sums of Squares
+### Sums of Squares in an ANOVA Table
 
 | Source of Variation | Degress of Freedom $df$ | Sum of Squares ($SS$) | Mean Square ($MS$) |
 |---|---|---|---|
 | Regression | 1 | $\sum_{i=1}^n(\hat y_i - \bar y)^2$ | $MS_{Reg}$ |
 | Error | $n-2$ | $\sum_{i=1}^n(y_i - \hat y_i)^2$ | $MS_E=s^2$ |
-| Total | $n-1$ | $\sum_{i=1}^n(y_i - \bar y)^2$ | $s_y^2$ |
-
-\pspace
+| Total (corrected) | $n-1$ | $\sum_{i=1}^n(y_i - \bar y)^2$ | $s_y^2$ |
 
 - Notice that $SS_T = SS_{Reg} + SS_E$, which is also true for the $df$ (but not $MS$). \lspace
 - Why is $df_E = n-2$? What two parameters have we estimated?
-    - $df_{Reg}$ is trickier to explain. It suffices to know that $df_{Reg} = df_T-df_E$.
+    - $df_{Reg}$ is trickier to explain. It suffices to know that $df_{Reg} = df_T-df_E$.\lspace
+- "Corrected": We estimated the mean of $\underline y$, rather than just $\sum y_i^2$.
+    - This used a degree of freedom!
 
 ### Using Sums/Means of Squares
 

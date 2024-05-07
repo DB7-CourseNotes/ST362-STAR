@@ -1,4 +1,4 @@
-library(here)
+suppressPackageStartupMessages(library(here))
 lec <- readLines(commandArgs(trailingOnly = TRUE)[1])
 
 make_one_q <- function(q_number, ans) {
@@ -31,4 +31,8 @@ ans <- lec[grepl("<!--+ [ABCDabcd] --+>", lec)] |>
     paste0(collapse = "") |>
     toupper()
 
-print(make_all_qs(ans))
+
+lec_num <- substr(commandArgs(trailingOnly = TRUE)[1], 2, 3)
+par_name <- paste0("P", lec_num, ".csv", collapse = "")
+writeLines(make_all_qs(ans),
+    con = file.path(here("parquiz", par_name)))

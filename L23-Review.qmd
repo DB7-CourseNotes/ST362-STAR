@@ -12,7 +12,6 @@ set.seed(2112)
 
 ### Announcements
 
-- Check discussions!
 :::
 
 ## Summaries

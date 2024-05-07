@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-30">
+<meta name="dcterms.date" content="2024-05-06">
 
 <title>STAR Notes - 1&nbsp; Statistics Review</title>
 <style>
@@ -434,6 +434,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#general-idea-distribution-to-quantiles" id="toc-general-idea-distribution-to-quantiles" class="nav-link" data-scroll-target="#general-idea-distribution-to-quantiles">General Idea: Distribution to Quantiles</a></li>
   <li><a href="#general-idea-distribution-to-ci" id="toc-general-idea-distribution-to-ci" class="nav-link" data-scroll-target="#general-idea-distribution-to-ci">General Idea: Distribution to CI</a></li>
   <li><a href="#what-is-the-standard-error" id="toc-what-is-the-standard-error" class="nav-link" data-scroll-target="#what-is-the-standard-error">What is the Standard Error?</a></li>
+  <li><a href="#putting-it-all-together-t-ci-for-a-mean" id="toc-putting-it-all-together-t-ci-for-a-mean" class="nav-link" data-scroll-target="#putting-it-all-together-t-ci-for-a-mean">Putting it all together: t CI for a mean</a></li>
   <li><a href="#ci-for-variance" id="toc-ci-for-variance" class="nav-link" data-scroll-target="#ci-for-variance">CI for Variance</a></li>
   <li><a href="#take-home-lessons-1" id="toc-take-home-lessons-1" class="nav-link" data-scroll-target="#take-home-lessons-1">Take-Home Lessons</a></li>
   </ul></li>
@@ -468,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: <strong>Gamma Ray</strong> by Beck
+            Jam: <strong>Drop Me a Line</strong> by Midnight Magic and <strong>Shiny New Model</strong> by BODEGA
           </p>
       </div>
     </div>
@@ -479,7 +480,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-30</p>
+      <p class="date">2024-05-06</p>
     </div>
   </div>
   
@@ -489,6 +490,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<!--- Alternate jam: **Empty Cars** by Sea Of Is or by LWS; shiny new model by BODEGA; across that fine line by Nation of Language; ; the line by Meghan Tonjes; straight line by Christina Maria; **Love on the Line** by Early Sounds Recordings --->
 <section id="introduction" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1.1</span> Introduction</h2>
 <section id="todays-learning-outcomes" class="level3">
@@ -597,8 +599,10 @@ y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 <section id="take-home-lessons" class="level3">
 <h3 class="anchored" data-anchor-id="take-home-lessons">Take-Home Lessons</h3>
 <ul>
-<li>All of the parameters <strong>have sampling distributions</strong>!</li>
+<li>All of the parameters <strong>have sampling distributions</strong>!
+<ul>
 <li>The <strong>variance</strong> of the sampling distributions is important</li>
+</ul></li>
 <li>The <strong>distributions</strong> are well known to statisticians
 <ul>
 <li>Soon you’ll know them too!</li>
@@ -608,7 +612,7 @@ y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 <li>Simulations cannot “prove” anything!</li>
 </ul></li>
 </ul>
-<p>In this course, we’ll generally follow the pattern of learning theory, verifying via simulation, then applying it to real-world data. The theory is the point of the course, with the hopes that you’ll either learn advanced theory or have the tools you need to apply it. Simulation is an intermediate step that helps you fully understand the assumptions that you’re making!</p>
+<p>In this course, we’ll generally follow the pattern of learning theory, verifying via simulation, then applying it to real-world data. The theory is the point of the course, with the hopes that you’ll either learn more advanced theory or have the tools you need to apply it. Simulation is an intermediate step that helps you fully understand the assumptions that you’re making!</p>
 </section>
 </section>
 <section id="linear-model-example" class="level2" data-number="1.3">
@@ -660,7 +664,7 @@ y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 </ul></li>
 <li>The residuals are independent
 <ul>
-<li>Check the study setup!</li>
+<li>Check the sampling procedure!</li>
 </ul></li>
 </ol>
 </div><div class="column">
@@ -709,8 +713,8 @@ y_i = \beta_0 + \beta_1 x_i + \epsilon_i
 <section id="general-idea-distributional-assumptions" class="level3">
 <h3 class="anchored" data-anchor-id="general-idea-distributional-assumptions">General Idea: Distributional Assumptions</h3>
 <p>Consider the quantity (<em>not</em> statistic) <span class="math inline">\(t = \frac{\hat\theta - \theta}{se(\hat\theta)}\)</span>.</p>
-<p>If we assume <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> and <span class="math inline">\(\hat\theta = \bar X\)</span> is an unbiased estimate of <span class="math inline">\(\theta\)</span> on <span class="math inline">\(\nu=n-1\)</span> degrees of freedom, then <span class="math inline">\(t \sim t_\nu\)</span></p>
-<p>From this, we can find the lower and upper <span class="math inline">\(\alpha/2\)</span>% of the <span class="math inline">\(t\)</span>$ curve.</p>
+<p>If we assume <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span>, then <span class="math inline">\(\hat\theta = \bar X\)</span> is an unbiased estimate of <span class="math inline">\(\theta\)</span> on <span class="math inline">\(\nu=n-1\)</span> degrees of freedom and <span class="math inline">\(t \sim t_\nu\)</span></p>
+<p>From this, we can find the lower and upper <span class="math inline">\(\alpha/2\)</span>% of the <span class="math inline">\(t\)</span> curve.</p>
 <ul>
 <li><span class="math inline">\(t_\nu(\alpha/2)\)</span> is the lower <span class="math inline">\(\alpha/2\)</span>%.
 <ul>
@@ -762,6 +766,13 @@ V(\hat\theta) = V\left(\frac{1}{n}\sum_{i=1}^nX_i\right) = \frac{1}{n^2}V\left(\
 <p>Let <span class="math inline">\(S_n\)</span> be a random variable denoting the sample standard deviation. Note that <span class="math inline">\(E(S_n^2) = \sigma^2\)</span>. What’s <span class="math inline">\(E(S_n)\)</span>?</p>
 <p>A tricky way to find <span class="math inline">\(E(S_n)\)</span> is to start with <span class="math inline">\(V(S_n)\)</span>. We know that <span class="math inline">\(V(S_n) = E(S_n^2) - (E(S_n))^2\)</span>, therefore <span class="math inline">\(E(S_n) = \sqrt{E(S_n^2) - V(S_n)}\)</span>. Note that <span class="math inline">\(E(S_n^2) = \sigma^2\)</span>, so this becomes <span class="math inline">\(E(S_n) = \sqrt{\sigma^2 - V(S_n)}\)</span>. Already, we can see that <span class="math inline">\(E(S_n) \ne \sigma\)</span>.</p>
 <p>Assuming that the variance is strictly larger than 0, then removing it from the equation makes the right hand side larger, i.e.&nbsp;<span class="math inline">\(\sqrt{\sigma^2 - V(S_n)} &lt; \sqrt{\sigma^2} = \sigma\)</span>. If we replace <span class="math inline">\(\sqrt{\sigma^2 - V(S_n)}\)</span> by <span class="math inline">\(\sigma\)</span>, the right hand side is larger than the left, i.e.&nbsp;<span class="math inline">\(E(S_n) &lt; \sigma\)</span>.</p>
+</section>
+<section id="putting-it-all-together-t-ci-for-a-mean" class="level3">
+<h3 class="anchored" data-anchor-id="putting-it-all-together-t-ci-for-a-mean">Putting it all together: t CI for a mean</h3>
+<p>Assuming <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span>, we get that <span class="math inline">\(\bar X\sim N(\mu, s^2/n)\)</span>.</p>
+<p>A <span class="math inline">\((1 - \alpha)\)</span>%CI for <span class="math inline">\(\mu\)</span> is: <span class="math display">\[
+\bar x \pm t_{n-1}(\alpha/2)s/\sqrt{n}
+\]</span></p>
 </section>
 <section id="ci-for-variance" class="level3">
 <h3 class="anchored" data-anchor-id="ci-for-variance">CI for Variance</h3>
@@ -843,7 +854,7 @@ f(x; k) = \frac{1}{2^{k/2}\Gamma(k/2)}x^{k/2-1}e^{-x/2}
 </ul>
 <p>Note that, if <span class="math inline">\(X_i\sim N(\mu, \sigma)\)</span>, then <span class="math inline">\(\frac{X_i - \mu}{\sigma} = Z = N(0,1)\)</span> and:</p>
 <p><span class="math display">\[
-\dfrac{(n-1)S^2}{\sigma} = \dfrac{(n-1)\frac{1}{n-1}\sum_{i=1}^n(X_i - \bar X)^2}{sigma^2} = \sum_{i=1}^n\left(\dfrac{X_i - \bar X}{\sigma}\right) = \sum_{i=1}^nZ_i^2
+\dfrac{(n-1)S^2}{\sigma^2} = \dfrac{(n-1)\frac{1}{n-1}\sum_{i=1}^n(X_i - \bar X)^2}{\sigma^2} = \sum_{i=1}^n\left(\dfrac{X_i - \bar X}{\sigma}\right) = \sum_{i=1}^nZ_i^2
 \]</span></p>
 <p>So <span class="math inline">\(n-1\)</span> times the estimated variance divided by the true variance does follow a Chi-square distribution. There’s some advanced math with distributions going on here; the takeaway message is that the variance follows a Chi-Square distribution <strong>because</strong> <span class="math inline">\(X_i\)</span> are assumed to be normal!</p>
 </section>

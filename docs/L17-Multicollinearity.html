@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-26">
+<meta name="dcterms.date" content="2024-05-03">
 
 <title>STAR Notes - 16&nbsp; Multicollinearity</title>
 <style>
@@ -463,7 +463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-26</p>
+      <p class="date">2024-05-03</p>
     </div>
   </div>
   
@@ -487,9 +487,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L17-Multicollinearity_cache/html/unnamed-chunk-3_0e80ed02f81c4b121cc95879ad3f88f7">
+<div class="cell" data-hash="L17-Multicollinearity_cache/html/plot3d_30e2c4f03ddf7f53c3c7c3f96dad280a">
 <div class="cell-output-display">
-<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="L17-Multicollinearity_files/figure-html/plot3d-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -505,7 +505,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>No meaningful CIs</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L17-Multicollinearity_cache/html/unnamed-chunk-4_00c1642cb1e0a2c77d63124d285c4aaf">
+<div class="cell" data-hash="L17-Multicollinearity_cache/html/multicor-consequences_c7511d457b173bd76e97f663b492ff0b">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
@@ -519,7 +519,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Estimated betas for correlated</span><span class="sc">\n</span><span class="st">predictors, many samples"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="384"></p>
+<p><img src="L17-Multicollinearity_files/figure-html/multicor-consequences-1.png" class="img-fluid" width="384"></p>
 </div>
 </div>
 </div>
@@ -570,7 +570,7 @@ Cov(X) = \begin{bmatrix}
 </section>
 <section id="plotting-corx" class="level3">
 <h3 class="anchored" data-anchor-id="plotting-corx">Plotting <span class="math inline">\(Cor(X)\)</span></h3>
-<div class="cell" data-hash="L17-Multicollinearity_cache/html/unnamed-chunk-5_3408570db0a3767e2d956ed4f19ddb3c">
+<div class="cell" data-hash="L17-Multicollinearity_cache/html/penguins-corr_8c021a956a6bde4fc14e428ec54b184a">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins); <span class="fu">library</span>(GGally)</span>
@@ -581,7 +581,7 @@ Cov(X) = \begin{bmatrix}
 not numeric and were ignored</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="L17-Multicollinearity_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="960"></p>
+<p><img src="L17-Multicollinearity_files/figure-html/penguins-corr-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
 </section>

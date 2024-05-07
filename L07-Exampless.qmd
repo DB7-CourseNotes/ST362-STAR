@@ -16,7 +16,6 @@ head(peng)
 
 ### Announcements
 
-- Check discussions!
 :::
 
 ## Review

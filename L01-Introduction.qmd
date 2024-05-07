@@ -1,9 +1,11 @@
 ---
 title: "Statistics Review"
 subtitle: "Simulating Linear Models, Understanding Distributions"
-institute: "Jam: **Gamma Ray** by Beck"
+institute: "Jam: **Drop Me a Line** by Midnight Magic and **Shiny New Model** by BODEGA"
 date: "last-modified"
 ---
+
+<!--- Alternate jam: **Empty Cars** by Sea Of Is or by LWS; shiny new model by BODEGA; across that fine line by Nation of Language; ; the line by Meghan Tonjes; straight line by Christina Maria; **Love on the Line** by Early Sounds Recordings --->
 
 ::: {.content-visible unless-profile="book"}
 
@@ -22,10 +24,11 @@ date: "last-modified"
 - Assignment 1 is a Group Assignment!
     - Teach each other to code some simulations!
     - Preference for group size?\lspace
-- See discussion posts!
-    - Bonus marks for one good post + one good reply.
-        - Can also get for one post + two short replies.
 
+### A Note on ChatGPT
+
+- Use for content/tutoring\lspace
+- Don't copy **_anything_**
 
 :::
 
@@ -149,15 +152,15 @@ The $x$ values are also used in the calculation, which is not as important as it
 
 ### Take-Home Lessons 
 
-- All of the parameters **have sampling distributions**!\lspace
-- The **variance** of the sampling distributions is important\lspace
+- All of the parameters **have sampling distributions**!
+    - The **variance** of the sampling distributions is important\lspace
 - The **distributions** are well known to statisticians
     - Soon you'll know them too!\lspace
 - **Simulations** let us "touch" theory!
     - Simulations cannot "prove" anything!
 
 ::: {.content-visible when-profile="book"}
-In this course, we'll generally follow the pattern of learning theory, verifying via simulation, then applying it to real-world data. The theory is the point of the course, with the hopes that you'll either learn advanced theory or have the tools you need to apply it. Simulation is an intermediate step that helps you fully understand the assumptions that you're making!
+In this course, we'll generally follow the pattern of learning theory, verifying via simulation, then applying it to real-world data. The theory is the point of the course, with the hopes that you'll either learn more advanced theory or have the tools you need to apply it. Simulation is an intermediate step that helps you fully understand the assumptions that you're making!
 :::
 
 ## Linear Model Example
@@ -218,7 +221,7 @@ Assumptions:
 3. The variance is constant
     - Check "Scale-Location"\lspace
 4. The residuals are independent
-    - Check the study setup!
+    - Check the sampling procedure!
 
 :::
 ::: {.column}
@@ -262,11 +265,11 @@ Consider the quantity (*not* statistic) $t = \frac{\hat\theta - \theta}{se(\hat\
 
 \pspace
 
-If we assume $X\sim N(\mu, \sigma^2)$ and $\hat\theta = \bar X$ is an unbiased estimate of $\theta$ on $\nu=n-1$ degrees of freedom, then $t \sim t_\nu$
+If we assume $X\sim N(\mu, \sigma^2)$, then $\hat\theta = \bar X$ is an unbiased estimate of $\theta$ on $\nu=n-1$ degrees of freedom and $t \sim t_\nu$
 
 \pspace
 
-From this, we can find the lower and upper $\alpha/2$\% of the $t$$ curve.
+From this, we can find the lower and upper $\alpha/2$\% of the $t$ curve.
 
 - $t_\nu(\alpha/2)$ is the lower $\alpha/2$\%.
     - i.e., if $\alpha = 0.11$, then it's $t(\nu, 0.055)$, the lower 5.5\% area.
@@ -334,6 +337,16 @@ A tricky way to find $E(S_n)$ is to start with $V(S_n)$. We know that $V(S_n) = 
 
 Assuming that the variance is strictly larger than 0, then removing it from the equation makes the right hand side larger, i.e. $\sqrt{\sigma^2 - V(S_n)} < \sqrt{\sigma^2} = \sigma$. If we replace  $\sqrt{\sigma^2 - V(S_n)}$ by $\sigma$, the right hand side is larger than the left, i.e. $E(S_n) < \sigma$.
 :::
+
+### Putting it all together: t CI for a mean
+
+Assuming $X\sim N(\mu, \sigma^2)$, we get that $\bar X\sim N(\mu, s^2/n)$.
+
+A $(1 - \alpha)$\%CI for $\mu$ is:
+$$
+\bar x \pm t_{n-1}(\alpha/2)s/\sqrt{n}
+$$
+
 
 ### CI for Variance
 
@@ -432,7 +445,7 @@ Which of the following is the definition of an estimator?
 
 \pspace
 
-a. A value calculated from data.
+a. A value calculated using only the available data.
 b. A function that returns the estimate for a parameter.
 c. Any function of the data.
 d. A person who estimates.
@@ -451,14 +464,6 @@ c. True
 d. 
 
 <!--- C --->
-
-### Q6 Notes
-
-In mathematical statistics, you'll learn that expressions like:
-$$
-\frac{X - \mu}{s/\sqrt{n}}
-$$
-are called **pivotal quantities**, and are very useful for a great many things!
 :::
 
 
@@ -527,7 +532,7 @@ $$
 Note that, if $X_i\sim N(\mu, \sigma)$, then $\frac{X_i - \mu}{\sigma} = Z = N(0,1)$ and:
 
 $$
-\dfrac{(n-1)S^2}{\sigma} = \dfrac{(n-1)\frac{1}{n-1}\sum_{i=1}^n(X_i - \bar X)^2}{sigma^2} = \sum_{i=1}^n\left(\dfrac{X_i - \bar X}{\sigma}\right) = \sum_{i=1}^nZ_i^2
+\dfrac{(n-1)S^2}{\sigma^2} = \dfrac{(n-1)\frac{1}{n-1}\sum_{i=1}^n(X_i - \bar X)^2}{\sigma^2} = \sum_{i=1}^n\left(\dfrac{X_i - \bar X}{\sigma}\right) = \sum_{i=1}^nZ_i^2
 $$
 
 So $n-1$ times the estimated variance divided by the true variance does follow a Chi-square distribution. There's some advanced math with distributions going on here; the takeaway message is that the variance follows a Chi-Square distribution **because** $X_i$ are assumed to be normal!

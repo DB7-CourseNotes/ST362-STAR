@@ -4,11 +4,7 @@ institute: "Jam: **Higher Order** by Empire Me"
 ---
 
 ```{r}
-#| include: false
-set.seed(2112)
-```
-
-```{r}
+#| label: includes
 #| include: false
 set.seed(2112)
 ```
@@ -18,7 +14,6 @@ set.seed(2112)
 
 ### Announcements
 
-- Check discussions!
 :::
 
 ## Non-Linear Relationships
@@ -42,6 +37,7 @@ $$
 #| echo: false
 #| fig-height: 4
 #| fig-width: 4.5
+#| label: nonlin-plot
 x <- runif(300, 0, 50)
 y <- 2 + 0.2*x^2 - 8 * log(x) - 0.005*x^3 + 20*sin(x/2) + rnorm(300, 0, 10)
 plot(x, y)
@@ -105,6 +101,7 @@ The stopping distance is theoretically proportional to the square of the speed.
 #| echo: false
 #| fig-height: 4
 #| fig-width: 4.5
+#| label: cars-nonlin
 plot(dist ~ speed, data = cars,
     xlab = "Speed", ylab = "Stopping Distance",
     xlim = c(0, max(cars$speed)))
@@ -126,6 +123,7 @@ legend("topleft", legend = 1:3, col = 1:3 + 2, lwd = 4, title = "Order")
 
 \footnotesize
 ```{r}
+#| label: anova-order
 #| echo: true
 X <- data.frame(dist = cars$dist, x1 = cars$speed, x2 = cars$speed^2, 
     x3 = cars$speed^3, x4 = cars$speed^4)
@@ -158,6 +156,7 @@ $$
 
 ```{r}
 #| echo: false
+#| label: speed-squared
 #| fig-height: 4
 #| fig-width: 4.5
 plot(dist ~ speed, data = cars,
@@ -179,6 +178,7 @@ legend("topleft", legend = c("Order 2", "Only Squared"), col = c(4,6), lwd = 4)
 
 \footnotesize
 ```{r}
+#| label: ESS-odd
 #| echo: true
 X <- data.frame(dist = cars$dist, x1 = cars$speed, x2 = cars$speed^2, 
     x3 = cars$speed^3, x4 = cars$speed^4)
@@ -197,6 +197,7 @@ anova(m2, m1)
 True model: $f(x) = 2 + 25x + 5x^2 - x^3$ (cubic), Var($\epsilon$) = 40
 
 ```{r}
+#| label: poly-overfit
 #| echo: false
 #| fig-height: 3
 #| fig-width: 7
@@ -254,6 +255,7 @@ $$
 In R this can be specified as:
 
 ```{r}
+#| label: polyfit
 #| eval: false
 #| echo: true
 lm(y ~ (x1 + x2)^2)
@@ -293,6 +295,7 @@ See **splines** for more flexibility
 Unless you have the true order (you don't), polynomials diverge almost immediately.
 
 ```{r}
+#| label: poly-extrap
 #| echo: true
 #| eval: false
 shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
@@ -310,6 +313,7 @@ This strongly affects parameter estimates.
 ###  `poly()` uses **orthogonal** polynomials
 
 ```{r}
+#| label: orthog-1
 #| echo: true
 #| eval: false
 betas <- replicate(1000, 
@@ -330,6 +334,7 @@ After squaring, cubing, etc., each column of X is transformed to be orthogonal t
 ### Orthogonal Polynomials
 
 ```{r}
+#| label: orthog-2
 #| echo: true
 #| eval: false
 x <- sort(runif(60, 0, 10))

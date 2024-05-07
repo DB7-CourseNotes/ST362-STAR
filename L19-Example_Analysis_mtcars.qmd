@@ -18,7 +18,6 @@ theme_set(theme_bw())
 
 ### Announcements
 
-- Check discussions!
 :::
 
 ## Exploratory Data Analysis

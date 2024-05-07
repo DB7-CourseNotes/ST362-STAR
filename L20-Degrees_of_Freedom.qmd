@@ -10,7 +10,6 @@ execute:
 
 ### Announcements
 
-- Check discussions!
 :::
 
 ```{r}
