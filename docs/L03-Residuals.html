@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-03">
+<meta name="dcterms.date" content="2024-05-07">
 
 <title>STAR Notes - 3&nbsp; Assessing Fit</title>
 <style>
@@ -410,7 +410,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-residual-whats-left-over" id="toc-the-residual-whats-left-over" class="nav-link active" data-scroll-target="#the-residual-whats-left-over"><span class="header-section-number">3.1</span> The residual: what’s left over</a>
+  <li><a href="#rule-number-1-always-plot-everything" id="toc-rule-number-1-always-plot-everything" class="nav-link active" data-scroll-target="#rule-number-1-always-plot-everything"><span class="header-section-number">3.1</span> Rule Number 1: Always Plot Everything</a>
+  <ul class="collapse">
+  <li><a href="#anscombes-quartet" id="toc-anscombes-quartet" class="nav-link" data-scroll-target="#anscombes-quartet">Anscombe’s Quartet</a></li>
+  <li><a href="#anscombes-quartet-1" id="toc-anscombes-quartet-1" class="nav-link" data-scroll-target="#anscombes-quartet-1">Anscombe’s Quartet</a></li>
+  </ul></li>
+  <li><a href="#the-residual-whats-left-over" id="toc-the-residual-whats-left-over" class="nav-link" data-scroll-target="#the-residual-whats-left-over"><span class="header-section-number">3.2</span> The residual: what’s left over</a>
   <ul class="collapse">
   <li><a href="#r2-percent-of-variance-explained-by-the-regression-model" id="toc-r2-percent-of-variance-explained-by-the-regression-model" class="nav-link" data-scroll-target="#r2-percent-of-variance-explained-by-the-regression-model"><span class="math inline">\(R^2\)</span>: percent of variance explained by the regression model</a></li>
   <li><a href="#residual-assumptions" id="toc-residual-assumptions" class="nav-link" data-scroll-target="#residual-assumptions">Residual Assumptions</a></li>
@@ -421,15 +426,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#testing-normality-quantile-quantile-plots" id="toc-testing-normality-quantile-quantile-plots" class="nav-link" data-scroll-target="#testing-normality-quantile-quantile-plots">Testing Normality: Quantile-Quantile Plots</a></li>
   <li><a href="#other-residual-plots" id="toc-other-residual-plots" class="nav-link" data-scroll-target="#other-residual-plots">Other Residual Plots:</a></li>
   </ul></li>
-  <li><a href="#maximum-likelihood" id="toc-maximum-likelihood" class="nav-link" data-scroll-target="#maximum-likelihood"><span class="header-section-number">3.2</span> Maximum Likelihood</a>
+  <li><a href="#maximum-likelihood" id="toc-maximum-likelihood" class="nav-link" data-scroll-target="#maximum-likelihood"><span class="header-section-number">3.3</span> Maximum Likelihood</a>
   <ul class="collapse">
   <li><a href="#main-idea" id="toc-main-idea" class="nav-link" data-scroll-target="#main-idea">Main Idea</a></li>
   <li><a href="#the-likelihood" id="toc-the-likelihood" class="nav-link" data-scroll-target="#the-likelihood">The Likelihood</a></li>
   <li><a href="#simple-coin-flip-example" id="toc-simple-coin-flip-example" class="nav-link" data-scroll-target="#simple-coin-flip-example">Simple Coin Flip Example</a></li>
   <li><a href="#maximizing-the-likelihood-in-lm" id="toc-maximizing-the-likelihood-in-lm" class="nav-link" data-scroll-target="#maximizing-the-likelihood-in-lm">Maximizing the Likelihood in LM</a></li>
-  <li><a href="#bias-variance-decomposition" id="toc-bias-variance-decomposition" class="nav-link" data-scroll-target="#bias-variance-decomposition">Bias-Variance Decomposition</a></li>
-  <li><a href="#derivation" id="toc-derivation" class="nav-link" data-scroll-target="#derivation">Derivation</a></li>
-  <li><a href="#not-interpreting-the-mse" id="toc-not-interpreting-the-mse" class="nav-link" data-scroll-target="#not-interpreting-the-mse">Not Interpreting the MSE</a></li>
   <li><a href="#interpreting-the-mse" id="toc-interpreting-the-mse" class="nav-link" data-scroll-target="#interpreting-the-mse">Interpreting the MSE</a></li>
   <li><a href="#compare-to-previous-studies" id="toc-compare-to-previous-studies" class="nav-link" data-scroll-target="#compare-to-previous-studies">Compare to Previous Studies</a></li>
   <li><a href="#compare-to-other-models" id="toc-compare-to-other-models" class="nav-link" data-scroll-target="#compare-to-other-models">Compare to other models</a></li>
@@ -437,7 +439,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#mse-of-a-parameter-bias-of-s" id="toc-mse-of-a-parameter-bias-of-s" class="nav-link" data-scroll-target="#mse-of-a-parameter-bias-of-s">MSE of a Parameter: Bias of <span class="math inline">\(s\)</span></a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">3.3</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">3.4</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -470,7 +472,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-03</p>
+      <p class="date">2024-05-07</p>
     </div>
   </div>
   
@@ -480,15 +482,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="the-residual-whats-left-over" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="the-residual-whats-left-over"><span class="header-section-number">3.1</span> The residual: what’s left over</h2>
+<section id="rule-number-1-always-plot-everything" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="rule-number-1-always-plot-everything"><span class="header-section-number">3.1</span> Rule Number 1: Always Plot Everything</h2>
+<section id="anscombes-quartet" class="level3">
+<h3 class="anchored" data-anchor-id="anscombes-quartet">Anscombe’s Quartet</h3>
+<p>Consider the following four data sets</p>
+<div class="cell" data-hash="L03-Residuals_cache/html/anscombe1_b64b6f86095ff0dfddbdc39ccf841640">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">data_set</th>
+<th style="text-align: right;">xbar</th>
+<th style="text-align: right;">sigma_x</th>
+<th style="text-align: right;">ybar</th>
+<th style="text-align: right;">sigma_y</th>
+<th style="text-align: right;">corr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.316625</td>
+<td style="text-align: right;">7.500909</td>
+<td style="text-align: right;">2.031568</td>
+<td style="text-align: right;">0.8164205</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.316625</td>
+<td style="text-align: right;">7.500909</td>
+<td style="text-align: right;">2.031657</td>
+<td style="text-align: right;">0.8162365</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.316625</td>
+<td style="text-align: right;">7.500000</td>
+<td style="text-align: right;">2.030424</td>
+<td style="text-align: right;">0.8162867</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.316625</td>
+<td style="text-align: right;">7.500909</td>
+<td style="text-align: right;">2.030578</td>
+<td style="text-align: right;">0.8165214</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Can you guess what the plots look like?</p>
+</section>
+<section id="anscombes-quartet-1" class="level3">
+<h3 class="anchored" data-anchor-id="anscombes-quartet-1">Anscombe’s Quartet</h3>
+<div class="cell" data-hash="L03-Residuals_cache/html/anscombe2_d3cfe05841240ed6d49f30f8f2afc21a">
+<div class="cell-output-display">
+<p><img src="L03-Residuals_files/figure-html/anscombe2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="the-residual-whats-left-over" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="the-residual-whats-left-over"><span class="header-section-number">3.2</span> The residual: what’s left over</h2>
 <section id="r2-percent-of-variance-explained-by-the-regression-model" class="level3">
 <h3 class="anchored" data-anchor-id="r2-percent-of-variance-explained-by-the-regression-model"><span class="math inline">\(R^2\)</span>: percent of variance explained by the regression model</h3>
 <div class="columns">
 <div class="column" style="width:30%;">
-<p><span class="math display">\[
-R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
-\]</span></p>
+<p><span class="math display">\[\begin{align*}
+R^2 &amp;= \frac{SSReg}{SST}\\&amp; = \frac{S_{XY}^2}{S_{XX}S_{YY}}
+\end{align*}\]</span></p>
 </div><div class="column" style="width:70%;">
 <div class="cell" data-hash="L03-Residuals_cache/html/R2_demo_c127336de43f0c1f5a390452986d63dd">
 <details>
@@ -736,8 +804,8 @@ R^2 = \frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </ul>
 </section>
 </section>
-<section id="maximum-likelihood" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="maximum-likelihood"><span class="header-section-number">3.2</span> Maximum Likelihood</h2>
+<section id="maximum-likelihood" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="maximum-likelihood"><span class="header-section-number">3.3</span> Maximum Likelihood</h2>
 <section id="main-idea" class="level3">
 <h3 class="anchored" data-anchor-id="main-idea">Main Idea</h3>
 <p>Find the values <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, and <span class="math inline">\(\hat\sigma^2\)</span> that <strong>maximize the likelihood of seeing our data</strong>.</p>
@@ -785,44 +853,6 @@ L(\beta_0, \beta_, \sigma^2) = \prod_{i=1}^n\frac{1}{\sqrt{2\pi\sigma^2}}\exp\le
 \hat\sigma^2 = \frac{1}{n}\sum_{i=1}^n\left(y_i - \hat\beta_0 - \hat\beta_1x_i\right)^2
 \]</span></p>
 </section>
-<section id="bias-variance-decomposition" class="level3">
-<h3 class="anchored" data-anchor-id="bias-variance-decomposition">Bias-Variance Decomposition</h3>
-<p>On the next slide, we’ll show that <span class="math inline">\(E\left((Y_i - \hat Y_i)^2\right)\)</span> can be decomposed into <span class="math inline">\(V(\epsilon_i)\)</span>, squared bias, and the variance of the fitted model.</p>
-<ul>
-<li><span class="math inline">\(V(\epsilon_i)\)</span> is the variance of the <em>true</em> errors.</li>
-<li>Bias is the difference between the true model and the estimated one.
-<ul>
-<li><strong>Systematic</strong> difference, not just random errors
-<ul>
-<li>e.g.&nbsp;fitting a linear model to a non-linear trend</li>
-</ul></li>
-</ul></li>
-<li>Variance of the fitted model <em>across all possible samples</em></li>
-</ul>
-<p>Note that this is a slight deviation from how the text presents it.</p>
-</section>
-<section id="derivation" class="level3">
-<h3 class="anchored" data-anchor-id="derivation">Derivation</h3>
-<p>Suppose the true value is <span class="math inline">\(Y_i = g(x_i) + \epsilon_i\)</span> (not necessarily linear), where <span class="math inline">\(E(\epsilon_i) = 0\)</span>, <span class="math inline">\(E(Y_i) = g(x_i)\)</span>, and <span class="math inline">\(V(\epsilon_i) = \sigma^2\)</span>. <span class="math display">\[\begin{align*}
-E\left((Y_i - \hat Y_i)^2\right) &amp;= E(Y_i - 2Y_i\hat Y_i + \hat Y_i^2)\\
-&amp;= E(Y_i^2) - 2E(Y_i\hat Y_i) + E(\hat Y_i^2)\\
-&amp;= E((g(x_i) + \epsilon)^2) - 2E(g(x_i) + \epsilon_i)E(\hat Y_i) + E(\hat Y_i^2)\\
-&amp;= g^2(x_i) + 2g(x_i)E(\epsilon_i) + E(\epsilon_i^2) - 2g(x_i)E(\hat Y_i) + E(\hat Y_i^2)\\
-&amp;= g^2(x_i) + \sigma^2 - 2g(x_i)E(\hat Y_i) + E(\hat Y_i^2) + E(\hat Y_i)^2 - E(\hat Y_i)^2\\
-&amp;= \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)\\
-&amp;= \text{Error Variance} + \text{Bias}^2 + \text{Fitted Model Variance}
-\end{align*}\]</span></p>
-</section>
-<section id="not-interpreting-the-mse" class="level3">
-<h3 class="anchored" data-anchor-id="not-interpreting-the-mse">Not Interpreting the MSE</h3>
-<p><span class="math display">\[
-E((Y_i - \hat{Y_i})^2) = \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)
-\]</span></p>
-<ul>
-<li>We don’t know any of the numbers on the right!!!</li>
-</ul>
-<p>The decomposition is theoretical, we can’t tease apart <span class="math inline">\(s^2\)</span> into these terms.</p>
-</section>
 <section id="interpreting-the-mse" class="level3">
 <h3 class="anchored" data-anchor-id="interpreting-the-mse">Interpreting the MSE</h3>
 <p>The basic question of statistics: “How big is this number?”</p>
@@ -855,10 +885,10 @@ E((Y_i - \hat{Y_i})^2) = \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)
 </section>
 <section id="compare-to-other-models" class="level3">
 <h3 class="anchored" data-anchor-id="compare-to-other-models">Compare to other models</h3>
-<p>It can be shown that <span class="math inline">\(E(MSReg) = \sigma^2 + \beta_1S_{XX}\)</span>.</p>
+<p>It can be shown that <span class="math inline">\(E(MS_{Reg}) = \sigma^2 + \beta_1S_{XX}\)</span>.</p>
 <p>Consider the Null hypothesis <span class="math inline">\(\beta_1 =0\)</span> (why is this a good null?).</p>
 <ul>
-<li>Under this null, <span class="math inline">\(\frac{MSReg}{s^2}\sim F_{1, n-2}\)</span>.
+<li>Under this null, <span class="math inline">\(\frac{MS_{Reg}}{s^2}\sim F_{1, n-2}\)</span>.
 <ul>
 <li>Obvious CI from this. </li>
 </ul></li>
@@ -873,7 +903,7 @@ E((Y_i - \hat{Y_i})^2) = \sigma^2 + (g(x_i) - E(\hat Y_i))^2 + V(\hat Y_i)
 <p>From wikipedia, we know that the mean of a <span class="math inline">\(\chi^2_k\)</span> distribution is <span class="math inline">\(k\)</span>. Therefore, <span class="math display">\[
 E\left(\frac{(n-2)s^2}{\sigma^2}\right) = n-2 \Leftrightarrow E(s^2) = \sigma^2
 \]</span> and thus <span class="math inline">\(s^2\)</span> is unbiased.</p>
-<p>This does <em>not necessarily</em> mean that <span class="math inline">\(s^2\)</span> is the best estimator for <span class="math inline">\(\sigma^2\)</span>! ::: {.content-visible unless-profile=“book”} See course notes for a simulation! :::</p>
+<p>This does <em>not necessarily</em> mean that <span class="math inline">\(s^2\)</span> is the best estimator for <span class="math inline">\(\sigma^2\)</span>!</p>
 </section>
 <section id="mse-of-a-parameter-bias-of-s" class="level3">
 <h3 class="anchored" data-anchor-id="mse-of-a-parameter-bias-of-s">MSE of a Parameter: Bias of <span class="math inline">\(s\)</span></h3>
@@ -907,8 +937,8 @@ E(s) &lt; \sqrt{E(s^2)} = \sqrt{\sigma^2} = \sigma
 </ul>
 </section>
 </section>
-<section id="exercises" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="exercises"><span class="header-section-number">3.3</span> Exercises</h2>
+<section id="exercises" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">3.4</span> Exercises</h2>
 <p>Recommended textbook exercises: TODO</p>
 <ol type="1">
 <li>Explore why we use residuals versus fitted, rather than residuals versus observed.
@@ -952,7 +982,8 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 </details>
 <hr>
 <ol start="2" type="1">
-<li>Find the MLE estimate for <span class="math inline">\(\sigma^2\)</span>.
+<li><p>Show that the estimates for <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> are the same as the OLS estimates.</p></li>
+<li><p>Find the MLE estimate for <span class="math inline">\(\sigma^2\)</span>.</p>
 <ul>
 <li>Comment on the difference between this formula and the usual variance formula.</li>
 <li>Comment on the variance formula from least squares</li>
@@ -969,7 +1000,7 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 </ul>
 </details>
 <hr>
-<ol start="3" type="1">
+<ol start="4" type="1">
 <li>The MLE of <span class="math inline">\(\sigma^2\)</span> divides by <span class="math inline">\(n\)</span>. Demonstrate via simulation that this is actually a biased estimate.</li>
 </ol>
 <details>
@@ -1005,7 +1036,7 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 <p>The MSE is lowest when we divide by… <span class="math inline">\(n+1\)</span>???? Yes, this is just how it is. See <a href="https://alemorales.info/post/variance-estimators/">here</a> for a bit more discussion on this issue. Basically, the estimator with <span class="math inline">\(n-1\)</span> is unbiased, and <span class="math inline">\(n\)</span> is lower variance without too much bias, while <span class="math inline">\(n+1\)</span> is much more bias than we’re comfortable with.</p>
 </details>
 <hr>
-<ol start="4" type="1">
+<ol start="5" type="1">
 <li>Prove that <span class="math inline">\(\sum_i=1^n\hat\epsilon_i = 0\)</span>. Really try it yourself, then check the hint below only if your’re struggling.</li>
 </ol>
 <details>
@@ -1014,6 +1045,9 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 </summary>
 <span class="math inline">\(\hat\epsilon_i = y_i - \hat\beta_0 - \hat\beta_1x_i\)</span>, <span class="math inline">\(\sum_{i=1}^ny_i = n\bar y\)</span>, and <span class="math inline">\(\beta_0 = \bar y - \hat\beta_1x_i\)</span>. *****
 </details>
+<ol start="6" type="1">
+<li></li>
+</ol>
 
 
 </section>
