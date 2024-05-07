@@ -52,8 +52,10 @@ Can you guess what the plots look like?
 ```{r}
 #| label: anscombe2
 #| echo: false
+#| fig-height: 5
+#| fig-width: 10
 
-par(mfrow = c(2, 2))
+par(mfrow = c(2, 2), mar = c(4, 4, 2, 2))
 for (i in 1:4) {
     plot(x = anscombe[, xs[i]], y = anscombe[, ys[i]],
         xlab = paste0("x", i), ylab = paste0("y", i),
@@ -187,6 +189,10 @@ g1 / g2
 :::
 ::::
 
+::: {.content-visible when-profile="book"}
+I just want to add a little more context to the "unit change" idea. In a linear model, the estimated height of the line is $\hat y_i = \hat\beta_0 + \hat\beta_1x_i$. To go from Celcius to Fahrenheit, we use the equation $F_i = 32 + \frac{9}{5}C_i$, where $C_i$ is the Celcius value that we have and $F_i$ is the Fahrenheit value that we get. A line is literally a change of units!
+:::
+
 ### Residual Plots and Assumption Checking
 
 Mathematics is the process of making assumptions and seeing if we can break them.
@@ -197,7 +203,7 @@ Mathematics is the process of making assumptions and seeing if we can break them
 - $\epsilon_i \sim N(0,\sigma^2)$ is harder to see on a residuals versus fitted plot
     - Expect more points close to 0, fewer further away, no outliers
 
-### Residual plots: unstable error
+### Residual plots: unstable error, a.k.a. Heteroscedasticity
 
 ```{r}
 #| label: heteroskedastic
@@ -221,6 +227,10 @@ g2 <- ggplot(xydf) +
 
 g1 + g2
 ```
+
+::: {.content-visible when-profile="book"}
+The idea of heteroscedastic data is that $V(\epsilon_i) = \sigma^2_i$, which depends on $i$. The most obvious case is shown above, where the variance increases along the values of $x$. This pattern is obviously present in the plot of $y$ versus $x$, but this can be very hard to see in higher dimensions!
+:::
 
 ### Residual plots: non-linear trend?
 
@@ -246,6 +256,11 @@ g2 <- ggplot(mtdf) +
 g1 + g2
 ```
 
+::: {.content-visible when-profile="book"}
+The plots above show a (mild) violation of the assumption that $y_i = \beta_0 + \beta_1x_i + \epsilon_i$, i.e., that the true trend is linear. This can be seen in the plot of $y$ against $x$, but it's much more obvious in the residual plot!
+
+Note that, in this course, the phrase "The Residual Plot" *always* refers to a plot of residuals against fitted. There are other residual plots, but **the** residual plot is resids versus fitted. 
+:::
 
 ### Testing Normality: Quantile-Quantile Plots
 
@@ -265,8 +280,7 @@ Consider the data (2,3,3,4,5,5,6).\vspace{0.15cm}
     - For a $N(0,1)$ distribution, 75% is below `qnorm(0.75)` = 0.67
     - Put a point at x = 0.67, y = Q3.
 - ... and so on for the rest of the quantiles
-
-
+    - See [this link](https://colab.research.google.com/drive/1CwTYG9lx1WcSN6DDf--xSBYzgAo9PwTS) for an example.
 
 :::
 ::: {.column width="40%"}
@@ -286,6 +300,10 @@ plot(mydata ~ quants)
 
 :::
 ::::
+
+::: {.content-visible when-profile="book"}
+The example link is a fun thing to play with! It's written in Python, so don't worry about the code. Change the sample sizes to get an idea of just how hard it is to definitively show that data are normal.
+:::
 
 ### Other Residual Plots: 
 
@@ -313,7 +331,7 @@ plot(mydata ~ quants)
 
 ## Participation Quiz
 
-### Q01
+### Q1
 
 Which of the following is not an assumption of linear models?
 
@@ -326,7 +344,7 @@ d. None of the above.
 
 <!--- D --->
 
-### Q02
+### Q2
 
 Which of the following is a confidence interval for $s$?
 
@@ -339,20 +357,20 @@ d. None of the above
 
 <!--- D --->
 
-### Q03
+### Q3
 
 Which of the following is *not* a random variable?
 
 \pspace
 
 a. $Y$
-b. $\hat\epsilon_i$
+b. $\beta_1$
 c. $\hat Y$
-d. $\underline\epsilon$
+d. $\hat\beta_1$
 
-<!--- D --->
+<!--- B --->
 
-### Q04
+### Q4
 
 For simple linear regression, the percent of variance explained is the square of the correlation between $y$ and $x$, i.e., $r^2$. 
 
@@ -362,7 +380,7 @@ c. Sometimes true
 
 <!--- A --->
 
-### Q05
+### Q5
 
 Which of the following is the definition of a residual?
 
@@ -377,7 +395,7 @@ A is the *estimated residual*. The **true residual** is $y_i - \beta_0 + \beta_1
 
 <!--- A --->
 
-### Q06
+### Q6
 
 Which of the following statements about $R^2$ in simple linear regression is *false*?
 
@@ -537,6 +555,7 @@ $$
 
 Recommended textbook exercises: TODO
 
+1. Show that $\frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}$.
 1. Explore why we use residuals versus fitted, rather than residuals versus observed. 
     - Fit a regression, then plot $\underline\epsilon$ versus $\underline y$. What do you notice?
     - Find $cor(\epsilon_i, y_i)$ mathematically. Compare this with what you see in the plot.
@@ -640,6 +659,50 @@ $\hat\epsilon_i = y_i - \hat\beta_0 - \hat\beta_1x_i$, $\sum_{i=1}^ny_i = n\bar 
 *****
 </details>
 
-6. 
+6. Consider the following plot, where the grey line is the mean model (where $\beta_1 = 0$), the green line represents the simple linear regression of mpg versus displacement, and the red line represents a model where the intercept is forced to be 0 (I use this a lot because it's easy to conceptualize and the math is easy, *not* because it's usually relevant to applications). Using R, calculate the anova table for both models and interpret the results.
+
+```{r}
+#| label: no-intercept
+#| code-fold: false
+
+ggplot(mtcars) + 
+    aes(x = disp, y = mpg) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE, formula = y ~ 1, colour = "darkgrey", linewidth = 2) +
+    geom_smooth(method = "lm", se = FALSE, formula = y ~ x, colour = "green", linewidth = 2) +
+    geom_smooth(method = "lm", se = FALSE, formula = y ~ 0 + x, colour = "red", linewidth = 2)
+
+# Model with an intercept (the usual model)
+lm_with <- lm(mpg ~ disp, data = mtcars)
+# Using "0 +" forces the intercept to be 0
+lm_without <- lm(mpg ~ 0 + disp, data = mtcars)
+```
+
+<details>
+<summary>**Solution**</summary>
+
+```{r}
+#| label: no-intercept-solution
+#| code-fold: false
+
+anova(lm_with)
+anova(lm_without)
+```
+
+Some interpretations:
+
+- For `lm_with`:
+    - $MS_{Reg} = 808.89$ and $MS_E = 10.57$, which are clearly different numbers (even with a sample size of 32, which you can see from $df_E = 30 = n - 2$).
+        - The model is clearly different from just using the mean!
+        - The p-value confirms this.
+- For `lm_without`:
+    - Again, the model is clearly "different" from just using the mean, but it's not necessarily **better** than using it. The graph shows that this model fits very poorly, the variance is just significantly *different*!
+    - Note that the degrees of freedom is $n - 1$, since we're only estimating one parameter (the slope).
+- Comparison:
+    - $MS_{E}^{(with)} = 10.57$ and $MS_E^{(without)} = 207.8$. Clearly the model with an intercept is fitting much much better!
+        - Notice: we did not look at $MS_{E}^{(with)} = 10.57$ and conclude that it was clearly a small value. The MSE is really hard to interpret on it's own, but it's quite useful for comparisons!
+
+</details>
+*****
 
 :::
