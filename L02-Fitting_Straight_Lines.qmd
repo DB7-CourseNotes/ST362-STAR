@@ -451,6 +451,12 @@ b. False
 
 The variance in $Y$ is **explained** by $X$!
 
+::: {.content-visible when-profile="book"}
+This intuition is going to be very important: there's variance in $y$, but incorporating $x$ *explains* some of that variability. Instead of variance around the mean of $y$, we're looking at the variance around the line.
+
+Why is $\sigma^2 < \sigma^2_y$? Imagine a horizontal line at $\bar y$ (also show that $\hat\beta_0 = \bar y$ is the least squares estimator of the model $y_i = \beta_0 + \epsilon$). The variance above and below the line is simply the variance of $y$, *i.e.* $\sigma^2_y$. This is the absolute worst case scenario. If that line is moved to fit the data as well as possible, then the variance above and below the line will be smaller!
+:::
+
 
 ### A Useful Identity, and its Interpretations
 
@@ -459,6 +465,10 @@ The variance in $Y$ is **explained** by $X$!
 \implies ... \implies \sum_{i=1}^n\hat\epsilon_i^2 &= \sum_{i=1}^n(y_i-\bar y)^2 - \sum_{i=1}^n(\hat y_i - \bar y)^2
 \end{align*}
 where we've simply added and subtracted $\bar y$. The final line skips a few steps (try them yourself, or see textbook page 28)!
+
+::: {.content-visible when-profile="book"}
+Note that the "..." is actually fairly difficult to prove. You will need to plug in the least squares estimates $\hat\beta_0$ and $\hat\beta_1$ in order to get to the final answer.
+:::
 
 \pspace
 
@@ -526,6 +536,31 @@ Recall that $SS_E = \sum_{i=1}^n(y_i - \hat y_i)^2$.
 
 - We can compare the variation around the line to the variation *of* the line.
     - This is $MS_{Reg}/MS_E$, and it follows an $F$ distribution!!
+
+::: {.content-visible when-profile="book"}
+Statistics is the process of adding context to numbers. We expect a model in which there's no relationship to have an $SS_{Reg}$ of 0. Due to random sampling, we're never actually going to get this.
+
+```{r}
+#| label: SSReg-sim
+
+x <- runif(50, -5, 5)
+ssreg_vals <- double(1000)
+for (i in 1:1000) {
+    # There is no relationship here!
+    y <- 4 + 0*x + rnorm(50, 0, 3)
+    mylm <- lm(y ~ x)
+    yhat <- predict(mylm)
+    ybar <- mean(y)
+    ssreg_vals[i] <- sum((yhat - ybar)^2)
+}
+hist(ssreg_vals)
+sum(ssreg_vals == 0)
+```
+
+There's no relationship, but *none* of the estimated values of $SS_{Reg}$ are 0! Some of them were as high as 80, even though there's truly no relationship!
+
+So, what value of $SS_{Reg}$ counts as "too large"? We actually don't test this directly. Because of the way we chose to do statistics, it's actually quite difficult to create a test at the boundary of possible values (in this case, testing if $SS_{Reg} = 0$ when $SS_{Reg}$ can only be greater than or equal to 0).
+:::
 
 ### The F-test for Significance of Regression
 
@@ -650,7 +685,7 @@ abline(a = 0, b = sum(x * y) / sum(x^2), col = 2, lwd = 3)
 3. Given that $\hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2}$, find $E(\hat\beta)$.
 4. Complete the derivation of $V(\hat\beta_1)$.
 5. Suppose that we fit the model without an intercept, but there actually is an intercept term. That is, suppose $y_i = \beta_0 + \beta_1x_i +\epsilon_i$, but our estimator is what was found in Question 2, and find $E(\hat\beta_1)$. Hint: it's *not* $\beta_1$!
-6. Show that $E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2$
+6. Show that $E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2$. *Hint: $V(y_i) = E(y_i^2) - E(y_i)^2$, and you'll need to plug in the estimates for $\hat\beta_0$ and $\hat\beta_1$.
 7. Use R to calculate the values in the ANOVA table, i.e. the "Sum of Squares" section, for a linear regression of `waiting` versus `eruptions` in the `faithful` data. Compare the the `anova()` output, shown below.
 
 ```{r}
@@ -670,7 +705,7 @@ anova(faithful_lm)
 
 
 8. Use a simulation to demonstrate that, assuming $\beta_1 = 0$, $MS_{Reg} / MS_E \sim F_{df_{Reg}, df_E}$.
-    - Explain why this is only true when $\beta_1 = 0$
+    - Explain why this is only true when $\beta_1 = 0$?
 
 <details>
 <summary>**Solution**</summary>
