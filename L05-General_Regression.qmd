@@ -298,46 +298,56 @@ $Y_{n+1} = X\beta + \epsilon_{n+1}$
 
 Which of the following are the Normal equations?
 
-1. $X^TX\underline\beta = X^T\underline y$\lspace
-2. $X^TX\underline{\hat\beta} = X^T\underline y$\lspace
-3. $\hat{\underline\beta} = (X^TX)^{-1}X^T\underline y$\lspace
-4. $f(\epsilon_i) = \frac{1}{\sqrt{2\pi\sigma}}\exp\left(\frac{-1}{2}\epsilon_i^2\right)$
+a. $X^TX\underline\beta = X^T\underline y$\lspace
+b. $X^TX\underline{\hat\beta} = X^T\underline y$\lspace
+c. $\hat{\underline\beta} = (X^TX)^{-1}X^T\underline y$\lspace
+d. $f(\epsilon_i) = \frac{1}{\sqrt{2\pi\sigma}}\exp\left(\frac{-1}{2}\epsilon_i^2\right)$
+
+<!--- B --->
 
 ### Q2
 
 When is $X^TX$ not invertible?
 
-1. One of the predictors can be written as a linear combination of the others.
-2. There are more predictors than observations.
-3. One of the predictors has 0 variance.
-4. All of the above
+a. One of the predictors can be written as a linear combination of the others.
+b. There are more predictors than observations.
+c. One of the predictors has 0 variance.
+d. All of the above
+
+<!--- D --->
 
 ### Q3
 
 What does a significant F-test for the overall regression mean?
 
-1. The variance in the line is significantly larger than the variance in the data.
-2. The estimate of $\beta_1$ is significantly different from $\beta_0$,
-3. The variance of the line is significantly different from 0.
-4. At least one of the predictors in the model will have  significant $t$-test.
+a. The variance in the line is significantly larger than the variance in the data.
+b. The estimate of $\beta_1$ is significantly different from $\beta_0$,
+c. The variance of the line is significantly different from 0.
+d. At least one of the predictors in the model will have  significant $t$-test.
+
+<!--- A --->
 
 ### Q4
 
 $R^2$ is best used for:
 
-1. Determining whether a new predictor is worth including.
-2. Comparing models with different numbers of predictors.
-3. Comparing models based on different data sets.
-4. None of the above.
+a. Determining whether a new predictor is worth including.
+b. Comparing models with different numbers of predictors.
+c. Comparing models based on different data sets.
+d. None of the above.
+
+<!--- D --->
 
 ### Q5
 
 Which of the following describes a Prediction Interval?
 
-1. The CI for the predicted value of the line
-2. The CI for the predicted value of the line, including unobserved error at an $X$ value
-3. The CI for the predicted value of the line, including unobserved error at an $X$ value that was not observed in the data
-4. The CI for the predicted value of the line, including unobserved error at an $X$ value that was not observed in the data, using the true value of $\sigma^2$
+a. The CI for the predicted value of the line
+b. The CI for the predicted value of the line, including unobserved error at an $X$ value
+c. The CI for the predicted value of the line, including unobserved error at an $X$ value that was not observed in the data
+d. The CI for the predicted value of the line, including unobserved error at an $X$ value that was not observed in the data, using the true value of $\sigma^2$
+
+<!--- B --->
 
 ### Q6
 
@@ -362,6 +372,7 @@ Which ANOVA table does the `anova()` function calculate?
 | Error | $n-2$ | $\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y$ | 
 | Total | $n - 1$ | $\underline y^t\underline y$ |
 
+<!--- A --->
 
 :::
 
