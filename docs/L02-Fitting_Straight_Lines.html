@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-07">
+<meta name="dcterms.date" content="2024-05-08">
 
 <title>STAR Notes - 2&nbsp; Fitting Straight Lines</title>
 <style>
@@ -418,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#some-linear-models-are-useful" id="toc-some-linear-models-are-useful" class="nav-link" data-scroll-target="#some-linear-models-are-useful">Some Linear Models are Useful</a></li>
   <li><a href="#a-model-is-an-equation" id="toc-a-model-is-an-equation" class="nav-link" data-scroll-target="#a-model-is-an-equation">A Model is an Equation</a></li>
   <li><a href="#notes-on-notation" id="toc-notes-on-notation" class="nav-link" data-scroll-target="#notes-on-notation">Notes on Notation</a></li>
-  <li><a href="#the-mean-of-y-at-any-value-of-x" id="toc-the-mean-of-y-at-any-value-of-x" class="nav-link" data-scroll-target="#the-mean-of-y-at-any-value-of-x">The Mean of <span class="math inline">\(Y\)</span> at any value of <span class="math inline">\(X\)</span></a></li>
+  <li><a href="#the-mean-expectation-of-y-at-any-value-of-x" id="toc-the-mean-expectation-of-y-at-any-value-of-x" class="nav-link" data-scroll-target="#the-mean-expectation-of-y-at-any-value-of-x">The Mean (Expectation) of <span class="math inline">\(Y\)</span> at any value of <span class="math inline">\(X\)</span></a></li>
   <li><a href="#a-linear-model-is-linear-in-the-parameters" id="toc-a-linear-model-is-linear-in-the-parameters" class="nav-link" data-scroll-target="#a-linear-model-is-linear-in-the-parameters">A Linear Model is Linear in the <em>Parameters</em></a></li>
   </ul></li>
   <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="header-section-number">2.2</span> Estimation</a>
@@ -432,18 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#variance-of-hatbeta_1" id="toc-variance-of-hatbeta_1" class="nav-link" data-scroll-target="#variance-of-hatbeta_1">Variance of <span class="math inline">\(\hat\beta_1\)</span></a></li>
   <li><a href="#confidence-interval-and-test-statistic-for-hatbeta_1" id="toc-confidence-interval-and-test-statistic-for-hatbeta_1" class="nav-link" data-scroll-target="#confidence-interval-and-test-statistic-for-hatbeta_1">Confidence Interval and Test Statistic for <span class="math inline">\(\hat\beta_1\)</span></a></li>
   </ul></li>
-  <li><a href="#analysis-of-variance" id="toc-analysis-of-variance" class="nav-link" data-scroll-target="#analysis-of-variance"><span class="header-section-number">2.3</span> Analysis of Variance</a>
-  <ul class="collapse">
-  <li><a href="#statistics-is-the-study-of-variance" id="toc-statistics-is-the-study-of-variance" class="nav-link" data-scroll-target="#statistics-is-the-study-of-variance">Statistics is the Study of Variance</a></li>
-  <li><a href="#a-useful-identity-and-its-interpretations" id="toc-a-useful-identity-and-its-interpretations" class="nav-link" data-scroll-target="#a-useful-identity-and-its-interpretations">A Useful Identity, and its Interpretations</a></li>
-  <li><a href="#sums-of-squares" id="toc-sums-of-squares" class="nav-link" data-scroll-target="#sums-of-squares">Sums of Squares</a></li>
-  <li><a href="#aside-degrees-of-freedom" id="toc-aside-degrees-of-freedom" class="nav-link" data-scroll-target="#aside-degrees-of-freedom">Aside: Degrees of Freedom</a></li>
-  <li><a href="#sums-of-squares-in-an-anova-table" id="toc-sums-of-squares-in-an-anova-table" class="nav-link" data-scroll-target="#sums-of-squares-in-an-anova-table">Sums of Squares in an ANOVA Table</a></li>
-  <li><a href="#using-sumsmeans-of-squares" id="toc-using-sumsmeans-of-squares" class="nav-link" data-scroll-target="#using-sumsmeans-of-squares">Using Sums/Means of Squares</a></li>
-  <li><a href="#the-f-test-for-significance-of-regression" id="toc-the-f-test-for-significance-of-regression" class="nav-link" data-scroll-target="#the-f-test-for-significance-of-regression">The F-test for Significance of Regression</a></li>
-  <li><a href="#exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3" id="toc-exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3" class="nav-link" data-scroll-target="#exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3">Exercise A from Chapter 3 (Ch03 Exercises cover Ch1-3)</a></li>
-  </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">2.4</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">2.3</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -476,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-07</p>
+      <p class="date">2024-05-08</p>
     </div>
   </div>
   
@@ -637,8 +626,8 @@ y_i = \beta_0 + \beta_1x_i + \epsilon_i;\; E(y_i|x_i) = \beta_0 + \beta_1 x_i;\;
 </ul></li>
 </ul>
 </section>
-<section id="the-mean-of-y-at-any-value-of-x" class="level3">
-<h3 class="anchored" data-anchor-id="the-mean-of-y-at-any-value-of-x">The Mean of <span class="math inline">\(Y\)</span> at any value of <span class="math inline">\(X\)</span></h3>
+<section id="the-mean-expectation-of-y-at-any-value-of-x" class="level3">
+<h3 class="anchored" data-anchor-id="the-mean-expectation-of-y-at-any-value-of-x">The Mean (Expectation) of <span class="math inline">\(Y\)</span> at any value of <span class="math inline">\(X\)</span></h3>
 <p><span class="math display">\[
 E(Y|X) = X\underline\beta
 \]</span></p>
@@ -738,9 +727,9 @@ E(Y|X) = X\underline\beta
 <section id="least-squares-estimates---start" class="level3">
 <h3 class="anchored" data-anchor-id="least-squares-estimates---start">Least Squares Estimates - Start</h3>
 <p>To find the minimum of a function, we take the derivative and set it to 0! <span class="math display">\[\begin{align*}
-R(\underline \beta) \stackrel{def}{=}\sum_{i=1}^n\hat\epsilon_i^2 &amp;= \sum_{i=1}^n(y_i - \hat y_i)^2 = \sum_{i=1}^n(y_i - \beta_0 - \beta_1x_1)\\
+R(\underline \beta) \stackrel{def}{=}\sum_{i=1}^n\hat\epsilon_i^2 &amp;= \sum_{i=1}^n(y_i - \hat y_i)^2 = \sum_{i=1}^n(y_i - \beta_0 - \beta_1x_i)^2\\
 \implies \frac{dR(\underline\beta)}{d\beta_0} &amp;= -2\sum_{i=1}^n(y_i - \beta_0 - \beta_1x_i)\\
-\text{and }\frac{dR(\underline\beta)}{d\beta_1} &amp;= -2\sum_{i=1}^n(y_i - \beta_0- \beta_1^2)x_i = -2\sum y_ix_i + 2\beta_0\sum x_i + 2\beta_1\sum x_i^2
+\text{and }\frac{dR(\underline\beta)}{d\beta_1} &amp;= -2\sum_{i=1}^n(y_i - \beta_0- \beta_1x_i)x_i = -2\sum y_ix_i + 2\beta_0\sum x_i + 2\beta_1\sum x_i^2
 \end{align*}\]</span></p>
 <p>Homework: complete the derivation.</p>
 </section>
@@ -775,14 +764,14 @@ R(\underline \beta) \stackrel{def}{=}\sum_{i=1}^n\hat\epsilon_i^2 &amp;= \sum_{i
 <section id="mean-of-hatbeta_1" class="level3">
 <h3 class="anchored" data-anchor-id="mean-of-hatbeta_1">Mean of <span class="math inline">\(\hat\beta_1\)</span></h3>
 <p>It is easy to show that <span class="math display">\[
-\hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2} = \frac{\sum_{i-1}^n(x_i - \bar x)y_i}{\sum_{i-1}^n(x_i - \bar x)^2}
+\hat\beta_1 = \frac{\sum_{i=1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^n(x_i - \bar x)^2} = \frac{\sum_{i=1}^n(x_i - \bar x)y_i}{\sum_{i=1}^n(x_i - \bar x)^2}
 \]</span> since <span class="math inline">\(\sum(x_i - \bar x) = 0\)</span> (show this).</p>
 <p>Homework: show that <span class="math inline">\(E(\hat\beta_1) = \beta_1\)</span> (*Hint: use the fact that <span class="math inline">\(E(y_i) = \beta_0 + \beta_1x_i\)</span> - don’t mix up the estimated values <span class="math inline">\(\hat\beta\)</span> and the true values <span class="math inline">\(\beta\)</span>!).</p>
 </section>
 <section id="variance-of-hatbeta_1" class="level3">
 <h3 class="anchored" data-anchor-id="variance-of-hatbeta_1">Variance of <span class="math inline">\(\hat\beta_1\)</span></h3>
 <p><span class="math display">\[
-\hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)y_i}{\sum_{i-1}^n(x_i - \bar x)^2}
+\hat\beta_1 = \frac{\sum_{i=1}^n(x_i - \bar x)y_i}{\sum_{i=1}^n(x_i - \bar x)^2}
 \]</span> can be re-written as <span class="math display">\[
 \hat\beta_1 = \sum_{i=1}^na_iy_i\text{, where }a_i = \frac{x_i - \bar x}{\sum_{i=1}^n(x_i - \bar x)^2}
 \]</span></p>
@@ -800,259 +789,8 @@ t = \frac{\hat\beta_1 - \beta_1}{se(\hat\beta_1)} = \frac{(\hat\beta_1 - \beta_1
 \]</span></p>
 </section>
 </section>
-<section id="analysis-of-variance" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="analysis-of-variance"><span class="header-section-number">2.3</span> Analysis of Variance</h2>
-<section id="statistics-is-the-study-of-variance" class="level3">
-<h3 class="anchored" data-anchor-id="statistics-is-the-study-of-variance">Statistics is the Study of Variance</h3>
-<ul>
-<li>Given a data set with variable <span class="math inline">\(\underline y\)</span>, <span class="math inline">\(V(\underline y) = \sigma^2_y\)</span>.
-<ul>
-<li>This is just the variance of a single variable.</li>
-</ul></li>
-<li>Once we’ve incorporated the linear relationship with <span class="math inline">\(\underline x\)</span>, <span class="math inline">\(V(\hat\beta \underline x + \underline\epsilon)=0+V(\underline\epsilon) = \sigma^2\)</span>
-<ul>
-<li>Mathematically, <span class="math inline">\(\sigma^2 \le \sigma_y^2\)</span>.
-<ul>
-<li>Homework: when are they equal?</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>The variance in <span class="math inline">\(Y\)</span> is <strong>explained</strong> by <span class="math inline">\(X\)</span>!</p>
-<p>This intuition is going to be very important: there’s variance in <span class="math inline">\(y\)</span>, but incorporating <span class="math inline">\(x\)</span> <em>explains</em> some of that variability. Instead of variance around the mean of <span class="math inline">\(y\)</span>, we’re looking at the variance around the line.</p>
-<p>Why is <span class="math inline">\(\sigma^2 &lt; \sigma^2_y\)</span>? Imagine a horizontal line at <span class="math inline">\(\bar y\)</span> (also show that <span class="math inline">\(\hat\beta_0 = \bar y\)</span> is the least squares estimator of the model <span class="math inline">\(y_i = \beta_0 + \epsilon\)</span>). The variance above and below the line is simply the variance of <span class="math inline">\(y\)</span>, <em>i.e.</em> <span class="math inline">\(\sigma^2_y\)</span>. This is the absolute worst case scenario. If that line is moved to fit the data as well as possible, then the variance above and below the line will be smaller!</p>
-</section>
-<section id="a-useful-identity-and-its-interpretations" class="level3">
-<h3 class="anchored" data-anchor-id="a-useful-identity-and-its-interpretations">A Useful Identity, and its Interpretations</h3>
-<p><span class="math display">\[\begin{align*}
-\hat\epsilon_i &amp;= y_i - \hat y_i \\&amp;= y_i - \bar y - (\hat y_i - \bar y)\\
-\implies ... \implies \sum_{i=1}^n\hat\epsilon_i^2 &amp;= \sum_{i=1}^n(y_i-\bar y)^2 - \sum_{i=1}^n(\hat y_i - \bar y)^2
-\end{align*}\]</span> where we’ve simply added and subtracted <span class="math inline">\(\bar y\)</span>. The final line skips a few steps (try them yourself, or see textbook page 28)!</p>
-<p>Note that the “…” is actually fairly difficult to prove. You will need to plug in the least squares estimates <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> in order to get to the final answer.</p>
-<p>The last line is often written as: <span class="math inline">\(SS_E = SS_T - SS_{Reg}\)</span>.</p>
-</section>
-<section id="sums-of-squares" class="level3">
-<h3 class="anchored" data-anchor-id="sums-of-squares">Sums of Squares</h3>
-<p><span class="math display">\[
-SS_E = SS_T - SS_{Reg}
-\]</span></p>
-<ul>
-<li><span class="math inline">\(SS_E\)</span>: Sum of Squared Errors</li>
-<li><span class="math inline">\(SS_T\)</span>: Sum of Squares Total (i.e., without considering <span class="math inline">\(\underline x\)</span>)</li>
-<li><span class="math inline">\(SS_{Reg}\)</span>: Sum of Squares due to the regression.
-<ul>
-<li>It’s the variance of the line (calculated at observed <span class="math inline">\(\underline x\)</span> values) around the mean of <span class="math inline">\(\underline y\)</span>???
-<ul>
-<li>This is incredibly useful, but weird.</li>
-</ul></li>
-<li>I use <span class="math inline">\(SS_{Reg}\)</span> instead of <span class="math inline">\(SS_R\)</span>
-<ul>
-<li>Some textbooks use <span class="math inline">\(SS_R\)</span> as SS <em>Residuals</em> (same as <span class="math inline">\(SS_E\)</span>), which is confusing.</li>
-</ul></li>
-</ul></li>
-</ul>
-</section>
-<section id="aside-degrees-of-freedom" class="level3">
-<h3 class="anchored" data-anchor-id="aside-degrees-of-freedom">Aside: Degrees of Freedom</h3>
-<p>Def: The number of “pieces of information” from <span class="math inline">\(y_1, y_2, ..., y_n\)</span> to construct a new number.</p>
-<ul>
-<li>If I have <span class="math inline">\(x = (1,3,2,1,3,???)\)</span> and I know that <span class="math inline">\(\bar x = 2\)</span>, I can recover the missing piece.
-<ul>
-<li>The mean “uses” (accounts for) one degree of freedom</li>
-</ul></li>
-<li>If I have <span class="math inline">\(x = (1,2,3,1,???,???)\)</span> and I know <span class="math inline">\(\bar x = 2\)</span> and <span class="math inline">\(s_x^2=1\)</span>, I can recover the <em>two</em> missing pieces.
-<ul>
-<li>The variance accounts for two degrees of freedom.
-<ul>
-<li>One <span class="math inline">\(df\)</span> is required to compute it.</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>Estimating one parameter takes away one degree of freedom for the rest!</p>
-<ul>
-<li>Can find <span class="math inline">\(\bar x\)</span> when <span class="math inline">\(x = (1)\)</span>, but can’t find <span class="math inline">\(s_x^2\)</span> because there aren’t enough <span class="math inline">\(df\)</span>!</li>
-</ul>
-</section>
-<section id="sums-of-squares-in-an-anova-table" class="level3">
-<h3 class="anchored" data-anchor-id="sums-of-squares-in-an-anova-table">Sums of Squares in an ANOVA Table</h3>
-<table class="table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Source of Variation</th>
-<th>Degress of Freedom <span class="math inline">\(df\)</span></th>
-<th>Sum of Squares (<span class="math inline">\(SS\)</span>)</th>
-<th>Mean Square (<span class="math inline">\(MS\)</span>)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Regression</td>
-<td>1</td>
-<td><span class="math inline">\(\sum_{i=1}^n(\hat y_i - \bar y)^2\)</span></td>
-<td><span class="math inline">\(MS_{Reg}\)</span></td>
-</tr>
-<tr class="even">
-<td>Error</td>
-<td><span class="math inline">\(n-2\)</span></td>
-<td><span class="math inline">\(\sum_{i=1}^n(y_i - \hat y_i)^2\)</span></td>
-<td><span class="math inline">\(MS_E=s^2\)</span></td>
-</tr>
-<tr class="odd">
-<td>Total (corrected)</td>
-<td><span class="math inline">\(n-1\)</span></td>
-<td><span class="math inline">\(\sum_{i=1}^n(y_i - \bar y)^2\)</span></td>
-<td><span class="math inline">\(s_y^2\)</span></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Notice that <span class="math inline">\(SS_T = SS_{Reg} + SS_E\)</span>, which is also true for the <span class="math inline">\(df\)</span> (but not <span class="math inline">\(MS\)</span>). </li>
-<li>Why is <span class="math inline">\(df_E = n-2\)</span>? What two parameters have we estimated?
-<ul>
-<li><span class="math inline">\(df_{Reg}\)</span> is trickier to explain. It suffices to know that <span class="math inline">\(df_{Reg} = df_T-df_E\)</span>.</li>
-</ul></li>
-<li>“Corrected”: We estimated the mean of <span class="math inline">\(\underline y\)</span>, rather than just <span class="math inline">\(\sum y_i^2\)</span>.
-<ul>
-<li>This used a degree of freedom!</li>
-</ul></li>
-</ul>
-</section>
-<section id="using-sumsmeans-of-squares" class="level3">
-<h3 class="anchored" data-anchor-id="using-sumsmeans-of-squares">Using Sums/Means of Squares</h3>
-<ul>
-<li>If <span class="math inline">\(\hat y_i = \bar y\)</span> for all <span class="math inline">\(i\)</span>, then we have a horizontal line!
-<ul>
-<li>That is, there is <em>no relationship</em> between <span class="math inline">\(\underline x\)</span> and $\underline <span class="math inline">\(y\)</span>.</li>
-<li>In this case, <span class="math inline">\(SS_{reg} = \sum_{i=1}^n(\hat y_i - \bar y)^2 = 0\)</span>.</li>
-</ul></li>
-</ul>
-<p>Okay, so, just test for <span class="math inline">\(SS_{Reg} = 0\)</span>?</p>
-<p>But how??? We need some measure of <em>how far from 0</em> is statistically significant!!!</p>
-<p>Recall that <span class="math inline">\(SS_E = \sum_{i=1}^n(y_i - \hat y_i)^2\)</span>.</p>
-<ul>
-<li>We can compare the variation around the line to the variation <em>of</em> the line.
-<ul>
-<li>This is <span class="math inline">\(MS_{Reg}/MS_E\)</span>, and it follows an <span class="math inline">\(F\)</span> distribution!!</li>
-</ul></li>
-</ul>
-<p>Statistics is the process of adding context to numbers. We expect a model in which there’s no relationship to have an <span class="math inline">\(SS_{Reg}\)</span> of 0. Due to random sampling, we’re never actually going to get this.</p>
-<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/SSReg-sim_6df028fd04aaed0fb616dd35ba06e05d">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">50</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ssreg_vals <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="dv">1000</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># There is no relationship here!</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">0</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(mylm)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    ybar <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    ssreg_vals[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>((yhat <span class="sc">-</span> ybar)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ssreg_vals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="L02-Fitting_Straight_Lines_files/figure-html/SSReg-sim-1.png" class="img-fluid" width="672"></p>
-</div>
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(ssreg_vals <span class="sc">==</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-</div>
-<p>There’s no relationship, but <em>none</em> of the estimated values of <span class="math inline">\(SS_{Reg}\)</span> are 0! Some of them were as high as 80, even though there’s truly no relationship!</p>
-<p>So, what value of <span class="math inline">\(SS_{Reg}\)</span> counts as “too large”? We actually don’t test this directly. Because of the way we chose to do statistics, it’s actually quite difficult to create a test at the boundary of possible values (in this case, testing if <span class="math inline">\(SS_{Reg} = 0\)</span> when <span class="math inline">\(SS_{Reg}\)</span> can only be greater than or equal to 0).</p>
-</section>
-<section id="the-f-test-for-significance-of-regression" class="level3">
-<h3 class="anchored" data-anchor-id="the-f-test-for-significance-of-regression">The F-test for Significance of Regression</h3>
-<p><span class="math display">\[
-F_{df_{Reg}, df_E} = \dfrac{MS_{Reg}}{MS_E} = \dfrac{MS_{Reg}}{s^2}
-\]</span></p>
-<ul>
-<li>Recall that <span class="math inline">\(SS_{Reg} = SS_E + SS_T &gt; SS_E\)</span>, but the <span class="math inline">\(df\)</span> make a difference.</li>
-<li>For homework, show that <span class="math inline">\(E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2\)</span></li>
-<li>This implies that <span class="math inline">\(E(MS_{Reg}) &gt; E(MS_E) = \sigma^2\)</span>.
-<ul>
-<li><strong>UNLESS</strong> <span class="math inline">\(\beta_1 = 0\)</span></li>
-</ul></li>
-</ul>
-</section>
-<section id="exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3">Exercise A from Chapter 3 (Ch03 Exercises cover Ch1-3)</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>A study was made on the effect of temperature on the yield of a chemical process. The data are shown to the right.</p>
-<ol type="1">
-<li>Assuming <span class="math inline">\(y_i = \beta_0 + \beta_1x_i + \epsilon_i\)</span>, what are the least squares estimates of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>?</li>
-<li>Construct the analysis of variance table and test the hypothesis <span class="math inline">\(H_0: \beta_1=0\)</span> at the 0.05 level.</li>
-<li>What are the confidence limits (at <span class="math inline">\(\alpha\)</span> = 0.05) for <span class="math inline">\(\beta_1\)</span>?</li>
-</ol>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/load-text-data_d6ad6d74a4d9d8b18f07b891d5a4c973">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(aprean3) <span class="co"># Data from textbook</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dse03a) <span class="co"># Data Set Exercise Ch03A</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>   x  y
-1 -5  1
-2 -4  5
-3 -3  4
-4 -2  7
-5 -1 10
-6  0  8</code></pre>
-</div>
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dse03a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 11</code></pre>
-</div>
-</div>
-</div>
-</div>
-<p>Answers:</p>
-<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/aprean_ad7894787b30d9cdbe65fa9b089d0e94">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> dse03a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(Intercept)           x 
-   9.272727    1.436364 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> dse03a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Variance Table
-
-Response: y
-          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
-x          1 226.945  226.94   96.18 4.207e-06 ***
-Residuals  9  21.236    2.36                      
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> dse03a), <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>               2.5 %    97.5 %
-(Intercept) 8.225007 10.320447
-x           1.105045  1.767682</code></pre>
-</div>
-</div>
-<p>As homework, calculate all of these using the formulas in R!</p>
-</section>
-</section>
-<section id="exercises" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">2.4</span> Exercises</h2>
+<section id="exercises" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="exercises"><span class="header-section-number">2.3</span> Exercises</h2>
 <p>Good textbook questions: A, K, O, P, T, U, X (using <code>data(anscombe)</code> in R), Z, AA, CC. Note that all data sets in the textbook are available in an R package found <a href="https://search.r-project.org/CRAN/refmans/aprean3/html/00Index.html">here</a>.</p>
 <ol type="1">
 <li>Find the OLS estimates of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> for the model <span class="math inline">\(y_i = \beta_0 + \beta_1x_i + \epsilon_i\)</span>.</li>
@@ -1076,42 +814,42 @@ x           1.105045  1.767682</code></pre>
 <p>In the following simulation, the true slope is the exact same no matter what. However, the true intercept varies. When <span class="math inline">\(\beta_0 = 0\)</span>, we get the true value for <span class="math inline">\(\beta_1\)</span>. When the true intercept is negative, the estimate for the slope is too low. When <span class="math inline">\(\beta_0\)</span> is positive, the slope is too high. The plots on the right show why this is the case.</p>
 <p>For further homework, change the range of <code>x</code> (to be far from 0 or to cover 0), the value of <code>beta1</code> (try small, large, and negative values), and the standard deviation of <code>e</code> (small and large) and see if you can guess the pattern before you run the code.</p>
 <div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/bias-without-intercept_c7f1f13ed7441f2decee5050b6f31c73">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">75</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>beta_hats <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>beta0s <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (beta0 <span class="cf">in</span> beta0s) {</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x <span class="sc">+</span> e</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    beta1_est <span class="ot">&lt;-</span> <span class="fu">sum</span>(x <span class="sc">*</span> y) <span class="sc">/</span> <span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    beta_hats <span class="ot">&lt;-</span> <span class="fu">c</span>(beta_hats, beta1_est)</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">4</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(beta0s, beta_hats)</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x <span class="sc">+</span> e</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">main =</span> <span class="st">"True b0 = -10"</span>)</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="fu">sum</span>(x <span class="sc">*</span> y) <span class="sc">/</span> <span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x <span class="sc">+</span> e</span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">main =</span> <span class="st">"True b0 = 0"</span>)</span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="fu">sum</span>(x <span class="sc">*</span> y) <span class="sc">/</span> <span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x <span class="sc">+</span> e</span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">main =</span> <span class="st">"True b0 = 10"</span>,</span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(y)))</span>
-<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="fu">sum</span>(x <span class="sc">*</span> y) <span class="sc">/</span> <span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">75</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>beta1 <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>beta_hats <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>beta0s <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (beta0 <span class="cf">in</span> beta0s) {</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x <span class="sc">+</span> e</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    beta1_est <span class="ot">&lt;-</span> <span class="fu">sum</span>(x <span class="sc">*</span> y) <span class="sc">/</span> <span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    beta_hats <span class="ot">&lt;-</span> <span class="fu">c</span>(beta_hats, beta1_est)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">4</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(beta0s, beta_hats)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x <span class="sc">+</span> e</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">main =</span> <span class="st">"True b0 = -10"</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="fu">sum</span>(x <span class="sc">*</span> y) <span class="sc">/</span> <span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x <span class="sc">+</span> e</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">main =</span> <span class="st">"True b0 = 0"</span>)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="fu">sum</span>(x <span class="sc">*</span> y) <span class="sc">/</span> <span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>beta0 <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1<span class="sc">*</span>x <span class="sc">+</span> e</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">main =</span> <span class="st">"True b0 = 10"</span>,</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(y)))</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="fu">sum</span>(x <span class="sc">*</span> y) <span class="sc">/</span> <span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L02-Fitting_Straight_Lines_files/figure-html/bias-without-intercept-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1119,86 +857,10 @@ x           1.105045  1.767682</code></pre>
 </details>
 <hr>
 <ol start="4" type="1">
-<li>Given that <span class="math inline">\(\hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2}\)</span>, find <span class="math inline">\(E(\hat\beta)\)</span>.</li>
+<li>Given that <span class="math inline">\(\hat\beta_1 = \frac{\sum_{i=1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^n(x_i - \bar x)^2}\)</span>, find <span class="math inline">\(E(\hat\beta)\)</span>.</li>
 <li>Complete the derivation of <span class="math inline">\(V(\hat\beta_1)\)</span>.</li>
 <li>Suppose that we fit the model without an intercept, but there actually is an intercept term. That is, suppose <span class="math inline">\(y_i = \beta_0 + \beta_1x_i +\epsilon_i\)</span>, but our estimator is what was found in Question 2, and find <span class="math inline">\(E(\hat\beta_1)\)</span>. Hint: it’s <em>not</em> <span class="math inline">\(\beta_1\)</span>!</li>
-<li>Show that <span class="math inline">\(E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2\)</span>. *Hint: <span class="math inline">\(V(y_i) = E(y_i^2) - E(y_i)^2\)</span>, and you’ll need to plug in the estimates for <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>.</li>
-<li>Use R to calculate the values in the ANOVA table, i.e.&nbsp;the “Sum of Squares” section, for a linear regression of <code>waiting</code> versus <code>eruptions</code> in the <code>faithful</code> data. Compare the the <code>anova()</code> output, shown below.</li>
 </ol>
-<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/faithful-anova_dd90c168aeabdf868a69c3206be8117b">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(faithful)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> faithful<span class="sc">$</span>waiting</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>y_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>faithful_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(waiting <span class="sc">~</span> eruptions, <span class="at">data =</span> faithful)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(faithful_lm)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(faithful_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Variance Table
-
-Response: waiting
-           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
-eruptions   1  40644   40644  1162.1 &lt; 2.2e-16 ***
-Residuals 270   9443      35                      
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<ol start="9" type="1">
-<li>Use a simulation to demonstrate that, assuming <span class="math inline">\(\beta_1 = 0\)</span>, <span class="math inline">\(MS_{Reg} / MS_E \sim F_{df_{Reg}, df_E}\)</span>.
-<ul>
-<li>Explain why this is only true when <span class="math inline">\(\beta_1 = 0\)</span>?</li>
-</ul></li>
-</ol>
-<details>
-<summary>
-<strong>Solution</strong>
-</summary>
-<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/dist_msreg_d089dab4191c66d541461190862bdf8f">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>f_vals <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>msreg_vals <span class="ot">&lt;-</span><span class="fu">c</span>()</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">+</span> <span class="fl">0.005</span><span class="sc">*</span>x <span class="sc">+</span> e</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    y_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(mylm)</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    y_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    ms_reg <span class="ot">&lt;-</span> <span class="fu">sum</span>((y_hat <span class="sc">-</span> y_bar)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">1</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    msreg_vals[i] <span class="ot">&lt;-</span> ms_reg</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    ms_e <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> y_hat)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">2</span>)</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    f_vals <span class="ot">&lt;-</span> <span class="fu">c</span>(f_vals, ms_reg <span class="sc">/</span> ms_e)</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(f_vals, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">breaks =</span> <span class="dv">40</span>)</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="dv">1</span>, n <span class="sc">-</span> <span class="dv">2</span>), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="L02-Fitting_Straight_Lines_files/figure-html/dist_msreg-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Why is this only true when <span class="math inline">\(\beta_1=0\)</span>? For intuition, this only <em>should</em> be true when the null is true: recall that p-values are always calculated <em>assuming that the null is true</em>, and the F-stat is no different.</p>
-<p>Mathematically, this has to do with the fact that <span class="math inline">\(E(MS_{Reg}) = \sigma^2 + \beta_1S_{XX}\)</span>, not just <span class="math inline">\(\sigma^2\)</span>. Since this is not equal to <span class="math inline">\(\sigma^2\)</span>, this does not follow a Chi-Square distribution.</p>
-<div class="cell" data-hash="L02-Fitting_Straight_Lines_cache/html/dist-msreg-2_89306e1620913524673f1d1a0d0b2148">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(msreg_vals, <span class="at">breaks =</span> <span class="dv">40</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x, <span class="dv">1</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># qqplot, just to check</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(<span class="at">x =</span> <span class="fu">qchisq</span>(<span class="fu">ppoints</span>(<span class="fu">length</span>(msreg_vals)), <span class="dv">1</span>), <span class="at">y =</span> msreg_vals)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="L02-Fitting_Straight_Lines_files/figure-html/dist-msreg-2-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-… actually it kinda does follow a Chi-Square distribution. Not sure what to make of that.
-</details>
-<hr>
 
 
 </section>

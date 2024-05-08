@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-07">
+<meta name="dcterms.date" content="2024-05-08">
 
 <title>STAR Notes - 3&nbsp; Assessing Fit</title>
 <style>
@@ -410,12 +410,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#rule-number-1-always-plot-everything" id="toc-rule-number-1-always-plot-everything" class="nav-link active" data-scroll-target="#rule-number-1-always-plot-everything"><span class="header-section-number">3.1</span> Rule Number 1: Always Plot Everything</a>
+  <li><a href="#analysis-of-variance" id="toc-analysis-of-variance" class="nav-link active" data-scroll-target="#analysis-of-variance"><span class="header-section-number">3.1</span> Analysis of Variance</a>
+  <ul class="collapse">
+  <li><a href="#statistics-is-the-study-of-variance" id="toc-statistics-is-the-study-of-variance" class="nav-link" data-scroll-target="#statistics-is-the-study-of-variance">Statistics is the Study of Variance</a></li>
+  <li><a href="#a-useful-identity-and-its-interpretations" id="toc-a-useful-identity-and-its-interpretations" class="nav-link" data-scroll-target="#a-useful-identity-and-its-interpretations">A Useful Identity, and its Interpretations</a></li>
+  <li><a href="#sums-of-squares" id="toc-sums-of-squares" class="nav-link" data-scroll-target="#sums-of-squares">Sums of Squares</a></li>
+  <li><a href="#aside-degrees-of-freedom" id="toc-aside-degrees-of-freedom" class="nav-link" data-scroll-target="#aside-degrees-of-freedom">Aside: Degrees of Freedom</a></li>
+  <li><a href="#sums-of-squares-in-an-anova-table" id="toc-sums-of-squares-in-an-anova-table" class="nav-link" data-scroll-target="#sums-of-squares-in-an-anova-table">Sums of Squares in an ANOVA Table</a></li>
+  <li><a href="#using-sumsmeans-of-squares" id="toc-using-sumsmeans-of-squares" class="nav-link" data-scroll-target="#using-sumsmeans-of-squares">Using Sums/Means of Squares</a></li>
+  <li><a href="#the-f-test-for-significance-of-regression" id="toc-the-f-test-for-significance-of-regression" class="nav-link" data-scroll-target="#the-f-test-for-significance-of-regression">The F-test for Significance of Regression</a></li>
+  <li><a href="#exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3" id="toc-exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3" class="nav-link" data-scroll-target="#exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3">Exercise A from Chapter 3 (Ch03 Exercises cover Ch1-3)</a></li>
+  </ul></li>
+  <li><a href="#rule-number-1-always-plot-everything" id="toc-rule-number-1-always-plot-everything" class="nav-link" data-scroll-target="#rule-number-1-always-plot-everything"><span class="header-section-number">3.2</span> Rule Number 1: Always Plot Everything</a>
   <ul class="collapse">
   <li><a href="#anscombes-quartet" id="toc-anscombes-quartet" class="nav-link" data-scroll-target="#anscombes-quartet">Anscombe’s Quartet</a></li>
   <li><a href="#anscombes-quartet-1" id="toc-anscombes-quartet-1" class="nav-link" data-scroll-target="#anscombes-quartet-1">Anscombe’s Quartet</a></li>
   </ul></li>
-  <li><a href="#the-residual-whats-left-over" id="toc-the-residual-whats-left-over" class="nav-link" data-scroll-target="#the-residual-whats-left-over"><span class="header-section-number">3.2</span> The residual: what’s left over</a>
+  <li><a href="#the-residual-whats-left-over" id="toc-the-residual-whats-left-over" class="nav-link" data-scroll-target="#the-residual-whats-left-over"><span class="header-section-number">3.3</span> The residual: what’s left over</a>
   <ul class="collapse">
   <li><a href="#r2-percent-of-variance-explained-by-the-regression-model" id="toc-r2-percent-of-variance-explained-by-the-regression-model" class="nav-link" data-scroll-target="#r2-percent-of-variance-explained-by-the-regression-model"><span class="math inline">\(R^2\)</span>: percent of variance explained by the regression model</a></li>
   <li><a href="#residual-assumptions" id="toc-residual-assumptions" class="nav-link" data-scroll-target="#residual-assumptions">Residual Assumptions</a></li>
@@ -426,7 +437,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#testing-normality-quantile-quantile-plots" id="toc-testing-normality-quantile-quantile-plots" class="nav-link" data-scroll-target="#testing-normality-quantile-quantile-plots">Testing Normality: Quantile-Quantile Plots</a></li>
   <li><a href="#other-residual-plots" id="toc-other-residual-plots" class="nav-link" data-scroll-target="#other-residual-plots">Other Residual Plots:</a></li>
   </ul></li>
-  <li><a href="#maximum-likelihood" id="toc-maximum-likelihood" class="nav-link" data-scroll-target="#maximum-likelihood"><span class="header-section-number">3.3</span> Maximum Likelihood</a>
+  <li><a href="#maximum-likelihood" id="toc-maximum-likelihood" class="nav-link" data-scroll-target="#maximum-likelihood"><span class="header-section-number">3.4</span> Maximum Likelihood</a>
   <ul class="collapse">
   <li><a href="#main-idea" id="toc-main-idea" class="nav-link" data-scroll-target="#main-idea">Main Idea</a></li>
   <li><a href="#the-likelihood" id="toc-the-likelihood" class="nav-link" data-scroll-target="#the-likelihood">The Likelihood</a></li>
@@ -439,7 +450,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#mse-of-a-parameter-bias-of-s" id="toc-mse-of-a-parameter-bias-of-s" class="nav-link" data-scroll-target="#mse-of-a-parameter-bias-of-s">MSE of a Parameter: Bias of <span class="math inline">\(s\)</span></a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">3.4</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">3.5</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -472,7 +483,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-07</p>
+      <p class="date">2024-05-08</p>
     </div>
   </div>
   
@@ -482,8 +493,259 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="rule-number-1-always-plot-everything" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="rule-number-1-always-plot-everything"><span class="header-section-number">3.1</span> Rule Number 1: Always Plot Everything</h2>
+<section id="analysis-of-variance" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="analysis-of-variance"><span class="header-section-number">3.1</span> Analysis of Variance</h2>
+<section id="statistics-is-the-study-of-variance" class="level3">
+<h3 class="anchored" data-anchor-id="statistics-is-the-study-of-variance">Statistics is the Study of Variance</h3>
+<ul>
+<li>Given a data set with variable <span class="math inline">\(\underline y\)</span>, <span class="math inline">\(V(\underline y) = \sigma^2_y\)</span>.
+<ul>
+<li>This is just the variance of a single variable.</li>
+</ul></li>
+<li>Once we’ve incorporated the linear relationship with <span class="math inline">\(\underline x\)</span>, <span class="math inline">\(V(\hat\beta \underline x + \underline\epsilon)=0+V(\underline\epsilon) = \sigma^2\)</span>
+<ul>
+<li>Mathematically, <span class="math inline">\(\sigma^2 \le \sigma_y^2\)</span>.
+<ul>
+<li>Homework: when are they equal?</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>The variance in <span class="math inline">\(Y\)</span> is <strong>explained</strong> by <span class="math inline">\(X\)</span>!</p>
+<p>This intuition is going to be very important: there’s variance in <span class="math inline">\(y\)</span>, but incorporating <span class="math inline">\(x\)</span> <em>explains</em> some of that variability. Instead of variance around the mean of <span class="math inline">\(y\)</span>, we’re looking at the variance around the line.</p>
+<p>Why is <span class="math inline">\(\sigma^2 &lt; \sigma^2_y\)</span>? Imagine a horizontal line at <span class="math inline">\(\bar y\)</span> (also show that <span class="math inline">\(\hat\beta_0 = \bar y\)</span> is the least squares estimator of the model <span class="math inline">\(y_i = \beta_0 + \epsilon\)</span>). The variance above and below the line is simply the variance of <span class="math inline">\(y\)</span>, <em>i.e.</em> <span class="math inline">\(\sigma^2_y\)</span>. This is the absolute worst case scenario. If that line is moved to fit the data as well as possible, then the variance above and below the line will be smaller!</p>
+</section>
+<section id="a-useful-identity-and-its-interpretations" class="level3">
+<h3 class="anchored" data-anchor-id="a-useful-identity-and-its-interpretations">A Useful Identity, and its Interpretations</h3>
+<p><span class="math display">\[\begin{align*}
+\hat\epsilon_i &amp;= y_i - \hat y_i \\&amp;= y_i - \bar y - (\hat y_i - \bar y)\\
+\implies ... \implies \sum_{i=1}^n\hat\epsilon_i^2 &amp;= \sum_{i=1}^n(y_i-\bar y)^2 - \sum_{i=1}^n(\hat y_i - \bar y)^2
+\end{align*}\]</span> where we’ve simply added and subtracted <span class="math inline">\(\bar y\)</span>. The final line skips a few steps (try them yourself, or see textbook page 28)!</p>
+<p>Note that the “…” is actually fairly difficult to prove. You will need to plug in the least squares estimates <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> in order to get to the final answer.</p>
+<p>The last line is often written as: <span class="math inline">\(SS_E = SS_T - SS_{Reg}\)</span>.</p>
+</section>
+<section id="sums-of-squares" class="level3">
+<h3 class="anchored" data-anchor-id="sums-of-squares">Sums of Squares</h3>
+<p><span class="math display">\[
+SS_E = SS_T - SS_{Reg}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(SS_E\)</span>: Sum of Squared Errors</li>
+<li><span class="math inline">\(SS_T\)</span>: Sum of Squares Total (i.e., without considering <span class="math inline">\(\underline x\)</span>)</li>
+<li><span class="math inline">\(SS_{Reg}\)</span>: Sum of Squares due to the regression.
+<ul>
+<li>It’s the variance of the line (calculated at observed <span class="math inline">\(\underline x\)</span> values) around the mean of <span class="math inline">\(\underline y\)</span>???
+<ul>
+<li>This is incredibly useful, but weird.</li>
+</ul></li>
+<li>I use <span class="math inline">\(SS_{Reg}\)</span> instead of <span class="math inline">\(SS_R\)</span>
+<ul>
+<li>Some textbooks use <span class="math inline">\(SS_R\)</span> as SS <em>Residuals</em> (same as <span class="math inline">\(SS_E\)</span>), which is confusing.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="aside-degrees-of-freedom" class="level3">
+<h3 class="anchored" data-anchor-id="aside-degrees-of-freedom">Aside: Degrees of Freedom</h3>
+<p>Def: The number of “pieces of information” from <span class="math inline">\(y_1, y_2, ..., y_n\)</span> to construct a new number.</p>
+<ul>
+<li>If I have <span class="math inline">\(x = (1,3,2,1,3,???)\)</span> and I know that <span class="math inline">\(\bar x = 2\)</span>, I can recover the missing piece.
+<ul>
+<li>The mean “uses” (accounts for) one degree of freedom</li>
+</ul></li>
+<li>If I have <span class="math inline">\(x = (1,2,3,1,???,???)\)</span> and I know <span class="math inline">\(\bar x = 2\)</span> and <span class="math inline">\(s_x^2=1\)</span>, I can recover the <em>two</em> missing pieces.
+<ul>
+<li>The variance accounts for two degrees of freedom.
+<ul>
+<li>One <span class="math inline">\(df\)</span> is required to compute it.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Estimating one parameter takes away one degree of freedom for the rest!</p>
+<ul>
+<li>Can find <span class="math inline">\(\bar x\)</span> when <span class="math inline">\(x = (1)\)</span>, but can’t find <span class="math inline">\(s_x^2\)</span> because there aren’t enough <span class="math inline">\(df\)</span>!</li>
+</ul>
+</section>
+<section id="sums-of-squares-in-an-anova-table" class="level3">
+<h3 class="anchored" data-anchor-id="sums-of-squares-in-an-anova-table">Sums of Squares in an ANOVA Table</h3>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source of Variation</th>
+<th>Degress of Freedom <span class="math inline">\(df\)</span></th>
+<th>Sum of Squares (<span class="math inline">\(SS\)</span>)</th>
+<th>Mean Square (<span class="math inline">\(MS\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Regression</td>
+<td>1</td>
+<td><span class="math inline">\(\sum_{i=1}^n(\hat y_i - \bar y)^2\)</span></td>
+<td><span class="math inline">\(MS_{Reg}\)</span></td>
+</tr>
+<tr class="even">
+<td>Error</td>
+<td><span class="math inline">\(n-2\)</span></td>
+<td><span class="math inline">\(\sum_{i=1}^n(y_i - \hat y_i)^2\)</span></td>
+<td><span class="math inline">\(MS_E=s^2\)</span></td>
+</tr>
+<tr class="odd">
+<td>Total (corrected)</td>
+<td><span class="math inline">\(n-1\)</span></td>
+<td><span class="math inline">\(\sum_{i=1}^n(y_i - \bar y)^2\)</span></td>
+<td><span class="math inline">\(s_y^2\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Notice that <span class="math inline">\(SS_T = SS_{Reg} + SS_E\)</span>, which is also true for the <span class="math inline">\(df\)</span> (but not <span class="math inline">\(MS\)</span>). </li>
+<li>Why is <span class="math inline">\(df_E = n-2\)</span>? What two parameters have we estimated?
+<ul>
+<li><span class="math inline">\(df_{Reg}\)</span> is trickier to explain. It suffices to know that <span class="math inline">\(df_{Reg} = df_T-df_E\)</span>.</li>
+</ul></li>
+<li>“Corrected”: We estimated the mean of <span class="math inline">\(\underline y\)</span>, rather than just <span class="math inline">\(\sum y_i^2\)</span>.
+<ul>
+<li>This used a degree of freedom!</li>
+</ul></li>
+</ul>
+</section>
+<section id="using-sumsmeans-of-squares" class="level3">
+<h3 class="anchored" data-anchor-id="using-sumsmeans-of-squares">Using Sums/Means of Squares</h3>
+<ul>
+<li>If <span class="math inline">\(\hat y_i = \bar y\)</span> for all <span class="math inline">\(i\)</span>, then we have a horizontal line!
+<ul>
+<li>That is, there is <em>no relationship</em> between <span class="math inline">\(\underline x\)</span> and $\underline <span class="math inline">\(y\)</span>.</li>
+<li>In this case, <span class="math inline">\(SS_{reg} = \sum_{i=1}^n(\hat y_i - \bar y)^2 = 0\)</span>.</li>
+</ul></li>
+</ul>
+<p>Okay, so, just test for <span class="math inline">\(SS_{Reg} = 0\)</span>?</p>
+<p>But how??? We need some measure of <em>how far from 0</em> is statistically significant!!!</p>
+<p>Recall that <span class="math inline">\(SS_E = \sum_{i=1}^n(y_i - \hat y_i)^2\)</span>.</p>
+<ul>
+<li>We can compare the variation around the line to the variation <em>of</em> the line.
+<ul>
+<li>This is <span class="math inline">\(MS_{Reg}/MS_E\)</span>, and it follows an <span class="math inline">\(F\)</span> distribution!!</li>
+</ul></li>
+</ul>
+<p>Statistics is the process of adding context to numbers. We expect a model in which there’s no relationship to have an <span class="math inline">\(SS_{Reg}\)</span> of 0. Due to random sampling, we’re never actually going to get this.</p>
+<div class="cell" data-hash="L03-Residuals_cache/html/SSReg-sim_67863a05b08e0ad5bfbdcbb0a70a955d">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">50</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ssreg_vals <span class="ot">&lt;-</span> <span class="fu">double</span>(<span class="dv">1000</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># There is no relationship here!</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">0</span><span class="sc">*</span>x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(mylm)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    ybar <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    ssreg_vals[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>((yhat <span class="sc">-</span> ybar)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ssreg_vals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L03-Residuals_files/figure-html/SSReg-sim-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(ssreg_vals <span class="sc">==</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>There’s no relationship, but <em>none</em> of the estimated values of <span class="math inline">\(SS_{Reg}\)</span> are 0! Some of them were as high as 80, even though there’s truly no relationship!</p>
+<p>So, what value of <span class="math inline">\(SS_{Reg}\)</span> counts as “too large”? We actually don’t test this directly. Because of the way we chose to do statistics, it’s actually quite difficult to create a test at the boundary of possible values (in this case, testing if <span class="math inline">\(SS_{Reg} = 0\)</span> when <span class="math inline">\(SS_{Reg}\)</span> can only be greater than or equal to 0).</p>
+</section>
+<section id="the-f-test-for-significance-of-regression" class="level3">
+<h3 class="anchored" data-anchor-id="the-f-test-for-significance-of-regression">The F-test for Significance of Regression</h3>
+<p><span class="math display">\[
+F_{df_{Reg}, df_E} = \dfrac{MS_{Reg}}{MS_E} = \dfrac{MS_{Reg}}{s^2}
+\]</span></p>
+<ul>
+<li>Recall that <span class="math inline">\(SS_{Reg} = SS_E + SS_T &gt; SS_E\)</span>, but the <span class="math inline">\(df\)</span> make a difference.</li>
+<li>For homework, show that <span class="math inline">\(E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2\)</span></li>
+<li>This implies that <span class="math inline">\(E(MS_{Reg}) &gt; E(MS_E) = \sigma^2\)</span>.
+<ul>
+<li><strong>UNLESS</strong> <span class="math inline">\(\beta_1 = 0\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-a-from-chapter-3-ch03-exercises-cover-ch1-3">Exercise A from Chapter 3 (Ch03 Exercises cover Ch1-3)</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>A study was made on the effect of temperature on the yield of a chemical process. The data are shown to the right.</p>
+<ol type="1">
+<li>Assuming <span class="math inline">\(y_i = \beta_0 + \beta_1x_i + \epsilon_i\)</span>, what are the least squares estimates of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>?</li>
+<li>Construct the analysis of variance table and test the hypothesis <span class="math inline">\(H_0: \beta_1=0\)</span> at the 0.05 level.</li>
+<li>What are the confidence limits (at <span class="math inline">\(\alpha\)</span> = 0.05) for <span class="math inline">\(\beta_1\)</span>?</li>
+</ol>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="L03-Residuals_cache/html/load-text-data_2549cb4827b3cc26b78695b661fdb83b">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(aprean3) <span class="co"># Data from textbook</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dse03a) <span class="co"># Data Set Exercise Ch03A</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   x  y
+1 -5  1
+2 -4  5
+3 -3  4
+4 -2  7
+5 -1 10
+6  0  8</code></pre>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dse03a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>Answers:</p>
+<div class="cell" data-hash="L03-Residuals_cache/html/aprean_6c2d42eb14d819ffefb8b2c8e19b1990">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> dse03a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)           x 
+   9.272727    1.436364 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> dse03a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: y
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+x          1 226.945  226.94   96.18 4.207e-06 ***
+Residuals  9  21.236    2.36                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> dse03a), <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               2.5 %    97.5 %
+(Intercept) 8.225007 10.320447
+x           1.105045  1.767682</code></pre>
+</div>
+</div>
+<p>As homework, calculate all of these using the formulas in R!</p>
+</section>
+</section>
+<section id="rule-number-1-always-plot-everything" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="rule-number-1-always-plot-everything"><span class="header-section-number">3.2</span> Rule Number 1: Always Plot Everything</h2>
 <section id="anscombes-quartet" class="level3">
 <h3 class="anchored" data-anchor-id="anscombes-quartet">Anscombe’s Quartet</h3>
 <p>Consider the following four data sets</p>
@@ -548,8 +810,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="the-residual-whats-left-over" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="the-residual-whats-left-over"><span class="header-section-number">3.2</span> The residual: what’s left over</h2>
+<section id="the-residual-whats-left-over" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="the-residual-whats-left-over"><span class="header-section-number">3.3</span> The residual: what’s left over</h2>
 <section id="r2-percent-of-variance-explained-by-the-regression-model" class="level3">
 <h3 class="anchored" data-anchor-id="r2-percent-of-variance-explained-by-the-regression-model"><span class="math inline">\(R^2\)</span>: percent of variance explained by the regression model</h3>
 <div class="columns">
@@ -561,32 +823,32 @@ R^2 &amp;= \frac{SSReg}{SST}\\&amp; = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <div class="cell" data-hash="L03-Residuals_cache/html/R2_demo_c127336de43f0c1f5a390452986d63dd">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">1</span>), <span class="at">widths =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">18</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">25</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">25</span>, <span class="dv">2</span> <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>x, <span class="dv">6</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">25</span>), y, <span class="at">xlab =</span> <span class="st">"y"</span>, <span class="at">ylab =</span> <span class="st">"y has variance"</span>, <span class="at">xaxt =</span> <span class="st">"n"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y))</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="fu">mean</span>(y), <span class="fu">bquote</span>(<span class="fu">bar</span>(y)), <span class="at">las =</span> <span class="dv">1</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">ylab =</span> <span class="st">"There's variance around the line"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x))</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y))</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="fu">mean</span>(y), <span class="fu">bquote</span>(<span class="fu">bar</span>(y)), <span class="at">las =</span> <span class="dv">1</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>mids <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x))</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(mids)){</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x =</span> <span class="fu">rep</span>(x[i], <span class="dv">2</span>), <span class="at">y =</span> <span class="fu">c</span>(y[i], mids[i]), <span class="at">col =</span> <span class="dv">1</span>)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>mids <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x))</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mids <span class="sc">~</span> x, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">ylab =</span> <span class="st">"The line varies around the mean of y!"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(mids)){</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x =</span> <span class="fu">rep</span>(x[i], <span class="dv">2</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">mean</span>(y), mids[i]))</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">mean</span>(y), <span class="at">labels =</span> <span class="fu">bquote</span>(<span class="fu">bar</span>(y)), <span class="at">las =</span> <span class="dv">1</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">nrow =</span> <span class="dv">1</span>), <span class="at">widths =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">18</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">25</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">25</span>, <span class="dv">2</span> <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>x, <span class="dv">6</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">25</span>), y, <span class="at">xlab =</span> <span class="st">"y"</span>, <span class="at">ylab =</span> <span class="st">"y has variance"</span>, <span class="at">xaxt =</span> <span class="st">"n"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y))</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="fu">mean</span>(y), <span class="fu">bquote</span>(<span class="fu">bar</span>(y)), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y, <span class="at">ylab =</span> <span class="st">"There's variance around the line"</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x))</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y))</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="fu">mean</span>(y), <span class="fu">bquote</span>(<span class="fu">bar</span>(y)), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>mids <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x))</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(mids)){</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x =</span> <span class="fu">rep</span>(x[i], <span class="dv">2</span>), <span class="at">y =</span> <span class="fu">c</span>(y[i], mids[i]), <span class="at">col =</span> <span class="dv">1</span>)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>mids <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x))</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mids <span class="sc">~</span> x, <span class="at">type =</span> <span class="st">"n"</span>, <span class="at">ylab =</span> <span class="st">"The line varies around the mean of y!"</span>)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(mids)){</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(<span class="at">x =</span> <span class="fu">rep</span>(x[i], <span class="dv">2</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="fu">mean</span>(y), mids[i]))</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">mean</span>(y), <span class="at">labels =</span> <span class="fu">bquote</span>(<span class="fu">bar</span>(y)), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/R2_demo-1.png" class="img-fluid" width="576"></p>
@@ -634,34 +896,34 @@ R^2 &amp;= \frac{SSReg}{SST}\\&amp; = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <div class="cell" data-hash="L03-Residuals_cache/html/resids_vs_fitted_df4246a1f2af5f92fddea67748e997a0">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins) <span class="sc">+</span> </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g) <span class="sc">+</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y<span class="sc">~</span>x) <span class="sc">+</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Flipper Length (mm)"</span>,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Body Mass (g)"</span>,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"y versus x"</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>plm <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> penguins)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">augment</span>(plm)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(p2) <span class="sc">+</span> </span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid) <span class="sc">+</span> </span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals versus Fitted"</span>)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">/</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(penguins) <span class="sc">+</span> </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> body_mass_g) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y<span class="sc">~</span>x) <span class="sc">+</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Flipper Length (mm)"</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Body Mass (g)"</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"y versus x"</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>plm <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> penguins)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">augment</span>(plm)</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(p2) <span class="sc">+</span> </span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid) <span class="sc">+</span> </span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals versus Fitted"</span>)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">/</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/resids_vs_fitted-1.png" class="img-fluid" width="480"></p>
@@ -691,25 +953,25 @@ R^2 &amp;= \frac{SSReg}{SST}\\&amp; = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <div class="cell" data-hash="L03-Residuals_cache/html/heteroskedastic_ab35680f817d5848818b263156d657f1">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>x</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> y0 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, <span class="dv">2</span> <span class="sc">*</span> x)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y) <span class="sc">+</span> </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y<span class="sc">~</span>x) <span class="sc">+</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"y versus x"</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>xydf <span class="ot">&lt;-</span> <span class="fu">augment</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(xydf) <span class="sc">+</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid) <span class="sc">+</span> </span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals versus Fitted"</span>)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">200</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>x</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> y0 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, <span class="dv">2</span> <span class="sc">*</span> x)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y) <span class="sc">+</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y<span class="sc">~</span>x) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"y versus x"</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>xydf <span class="ot">&lt;-</span> <span class="fu">augment</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(xydf) <span class="sc">+</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid) <span class="sc">+</span> </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals versus Fitted"</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/heteroskedastic-1.png" class="img-fluid" width="672"></p>
@@ -722,24 +984,24 @@ R^2 &amp;= \frac{SSReg}{SST}\\&amp; = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <div class="cell" data-hash="L03-Residuals_cache/html/non-linear-trend_5ce2dcbdad259944362c3ebc6089aca7">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## fig-height: 4</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## fig-width: 8</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y<span class="sc">~</span>x) <span class="sc">+</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Engine Displacement"</span>, <span class="at">y =</span> <span class="st">"Miles per Gallon"</span>, <span class="at">title =</span> <span class="st">"y versus x"</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>mtdf <span class="ot">&lt;-</span> <span class="fu">augment</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars))</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtdf) <span class="sc">+</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid) <span class="sc">+</span> </span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals versus Fitted - non-linear trend?"</span>)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## fig-height: 4</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="do">## fig-width: 8</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg) <span class="sc">+</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y<span class="sc">~</span>x) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Engine Displacement"</span>, <span class="at">y =</span> <span class="st">"Miles per Gallon"</span>, <span class="at">title =</span> <span class="st">"y versus x"</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>mtdf <span class="ot">&lt;-</span> <span class="fu">augment</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars))</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtdf) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> .fitted, <span class="at">y =</span> .resid) <span class="sc">+</span> </span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals versus Fitted - non-linear trend?"</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/non-linear-trend-1.png" class="img-fluid" width="672"></p>
@@ -779,11 +1041,11 @@ R^2 &amp;= \frac{SSReg}{SST}\\&amp; = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 <div class="cell" data-hash="L03-Residuals_cache/html/qq-demo_ceaaeb6e5d27d4efee084ecd79de0b6f">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>quants <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.125</span>, <span class="fl">0.25</span>, <span class="fl">0.375</span>, <span class="fl">0.5</span>, </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.625</span>, <span class="fl">0.75</span>, <span class="fl">0.875</span>))</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mydata <span class="sc">~</span> quants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>quants <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.125</span>, <span class="fl">0.25</span>, <span class="fl">0.375</span>, <span class="fl">0.5</span>, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.625</span>, <span class="fl">0.75</span>, <span class="fl">0.875</span>))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mydata <span class="sc">~</span> quants)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/qq-demo-1.png" class="img-fluid" width="672"></p>
@@ -812,8 +1074,8 @@ R^2 &amp;= \frac{SSReg}{SST}\\&amp; = \frac{S_{XY}^2}{S_{XX}S_{YY}}
 </ul>
 </section>
 </section>
-<section id="maximum-likelihood" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="maximum-likelihood"><span class="header-section-number">3.3</span> Maximum Likelihood</h2>
+<section id="maximum-likelihood" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="maximum-likelihood"><span class="header-section-number">3.4</span> Maximum Likelihood</h2>
 <section id="main-idea" class="level3">
 <h3 class="anchored" data-anchor-id="main-idea">Main Idea</h3>
 <p>Find the values <span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>, and <span class="math inline">\(\hat\sigma^2\)</span> that <strong>maximize the likelihood of seeing our data</strong>.</p>
@@ -945,10 +1207,88 @@ E(s) &lt; \sqrt{E(s^2)} = \sqrt{\sigma^2} = \sigma
 </ul>
 </section>
 </section>
-<section id="exercises" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">3.4</span> Exercises</h2>
+<section id="exercises" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">3.5</span> Exercises</h2>
 <p>Recommended textbook exercises: TODO</p>
 <ol type="1">
+<li>Show that <span class="math inline">\(E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2\)</span>. *Hint: <span class="math inline">\(V(y_i) = E(y_i^2) - E(y_i)^2\)</span>, and you’ll need to plug in the estimates for <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>.</li>
+<li>Use R to calculate the values in the ANOVA table, i.e.&nbsp;the “Sum of Squares” section, for a linear regression of <code>waiting</code> versus <code>eruptions</code> in the <code>faithful</code> data. Compare the the <code>anova()</code> output, shown below.</li>
+</ol>
+<div class="cell" data-hash="L03-Residuals_cache/html/faithful-anova_b7643f3c545429791b225a4f1ef1254a">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(faithful)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> faithful<span class="sc">$</span>waiting</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>y_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>faithful_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(waiting <span class="sc">~</span> eruptions, <span class="at">data =</span> faithful)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(faithful_lm)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(faithful_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: waiting
+           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+eruptions   1  40644   40644  1162.1 &lt; 2.2e-16 ***
+Residuals 270   9443      35                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Use a simulation to demonstrate that, assuming <span class="math inline">\(\beta_1 = 0\)</span>, <span class="math inline">\(MS_{Reg} / MS_E \sim F_{df_{Reg}, df_E}\)</span>.
+<ul>
+<li>Explain why this is only true when <span class="math inline">\(\beta_1 = 0\)</span>?</li>
+</ul></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell" data-hash="L03-Residuals_cache/html/dist_msreg_0679398d639c8f2e62fc7fc419433ed4">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>f_vals <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>msreg_vals <span class="ot">&lt;-</span><span class="fu">c</span>()</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">+</span> <span class="fl">0.005</span><span class="sc">*</span>x <span class="sc">+</span> e</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    y_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(mylm)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    y_bar <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    ms_reg <span class="ot">&lt;-</span> <span class="fu">sum</span>((y_hat <span class="sc">-</span> y_bar)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="dv">1</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    msreg_vals[i] <span class="ot">&lt;-</span> ms_reg</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    ms_e <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> y_hat)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> <span class="dv">2</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    f_vals <span class="ot">&lt;-</span> <span class="fu">c</span>(f_vals, ms_reg <span class="sc">/</span> ms_e)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(f_vals, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">breaks =</span> <span class="dv">40</span>)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="dv">1</span>, n <span class="sc">-</span> <span class="dv">2</span>), <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L03-Residuals_files/figure-html/dist_msreg-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Why is this only true when <span class="math inline">\(\beta_1=0\)</span>? For intuition, this only <em>should</em> be true when the null is true: recall that p-values are always calculated <em>assuming that the null is true</em>, and the F-stat is no different.</p>
+<p>Mathematically, this has to do with the fact that <span class="math inline">\(E(MS_{Reg}) = \sigma^2 + \beta_1S_{XX}\)</span>, not just <span class="math inline">\(\sigma^2\)</span>. Since this is not equal to <span class="math inline">\(\sigma^2\)</span>, this does not follow a Chi-Square distribution.</p>
+<div class="cell" data-hash="L03-Residuals_cache/html/dist-msreg-2_b23d169dbb0d78cf295dc008693467a4">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(msreg_vals, <span class="at">breaks =</span> <span class="dv">40</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x, <span class="dv">1</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># qqplot, just to check</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqplot</span>(<span class="at">x =</span> <span class="fu">qchisq</span>(<span class="fu">ppoints</span>(<span class="fu">length</span>(msreg_vals)), <span class="dv">1</span>), <span class="at">y =</span> msreg_vals)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L03-Residuals_files/figure-html/dist-msreg-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+… actually it kinda does follow a Chi-Square distribution. Not sure what to make of that.
+</details>
+<hr>
+<ol start="4" type="1">
 <li>Show that <span class="math inline">\(\frac{SSReg}{SST} = \frac{S_{XY}^2}{S_{XX}S_{YY}}\)</span>.</li>
 <li>Explore why we use residuals versus fitted, rather than residuals versus observed.
 <ul>
@@ -961,13 +1301,13 @@ E(s) &lt; \sqrt{E(s^2)} = \sqrt{\sigma^2} = \sigma
 <strong>Solution</strong>
 </summary>
 <div class="cell" data-hash="L03-Residuals_cache/html/resids-vs-observed_69ace0350264f73c5342c1dffc2f553a">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> e</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mylm<span class="sc">$</span>residuals <span class="sc">~</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> e</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mylm<span class="sc">$</span>residuals <span class="sc">~</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/resids-vs-observed-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -978,11 +1318,11 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 \]</span></p>
 <p>Empiricially:</p>
 <div class="cell" data-hash="L03-Residuals_cache/html/var-covar-resids_92a0339f0ea7f6b6382583ea7a8b690b">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(mylm<span class="sc">$</span>residuals, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(mylm<span class="sc">$</span>residuals, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7.987392</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(mylm<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(mylm<span class="sc">$</span>residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7.987392</code></pre>
 </div>
@@ -990,7 +1330,7 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 <p>This is why we use residuals versus fitted, not residuals versus observed!</p>
 </details>
 <hr>
-<ol start="2" type="1">
+<ol start="6" type="1">
 <li><p>Show that the estimates for <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> are the same as the OLS estimates.</p></li>
 <li><p>Find the MLE estimate for <span class="math inline">\(\sigma^2\)</span>.</p>
 <ul>
@@ -1009,7 +1349,7 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 </ul>
 </details>
 <hr>
-<ol start="4" type="1">
+<ol start="8" type="1">
 <li>The MLE of <span class="math inline">\(\sigma^2\)</span> divides by <span class="math inline">\(n\)</span>. Demonstrate via simulation that this is actually a biased estimate.</li>
 </ol>
 <details>
@@ -1017,27 +1357,27 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 <strong>Solution</strong>
 </summary>
 <div class="cell" data-hash="L03-Residuals_cache/html/mle_bias_1_4931221beef6705eaf34db643b36a2b2">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>true_sigma <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>n_minus <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="fu">length</span>(n_minus), <span class="at">nrow =</span> <span class="dv">10000</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>) {</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, true_sigma)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    vals[i, ] <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> n_minus)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(vals, <span class="dv">2</span>, mean) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">x =</span> n_minus, <span class="at">y =</span> _)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> true_sigma<span class="sc">^</span><span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>true_sigma <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>n_minus <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>vals <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="fu">length</span>(n_minus), <span class="at">nrow =</span> <span class="dv">10000</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>) {</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, true_sigma)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    vals[i, ] <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> <span class="fu">mean</span>(y))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> n_minus)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(vals, <span class="dv">2</span>, mean) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">x =</span> n_minus, <span class="at">y =</span> _)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> true_sigma<span class="sc">^</span><span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/mle_bias_1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>From the plot, we get closest to the true value when we subtract 1 from <span class="math inline">\(n\)</span>. However, the MLE subtracts nothing from <span class="math inline">\(n\)</span>! Why not? Let’s check the MSE.</p>
 <div class="cell" data-hash="L03-Residuals_cache/html/mle_bias_2_3367ebec4e6d6301f070aa52e073ca2e">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(vals, <span class="dv">2</span>, <span class="cf">function</span>(x) {</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>((x <span class="sc">-</span> true_sigma<span class="sc">^</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">x =</span> n_minus, <span class="at">y =</span> _)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(vals, <span class="dv">2</span>, <span class="cf">function</span>(x) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>((x <span class="sc">-</span> true_sigma<span class="sc">^</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">plot</span>(<span class="at">x =</span> n_minus, <span class="at">y =</span> _)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/mle_bias_2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1045,7 +1385,7 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 <p>The MSE is lowest when we divide by… <span class="math inline">\(n+1\)</span>???? Yes, this is just how it is. See <a href="https://alemorales.info/post/variance-estimators/">here</a> for a bit more discussion on this issue. Basically, the estimator with <span class="math inline">\(n-1\)</span> is unbiased, and <span class="math inline">\(n\)</span> is lower variance without too much bias, while <span class="math inline">\(n+1\)</span> is much more bias than we’re comfortable with.</p>
 </details>
 <hr>
-<ol start="5" type="1">
+<ol start="9" type="1">
 <li>Prove that <span class="math inline">\(\sum_i=1^n\hat\epsilon_i = 0\)</span>. Really try it yourself, then check the hint below only if your’re struggling.</li>
 </ol>
 <details>
@@ -1054,30 +1394,30 @@ cov(\hat\epsilon_i, y_i) = cov(\epsilon_i, \hat y_i + \hat \epsilon_i) = cov(\ep
 </summary>
 <span class="math inline">\(\hat\epsilon_i = y_i - \hat\beta_0 - \hat\beta_1x_i\)</span>, <span class="math inline">\(\sum_{i=1}^ny_i = n\bar y\)</span>, and <span class="math inline">\(\beta_0 = \bar y - \hat\beta_1x_i\)</span>. *****
 </details>
-<ol start="6" type="1">
+<ol start="10" type="1">
 <li>Consider the following plot, where the grey line is the mean model (where <span class="math inline">\(\beta_1 = 0\)</span>), the green line represents the simple linear regression of mpg versus displacement, and the red line represents a model where the intercept is forced to be 0 (I use this a lot because it’s easy to conceptualize and the math is easy, <em>not</em> because it’s usually relevant to applications). Using R, calculate the anova table for both models and interpret the results.</li>
 </ol>
 <div class="cell" data-hash="L03-Residuals_cache/html/no-intercept_143054e6dfa4323d78efbb685f7865ff">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">colour =</span> <span class="st">"darkgrey"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">colour =</span> <span class="st">"green"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> x, <span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> mpg) <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">colour =</span> <span class="st">"darkgrey"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">colour =</span> <span class="st">"green"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> x, <span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L03-Residuals_files/figure-html/no-intercept-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model with an intercept (the usual model)</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lm_with <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Using "0 +" forces the intercept to be 0</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>lm_without <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> disp, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model with an intercept (the usual model)</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>lm_with <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Using "0 +" forces the intercept to be 0</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>lm_without <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> disp, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details>
 <summary>
 <strong>Solution</strong>
 </summary>
 <div class="cell" data-hash="L03-Residuals_cache/html/no-intercept-solution_e994c442e142700455be1456f31d1043">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_with)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_with)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1088,7 +1428,7 @@ Residuals 30 317.16   10.57
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_without)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm_without)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
