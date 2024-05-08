@@ -176,7 +176,7 @@ I will make mistakes, but in general:
     - I will avoid the notation $X_i$.
     - Entries of $X$ are labelled $x_{ij}$.
 
-### The Mean of $Y$ at any value of $X$
+### The Mean (Expectation) of $Y$ at any value of $X$
 
 $$
 E(Y|X) = X\underline\beta
@@ -303,9 +303,9 @@ We use squared errors for one main reason: because the math is easy. (This is no
 
 To find the minimum of a function, we take the derivative and set it to 0!
 \begin{align*}
-R(\underline \beta) \stackrel{def}{=}\sum_{i=1}^n\hat\epsilon_i^2 &= \sum_{i=1}^n(y_i - \hat y_i)^2 = \sum_{i=1}^n(y_i - \beta_0 - \beta_1x_1)\\
+R(\underline \beta) \stackrel{def}{=}\sum_{i=1}^n\hat\epsilon_i^2 &= \sum_{i=1}^n(y_i - \hat y_i)^2 = \sum_{i=1}^n(y_i - \beta_0 - \beta_1x_i)^2\\
 \implies \frac{dR(\underline\beta)}{d\beta_0} &= -2\sum_{i=1}^n(y_i - \beta_0 - \beta_1x_i)\\
-\text{and }\frac{dR(\underline\beta)}{d\beta_1} &= -2\sum_{i=1}^n(y_i - \beta_0- \beta_1^2)x_i = -2\sum y_ix_i + 2\beta_0\sum x_i + 2\beta_1\sum x_i^2
+\text{and }\frac{dR(\underline\beta)}{d\beta_1} &= -2\sum_{i=1}^n(y_i - \beta_0- \beta_1x_i)x_i = -2\sum y_ix_i + 2\beta_0\sum x_i + 2\beta_1\sum x_i^2
 \end{align*}
 
 \pspace
@@ -354,7 +354,7 @@ Interpretation: the model looks like a line with completely random errors. ("Com
 
 It is easy to show that 
 $$
-\hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2} = \frac{\sum_{i-1}^n(x_i - \bar x)y_i}{\sum_{i-1}^n(x_i - \bar x)^2}
+\hat\beta_1 = \frac{\sum_{i=1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^n(x_i - \bar x)^2} = \frac{\sum_{i=1}^n(x_i - \bar x)y_i}{\sum_{i=1}^n(x_i - \bar x)^2}
 $$
 since $\sum(x_i - \bar x) = 0$ (show this). 
 
@@ -365,7 +365,7 @@ Homework: show that $E(\hat\beta_1) = \beta_1$ (*Hint: use the fact that $E(y_i)
 ### Variance of $\hat\beta_1$
 
 $$
-\hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)y_i}{\sum_{i-1}^n(x_i - \bar x)^2}
+\hat\beta_1 = \frac{\sum_{i=1}^n(x_i - \bar x)y_i}{\sum_{i=1}^n(x_i - \bar x)^2}
 $$
 can be re-written as 
 $$
@@ -471,193 +471,8 @@ b. False
 
 
 
-
-## Analysis of Variance
-
-### Statistics is the Study of Variance
-
-- Given a data set with variable $\underline y$, $V(\underline y) = \sigma^2_y$.
-    - This is just the variance of a single variable.\lspace
-- Once we've incorporated the linear relationship with $\underline x$, $V(\hat\beta \underline x + \underline\epsilon)=0+V(\underline\epsilon) = \sigma^2$ 
-    - Mathematically, $\sigma^2 \le \sigma_y^2$.
-        - Homework: when are they equal?
-
-\pspace
-
-The variance in $Y$ is **explained** by $X$!
-
-::: {.content-visible when-profile="book"}
-This intuition is going to be very important: there's variance in $y$, but incorporating $x$ *explains* some of that variability. Instead of variance around the mean of $y$, we're looking at the variance around the line.
-
-Why is $\sigma^2 < \sigma^2_y$? Imagine a horizontal line at $\bar y$ (also show that $\hat\beta_0 = \bar y$ is the least squares estimator of the model $y_i = \beta_0 + \epsilon$). The variance above and below the line is simply the variance of $y$, *i.e.* $\sigma^2_y$. This is the absolute worst case scenario. If that line is moved to fit the data as well as possible, then the variance above and below the line will be smaller!
-:::
-
-
-### A Useful Identity, and its Interpretations
-
-\begin{align*}
-\hat\epsilon_i &= y_i - \hat y_i \\&= y_i - \bar y - (\hat y_i - \bar y)\\
-\implies ... \implies \sum_{i=1}^n\hat\epsilon_i^2 &= \sum_{i=1}^n(y_i-\bar y)^2 - \sum_{i=1}^n(\hat y_i - \bar y)^2
-\end{align*}
-where we've simply added and subtracted $\bar y$. The final line skips a few steps (try them yourself, or see textbook page 28)!
-
-::: {.content-visible when-profile="book"}
-Note that the "..." is actually fairly difficult to prove. You will need to plug in the least squares estimates $\hat\beta_0$ and $\hat\beta_1$ in order to get to the final answer.
-:::
-
-\pspace
-
-The last line is often written as: $SS_E = SS_T - SS_{Reg}$. 
-
-### Sums of Squares
-
-$$
-SS_E = SS_T - SS_{Reg}
-$$
-
-- $SS_E$: Sum of Squared Errors\lspace
-- $SS_T$: Sum of Squares Total (i.e., without considering $\underline x$)\lspace
-- $SS_{Reg}$: Sum of Squares due to the regression.
-    - It's the variance of the line (calculated at observed $\underline x$ values) around the mean of $\underline y$???
-        - This is incredibly useful, but weird.
-    - I use $SS_{Reg}$ instead of $SS_R$
-        - Some textbooks use $SS_R$ as SS *Residuals* (same as $SS_E$), which is confusing.
-
-### Aside: Degrees of Freedom
-
-Def: The number of "pieces of information" from $y_1, y_2, ..., y_n$ to construct a new number.
-
-- If I have $x = (1,3,2,1,3,???)$ and I know that $\bar x = 2$, I can recover the missing piece.
-    - The mean "uses" (accounts for) one degree of freedom\lspace
-- If I have $x = (1,2,3,1,???,???)$ and I know $\bar x = 2$ and $s_x^2=1$, I can recover the *two* missing pieces.
-    - The variance accounts for two degrees of freedom.
-        - One $df$ is required to compute it.
-
-\pspace
-
-Estimating one parameter takes away one degree of freedom for the rest!
-
-- Can find $\bar x$ when $x = (1)$, but can't find $s_x^2$ because there aren't enough $df$!
-
-### Sums of Squares in an ANOVA Table
-
-| Source of Variation | Degress of Freedom $df$ | Sum of Squares ($SS$) | Mean Square ($MS$) |
-|---|---|---|---|
-| Regression | 1 | $\sum_{i=1}^n(\hat y_i - \bar y)^2$ | $MS_{Reg}$ |
-| Error | $n-2$ | $\sum_{i=1}^n(y_i - \hat y_i)^2$ | $MS_E=s^2$ |
-| Total (corrected) | $n-1$ | $\sum_{i=1}^n(y_i - \bar y)^2$ | $s_y^2$ |
-
-- Notice that $SS_T = SS_{Reg} + SS_E$, which is also true for the $df$ (but not $MS$). \lspace
-- Why is $df_E = n-2$? What two parameters have we estimated?
-    - $df_{Reg}$ is trickier to explain. It suffices to know that $df_{Reg} = df_T-df_E$.\lspace
-- "Corrected": We estimated the mean of $\underline y$, rather than just $\sum y_i^2$.
-    - This used a degree of freedom!
-
-### Using Sums/Means of Squares
-
-- If $\hat y_i = \bar y$ for all $i$, then we have a horizontal line!
-    - That is, there is *no relationship* between $\underline x$ and $\underline $y$.
-    - In this case, $SS_{reg} = \sum_{i=1}^n(\hat y_i - \bar y)^2 = 0$.
-
-\pspace
-
-Okay, so, just test for $SS_{Reg} = 0$?
-
-\pspace\pause
-
-But how??? We need some measure of *how far from 0* is statistically significant!!!
-
-Recall that $SS_E = \sum_{i=1}^n(y_i - \hat y_i)^2$.
-
-- We can compare the variation around the line to the variation *of* the line.
-    - This is $MS_{Reg}/MS_E$, and it follows an $F$ distribution!!
-
-::: {.content-visible when-profile="book"}
-Statistics is the process of adding context to numbers. We expect a model in which there's no relationship to have an $SS_{Reg}$ of 0. Due to random sampling, we're never actually going to get this.
-
-```{r}
-#| label: SSReg-sim
-
-x <- runif(50, -5, 5)
-ssreg_vals <- double(1000)
-for (i in 1:1000) {
-    # There is no relationship here!
-    y <- 4 + 0*x + rnorm(50, 0, 3)
-    mylm <- lm(y ~ x)
-    yhat <- predict(mylm)
-    ybar <- mean(y)
-    ssreg_vals[i] <- sum((yhat - ybar)^2)
-}
-hist(ssreg_vals)
-sum(ssreg_vals == 0)
-```
-
-There's no relationship, but *none* of the estimated values of $SS_{Reg}$ are 0! Some of them were as high as 80, even though there's truly no relationship!
-
-So, what value of $SS_{Reg}$ counts as "too large"? We actually don't test this directly. Because of the way we chose to do statistics, it's actually quite difficult to create a test at the boundary of possible values (in this case, testing if $SS_{Reg} = 0$ when $SS_{Reg}$ can only be greater than or equal to 0).
-:::
-
-### The F-test for Significance of Regression
-
-$$
-F_{df_{Reg}, df_E} = \dfrac{MS_{Reg}}{MS_E} = \dfrac{MS_{Reg}}{s^2}
-$$
-
-- Recall that $SS_{Reg} = SS_E + SS_T > SS_E$, but the $df$ make a difference.\lspace
-- For homework, show that $E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2$\lspace
-- This implies that $E(MS_{Reg}) > E(MS_E) = \sigma^2$.
-    - **UNLESS** $\beta_1 = 0$
-
-
-### Exercise A from Chapter 3 (Ch03 Exercises cover Ch1-3)
-
-:::: {.columns}
-::: {.column width="50%"}
-\vspace{0.25cm}
-
-A study was made on the effect of temperature on the yield of a chemical process. The data are shown to the right.
-
-\pspace
-
-1. Assuming $y_i = \beta_0 + \beta_1x_i + \epsilon_i$, what are the least squares estimates of $\beta_0$ and $\beta_1$? 
-2. Construct the analysis of variance table and test the hypothesis $H_0: \beta_1=0$ at the  0.05 level.
-3. What are the confidence limits (at $\alpha$ = 0.05) for $\beta_1$?
-
-:::
-::: {.column width="50%"}
-
-```{r}
-#| label: load-text-data
-#| echo: true
-#| eval: true
-#| code-line-numbers: false
-
-library(aprean3) # Data from textbook
-head(dse03a) # Data Set Exercise Ch03A
-nrow(dse03a)
-```
-:::
-::::
-
-
 ::: {.content-visible when-profile="book"}
 
-Answers: 
-
-```{r}
-#| label: aprean
-#| code-fold: false
-# 1.
-coef(lm(y ~ x, data = dse03a))
-
-# 2. 
-anova(lm(y ~ x, data = dse03a))
-
-# 3.
-confint(lm(y ~ x, data = dse03a), conf.level = 0.95)
-```
-
-As homework, calculate all of these using the formulas in R!
 
 ## Exercises
 
@@ -733,79 +548,9 @@ abline(a = 0, b = sum(x * y) / sum(x^2), col = 2, lwd = 3)
 </details>
 *****
 
-4. Given that $\hat\beta_1 = \frac{\sum_{i-1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i-1}^n(x_i - \bar x)^2}$, find $E(\hat\beta)$.
+4. Given that $\hat\beta_1 = \frac{\sum_{i=1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^n(x_i - \bar x)^2}$, find $E(\hat\beta)$.
 5. Complete the derivation of $V(\hat\beta_1)$.
 6. Suppose that we fit the model without an intercept, but there actually is an intercept term. That is, suppose $y_i = \beta_0 + \beta_1x_i +\epsilon_i$, but our estimator is what was found in Question 2, and find $E(\hat\beta_1)$. Hint: it's *not* $\beta_1$!
-7. Show that $E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2$. *Hint: $V(y_i) = E(y_i^2) - E(y_i)^2$, and you'll need to plug in the estimates for $\hat\beta_0$ and $\hat\beta_1$.
-8. Use R to calculate the values in the ANOVA table, i.e. the "Sum of Squares" section, for a linear regression of `waiting` versus `eruptions` in the `faithful` data. Compare the the `anova()` output, shown below.
 
-```{r}
-#| label: faithful-anova
-#| code-fold: false
-data(faithful)
-
-y <- faithful$waiting
-y_bar <- mean(y)
-n <- length(y)
-
-faithful_lm <- lm(waiting ~ eruptions, data = faithful)
-y_hat <- predict(faithful_lm)
-
-anova(faithful_lm)
-```
-
-
-9. Use a simulation to demonstrate that, assuming $\beta_1 = 0$, $MS_{Reg} / MS_E \sim F_{df_{Reg}, df_E}$.
-    - Explain why this is only true when $\beta_1 = 0$?
-
-<details>
-<summary>**Solution**</summary>
-
-
-
-```{r}
-#| label: dist_msreg
-#| code-fold: false
-n <- 100
-x <- runif(n, 0, 10)
-
-f_vals <- c()
-msreg_vals <-c()
-for (i in 1:1000) {
-    e <- rnorm(n, 0, 1)
-    y <- -3 + 0.005*x + e
-    mylm <- lm(y ~ x)
-    
-    y_hat <- predict(mylm)
-    y_bar <- mean(y)
-    ms_reg <- sum((y_hat - y_bar)^2) / 1
-    msreg_vals[i] <- ms_reg
-    ms_e <- sum((y - y_hat)^2) / (n - 2)
-    f_vals <- c(f_vals, ms_reg / ms_e)
-}
-
-hist(f_vals, freq = FALSE, breaks = 40)
-curve(df(x, 1, n - 2), col = 2, lwd = 3, add = TRUE)
-```
-
-Why is this  only true when $\beta_1=0$? For intuition, this only *should* be true when the null is true: recall that p-values are always calculated *assuming that the null is true*, and the F-stat is no different.
-
-Mathematically, this has to do with the fact that $E(MS_{Reg}) = \sigma^2 + \beta_1S_{XX}$, not just $\sigma^2$. Since this is not equal to $\sigma^2$, this does not follow a Chi-Square distribution.
-
-```{r}
-#| label: dist-msreg-2
-#| code-fold: false
-par(mfrow = c(1, 2))
-hist(msreg_vals, breaks = 40, freq = FALSE)
-curve(dchisq(x, 1), add = TRUE, col = 2, lwd = 3)
-
-# qqplot, just to check
-qqplot(x = qchisq(ppoints(length(msreg_vals)), 1), y = msreg_vals)
-abline(a = 0, b = 1)
-```
-
-... actually it kinda does follow a Chi-Square distribution. Not sure what to make of that.
-</details>
-*****
 
 :::
