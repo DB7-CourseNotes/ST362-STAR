@@ -15,6 +15,8 @@ set.seed(2112)
 ### Announcements
 
 - No class on Monday.\lspace
+- Wednesday's lecture will be a pre-recorded video.
+    - Participation quiz on MyLS\lspace
 - Assignment 1 is due next Wednesday!\lspace
 - May 17th is last day to drop with 10% tuition charge\lspace
 
@@ -49,7 +51,7 @@ Y_n &= \beta_0 + \beta_1x_n + \epsilon_n\\
 Y^TY &= \sum Y_i^2\\
 \mathbf{1}^T\underline y &= \sum y_i = n\bar y\\
 X^TX &= \begin{bmatrix}n & \sum x_i\\ \sum x_i & \sum x_i^2\end{bmatrix}\;\text{ (show this)}\\
-(X^TX)^{-1} &= \frac{1}{nS_{XX}}\begin{bmatrix}\sum x_i^2 & -n\bar x\\-n \bar x & n\end{bmatrix}\\
+(X^TX)^{-1} &= \frac{1}{nS_{XX}}\begin{bmatrix}\sum x_i^2 & -n\bar x\\-n \bar x & n\end{bmatrix}\text{ (show this)}\\
 X^TY &= \begin{bmatrix}\sum Y_i\\ \sum x_iY_i\end{bmatrix}
 \end{align*}
 
@@ -160,6 +162,8 @@ HWK: Verify (empirically or mathematically) that this is smallest when $x_0 = \b
 
 ### (Corrected) ANOVA in Matrix Form
 
+On tests, you will be given these formulas if they are relevant!
+
 | Source | $df$ | $SS$ | $MS$ |
 |--------|------|------|------|
 | Regression (corrected) | 1 | $\hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2$  | $SS/df$ |
@@ -169,6 +173,7 @@ HWK: Verify (empirically or mathematically) that this is smallest when $x_0 = \b
 - The "corrected" ANOVA is the ANOVA table for comparing the errors due to $\hat\beta_1$ to the errors due to $\hat\beta_0$.\lspace
 - This is different from comparing a model with $\hat\beta_0$ *and* $\hat\beta_1$ to a model with neither parameter.
     - The value of the "correction" is based on $\bar x$. If the slope is 0, then the estimate for $\hat\beta_0$ is $\bar x$.
+
 
 ### Summary
 
