@@ -745,7 +745,55 @@ $$
 ::: {.content-visible when-profile="book"}
 ## Exercises
 
-Recommended textbook exercises: TODO
+Recommended textbook exercises: A, C, E, F, H, I, J, O, P, W
+
+<details>
+<summary>**Solution to A**</summary>
+
+```{r}
+#| label: dse03a-1
+#| code-fold: false
+library(aprean3) # install.packages("aprean3")
+data(dse03a)
+head(dse03a)
+```
+
+```{r}
+#| label: dse03a-2
+#| code-fold: false
+# part 1
+lm(y ~ x, data = dse03a) |> coef()
+```
+
+The prediction equation is
+$$
+\hat y_i = \hat\beta_0 + \hat\beta_1x_i =  9.27 + 1.436 * x_i
+$$
+
+```{r}
+#| label: dse03a-3
+#| code-fold: false
+
+# part 2
+lm(y ~ x, data = dse03a) |> anova() # Reject the null, beta_1 is sig. diff. from 0
+
+# part 3
+e3lm <- lm(y ~ x, data = dse03a)
+X <- cbind(1, dse03a$x)
+XTX1 <- solve(t(X) %*% X)
+betas <- XTX1 %*% t(X) %*% dse03a$y
+df <- nrow(dse03a) - 2
+preds <- X %*% betas
+s <- sqrt(sum((dse03a$y - preds)^2) / df)
+XTX <- t(X) %*% X
+betas[2] + c(1, -1) * qt(0.025, df = df) * s / sqrt(XTX[2, 2])
+confint(e3lm) # check that it's correct
+```
+
+
+
+*****
+</details>
 
 1. Show that $E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2$. *Hint: $V(y_i) = E(y_i^2) - E(y_i)^2$, and you'll need to plug in the estimates for $\hat\beta_0$ and $\hat\beta_1$.
 2. Use R to calculate the values in the ANOVA table, i.e. the "Sum of Squares" section, for a linear regression of `waiting` versus `eruptions` in the `faithful` data. Compare the the `anova()` output, shown below.
