@@ -15,6 +15,10 @@ set.seed(2112)
 
 ### Announcements
 
+$$
+\frac{\sum_{i=1}^n \frac{x_i}{y_i^2}}{\sum_{i=1}^n\frac{1}{y_i^2}}\text{ simplifies to }\frac{\sum_{i=1}^n \frac{x_i}{y_i^2}}{\sum_{i=1}^n\frac{1}{y_i^2}}
+$$
+
 :::
 
 ## Chapter Summary

@@ -104,7 +104,7 @@ Estimating one parameter takes away one degree of freedom for the rest!
 ### Using Sums/Means of Squares
 
 - If $\hat y_i = \bar y$ for all $i$, then we have a horizontal line!
-    - That is, there is *no relationship* between $\underline x$ and $\underline $y$.
+    - That is, there is *no relationship* between $\underline x$ and $\underline y$.
     - In this case, $SS_{reg} = \sum_{i=1}^n(\hat y_i - \bar y)^2 = 0$.
 
 \pspace
