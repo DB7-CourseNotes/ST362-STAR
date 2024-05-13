@@ -15,7 +15,8 @@ set.seed(2112)
 
 ### Announcements
 
-- Lab 2 is Wednesday!
+- Lab 1 is Wednesday!\lspace
+- Next Weds will be a video lecture.
 :::
 
 
