@@ -148,11 +148,13 @@ So, what value of $SS_{Reg}$ counts as "too large"? We actually don't test this 
 
 ### The F-test for Significance of Regression
 
+The whole point of an ANOVA table is to get down to:
+
 $$
 F_{df_{Reg}, df_E} = \dfrac{MS_{Reg}}{MS_E} = \dfrac{MS_{Reg}}{s^2}
 $$
 
-- Recall that $SS_{Reg} = SS_E + SS_T > SS_E$, but the $df$ make a difference.\lspace
+- Recall that $SS_{Reg} = SS_T - SS_E$, but the $df$ make a difference.\lspace
 - For homework, show that $E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2$\lspace
 - This implies that $E(MS_{Reg}) > E(MS_E) = \sigma^2$.
     - **UNLESS** $\beta_1 = 0$
