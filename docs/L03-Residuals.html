@@ -665,11 +665,12 @@ SS_E = SS_T - SS_{Reg}
 </section>
 <section id="the-f-test-for-significance-of-regression" class="level3">
 <h3 class="anchored" data-anchor-id="the-f-test-for-significance-of-regression">The F-test for Significance of Regression</h3>
+<p>The whole point of an ANOVA table is to get down to:</p>
 <p><span class="math display">\[
 F_{df_{Reg}, df_E} = \dfrac{MS_{Reg}}{MS_E} = \dfrac{MS_{Reg}}{s^2}
 \]</span></p>
 <ul>
-<li>Recall that <span class="math inline">\(SS_{Reg} = SS_E + SS_T &gt; SS_E\)</span>, but the <span class="math inline">\(df\)</span> make a difference.</li>
+<li>Recall that <span class="math inline">\(SS_{Reg} = SS_T - SS_E\)</span>, but the <span class="math inline">\(df\)</span> make a difference.</li>
 <li>For homework, show that <span class="math inline">\(E(MS_{Reg}) = \sigma^2 + \beta_1^2\sum_{i=1}^n(x_i-\bar x)^2\)</span></li>
 <li>This implies that <span class="math inline">\(E(MS_{Reg}) &gt; E(MS_E) = \sigma^2\)</span>.
 <ul>
