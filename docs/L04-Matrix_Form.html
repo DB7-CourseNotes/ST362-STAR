@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-08">
+<meta name="dcterms.date" content="2024-05-14">
 
 <title>STAR Notes - 4&nbsp; Regression in Matrix Form</title>
 <style>
@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L06-Extra_Sums_of_Squares-1.html" class="sidebar-item-text sidebar-link">
+  <a href="./L06-Extra_Sums_of_Squares.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Extra Sum-of-Squares</span></span></a>
   </div>
 </li>
@@ -419,6 +419,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#vhatunderlinebeta" id="toc-vhatunderlinebeta" class="nav-link" data-scroll-target="#vhatunderlinebeta"><span class="math inline">\(V(\hat{\underline\beta})\)</span></a></li>
   <li><a href="#variance-of-hat-y_0" id="toc-variance-of-hat-y_0" class="nav-link" data-scroll-target="#variance-of-hat-y_0">Variance of <span class="math inline">\(\hat Y_0\)</span></a></li>
   <li><a href="#variance-of-hat-y_n1" id="toc-variance-of-hat-y_n1" class="nav-link" data-scroll-target="#variance-of-hat-y_n1">Variance of <span class="math inline">\(\hat Y_{n+1}\)</span></a></li>
+  <li><a href="#ci-for-y_i-observed-or-new" id="toc-ci-for-y_i-observed-or-new" class="nav-link" data-scroll-target="#ci-for-y_i-observed-or-new">CI for <span class="math inline">\(Y_i\)</span> (observed <em>or</em> new)</a></li>
   <li><a href="#corrected-anova-in-matrix-form" id="toc-corrected-anova-in-matrix-form" class="nav-link" data-scroll-target="#corrected-anova-in-matrix-form">(Corrected) ANOVA in Matrix Form</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
@@ -455,7 +456,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-08</p>
+      <p class="date">2024-05-14</p>
     </div>
   </div>
   
@@ -570,6 +571,17 @@ V(\hat Y_{n+1}) &amp;= V(X_{n+1}\hat{\underline\beta} + \epsilon_{n+1})\\
 \end{align*}\]</span></p>
 <p>HWK: Verify (empirically or mathematically) that this is smallest when <span class="math inline">\(x_0 = \bar x\)</span>.</p>
 </section>
+<section id="ci-for-y_i-observed-or-new" class="level3">
+<h3 class="anchored" data-anchor-id="ci-for-y_i-observed-or-new">CI for <span class="math inline">\(Y_i\)</span> (observed <em>or</em> new)</h3>
+<p>Assuming <span class="math inline">\(X\)</span> is fixed, <span class="math display">\[
+\hat Y_i = X_{i,\cdot}\hat{\underline\beta}
+\]</span> follows a normal distribution.</p>
+<p>Therefore, <span class="math display">\[
+\frac{\hat Y_i - Y_i}{se(\hat Y_i)}\sim t_{n - 2}
+\]</span> and a confidence interval can be found as <span class="math display">\[
+\hat Y_i \pm t_{n-2}(\alpha/2)se(\hat Y_i)
+\]</span></p>
+</section>
 <section id="corrected-anova-in-matrix-form" class="level3">
 <h3 class="anchored" data-anchor-id="corrected-anova-in-matrix-form">(Corrected) ANOVA in Matrix Form</h3>
 <p>On tests, you will be given these formulas if they are relevant!</p>
@@ -591,13 +603,13 @@ V(\hat Y_{n+1}) &amp;= V(X_{n+1}\hat{\underline\beta} + \epsilon_{n+1})\\
 <tbody>
 <tr class="odd">
 <td>Regression (corrected)</td>
-<td>1</td>
+<td><span class="math inline">\(p - 1\)</span></td>
 <td><span class="math inline">\(\hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2\)</span></td>
 <td><span class="math inline">\(SS/df\)</span></td>
 </tr>
 <tr class="even">
 <td>Error</td>
-<td><span class="math inline">\(n-2\)</span></td>
+<td><span class="math inline">\(n-p\)</span></td>
 <td><span class="math inline">\(\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y\)</span></td>
 <td><span class="math inline">\(SS/df\)</span></td>
 </tr>
@@ -627,10 +639,12 @@ V(\hat Y_0) &amp;= \sigma^2X_0(X^TX)^{-1}X_0^T\\
 V(\hat Y_{n+1}) &amp;= \sigma^2(X_{n+1}(X^TX)^{-1}X_{n+1}^T + 1)\\
 \end{align*}\]</span></p>
 <p>This will <em>not</em> change when we add predictors!</p>
+<p>See <a href="./Lb04-R_Matrix_Form.html">the R Notes</a> for some good examples! I’ll probably go over some of these in class.</p>
 </section>
 </section>
 <section id="exercises" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="exercises"><span class="header-section-number">4.2</span> Exercises</h2>
+<p>Suggested textbook exercises: A, B, D, F.</p>
 <ol type="1">
 <li>Show that <span class="math inline">\(X^TX = \begin{bmatrix}n &amp; \sum x_i\\ \sum x_i &amp; \sum x_i^2\end{bmatrix}\)</span>. <em>Hint: the first column of <span class="math inline">\(X\)</span> is all 1s, and this is always important.</em> Also find the inverse of this 2x2 matrix.</li>
 <li>Verify that <span class="math inline">\(X^TX\hat{\underline\beta} = X^T\underline y\)</span> is solved by <span class="math inline">\(\hat{\underline\beta} = (X^TX)^{-1}X^T\underline y\)</span> (i.e., plug <span class="math inline">\(\hat{\underline\beta}\)</span> into the first equation and simplify).</li>

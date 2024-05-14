@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-03">
+<meta name="dcterms.date" content="2024-05-14">
 
 <title>STAR Notes - 6&nbsp; Extra Sum-of-Squares</title>
 <style>
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">OLS Basics</a></li><li class="breadcrumb-item"><a href="./L06-Extra_Sums_of_Squares-1.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Extra Sum-of-Squares</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">OLS Basics</a></li><li class="breadcrumb-item"><a href="./L06-Extra_Sums_of_Squares.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Extra Sum-of-Squares</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L06-Extra_Sums_of_Squares-1.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L06-Extra_Sums_of_Squares.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Extra Sum-of-Squares</span></span></a>
   </div>
 </li>
@@ -425,6 +425,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#in-r" id="toc-in-r" class="nav-link" data-scroll-target="#in-r">In R</a></li>
   <li><a href="#next-time" id="toc-next-time" class="nav-link" data-scroll-target="#next-time">Next time</a></li>
   </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">6.2</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -457,7 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-03</p>
+      <p class="date">2024-05-14</p>
     </div>
   </div>
   
@@ -473,7 +474,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="todays-main-idea">Today’s Main Idea</h3>
 <p>If you add or remove predictors, the variance of the residuals changes!</p>
 <ul>
-<li>As always, we ask if it’s a “big” change.</li>
+<li>As always, we ask if it’s a “big” change.
+<ul>
+<li>All sizes are relative to the standard error!</li>
+</ul></li>
 <li>Different predictors have a different effect on the residuals.</li>
 </ul>
 <p>Which predictors have a meaningful (significant?) effect on the residuals?</p>
@@ -501,7 +505,7 @@ SSReg = \sum_{i=1}^n(\hat y_i - \bar y)
 <li><span class="math inline">\(\texttt{body\_mass\_g} = \beta_0 + \beta_1 \texttt{flipper\_length\_mm} + \beta_2 \texttt{bill\_length\_mm}\)</span></li>
 </ul></li>
 </ul>
-<p>Note: M2 is <strong>nested</strong> in M1 - M1 has all the same predictors and then some.</p>
+<p>Note: M2 is <strong>nested</strong> in M1; M1 has all the same predictors and then some.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -525,8 +529,8 @@ Important
 </ul>
 <p>Then the Extra sum of squares is defined as: <span class="math display">\[
 SS(\hat\beta_3 | \hat\beta_0, \hat\beta_1, \hat\beta_2) = S_1 - S_2
-\]</span></p>
-<p>Convince yourself that S1 &gt; S2.</p>
+\]</span> where <span class="math inline">\(S_1\)</span> is <span class="math inline">\(SS_{Reg}\)</span> for M1, similar for <span class="math inline">\(S_2\)</span>.</p>
+<p>Convince yourself that <span class="math inline">\(S_1 \ge S_2\)</span>.</p>
 </section>
 <section id="special-case-corrected-sum-of-squares" class="level3">
 <h3 class="anchored" data-anchor-id="special-case-corrected-sum-of-squares">Special Case: Corrected Sum-of-Squares</h3>
@@ -551,7 +555,7 @@ S_{1c} - S_{2c} = (S_2 - n\bar{\underline y}^2) - (S_1 - n\bar{\underline y}^2) 
 <p><span class="math display">\[\begin{align*}
 SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 \end{align*}\]</span></p>
-<p>Notice that the order is switched, which is fine.</p>
+<p>Notice that the order is switched - bigger variance in the line means smaller variance in the residuals!!!</p>
 </section>
 <section id="anova-tests-for-ess" class="level3">
 <h3 class="anchored" data-anchor-id="anova-tests-for-ess">ANOVA Tests for ESS</h3>
@@ -597,7 +601,7 @@ SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 </section>
 <section id="in-r" class="level3">
 <h3 class="anchored" data-anchor-id="in-r">In R</h3>
-<div class="cell" data-hash="L06-Extra_Sums_of_Squares-1_cache/html/unnamed-chunk-2_7d7988e1d004d002220b66714a9e3f97">
+<div class="cell" data-hash="L06-Extra_Sums_of_Squares_cache/html/unnamed-chunk-2_e92c4aa8881821627fa9d8fa3a5c9eeb">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
@@ -649,9 +653,15 @@ SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 <li>How to check all ESS</li>
 <li>What is R’s <code>anova()</code> function even doing??</li>
 </ul>
-
-
 </section>
+</section>
+<section id="exercises" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="exercises"><span class="header-section-number">6.2</span> Exercises</h2>
+<ol type="1">
+<li>Explain why <span class="math inline">\(SS_{Reg}\)</span> is always smaller when predictors are added. (That is, if <span class="math inline">\(M2\)</span> is nested within <span class="math inline">\(M1\)</span>, then <span class="math inline">\(SS_{Reg}\)</span> for <span class="math inline">\(M2\)</span> will be larger).</li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->

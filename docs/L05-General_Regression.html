@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-09">
+<meta name="dcterms.date" content="2024-05-14">
 
 <title>STAR Notes - 5&nbsp; The General Regression Situation</title>
 <style>
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L06-Extra_Sums_of_Squares-1.html" rel="next">
+<link href="./L06-Extra_Sums_of_Squares.html" rel="next">
 <link href="./L04-Matrix_Form.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L06-Extra_Sums_of_Squares-1.html" class="sidebar-item-text sidebar-link">
+  <a href="./L06-Extra_Sums_of_Squares.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Extra Sum-of-Squares</span></span></a>
   </div>
 </li>
@@ -464,7 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-09</p>
+      <p class="date">2024-05-14</p>
     </div>
   </div>
   
@@ -493,7 +493,7 @@ X^TX\underline{\hat\beta} &amp;= X^T\underline y
 </section>
 <section id="facts" class="level3">
 <h3 class="anchored" data-anchor-id="facts">Facts</h3>
-<p><span class="math display">\[X^TX\underline{\hat\beta} = X^T\underline y\]</span></p>
+<p>The solution to the normal equations satisfies: <span class="math display">\[X^TX\underline{\hat\beta} = X^T\underline y\]</span></p>
 <ol type="1">
 <li>No distributional assumptions.</li>
 <li>If <span class="math inline">\(X^TX\)</span> is invertible, <span class="math inline">\(\hat{\underline\beta} = (X^TX)^{-1}X^T\underline y\)</span>.
@@ -560,7 +560,7 @@ X^TX\underline{\hat\beta} &amp;= X^T\underline y
 <tr class="odd">
 <td>Regression (corrected)</td>
 <td><span class="math inline">\(p - 1\)</span></td>
-<td><span class="math inline">\(\underline{\hat{\beta}}^TX^T\underline y - n\bar{\underline y}^2\)</span></td>
+<td><span class="math inline">\(\underline{\hat{\beta}}^TX^T\underline y - n\bar{y}^2\)</span></td>
 </tr>
 <tr class="even">
 <td>Error</td>
@@ -570,7 +570,7 @@ X^TX\underline{\hat\beta} &amp;= X^T\underline y
 <tr class="odd">
 <td>Total (corrected)</td>
 <td><span class="math inline">\(n - 1\)</span></td>
-<td><span class="math inline">\(\underline y^t\underline y - n\bar{\underline y}^2\)</span></td>
+<td><span class="math inline">\(\underline y^t\underline y - n\bar{y}^2\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -951,7 +951,134 @@ V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
 <li>Prove that <span class="math inline">\(\sum_{i=1}^n\hat\epsilon_i\hat y_i = 0\)</span>.</li>
 <li>Prove that <span class="math inline">\(\sum_{i=1}^n\hat\epsilon_i = 0\)</span>.</li>
 <li>Prove that <span class="math inline">\(X^TX\)</span> is symmetric. Is <span class="math inline">\(A^TA\)</span> symmetric in general?</li>
+<li>Simulate data with <span class="math inline">\(n = 50\)</span>, <span class="math inline">\(p = 11\)</span>, and <span class="math inline">\(\beta_1 = \beta_2 = ... = \beta_10 = 0\)</span>. Check the individual t-tests for whether the slopes are 0, and the overall F-test. Do this multiple times. Do you find a significant result from one of the t-tests but not the overall F-test? What about vice-versa?</li>
 </ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-9_770b9fb9ffafd932e895f2c6020538ae">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">11</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">runif</span>(n <span class="sc">*</span> (p <span class="sc">-</span> <span class="dv">1</span>), <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ncol =</span> p)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">c</span>(p <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, p <span class="sc">-</span> <span class="dv">1</span>)) <span class="co"># beta_0 = 10, will not affect results</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> X <span class="sc">%*%</span> beta <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>mydf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, X[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> mydf)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = y ~ ., data = mydf)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.7871 -1.9480  0.7211  1.5483  4.3626 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 10.44474    0.44502  23.470  &lt; 2e-16 ***
+X1          -0.24881    0.15095  -1.648  0.10733    
+X2          -0.04107    0.16778  -0.245  0.80789    
+X3           0.23421    0.18441   1.270  0.21159    
+X4          -0.07099    0.15537  -0.457  0.65026    
+X5           0.02299    0.17153   0.134  0.89407    
+X6          -0.05605    0.16334  -0.343  0.73333    
+X7          -0.12174    0.15332  -0.794  0.43198    
+X8           0.20164    0.15557   1.296  0.20254    
+X9          -0.48608    0.15305  -3.176  0.00292 ** 
+X10         -0.28487    0.18491  -1.541  0.13149    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.859 on 39 degrees of freedom
+Multiple R-squared:   0.24, Adjusted R-squared:  0.04509 
+F-statistic: 1.231 on 10 and 39 DF,  p-value: 0.3023</code></pre>
+</div>
+</div>
+<p>In my run (this will be different each time you run it), one of the slopes was found to be significant! This is a Type 1 error - we found a significant result where we shouldn’t have.</p>
+<p>However, the F-test successfully found that the overall fit is not significantly better than a model without any predictors. F-tests exists to prevent Type 1 errors!</p>
+<p>As a side note, check out the difference between the Multiple R-squared and Adjusted R-squared. Which one would you believe in this situation?</p>
+</details>
+<hr>
+<ol start="5" type="1">
+<li>Plot the confidence intervals <em>and</em> the prediction intervals for a simple linear regression of body mass versus flipper length for penguins. Do this for a lot of points, and interpret the difference between the two.</li>
+</ol>
+<div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-10_bdad16ed7aee214bbec3ccda2549d526">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>peng_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-11_0c6d7c5dafebd844866595ff60fd1d80">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>peng_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> penguins)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># confidence intervals along all flipper lengths</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>flippers <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(penguins<span class="sc">$</span>flipper_length_mm),</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">to =</span> <span class="fu">max</span>(penguins<span class="sc">$</span>flipper_length_mm), <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>confi <span class="ot">&lt;-</span> <span class="fu">predict</span>(peng_lm, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">flipper_length_mm =</span> flippers), <span class="at">interval =</span> <span class="st">"confidence"</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>predi <span class="ot">&lt;-</span> <span class="fu">predict</span>(peng_lm, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">flipper_length_mm =</span> flippers), <span class="at">interval =</span> <span class="st">"prediction"</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> penguins)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> flippers, <span class="at">y =</span> confi[, <span class="st">"upr"</span>], <span class="at">col =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> flippers, <span class="at">y =</span> confi[, <span class="st">"lwr"</span>], <span class="at">col =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> flippers, <span class="at">y =</span> predi[, <span class="st">"upr"</span>], <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> flippers, <span class="at">y =</span> predi[, <span class="st">"lwr"</span>], <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Confidence"</span>, <span class="st">"Prediction"</span>), <span class="at">col =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L05-General_Regression_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The confidence “band” is <em>much</em> thinner than the prediction band! With this many points, the model is pretty sure about the slope and intercept (i.e.&nbsp;<span class="math inline">\(\hat y_i\)</span>); a new sample would be expected to produce a similar line.</p>
+<p>However, even though the model knows about the slope and intercept of the line, there’s still lots of uncertainty around an unobserved point <span class="math inline">\(\hat y_{n + 1}\)</span>.</p>
+<hr>
+</details>
+<ol start="6" type="1">
+<li>Use a simulation to demonstrate a confidence interval for <span class="math inline">\(\hat y_i\)</span> (an observed data point). For a model <span class="math inline">\(y_i = 1 + 4x_i + \epsilon_i\)</span>, <span class="math inline">\(\epsilon_i \sim N(0, 16)\)</span>, <span class="math inline">\(n = 30\)</span>, simulate 100 data sets, calculate the line, and add it to a plot. What do you notice about the shape? Why is this?</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-12_f62f6ce0121dbdc17cb858488c5753de">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">25</span>, <span class="dv">25</span>), <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">8</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L05-General_Regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It looks kind of like a bowtie!</p>
+<p>As mentioned in lecture, the model can be seen as fitting a point at <span class="math inline">\((\bar x, \bar y)\)</span>, then finding a slope that fits the data well. If we got the exact same value for <span class="math inline">\(\bar y\)</span> every time, every single line would converge at the point <span class="math inline">\((\bar x, \bar y)\)</span>!</p>
+<p>We also saw that the variance of <span class="math inline">\(\hat y_i\)</span> is minimized at <span class="math inline">\(\bar x\)</span>, and this plot demonstrates this.</p>
+<hr>
+</details>
 
 
 </section>
@@ -1312,7 +1439,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L06-Extra_Sums_of_Squares-1.html" class="pagination-link">
+      <a href="./L06-Extra_Sums_of_Squares.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Extra Sum-of-Squares</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
