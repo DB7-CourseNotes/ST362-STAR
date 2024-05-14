@@ -392,5 +392,96 @@ Which ANOVA table does the `anova()` function calculate?
 1. Prove that $\sum_{i=1}^n\hat\epsilon_i\hat y_i = 0$.
 2. Prove that $\sum_{i=1}^n\hat\epsilon_i = 0$.
 3. Prove that $X^TX$ is symmetric. Is $A^TA$ symmetric in general?
+4. Simulate data with $n = 50$, $p = 11$, and $\beta_1 = \beta_2 = ... = \beta_10 = 0$. Check the individual t-tests for whether the slopes are 0, and the overall F-test. Do this multiple times. Do you find a significant result from one of the t-tests but not the overall F-test? What about vice-versa?
+
+<details>
+<summary>**Solution**</summary>
+
+```{r}
+n <- 50
+p <- 11
+X <- matrix(
+    data = c(rep(1, n),
+        runif(n * (p - 1), -5, 5)),
+    ncol = p)
+beta <- c(p - 1, rep(0, p - 1)) # beta_0 = 10, will not affect results
+y <- X %*% beta + rnorm(n, 0, 3)
+
+mydf <- data.frame(y, X[, -1])
+mylm <- lm(y ~ ., data = mydf)
+summary(mylm)
+```
+
+In my run (this will be different each time you run it), one of the slopes was found to be significant! This is a Type 1 error - we found a significant result where we shouldn't have.
+
+However, the F-test successfully found that the overall fit is not significantly better than a model without any predictors. F-tests exists to prevent Type 1 errors!
+
+As a side note, check out the difference between the Multiple R-squared and Adjusted R-squared. Which one would you believe in this situation?
+
+</details>
+*****
+
+5. Plot the confidence intervals *and* the prediction intervals for a simple linear regression of body mass versus flipper length for penguins. Do this for a lot of points, and interpret the difference between the two.
+
+```{r}
+library(palmerpenguins)
+penguins <- penguins[complete.cases(penguins),]
+peng_lm <- lm(body_mass_g ~ flipper_length_mm, data = penguins)
+```
+
+<details>
+<summary>**Solution**</summary>
+
+```{r}
+library(palmerpenguins)
+penguins <- penguins[complete.cases(penguins),]
+peng_lm <- lm(body_mass_g ~ flipper_length_mm, data = penguins)
+
+# confidence intervals along all flipper lengths
+flippers <- seq(from = min(penguins$flipper_length_mm),
+    to = max(penguins$flipper_length_mm), length.out = 100)
+
+confi <- predict(peng_lm, newdata = data.frame(flipper_length_mm = flippers), interval = "confidence")
+predi <- predict(peng_lm, newdata = data.frame(flipper_length_mm = flippers), interval = "prediction")
+
+plot(body_mass_g ~ flipper_length_mm, data = penguins)
+lines(x = flippers, y = confi[, "upr"], col = 3, lwd = 2, lty = 2)
+lines(x = flippers, y = confi[, "lwr"], col = 3, lwd = 2, lty = 2)
+lines(x = flippers, y = predi[, "upr"], col = 2, lwd = 2, lty = 2)
+lines(x = flippers, y = predi[, "lwr"], col = 2, lwd = 2, lty = 2)
+legend("topleft", legend = c("Confidence", "Prediction"), col = 3:2, lwd = 2, lty = 2)
+```
+
+The confidence "band" is *much* thinner than the prediction band! With this many points, the model is pretty sure about the slope and intercept (i.e. $\hat y_i$); a new sample would be expected to produce a similar line.
+
+However, even though the model knows about the slope and intercept of the line, there's still lots of uncertainty around an unobserved point $\hat y_{n + 1}$. 
+
+*****
+</details>
+
+6. Use a simulation to demonstrate a confidence interval for $\hat y_i$ (an observed data point). For a model $y_i = 1 + 4x_i + \epsilon_i$, $\epsilon_i \sim N(0, 16)$, $n = 30$, simulate 100 data sets, calculate the line, and add it to a plot. What do you notice about the shape? Why is this? 
+
+<details>
+<summary>**Solution**</summary>
+
+```{r}
+n <- 30
+x <- runif(n, -5, 5)
+plot(NA, xlim = c(-5, 5), ylim = c(-25, 25), xlab = "x", ylab = "y")
+for (i in 1:1000) {
+    y <- 1 + 4 * x + rnorm(n, 0, 8)
+    abline(lm(y ~ x))
+}
+```
+
+It looks kind of like a bowtie!
+
+As mentioned in lecture, the model can be seen as fitting a point at $(\bar x, \bar y)$, then finding a slope that fits the data well. If we got the exact same value for $\bar y$ every time, every single line would converge at the point $(\bar x, \bar y)$!
+
+We also saw that the variance of $\hat y_i$ is minimized at $\bar x$, and this plot demonstrates this.
+
+*****
+</details>
+
 :::
 
