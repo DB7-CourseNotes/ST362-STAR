@@ -25,7 +25,8 @@ If you add or remove predictors, the variance of the residuals changes!
 
 \pspace
 
-- As always, we ask if it's a "big" change.\lspace
+- As always, we ask if it's a "big" change.
+    - All sizes are relative to the standard error!\lspace
 - Different predictors have a different effect on the residuals.
 
 \pspace\pause
@@ -50,7 +51,7 @@ In the `penguins` data, we're determining which predictors are associated with b
 - $SS_2$ = SSReg for model 2
     - $\texttt{body\_mass\_g} = \beta_0 + \beta_1 \texttt{flipper\_length\_mm} + \beta_2 \texttt{bill\_length\_mm}$
 
-Note: M2 is **nested** in M1 - M1 has all the same predictors and then some.
+Note: M2 is **nested** in M1; M1 has all the same predictors and then some.
 
 \pspace
 
@@ -69,10 +70,11 @@ Then the Extra sum of squares is defined as:
 $$
 SS(\hat\beta_3 | \hat\beta_0, \hat\beta_1, \hat\beta_2) = S_1 - S_2
 $$
+where $S_1$ is $SS_{Reg}$ for M1, similar for $S_2$.
 
 \pspace
 
-Convince yourself that S1 > S2.
+Convince yourself that $S_1 \ge S_2$.
 
 ### Special Case: Corrected Sum-of-Squares
 
@@ -108,7 +110,7 @@ Consider $SSE_1$ and $SSE_2$. Since SST is the same for both models,
 SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 \end{align*}
 
-Notice that the order is switched, which is fine.
+Notice that the order is switched - bigger variance in the line means smaller variance in the residuals!!!
 
 ### ANOVA Tests for ESS
 
@@ -182,4 +184,10 @@ anova(m1, m2) |> knitr::kable()
 - How to check all ESS\lspace
 - What is R's `anova()` function even doing??
 
+::: {.content-visible when-profile="book"}
+## Exercises
+
+1. Explain why $SS_{Reg}$ is always smaller when predictors are added. (That is, if $M2$ is nested within $M1$, then $SS_{Reg}$ for $M2$ will be larger).
+
+:::
 

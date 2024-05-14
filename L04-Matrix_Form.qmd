@@ -291,13 +291,11 @@ b. False
 
 ::: {.content-visible when-profile="book"}
 
-## Example: Confidence and Prediction Intervals
-
-For the penguins data, let's calculate a confidence interval and a prediction interval for a single point!
-
-
+See [the R Notes](Lb04-R_Matrix_Form.Rmd) for some good examples! I'll probably go over some of these in class.
 
 ## Exercises
+
+Suggested textbook exercises: A, B, D, F.
 
 1. Show that $X^TX = \begin{bmatrix}n & \sum x_i\\ \sum x_i & \sum x_i^2\end{bmatrix}$. *Hint: the first column of $X$ is all 1s, and this is always important.* Also find the inverse of this 2x2 matrix.
 2. Verify that $X^TX\hat{\underline\beta} = X^T\underline y$ is solved by $\hat{\underline\beta} = (X^TX)^{-1}X^T\underline y$ (i.e., plug $\hat{\underline\beta}$ into the first equation and simplify).

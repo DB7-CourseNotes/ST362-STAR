@@ -1,13 +1,15 @@
 ---
 title: "ESS Exampless"
 institute: "**Jam TBD**"
+code-fold: false
 ---
 
 ```{r}
+#| label: setup
+#| include: false
 set.seed(2112)
 library(palmerpenguins)
 peng <- penguins[complete.cases(penguins), ]
-head(peng)
 ```
 
 
