@@ -15,9 +15,7 @@ set.seed(2112)
 
 ### Announcements
 
-$$
-\frac{\sum_{i=1}^n \frac{x_i}{y_i^2}}{\sum_{i=1}^n\frac{1}{y_i^2}}\text{ simplifies to }\frac{\sum_{i=1}^n \frac{x_i}{y_i^2}}{\sum_{i=1}^n\frac{1}{y_i^2}}
-$$
+- Lectures are back to normal next week.\lspace
 
 :::
 
@@ -43,6 +41,7 @@ X^TX\underline{\hat\beta} &= X^T\underline y
 
 ### Facts
 
+The solution to the normal equations satisfies:
 $$X^TX\underline{\hat\beta} = X^T\underline y$$
 
 1. No distributional assumptions.\lspace
@@ -75,9 +74,9 @@ all.equal(t(X) %*% X, t(t(X) %*% X))
 
 | Source | $df$ | $SS$ |
 |--------|------|------|
-| Regression (corrected) | $p - 1$ | $\underline{\hat{\beta}}^TX^T\underline y - n\bar{\underline y}^2$  |
+| Regression (corrected) | $p - 1$ | $\underline{\hat{\beta}}^TX^T\underline y - n\bar{y}^2$  |
 | Error | $n - p$ | $\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y$ |
-| Total (corrected) | $n - 1$ | $\underline y^t\underline y - n\bar{\underline y}^2$ |
+| Total (corrected) | $n - 1$ | $\underline y^t\underline y - n\bar{y}^2$ |
 
 - Note that $p$ is the number of parameters, not the index of the largest param.
     - $\underline\beta = (\beta_0, \beta_1, ..., \beta_{p-1})$\lspace
@@ -370,9 +369,9 @@ Which ANOVA table does the `anova()` function calculate?
 
 | Source | $df$ | $SS$ |
 |--------|------|------|
-| Regression | 1 | $\hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2$  |
+| Regression | 1 | $\hat{\underline\beta}^TX^T\underline y - n\bar{y}^2$  |
 | Error | $n-2$ | $\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y$ |
-| Total | $n - 1$ | $\underline y^t\underline y - n\bar{\underline y}^2$ |
+| Total | $n - 1$ | $\underline y^t\underline y - n\bar{y}^2$ |
 
 
 2.

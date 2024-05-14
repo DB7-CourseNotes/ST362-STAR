@@ -159,6 +159,24 @@ V(\hat Y_{n+1}) &= V(X_{n+1}\hat{\underline\beta} + \epsilon_{n+1})\\
 
 HWK: Verify (empirically or mathematically) that this is smallest when $x_0 = \bar x$. 
 
+### CI for $Y_i$ (observed *or* new)
+
+Assuming $X$ is fixed,
+$$
+\hat Y_i = X_{i,\cdot}\hat{\underline\beta}
+$$
+follows a normal distribution.
+
+\pspace
+
+Therefore,
+$$
+\frac{\hat Y_i - Y_i}{se(\hat Y_i)}\sim t_{n - 2}
+$$
+and a confidence interval can be found as 
+$$
+\hat Y_i \pm t_{n-2}(\alpha/2)se(\hat Y_i)
+$$
 
 ### (Corrected) ANOVA in Matrix Form
 
@@ -166,8 +184,8 @@ On tests, you will be given these formulas if they are relevant!
 
 | Source | $df$ | $SS$ | $MS$ |
 |--------|------|------|------|
-| Regression (corrected) | 1 | $\hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2$  | $SS/df$ |
-| Error | $n-2$ | $\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y$ | $SS/df$ |
+| Regression (corrected) | $p - 1$ | $\hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2$  | $SS/df$ |
+| Error | $n-p$ | $\underline y^t\underline y- \hat{\underline\beta}^TX^T\underline y$ | $SS/df$ |
 | Total (corrected) | $n - 1$ | $\underline y^t\underline y - n\bar{\underline y}^2$ | $SS/df$ |
 
 - The "corrected" ANOVA is the ANOVA table for comparing the errors due to $\hat\beta_1$ to the errors due to $\hat\beta_0$.\lspace
@@ -189,6 +207,7 @@ V(\hat Y_{n+1}) &= \sigma^2(X_{n+1}(X^TX)^{-1}X_{n+1}^T + 1)\\
 \quad
 
 This will *not* change when we add predictors!
+
 
 ::: {.content-visible unless-profile="book"}
 
@@ -219,7 +238,7 @@ b. Setting the partial derivatives of $\hat{\underline\epsilon}^T\hat{\underline
 c. Rearranging the equation $\sum_{i=1}^n(y_i - \hat y_i)^2$ for $\hat\beta_0$ and $\hat\beta_1$\lspace
 d. Rearranging the equation $\sum_{i=1}^n(y_i - \beta_0 + \beta_1x_i + \epsilon_i)^2$ for $\hat\beta_0$ and $\hat\beta_1$\lspace
 
-<!--- B --->
+<!--- A --->
 
 ### Q3
 
@@ -260,7 +279,7 @@ d. $cov(a + bX, a + bY) =  a + b cov(X,Y)$
 
 ### Q6
 
-The variance of the line evaluated at an existing point is smaller than the variance of the line evaluated at a new point, even if the new point is the same as an existing point.
+For an existing data point $Y_0$ and a new data point $Y_{N+1}$, $V(Y_{n+1}) \ge V(Y_0)$
 
 \pspace
 
@@ -271,6 +290,13 @@ b. False
 :::
 
 ::: {.content-visible when-profile="book"}
+
+## Example: Confidence and Prediction Intervals
+
+For the penguins data, let's calculate a confidence interval and a prediction interval for a single point!
+
+
+
 ## Exercises
 
 1. Show that $X^TX = \begin{bmatrix}n & \sum x_i\\ \sum x_i & \sum x_i^2\end{bmatrix}$. *Hint: the first column of $X$ is all 1s, and this is always important.* Also find the inverse of this 2x2 matrix.
