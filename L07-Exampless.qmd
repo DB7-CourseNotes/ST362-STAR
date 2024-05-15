@@ -22,6 +22,8 @@ peng <- penguins[complete.cases(penguins), ]
 
 ## Review
 
+### Extra Sum of Squares
+
 From last time, we basically learned what the following means:
 
 $$
@@ -31,7 +33,14 @@ where $s^2$ is the MSE calculated from the larger model.
 
 This allows us to do a test for whether $\beta_{q+1} = \beta_{q+2} = ... = \beta_p = 0$.
 
+
+### Penguins Example
+
+::: {.content-visible when-profile="book"}
+
 The R code to do this test is as follows. In this code, we believe that the bill length and bill depth are strongly correlated, and thus we cannot trust the CIs that we get from `summary(lm())` (we saw "Confidence Regions" in the slides and code for L05).
+
+:::
 
 ```{r}
 nrow(peng)
@@ -45,21 +54,30 @@ lm2 <- lm(body_mass_g ~ flipper_length_mm,
 anova(lm2, lm1)
 ```
 
+### Where do these values come from?
+
 Let's try and calculate these values ourselves in a couple different ways!
 
+\scriptsize
 ```{r}
 anova(lm1)
 ```
+\normalsize
+
 
 From this model, SSE is 50814912 on 329 degrees of freedom. This is the same as the SSE in the output of `anova(lm2, lm1)`.
 
+\scriptsize
 ```{r}
 anova(lm2)
 ```
+\normalsize
 
 Again, the SSE of 51211963 matches what we saw in `anova(lm2, lm1)`, and we have 331 degrees of freedom (as expected, the differences in degrees of freedom is 2).
 
 Note that the F-value in `anova()` is just the ratio of the MSEs, but this is not the case here. Instead, we need to calculate $s^2$.
+
+### Final Calculations
 
 We can calculate $s^2$ as the MSE for the larger model:
 
@@ -82,44 +100,55 @@ It is left as an exercise to calculate these values based on matrix multiplicati
 
 ## ESS Algorithms
 
-The idea above is based on testing a subset of predictors for at least one significant coefficient. This is usually what we want.
+### Main Idea
 
-However, there are also times where we want to check *all* predictors one-by-one. This is much less common than the textbook may lead you to believe, but it still happens.
+- **ESS**: Test a subset of predictors for at least one significant coefficient. 
+
+However, there are also times where we want to check *all* predictors one-by-one. 
+
+This is much less common than the textbook may lead you to believe (and I strongly recommend against it), but it still happens.
 
 There are three ways to calculate the ESS for *all* predictors. They are very helpfully labelled Types I, II, and III.
 
--   Type I: Sequential Sum-of-Squares (with interactions)
-    -   Check $SS(\hat\beta_1|\hat\beta_0)$
-    -   Check $SS(\hat\beta_2|\hat\beta_0, \hat\beta_1)$
-    -   Check $SS(\hat\beta_2:\hat\beta_1|\hat\beta_0, \hat\beta_1, \hat\beta_2)$
-        -   $\hat\beta_2:\hat\beta_1$ is an interaction term, which means we use a formula like `y ~ x1 + x2 + x1*x2` (although we'll learn why R uses different notation than this).
-    -   Check $SS(\hat\beta_3|\hat\beta_0, \hat\beta_1, \hat\beta_2)$
-    -   Check all interactions between x1, x2, and x3,
-    -   ...
+### Type I: Sequential Sum-of-Squares (with interactions)
 
-This will give us every possible sum-of-squares. This is very very dubious, and can lead to a multiple comparisons problem!
+- Check $SS(\hat\beta_1|\hat\beta_0)$
+- Check $SS(\hat\beta_2|\hat\beta_0, \hat\beta_1)$
+- Check $SS(\hat\beta_2:\hat\beta_1|\hat\beta_0, \hat\beta_1, \hat\beta_2)$
+    - $\hat\beta_2:\hat\beta_1$ is an interaction term, which means we use a formula like `y ~ x1 + x2 + x1*x2` (although we'll learn why R uses different notation than this).
+- Check $SS(\hat\beta_3|\hat\beta_0, \hat\beta_1, \hat\beta_2)$
+- Check all interactions between x1, x2, and x3,
+- ...
 
--   Type 2: Sequential Sum-of-Squares (R's Default)
-    -   Check $SS(\hat\beta_1|\hat\beta_0)$
-    -   Check $SS(\hat\beta_2|\hat\beta_0, \hat\beta_1)$
-    -   Check $SS(\hat\beta_3|\hat\beta_0, \hat\beta_1, \hat\beta_2)$
-    -   ...
 
-This gives us an ordered sequence of "is it worth adding x1?", "if we have x1, is it worth adding x2?", etc. This is only meaningful if the predictors are naturally ordered (such as polynomial regression, see below).
+This will give us every possible sum-of-squares. This is very very dubious, and can lead to a major multiple comparisons problem!
 
--   Type 3: Last-entry sum-of-squares
-    -   Check $SS(\hat\beta_1|\hat\beta_0, \hat\beta_2, \hat\beta_3)$
-    -   Check $SS(\hat\beta_2|\hat\beta_0, \hat\beta_1, \hat\beta_3)$
-    -   Check $SS(\hat\beta_3|\hat\beta_0, \hat\beta_1, \hat\beta_2)$
+### Type 2: Sequential Sum-of-Squares (R's Default)
+
+- Check $SS(\hat\beta_1|\hat\beta_0)$
+- Check $SS(\hat\beta_2|\hat\beta_0, \hat\beta_1)$
+- Check $SS(\hat\beta_3|\hat\beta_0, \hat\beta_1, \hat\beta_2)$
+- ...
+
+Results in an ordered sequence of "is it worth adding x1?", "if we have x1, is it worth adding x2?", etc.
+
+*Only meaningful if the predictors are naturally ordered* (such as polynomial regression, see below).
+
+### Type 3: Last-entry sum-of-squares
+
+-   Check $SS(\hat\beta_1|\hat\beta_0, \hat\beta_2, \hat\beta_3)$
+-   Check $SS(\hat\beta_2|\hat\beta_0, \hat\beta_1, \hat\beta_3)$
+-   Check $SS(\hat\beta_3|\hat\beta_0, \hat\beta_1, \hat\beta_2)$
 
 This checks whether adding predictor $x_i$ is worth it, considering all other predictors are already in the model.
 
-### Type 2 ANOVA (Sequental Sum-of-Squares)
+### Back to Type 2 ANOVA (Sequental Sum-of-Squares)
 
 By default, R does sequential sum-of-squares. This is a very important fact to know!
 
 In Types I and II, *the order of the predictors matters*. In fact, you cannot make any conclusions about the significance that doesn't make reference to this fact.
 
+\scriptsize
 ```{r}
 ## Try changing the order to see how the significance changes!
 mylm <- lm(mpg ~ qsec + disp + wt, data = mtcars)
@@ -127,9 +156,11 @@ anova(mylm)
 summary(mylm)$coef # No obvious connection to anova
 ```
 
-However, there is at least one case where we do care about the order of the predictors. Consider **polynomial regression**, which we will return to later. For now, it is sufficient to know that we're dealing with the model: $$
+However, there is at least one case where we do care about the order of the predictors. Consider **polynomial regression**, which we will return to later. For now, it is sufficient to know that we're dealing with the model: 
+$$
 y_i = \beta_0 + \beta_1x_i + \beta_2x_i^2 + \beta_3x_i^3 + ... + \beta_{p-1}x_i^{p-1} + \epsilon_i
-$$In this model, notice that we only have one predictor $x$, but we have performed non-linear transformations (HMWK: why is it important that the transformations are non-linear?).
+$$
+In this model, notice that we only have one predictor $x$, but we have performed non-linear transformations (HMWK: why is it important that the transformations are non-linear?).
 
 In this case, a sequential SS setup makes quite a bit of sense. Given we have a linear model, is it worth making it quadratic? Given that we have a quadratic model, is it worth making it cubic? Given that we have a cubic model...
 
@@ -149,8 +180,8 @@ From the table above, we can clearly see that this should just be a cubic model 
 
 Take a moment to consider the following. Suppose I checked the following two (Type II) ANOVA tables:
 
--   `anova(lm(mpg ~ disp, data = mtcars))`
--   `anova(lm(mpg ~ disp + wt, data = mtcars))`
+- `anova(lm(mpg ~ disp, data = mtcars))`
+- `anova(lm(mpg ~ disp + wt, data = mtcars))`
 
 Both tables will have the first row labelled "disp" and include its sum-of-squares along with the F-value. Do you expect these two rows to be the same?
 
@@ -193,6 +224,8 @@ anova(
 ```
 
 ## Modelling Strategies
+
+### The Art of Modelling
 
 If you are in a situation where you think to yourself "my predictors are logically ordered and I want to check for the significance of all of them one-by-one", you want Type II.
 

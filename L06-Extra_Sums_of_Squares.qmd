@@ -377,8 +377,9 @@ We should *not* just check a whole bunch of p-values! A recurring and important 
 Suggested textbook exercises: **A**, D.
 
 1. Explain why $SS_{Reg}$ is always larger when predictors are added. (That is, if $M1$ is nested within $M2$, then $SS_{Reg}$ for $M2$ will be larger).
-2. Simulate a data set with 10 predictors, where only 5 of them have a non-zero coefficient. Show that an ESS test can detect this, even if some of the parameters with a 0 coefficient have a significant p-value (Type 1 error). 
-3. 
+2. Simulate a data set with 10 predictors, where only 5 of them have a non-zero coefficient. Show that an ESS test can detect this, even if some of the parameters with a 0 coefficient have a significant p-value (Type 1 error).
+3. Demonstrate that $\hat\beta_1$ in the model $y_i = \beta_0 + \beta_1$ is different $y_i = \beta_0 + \beta_1 + \beta_2$. Demonstrate this across any data we've seen before, new data, simulated data, or whatever you want!
+4. Why does the estimate of one parameter change when you add other estimates? (*Hint: see the bill length and bill depth example here in the course notes.*)
 
 :::
 
