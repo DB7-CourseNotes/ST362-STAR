@@ -26,7 +26,8 @@ From last time, we basically learned what the following means:
 
 $$
 \frac{SS(\hat\beta_{q+1}, ..., \hat\beta_p | \hat\beta_0, ... \hat\beta_q)}{(p-q)s^2} =\frac{S_1 - S(\hat\beta_0) - (S_2 - S(\hat\beta_0))}{(p-q)s^2}\sim F_{p-q, \max(p, q)}
-$$ where $s^2$ is the MSE calculated from the larger model.
+$$
+where $s^2$ is the MSE calculated from the larger model.
 
 This allows us to do a test for whether $\beta_{q+1} = \beta_{q+2} = ... = \beta_p = 0$.
 
