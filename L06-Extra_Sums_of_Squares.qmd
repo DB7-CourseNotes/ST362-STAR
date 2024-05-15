@@ -27,7 +27,8 @@ If you add or remove predictors, the variance of the residuals changes!
 
 - As always, we ask if it's a "big" change.
     - All sizes are relative to the standard error!\lspace
-- Different predictors have a different effect on the residuals.
+- Different predictors have a different effect on the residuals.\lspace
+- A group of predictors can be tested for whether all parameters are 0.
 
 \pspace\pause
 
@@ -39,7 +40,7 @@ Which predictors have a meaningful (significant?) effect on the residuals?
 - Recall: SSReg is the variance of the line itself!
 
 $$
-SSReg = \sum_{i=1}^n(\hat y_i - \bar y)
+SS_{Reg} = \sum_{i=1}^n(\hat y_i - \bar y)
 $$
 
 ### SSReg in two different penguin models
@@ -84,9 +85,9 @@ SSReg(\hat\beta_0) = n\bar{\underline y}^2
 $$
 and
 $$
-SSReg(corrected) = \hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2 = S_1 - S_2
+SS_{Reg}(corrected) = SS_{Reg}(\hat\beta_1, ..., \hat\beta_{p-1}|\hat\beta_0)= \hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2
 $$
-where $S_2$ is the sum-of-squares for the null model!
+which can be written as $SS_{Reg}(corrected) = S_1 - S_2$ where $S_2$ is the sum-of-squares for the null model!
 
 ### Unspecial Case: Correction doesn't matter!
 
@@ -143,7 +144,7 @@ $$
 
 \pspace
 
-Note that it doesn't matter which is nested: $S_1 - S_2$ has the same sign as $p-q$, so it's always positive.
+Note that it doesn't matter which is nested: $S_1 - S_2$ has the same sign as $p-q$, so the F-statistic always positive.
 
 ### The Big Idea: Omnibus Tests for Multiple Predictors
 
@@ -295,6 +296,26 @@ b. FALSE
 
 <!--- A --->
 
+### Q5
+
+The following table shows the output of `mpg ~ hp + wt`.
+
+```{r}
+#| label: mtcars-Q
+summary(lm(mpg ~ hp + wt, data = mtcars))$coef
+```
+
+If we were to instead fit `mpg ~ hp + wt + disp`, what would the coefficient of `wt` be?
+
+\pspace
+
+a. Approximately -3.87
+b. Lower than -3.87
+c. Higher than -3.87
+d. We cannot know without fitting the model!
+
+<!--- D --->
+
 :::
 
 ## Examples
@@ -355,8 +376,9 @@ We should *not* just check a whole bunch of p-values! A recurring and important 
 
 Suggested textbook exercises: **A**, D.
 
-1. Explain why $SS_{Reg}$ is always smaller when predictors are added. (That is, if $M1$ is nested within $M2$, then $SS_{Reg}$ for $M2$ will be larger).
-2. 
+1. Explain why $SS_{Reg}$ is always larger when predictors are added. (That is, if $M1$ is nested within $M2$, then $SS_{Reg}$ for $M2$ will be larger).
+2. Simulate a data set with 10 predictors, where only 5 of them have a non-zero coefficient. Show that an ESS test can detect this, even if some of the parameters with a 0 coefficient have a significant p-value (Type 1 error). 
+3. 
 
 :::
 
