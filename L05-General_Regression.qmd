@@ -398,6 +398,8 @@ Which ANOVA table does the `anova()` function calculate?
 <summary>**Solution**</summary>
 
 ```{r}
+#| label: f-test-type-1-error
+#| code-fold: false
 n <- 50
 p <- 11
 X <- matrix(
@@ -424,6 +426,8 @@ As a side note, check out the difference between the Multiple R-squared and Adju
 5. Plot the confidence intervals *and* the prediction intervals for a simple linear regression of body mass versus flipper length for penguins. Do this for a lot of points, and interpret the difference between the two.
 
 ```{r}
+#| label: penguin-setup
+#| code-fold: false
 library(palmerpenguins)
 penguins <- penguins[complete.cases(penguins),]
 peng_lm <- lm(body_mass_g ~ flipper_length_mm, data = penguins)
@@ -433,6 +437,8 @@ peng_lm <- lm(body_mass_g ~ flipper_length_mm, data = penguins)
 <summary>**Solution**</summary>
 
 ```{r}
+#| label: penguin-solution
+#| code-fold: false
 library(palmerpenguins)
 penguins <- penguins[complete.cases(penguins),]
 peng_lm <- lm(body_mass_g ~ flipper_length_mm, data = penguins)
@@ -465,6 +471,8 @@ However, even though the model knows about the slope and intercept of the line, 
 <summary>**Solution**</summary>
 
 ```{r}
+#| label: ci-for-hat-y
+#| code-fold: false
 n <- 30
 x <- runif(n, -5, 5)
 plot(NA, xlim = c(-5, 5), ylim = c(-25, 25), xlab = "x", ylab = "y")
