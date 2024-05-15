@@ -90,13 +90,14 @@ where $S_2$ is the sum-of-squares for the null model!
 
 ### Unspecial Case: Correction doesn't matter!
 
-Consider $S_{1c}$ and $S_{2c}$, the corrected versions of $S_1$ and $S_2$. Then
-
+Consider $S_{1c}$ and $S_{2c}$, the corrected versions of $S_1$ and $S_2$. In symbols:
+$$
+S_{1c} = SS_{Reg}(\hat\beta_1,\hat\beta_2,\hat\beta_3 | \hat\beta_0)\text{ and }S_{1} = SS_{Reg}(\hat\beta_0,\hat\beta_1,\hat\beta_2,\hat\beta_3)
+$$
+Then
 \begin{align*}
 S_{1c} - S_{2c} = (S_2 - n\bar{\underline y}^2) - (S_1 - n\bar{\underline y}^2) = S_1 - S_2
 \end{align*}
-
-\pspace
 
 In other words, the correction term doesn't matter. 
 
@@ -104,7 +105,7 @@ This is useful because R outputs the corrected versions.
 
 ### Unspecial Case: SSReg versus SSE doesn't matter!
 
-Consider $SSE_1$ and $SSE_2$. Since SST is the same for both models,
+Consider $SSE_1$ and $SSE_2$. Since $SST$ is the same for both models,
 
 \begin{align*}
 SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
@@ -144,12 +145,63 @@ $$
 
 Note that it doesn't matter which is nested: $S_1 - S_2$ has the same sign as $p-q$, so it's always positive.
 
-### Omnibus Tests for Multiple Predictors
+### The Big Idea: Omnibus Tests for Multiple Predictors
 
 Suppose we want to test if *any* bill measurement is useful. 
 
 - Bill length and depth are highly correlated - marginal CIs won't be valid.
 - Confidence Regions are hard (and only work in 2D)
+
+::: {.content-visible when-profile="book"}
+To provide a little bit more context, we're going to consider the actual covariance of the predictors! Recall that the variance covariance matrix for $\hat{\underline\beta}$ (i.e. the variance of the joint sampling distribution) is defined as $V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}$.
+
+```{r}
+#| label: var-covar-bills
+library(palmerpenguins)
+peng <- penguins[complete.cases(penguins),]
+
+mylm <- lm(body_mass_g ~ flipper_length_mm + bill_length_mm + bill_depth_mm,
+    data = peng)
+
+X <- model.matrix(mylm)
+s2 <- summary(mylm)$sigma^2
+
+var_beta <- s2 * solve(t(X) %*% X)
+var_beta
+```
+
+We can see that there's a lot of covariance going on in our data~ We'll focus on bill length and bill depth for now. The code below is not testable.
+
+```{r}
+#| label: penguins-contour
+library(mvtnorm)
+
+beta_length <- coef(mylm)["bill_length_mm"]
+beta_depth <- coef(mylm)["bill_depth_mm"]
+se_length <- summary(mylm)$coef["bill_length_mm", "Std. Error"]
+se_depth <- summary(mylm)$coef["bill_depth_mm", "Std. Error"]
+var_bills <- var_beta[3:4, 3:4]
+x <- seq(beta_length - 2 * se_length, beta_length + 2*se_length,
+    length.out = 100)
+y <- seq(beta_depth - 2 * se_depth, beta_depth + 2 * se_depth,
+    length.out = 100)
+z <- outer(x, y, function(xi, yi) dmvnorm(cbind(xi, yi), mean = c(beta_length, beta_depth),
+    sigma = var_bills))
+contour(x, y, z, main = "Joint Normal Distribution of Bill Measurement Coefficients",
+    xlab = "Coefficient for bill length",
+    ylab = "Coefficient for bill depth")
+
+confints <- confint(mylm)
+abline(v = confints["bill_length_mm",], col = 2)
+abline(h = confints["bill_depth_mm",], col = 2)
+points(x = -6, y = -4, pch = 16, cex = 2, col = 2)
+```
+
+The plot above shows the estimated sampling distribution for the Bill Length and Bill Depth coefficients (this is similar to the normal distribution that we use for the sample mean, but it's in two dimensions now and we have to deal with the correlation of the coefficients). Since the coefficients are correlated, we get an elliptical region.
+
+I've also added the "marginal" confidence intervals; that is, the confidence intervals you get if you only consider the coefficient for bill depth. There's a red dot at (-6, -4), which represents the joint hypothesis $\beta_3 = -6$ and $\beta_4 = 4$ (that is, the hypothesis that both of these are true at the same time). If we simply test the hypothesis that $\beta_3 = -6$, we are well within the confidence limits. If we just test the hypothesis that $\beta_4 = -4$, we're also within those confidence limits. However, the contour plot above shows that this is actually *not* a reasonable value - it's far in the tail of the joint distribution! The marginal confidence intervals don't tell the whole story.
+
+:::
 
 \pspace
 
@@ -164,7 +216,7 @@ $S_1 = S_2$ is equivalent to $\beta_2 = \beta_3 = 0$, and it accounts for their 
 
 If significant, then at least one of $(\beta_2, \beta_3)$ is not 0.
 
-### In R
+### ESS In R
 
 ```{r}
 #| eval: true
@@ -178,16 +230,133 @@ m2 <- lm(body_mass_g ~ flipper_length_mm,
 anova(m1, m2) |> knitr::kable()
 ```
 
+::: {.content-visible unless-profile="book"}
+## Participation Questions
+
+### Q1
+
+In the following table, `bill_length_mm` anf `bill_depth_mm` both have non-significant p-values. This means we should drop both of them from the model.
+
+```{r}
+#| echo: false
+summary(m1)$coef |> knitr::kable()
+```
+
+\pspace
+
+a. TRUE\lspace
+b. FALSE
+
+<!--- B --->
+
+### Q2
+
+If M1 is nested within M2, then
+
+a. All the predictors in M1 are contained in M2 (with M2 having extra)\lspace
+b. All the predictors in M2 are contained in M1 (with M1 having extra)\lspace
+c. M1 and M2 both contain the same predictors.\lspace
+d. The M1 bird has built a nest within M2. It's going to lay eggs and start a family!
+
+<!--- A --->
+
+### Q3
+
+Extra Sum of Squares refers to:
+
+\pspace
+
+a. The aditional variation in the residuals that we get from adding predictors\lspace
+b. The additional variation in the regression line that we get from adding predictors.\lspace
+c. The additional variation in the sampling distribution that we get from adding predictors. \lspace
+d. Extra calculcations that we didn't actually need to do.
+ 
+<!--- B --->
+
+### Q4
+
+We can only use ESS if one model is nested within another.
+
+\pspace
+
+a. TRUE\lspace
+b. FALSE
+
+<!--- A --->
+
+### Q5
+
+An ANOVA test for overall regression is equivalent to an ESS for a full model versus a model with just an intercept.
+
+\pspace
+
+a. TRUE\lspace
+b. FALSE
+
+<!--- A --->
+
+:::
+
+## Examples
+
+### mtcars
+
+::: {.columns}
+::: {.column}
+- `disp`: Engine size (displacement)
+- `hp`: Horse power
+- `drat`: Rear axel ratio
+    - How much the axel must turn
+- `wt`: Weight
+- `qsec`: Quarter mile time (seconds)
+:::
+::: {.column}
+
+```{r}
+#| label: mtcars-1
+M1 <- lm(mpg ~ disp + hp + drat + wt + qsec,
+    data = mtcars)
+```
+:::
+:::
+
+Some potential questions:
+
+1. Is the car's "power" important for the regression?
+2. Is the car's "size" important?
+3. Are `hp` and `wt` enough to model the mpg of a car?
+
+::: {.content-visible when-profile="book"}
+Solutions:
+
+```{r}
+#| label: mtcar-a1
+
+anova(M1, update(M1, ~ . - hp - qsec - drat)) # At least one is important!
+anova(M1, update(M1, ~ . - wt - disp)) # At least one is important!
+anova(M1, lm(mpg ~ hp + wt, data = mtcars)) # None are important!
+```
+
+Of course, this raises more questions: If "at least one is important", then which is it? 
+
+We're slowly getting into the "art" territory of regression. The choice of which predictors to include is never going to have a right answer. If someone is trying to decide how heavy of a car to make, they probably want `wt` in the model no matter what. If the Ministry of Transportation wants to predict the mpg based on things that are easy to measure, we might choose the predictors that are easiest to measure.
+
+We should *not* just check a whole bunch of p-values! A recurring and important theme in this class is that Type 1 error is a monster! The whole point of ESS (including overall F-tests) is that we can check a bunch of things all at once *without* having to calculate a bunch of p-values!
+:::
+
 ### Next time
 
 - When to check ESS\lspace
 - How to check all ESS\lspace
-- What is R's `anova()` function even doing??
+- What is R's `anova()` function even doing???
 
 ::: {.content-visible when-profile="book"}
 ## Exercises
 
-1. Explain why $SS_{Reg}$ is always smaller when predictors are added. (That is, if $M2$ is nested within $M1$, then $SS_{Reg}$ for $M2$ will be larger).
+Suggested textbook exercises: **A**, D.
+
+1. Explain why $SS_{Reg}$ is always smaller when predictors are added. (That is, if $M1$ is nested within $M2$, then $SS_{Reg}$ for $M2$ will be larger).
+2. 
 
 :::
 
