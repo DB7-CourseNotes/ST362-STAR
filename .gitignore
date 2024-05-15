@@ -16,3 +16,6 @@ parquiz/*
 # https://en.wikipedia.org/wiki/Gravity_of_Earth
 Slides/figs/Gravity_anomalies_on_Earth.jpg
 figs/Gravity_anomalies_on_Earth.jpg
+.Rproj.user
+.Rhistory
+ST362-STAR.Rproj
