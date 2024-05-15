@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-14">
+<meta name="dcterms.date" content="2024-05-15">
 
 <title>STAR Notes - 7&nbsp; ESS Exampless</title>
 <style>
@@ -410,14 +410,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="header-section-number">7.1</span> Review</a></li>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review"><span class="header-section-number">7.1</span> Review</a>
+  <ul class="collapse">
+  <li><a href="#extra-sum-of-squares" id="toc-extra-sum-of-squares" class="nav-link" data-scroll-target="#extra-sum-of-squares">Extra Sum of Squares</a></li>
+  <li><a href="#penguins-example" id="toc-penguins-example" class="nav-link" data-scroll-target="#penguins-example">Penguins Example</a></li>
+  <li><a href="#where-do-these-values-come-from" id="toc-where-do-these-values-come-from" class="nav-link" data-scroll-target="#where-do-these-values-come-from">Where do these values come from?</a></li>
+  <li><a href="#final-calculations" id="toc-final-calculations" class="nav-link" data-scroll-target="#final-calculations">Final Calculations</a></li>
+  </ul></li>
   <li><a href="#ess-algorithms" id="toc-ess-algorithms" class="nav-link" data-scroll-target="#ess-algorithms"><span class="header-section-number">7.2</span> ESS Algorithms</a>
   <ul class="collapse">
-  <li><a href="#type-2-anova-sequental-sum-of-squares" id="toc-type-2-anova-sequental-sum-of-squares" class="nav-link" data-scroll-target="#type-2-anova-sequental-sum-of-squares">Type 2 ANOVA (Sequental Sum-of-Squares)</a></li>
+  <li><a href="#main-idea" id="toc-main-idea" class="nav-link" data-scroll-target="#main-idea">Main Idea</a></li>
+  <li><a href="#type-i-sequential-sum-of-squares-with-interactions" id="toc-type-i-sequential-sum-of-squares-with-interactions" class="nav-link" data-scroll-target="#type-i-sequential-sum-of-squares-with-interactions">Type I: Sequential Sum-of-Squares (with interactions)</a></li>
+  <li><a href="#type-2-sequential-sum-of-squares-rs-default" id="toc-type-2-sequential-sum-of-squares-rs-default" class="nav-link" data-scroll-target="#type-2-sequential-sum-of-squares-rs-default">Type 2: Sequential Sum-of-Squares (R’s Default)</a></li>
+  <li><a href="#type-3-last-entry-sum-of-squares" id="toc-type-3-last-entry-sum-of-squares" class="nav-link" data-scroll-target="#type-3-last-entry-sum-of-squares">Type 3: Last-entry sum-of-squares</a></li>
+  <li><a href="#back-to-type-2-anova-sequental-sum-of-squares" id="toc-back-to-type-2-anova-sequental-sum-of-squares" class="nav-link" data-scroll-target="#back-to-type-2-anova-sequental-sum-of-squares">Back to Type 2 ANOVA (Sequental Sum-of-Squares)</a></li>
   <li><a href="#a-note-on-calculations" id="toc-a-note-on-calculations" class="nav-link" data-scroll-target="#a-note-on-calculations">A note on calculations</a></li>
   <li><a href="#type-iii-ss-in-r" id="toc-type-iii-ss-in-r" class="nav-link" data-scroll-target="#type-iii-ss-in-r">Type III SS in R</a></li>
   </ul></li>
-  <li><a href="#modelling-strategies" id="toc-modelling-strategies" class="nav-link" data-scroll-target="#modelling-strategies"><span class="header-section-number">7.3</span> Modelling Strategies</a></li>
+  <li><a href="#modelling-strategies" id="toc-modelling-strategies" class="nav-link" data-scroll-target="#modelling-strategies"><span class="header-section-number">7.3</span> Modelling Strategies</a>
+  <ul class="collapse">
+  <li><a href="#the-art-of-modelling" id="toc-the-art-of-modelling" class="nav-link" data-scroll-target="#the-art-of-modelling">The Art of Modelling</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -450,7 +463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-14</p>
+      <p class="date">2024-05-15</p>
     </div>
   </div>
   
@@ -462,11 +475,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="review" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="review"><span class="header-section-number">7.1</span> Review</h2>
+<section id="extra-sum-of-squares" class="level3">
+<h3 class="anchored" data-anchor-id="extra-sum-of-squares">Extra Sum of Squares</h3>
 <p>From last time, we basically learned what the following means:</p>
 <p><span class="math display">\[
 \frac{SS(\hat\beta_{q+1}, ..., \hat\beta_p | \hat\beta_0, ... \hat\beta_q)}{(p-q)s^2} =\frac{S_1 - S(\hat\beta_0) - (S_2 - S(\hat\beta_0))}{(p-q)s^2}\sim F_{p-q, \max(p, q)}
 \]</span> where <span class="math inline">\(s^2\)</span> is the MSE calculated from the larger model.</p>
 <p>This allows us to do a test for whether <span class="math inline">\(\beta_{q+1} = \beta_{q+2} = ... = \beta_p = 0\)</span>.</p>
+</section>
+<section id="penguins-example" class="level3">
+<h3 class="anchored" data-anchor-id="penguins-example">Penguins Example</h3>
 <p>The R code to do this test is as follows. In this code, we believe that the bill length and bill depth are strongly correlated, and thus we cannot trust the CIs that we get from <code>summary(lm())</code> (we saw “Confidence Regions” in the slides and code for L05).</p>
 <div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-2_a7a471b0f3596dea66363b632d5bf79e">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(peng)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -490,6 +508,9 @@ Model 2: body_mass_g ~ flipper_length_mm + bill_length_mm + bill_depth_mm
 2    329 50814912  2    397051 1.2853 0.2779</code></pre>
 </div>
 </div>
+</section>
+<section id="where-do-these-values-come-from" class="level3">
+<h3 class="anchored" data-anchor-id="where-do-these-values-come-from">Where do these values come from?</h3>
 <p>Let’s try and calculate these values ourselves in a couple different ways!</p>
 <div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-4_722b7fd594d918e6b0bc68af33368147">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -522,6 +543,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>Again, the SSE of 51211963 matches what we saw in <code>anova(lm2, lm1)</code>, and we have 331 degrees of freedom (as expected, the differences in degrees of freedom is 2).</p>
 <p>Note that the F-value in <code>anova()</code> is just the ratio of the MSEs, but this is not the case here. Instead, we need to calculate <span class="math inline">\(s^2\)</span>.</p>
+</section>
+<section id="final-calculations" class="level3">
+<h3 class="anchored" data-anchor-id="final-calculations">Final Calculations</h3>
 <p>We can calculate <span class="math inline">\(s^2\)</span> as the MSE for the larger model:</p>
 <div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-6_679cdef5703d2ec6f94f99402c3dfed2">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="dv">50814912</span><span class="sc">/</span><span class="dv">329</span></span>
@@ -545,13 +569,20 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>It is left as an exercise to calculate these values based on matrix multiplication. I highly suggest trying it with and without correction factors to convince yourself that both of them work (and to convince yourself that you know what the correction factor is and why it’s necessary).</p>
 </section>
+</section>
 <section id="ess-algorithms" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="ess-algorithms"><span class="header-section-number">7.2</span> ESS Algorithms</h2>
-<p>The idea above is based on testing a subset of predictors for at least one significant coefficient. This is usually what we want.</p>
-<p>However, there are also times where we want to check <em>all</em> predictors one-by-one. This is much less common than the textbook may lead you to believe, but it still happens.</p>
-<p>There are three ways to calculate the ESS for <em>all</em> predictors. They are very helpfully labelled Types I, II, and III.</p>
+<section id="main-idea" class="level3">
+<h3 class="anchored" data-anchor-id="main-idea">Main Idea</h3>
 <ul>
-<li>Type I: Sequential Sum-of-Squares (with interactions)
+<li><strong>ESS</strong>: Test a subset of predictors for at least one significant coefficient.</li>
+</ul>
+<p>However, there are also times where we want to check <em>all</em> predictors one-by-one.</p>
+<p>This is much less common than the textbook may lead you to believe (and I strongly recommend against it), but it still happens.</p>
+<p>There are three ways to calculate the ESS for <em>all</em> predictors. They are very helpfully labelled Types I, II, and III.</p>
+</section>
+<section id="type-i-sequential-sum-of-squares-with-interactions" class="level3">
+<h3 class="anchored" data-anchor-id="type-i-sequential-sum-of-squares-with-interactions">Type I: Sequential Sum-of-Squares (with interactions)</h3>
 <ul>
 <li>Check <span class="math inline">\(SS(\hat\beta_1|\hat\beta_0)\)</span></li>
 <li>Check <span class="math inline">\(SS(\hat\beta_2|\hat\beta_0, \hat\beta_1)\)</span></li>
@@ -562,30 +593,31 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Check <span class="math inline">\(SS(\hat\beta_3|\hat\beta_0, \hat\beta_1, \hat\beta_2)\)</span></li>
 <li>Check all interactions between x1, x2, and x3,</li>
 <li>…</li>
-</ul></li>
 </ul>
-<p>This will give us every possible sum-of-squares. This is very very dubious, and can lead to a multiple comparisons problem!</p>
-<ul>
-<li>Type 2: Sequential Sum-of-Squares (R’s Default)
+<p>This will give us every possible sum-of-squares. This is very very dubious, and can lead to a major multiple comparisons problem!</p>
+</section>
+<section id="type-2-sequential-sum-of-squares-rs-default" class="level3">
+<h3 class="anchored" data-anchor-id="type-2-sequential-sum-of-squares-rs-default">Type 2: Sequential Sum-of-Squares (R’s Default)</h3>
 <ul>
 <li>Check <span class="math inline">\(SS(\hat\beta_1|\hat\beta_0)\)</span></li>
 <li>Check <span class="math inline">\(SS(\hat\beta_2|\hat\beta_0, \hat\beta_1)\)</span></li>
 <li>Check <span class="math inline">\(SS(\hat\beta_3|\hat\beta_0, \hat\beta_1, \hat\beta_2)\)</span></li>
 <li>…</li>
-</ul></li>
 </ul>
-<p>This gives us an ordered sequence of “is it worth adding x1?”, “if we have x1, is it worth adding x2?”, etc. This is only meaningful if the predictors are naturally ordered (such as polynomial regression, see below).</p>
-<ul>
-<li>Type 3: Last-entry sum-of-squares
+<p>Results in an ordered sequence of “is it worth adding x1?”, “if we have x1, is it worth adding x2?”, etc.</p>
+<p><em>Only meaningful if the predictors are naturally ordered</em> (such as polynomial regression, see below).</p>
+</section>
+<section id="type-3-last-entry-sum-of-squares" class="level3">
+<h3 class="anchored" data-anchor-id="type-3-last-entry-sum-of-squares">Type 3: Last-entry sum-of-squares</h3>
 <ul>
 <li>Check <span class="math inline">\(SS(\hat\beta_1|\hat\beta_0, \hat\beta_2, \hat\beta_3)\)</span></li>
 <li>Check <span class="math inline">\(SS(\hat\beta_2|\hat\beta_0, \hat\beta_1, \hat\beta_3)\)</span></li>
 <li>Check <span class="math inline">\(SS(\hat\beta_3|\hat\beta_0, \hat\beta_1, \hat\beta_2)\)</span></li>
-</ul></li>
 </ul>
 <p>This checks whether adding predictor <span class="math inline">\(x_i\)</span> is worth it, considering all other predictors are already in the model.</p>
-<section id="type-2-anova-sequental-sum-of-squares" class="level3">
-<h3 class="anchored" data-anchor-id="type-2-anova-sequental-sum-of-squares">Type 2 ANOVA (Sequental Sum-of-Squares)</h3>
+</section>
+<section id="back-to-type-2-anova-sequental-sum-of-squares" class="level3">
+<h3 class="anchored" data-anchor-id="back-to-type-2-anova-sequental-sum-of-squares">Back to Type 2 ANOVA (Sequental Sum-of-Squares)</h3>
 <p>By default, R does sequential sum-of-squares. This is a very important fact to know!</p>
 <p>In Types I and II, <em>the order of the predictors matters</em>. In fact, you cannot make any conclusions about the significance that doesn’t make reference to this fact.</p>
 <div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-9_9508506c38c18db560728d6d83c66fe5">
@@ -615,7 +647,7 @@ wt          -5.0344097167 1.22411993 -4.11267686 0.0003104157</code></pre>
 </div>
 <p>However, there is at least one case where we do care about the order of the predictors. Consider <strong>polynomial regression</strong>, which we will return to later. For now, it is sufficient to know that we’re dealing with the model: <span class="math display">\[
 y_i = \beta_0 + \beta_1x_i + \beta_2x_i^2 + \beta_3x_i^3 + ... + \beta_{p-1}x_i^{p-1} + \epsilon_i
-\]</span>In this model, notice that we only have one predictor <span class="math inline">\(x\)</span>, but we have performed non-linear transformations (HMWK: why is it important that the transformations are non-linear?).</p>
+\]</span> In this model, notice that we only have one predictor <span class="math inline">\(x\)</span>, but we have performed non-linear transformations (HMWK: why is it important that the transformations are non-linear?).</p>
 <p>In this case, a sequential SS setup makes quite a bit of sense. Given we have a linear model, is it worth making it quadratic? Given that we have a quadratic model, is it worth making it cubic? Given that we have a cubic model…</p>
 <p>In the code below, I use the <code>I()</code> function (the <code>I</code> means identity) to make the polynomial model. The “formula” notation in R, <code>y ~ x + z</code>, has a lot of options. Including <code>x^2</code>, rather than <code>I(x^2)</code>, makes R think we want to do one of the more fancy things, but the <code>I()</code> tells it that we want to literally square it. In the future, we’ll use a better way of doing this.</p>
 <div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-10_4412b7b3c6fda0abfd8e0a4629627fd8">
@@ -738,6 +770,8 @@ Model 2: mpg ~ disp + wt + qsec
 </section>
 <section id="modelling-strategies" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="modelling-strategies"><span class="header-section-number">7.3</span> Modelling Strategies</h2>
+<section id="the-art-of-modelling" class="level3">
+<h3 class="anchored" data-anchor-id="the-art-of-modelling">The Art of Modelling</h3>
 <p>If you are in a situation where you think to yourself “my predictors are logically ordered and I want to check for the significance of all of them one-by-one”, you want Type II.</p>
 <p>If you think “they’re not ordered but I want to check significance”, you might want to check the overall F test for all predictors and then check t-tests for individual parameters.</p>
 <p>If you think “what would happen if each predictor were the last one I put in the model”, then you want Type III. I can’t think of a good situation for Type I - you’re pretty much guaranteed to have a multiple comparisons issue.</p>
@@ -753,6 +787,7 @@ Model 2: mpg ~ disp + wt + qsec
 <p>The purpose of this method for selecting predictors is to <em>minimize the number of p-values that you check</em>. The ESS techniques that we learned today (especially for the bill length/depth, where our knowledge of the problem informed us of which predictors to check) are an important part of the modelling process, but there is more to learn!</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

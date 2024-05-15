@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-14">
+<meta name="dcterms.date" content="2024-05-15">
 
 <title>STAR Notes - 5&nbsp; The General Regression Situation</title>
 <style>
@@ -464,7 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-14</p>
+      <p class="date">2024-05-15</p>
     </div>
   </div>
   
@@ -957,9 +957,7 @@ V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
 <summary>
 <strong>Solution</strong>
 </summary>
-<div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-9_770b9fb9ffafd932e895f2c6020538ae">
-<details>
-<summary>Show the code</summary>
+<div class="cell" data-hash="L05-General_Regression_cache/html/f-test-type-1-error_d9c93087d574fa1356049a6e35ab84d0">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">11</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
@@ -972,7 +970,6 @@ V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>mydf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, X[, <span class="sc">-</span><span class="dv">1</span>])</span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> ., <span class="at">data =</span> mydf)</span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1011,21 +1008,16 @@ F-statistic: 1.231 on 10 and 39 DF,  p-value: 0.3023</code></pre>
 <ol start="5" type="1">
 <li>Plot the confidence intervals <em>and</em> the prediction intervals for a simple linear regression of body mass versus flipper length for penguins. Do this for a lot of points, and interpret the difference between the two.</li>
 </ol>
-<div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-10_bdad16ed7aee214bbec3ccda2549d526">
-<details>
-<summary>Show the code</summary>
+<div class="cell" data-hash="L05-General_Regression_cache/html/penguin-setup_4919efaa251f32089ce38f07e2a2fdaa">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>peng_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <details>
 <summary>
 <strong>Solution</strong>
 </summary>
-<div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-11_0c6d7c5dafebd844866595ff60fd1d80">
-<details>
-<summary>Show the code</summary>
+<div class="cell" data-hash="L05-General_Regression_cache/html/penguin-solution_4d4941f4b2e65429e4605f851ae02a2f">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>peng_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> penguins)</span>
@@ -1043,9 +1035,8 @@ F-statistic: 1.231 on 10 and 39 DF,  p-value: 0.3023</code></pre>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> flippers, <span class="at">y =</span> predi[, <span class="st">"upr"</span>], <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> flippers, <span class="at">y =</span> predi[, <span class="st">"lwr"</span>], <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
 <span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Confidence"</span>, <span class="st">"Prediction"</span>), <span class="at">col =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output-display">
-<p><img src="L05-General_Regression_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="L05-General_Regression_files/figure-html/penguin-solution-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The confidence “band” is <em>much</em> thinner than the prediction band! With this many points, the model is pretty sure about the slope and intercept (i.e.&nbsp;<span class="math inline">\(\hat y_i\)</span>); a new sample would be expected to produce a similar line.</p>
@@ -1059,9 +1050,7 @@ F-statistic: 1.231 on 10 and 39 DF,  p-value: 0.3023</code></pre>
 <summary>
 <strong>Solution</strong>
 </summary>
-<div class="cell" data-hash="L05-General_Regression_cache/html/unnamed-chunk-12_f62f6ce0121dbdc17cb858488c5753de">
-<details>
-<summary>Show the code</summary>
+<div class="cell" data-hash="L05-General_Regression_cache/html/ci-for-hat-y_4fe7267a4d7663721d2463095c9e7513">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NA</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">25</span>, <span class="dv">25</span>), <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">ylab =</span> <span class="st">"y"</span>)</span>
@@ -1069,9 +1058,8 @@ F-statistic: 1.231 on 10 and 39 DF,  p-value: 0.3023</code></pre>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">8</span>)</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output-display">
-<p><img src="L05-General_Regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="L05-General_Regression_files/figure-html/ci-for-hat-y-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>It looks kind of like a bowtie!</p>

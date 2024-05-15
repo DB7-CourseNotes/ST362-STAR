@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-14">
+<meta name="dcterms.date" content="2024-05-15">
 
 <title>STAR Notes - 6&nbsp; Extra Sum-of-Squares</title>
 <style>
@@ -421,11 +421,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#unspecial-case-ssreg-versus-sse-doesnt-matter" id="toc-unspecial-case-ssreg-versus-sse-doesnt-matter" class="nav-link" data-scroll-target="#unspecial-case-ssreg-versus-sse-doesnt-matter">Unspecial Case: SSReg versus SSE doesn’t matter!</a></li>
   <li><a href="#anova-tests-for-ess" id="toc-anova-tests-for-ess" class="nav-link" data-scroll-target="#anova-tests-for-ess">ANOVA Tests for ESS</a></li>
   <li><a href="#in-general" id="toc-in-general" class="nav-link" data-scroll-target="#in-general">In General</a></li>
-  <li><a href="#omnibus-tests-for-multiple-predictors" id="toc-omnibus-tests-for-multiple-predictors" class="nav-link" data-scroll-target="#omnibus-tests-for-multiple-predictors">Omnibus Tests for Multiple Predictors</a></li>
-  <li><a href="#in-r" id="toc-in-r" class="nav-link" data-scroll-target="#in-r">In R</a></li>
+  <li><a href="#the-big-idea-omnibus-tests-for-multiple-predictors" id="toc-the-big-idea-omnibus-tests-for-multiple-predictors" class="nav-link" data-scroll-target="#the-big-idea-omnibus-tests-for-multiple-predictors">The Big Idea: Omnibus Tests for Multiple Predictors</a></li>
+  <li><a href="#ess-in-r" id="toc-ess-in-r" class="nav-link" data-scroll-target="#ess-in-r">ESS In R</a></li>
+  </ul></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">6.2</span> Examples</a>
+  <ul class="collapse">
+  <li><a href="#mtcars" id="toc-mtcars" class="nav-link" data-scroll-target="#mtcars">mtcars</a></li>
   <li><a href="#next-time" id="toc-next-time" class="nav-link" data-scroll-target="#next-time">Next time</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">6.2</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">6.3</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -458,7 +462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-14</p>
+      <p class="date">2024-05-15</p>
     </div>
   </div>
   
@@ -479,6 +483,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>All sizes are relative to the standard error!</li>
 </ul></li>
 <li>Different predictors have a different effect on the residuals.</li>
+<li>A group of predictors can be tested for whether all parameters are 0.</li>
 </ul>
 <p>Which predictors have a meaningful (significant?) effect on the residuals?</p>
 </section>
@@ -489,7 +494,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Recall: SSReg is the variance of the line itself!</li>
 </ul>
 <p><span class="math display">\[
-SSReg = \sum_{i=1}^n(\hat y_i - \bar y)
+SS_{Reg} = \sum_{i=1}^n(\hat y_i - \bar y)
 \]</span></p>
 </section>
 <section id="ssreg-in-two-different-penguin-models" class="level3">
@@ -537,13 +542,14 @@ SS(\hat\beta_3 | \hat\beta_0, \hat\beta_1, \hat\beta_2) = S_1 - S_2
 <p>We’ve already seen this notation: <span class="math display">\[
 SSReg(\hat\beta_0) = n\bar{\underline y}^2
 \]</span> and <span class="math display">\[
-SSReg(corrected) = \hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2 = S_1 - S_2
-\]</span> where <span class="math inline">\(S_2\)</span> is the sum-of-squares for the null model!</p>
+SS_{Reg}(corrected) = SS_{Reg}(\hat\beta_1, ..., \hat\beta_{p-1}|\hat\beta_0)= \hat{\underline\beta}^TX^T\underline y - n\bar{\underline y}^2
+\]</span> which can be written as <span class="math inline">\(SS_{Reg}(corrected) = S_1 - S_2\)</span> where <span class="math inline">\(S_2\)</span> is the sum-of-squares for the null model!</p>
 </section>
 <section id="unspecial-case-correction-doesnt-matter" class="level3">
 <h3 class="anchored" data-anchor-id="unspecial-case-correction-doesnt-matter">Unspecial Case: Correction doesn’t matter!</h3>
-<p>Consider <span class="math inline">\(S_{1c}\)</span> and <span class="math inline">\(S_{2c}\)</span>, the corrected versions of <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span>. Then</p>
-<p><span class="math display">\[\begin{align*}
+<p>Consider <span class="math inline">\(S_{1c}\)</span> and <span class="math inline">\(S_{2c}\)</span>, the corrected versions of <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span>. In symbols: <span class="math display">\[
+S_{1c} = SS_{Reg}(\hat\beta_1,\hat\beta_2,\hat\beta_3 | \hat\beta_0)\text{ and }S_{1} = SS_{Reg}(\hat\beta_0,\hat\beta_1,\hat\beta_2,\hat\beta_3)
+\]</span> Then <span class="math display">\[\begin{align*}
 S_{1c} - S_{2c} = (S_2 - n\bar{\underline y}^2) - (S_1 - n\bar{\underline y}^2) = S_1 - S_2
 \end{align*}\]</span></p>
 <p>In other words, the correction term doesn’t matter.</p>
@@ -551,7 +557,7 @@ S_{1c} - S_{2c} = (S_2 - n\bar{\underline y}^2) - (S_1 - n\bar{\underline y}^2) 
 </section>
 <section id="unspecial-case-ssreg-versus-sse-doesnt-matter" class="level3">
 <h3 class="anchored" data-anchor-id="unspecial-case-ssreg-versus-sse-doesnt-matter">Unspecial Case: SSReg versus SSE doesn’t matter!</h3>
-<p>Consider <span class="math inline">\(SSE_1\)</span> and <span class="math inline">\(SSE_2\)</span>. Since SST is the same for both models,</p>
+<p>Consider <span class="math inline">\(SSE_1\)</span> and <span class="math inline">\(SSE_2\)</span>. Since <span class="math inline">\(SST\)</span> is the same for both models,</p>
 <p><span class="math display">\[\begin{align*}
 SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 \end{align*}\]</span></p>
@@ -582,15 +588,71 @@ SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 <p><span class="math display">\[
 \frac{S_1 - S_2}{(p - q)s^2} \sim F_{|p-q|,\nu}
 \]</span></p>
-<p>Note that it doesn’t matter which is nested: <span class="math inline">\(S_1 - S_2\)</span> has the same sign as <span class="math inline">\(p-q\)</span>, so it’s always positive.</p>
+<p>Note that it doesn’t matter which is nested: <span class="math inline">\(S_1 - S_2\)</span> has the same sign as <span class="math inline">\(p-q\)</span>, so the F-statistic always positive.</p>
 </section>
-<section id="omnibus-tests-for-multiple-predictors" class="level3">
-<h3 class="anchored" data-anchor-id="omnibus-tests-for-multiple-predictors">Omnibus Tests for Multiple Predictors</h3>
+<section id="the-big-idea-omnibus-tests-for-multiple-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="the-big-idea-omnibus-tests-for-multiple-predictors">The Big Idea: Omnibus Tests for Multiple Predictors</h3>
 <p>Suppose we want to test if <em>any</em> bill measurement is useful.</p>
 <ul>
 <li>Bill length and depth are highly correlated - marginal CIs won’t be valid.</li>
 <li>Confidence Regions are hard (and only work in 2D)</li>
 </ul>
+<p>To provide a little bit more context, we’re going to consider the actual covariance of the predictors! Recall that the variance covariance matrix for <span class="math inline">\(\hat{\underline\beta}\)</span> (i.e.&nbsp;the variance of the joint sampling distribution) is defined as <span class="math inline">\(V(\hat{\underline\beta}) = \sigma^2(X^TX)^{-1}\)</span>.</p>
+<div class="cell" data-hash="L06-Extra_Sums_of_Squares_cache/html/var-covar-bills_e50c220d92064c0129cfb39af622f288">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mylm)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(mylm)<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>var_beta <span class="ot">&lt;-</span> s2 <span class="sc">*</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>var_beta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  (Intercept) flipper_length_mm bill_length_mm bill_depth_mm
+(Intercept)       320503.2363      -1211.206658     805.525086   -6528.69599
+flipper_length_mm  -1211.2067          6.236320      -8.786474      20.06738
+bill_length_mm       805.5251         -8.786474      28.793240     -17.85211
+bill_depth_mm      -6528.6960         20.067377     -17.852112     191.15678</code></pre>
+</div>
+</div>
+<p>We can see that there’s a lot of covariance going on in our data~ We’ll focus on bill length and bill depth for now. The code below is not testable.</p>
+<div class="cell" data-hash="L06-Extra_Sums_of_Squares_cache/html/penguins-contour_001d701261c6c34d1e989b08ee6efc2d">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mvtnorm)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>beta_length <span class="ot">&lt;-</span> <span class="fu">coef</span>(mylm)[<span class="st">"bill_length_mm"</span>]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>beta_depth <span class="ot">&lt;-</span> <span class="fu">coef</span>(mylm)[<span class="st">"bill_depth_mm"</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>se_length <span class="ot">&lt;-</span> <span class="fu">summary</span>(mylm)<span class="sc">$</span>coef[<span class="st">"bill_length_mm"</span>, <span class="st">"Std. Error"</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>se_depth <span class="ot">&lt;-</span> <span class="fu">summary</span>(mylm)<span class="sc">$</span>coef[<span class="st">"bill_depth_mm"</span>, <span class="st">"Std. Error"</span>]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>var_bills <span class="ot">&lt;-</span> var_beta[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(beta_length <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> se_length, beta_length <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>se_length,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(beta_depth <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> se_depth, beta_depth <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> se_depth,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">outer</span>(x, y, <span class="cf">function</span>(xi, yi) <span class="fu">dmvnorm</span>(<span class="fu">cbind</span>(xi, yi), <span class="at">mean =</span> <span class="fu">c</span>(beta_length, beta_depth),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">sigma =</span> var_bills))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(x, y, z, <span class="at">main =</span> <span class="st">"Joint Normal Distribution of Bill Measurement Coefficients"</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Coefficient for bill length"</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"Coefficient for bill depth"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>confints <span class="ot">&lt;-</span> <span class="fu">confint</span>(mylm)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> confints[<span class="st">"bill_length_mm"</span>,], <span class="at">col =</span> <span class="dv">2</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> confints[<span class="st">"bill_depth_mm"</span>,], <span class="at">col =</span> <span class="dv">2</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> <span class="sc">-</span><span class="dv">6</span>, <span class="at">y =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L06-Extra_Sums_of_Squares_files/figure-html/penguins-contour-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The plot above shows the estimated sampling distribution for the Bill Length and Bill Depth coefficients (this is similar to the normal distribution that we use for the sample mean, but it’s in two dimensions now and we have to deal with the correlation of the coefficients). Since the coefficients are correlated, we get an elliptical region.</p>
+<p>I’ve also added the “marginal” confidence intervals; that is, the confidence intervals you get if you only consider the coefficient for bill depth. There’s a red dot at (-6, -4), which represents the joint hypothesis <span class="math inline">\(\beta_3 = -6\)</span> and <span class="math inline">\(\beta_4 = 4\)</span> (that is, the hypothesis that both of these are true at the same time). If we simply test the hypothesis that <span class="math inline">\(\beta_3 = -6\)</span>, we are well within the confidence limits. If we just test the hypothesis that <span class="math inline">\(\beta_4 = -4\)</span>, we’re also within those confidence limits. However, the contour plot above shows that this is actually <em>not</em> a reasonable value - it’s far in the tail of the joint distribution! The marginal confidence intervals don’t tell the whole story.</p>
 <p>Instead, we can use the ESS to test for a subset of predictors!</p>
 <ul>
 <li>M1: <span class="math inline">\(\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}\)</span></li>
@@ -599,18 +661,18 @@ SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 <p><span class="math inline">\(S_1 = S_2\)</span> is equivalent to <span class="math inline">\(\beta_2 = \beta_3 = 0\)</span>, and it accounts for their covariance!</p>
 <p>If significant, then at least one of <span class="math inline">\((\beta_2, \beta_3)\)</span> is not 0.</p>
 </section>
-<section id="in-r" class="level3">
-<h3 class="anchored" data-anchor-id="in-r">In R</h3>
-<div class="cell" data-hash="L06-Extra_Sums_of_Squares_cache/html/unnamed-chunk-2_e92c4aa8881821627fa9d8fa3a5c9eeb">
+<section id="ess-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="ess-in-r">ESS In R</h3>
+<div class="cell" data-hash="L06-Extra_Sums_of_Squares_cache/html/unnamed-chunk-4_fd4257ac946c1c18f1c73368eeab1c0b">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m1, m2) <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>peng <span class="ot">&lt;-</span> penguins[<span class="fu">complete.cases</span>(penguins),]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m1, m2) <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -646,19 +708,106 @@ SSE_2 - SSE_1 = (SST - S_1) - (SST - S_2) = S_2 - S_1
 </div>
 </div>
 </section>
+</section>
+<section id="examples" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">6.2</span> Examples</h2>
+<section id="mtcars" class="level3">
+<h3 class="anchored" data-anchor-id="mtcars">mtcars</h3>
+<div class="columns">
+<div class="column">
+<ul>
+<li><code>disp</code>: Engine size (displacement)</li>
+<li><code>hp</code>: Horse power</li>
+<li><code>drat</code>: Rear axel ratio
+<ul>
+<li>How much the axel must turn</li>
+</ul></li>
+<li><code>wt</code>: Weight</li>
+<li><code>qsec</code>: Quarter mile time (seconds)</li>
+</ul>
+</div><div class="column">
+<div class="cell" data-hash="L06-Extra_Sums_of_Squares_cache/html/mtcars-1_0d82c0f29e91b57f0517b63397f13cdd">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp <span class="sc">+</span> drat <span class="sc">+</span> wt <span class="sc">+</span> qsec,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+<p>Some potential questions:</p>
+<ol type="1">
+<li>Is the car’s “power” important for the regression?</li>
+<li>Is the car’s “size” important?</li>
+<li>Are <code>hp</code> and <code>wt</code> enough to model the mpg of a car?</li>
+</ol>
+<p>Solutions:</p>
+<div class="cell" data-hash="L06-Extra_Sums_of_Squares_cache/html/mtcar-a1_514c882a2eba96501012e85c1d40a8be">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(M1, <span class="fu">update</span>(M1, <span class="sc">~</span> . <span class="sc">-</span> hp <span class="sc">-</span> qsec <span class="sc">-</span> drat)) <span class="co"># At least one is important!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: mpg ~ disp + hp + drat + wt + qsec
+Model 2: mpg ~ disp + wt
+  Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)  
+1     26 170.13                             
+2     29 246.68 -3   -76.553 3.8998   0.02 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(M1, <span class="fu">update</span>(M1, <span class="sc">~</span> . <span class="sc">-</span> wt <span class="sc">-</span> disp)) <span class="co"># At least one is important!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: mpg ~ disp + hp + drat + wt + qsec
+Model 2: mpg ~ hp + drat + qsec
+  Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)   
+1     26 170.13                                
+2     28 287.99 -2   -117.86 9.0057 0.001067 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(M1, <span class="fu">lm</span>(mpg <span class="sc">~</span> hp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)) <span class="co"># None are important!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: mpg ~ disp + hp + drat + wt + qsec
+Model 2: mpg ~ hp + wt
+  Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
+1     26 170.13                           
+2     29 195.05 -3   -24.919 1.2694 0.3055</code></pre>
+</div>
+</div>
+<p>Of course, this raises more questions: If “at least one is important”, then which is it?</p>
+<p>We’re slowly getting into the “art” territory of regression. The choice of which predictors to include is never going to have a right answer. If someone is trying to decide how heavy of a car to make, they probably want <code>wt</code> in the model no matter what. If the Ministry of Transportation wants to predict the mpg based on things that are easy to measure, we might choose the predictors that are easiest to measure.</p>
+<p>We should <em>not</em> just check a whole bunch of p-values! A recurring and important theme in this class is that Type 1 error is a monster! The whole point of ESS (including overall F-tests) is that we can check a bunch of things all at once <em>without</em> having to calculate a bunch of p-values!</p>
+</section>
 <section id="next-time" class="level3">
 <h3 class="anchored" data-anchor-id="next-time">Next time</h3>
 <ul>
 <li>When to check ESS</li>
 <li>How to check all ESS</li>
-<li>What is R’s <code>anova()</code> function even doing??</li>
+<li>What is R’s <code>anova()</code> function even doing???</li>
 </ul>
 </section>
 </section>
-<section id="exercises" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="exercises"><span class="header-section-number">6.2</span> Exercises</h2>
+<section id="exercises" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="exercises"><span class="header-section-number">6.3</span> Exercises</h2>
+<p>Suggested textbook exercises: <strong>A</strong>, D.</p>
 <ol type="1">
-<li>Explain why <span class="math inline">\(SS_{Reg}\)</span> is always smaller when predictors are added. (That is, if <span class="math inline">\(M2\)</span> is nested within <span class="math inline">\(M1\)</span>, then <span class="math inline">\(SS_{Reg}\)</span> for <span class="math inline">\(M2\)</span> will be larger).</li>
+<li>Explain why <span class="math inline">\(SS_{Reg}\)</span> is always larger when predictors are added. (That is, if <span class="math inline">\(M1\)</span> is nested within <span class="math inline">\(M2\)</span>, then <span class="math inline">\(SS_{Reg}\)</span> for <span class="math inline">\(M2\)</span> will be larger).</li>
+<li>Simulate a data set with 10 predictors, where only 5 of them have a non-zero coefficient. Show that an ESS test can detect this, even if some of the parameters with a 0 coefficient have a significant p-value (Type 1 error).</li>
+<li>Demonstrate that <span class="math inline">\(\hat\beta_1\)</span> in the model <span class="math inline">\(y_i = \beta_0 + \beta_1\)</span> is different <span class="math inline">\(y_i = \beta_0 + \beta_1 + \beta_2\)</span>. Demonstrate this across any data we’ve seen before, new data, simulated data, or whatever you want!</li>
+<li>Why does the estimate of one parameter change when you add other estimates? (<em>Hint: see the bill length and bill depth example here in the course notes.</em>)</li>
 </ol>
 
 
