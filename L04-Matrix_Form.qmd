@@ -1,6 +1,6 @@
 ---
 title: "Regression in Matrix Form"
-institute: "Jam: **Monde Inverse** by Cirque du Soleil"
+institute: "Jam: **Corrected Idiot** by Phil Western"
 ---
 
 ```{r}
@@ -31,7 +31,7 @@ For the most part, this chapter is a couple of identities and a lot of exercises
 
 Using
 $$
-Y = \begin{bmatrix}Y_1\\ Y_2\\ \vdots\\ Y_n\end{bmatrix};\quad \underline y = \begin{bmatrix}y_1\\ y_2\\ \vdots\\ y_n\end{bmatrix};\quad X = \begin{bmatrix}1 & x_1\\1 &x_2\\ \vdots & \vdots\\ 1 & x_n\end{bmatrix};\quad \underline\beta = \begin{bmatrix}\beta_0\\\beta_1\end{bmatrix};\quad\underline\epsilon \begin{bmatrix}\epsilon_1\\ \epsilon_2\\ \vdots\\ \epsilon_n\end{bmatrix}
+Y = \begin{bmatrix}Y_1\\ Y_2\\ \vdots\\ Y_n\end{bmatrix};\quad \underline y = \begin{bmatrix}y_1\\ y_2\\ \vdots\\ y_n\end{bmatrix};\quad X = \begin{bmatrix}1 & x_1\\1 &x_2\\ \vdots & \vdots\\ 1 & x_n\end{bmatrix};\quad \underline\beta = \begin{bmatrix}\beta_0\\\beta_1\end{bmatrix};\quad\underline\epsilon = \begin{bmatrix}\epsilon_1\\ \epsilon_2\\ \vdots\\ \epsilon_n\end{bmatrix}
 $$
 
 \pspace
@@ -70,7 +70,7 @@ X^T\underline y &= \begin{bmatrix}\sum y_i\\ \sum x_iy_i\end{bmatrix}
 The textbook included the following equations in Ch02. The estimates $\hat\beta_0$ and $\hat\beta_1$ in OLS (same as MLE) are the solution to:
 
 \begin{align*} 
-\hat\beta_0 + \hat\beta_1\sum x_i &= \sum y_i\\
+n\hat\beta_0 + \hat\beta_1\sum x_i &= \sum y_i\\
 \hat\beta_0\sum x_i + \hat\beta_1\sum x_i^2 &= \sum x_iy_i\\
 \end{align*}
 :::
@@ -190,7 +190,7 @@ On tests, you will be given these formulas if they are relevant!
 
 - The "corrected" ANOVA is the ANOVA table for comparing the errors due to $\hat\beta_1$ to the errors due to $\hat\beta_0$.\lspace
 - This is different from comparing a model with $\hat\beta_0$ *and* $\hat\beta_1$ to a model with neither parameter.
-    - The value of the "correction" is based on $\bar x$. If the slope is 0, then the estimate for $\hat\beta_0$ is $\bar x$.
+    - The value of the "correction" is based on $\bar y$. If the slope is 0, then the estimate for $\hat\beta_0$ is $\bar y$.
 
 
 ### Summary

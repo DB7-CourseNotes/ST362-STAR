@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-14">
+<meta name="dcterms.date" content="2024-05-15">
 
 <title>STAR Notes - 4&nbsp; Regression in Matrix Form</title>
 <style>
@@ -445,7 +445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: <strong>Monde Inverse</strong> by Cirque du Soleil
+            Jam: <strong>Corrected Idiot</strong> by Phil Western
           </p>
       </div>
     </div>
@@ -456,7 +456,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-14</p>
+      <p class="date">2024-05-15</p>
     </div>
   </div>
   
@@ -472,7 +472,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="matrix-forms-of-things-weve-seen" class="level3">
 <h3 class="anchored" data-anchor-id="matrix-forms-of-things-weve-seen">Matrix Forms of Things We’ve Seen</h3>
 <p>Using <span class="math display">\[
-Y = \begin{bmatrix}Y_1\\ Y_2\\ \vdots\\ Y_n\end{bmatrix};\quad \underline y = \begin{bmatrix}y_1\\ y_2\\ \vdots\\ y_n\end{bmatrix};\quad X = \begin{bmatrix}1 &amp; x_1\\1 &amp;x_2\\ \vdots &amp; \vdots\\ 1 &amp; x_n\end{bmatrix};\quad \underline\beta = \begin{bmatrix}\beta_0\\\beta_1\end{bmatrix};\quad\underline\epsilon \begin{bmatrix}\epsilon_1\\ \epsilon_2\\ \vdots\\ \epsilon_n\end{bmatrix}
+Y = \begin{bmatrix}Y_1\\ Y_2\\ \vdots\\ Y_n\end{bmatrix};\quad \underline y = \begin{bmatrix}y_1\\ y_2\\ \vdots\\ y_n\end{bmatrix};\quad X = \begin{bmatrix}1 &amp; x_1\\1 &amp;x_2\\ \vdots &amp; \vdots\\ 1 &amp; x_n\end{bmatrix};\quad \underline\beta = \begin{bmatrix}\beta_0\\\beta_1\end{bmatrix};\quad\underline\epsilon = \begin{bmatrix}\epsilon_1\\ \epsilon_2\\ \vdots\\ \epsilon_n\end{bmatrix}
 \]</span></p>
 <p><span class="math inline">\(Y = X\underline\beta + \underline\epsilon\)</span> is the same as <span class="math display">\[\begin{align*}
 Y_1 &amp;= \beta_0 + \beta_1x_1 + \epsilon_1\\
@@ -503,7 +503,7 @@ X^T\underline y &amp;= \begin{bmatrix}\sum y_i\\ \sum x_iy_i\end{bmatrix}
 </div><div class="column" style="width:60%;">
 <p>The textbook included the following equations in Ch02. The estimates <span class="math inline">\(\hat\beta_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span> in OLS (same as MLE) are the solution to:</p>
 <p><span class="math display">\[\begin{align*}
-\hat\beta_0 + \hat\beta_1\sum x_i &amp;= \sum y_i\\
+n\hat\beta_0 + \hat\beta_1\sum x_i &amp;= \sum y_i\\
 \hat\beta_0\sum x_i + \hat\beta_1\sum x_i^2 &amp;= \sum x_iy_i\\
 \end{align*}\]</span></p>
 </div>
@@ -625,7 +625,7 @@ V(\hat Y_{n+1}) &amp;= V(X_{n+1}\hat{\underline\beta} + \epsilon_{n+1})\\
 <li>The “corrected” ANOVA is the ANOVA table for comparing the errors due to <span class="math inline">\(\hat\beta_1\)</span> to the errors due to <span class="math inline">\(\hat\beta_0\)</span>.</li>
 <li>This is different from comparing a model with <span class="math inline">\(\hat\beta_0\)</span> <em>and</em> <span class="math inline">\(\hat\beta_1\)</span> to a model with neither parameter.
 <ul>
-<li>The value of the “correction” is based on <span class="math inline">\(\bar x\)</span>. If the slope is 0, then the estimate for <span class="math inline">\(\hat\beta_0\)</span> is <span class="math inline">\(\bar x\)</span>.</li>
+<li>The value of the “correction” is based on <span class="math inline">\(\bar y\)</span>. If the slope is 0, then the estimate for <span class="math inline">\(\hat\beta_0\)</span> is <span class="math inline">\(\bar y\)</span>.</li>
 </ul></li>
 </ul>
 </section>
