@@ -331,6 +331,15 @@ Suggested textbook Ch06 exercises: E, I, J, **N, P, Q, R**, X
 1. Calculate all ANOVA tables in this lesson using matrix multiplication.
 2. Explain why Type II SS would not be meaningful for the model $y_i = \beta_{p-1}x_i^{p-1} + \beta_{p-2}x_i^{p-2} + ... + \beta_2x_i^2 + \beta_1x_i + \beta_0 + \epsilon_i$.
 3. I performed a Type 3 SS ANOVA for the model $bodymass_i = \beta_0 + \beta_1flipperlength + \beta_2billlength$. A colleague told me that I should have included $billdepth$ in this analysis. Will the results from Type 3 SS ANOVA change when I add in this predictor?
-4. 
+4. Describe another situation (not polynomial regression) where Type 2 SS ANOVA would be appropriate. Simulate some relevant data and demonstrate.
+
+<details>
+<summary>**Solution Hints**</summary>
+In order for Type 2 SS to be appropriate, the predictors need to have a logical order in which to enter the model. Some examples might include a case where researchers have a particular ranking for the predictors in their study, and want to stop adding predictors to the model as soon as they find the first non-significant predictor (I am still struggling to think of context for this). 
+</details>
+*****
+
+5. For the penguins data, fit a model with flipper length, bill length, and bill depth (in that order), and check the output of `anova()`. Reverse the order of predictors and repeat. Which values in the ANOVA table stay the same? Which values change? Why do they change? What does this tell you about interpreting `anova()` output?
+6. Give an example of a context where a collection of predictors might be tested all at once.
 :::
 
