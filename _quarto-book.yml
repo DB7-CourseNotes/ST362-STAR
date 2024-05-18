@@ -33,7 +33,6 @@ book:
         - L05-General_Regression.qmd
         - L06-Extra_Sums_of_Squares.qmd
         - L07-Exampless.qmd
-        - L09-Serial_Correlation.qmd
         - L10-Hat-Resid_Plots-Cook.qmd
         - L11-Admin_Slides.qmd
         - L12-Extra_Topics.qmd
