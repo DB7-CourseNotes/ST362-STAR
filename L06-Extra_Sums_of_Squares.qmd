@@ -34,8 +34,6 @@ If you add or remove predictors, the variance of the residuals changes!
 
 Which predictors have a meaningful (significant?) effect on the residuals?
 
-### Sum-of-Squares due to Regression
-
 - Since SSE = SST - SSReg and SST never changes, we're focusing on SSReg.\lspace
 - Recall: SSReg is the variance of the line itself!
 
@@ -102,7 +100,7 @@ S_{1c} - S_{2c} = (S_2 - n\bar{\underline y}^2) - (S_1 - n\bar{\underline y}^2) 
 
 In other words, the correction term doesn't matter. 
 
-This is useful because R outputs the corrected versions.
+- This is useful because R outputs the corrected versions.
 
 ### Unspecial Case: SSReg versus SSE doesn't matter!
 
@@ -374,7 +372,7 @@ We should *not* just check a whole bunch of p-values! A recurring and important 
 ::: {.content-visible when-profile="book"}
 ## Exercises
 
-Suggested textbook exercises: **A**, D.
+Suggested Ch06 textbook exercises: **A**, D.
 
 1. Explain why $SS_{Reg}$ is always larger when predictors are added. (That is, if $M1$ is nested within $M2$, then $SS_{Reg}$ for $M2$ will be larger).
 2. Simulate a data set with 10 predictors, where only 5 of them have a non-zero coefficient. Show that an ESS test can detect this, even if some of the parameters with a 0 coefficient have a significant p-value (Type 1 error).
