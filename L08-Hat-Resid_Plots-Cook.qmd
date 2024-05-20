@@ -223,7 +223,7 @@ The hat matrix is intepreted as influence, but it has problems.
 
 A better measure is how much the predicted value changes with/without the obs.
 
-### Cooks Distance: Change in $\hat y_i$.
+### Cook's Distance: Change in $\hat y_i$.
 
 $$
 D_i = \frac{\sum_{i=1}^n(\hat y_i - \hat y_{(i)})^2}{ps^2}

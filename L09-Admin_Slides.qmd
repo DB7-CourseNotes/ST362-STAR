@@ -8,6 +8,10 @@ institute: "**Jam TBD**"
 set.seed(2112)
 ```
 
+::: {.content-visible when-profile="book"}
+See [The Appendix](Lb11-R_hat_resids_cook.html) (which is subject to change each semester). 
+:::
+
 ::: {.content-visible unless-profile="book"}
 
 

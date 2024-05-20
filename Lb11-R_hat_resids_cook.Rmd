@@ -15,7 +15,7 @@ set.seed(2112)
 ```
 
 
-## The Hat Matrix
+### The Hat Matrix
 
 $$
 H = X(X^TX)^{-1}X^T
@@ -28,7 +28,7 @@ mylm <- lm(mpg ~ disp + wt, data = mtcars)
 hatvalues(mylm) |> unname()
 ```
 
-## Extracting the Diagonals from H
+### Extracting the Diagonals from H
 
 There isn't a built-in function for the full hat matrix (the diagonals are usually all you'll need). For demonstration, here are some demonstrations of the features of the hat matrix.
 
@@ -38,7 +38,7 @@ H <- X %*% solve(t(X) %*% X) %*% t(X)
 all.equal(diag(H), hatvalues(mylm))
 ```
 
-## Features of H
+### Features of H
 
 In the code below, I use the `unname()` function because mtcars has rownames which make the output harder to see (this used to be the norm in R, but it's fallen out of fashion).
 
@@ -50,7 +50,7 @@ range(diag(H)) # 0 <= h_{ii} <= 1
 H %*% rep(1, ncol(H)) # H1 = 1
 ```
 
-## Extracting the residuals
+### Extracting the residuals
 
 See `?influence.measures`.
 
@@ -59,7 +59,7 @@ See `?influence.measures`.
 cooks.distance(mylm)
 ```
 
-## The `broom` package
+### The `broom` package
 
 The `broom` package has a wonderful function called `augment()`. This function sets up our data so that it's super easy to see what we need.
 
@@ -70,14 +70,14 @@ augment(mylm)
 
 Notice that it includes:
 
--   `.fitted` = $X\underline{\hat\beta}$
+-   `.fitted` = $X\underline{\hat\beta} = \hat Y$
 -   `.resid` = $\hat{\underline\epsilon}$
 -   `.hat` = $diag(H)$
 -   `.sigma` = $s_{(i)}$
 -   `.cooksd` = `D`
--   `.std.resid` = standardized or studentized residuals?
+-   `.std.resid` = are these standardized or studentized residuals? Find out yourself!
 
-## Plotting the residuals
+### Plotting the residuals
 
 If you've ever accidentally typed `plot(mylm)`, you've seen some plots of the residuals.
 
@@ -95,7 +95,7 @@ plot(mylm, which = 1:6)
 
 99% of the time, the default plots are the ones you'll want to look at. For teaching purposes, we'll look at a few extra.
 
-## Demonstrations
+### Demonstrations
 
 We'll use the `Ozone` data from the `mlbench` package.
 
@@ -168,7 +168,7 @@ g7 <- ggplot(Ozone) +
     theme(legend.position = "bottom")
 ```
 
-## Adding an Outlier
+### Adding an Outlier
 
 Let's add an outlier to see what happens with these data.
 
@@ -193,7 +193,7 @@ g7 <- ggplot(newlm) +
     theme(legend.position = "bottom")
 ```
 
-## Using R's Built-In Diagnostics
+### Using R's Built-In Diagnostics
 
 ```{r}
 par(mfrow = c(2, 2), mar = rep(2, 4))
@@ -213,7 +213,7 @@ newzone[row.names(newzone) %in% c(1, 58, 243), ]
     -   Otherwise this looks okay-ish
 6.  Last plot also shows it as something different (harder to interpret)
 
-## What to do with a large residual?
+### What to do with a large residual?
 
 -   Misrecorded: remove or fix, if possible
     -   Fires with negative lengths (MDY versus DMY)
@@ -224,4 +224,4 @@ newzone[row.names(newzone) %in% c(1, 58, 243), ]
     -   Studying fish and a shark was included? That's real, but maybe you should narrow your scope!
 -   Many large outliers: you may need to try more predictors or a non-linear model.
 
-Do *NOT* remove a point simply because it's an outlier!
+Do *NOT* remove a point simply because it's an outlier!!!
