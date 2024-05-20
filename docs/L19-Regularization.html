@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-26">
+<meta name="dcterms.date" content="2024-05-20">
 
-<title>STAR Notes - 20&nbsp; Regularization Methods</title>
+<title>STAR Notes - 19&nbsp; Regularization Methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L22-Logistic.html" rel="next">
-<link href="./L20-Degrees_of_Freedom.html" rel="prev">
+<link href="./L20-Logistic.html" rel="next">
+<link href="./L18-Degrees_of_Freedom.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L21-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L21-Regularization.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L19-Regularization.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -200,26 +200,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></span></a>
+  <a href="./L08-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
+  <a href="./L09-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
+  <a href="./L10-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
       </ul>
@@ -235,50 +229,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
+  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-NonLinear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
+  <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
+  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -294,14 +288,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L22-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -317,8 +311,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L23-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -410,14 +404,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link active" data-scroll-target="#loss-functions"><span class="header-section-number">20.1</span> Loss Functions</a>
+  <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link active" data-scroll-target="#loss-functions"><span class="header-section-number">19.1</span> Loss Functions</a>
   <ul class="collapse">
   <li><a href="#why-are-we-minimizing-the-sum-of-squares" id="toc-why-are-we-minimizing-the-sum-of-squares" class="nav-link" data-scroll-target="#why-are-we-minimizing-the-sum-of-squares">Why are we minimizing the <em>sum of squares</em>?</a></li>
   <li><a href="#other-loss-functions" id="toc-other-loss-functions" class="nav-link" data-scroll-target="#other-loss-functions">Other loss functions</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   <li><a href="#loss-function-summary" id="toc-loss-function-summary" class="nav-link" data-scroll-target="#loss-function-summary">Loss Function Summary</a></li>
   </ul></li>
-  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization"><span class="header-section-number">20.2</span> Regularization</a>
+  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization"><span class="header-section-number">19.2</span> Regularization</a>
   <ul class="collapse">
   <li><a href="#regular-methods" id="toc-regular-methods" class="nav-link" data-scroll-target="#regular-methods">Regular Methods</a></li>
   <li><a href="#regularization-constraints" id="toc-regularization-constraints" class="nav-link" data-scroll-target="#regularization-constraints">Regularization Constraints</a></li>
@@ -447,7 +441,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></h1>
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></h1>
 </div>
 
 
@@ -471,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-26</p>
+      <p class="date">2024-05-20</p>
     </div>
   </div>
   
@@ -481,8 +475,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="loss-functions" class="level2" data-number="20.1">
-<h2 data-number="20.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">20.1</span> Loss Functions</h2>
+<section id="loss-functions" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">19.1</span> Loss Functions</h2>
 <section id="why-are-we-minimizing-the-sum-of-squares" class="level3">
 <h3 class="anchored" data-anchor-id="why-are-we-minimizing-the-sum-of-squares">Why are we minimizing the <em>sum of squares</em>?</h3>
 <p>The MSE is defined as: <span class="math display">\[
@@ -537,8 +531,8 @@ MAE(\underline\beta) = \frac{1}{n}\sum_{i=1}^n\left|y_i-\beta_0-\sum_{j=1}^p\bet
 </ul>
 </section>
 </section>
-<section id="regularization" class="level2" data-number="20.2">
-<h2 data-number="20.2" class="anchored" data-anchor-id="regularization"><span class="header-section-number">20.2</span> Regularization</h2>
+<section id="regularization" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="regularization"><span class="header-section-number">19.2</span> Regularization</h2>
 <section id="regular-methods" class="level3">
 <h3 class="anchored" data-anchor-id="regular-methods">Regular Methods</h3>
 <p>Ordinary least squares is a minimization problem: <span class="math display">\[
@@ -730,7 +724,7 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 <div class="notes">
 <p>Here’s an example of LASSO in R. We’ll load in the <code>Wage</code> data from <code>ISLR2</code> package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>This data set has a column for <code>wage</code> and a column for <code>logwage</code>. We’re going to use <code>wage</code> as our response, and removing <code>wage</code> makes it easier to tell R to use all columns other than <code>logwage</code>. I also remove <code>region</code> since there are some regions with too few observations and I am not going to set up cross-validation appropriately for this scenario.</p>
-<div class="cell" data-hash="L21-Regularization_cache/html/unnamed-chunk-2_505c026d6c65833467c1fba44c5d1191">
+<div class="cell" data-hash="L19-Regularization_cache/html/unnamed-chunk-2_0cab47152c4ac9faa969ff19144a8c84">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet) <span class="co"># cv.glmnet() and glmnet()</span></span>
@@ -742,7 +736,7 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 </details>
 </div>
 <p><code>glmnet</code> doesn’t use the formula notation (<code>y ~ x</code>); we have to manually set up the design matrix (including dummy variables) and the response vector.</p>
-<div class="cell" data-hash="L21-Regularization_cache/html/unnamed-chunk-3_b20ebeb7ac6f91e6247e7dc78d407caa">
+<div class="cell" data-hash="L19-Regularization_cache/html/unnamed-chunk-3_b0a60461cfddc48b0bb476ab239c93ef">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(logwage <span class="sc">~</span> ., <span class="at">data =</span> Wage)[,<span class="sc">-</span><span class="dv">1</span>]</span>
@@ -750,19 +744,19 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 </details>
 </div>
 <p>The first step to fitting a LASSO model is choosing <span class="math inline">\(\lambda\)</span> via cv. The <code>cv.glmnet()</code> function does this for us. The results are <em>not</em> a final model; the resultant object gives us an idea of which value of <span class="math inline">\(\lambda\)</span> is appropriate.</p>
-<div class="cell" data-hash="L21-Regularization_cache/html/unnamed-chunk-4_30304bf77055562e9c9d12371f1824dd">
+<div class="cell" data-hash="L19-Regularization_cache/html/unnamed-chunk-4_55f7e316397cf9ff8029aa8cab59baba">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cv_check <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> X, <span class="at">y =</span> y, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_check)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L21-Regularization_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="L19-Regularization_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The first dotted line indicates the value of <span class="math inline">\(\lambda\)</span> that minimizes the “loss function.” However, across different samples we would get different values of <span class="math inline">\(\lambda\)</span>. Because we know there’s randomness, we know that a slightly larger (more restrictive) value of <span class="math inline">\(\lambda\)</span> would also be consistent with our data. Since cross-validation emulates the idea of having many samples, we can get an estimate of the <strong>standard error</strong> of <span class="math inline">\(\lambda\)</span>. We can then choose the value of <span class="math inline">\(\lambda\)</span> that is within 1 standard error of the minimum. This gives a much simpler model while still having a plausible <span class="math inline">\(\lambda\)</span>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>Now that we have a way of telling R what value we want for lambda, we can fit the model.</p>
-<div class="cell" data-hash="L21-Regularization_cache/html/unnamed-chunk-5_4cb80920bc8e70db6535ddcf18364d5f">
+<div class="cell" data-hash="L19-Regularization_cache/html/unnamed-chunk-5_98e5dfbeae4fe86b875328d8ab17fef0">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_lasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(X, y, <span class="at">lambda =</span> cv_check<span class="sc">$</span>lambda<span class="fl">.1</span>se)</span>
@@ -779,7 +773,7 @@ Call:  glmnet(x = X, y = y, lambda = cv_check$lambda.1se)
 <p>The output isn’t very informative, but the model can make predictions via the <code>predict()</code> function and these will be comparable or better than the predictions from an unconstrained linear model.</p>
 <p>Let’s compare the coefficient values to see the shrinkage in action! Of course, glmnet standardizes by default, so we need to ensure that the linear model is based on standardized predictors.</p>
 <p>In the output, I include a column for the difference in the coefficients. Specifically, it’s lm minus lasso, so we may expect “shrinkage” to mean that the lasso estimates are smaller.</p>
-<div class="cell" data-hash="L21-Regularization_cache/html/unnamed-chunk-6_957513886439db3c940c04b7375e02b9">
+<div class="cell" data-hash="L19-Regularization_cache/html/unnamed-chunk-6_d73ee137a18ddddff5976cfb602db790">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>standardized_X <span class="ot">&lt;-</span> <span class="fu">apply</span>(X, <span class="dv">2</span>, scale)</span>
@@ -1182,13 +1176,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L20-Degrees_of_Freedom.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span>
+      <a href="./L18-Degrees_of_Freedom.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L22-Logistic.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L20-Logistic.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

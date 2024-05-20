@@ -18,6 +18,25 @@ set.seed(2112)
 
 :::
 
+## Effect of a Single Point
+
+### Leverage and Influence
+
+```{r}
+#| label: shiny-app
+#| echo: true
+#| eval: false
+
+shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
+    subdir = "Apps/InfluentialPoint")
+```
+
+\pspace
+
+- Leverage: affects the line.
+    - Measured by the hat matrix.\lspace
+- Influence: affects the line in a "*meaningful*" way
+
 ## Le Chapeau
 
 ### The Hat Matrix
@@ -33,7 +52,7 @@ The hat matrix projects $Y$ onto $\hat Y$, based on $X$.
 
 \pspace
 
-In other words, $h_{ii}$ determines the *influence* of the observed point $y_i$ on it's own prediction.
+In other words, $h_{ii}$ determines the *leverage* of the observed point $y_i$ on it's own prediction.
 
 ### Variance-Covariance Matrix of $\hat{\underline\epsilon}$
 
@@ -60,8 +79,8 @@ $$
 V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 $$
 
-- The variance of the residual depends on how much $Y_i$ influences it's own estimate.
-    - High influence = low variance.
+- The variance of the residual depends on how much $Y_i$ effects it's own estimate.
+    - High leverage = low variance.
 
 \pspace
 
@@ -95,7 +114,7 @@ X <- model.matrix(mylm)
 Y <- mtcars$mpg
 Yhat <- predict(mylm)
 H <- X %*% solve(t(X) %*% X) %*% t(X)
-beta <- as.numeric(coef(mylm)
+beta <- as.numeric(coef(mylm))
 t(beta) %*% t(X) %*% Y
 t(Yhat) %*% Y
 t(Y) %*% H %*% Y
@@ -187,7 +206,7 @@ is the variance of the residuals **without** observation $i$.
 
 \pspace
 
-- The influence tells us how much a point influenced the model
+- The leverage tells us how much a point changed the model
     - We can see what happened without it
     - No need to re-estimate the model!!!
 
@@ -213,10 +232,10 @@ Most software uses Studentized residuals for plots/diagnostics!
 
 The hat matrix is intepreted as influence, but it has problems.
 
-- $y_i$'s influence on *it's own* prediction,
+- $y_i$'s "influence" on *it's own* prediction,
     - *given all other points.*
 - $0 \le h_{ii} \le 1$
-    - What is a "big" influence?
+    - What is a "big" "influence"?
 - How do you explain $h_{ii}$ to nonstatisticians?
 
 \pspace

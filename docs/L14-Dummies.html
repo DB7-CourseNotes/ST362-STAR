@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-03">
+<meta name="dcterms.date" content="2024-05-20">
 
-<title>STAR Notes - 8&nbsp; Serial Correlation in the Residuals</title>
+<title>STAR Notes - 14&nbsp; Dummy Variables</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -66,8 +32,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L10-Hat-Resid_Plots-Cook.html" rel="next">
-<link href="./L07-Exampless.html" rel="prev">
+<link href="./L15-Multicollinearity.html" rel="next">
+<link href="./L13-Transforming_Response.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">OLS Basics</a></li><li class="breadcrumb-item"><a href="./L09-Serial_Correlation.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L11-Wrong_Model.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L14-Dummies.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -149,13 +115,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">OLS Basics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
@@ -200,85 +166,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></span></a>
+  <a href="./L08-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
+  <a href="./L09-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
+  <a href="./L10-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
  <span class="menu-text">Choosing Models</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
+  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-NonLinear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
+  <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
+  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -294,14 +254,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L22-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -317,8 +277,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L23-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -410,32 +370,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#serial-correlation-in-the-residuals" id="toc-serial-correlation-in-the-residuals" class="nav-link active" data-scroll-target="#serial-correlation-in-the-residuals"><span class="header-section-number">8.1</span> Serial Correlation in the Residuals</a>
+  <li><a href="#predictors" id="toc-predictors" class="nav-link active" data-scroll-target="#predictors"><span class="header-section-number">14.1</span> 0/1 Predictors</a>
   <ul class="collapse">
-  <li><a href="#assumptions-and-definitions" id="toc-assumptions-and-definitions" class="nav-link" data-scroll-target="#assumptions-and-definitions">Assumptions and Definitions</a></li>
-  <li><a href="#visualizing-serial-correlation-in-the-residuals" id="toc-visualizing-serial-correlation-in-the-residuals" class="nav-link" data-scroll-target="#visualizing-serial-correlation-in-the-residuals">Visualizing Serial Correlation in the Residuals</a></li>
+  <li><a href="#dummy-coding" id="toc-dummy-coding" class="nav-link" data-scroll-target="#dummy-coding">Dummy Coding</a></li>
+  <li><a href="#slopes-with-a-dummy-variable" id="toc-slopes-with-a-dummy-variable" class="nav-link" data-scroll-target="#slopes-with-a-dummy-variable">Slopes with a Dummy Variable</a></li>
+  <li><a href="#categorical-variables" id="toc-categorical-variables" class="nav-link" data-scroll-target="#categorical-variables">Categorical Variables</a></li>
+  <li><a href="#categorical-variable-dummy-coding" id="toc-categorical-variable-dummy-coding" class="nav-link" data-scroll-target="#categorical-variable-dummy-coding">Categorical Variable Dummy Coding</a></li>
+  <li><a href="#models-with-categorical-variables" id="toc-models-with-categorical-variables" class="nav-link" data-scroll-target="#models-with-categorical-variables">Models with Categorical Variables</a></li>
   </ul></li>
-  <li><a href="#durbin-watson" id="toc-durbin-watson" class="nav-link" data-scroll-target="#durbin-watson"><span class="header-section-number">8.2</span> Durbin-Watson</a>
+  <li><a href="#interactions" id="toc-interactions" class="nav-link" data-scroll-target="#interactions"><span class="header-section-number">14.2</span> Interactions</a>
   <ul class="collapse">
-  <li><a href="#strong-assumption-about-correlation" id="toc-strong-assumption-about-correlation" class="nav-link" data-scroll-target="#strong-assumption-about-correlation">Strong Assumption about Correlation</a></li>
-  <li><a href="#the-durbin-watson-test-statistic" id="toc-the-durbin-watson-test-statistic" class="nav-link" data-scroll-target="#the-durbin-watson-test-statistic">The Durbin-Watson test statistic</a></li>
-  <li><a href="#cautions-with-durbin-watson" id="toc-cautions-with-durbin-watson" class="nav-link" data-scroll-target="#cautions-with-durbin-watson">Cautions with Durbin-Watson</a></li>
+  <li><a href="#different-intercepts-same-slope" id="toc-different-intercepts-same-slope" class="nav-link" data-scroll-target="#different-intercepts-same-slope">Different Intercepts, Same Slope</a></li>
+  <li><a href="#interaction-terms-different-intercepts-different-slopes" id="toc-interaction-terms-different-intercepts-different-slopes" class="nav-link" data-scroll-target="#interaction-terms-different-intercepts-different-slopes">Interaction Terms: Different Intercepts, Different Slopes</a></li>
+  <li><a href="#ancova" id="toc-ancova" class="nav-link" data-scroll-target="#ancova">ANCOVA</a></li>
+  <li><a href="#beyond-x-and-g" id="toc-beyond-x-and-g" class="nav-link" data-scroll-target="#beyond-x-and-g">Beyond <span class="math inline">\(x\)</span> and <span class="math inline">\(g\)</span></a></li>
   </ul></li>
-  <li><a href="#graphical-methods" id="toc-graphical-methods" class="nav-link" data-scroll-target="#graphical-methods"><span class="header-section-number">8.3</span> Graphical Methods</a>
+  <li><a href="#significance-of-a-group" id="toc-significance-of-a-group" class="nav-link" data-scroll-target="#significance-of-a-group"><span class="header-section-number">14.3</span> Significance of a Group</a>
   <ul class="collapse">
-  <li><a href="#empirical-autocorrelation" id="toc-empirical-autocorrelation" class="nav-link" data-scroll-target="#empirical-autocorrelation">Empirical Autocorrelation</a></li>
-  <li><a href="#the-acf-empirical-autocorrelations-of-lag-k" id="toc-the-acf-empirical-autocorrelations-of-lag-k" class="nav-link" data-scroll-target="#the-acf-empirical-autocorrelations-of-lag-k">The ACF: Empirical Autocorrelations of lag <span class="math inline">\(k\)</span></a></li>
-  <li><a href="#acf-isnt-ideal" id="toc-acf-isnt-ideal" class="nav-link" data-scroll-target="#acf-isnt-ideal">ACF isn’t ideal</a></li>
-  <li><a href="#partial-autocorrelations" id="toc-partial-autocorrelations" class="nav-link" data-scroll-target="#partial-autocorrelations">Partial Autocorrelations</a></li>
-  <li><a href="#dw-acf-and-pacf-in-practice" id="toc-dw-acf-and-pacf-in-practice" class="nav-link" data-scroll-target="#dw-acf-and-pacf-in-practice">DW, ACF, and PACF in practice</a></li>
-  <li><a href="#what-to-do-if-there-is-autocorrelation" id="toc-what-to-do-if-there-is-autocorrelation" class="nav-link" data-scroll-target="#what-to-do-if-there-is-autocorrelation">What to do if there is autocorrelation?</a></li>
-  </ul></li>
-  <li><a href="#non-parametric-test-for-autocorrelation" id="toc-non-parametric-test-for-autocorrelation" class="nav-link" data-scroll-target="#non-parametric-test-for-autocorrelation"><span class="header-section-number">8.4</span> Non-Parametric Test for Autocorrelation</a>
-  <ul class="collapse">
-  <li><a href="#runs" id="toc-runs" class="nav-link" data-scroll-target="#runs">Runs</a></li>
-  <li><a href="#defining-a-lot-of-runs" id="toc-defining-a-lot-of-runs" class="nav-link" data-scroll-target="#defining-a-lot-of-runs">Defining “A Lot Of Runs”</a></li>
-  <li><a href="#large-numbers-of-course-its-normal" id="toc-large-numbers-of-course-its-normal" class="nav-link" data-scroll-target="#large-numbers-of-course-its-normal">Large Numbers: Of course it’s Normal!</a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#output-of-summary.lm" id="toc-output-of-summary.lm" class="nav-link" data-scroll-target="#output-of-summary.lm">Output of <code>summary.lm()</code></a></li>
+  <li><a href="#changing-the-reference-group" id="toc-changing-the-reference-group" class="nav-link" data-scroll-target="#changing-the-reference-group">Changing the reference group</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -445,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></h1>
 </div>
 
 
@@ -458,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: <strong>Like Yesterday</strong> by Ryan Adams and The Cardinals
+            <strong>Jam TBD</strong>
           </p>
       </div>
     </div>
@@ -469,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-03</p>
+      <p class="date">2024-05-20</p>
     </div>
   </div>
   
@@ -479,261 +432,166 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="serial-correlation-in-the-residuals" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="serial-correlation-in-the-residuals"><span class="header-section-number">8.1</span> Serial Correlation in the Residuals</h2>
-<section id="assumptions-and-definitions" class="level3">
-<h3 class="anchored" data-anchor-id="assumptions-and-definitions">Assumptions and Definitions</h3>
-<p>The time of each observation is recorded, and they are equally spaced.</p>
+<section id="predictors" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="predictors"><span class="header-section-number">14.1</span> 0/1 Predictors</h2>
+<section id="dummy-coding" class="level3">
+<h3 class="anchored" data-anchor-id="dummy-coding">Dummy Coding</h3>
+<p>“Dummy” variables are just predictors that only take the values 0 and 1.</p>
 <ul>
-<li>In other words, <span class="math inline">\(x_1\)</span> is observed at time 1, <span class="math inline">\(x_2\)</span> is observed at time 2, etc.</li>
-</ul>
-<p><strong>Serial Correlation</strong>: <span class="math inline">\(cor(\epsilon_{t-1}, \epsilon_t)\ne 0\)</span></p>
+<li>0 pairs of glasses versus 1 pair of glasses
 <ul>
-<li><em>Serial Correlation is not causation.</em>
-<ul>
-<li>Knowledge of one gives you more knowledge of the other.</li>
+<li>This is a count that can only be 0 or 1</li>
 </ul></li>
-<li>Serial correlation can be <em>negative</em>
+<li>0 means automatic, 1 means manual
 <ul>
-<li>Example: didn’t hit quota today, so big push tomorrow.</li>
+<li>Arbitrary choice of 0/1</li>
+</ul></li>
+<li>0 means off, 1 means on
+<ul>
+<li>Natural choice of 0/1, but still arbitrary</li>
 </ul></li>
 </ul>
 </section>
-<section id="visualizing-serial-correlation-in-the-residuals" class="level3">
-<h3 class="anchored" data-anchor-id="visualizing-serial-correlation-in-the-residuals">Visualizing Serial Correlation in the Residuals</h3>
-<p>R</p>
-</section>
-</section>
-<section id="durbin-watson" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="durbin-watson"><span class="header-section-number">8.2</span> Durbin-Watson</h2>
-<section id="strong-assumption-about-correlation" class="level3">
-<h3 class="anchored" data-anchor-id="strong-assumption-about-correlation">Strong Assumption about Correlation</h3>
-<p>The usual model: <span class="math inline">\(Y = X\underline{\beta} + \underline \epsilon\)</span>.</p>
-<p>Assume that <span class="math inline">\(cor(\epsilon_{t-1}, \epsilon_t) = \rho\)</span>, <span class="math inline">\(cor(\epsilon_{t-2}, \epsilon_t)= \rho^2\)</span>, <span class="math inline">\(cor(\epsilon_{t-3}, \epsilon_t) = \rho^3\)</span>, etc.</p>
+<section id="slopes-with-a-dummy-variable" class="level3">
+<h3 class="anchored" data-anchor-id="slopes-with-a-dummy-variable">Slopes with a Dummy Variable</h3>
+<p>Usual interpretation: as <span class="math inline">\(x\)</span> increases by 1, <span class="math inline">\(y\)</span> increases by <span class="math inline">\(\beta\)</span>.</p>
+<p>This doesn’t go away, but we get a new interpretation!</p>
 <ul>
-<li>The correlation is proportional to the distance in time.</li>
+<li><span class="math inline">\(x\)</span> can only increase by one (from 0 to 1).
+<ul>
+<li><span class="math inline">\(\beta\)</span> is the <em>difference in groups</em>.</li>
+</ul></li>
 </ul>
-<p>This can be written as: <span class="math display">\[
-\epsilon_t = \rho\epsilon_{t-1} + z_t
-\]</span> where <span class="math inline">\(z_t\sim N(0,\sigma^2)\)</span>. Note that <span class="math inline">\(V(\hat\epsilon_t) = \frac{\sigma^2}{1 - \rho^2}\)</span>.</p>
+<p>Note that we assume constant variance; this means the variance is the same in both groups</p>
+<ul>
+<li><em>Exact</em> same assumptions as a t-test.
+<ul>
+<li>(Different from a “Welch” t-test)</li>
+</ul></li>
+</ul>
 </section>
-<section id="the-durbin-watson-test-statistic" class="level3">
-<h3 class="anchored" data-anchor-id="the-durbin-watson-test-statistic">The Durbin-Watson test statistic</h3>
-<p>As usual, we find a quantity with a known distribution: <span class="math display">\[
-d = \dfrac{\sum_{s=2}^n(\hat\epsilon_s - \hat\epsilon_{s-1})^2}{\sum_{s=1}^n\hat\epsilon_s^2}\sim\text{ some complicated distribution}
+<section id="categorical-variables" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-variables">Categorical Variables</h3>
+<p>Consider the <code>cyl</code> column in mtcars. We <em>could</em> code three dummy variables:</p>
+<ul>
+<li><span class="math inline">\(I(cyl == 4)\)</span></li>
+<li><span class="math inline">\(I(cyl == 6)\)</span></li>
+<li><span class="math inline">\(I(cyl == 8)\)</span></li>
+</ul>
+<p>This would lead to the model: <span class="math display">\[
+y = \beta_0 + \beta_1I(cyl == 4) + \beta_2I(cyl == 6) + \beta_3I(cyl == 8)
 \]</span></p>
+<p>What is the intercept here?</p>
+</section>
+<section id="categorical-variable-dummy-coding" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-variable-dummy-coding">Categorical Variable Dummy Coding</h3>
+<p>Instead, we set one as a <strong>reference</strong> variable and let the intercept “absorb” it:</p>
 <ul>
-<li>Distribution has a closed form, but I hate it.</li>
-<li><span class="math inline">\(d\in [0, 4]\)</span>, with <span class="math inline">\(d=2\)</span> corresponding to the null.</li>
-<li>R will calculate the values for you.
+<li><span class="math inline">\(I(cyl == 6)\)</span></li>
+<li><span class="math inline">\(I(cyl == 8)\)</span></li>
+</ul>
+<p>This would lead to the model: <span class="math display">\[
+y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8)
+\]</span> where</p>
 <ul>
-<li>Textbook has pages and pages of tables. Textbook was written before iPhones existed.</li>
+<li><span class="math inline">\(\beta_0\)</span> is the mean of mpg when cyl = 4.</li>
+<li><span class="math inline">\(\beta_1\)</span> is the difference in mean of mpg between 4 and 6 cylinder cars.</li>
+<li><span class="math inline">\(\beta_2\)</span> is the difference in means for 4 versus 8.
+<ul>
+<li>Difference btwn 6 and 8 can be found with some cleverness.</li>
 </ul></li>
 </ul>
-<p>I’ll show an example of DW later.</p>
 </section>
-<section id="cautions-with-durbin-watson" class="level3">
-<h3 class="anchored" data-anchor-id="cautions-with-durbin-watson">Cautions with Durbin-Watson</h3>
-<ul>
-<li>Tests the hypotheses <span class="math inline">\(H_a:\;cor(\epsilon_{t-s}, \epsilon_t) = \rho^s\)</span> versus not that.
-<ul>
-<li>There are many, many other <span class="math inline">\(H_a\)</span>. DW has low power for these situations.</li>
-</ul></li>
-<li>Graphical summaries will reveal strong patterns; patterns found by DW might not be worrisome. </li>
-<li>It’s more p-values to look at. We want to minimize the number of p-values we look at.</li>
-</ul>
-</section>
-</section>
-<section id="graphical-methods" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="graphical-methods"><span class="header-section-number">8.3</span> Graphical Methods</h2>
-<section id="empirical-autocorrelation" class="level3">
-<h3 class="anchored" data-anchor-id="empirical-autocorrelation">Empirical Autocorrelation</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li>We can simply find the correlation between <span class="math inline">\(\hat \epsilon_t\)</span> and <span class="math inline">\(\hat \epsilon_{t-1}\)</span>!</li>
-<li>We can do the same for <span class="math inline">\(\hat \epsilon_t\)</span> and <span class="math inline">\(\hat \epsilon_{t-2}\)</span>.
-<ul>
-<li>etc.</li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<table class="table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>t</th>
-<th><span class="math inline">\(\hat \epsilon_t\)</span></th>
-<th><span class="math inline">\(\hat \epsilon_{t-1}\)</span></th>
-<th><span class="math inline">\(\hat \epsilon_{t-2}\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2</td>
-<td><span class="math inline">\(\hat \epsilon_1\)</span></td>
-<td>NA</td>
-<td>NA</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td><span class="math inline">\(\hat \epsilon_2\)</span></td>
-<td><span class="math inline">\(\hat \epsilon_1\)</span></td>
-<td>NA</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><span class="math inline">\(\hat \epsilon_3\)</span></td>
-<td><span class="math inline">\(\hat \epsilon_2\)</span></td>
-<td><span class="math inline">\(\hat \epsilon_1\)</span></td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td><span class="math inline">\(\hat \epsilon_4\)</span></td>
-<td><span class="math inline">\(\hat \epsilon_3\)</span></td>
-<td><span class="math inline">\(\hat \epsilon_2\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\cdots\)</span></td>
-<td><span class="math inline">\(\cdots\)</span></td>
-<td><span class="math inline">\(\cdots\)</span></td>
-<td><span class="math inline">\(\cdots\)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<section id="the-acf-empirical-autocorrelations-of-lag-k" class="level3">
-<h3 class="anchored" data-anchor-id="the-acf-empirical-autocorrelations-of-lag-k">The ACF: Empirical Autocorrelations of lag <span class="math inline">\(k\)</span></h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>ACF: AutoCorrelation Function</p>
-<p>The x-axis shows the lag, the y axis shows the correlations</p>
-<p>The plot on the right shows an example of time series data.</p>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L09-Serial_Correlation_cache/html/unnamed-chunk-2_81cb634b252e05531e26afe77584f388">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(co2, <span class="at">main =</span> <span class="st">"Time series of CO2 data"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(co2, <span class="at">main =</span> <span class="st">"ACF of CO2 data (not residuals)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="L09-Serial_Correlation_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="576"></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="acf-isnt-ideal" class="level3">
-<h3 class="anchored" data-anchor-id="acf-isnt-ideal">ACF isn’t ideal</h3>
-<p>In the model we saw for DW, <span class="math display">\[
-\epsilon_t = \rho\epsilon_{t-1} + z_t
-\]</span> which means that <span class="math display">\[
-\epsilon_t = \rho(\rho\epsilon_{t-2} + z_{t-1}) + z_t
+<section id="models-with-categorical-variables" class="level3">
+<h3 class="anchored" data-anchor-id="models-with-categorical-variables">Models with Categorical Variables</h3>
+<p>The model <span class="math inline">\(y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8)\)</span> is equivalent to: <span class="math display">\[
+y_i = \begin{cases}\beta_0 &amp; \text{if }\; cyl == 4\\ \beta_0 + \beta_1 &amp; \text{if }\; cyl == 6\\\beta_0  + \beta_2 &amp; \text{if }\; cyl == 8\end{cases}
 \]</span></p>
-<p>The lag 2 correlation (the <span class="math inline">\(\rho^2\)</span> term) includes the lag 1 correlation!</p>
+<p>This is equivalent to fitting an intercept-only model <span class="math inline">\(y = \beta_0\)</span> for subsets of the data.</p>
+<p>By putting them in the same model, we can easily test for significance.</p>
 </section>
-<section id="partial-autocorrelations" class="level3">
-<h3 class="anchored" data-anchor-id="partial-autocorrelations">Partial Autocorrelations</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>If we extend the model to: <span class="math display">\[
-\epsilon_t = \rho_1\epsilon_{t-1} + \rho_2\epsilon_{t-2} + z_t,
-\]</span> then <span class="math inline">\(\rho_2\)</span> is the correlation in the lag 2 terms, <em>accounting for lag 1 terms</em>!</p>
-<p>This is the PACF, and it’s often much more useful.</p>
-<p>The plot on the right shows a cyclic trend.</p>
-</div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L09-Serial_Correlation_cache/html/unnamed-chunk-3_7041c4200109b76b481890cbf0fc1f42">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(co2, <span class="at">main =</span> <span class="st">"Time series of CO2 data"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(co2, <span class="at">main =</span> <span class="st">"PACF of CO2 data (not residuals)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="L09-Serial_Correlation_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="576"></p>
-</div>
-</div>
-</div>
-</div>
 </section>
-<section id="dw-acf-and-pacf-in-practice" class="level3">
-<h3 class="anchored" data-anchor-id="dw-acf-and-pacf-in-practice">DW, ACF, and PACF in practice</h3>
-<p>Most of the time, just check the PACF.</p>
+<section id="interactions" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="interactions"><span class="header-section-number">14.2</span> Interactions</h2>
+<section id="different-intercepts-same-slope" class="level3">
+<h3 class="anchored" data-anchor-id="different-intercepts-same-slope">Different Intercepts, Same Slope</h3>
+<p>If we have <code>cyl</code> and <code>disp</code> in the model, we get the following:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8) + \beta_3 disp
+\]</span> which is equivalent to: <span class="math display">\[
+y_i = \begin{cases}\beta_0  + \beta_3 disp&amp; \text{if }\; cyl == 4\\ \beta_0 + \beta_1  + \beta_3 disp&amp; \text{if }\; cyl == 6\\\beta_0  + \beta_2  + \beta_3 disp&amp; \text{if }\; cyl == 8\end{cases}
+\]</span> This is three different models of mpg versus disp, but with a different intercept depending on the value of <code>cyl</code>.</p>
+</section>
+<section id="interaction-terms-different-intercepts-different-slopes" class="level3">
+<h3 class="anchored" data-anchor-id="interaction-terms-different-intercepts-different-slopes">Interaction Terms: Different Intercepts, Different Slopes</h3>
+<p>We can expand the model above with an <strong>interaction term</strong>. <span class="math display">\[
+y = \beta_0 + \beta_1I(6) + \beta_2I(8) + \beta_3 disp + \beta_4I(6)disp + \beta_5I(8)disp
+\]</span> where <span class="math inline">\(I(6)\)</span> is just shorthand for <span class="math inline">\(I(cyl == 6)\)</span>.</p>
+<p>This is the same as: <span class="math display">\[
+y_i = \begin{cases}\beta_0  + \beta_3 disp&amp; \text{if }\; cyl == 4\\ (\beta_0 + \beta_1)  + (\beta_3 + \beta_4) disp&amp; \text{if }\; cyl == 6\\(\beta_0  + \beta_2)  + (\beta_3 + \beta_5) disp&amp; \text{if }\; cyl == 8\end{cases}
+\]</span> In this case, we might as well fit 3 completely different models!</p>
+<p>(Except we can test for significance!)</p>
+</section>
+<section id="ancova" class="level3">
+<h3 class="anchored" data-anchor-id="ancova">ANCOVA</h3>
+<p>If <code>g</code> is a categorical variable, then:</p>
 <ul>
-<li>If you see something, check ACF.</li>
-<li>If you’re in a field that requires p-values, show them the DW statistic.
+<li><code>lm(y ~ g)</code> is a t-test if <code>g</code> is binary</li>
+<li><code>lm(y ~ g)</code> is an ANOVA if <code>g</code> has more than 2 categories</li>
+<li><code>lm(y ~ x * g)</code> is an <strong>ANCOVA</strong> model
 <ul>
-<li>Or use a non-parametric test…</li>
+<li>Analysis of <strong>Covariance</strong>.</li>
+</ul></li>
+</ul>
+<p>Main idea: Is the covariance (or correlation) between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> different for different categories of <span class="math inline">\(g\)</span>?</p>
+<ul>
+<li>Only a small extension to ANOVA
+<ul>
+<li>t-test: exactly 2 means</li>
+<li>ANOVA: 2+ means</li>
+<li>ANCOVA: 2+ covariances</li>
 </ul></li>
 </ul>
 </section>
-<section id="what-to-do-if-there-is-autocorrelation" class="level3">
-<h3 class="anchored" data-anchor-id="what-to-do-if-there-is-autocorrelation">What to do if there is autocorrelation?</h3>
+<section id="beyond-x-and-g" class="level3">
+<h3 class="anchored" data-anchor-id="beyond-x-and-g">Beyond <span class="math inline">\(x\)</span> and <span class="math inline">\(g\)</span></h3>
 <ul>
-<li>Correlation in the residuals might mean correlation in the <span class="math inline">\(y_i\)</span>’s
+<li>In the simple cases, we’re doing t-test, ANOVA, or ANCOVA.</li>
+<li>Beyond this, we’re just doing regression, no special names.
 <ul>
-<li>Try time series modelling!</li>
+<li>“Controlling for” is a term we’ll use later.</li>
 </ul></li>
-<li>If it’s simple (lag 1) autocorrlation, the data could potentially be transformed to remove the autocorrelation.
+<li>Choosing interaction terms is <em>hard</em>.
 <ul>
-<li><span class="math inline">\(y_t - y_{t-1} = X\underline \beta\)</span>.</li>
-<li>Change estimation to account for autocorrelation.</li>
+<li><code>ggplot2</code> makes parts of it a lot easier.</li>
 </ul></li>
-<li>If it’s complicated, get a PhD student to do it for you.</li>
 </ul>
 </section>
 </section>
-<section id="non-parametric-test-for-autocorrelation" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="non-parametric-test-for-autocorrelation"><span class="header-section-number">8.4</span> Non-Parametric Test for Autocorrelation</h2>
-<section id="runs" class="level3">
-<h3 class="anchored" data-anchor-id="runs">Runs</h3>
-<p><span class="math inline">\(\sum_{i=1}^n\hat\epsilon_i = 0\)</span>, so some residuals are positive and some are negative.</p>
-<p>The runs test just looks at the <em>sign</em> of the residuals. Consider the signs:</p>
-<pre><code>+ + - + - - - - + + - + + + + </code></pre>
-<p>There are 7 runs in these residuals. Is this a lot of runs?</p>
-</section>
-<section id="defining-a-lot-of-runs" class="level3">
-<h3 class="anchored" data-anchor-id="defining-a-lot-of-runs">Defining “A Lot Of Runs”</h3>
-<p>p-value: Probability of a result <em>at least as extreme</em> as the one obtained, under the null hypothesis.</p>
+<section id="significance-of-a-group" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="significance-of-a-group"><span class="header-section-number">14.3</span> Significance of a Group</h2>
+<section id="output-of-summary.lm" class="level3">
+<h3 class="anchored" data-anchor-id="output-of-summary.lm">Output of <code>summary.lm()</code></h3>
+<p>The output compares each slope to 0.</p>
 <ul>
-<li>Null: random +’s and -’s.</li>
+<li>For a categorical predictor, this tests if a category is different <em>from the reference</em>.</li>
 </ul>
-<p>For small numbers, we can look at all sequences of +’s and -’s and count the runs!</p>
+<p>There is not an easy built-in way to check significance of a specific group</p>
 <ul>
-<li>P(7 or more runs) is an upper tailed test (-ive autocorrelation)</li>
-<li>P(7 or fewer runs) is a test for +ive autocorrelation</li>
+<li>For example, we may want to test for equality of intercepts and slopes for 6 and 8 cylinder cars, allowing 4 to have separate values.
+<ul>
+<li>Test for equality of slopes is something covered in the textbook</li>
+<li>Alternative: Change Reference group and use ESS</li>
+</ul></li>
 </ul>
 </section>
-<section id="large-numbers-of-course-its-normal" class="level3">
-<h3 class="anchored" data-anchor-id="large-numbers-of-course-its-normal">Large Numbers: Of course it’s Normal!</h3>
-<p>Given <span class="math inline">\(n_1\)</span> +’s and <span class="math inline">\(n_2\)</span> -’s, the mean and variance of the number of runs is: <span class="math display">\[
-\mu = \frac{2n_1n_2}{n_1 + n_2} + 1\text{, and }\sigma^2 = \frac{2n_1n_2(2n_1n_2 - n_1 - n_2)}{(n_1+n_2)^2(n_1 + n_2 - 1)}
-\]</span></p>
-<p>In the actual distribution, <span class="math inline">\(P(runs\le \mu) = P(runs\le \mu -1/2) = P(runs &lt; \mu + 1/2)\)</span>.</p>
-<p>In the normal distribution this isn’t true, so we apply a correction factor:</p>
-<ul>
-<li>Lower-tailed test: <span class="math inline">\(runs\sim N(\mu + 1/2, \sigma^2)\)</span></li>
-<li>Upper-tailed test: <span class="math inline">\(runs\sim N(\mu - 1/2, \sigma^2)\)</span></li>
-<li>Two-tailed test: <span class="math inline">\(runs\sim N(\mu, \sigma^2)\)</span> and we hope it averages out.</li>
-</ul>
-</section>
-<section id="example" class="level3">
-<h3 class="anchored" data-anchor-id="example">Example</h3>
-<div class="cell" data-hash="L09-Serial_Correlation_cache/html/unnamed-chunk-4_3fdbc779b64892542ce498b5934866a3">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/SerialCorrelation"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
+<section id="changing-the-reference-group" class="level3">
+<h3 class="anchored" data-anchor-id="changing-the-reference-group">Changing the reference group</h3>
+<p>Suppose we want to compare 6 and 8 cylinder cars. We can set up our model as: <span class="math display">\[
+y = \beta_0 + \beta_1I(8) + \beta_2I(4) + \beta_3disp + \beta_4dispI(8) + \beta_5dispI(4)
+\]</span> where now <code>6</code> is the reference group.</p>
+<p>We can test <span class="math inline">\(\beta_1=\beta_4 = 0\)</span> using ESS to test whether mpg versus disp is the same in these two categories.</p>
+<p>In R, we need to set up our own dummies to do this.</p>
 
 
 </section>
@@ -1090,13 +948,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L07-Exampless.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ESS Exampless</span></span>
+      <a href="./L13-Transforming_Response.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L10-Hat-Resid_Plots-Cook.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L15-Multicollinearity.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

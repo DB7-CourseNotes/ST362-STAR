@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-23">
+<meta name="dcterms.date" content="2024-05-20">
 
-<title>STAR Notes - 10&nbsp; The Hat Matrix 2</title>
+<title>STAR Notes - 12&nbsp; Non-Linear Relationships with Linear Models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,8 +66,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L12-Extra_Topics.html" rel="next">
-<link href="./L10-Hat-Resid_Plots-Cook.html" rel="prev">
+<link href="./L13-Transforming_Response.html" rel="next">
+<link href="./L11-Wrong_Model.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -79,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">OLS Basics</a></li><li class="breadcrumb-item"><a href="./L11-Admin_Slides.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L11-Wrong_Model.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L12-NonLinear.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -115,13 +149,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">OLS Basics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
@@ -166,85 +200,79 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></span></a>
+  <a href="./L08-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
+  <a href="./L09-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
+  <a href="./L10-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
  <span class="menu-text">Choosing Models</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
+  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-NonLinear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
+  <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
+  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -260,14 +288,14 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L22-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -283,8 +311,8 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L23-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -372,14 +400,45 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#non-linear-relationships" id="toc-non-linear-relationships" class="nav-link active" data-scroll-target="#non-linear-relationships"><span class="header-section-number">12.1</span> Non-Linear Relationships</a>
+  <ul class="collapse">
+  <li><a href="#arbitrarily-shaped-functions" id="toc-arbitrarily-shaped-functions" class="nav-link" data-scroll-target="#arbitrarily-shaped-functions">Arbitrarily Shaped Functions</a></li>
+  <li><a href="#fitting-a-polynomial" id="toc-fitting-a-polynomial" class="nav-link" data-scroll-target="#fitting-a-polynomial">Fitting a Polynomial</a></li>
+  <li><a href="#choosing-polynomial-order" id="toc-choosing-polynomial-order" class="nav-link" data-scroll-target="#choosing-polynomial-order">Choosing Polynomial Order</a></li>
+  <li><a href="#domain-knowledge-stopping-distance" id="toc-domain-knowledge-stopping-distance" class="nav-link" data-scroll-target="#domain-knowledge-stopping-distance">Domain Knowledge: Stopping Distance</a></li>
+  <li><a href="#choosing-order-with-anova" id="toc-choosing-order-with-anova" class="nav-link" data-scroll-target="#choosing-order-with-anova">Choosing Order with ANOVA</a></li>
+  <li><a href="#stopping-distance-propto-speed2" id="toc-stopping-distance-propto-speed2" class="nav-link" data-scroll-target="#stopping-distance-propto-speed2">Stopping Distance <span class="math inline">\(\propto\)</span> Speed<span class="math inline">\(^2\)</span></a></li>
+  <li><a href="#unconventional-ess" id="toc-unconventional-ess" class="nav-link" data-scroll-target="#unconventional-ess">Unconventional ESS</a></li>
+  <li><a href="#polynomial-models-will-overfit" id="toc-polynomial-models-will-overfit" class="nav-link" data-scroll-target="#polynomial-models-will-overfit">Polynomial Models <em>will</em> Overfit!</a></li>
+  <li><a href="#multiple-regression-polynomial-models" id="toc-multiple-regression-polynomial-models" class="nav-link" data-scroll-target="#multiple-regression-polynomial-models">Multiple Regression Polynomial Models</a></li>
+  </ul></li>
+  <li><a href="#cautions-about-polynomials" id="toc-cautions-about-polynomials" class="nav-link" data-scroll-target="#cautions-about-polynomials"><span class="header-section-number">12.2</span> Cautions about Polynomials</a>
+  <ul class="collapse">
+  <li><a href="#lower-order-terms" id="toc-lower-order-terms" class="nav-link" data-scroll-target="#lower-order-terms">Lower Order Terms</a></li>
+  <li><a href="#orders-higher-than-3-are-rarely-jutified" id="toc-orders-higher-than-3-are-rarely-jutified" class="nav-link" data-scroll-target="#orders-higher-than-3-are-rarely-jutified">Orders higher than 3 are rarely jutified</a></li>
+  <li><a href="#extrapolation-is-fraught-with-peril" id="toc-extrapolation-is-fraught-with-peril" class="nav-link" data-scroll-target="#extrapolation-is-fraught-with-peril">Extrapolation is Fraught with Peril</a></li>
+  <li><a href="#x-and-x2-are-correlated" id="toc-x-and-x2-are-correlated" class="nav-link" data-scroll-target="#x-and-x2-are-correlated"><span class="math inline">\(x\)</span> and <span class="math inline">\(x^2\)</span> are correlated</a></li>
+  <li><a href="#poly-uses-orthogonal-polynomials" id="toc-poly-uses-orthogonal-polynomials" class="nav-link" data-scroll-target="#poly-uses-orthogonal-polynomials"><code>poly()</code> uses <strong>orthogonal</strong> polynomials</a></li>
+  <li><a href="#orthogonal-polynomials" id="toc-orthogonal-polynomials" class="nav-link" data-scroll-target="#orthogonal-polynomials">Orthogonal Polynomials</a></li>
+  </ul></li>
+  <li><a href="#should-i-use-a-polynomial" id="toc-should-i-use-a-polynomial" class="nav-link" data-scroll-target="#should-i-use-a-polynomial"><span class="header-section-number">12.3</span> Should I Use a Polynomial?</a>
+  <ul class="collapse">
+  <li><a href="#example-mtcars" id="toc-example-mtcars" class="nav-link" data-scroll-target="#example-mtcars">Example: mtcars</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></h1>
 </div>
 
 
@@ -392,7 +451,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            <strong>Jam TBD</strong>
+            Jam: <strong>Higher Order</strong> by Empire Me
           </p>
       </div>
     </div>
@@ -403,7 +462,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-23</p>
+      <p class="date">2024-05-20</p>
     </div>
   </div>
   
@@ -413,8 +472,250 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="non-linear-relationships" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="non-linear-relationships"><span class="header-section-number">12.1</span> Non-Linear Relationships</h2>
+<section id="arbitrarily-shaped-functions" class="level3">
+<h3 class="anchored" data-anchor-id="arbitrarily-shaped-functions">Arbitrarily Shaped Functions</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>The plot on the right is the function: <span class="math display">\[
+y = 2 + \frac{1}{5}x^2 - 8\log(x) - 0.005x^3 + 20\sin\left(\frac{x}{2}\right) + \epsilon
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="L12-NonLinear_cache/html/nonlin-plot_89ac5703158c68a1cf930c09653e1ac7">
+<div class="cell-output-display">
+<p><img src="L12-NonLinear_files/figure-html/nonlin-plot-1.png" class="img-fluid" width="432"></p>
+</div>
+</div>
+</div>
+</div>
+<p>The twist: The fitted line is just a polynomial model: <span class="math inline">\(y = \beta_0 + \sum_{j=1}^{12}\beta_jx^j\)</span></p>
+</section>
+<section id="fitting-a-polynomial" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-a-polynomial">Fitting a Polynomial</h3>
+<p>To fit a polynomial of order <span class="math inline">\(k\)</span>: <span class="math display">\[
+y = \beta_0 + \sum_{j=1}^{k}\beta_jx^j + \epsilon
+\]</span> we can simply fit a linear model to <strong>transformed</strong> predictors, i.e.: <span class="math display">\[
+x_1 = x;\; x_2 = x^2;\; x_3 = x^3;\;...
+\]</span> and we can just fit a linear model as usual!</p>
+<p>… that seems too easy?</p>
+</section>
+<section id="choosing-polynomial-order" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-polynomial-order">Choosing Polynomial Order</h3>
+<p>There are two common options:</p>
+<ol type="1">
+<li>Domain knowledge
+<ul>
+<li>Is there a theoretical reason to use a cubic?</li>
+</ul></li>
+<li>Reduce prediction error
+<ul>
+<li>Cross-validation or ANOVA, depending on problem.</li>
+</ul></li>
+</ol>
+</section>
+<section id="domain-knowledge-stopping-distance" class="level3">
+<h3 class="anchored" data-anchor-id="domain-knowledge-stopping-distance">Domain Knowledge: Stopping Distance</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>The stopping distance is theoretically proportional to the square of the speed.</p>
+<ul>
+<li>A line might fit
+<ul>
+<li>Fits poorly at 0 (negative stopping distances for positive speed?)</li>
+</ul></li>
+<li>A quadratic fits better?</li>
+<li>A cubic does something funky at 0.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="L12-NonLinear_cache/html/cars-nonlin_304ec1596a3c4b33ebf09a7c048fba42">
+<div class="cell-output-display">
+<p><img src="L12-NonLinear_files/figure-html/cars-nonlin-1.png" class="img-fluid" width="432"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="choosing-order-with-anova" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-order-with-anova">Choosing Order with ANOVA</h3>
+<div class="cell" data-hash="L12-NonLinear_cache/html/anova-order_6470ca5a5450a3d42f51eaf19496c329">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dist =</span> cars<span class="sc">$</span>dist, <span class="at">x1 =</span> cars<span class="sc">$</span>speed, <span class="at">x2 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">2</span>, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x3 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">3</span>, <span class="at">x4 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(dist <span class="sc">~</span> ., <span class="at">data =</span> X) <span class="sc">|&gt;</span> <span class="fu">anova</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: dist
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+x1         1 21185.5 21185.5 92.5775 1.716e-12 ***
+x2         1   528.8   528.8  2.3108    0.1355    
+x3         1   190.4   190.4  0.8318    0.3666    
+x4         1   336.5   336.5  1.4707    0.2316    
+Residuals 45 10297.8   228.8                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>In this situation, Sequential Sum-of-Squares makes sense! (Disagrees with theory, though. Go with theory.)</p>
+</section>
+<section id="stopping-distance-propto-speed2" class="level3">
+<h3 class="anchored" data-anchor-id="stopping-distance-propto-speed2">Stopping Distance <span class="math inline">\(\propto\)</span> Speed<span class="math inline">\(^2\)</span></h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>A second order polynomial is: <span class="math display">\[
+y = \beta_0 + \beta_1x + \beta_2x^2
+\]</span></p>
+<p>The implied model is: <span class="math display">\[
+y = \beta_2x^2
+\]</span></p>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="L12-NonLinear_cache/html/speed-squared_ab8f0aa813e6e1ff805bb0ef87c65698">
+<div class="cell-output-display">
+<p><img src="L12-NonLinear_files/figure-html/speed-squared-1.png" class="img-fluid" width="432"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="unconventional-ess" class="level3">
+<h3 class="anchored" data-anchor-id="unconventional-ess">Unconventional ESS</h3>
+<div class="cell" data-hash="L12-NonLinear_cache/html/ESS-odd_72b72f30c6acad37d8d9fdb5ba197d95">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dist =</span> cars<span class="sc">$</span>dist, <span class="at">x1 =</span> cars<span class="sc">$</span>speed, <span class="at">x2 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">2</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">x3 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">3</span>, <span class="at">x4 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(dist <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> X)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(dist <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> x2, <span class="at">data =</span> X)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(m2, m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: dist ~ -1 + x2
+Model 2: dist ~ x1 + x2
+  Res.Df   RSS Df Sum of Sq      F Pr(&gt;F)
+1     49 11936                           
+2     47 10825  2    1111.2 2.4123 0.1006</code></pre>
+</div>
+</div>
+<p>Not a significant difference in models, so go with simpler one: <span class="math inline">\(y = \beta_2x^2\)</span></p>
+<ul>
+<li>This is <em>highly</em> specific to this situation - see cautions later.</li>
+</ul>
+</section>
+<section id="polynomial-models-will-overfit" class="level3">
+<h3 class="anchored" data-anchor-id="polynomial-models-will-overfit">Polynomial Models <em>will</em> Overfit!</h3>
+<p>True model: <span class="math inline">\(f(x) = 2 + 25x + 5x^2 - x^3\)</span> (cubic), Var(<span class="math inline">\(\epsilon\)</span>) = 40</p>
+<div class="cell" data-hash="L12-NonLinear_cache/html/poly-overfit_700c3cb38e426cab14ca5875be6876d2">
+<div class="cell-output-display">
+<p><img src="L12-NonLinear_files/figure-html/poly-overfit-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="multiple-regression-polynomial-models" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-regression-polynomial-models">Multiple Regression Polynomial Models</h3>
+<p>A full polynomial model of order 2 with two predictors is: <span class="math display">\[
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \beta_{12}x_1x_2
+\]</span> In R this can be specified as:</p>
+<div class="cell" data-hash="L12-NonLinear_cache/html/polyfit_770ed7764df254154b653276f2f76bf1">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> (x1 <span class="sc">+</span> x2)<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li>This is why you can’t use <code>y ~ x + x^2</code> to get a polynomial model - R tries to interpret this as a model specification rather than a transformation. </li>
+<li>We’ll learn more about interactions and transformations in the next few lectures.</li>
+</ul>
+</section>
+</section>
+<section id="cautions-about-polynomials" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="cautions-about-polynomials"><span class="header-section-number">12.2</span> Cautions about Polynomials</h2>
+<section id="lower-order-terms" class="level3">
+<h3 class="anchored" data-anchor-id="lower-order-terms">Lower Order Terms</h3>
+<p>Unless there’s a strong physical reason,</p>
+<ul>
+<li><span class="math inline">\((ax - b)^2\)</span> is the model, not <span class="math inline">\(\beta_0 + \beta_1x + \beta_{11}x^2\)</span></li>
+</ul>
+</section>
+<section id="orders-higher-than-3-are-rarely-jutified" class="level3">
+<h3 class="anchored" data-anchor-id="orders-higher-than-3-are-rarely-jutified">Orders higher than 3 are rarely jutified</h3>
+<p>Recall the interpretation of a slope:</p>
+<ul>
+<li>A one unit increase in <span class="math inline">\(x\)</span> is associated with a <span class="math inline">\(\beta_1\)</span> unit increase in <span class="math inline">\(y\)</span>.
+<ul>
+<li>This interpretation fails in quadratrics, and fails spectacularly in higher orders.</li>
+</ul></li>
+</ul>
+<p>See <strong>splines</strong> for more flexibility</p>
+</section>
+<section id="extrapolation-is-fraught-with-peril" class="level3">
+<h3 class="anchored" data-anchor-id="extrapolation-is-fraught-with-peril">Extrapolation is Fraught with Peril</h3>
+<p>Unless you have the true order (you don’t), polynomials diverge almost immediately.</p>
+<div class="cell" data-hash="L12-NonLinear_cache/html/poly-extrap_346484b0724fc4ca216fdc8894b22c29">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/polyFit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="x-and-x2-are-correlated" class="level3">
+<h3 class="anchored" data-anchor-id="x-and-x2-are-correlated"><span class="math inline">\(x\)</span> and <span class="math inline">\(x^2\)</span> are correlated</h3>
+<p>This strongly affects parameter estimates.</p>
+<p>… unless…</p>
+</section>
+<section id="poly-uses-orthogonal-polynomials" class="level3">
+<h3 class="anchored" data-anchor-id="poly-uses-orthogonal-polynomials"><code>poly()</code> uses <strong>orthogonal</strong> polynomials</h3>
+<div class="cell" data-hash="L12-NonLinear_cache/html/orthog-1_054942b437a17391763982d1d19e1fc5">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> <span class="fu">poly</span>(x, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">10</span>), </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> (x <span class="sc">-</span> <span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">10</span>)))))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">t</span>(betas))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>After squaring, cubing, etc., each column of X is transformed to be orthogonal to the previous.</p>
+<ul>
+<li>Takes care of transformations for you when using <code>predict()</code>.</li>
+<li>The <code>coef()</code> function is useless.</li>
+<li>Mean-centering also helps!</li>
+</ul>
+</section>
+<section id="orthogonal-polynomials" class="level3">
+<h3 class="anchored" data-anchor-id="orthogonal-polynomials">Orthogonal Polynomials</h3>
+<div class="cell" data-hash="L12-NonLinear_cache/html/orthog-2_bdd3454d3f3d543601d338433a929642">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">runif</span>(<span class="dv">60</span>, <span class="dv">0</span>, <span class="dv">10</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x, <span class="fu">poly</span>(x, <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>)[,i])</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(x, <span class="fu">poly</span>(x, <span class="dv">3</span>, <span class="at">raw =</span> <span class="cn">FALSE</span>)[,i])</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="should-i-use-a-polynomial" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="should-i-use-a-polynomial"><span class="header-section-number">12.3</span> Should I Use a Polynomial?</h2>
+<section id="example-mtcars" class="level3">
+<h3 class="anchored" data-anchor-id="example-mtcars">Example: mtcars</h3>
+<p>[code]</p>
+</section>
+<section id="summary" class="level3">
+<h3 class="anchored" data-anchor-id="summary">Summary</h3>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -767,13 +1068,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L10-Hat-Resid_Plots-Cook.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span>
+      <a href="./L11-Wrong_Model.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L12-Extra_Topics.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L13-Transforming_Response.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

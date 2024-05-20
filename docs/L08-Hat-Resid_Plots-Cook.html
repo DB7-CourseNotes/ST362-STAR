@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Devan Becker">
-<meta name="dcterms.date" content="2024-05-03">
+<meta name="author" content="Dr.&nbsp;Devan Becker">
+<meta name="dcterms.date" content="2024-05-20">
 
-<title>STAR Notes - 18&nbsp; Analysis of MTCars</title>
+<title>STAR Notes - 8&nbsp; The Hat Matrix</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L20-Degrees_of_Freedom.html" rel="next">
-<link href="./L18-Modelling_Poorly.html" rel="prev">
+<link href="./L09-Admin_Slides.html" rel="next">
+<link href="./L07-Exampless.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L13-Wrong_Model.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L19-Example_Analysis_mtcars.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">OLS Basics</a></li><li class="breadcrumb-item"><a href="./L08-Hat-Resid_Plots-Cook.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -149,13 +149,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
  <span class="menu-text">OLS Basics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
@@ -200,85 +200,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></span></a>
+  <a href="./L08-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
+  <a href="./L09-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
+  <a href="./L10-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
  <span class="menu-text">Choosing Models</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
+  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-NonLinear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
+  <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
+  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -294,14 +288,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L22-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -317,8 +311,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L23-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -410,15 +404,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link active" data-scroll-target="#exploratory-data-analysis"><span class="header-section-number">18.1</span> Exploratory Data Analysis</a>
+  <li><a href="#effect-of-a-single-point" id="toc-effect-of-a-single-point" class="nav-link active" data-scroll-target="#effect-of-a-single-point"><span class="header-section-number">8.1</span> Effect of a Single Point</a>
   <ul class="collapse">
-  <li><a href="#understanding-data" id="toc-understanding-data" class="nav-link" data-scroll-target="#understanding-data">Understanding Data</a></li>
-  <li><a href="#plotting-the-data" id="toc-plotting-the-data" class="nav-link" data-scroll-target="#plotting-the-data">Plotting the Data</a></li>
-  <li><a href="#patterns-in-the-predictors" id="toc-patterns-in-the-predictors" class="nav-link" data-scroll-target="#patterns-in-the-predictors">Patterns in the Predictors</a></li>
-  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  <li><a href="#leverage-and-influence" id="toc-leverage-and-influence" class="nav-link" data-scroll-target="#leverage-and-influence">Leverage and Influence</a></li>
   </ul></li>
-  <li><a href="#more-eda-relationships-with-the-response-interactions" id="toc-more-eda-relationships-with-the-response-interactions" class="nav-link" data-scroll-target="#more-eda-relationships-with-the-response-interactions"><span class="header-section-number">18.2</span> More EDA: Relationships with the Response / Interactions</a></li>
-  <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling"><span class="header-section-number">18.3</span> Modelling</a></li>
+  <li><a href="#le-chapeau" id="toc-le-chapeau" class="nav-link" data-scroll-target="#le-chapeau"><span class="header-section-number">8.2</span> Le Chapeau</a>
+  <ul class="collapse">
+  <li><a href="#the-hat-matrix" id="toc-the-hat-matrix" class="nav-link" data-scroll-target="#the-hat-matrix">The Hat Matrix</a></li>
+  <li><a href="#variance-covariance-matrix-of-hatunderlineepsilon" id="toc-variance-covariance-matrix-of-hatunderlineepsilon" class="nav-link" data-scroll-target="#variance-covariance-matrix-of-hatunderlineepsilon">Variance-Covariance Matrix of <span class="math inline">\(\hat{\underline\epsilon}\)</span></a></li>
+  <li><a href="#the-variance-of-a-residual" id="toc-the-variance-of-a-residual" class="nav-link" data-scroll-target="#the-variance-of-a-residual">The variance of a residual</a></li>
+  <li><a href="#more-h-facts" id="toc-more-h-facts" class="nav-link" data-scroll-target="#more-h-facts">More H Facts</a></li>
+  <li><a href="#proof-that-h1-1" id="toc-proof-that-h1-1" class="nav-link" data-scroll-target="#proof-that-h1-1">Proof that <span class="math inline">\(H1 = 1\)</span></a></li>
+  </ul></li>
+  <li><a href="#studentized-residuals" id="toc-studentized-residuals" class="nav-link" data-scroll-target="#studentized-residuals"><span class="header-section-number">8.3</span> Studentized Residuals</a>
+  <ul class="collapse">
+  <li><a href="#internally-studentized-not-ideal" id="toc-internally-studentized-not-ideal" class="nav-link" data-scroll-target="#internally-studentized-not-ideal">Internally Studentized (not ideal)</a></li>
+  <li><a href="#internally-studentized" id="toc-internally-studentized" class="nav-link" data-scroll-target="#internally-studentized">“Internally” “Studentized”</a></li>
+  <li><a href="#externally-studentized-step-1" id="toc-externally-studentized-step-1" class="nav-link" data-scroll-target="#externally-studentized-step-1">Externally Studentized Step 1</a></li>
+  <li><a href="#externally-studentized-step-2" id="toc-externally-studentized-step-2" class="nav-link" data-scroll-target="#externally-studentized-step-2">Externally Studentized Step 2</a></li>
+  <li><a href="#externally-studentized-residuals" id="toc-externally-studentized-residuals" class="nav-link" data-scroll-target="#externally-studentized-residuals">Externally Studentized Residuals</a></li>
+  </ul></li>
+  <li><a href="#cooks-distance" id="toc-cooks-distance" class="nav-link" data-scroll-target="#cooks-distance"><span class="header-section-number">8.4</span> Cook’s Distance</a>
+  <ul class="collapse">
+  <li><a href="#better-measures-of-influence" id="toc-better-measures-of-influence" class="nav-link" data-scroll-target="#better-measures-of-influence">Better Measures of Influence</a></li>
+  <li><a href="#cooks-distance-change-in-hat-y_i." id="toc-cooks-distance-change-in-hat-y_i." class="nav-link" data-scroll-target="#cooks-distance-change-in-hat-y_i.">Cook’s Distance: Change in <span class="math inline">\(\hat y_i\)</span>.</a></li>
+  <li><a href="#cooks-distance-alternate-form" id="toc-cooks-distance-alternate-form" class="nav-link" data-scroll-target="#cooks-distance-alternate-form">Cook’s Distance: Alternate Form</a></li>
+  <li><a href="#next-class" id="toc-next-class" class="nav-link" data-scroll-target="#next-class">Next Class</a></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">8.5</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -427,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></h1>
 </div>
 
 
@@ -436,11 +449,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Devan Becker </p>
+    <p class="author">Dr.&nbsp;Devan Becker </p>
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Wilfrid Laurier University
+            Jam: <strong>Residual</strong> by Trash.
           </p>
       </div>
     </div>
@@ -451,7 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-03</p>
+      <p class="date">2024-05-20</p>
     </div>
   </div>
   
@@ -461,317 +474,318 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="exploratory-data-analysis" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="exploratory-data-analysis"><span class="header-section-number">18.1</span> Exploratory Data Analysis</h2>
-<section id="understanding-data" class="level3">
-<h3 class="anchored" data-anchor-id="understanding-data">Understanding Data</h3>
-<p>What do the column names mean?</p>
-<p>The help file gives a (very) brief description. I spent a few minutes just looking at the descriptions and trying to guess what relationships I might find.</p>
-<p>Overall, most of the predictors are trying to answer the question “Is this a powerful car?”</p>
-</section>
-<section id="plotting-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="plotting-the-data">Plotting the Data</h3>
-<p>From a pairs plot (<code>pairs(mtcars)</code>, which I have not included to reduce the amount of output):</p>
-<ul>
-<li>Only 1 car has carb = 6, 1 has carb = 8</li>
-<li>wt and drat are (-ively) correlated
-<ul>
-<li>disp and hp</li>
-<li>disp and drat (-ive)</li>
-<li>disp and wt</li>
-<li>hp and wt</li>
-<li>hp and qsec</li>
-</ul></li>
-</ul>
-<p>wt and disp are clearly multicollinear, and they’re measuring the same thing so I might want to include just one of them.</p>
-</section>
-<section id="patterns-in-the-predictors" class="level3">
-<h3 class="anchored" data-anchor-id="patterns-in-the-predictors">Patterns in the Predictors</h3>
-<p>In the following code, I tried x as am, cyl, gear, and carb. The y axis was wt, disp, drat, and qsec. I essentially tried every combination of these and wrote down the most interesting patterns.</p>
-<div class="cell" data-hash="L19-Example_Analysis_mtcars_cache/html/cont_v_cat_d4989063cb7ad6a25daae4aa46f37c8f">
+<section id="effect-of-a-single-point" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="effect-of-a-single-point"><span class="header-section-number">8.1</span> Effect of a Single Point</h2>
+<section id="leverage-and-influence" class="level3">
+<h3 class="anchored" data-anchor-id="leverage-and-influence">Leverage and Influence</h3>
+<div class="cell" data-hash="L08-Hat-Resid_Plots-Cook_cache/html/shiny-app_3dd5d6314e780a270348ba50f7496238">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous versus categorical</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(am), <span class="at">y =</span> wt) <span class="sc">+</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/InfluentialPoint"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<p><img src="L19-Example_Analysis_mtcars_files/figure-html/cont_v_cat-1.png" class="img-fluid" width="672"></p>
-</div>
 </div>
 <ul>
-<li>wt is different across categories of am, cyl, carb, gear (all positive)
+<li>Leverage: affects the line.
 <ul>
-<li>disp has same relationships</li>
-<li>hp has same relationships, except 4 gear cars have lower hp than 3 and 5 gear cars</li>
-<li>drat has opposite relationships</li>
+<li>Measured by the hat matrix.</li>
 </ul></li>
-</ul>
-<p>I did something similar with the following code, checking every combination of all relevant predictors and writing down anything that stuck out to me.</p>
-<div class="cell" data-hash="L19-Example_Analysis_mtcars_cache/html/cont_v_cont_57c6ee60360299110e48c1e807eb02a7">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous vs. continuous</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> wt, <span class="at">colour =</span> <span class="fu">factor</span>(cyl)) <span class="sc">+</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="L19-Example_Analysis_mtcars_files/figure-html/cont_v_cont-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Clear separation between disp and wt when coloured by am or cyl.
-<ul>
-<li>In other words, there are distinct groups. This probably means that one of the continuous predictors has all of the information necessary, and it won’t be necessary to include an interaction between continuous predictors (it rarely is).</li>
-</ul></li>
-<li>Otherwise, there are not many relationships that might be present.</li>
-</ul>
-<p>The following plot was also used with all combinations of categorical predictors.</p>
-<div class="cell" data-hash="L19-Example_Analysis_mtcars_cache/html/cats_cdcc8d91188922dbee70e79228479736">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># categorical variables</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(am), <span class="at">fill =</span> <span class="fu">factor</span>(vs)) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="L19-Example_Analysis_mtcars_files/figure-html/cats-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Some kind of “correlation” between am and cyl.
-<ul>
-<li>Measuring something similar, but from different perspectives.</li>
-</ul></li>
-<li>Very little relation between am and vs - they’re measuring different things.
-<ul>
-<li>Might be worth checking models where am is switched with vs.&nbsp;</li>
-</ul></li>
+<li>Influence: affects the line in a “<em>meaningful</em>” way</li>
 </ul>
 </section>
-<section id="conclusions" class="level3">
-<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
-<p>Most things are measuring “how powerful is this car”, so we should just choose the ones that make sense to us and check a few categorical predictors.</p>
-<p><code>wt</code> and <code>disp</code> make the most sense as measures for <code>mpg</code>, and <code>am</code> and <code>cyl</code> also make some sense. I’ll try switching out some of the other predictors, but I expect that the final model will either be <code>wt*am</code> or <code>disp*cyl</code>.</p>
 </section>
-</section>
-<section id="more-eda-relationships-with-the-response-interactions" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="more-eda-relationships-with-the-response-interactions"><span class="header-section-number">18.2</span> More EDA: Relationships with the Response / Interactions</h2>
-<p>Now we’re finally looking at mpg!</p>
-<div class="cell" data-hash="L19-Example_Analysis_mtcars_cache/html/mpg_v_disp_b8118cdb9eb1c80d44bc4a60c488cb48">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> mpg, <span class="at">x =</span> disp, <span class="at">colour =</span> <span class="fu">factor</span>(cyl)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="L19-Example_Analysis_mtcars_files/figure-html/mpg_v_disp-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>From looking at many many plots, I propose the following candidate models:</p>
-<ul>
-<li>mpg versus disp * cyl</li>
-<li>mpg versus wt * am (cyl?)</li>
-<li>mpg versus wt * vs (maybe not an interaction)</li>
-<li>mpg versus wt * gear?</li>
-</ul>
-<p>I had also considered including qsec, but a plot of mpg versus qsec with colours from cyl revealed that cyl explains the relationship; if we include cyl, then the slope for mpg versus qsec is 0. The same thing happens with drat, so cyl is probably enough to include in the model rather than either qsec or drat.</p>
-</section>
-<section id="modelling" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="modelling"><span class="header-section-number">18.3</span> Modelling</h2>
-<p>Let’s test out our models!</p>
-<p>Again, to reduce the amount of output I have to wade through, I changed the following code a bunch and left it at something meaningful to my final analysis.</p>
-<div class="cell" data-hash="L19-Example_Analysis_mtcars_cache/html/dispmodel_plot_3b5de236986be112e2c85353e710e29b">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dispmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dispmodel, <span class="at">col =</span> mtcars<span class="sc">$</span>cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="L19-Example_Analysis_mtcars_files/figure-html/dispmodel_plot-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>Residuals versus fitted looks good</li>
-<li>QQ norm looks great! For this small of a data set, we don’t expect much from the qq-plot, so this is actually very nice.</li>
-<li>Scale-Location has a slight U shape, which isn’t ideal. There may still be a predictor that’s worth including.</li>
-<li>There’s a high influence point. This is likely due to the interaction between cyl and disp.
-<ul>
-<li>When we have this kind of interaction, there are essentially three lines, each with fewer observations. It is much easier for a point to be influential with interaction present.</li>
-</ul></li>
-</ul>
-<div class="cell" data-hash="L19-Example_Analysis_mtcars_cache/html/wtmodel_plot_dd2e730fea03724417d8d01c37494791">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>wtmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">*</span> am, <span class="at">data =</span> mtcars)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<p><img src="L19-Example_Analysis_mtcars_files/figure-html/wtmodel_plot-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ul>
-<li>First plot looks good!</li>
-<li>QQplot has some heavy tails - not bad, but not ideal. <code>dispmodel</code> was better.</li>
-<li>Scale-location is great!</li>
-<li>No high leverage points.</li>
-</ul>
-<p>Both models are good in different ways. Let’s check their summaries.</p>
-<div class="cell" data-hash="L19-Example_Analysis_mtcars_cache/html/dispmodel_summary_0398056136665fa7ee2d8e50f369d996">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dispmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = mpg ~ disp * factor(cyl), data = mtcars)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--3.4766 -1.8101 -0.2297  1.3523  5.0208 
-
-Coefficients:
-                   Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)        40.87196    3.02012  13.533 2.79e-13 ***
-disp               -0.13514    0.02791  -4.842 5.10e-05 ***
-factor(cyl)6      -21.78997    5.30660  -4.106 0.000354 ***
-factor(cyl)8      -18.83916    4.61166  -4.085 0.000374 ***
-disp:factor(cyl)6   0.13875    0.03635   3.817 0.000753 ***
-disp:factor(cyl)8   0.11551    0.02955   3.909 0.000592 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 2.372 on 26 degrees of freedom
-Multiple R-squared:  0.8701,    Adjusted R-squared:  0.8452 
-F-statistic: 34.84 on 5 and 26 DF,  p-value: 9.968e-11</code></pre>
-</div>
-</div>
-<div class="cell" data-hash="L19-Example_Analysis_mtcars_cache/html/wtmodel_summary_2dcd05674c7ea7589960ea2ab003647b">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = mpg ~ wt * am, data = mtcars)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--3.6004 -1.5446 -0.5325  0.9012  6.0909 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  31.4161     3.0201  10.402 4.00e-11 ***
-wt           -3.7859     0.7856  -4.819 4.55e-05 ***
-am           14.8784     4.2640   3.489  0.00162 ** 
-wt:am        -5.2984     1.4447  -3.667  0.00102 ** 
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 2.591 on 28 degrees of freedom
-Multiple R-squared:  0.833, Adjusted R-squared:  0.8151 
-F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11</code></pre>
-</div>
-</div>
-<p>The <span class="math inline">\(R^2\)</span> for <code>dispmodel</code> is a fair bit higher (although there’s no standard for how much an <span class="math inline">\(R^2\)</span> should change, so this might not be a meaningful difference). As we saw in class, the <span class="math inline">\(R^2\)</span> is based on the same quantities as the F-test for different models.</p>
-<div class="cell" data-hash="L19-Example_Analysis_mtcars_cache/html/unnamed-chunk-10_12abc823795d47f01a08439df00eebc0">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(dispmodel, wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Variance Table
-
-Model 1: mpg ~ disp * factor(cyl)
-Model 2: mpg ~ wt * am
-  Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)  
-1     26 146.23                              
-2     28 188.01 -2   -41.773 3.7136 0.03814 *
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<p>The models fit significantly differently. Which one fits better?</p>
-<div class="cell" data-hash="L19-Example_Analysis_mtcars_cache/html/unnamed-chunk-11_5a2e2845990abb635103d9046ad230c6">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE values</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dispmodel)<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.371581</code></pre>
-</div>
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wtmodel)<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.591247</code></pre>
-</div>
-</div>
-<p><code>dispmodel</code> has a higher <span class="math inline">\(R^2\)</span> and a lower MSE, so it seems to be the winner.</p>
-<p>From the pairs plot, I saw that disp has a slight relationship with other continuous predictors, and the scale-location plot wasn’t perfect. Perhaps another predictor will help?</p>
-<p>I can do this with the magical <code>update()</code> function. The <code>~ . + hp</code> notation means the response versus (<code>~</code>) everything <code>.</code>, then add <code>hp</code>. The <code>~</code> means “versus” (with the response on the left, which isn’t allowed to change in this case, and the predictors on the right), and the <code>.</code> means “everything”, which in this case refers to everything that was already in the model. The form <code>lm(mpg ~ ., data = mtcars)</code> will fit mpg against everything else it sees in the mtcars dataset.</p>
-<div class="cell" data-hash="L19-Example_Analysis_mtcars_cache/html/unnamed-chunk-12_4def513cb4f832485854c554437866aa">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">update</span>(dispmodel, <span class="sc">~</span> . <span class="sc">+</span> hp)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = mpg ~ disp + factor(cyl) + hp + disp:factor(cyl), 
-    data = mtcars)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--3.3442 -1.7647  0.0994  1.4480  4.4796 
-
-Coefficients:
-                   Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)        41.53521    3.04752  13.629 4.48e-13 ***
-disp               -0.13037    0.02798  -4.660 9.00e-05 ***
-factor(cyl)6      -19.95406    5.48572  -3.637 0.001249 ** 
-factor(cyl)8      -16.99535    4.83011  -3.519 0.001685 ** 
-hp                 -0.01410    0.01184  -1.191 0.245018    
-disp:factor(cyl)6   0.12975    0.03685   3.521 0.001675 ** 
-disp:factor(cyl)8   0.11199    0.02946   3.801 0.000824 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 2.353 on 25 degrees of freedom
-Multiple R-squared:  0.8771,    Adjusted R-squared:  0.8476 
-F-statistic: 29.74 on 6 and 25 DF,  p-value: 3.199e-10</code></pre>
-</div>
-</div>
-<p>I checked qsec, drat, and hp, and none seemed worth including in the model. I’ll just leave it as is.</p>
-<p>To interpret the model we must be careful about the interaction term!</p>
+<section id="le-chapeau" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="le-chapeau"><span class="header-section-number">8.2</span> Le Chapeau</h2>
+<section id="the-hat-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="the-hat-matrix">The Hat Matrix</h3>
 <p><span class="math display">\[
-mpg = \begin{cases}
-\beta_0 + \beta_1 disp &amp; \text{if }cyl == 4\\
-(\beta_0 + \beta_2) + (\beta_1 + \beta_4) disp &amp; \text{if }cyl == 6\\
-(\beta_0 + \beta_3) + (\beta_1 + \beta_5) disp &amp; \text{if }cyl == 8\\
-\end{cases}
+H = X(X^TX)^{-1}X^T
+\]</span></p>
+<p>The hat matrix projects <span class="math inline">\(Y\)</span> onto <span class="math inline">\(\hat Y\)</span>, based on <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\hat Y = HY\)</span>
+<ul>
+<li><span class="math inline">\(\hat Y_i = h_{ii} Y_i + \sum_{j\ne i}h_{ij}Y_j\)</span></li>
+</ul></li>
+</ul>
+<p>In other words, <span class="math inline">\(h_{ii}\)</span> determines the <em>leverage</em> of the observed point <span class="math inline">\(y_i\)</span> on it’s own prediction.</p>
+</section>
+<section id="variance-covariance-matrix-of-hatunderlineepsilon" class="level3">
+<h3 class="anchored" data-anchor-id="variance-covariance-matrix-of-hatunderlineepsilon">Variance-Covariance Matrix of <span class="math inline">\(\hat{\underline\epsilon}\)</span></h3>
+<p>Just like <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, each sample results in different <span class="math inline">\(\underline{\hat\epsilon}\)</span>.</p>
+<p>Across samples, we have: <span class="math display">\[
+\underline{\hat\epsilon} - E(\underline{\hat\epsilon}) = (I-H)(Y-X\underline{\beta}) = (I-H)\underline{\epsilon}
+\]</span> and therefore: <span class="math display">\[\begin{align*}
+V(\underline{\hat\epsilon}) &amp;= E([\underline{\hat\epsilon} - E(\underline{\hat\epsilon})][\underline{\hat\epsilon} - E(\underline{\hat\epsilon})]^T)\\
+&amp;= [I-H]E(\underline{\epsilon}\underline{\epsilon}^T)[I-H]^T\\
+&amp;= [I-H]\sigma^2[I-H]\\
+&amp;= [I-H]\sigma^2
+\end{align*}\]</span> where we used the idempotency and symmetry of <span class="math inline">\(I-H\)</span>.</p>
+</section>
+<section id="the-variance-of-a-residual" class="level3">
+<h3 class="anchored" data-anchor-id="the-variance-of-a-residual">The variance of a residual</h3>
+<p>Given that <span class="math inline">\(V(\underline{\hat\epsilon}) = (I-H)\sigma^2\)</span>, <span class="math display">\[
+V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 \]</span></p>
 <ul>
-<li>For 4 cylinder cars, the baseline mpg is 40 and decreases by 0.135 for each one unit increase in disp.</li>
-<li>For 6 cylinder cars, the baseline mpg is about 21.5 and isn’t really related to the displacement.</li>
-<li>For 8 cylinder cars, the baseline mpg is about 24.5 and decreases by about 0.02 for each one-unit increase in displacement.
+<li>The variance of the residual depends on how much <span class="math inline">\(Y_i\)</span> effects it’s own estimate.
 <ul>
-<li>Note that displacement has really large units, so 0.02 over hundreds of one-unit increases is still a lot!</li>
+<li>High leverage = low variance.</li>
 </ul></li>
 </ul>
+<p>The correlation between residuals is: <span class="math display">\[
+\rho_{ij} = \frac{Cov(\hat\epsilon_i, \hat\epsilon_j)}{\sqrt{V(\hat\epsilon_i)V(\hat\epsilon_j)}} = \frac{-h_{ij}}{\sqrt{(1-h_{ii})(1-h_{jj})}}
+\]</span></p>
+<ul>
+<li>The covariance is negative! A large residual tells us there are small residuals.
+<ul>
+<li>“Large” and “small” are relative</li>
+</ul></li>
+</ul>
+</section>
+<section id="more-h-facts" class="level3">
+<h3 class="anchored" data-anchor-id="more-h-facts">More H Facts</h3>
+<ol type="1">
+<li><span class="math inline">\(SS(\hat{\underline\beta}) = \hat{\underline\beta}^TX^TY = \hat Y^TY = Y^TH^TY = Y^TH^THY = \hat Y^T\hat Y\)</span>
+<ul>
+<li>We used the facts <span class="math inline">\(H^T= H^TH\)</span> and <span class="math inline">\(\hat Y = HY\)</span>.</li>
+</ul></li>
+<li><span class="math inline">\(\sum_{i=1}^nV(\hat Y_i) = trace(H\sigma^2) = p\sigma^2\)</span>
+<ul>
+<li><span class="math inline">\(p\)</span> is the number of parameters.</li>
+<li>Proof is homework</li>
+</ul></li>
+<li><span class="math inline">\(H1 = 1\)</span> if the model contains a <span class="math inline">\(\beta_0\)</span> term.
+<ul>
+<li><span class="math inline">\(1\)</span> is a <em>column</em> of 1s, not identity matrix.</li>
+<li>Proof on next slide.</li>
+<li><span class="math inline">\(h_{ii} = 1 - \sum_{j\ne i}h_{ij}\)</span>
+<ul>
+<li>Note that <span class="math inline">\(h_{ij}\in[-1, 1]\)</span>.</li>
+</ul></li>
+</ul></li>
+</ol>
+<p>The first one is a little hard to believe! How can <span class="math inline">\(\hat Y^TY = \hat Y^T\hat Y\)</span> when <span class="math inline">\(\hat Y \ne Y\)</span>???</p>
+<div class="cell" data-hash="L08-Hat-Resid_Plots-Cook_cache/html/unnamed-chunk-3_f5555e67606a3460d90dbb7a5f94a486">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mylm)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(mylm)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>H <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">coef</span>(mylm))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(beta) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 13763.99</code></pre>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Yhat) <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 13763.99</code></pre>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Y) <span class="sc">%*%</span> H <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 13763.99</code></pre>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Y) <span class="sc">%*%</span> <span class="fu">t</span>(H) <span class="sc">%*%</span> H <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 13763.99</code></pre>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Yhat) <span class="sc">%*%</span> Yhat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 13763.99</code></pre>
+</div>
+</div>
+</section>
+<section id="proof-that-h1-1" class="level3">
+<h3 class="anchored" data-anchor-id="proof-that-h1-1">Proof that <span class="math inline">\(H1 = 1\)</span></h3>
+<p>Note that <span class="math inline">\(HX = X\)</span> (as proven on A1).</p>
+<ol type="1">
+<li>The first column of <span class="math inline">\(X\)</span> is all ones (<span class="math inline">\(\beta_0\)</span> term).
+<ul>
+<li><span class="math inline">\([X]_{i1} = 1\)</span></li>
+</ul></li>
+<li>Therefore <span class="math inline">\([HX]_{i1}\)</span> is a column of ones.
+<ul>
+<li>Every row of <span class="math inline">\(H\)</span> times the column of 1s in <span class="math inline">\(X\)</span> results in a column of ones.</li>
+</ul></li>
+<li><span class="math inline">\([HX]_{i1}\)</span> is every row of <span class="math inline">\(H\)</span> times the first column of <span class="math inline">\(X\)</span>.</li>
+</ol>
+<p>The first column of <span class="math inline">\(X\)</span> is 1s, which is equal to the first column of <span class="math inline">\(HX\)</span>, which is <span class="math inline">\(H\)</span> times a column of ones.</p>
+<p>In other words, <span class="math inline">\(H1 = 1\)</span></p>
+</section>
+</section>
+<section id="studentized-residuals" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="studentized-residuals"><span class="header-section-number">8.3</span> Studentized Residuals</h2>
+<section id="internally-studentized-not-ideal" class="level3">
+<h3 class="anchored" data-anchor-id="internally-studentized-not-ideal">Internally Studentized (not ideal)</h3>
+<p>How do you measure the size a residual?</p>
+<p>Divide by the variance, of course!</p>
+<p>We know that <span class="math inline">\(V(\hat \epsilon_i) = (1-h_{ii})\sigma^2\)</span>, and <span class="math display">\[
+s^2 = \frac{\sum_{y=1}^n(y_i-\hat y_i)^2}{n-p} = \frac{SSE}{df_E} = MSE
+\]</span> is an estimate of <span class="math inline">\(\sigma^2\)</span>. Then, <span class="math display">\[
+r_i = \frac{\hat\epsilon_i}{\sqrt{s^2(1-h_{ii})}}
+\]</span> is called the <strong>internally studentized residual</strong>.</p>
+</section>
+<section id="internally-studentized" class="level3">
+<h3 class="anchored" data-anchor-id="internally-studentized">“Internally” “Studentized”</h3>
+<p>Note that <span class="math display">\[
+s^2 = \frac{\sum_{i=1}^n(y_i-\hat y_i)^2}{n-p} = \frac{\sum_{i=1}^n(\hat\epsilon_i)^2}{n-p}
+\]</span> and therefore <span class="math display">\[
+r_i = \frac{\hat\epsilon_i}{\sqrt{s^2(1-h_{ii})}} = \frac{\hat\epsilon_i}{\sqrt{(\hat\epsilon_i^2 + \sum_{j\ne i}\hat\epsilon_j^2)(1-h_{ii})/(n-p)}}
+\]</span></p>
+<ul>
+<li>If <span class="math inline">\(\hat\epsilon_i\)</span> is large, then <span class="math inline">\(s^2\)</span> is large.
+<ul>
+<li>If <span class="math inline">\(s^2\)</span> is large, then <span class="math inline">\(r_i\)</span> is small!</li>
+<li>“<strong>Internally</strong>”: the variance includes the residual of interest.</li>
+</ul></li>
+<li>“<strong>Studentized</strong>” because Student made it popular.</li>
+<li>Often called “standardized”.</li>
+</ul>
+</section>
+<section id="externally-studentized-step-1" class="level3">
+<h3 class="anchored" data-anchor-id="externally-studentized-step-1">Externally Studentized Step 1</h3>
+<p>Like adding/removing predictors and checking the change in SS, we can add/remove points!</p>
+<ol type="1">
+<li>Calculate SS</li>
+<li>Remove the first point. Estimate the model again and calculate new SS.</li>
+<li>Add the first point back, remove the second. Estimate the model again and check the SS.</li>
+<li>…</li>
+</ol>
+<p>For each point, we have an estimate of the variance <strong>without</strong> itself.</p>
+</section>
+<section id="externally-studentized-step-2" class="level3">
+<h3 class="anchored" data-anchor-id="externally-studentized-step-2">Externally Studentized Step 2</h3>
+<p>Skipping the math, <span class="math display">\[
+s^2_{(i)} = \frac{(n-p)s^2 - \hat\epsilon_i^2/(1-h_{ii})}{n-p-1}
+\]</span> is the variance of the residuals <strong>without</strong> observation <span class="math inline">\(i\)</span>.</p>
+<ul>
+<li>The leverage tells us how much a point changed the model
+<ul>
+<li>We can see what happened without it</li>
+<li>No need to re-estimate the model!!!</li>
+</ul></li>
+</ul>
+</section>
+<section id="externally-studentized-residuals" class="level3">
+<h3 class="anchored" data-anchor-id="externally-studentized-residuals">Externally Studentized Residuals</h3>
+<p>Use <span class="math inline">\(s^2_{(i)}\)</span> in place of <span class="math inline">\(s^2\)</span>. <span class="math display">\[
+t_i = \frac{\hat\epsilon_i}{\sqrt{s_{(i)}^2(1-h_{ii})}} \sim t_{n-p-1}
+\]</span></p>
+<ul>
+<li>Follows a <span class="math inline">\(t\)</span> distribution!
+<ul>
+<li>Larger than 2 is suspect, 3 is definitely an outlier!</li>
+</ul></li>
+<li>A large <span class="math inline">\(t_i\)</span> is large <em>relative to the other residuals</em></li>
+<li>Usually just called “Studentized”</li>
+</ul>
+<p>Most software uses Studentized residuals for plots/diagnostics!</p>
+</section>
+</section>
+<section id="cooks-distance" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="cooks-distance"><span class="header-section-number">8.4</span> Cook’s Distance</h2>
+<section id="better-measures-of-influence" class="level3">
+<h3 class="anchored" data-anchor-id="better-measures-of-influence">Better Measures of Influence</h3>
+<p>The hat matrix is intepreted as influence, but it has problems.</p>
+<ul>
+<li><span class="math inline">\(y_i\)</span>’s “influence” on <em>it’s own</em> prediction,
+<ul>
+<li><em>given all other points.</em></li>
+</ul></li>
+<li><span class="math inline">\(0 \le h_{ii} \le 1\)</span>
+<ul>
+<li>What is a “big” “influence”?</li>
+</ul></li>
+<li>How do you explain <span class="math inline">\(h_{ii}\)</span> to nonstatisticians?</li>
+</ul>
+<p>A better measure is how much the predicted value changes with/without the obs.</p>
+</section>
+<section id="cooks-distance-change-in-hat-y_i." class="level3">
+<h3 class="anchored" data-anchor-id="cooks-distance-change-in-hat-y_i.">Cook’s Distance: Change in <span class="math inline">\(\hat y_i\)</span>.</h3>
+<p><span class="math display">\[
+D_i = \frac{\sum_{i=1}^n(\hat y_i - \hat y_{(i)})^2}{ps^2}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\hat y_i\)</span> is the predicted value of <span class="math inline">\(y_i\)</span> when all data are considered.</li>
+<li><span class="math inline">\(\hat y_{(i)}\)</span> is the predicted value of <span class="math inline">\(y_i\)</span> when observation <span class="math inline">\(i\)</span> is removed.</li>
+<li><span class="math inline">\(s^2\)</span> is the MSE of the model with all of the data.</li>
+<li><span class="math inline">\(p\)</span> is the number of parameters
+<ul>
+<li><span class="math inline">\(D_i\)</span> decreases as <span class="math inline">\(p\)</span> increases!</li>
+</ul></li>
+</ul>
+<p>Again, this <em>would</em> involve re-fitting the model <span class="math inline">\(n\)</span> time (one for each obs).</p>
+</section>
+<section id="cooks-distance-alternate-form" class="level3">
+<h3 class="anchored" data-anchor-id="cooks-distance-alternate-form">Cook’s Distance: Alternate Form</h3>
+<p><span class="math display">\[
+D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\frac{1}{p}\left[\frac{h_{ii}}{1 - h_{ii}}\right] = r_i^2\frac{1}{p}\frac{\text{variance of $i$th predicted value}}{\text{variance of $i$th residual}}
+\]</span></p>
+<ul>
+<li>Again, we can use <span class="math inline">\(H\)</span> rather than re-fitting the model.</li>
+<li>Cook’s distance is a modification of the <em>internally</em> studentized residual.
+<ul>
+<li>Variances are based on same “deletion” idea as studentized.</li>
+</ul></li>
+<li>Ratio of Variances!
+<ul>
+<li><span class="math inline">\(F\)</span> distribution, mean approaches 1 for large values of <span class="math inline">\(n\)</span>
+<ul>
+<li>Cooks Distance of larger than 1 is suspect.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="next-class" class="level3">
+<h3 class="anchored" data-anchor-id="next-class">Next Class</h3>
+<p>Plots!</p>
+</section>
+</section>
+<section id="exercises" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">8.5</span> Exercises</h2>
+<p>Suggested Ch08 Exercises: <strong>A</strong>, <strong>C</strong>.</p>
+<ol type="1">
+<li>In the proof that <span class="math inline">\(V(\underline{\hat\epsilon_i}) = (1-h_{ii})\sigma^2\)</span>, we skipped a few steps. Fill in those steps.</li>
+<li>Explain why “a large residual tells us there are small residuals”. It is useful to know that <span class="math inline">\(\sum_{i=1}^n\hat\epsilon_i = 0\)</span>.</li>
+<li>Explain where each part of the formula for <span class="math inline">\(\rho_{ij}\)</span>.</li>
+<li>Prove that <span class="math inline">\(\sum_{i=1}^nV(\hat Y_i) = trace(H\sigma^2) = p\sigma^2\)</span>. You may use the fact that the “trace” function allows you to move the last term to the front (i.e.&nbsp;you can “cycle” the entries): <span class="math inline">\(trace(ABCD) = trace(DABC) = trace(CDAB) = trace(BCDA) \ne trace(BACD)\)</span>.</li>
+<li>For the following data, calculate <span class="math inline">\(h_{11}\)</span>, <span class="math inline">\(\hat\epsilon_1\)</span>, <span class="math inline">\(s_1\)</span>, <span class="math inline">\(t_1\)</span>, and <span class="math inline">\(D_1\)</span> using R. Plot the data; comment on whether the first value is an outlier, and whether you would know this from each of the calculated values.</li>
+</ol>
+<div class="cell" data-hash="L08-Hat-Resid_Plots-Cook_cache/html/unnamed-chunk-4_e245e5a36e0972036f4f4a0a670322e0">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="fu">runif</span>(<span class="dv">49</span>, <span class="dv">0</span>, <span class="dv">10</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">49</span>, <span class="dv">0</span>, <span class="dv">3</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mylm)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>H <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>h11 <span class="ot">&lt;-</span> H[<span class="dv">1</span>,<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ol start="6" type="1">
+<li>For the data in the previous question, note that the mean of <span class="math inline">\(x\)</span> should be around 5. Move the first point to this x-value, keeping the y-value the same. First, make a guess at how do each of <span class="math inline">\(h_{11}\)</span>, <span class="math inline">\(\hat\epsilon_1\)</span>, <span class="math inline">\(s_1\)</span>, <span class="math inline">\(t_1\)</span>, and <span class="math inline">\(D_1\)</span> change, writing down your guess. Then calculate the values and see if you were right!</li>
+</ol>
 
 
 </section>
@@ -1127,13 +1141,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L18-Modelling_Poorly.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span>
+      <a href="./L07-Exampless.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ESS Exampless</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L20-Degrees_of_Freedom.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L09-Admin_Slides.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

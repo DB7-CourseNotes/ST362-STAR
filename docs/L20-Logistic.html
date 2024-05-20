@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-03">
+<meta name="dcterms.date" content="2024-05-20">
 
-<title>STAR Notes - 21&nbsp; Classification</title>
+<title>STAR Notes - 20&nbsp; Classification</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L23-Review.html" rel="next">
-<link href="./L21-Regularization.html" rel="prev">
+<link href="./L21-Review.html" rel="next">
+<link href="./L19-Regularization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L21-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L22-Logistic.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L20-Logistic.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -200,26 +200,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></span></a>
+  <a href="./L08-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
+  <a href="./L09-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
+  <a href="./L10-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
       </ul>
@@ -235,50 +229,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
+  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-NonLinear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
+  <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
+  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -294,14 +288,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L22-Logistic.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -317,8 +311,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L23-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -410,7 +404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link active" data-scroll-target="#logistic-regression"><span class="header-section-number">21.1</span> Logistic Regression</a>
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link active" data-scroll-target="#logistic-regression"><span class="header-section-number">20.1</span> Logistic Regression</a>
   <ul class="collapse">
   <li><a href="#goal-predict-a-1" id="toc-goal-predict-a-1" class="nav-link" data-scroll-target="#goal-predict-a-1">Goal: Predict a 1</a></li>
   <li><a href="#the-logistic-function---a-sigmoidal-function" id="toc-the-logistic-function---a-sigmoidal-function" class="nav-link" data-scroll-target="#the-logistic-function---a-sigmoidal-function">The Logistic Function - A Sigmoidal Function</a></li>
@@ -427,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#predictions---just-plug-it-in" id="toc-predictions---just-plug-it-in" class="nav-link" data-scroll-target="#predictions---just-plug-it-in">Predictions - Just Plug it In!</a></li>
   </ul></li>
-  <li><a href="#classification-basics" id="toc-classification-basics" class="nav-link" data-scroll-target="#classification-basics"><span class="header-section-number">21.2</span> Classification Basics</a>
+  <li><a href="#classification-basics" id="toc-classification-basics" class="nav-link" data-scroll-target="#classification-basics"><span class="header-section-number">20.2</span> Classification Basics</a>
   <ul class="collapse">
   <li><a href="#goal-predict-a-category" id="toc-goal-predict-a-category" class="nav-link" data-scroll-target="#goal-predict-a-category">Goal: Predict a Category</a></li>
   <li><a href="#classification-confusion" id="toc-classification-confusion" class="nav-link" data-scroll-target="#classification-confusion">Classification Confusion</a></li>
@@ -435,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-confusion-matrix-for-default-data" id="toc-the-confusion-matrix-for-default-data" class="nav-link" data-scroll-target="#the-confusion-matrix-for-default-data">The Confusion Matrix for Default Data</a></li>
   <li><a href="#logistic-regression-in-r" id="toc-logistic-regression-in-r" class="nav-link" data-scroll-target="#logistic-regression-in-r">Logistic Regression in R</a></li>
   </ul></li>
-  <li><a href="#multinomial-regression" id="toc-multinomial-regression" class="nav-link" data-scroll-target="#multinomial-regression"><span class="header-section-number">21.3</span> Multinomial Regression</a>
+  <li><a href="#multinomial-regression" id="toc-multinomial-regression" class="nav-link" data-scroll-target="#multinomial-regression"><span class="header-section-number">20.3</span> Multinomial Regression</a>
   <ul class="collapse">
   <li><a href="#multinomial-logistic-regression-k-classes" id="toc-multinomial-logistic-regression-k-classes" class="nav-link" data-scroll-target="#multinomial-logistic-regression-k-classes">Multinomial Logistic Regression: K Classes</a></li>
   </ul></li>
@@ -447,7 +441,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></h1>
+<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></h1>
 </div>
 
 
@@ -471,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-03</p>
+      <p class="date">2024-05-20</p>
     </div>
   </div>
   
@@ -481,8 +475,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="logistic-regression" class="level2" data-number="21.1">
-<h2 data-number="21.1" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">21.1</span> Logistic Regression</h2>
+<section id="logistic-regression" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">20.1</span> Logistic Regression</h2>
 <section id="goal-predict-a-1" class="level3">
 <h3 class="anchored" data-anchor-id="goal-predict-a-1">Goal: Predict a 1</h3>
 <ul>
@@ -497,24 +491,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If <span class="math inline">\(t\in\mathbb{R}\)</span>, then <span class="math display">\[
 \sigma(t) = \dfrac{\exp(t)}{1 + \exp(t)}\in[0,1]
 \]</span> where <span class="math inline">\(\sigma(\cdot)\)</span> is the <strong>logistic</strong> function.</p>
-<div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-2_309e99a67702dcb14716cbeb0d40b54a">
+<div class="cell" data-hash="L20-Logistic_cache/html/unnamed-chunk-2_52bba2b79288eca00702491da67052ba">
 <div class="cell-output-display">
-<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="480"></p>
+<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
 </section>
 <section id="logistic-function---now-with-parameters" class="level3">
 <h3 class="anchored" data-anchor-id="logistic-function---now-with-parameters">Logistic Function - Now with Parameters</h3>
-<div class="cell quarto-layout-panel" data-hash="L22-Logistic_cache/html/unnamed-chunk-3_e8680e9cfea845fe7e8daf48911b2058">
+<div class="cell quarto-layout-panel" data-hash="L20-Logistic_cache/html/unnamed-chunk-3_f8773940020a62d97cd400135f85af47">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="384"></p>
+<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="384"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="384"></p>
+<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="384"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid" width="384"></p>
+<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid" width="384"></p>
 </div>
 </div>
 </div>
@@ -526,7 +520,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 p(x_i) &amp;= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
 \implies \log\left(\frac{p_i(x_i)}{1-p_i(x_i)}\right) &amp;= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ...
 \end{align*}\]</span></p>
-<div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-4_032ecb047b0a01058b09f69e27122e91">
+<div class="cell" data-hash="L20-Logistic_cache/html/unnamed-chunk-4_26fe85d63e8c5f5fea2b4ac50c8ed82a">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
@@ -544,7 +538,7 @@ p(x_i) &amp;= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="st">"Default?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="384"></p>
+<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="384"></p>
 </div>
 </div>
 <p><span class="math inline">\(\eta(x_i) = -10.65 + 0.0054\cdot\text{balance}_i\)</span></p>
@@ -602,9 +596,9 @@ p(x_i) &amp;= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
 <h3 class="anchored" data-anchor-id="examples-two-different-predictors-in-the-default-data">Examples: Two different predictors in the <code>Default</code> data</h3>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-5_913f38a88387d8d02e8999c517340293">
+<div class="cell" data-hash="L20-Logistic_cache/html/unnamed-chunk-5_e608ab0cc588dc2e7ce1e54ecb444407">
 <div class="cell-output-display">
-<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="384"></p>
+<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="384"></p>
 </div>
 </div>
 <p><span class="math display">\[
@@ -612,9 +606,9 @@ p(x_i) &amp;= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
 \]</span></p>
 <p>The odds of a student defaulting are <span class="math inline">\(\exp(0.5)\approx1.65\)</span> times as high as a non-student.</p>
 </div><div class="column" style="width:45%;">
-<div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-6_6ed6a2375cb7c2cc8f5cf513fdf65064">
+<div class="cell" data-hash="L20-Logistic_cache/html/unnamed-chunk-6_1045ae1459a655ac350dfe6c0db34d6f">
 <div class="cell-output-display">
-<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="384"></p>
+<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="384"></p>
 </div>
 </div>
 <p><span class="math display">\[
@@ -686,7 +680,7 @@ P(\text{defaulting} | \eta(x_i)) &gt; p \implies a + bx_1 + cx_2 + dx_3 &gt; e
 </section>
 <section id="section" class="level3">
 <h3 class="anchored" data-anchor-id="section"></h3>
-<div class="cell" data-hash="L22-Logistic_cache/html/decision_boundary_109245f194bb6291d42bc501dc177299">
+<div class="cell" data-hash="L20-Logistic_cache/html/decision_boundary_8e89ecd70f89de42e489ed1f2f942891">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -723,7 +717,7 @@ P(\text{defaulting} | \eta(x_i)) &gt; p \implies a + bx_1 + cx_2 + dx_3 &gt; e
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> <span class="st">"Default?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L22-Logistic_files/figure-html/decision_boundary-1.png" class="img-fluid" width="864"></p>
+<p><img src="L20-Logistic_files/figure-html/decision_boundary-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
 </section>
@@ -758,8 +752,8 @@ P(\text{defaulting} | x) &amp;= \dfrac{\exp(\eta(x))}{1 + \exp(\eta(x))} \approx
 \end{align*}\]</span></p>
 </section>
 </section>
-<section id="classification-basics" class="level2" data-number="21.2">
-<h2 data-number="21.2" class="anchored" data-anchor-id="classification-basics"><span class="header-section-number">21.2</span> Classification Basics</h2>
+<section id="classification-basics" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="classification-basics"><span class="header-section-number">20.2</span> Classification Basics</h2>
 <section id="goal-predict-a-category" class="level3">
 <h3 class="anchored" data-anchor-id="goal-predict-a-category">Goal: Predict a Category</h3>
 <ul>
@@ -889,7 +883,7 @@ P(Y_i = j| x = x_i) \stackrel{def}{=} p_j(x_i)
 <p>See Course Notes</p>
 <div class="notes">
 <p>Model building works very similarly, but it’s <em>very</em> difficult to interpret the residual plots.</p>
-<div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-10_6e19880e949524d7b267a8fd1fbdd002">
+<div class="cell" data-hash="L20-Logistic_cache/html/unnamed-chunk-10_52f8e2a6a3035ffc761cc4271772f0e5">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
@@ -1020,18 +1014,18 @@ flipper_length_mm:speciesChinstrap    flipper_length_mm:speciesGentoo
 </div>
 </div>
 <p>The residual plots are the same as before:</p>
-<div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-11_9e50c3d742d251650fcc7451eaffb86a">
+<div class="cell" data-hash="L20-Logistic_cache/html/unnamed-chunk-11_8a0e457c1a5875e5707845a6386bc58f">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(log_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L22-Logistic_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The predictions can either be on the logit scale (<code>type = "link"</code>, the default) or on the response scale (probabilities).</p>
-<div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-12_56b33efc2dce282d84480efb3f042589">
+<div class="cell" data-hash="L20-Logistic_cache/html/unnamed-chunk-12_62be0bfbf2b46cd6a723864c8906b4ca">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(log_spec, <span class="at">type =</span> <span class="st">"response"</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1042,7 +1036,7 @@ flipper_length_mm:speciesChinstrap    flipper_length_mm:speciesGentoo
 </div>
 </div>
 <p>Regularization is often used with logistic regression (in python’s scikit-learn package, Ridge regularization is used by default without warning the user).</p>
-<div class="cell" data-hash="L22-Logistic_cache/html/unnamed-chunk-13_ffac1882fb16317566de3b3fba070a09">
+<div class="cell" data-hash="L20-Logistic_cache/html/unnamed-chunk-13_6c9a1e21182c95be87576c45e75eefa6">
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
@@ -1080,8 +1074,8 @@ speciesGentoo:flipper_length_mm      .         </code></pre>
 </div>
 </section>
 </section>
-<section id="multinomial-regression" class="level2" data-number="21.3">
-<h2 data-number="21.3" class="anchored" data-anchor-id="multinomial-regression"><span class="header-section-number">21.3</span> Multinomial Regression</h2>
+<section id="multinomial-regression" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="multinomial-regression"><span class="header-section-number">20.3</span> Multinomial Regression</h2>
 <section id="multinomial-logistic-regression-k-classes" class="level3">
 <h3 class="anchored" data-anchor-id="multinomial-logistic-regression-k-classes">Multinomial Logistic Regression: K Classes</h3>
 <p>We have a total probability of 1 to distribute across the classes,</p>
@@ -1465,13 +1459,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L21-Regularization.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span>
+      <a href="./L19-Regularization.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L23-Review.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L21-Review.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-15">
+<meta name="dcterms.date" content="2024-05-20">
 
 <title>STAR Notes - 7&nbsp; ESS Exampless</title>
 <style>
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L09-Serial_Correlation.html" rel="next">
+<link href="./L08-Hat-Resid_Plots-Cook.html" rel="next">
 <link href="./L06-Extra_Sums_of_Squares.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -200,26 +200,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></span></a>
+  <a href="./L08-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
+  <a href="./L09-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
+  <a href="./L10-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
       </ul>
@@ -235,50 +229,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
+  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-NonLinear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
+  <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
+  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -294,14 +288,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L22-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -317,8 +311,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L23-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -415,6 +409,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#extra-sum-of-squares" id="toc-extra-sum-of-squares" class="nav-link" data-scroll-target="#extra-sum-of-squares">Extra Sum of Squares</a></li>
   <li><a href="#penguins-example" id="toc-penguins-example" class="nav-link" data-scroll-target="#penguins-example">Penguins Example</a></li>
   <li><a href="#where-do-these-values-come-from" id="toc-where-do-these-values-come-from" class="nav-link" data-scroll-target="#where-do-these-values-come-from">Where do these values come from?</a></li>
+  <li><a href="#calculating-the-sse" id="toc-calculating-the-sse" class="nav-link" data-scroll-target="#calculating-the-sse">Calculating the SSE</a></li>
   <li><a href="#final-calculations" id="toc-final-calculations" class="nav-link" data-scroll-target="#final-calculations">Final Calculations</a></li>
   </ul></li>
   <li><a href="#ess-algorithms" id="toc-ess-algorithms" class="nav-link" data-scroll-target="#ess-algorithms"><span class="header-section-number">7.2</span> ESS Algorithms</a>
@@ -424,13 +419,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#type-2-sequential-sum-of-squares-rs-default" id="toc-type-2-sequential-sum-of-squares-rs-default" class="nav-link" data-scroll-target="#type-2-sequential-sum-of-squares-rs-default">Type 2: Sequential Sum-of-Squares (R’s Default)</a></li>
   <li><a href="#type-3-last-entry-sum-of-squares" id="toc-type-3-last-entry-sum-of-squares" class="nav-link" data-scroll-target="#type-3-last-entry-sum-of-squares">Type 3: Last-entry sum-of-squares</a></li>
   <li><a href="#back-to-type-2-anova-sequental-sum-of-squares" id="toc-back-to-type-2-anova-sequental-sum-of-squares" class="nav-link" data-scroll-target="#back-to-type-2-anova-sequental-sum-of-squares">Back to Type 2 ANOVA (Sequental Sum-of-Squares)</a></li>
+  <li><a href="#type-2-anova-in-r" id="toc-type-2-anova-in-r" class="nav-link" data-scroll-target="#type-2-anova-in-r">Type 2 ANOVA in R</a></li>
+  <li><a href="#special-case-polynomial-regression" id="toc-special-case-polynomial-regression" class="nav-link" data-scroll-target="#special-case-polynomial-regression">Special Case: Polynomial Regression</a></li>
+  <li><a href="#polynomial-regression-data-context" id="toc-polynomial-regression-data-context" class="nav-link" data-scroll-target="#polynomial-regression-data-context">Polynomial Regression Data Context</a></li>
+  <li><a href="#sequential-ss-for-polynomial-regression" id="toc-sequential-ss-for-polynomial-regression" class="nav-link" data-scroll-target="#sequential-ss-for-polynomial-regression">Sequential SS for Polynomial Regression</a></li>
   <li><a href="#a-note-on-calculations" id="toc-a-note-on-calculations" class="nav-link" data-scroll-target="#a-note-on-calculations">A note on calculations</a></li>
+  <li><a href="#change-in-anova-when-adding-predictors" id="toc-change-in-anova-when-adding-predictors" class="nav-link" data-scroll-target="#change-in-anova-when-adding-predictors">Change in ANOVA when adding predictors</a></li>
   <li><a href="#type-iii-ss-in-r" id="toc-type-iii-ss-in-r" class="nav-link" data-scroll-target="#type-iii-ss-in-r">Type III SS in R</a></li>
   </ul></li>
   <li><a href="#modelling-strategies" id="toc-modelling-strategies" class="nav-link" data-scroll-target="#modelling-strategies"><span class="header-section-number">7.3</span> Modelling Strategies</a>
   <ul class="collapse">
   <li><a href="#the-art-of-modelling" id="toc-the-art-of-modelling" class="nav-link" data-scroll-target="#the-art-of-modelling">The Art of Modelling</a></li>
+  <li><a href="#choosing-predictor-sets" id="toc-choosing-predictor-sets" class="nav-link" data-scroll-target="#choosing-predictor-sets">Choosing Predictor Sets</a></li>
+  <li><a href="#advice" id="toc-advice" class="nav-link" data-scroll-target="#advice">Advice</a></li>
+  <li><a href="#the-guiding-principle-of-model-selection" id="toc-the-guiding-principle-of-model-selection" class="nav-link" data-scroll-target="#the-guiding-principle-of-model-selection">The Guiding Principle of Model Selection</a></li>
   </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">7.4</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -463,7 +467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-15</p>
+      <p class="date">2024-05-20</p>
     </div>
   </div>
   
@@ -486,13 +490,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="penguins-example" class="level3">
 <h3 class="anchored" data-anchor-id="penguins-example">Penguins Example</h3>
 <p>The R code to do this test is as follows. In this code, we believe that the bill length and bill depth are strongly correlated, and thus we cannot trust the CIs that we get from <code>summary(lm())</code> (we saw “Confidence Regions” in the slides and code for L05).</p>
-<div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-2_a7a471b0f3596dea66363b632d5bf79e">
+<div class="cell" data-hash="L07-Exampless_cache/html/nrow-peng_2769790414dac1051da27a3d74083fb5">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(peng)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 333</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-3_c4d1946f439a1edab0db525f1edff394">
+<div class="cell" data-hash="L07-Exampless_cache/html/ess-bills_2ac685cca8327d84ec722917ae21d7ab">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm,</span>
@@ -512,7 +516,7 @@ Model 2: body_mass_g ~ flipper_length_mm + bill_length_mm + bill_depth_mm
 <section id="where-do-these-values-come-from" class="level3">
 <h3 class="anchored" data-anchor-id="where-do-these-values-come-from">Where do these values come from?</h3>
 <p>Let’s try and calculate these values ourselves in a couple different ways!</p>
-<div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-4_722b7fd594d918e6b0bc68af33368147">
+<div class="cell" data-hash="L07-Exampless_cache/html/anova-lm1_9c84839bf93f3e8e2c36d5fe4f76a8da">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
@@ -527,8 +531,11 @@ Residuals         329  50814912    154453
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
+</section>
+<section id="calculating-the-sse" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-the-sse">Calculating the SSE</h3>
 <p>From this model, SSE is 50814912 on 329 degrees of freedom. This is the same as the SSE in the output of <code>anova(lm2, lm1)</code>.</p>
-<div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-5_ed44ac3239574713f402bfd60abe55c6">
+<div class="cell" data-hash="L07-Exampless_cache/html/anova-lm2_ddec8065e39cff309dfbfa7e24dc26cb">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
@@ -547,7 +554,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="final-calculations" class="level3">
 <h3 class="anchored" data-anchor-id="final-calculations">Final Calculations</h3>
 <p>We can calculate <span class="math inline">\(s^2\)</span> as the MSE for the larger model:</p>
-<div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-6_679cdef5703d2ec6f94f99402c3dfed2">
+<div class="cell" data-hash="L07-Exampless_cache/html/s2_6e0e5abaf970154d79d49a22cccad663">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="dv">50814912</span><span class="sc">/</span><span class="dv">329</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>s2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -555,19 +562,24 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <p>And now we can calculate the F-value as expected:</p>
-<div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-7_6350f767ec2d2e6f71c503c127a60240">
+<div class="cell" data-hash="L07-Exampless_cache/html/calc-f_7db524a3877879241901517c8265713b">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">51211963</span> <span class="sc">-</span> <span class="dv">50814912</span>)<span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> s2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.285349</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-8_bfd8902a7704d9ff127fab72ce7ee8d9">
+<div class="cell" data-hash="L07-Exampless_cache/html/calc-f-pval_9f4fd50f6d992aa7e77098deef57137d">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="dv">1</span><span class="sc">-</span> <span class="fu">pf</span>(<span class="fl">1.28539</span>, <span class="dv">2</span>, <span class="dv">329</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2779278</code></pre>
 </div>
 </div>
-<p>It is left as an exercise to calculate these values based on matrix multiplication. I highly suggest trying it with and without correction factors to convince yourself that both of them work (and to convince yourself that you know what the correction factor is and why it’s necessary).</p>
+<ul>
+<li>Try to calculate these values based on matrix multiplication.
+<ul>
+<li>With and without correction factors!</li>
+</ul></li>
+</ul>
 </section>
 </section>
 <section id="ess-algorithms" class="level2" data-number="7.2">
@@ -576,10 +588,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h3 class="anchored" data-anchor-id="main-idea">Main Idea</h3>
 <ul>
 <li><strong>ESS</strong>: Test a subset of predictors for at least one significant coefficient.</li>
+<li>We might want to check <em>all</em> predictors one-by-one.
+<ul>
+<li>This is much less common than the textbook may lead you to believe</li>
+</ul></li>
 </ul>
-<p>However, there are also times where we want to check <em>all</em> predictors one-by-one.</p>
-<p>This is much less common than the textbook may lead you to believe (and I strongly recommend against it), but it still happens.</p>
-<p>There are three ways to calculate the ESS for <em>all</em> predictors. They are very helpfully labelled Types I, II, and III.</p>
+<p>There are 3 ways to calculate the ESS for <em>all</em> predictors. They are very helpfully labelled Types I, II, and III.</p>
 </section>
 <section id="type-i-sequential-sum-of-squares-with-interactions" class="level3">
 <h3 class="anchored" data-anchor-id="type-i-sequential-sum-of-squares-with-interactions">Type I: Sequential Sum-of-Squares (with interactions)</h3>
@@ -604,8 +618,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Check <span class="math inline">\(SS(\hat\beta_3|\hat\beta_0, \hat\beta_1, \hat\beta_2)\)</span></li>
 <li>…</li>
 </ul>
-<p>Results in an ordered sequence of “is it worth adding x1?”, “if we have x1, is it worth adding x2?”, etc.</p>
-<p><em>Only meaningful if the predictors are naturally ordered</em> (such as polynomial regression, see below).</p>
+<ul>
+<li>Results in an ordered sequence of “is it worth adding x1?”, “if we have x1, is it worth adding x2?”, etc.</li>
+<li><em>Only meaningful if the predictors are naturally ordered</em> (such as polynomial regression, see below).</li>
+</ul>
 </section>
 <section id="type-3-last-entry-sum-of-squares" class="level3">
 <h3 class="anchored" data-anchor-id="type-3-last-entry-sum-of-squares">Type 3: Last-entry sum-of-squares</h3>
@@ -614,13 +630,18 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li>Check <span class="math inline">\(SS(\hat\beta_2|\hat\beta_0, \hat\beta_1, \hat\beta_3)\)</span></li>
 <li>Check <span class="math inline">\(SS(\hat\beta_3|\hat\beta_0, \hat\beta_1, \hat\beta_2)\)</span></li>
 </ul>
-<p>This checks whether adding predictor <span class="math inline">\(x_i\)</span> is worth it, considering all other predictors are already in the model.</p>
+<ul>
+<li>Whether adding predictor <span class="math inline">\(x_i\)</span> is worth it, given that all other predictors are already in the model.</li>
+</ul>
 </section>
 <section id="back-to-type-2-anova-sequental-sum-of-squares" class="level3">
 <h3 class="anchored" data-anchor-id="back-to-type-2-anova-sequental-sum-of-squares">Back to Type 2 ANOVA (Sequental Sum-of-Squares)</h3>
 <p>By default, R does sequential sum-of-squares. This is a very important fact to know!</p>
 <p>In Types I and II, <em>the order of the predictors matters</em>. In fact, you cannot make any conclusions about the significance that doesn’t make reference to this fact.</p>
-<div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-9_9508506c38c18db560728d6d83c66fe5">
+</section>
+<section id="type-2-anova-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="type-2-anova-in-r">Type 2 ANOVA in R</h3>
+<div class="cell" data-hash="L07-Exampless_cache/html/type-I_e9ca96868d8c7b25da2c3d21ddefd84f">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Try changing the order to see how the significance changes!</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> qsec <span class="sc">+</span> disp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -645,18 +666,35 @@ disp        -0.0001278962 0.01056025 -0.01211109 0.9904228666
 wt          -5.0344097167 1.22411993 -4.11267686 0.0003104157</code></pre>
 </div>
 </div>
-<p>However, there is at least one case where we do care about the order of the predictors. Consider <strong>polynomial regression</strong>, which we will return to later. For now, it is sufficient to know that we’re dealing with the model: <span class="math display">\[
+</section>
+<section id="special-case-polynomial-regression" class="level3">
+<h3 class="anchored" data-anchor-id="special-case-polynomial-regression">Special Case: Polynomial Regression</h3>
+<p><span class="math display">\[
 y_i = \beta_0 + \beta_1x_i + \beta_2x_i^2 + \beta_3x_i^3 + ... + \beta_{p-1}x_i^{p-1} + \epsilon_i
-\]</span> In this model, notice that we only have one predictor <span class="math inline">\(x\)</span>, but we have performed non-linear transformations (HMWK: why is it important that the transformations are non-linear?).</p>
-<p>In this case, a sequential SS setup makes quite a bit of sense. Given we have a linear model, is it worth making it quadratic? Given that we have a quadratic model, is it worth making it cubic? Given that we have a cubic model…</p>
+\]</span></p>
+<p>We only have one predictor <span class="math inline">\(x\)</span>, but we have performed non-linear transformations (HMWK: why is it important that the transformations are non-linear?).</p>
+<p>What order of polynomial should we fit?</p>
+</section>
+<section id="polynomial-regression-data-context" class="level3">
+<h3 class="anchored" data-anchor-id="polynomial-regression-data-context">Polynomial Regression Data Context</h3>
+<ol type="1">
+<li>Given we have a linear model, is it worth making it quadratic?</li>
+<li>Given that we have a quadratic model, is it worth making it cubic?</li>
+<li>Given that we have a cubic model…</li>
+</ol>
 <p>In the code below, I use the <code>I()</code> function (the <code>I</code> means identity) to make the polynomial model. The “formula” notation in R, <code>y ~ x + z</code>, has a lot of options. Including <code>x^2</code>, rather than <code>I(x^2)</code>, makes R think we want to do one of the more fancy things, but the <code>I()</code> tells it that we want to literally square it. In the future, we’ll use a better way of doing this.</p>
-<div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-10_4412b7b3c6fda0abfd8e0a4629627fd8">
+<div class="cell" data-hash="L07-Exampless_cache/html/polynomial-type-1-plot_e239b21c0b36e82f2726bfd48197d87f">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">600</span>, <span class="dv">0</span>, <span class="dv">20</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>x <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="fl">0.3</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">600</span>, <span class="dv">0</span>, <span class="dv">100</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L07-Exampless_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="L07-Exampless_files/figure-html/polynomial-type-1-plot-1.png" class="img-fluid" width="672"></p>
 </div>
+</div>
+</section>
+<section id="sequential-ss-for-polynomial-regression" class="level3">
+<h3 class="anchored" data-anchor-id="sequential-ss-for-polynomial-regression">Sequential SS for Polynomial Regression</h3>
+<div class="cell" data-hash="L07-Exampless_cache/html/polynomial-type-1-anova_57a7dbd944920e0694cf2e74e3fa4426">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">6</span>))</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -684,13 +722,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><code>anova(lm(mpg ~ disp, data = mtcars))</code></li>
 <li><code>anova(lm(mpg ~ disp + wt, data = mtcars))</code></li>
 </ul>
-<p>Both tables will have the first row labelled “disp” and include its sum-of-squares along with the F-value. Do you expect these two rows to be the same?</p>
+<p>Both tables will have the first row labelled “disp” and include its sum-of-squares along with the F-value. Do you expect these two rows to be exactly the same?</p>
 <p>Think about it.</p>
 <p>Think a little more.</p>
 <p>What values do you expect to be used in the calculation?</p>
 <p>Which sums-of-squares? Which variances?</p>
-<p>Let’s test it out:</p>
-<div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-11_ae8312139a68498aae8a402012539ef8">
+<p>Let’s test it out.</p>
+</section>
+<section id="change-in-anova-when-adding-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="change-in-anova-when-adding-predictors">Change in ANOVA when adding predictors</h3>
+<div class="cell" data-hash="L07-Exampless_cache/html/add-predictor-changes-anova_5bd48dd5b4152f1f5ddca1076a055f3f">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
@@ -715,13 +756,13 @@ Residuals 29 246.68    8.51
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>They’re different! As homework, find out where the F value for <code>disp</code> is coming from in both tables. (All required values are in the table, and the answer was stated earlier!)</p>
+<p>They’re different!</p>
 <p>With both the polynomial and the <code>disp</code> example, we see that the interpretation of the anova table is highly, extremely, extraordinarily dependent on which predictors we choose to include <em>AND</em> the order in which we choose to include them. So, yeah. Be careful.</p>
 </section>
 <section id="type-iii-ss-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="type-iii-ss-in-r">Type III SS in R</h3>
 <p>There isn’t a built-in function to do this. To create this, we can either use our math (my preferred method) or test each one individually.</p>
-<div class="cell" data-hash="L07-Exampless_cache/html/unnamed-chunk-12_507aa9991799e6900abb1cf0e487c3b2">
+<div class="cell" data-hash="L07-Exampless_cache/html/anova-type-3_79d6c2a0b69b24f1c6da09966d24a36c">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars),</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars)</span>
@@ -772,11 +813,25 @@ Model 2: mpg ~ disp + wt + qsec
 <h2 data-number="7.3" class="anchored" data-anchor-id="modelling-strategies"><span class="header-section-number">7.3</span> Modelling Strategies</h2>
 <section id="the-art-of-modelling" class="level3">
 <h3 class="anchored" data-anchor-id="the-art-of-modelling">The Art of Modelling</h3>
-<p>If you are in a situation where you think to yourself “my predictors are logically ordered and I want to check for the significance of all of them one-by-one”, you want Type II.</p>
-<p>If you think “they’re not ordered but I want to check significance”, you might want to check the overall F test for all predictors and then check t-tests for individual parameters.</p>
-<p>If you think “what would happen if each predictor were the last one I put in the model”, then you want Type III. I can’t think of a good situation for Type I - you’re pretty much guaranteed to have a multiple comparisons issue.</p>
-<p>I also want to call attention to the fact that all of these algorithms assume that you have a set of predictors that you already know you want to check. If you noticed, there are other predictors in the mtcars dataset that we did not consider!</p>
-<p>We’ll slowly build up some intuition over time, but my advice for choosing which predictors to include is as follows:</p>
+<ul>
+<li>If you think to yourself “my predictors are logically ordered and I want to check for the significance of all of them one-by-one”, you want Type II.
+<ul>
+<li>Type 1 error through the roof.</li>
+</ul></li>
+<li>If you think “they’re not ordered but I want to check significance”, check the overall F test for all predictors and then individual t-tests.</li>
+<li>If you think “what would happen if each predictor were the last one I put in the model”, then you want Type III.
+<ul>
+<li>I can’t think of a good for doing this - you’re pretty much guaranteed to have a multiple comparisons issue.</li>
+</ul></li>
+</ul>
+</section>
+<section id="choosing-predictor-sets" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-predictor-sets">Choosing Predictor Sets</h3>
+<p>These algorithms assume that you have a set of predictors that you already know you want to check.</p>
+<p>There are other predictors in the mtcars dataset that we did not consider!</p>
+</section>
+<section id="advice" class="level3">
+<h3 class="anchored" data-anchor-id="advice">Advice</h3>
 <ul>
 <li>Start with a lot of plots.</li>
 <li>Based on the plots and your knowledge of the context, create a candidate set of predictors that you think will be the final model.</li>
@@ -784,10 +839,41 @@ Model 2: mpg ~ disp + wt + qsec
 <li>Based on your knowledge of the context, check significance of groups of predictors that you think are highly correlated.</li>
 <li>Your final model will be based on the tests for groups of (or individual) predictors that you suspect would be relevant.</li>
 </ul>
-<p>The purpose of this method for selecting predictors is to <em>minimize the number of p-values that you check</em>. The ESS techniques that we learned today (especially for the bill length/depth, where our knowledge of the problem informed us of which predictors to check) are an important part of the modelling process, but there is more to learn!</p>
-
-
 </section>
+<section id="the-guiding-principle-of-model-selection" class="level3">
+<h3 class="anchored" data-anchor-id="the-guiding-principle-of-model-selection">The Guiding Principle of Model Selection</h3>
+<p><strong>Minimize the number of p-values that you check.</strong></p>
+<ul>
+<li>ESS tests check a set of predictors, rather than each one individually.
+<ul>
+<li>Fewer p-values!</li>
+</ul></li>
+<li>The Type I, II, and III algorithms are sometimes important, but intuition and knowledge is better!</li>
+</ul>
+</section>
+</section>
+<section id="exercises" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">7.4</span> Exercises</h2>
+<p>Suggested textbook Ch06 exercises: E, I, J, <strong>N, P, Q, R</strong>, X</p>
+<ol type="1">
+<li>Calculate all ANOVA tables in this lesson using matrix multiplication.</li>
+<li>Explain why Type II SS would not be meaningful for the model <span class="math inline">\(y_i = \beta_{p-1}x_i^{p-1} + \beta_{p-2}x_i^{p-2} + ... + \beta_2x_i^2 + \beta_1x_i + \beta_0 + \epsilon_i\)</span>.</li>
+<li>I performed a Type 3 SS ANOVA for the model <span class="math inline">\(bodymass_i = \beta_0 + \beta_1flipperlength + \beta_2billlength\)</span>. A colleague told me that I should have included <span class="math inline">\(billdepth\)</span> in this analysis. Will the results from Type 3 SS ANOVA change when I add in this predictor?</li>
+<li>Describe another situation (not polynomial regression) where Type 2 SS ANOVA would be appropriate. Simulate some relevant data and demonstrate.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution Hints</strong>
+</summary>
+In order for Type 2 SS to be appropriate, the predictors need to have a logical order in which to enter the model. Some examples might include a case where researchers have a particular ranking for the predictors in their study, and want to stop adding predictors to the model as soon as they find the first non-significant predictor (I am still struggling to think of context for this).
+</details>
+<hr>
+<ol start="5" type="1">
+<li>For the penguins data, fit a model with flipper length, bill length, and bill depth (in that order), and check the output of <code>anova()</code>. Reverse the order of predictors and repeat. Which values in the ANOVA table stay the same? Which values change? Why do they change? What does this tell you about interpreting <code>anova()</code> output?</li>
+<li>Give an example of a context where a collection of predictors might be tested all at once.</li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -1146,8 +1232,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L09-Serial_Correlation.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L08-Hat-Resid_Plots-Cook.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

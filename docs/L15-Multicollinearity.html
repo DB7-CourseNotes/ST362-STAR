@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-03">
+<meta name="dcterms.date" content="2024-05-20">
 
-<title>STAR Notes - 22&nbsp; Final Exam Review</title>
+<title>STAR Notes - 15&nbsp; Multicollinearity</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,8 +66,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Lb02-OLS_Estimates.html" rel="next">
-<link href="./L22-Logistic.html" rel="prev">
+<link href="./L16-Modelling_Poorly.html" rel="next">
+<link href="./L14-Dummies.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -79,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L23-Review.html">Review</a></li><li class="breadcrumb-item"><a href="./L23-Review.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L11-Wrong_Model.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L15-Multicollinearity.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -166,85 +200,79 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></span></a>
+  <a href="./L08-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
+  <a href="./L09-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
+  <a href="./L10-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
  <span class="menu-text">Choosing Models</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
+  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-NonLinear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
+  <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
+  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -260,31 +288,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L22-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
  <span class="menu-text">Review</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L23-Review.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -376,26 +404,26 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#summaries" id="toc-summaries" class="nav-link active" data-scroll-target="#summaries"><span class="header-section-number">22.1</span> Summaries</a>
+  <li><a href="#the-problem" id="toc-the-problem" class="nav-link active" data-scroll-target="#the-problem"><span class="header-section-number">15.1</span> The Problem</a>
   <ul class="collapse">
-  <li><a href="#generally-important-things" id="toc-generally-important-things" class="nav-link" data-scroll-target="#generally-important-things">Generally important things</a></li>
-  <li><a href="#extra-topics-lecture" id="toc-extra-topics-lecture" class="nav-link" data-scroll-target="#extra-topics-lecture">“Extra Topics” Lecture</a></li>
-  <li><a href="#getting-the-wrong-model" id="toc-getting-the-wrong-model" class="nav-link" data-scroll-target="#getting-the-wrong-model">Getting the Wrong Model</a></li>
-  <li><a href="#transforming-the-predictors" id="toc-transforming-the-predictors" class="nav-link" data-scroll-target="#transforming-the-predictors">Transforming the Predictors</a></li>
-  <li><a href="#transforming-the-response" id="toc-transforming-the-response" class="nav-link" data-scroll-target="#transforming-the-response">Transforming the Response</a></li>
-  <li><a href="#dummy-variables" id="toc-dummy-variables" class="nav-link" data-scroll-target="#dummy-variables">Dummy Variables</a></li>
-  <li><a href="#multicollinearity" id="toc-multicollinearity" class="nav-link" data-scroll-target="#multicollinearity">Multicollinearity</a></li>
-  <li><a href="#best-subset-selection" id="toc-best-subset-selection" class="nav-link" data-scroll-target="#best-subset-selection">Best Subset Selection</a></li>
-  <li><a href="#degrees-of-freedom" id="toc-degrees-of-freedom" class="nav-link" data-scroll-target="#degrees-of-freedom">Degrees of Freedom</a></li>
-  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization">Regularization</a></li>
-  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification">Classification</a></li>
+  <li><a href="#the-problem-with-multicollinearity" id="toc-the-problem-with-multicollinearity" class="nav-link" data-scroll-target="#the-problem-with-multicollinearity">The Problem with Multicollinearity</a></li>
+  <li><a href="#consequences-of-the-problem" id="toc-consequences-of-the-problem" class="nav-link" data-scroll-target="#consequences-of-the-problem">Consequences of the Problem</a></li>
+  <li><a href="#another-formulation-of-the-problem" id="toc-another-formulation-of-the-problem" class="nav-link" data-scroll-target="#another-formulation-of-the-problem">Another Formulation of the Problem</a></li>
+  <li><a href="#the-source-of-the-problem" id="toc-the-source-of-the-problem" class="nav-link" data-scroll-target="#the-source-of-the-problem">The Source of the Problem</a></li>
+  <li><a href="#detecting-the-problem" id="toc-detecting-the-problem" class="nav-link" data-scroll-target="#detecting-the-problem">Detecting the Problem</a></li>
+  <li><a href="#plotting-corx" id="toc-plotting-corx" class="nav-link" data-scroll-target="#plotting-corx">Plotting <span class="math inline">\(Cor(X)\)</span></a></li>
+  <li><a href="#detecting-the-problem-vhatunderlinebeta" id="toc-detecting-the-problem-vhatunderlinebeta" class="nav-link" data-scroll-target="#detecting-the-problem-vhatunderlinebeta">Detecting the Problem: <span class="math inline">\(V(\hat{\underline\beta})\)</span></a></li>
+  <li><a href="#the-variance-inflation-factor" id="toc-the-variance-inflation-factor" class="nav-link" data-scroll-target="#the-variance-inflation-factor">The Variance Inflation Factor</a></li>
+  <li><a href="#interpreting-the-variance-inflation-factor" id="toc-interpreting-the-variance-inflation-factor" class="nav-link" data-scroll-target="#interpreting-the-variance-inflation-factor">Interpreting the Variance Inflation Factor</a></li>
   </ul></li>
-  <li><a href="#midterm-solutions" id="toc-midterm-solutions" class="nav-link" data-scroll-target="#midterm-solutions"><span class="header-section-number">22.2</span> Midterm Solutions</a>
+  <li><a href="#will-scaling-fix-the-problem" id="toc-will-scaling-fix-the-problem" class="nav-link" data-scroll-target="#will-scaling-fix-the-problem"><span class="header-section-number">15.2</span> Will Scaling Fix the Problem</a>
   <ul class="collapse">
-  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">ANOVA</a></li>
-  <li><a href="#biasvariance" id="toc-biasvariance" class="nav-link" data-scroll-target="#biasvariance">Bias/Variance</a></li>
-  <li><a href="#biasvariance-1" id="toc-biasvariance-1" class="nav-link" data-scroll-target="#biasvariance-1">Bias/Variance</a></li>
-  <li><a href="#biasvariance-2" id="toc-biasvariance-2" class="nav-link" data-scroll-target="#biasvariance-2">Bias/Variance</a></li>
+  <li><a href="#scaling-the-predictors" id="toc-scaling-the-predictors" class="nav-link" data-scroll-target="#scaling-the-predictors">Scaling the Predictors</a></li>
+  </ul></li>
+  <li><a href="#fixing-the-problem" id="toc-fixing-the-problem" class="nav-link" data-scroll-target="#fixing-the-problem"><span class="header-section-number">15.3</span> Fixing The Problem</a>
+  <ul class="collapse">
+  <li><a href="#one-way-to-fix-the-problem" id="toc-one-way-to-fix-the-problem" class="nav-link" data-scroll-target="#one-way-to-fix-the-problem">One way to fix the problem</a></li>
+  <li><a href="#removing-predictors" id="toc-removing-predictors" class="nav-link" data-scroll-target="#removing-predictors">Removing predictors</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -405,7 +433,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></h1>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></h1>
 </div>
 
 
@@ -418,7 +446,7 @@ ul.task-list li input[type="checkbox"] {
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Wilfrid Laurier University
+            <strong>Jam TBD</strong>
           </p>
       </div>
     </div>
@@ -429,7 +457,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-03</p>
+      <p class="date">2024-05-20</p>
     </div>
   </div>
   
@@ -439,216 +467,204 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="summaries" class="level2" data-number="22.1">
-<h2 data-number="22.1" class="anchored" data-anchor-id="summaries"><span class="header-section-number">22.1</span> Summaries</h2>
-<section id="generally-important-things" class="level3">
-<h3 class="anchored" data-anchor-id="generally-important-things">Generally important things</h3>
+<section id="the-problem" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="the-problem"><span class="header-section-number">15.1</span> The Problem</h2>
+<section id="the-problem-with-multicollinearity" class="level3">
+<h3 class="anchored" data-anchor-id="the-problem-with-multicollinearity">The Problem with Multicollinearity</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li>The bias and variance of <span class="math inline">\(\hat{\underline\beta}\)</span>.</li>
-<li>Interpreting coefficients and inference.</li>
-<li>Variance, rather than point estimates.</li>
-<li>Interpreting residual plots.</li>
-<li>Choosing a reasonable model given the context of the problem.</li>
-</ul>
-</section>
-<section id="extra-topics-lecture" class="level3">
-<h3 class="anchored" data-anchor-id="extra-topics-lecture">“Extra Topics” Lecture</h3>
+<li>Multiple regression fits a hyperplane</li>
+<li>If the points form a “tube”, an infinite number of hyperplanes work.
 <ul>
-<li>Standardizing
-<ul>
-<li>Effect on parameter estimates</li>
-</ul></li>
-<li>General Linear Hypotheses
-<ul>
-<li>Full versus hypothesized model, and the form of the F test
-<ul>
-<li>(Not the math, but possibly the degrees of freedom)</li>
-</ul></li>
-</ul></li>
-<li>Weighted/Generalized Least Squares
-<ul>
-<li>Understand what <span class="math inline">\(V\)</span> and <span class="math inline">\(P\)</span> represent.</li>
-<li>Manipulate formulas by replacing <span class="math inline">\(\underline f\)</span> with <span class="math inline">\(P^{-1}\underline \epsilon\)</span>.</li>
-<li>Suggest <span class="math inline">\(V\)</span> based on the context of the question.</li>
+<li>Rotate plane around axis of tube.</li>
 </ul></li>
 </ul>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="L15-Multicollinearity_cache/html/plot3d_5dec9c45ad04b5ea046f65ee79f75a06">
+<div class="cell-output-display">
+<p><img src="L15-Multicollinearity_files/figure-html/plot3d-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="getting-the-wrong-model" class="level3">
-<h3 class="anchored" data-anchor-id="getting-the-wrong-model">Getting the Wrong Model</h3>
+<section id="consequences-of-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="consequences-of-the-problem">Consequences of the Problem</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>High cor. in <span class="math inline">\(X\)</span> <span class="math inline">\(\implies\)</span> high cor. in <span class="math inline">\(\hat{\underline\beta}\)</span>.</p>
 <ul>
-<li>Bias due to missing predictors.</li>
-<li>What does it even mean to have the “right” model?
-<ul>
-<li>Proxy measures and their effect on the other parameter estimates</li>
-</ul></li>
+<li>Many combos of <span class="math inline">\(\hat{\underline\beta}\)</span> are equally likely</li>
+<li>No meaningful CIs</li>
 </ul>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-hash="L15-Multicollinearity_cache/html/multicor-consequences_f33fe72afa6b8334172d9e1392f9d09e">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="at">xlab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta)[<span class="dv">1</span>]), </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta[<span class="dv">2</span>])),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Estimated betas for correlated</span><span class="sc">\n</span><span class="st">predictors, many samples"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L15-Multicollinearity_files/figure-html/multicor-consequences-1.png" class="img-fluid" width="384"></p>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="transforming-the-predictors" class="level3">
-<h3 class="anchored" data-anchor-id="transforming-the-predictors">Transforming the Predictors</h3>
+<section id="another-formulation-of-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="another-formulation-of-the-problem">Another Formulation of the Problem</h3>
+<p>Consider the model <span class="math inline">\(y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i\)</span>, where <span class="math display">\[
+x_{i1} = a + bx_{i2} + z_i
+\]</span> where <span class="math inline">\(z_i\)</span> represents some extra uncertainty.</p>
+<p>Fitting the model, we could:</p>
 <ul>
-<li>Polynomial regression
-<ul>
-<li>When to use them</li>
-<li>Lower order terms</li>
-<li>Extrapolation</li>
-</ul></li>
-<li>Other transformations (e.g.&nbsp;log, combining predictors, etc.)</li>
+<li>Set <span class="math inline">\(\hat\beta_1\)</span> to 0, let <span class="math inline">\(x_2\)</span> model all of the variance.</li>
+<li>Set <span class="math inline">\(\hat\beta_2\)</span> to 0, let <span class="math inline">\(x_1\)</span> model all of the variance.</li>
+<li>Let <span class="math inline">\(x_1\)</span> model any proportion of the variance, let <span class="math inline">\(x_2\)</span> model the rest.</li>
 </ul>
+<p>The parameter estimates are <strong>not unique</strong>.</p>
 </section>
-<section id="transforming-the-response" class="level3">
-<h3 class="anchored" data-anchor-id="transforming-the-response">Transforming the Response</h3>
-<ul>
-<li>Explain “Stabilizing the variance”</li>
-<li>Diagnosing the need for a transformation</li>
-<li>Choosing transformations</li>
-<li>The effect on the model
-<ul>
-<li>E.g. multiplicative errors, changes to the parameter estimates</li>
-</ul></li>
-</ul>
-</section>
-<section id="dummy-variables" class="level3">
-<h3 class="anchored" data-anchor-id="dummy-variables">Dummy Variables</h3>
-<ul>
-<li>Definition and interpretation
-<ul>
-<li><code>factor(cyl)8</code> in the coefficients table</li>
-</ul></li>
-<li>If there are three categories, we need two dummies
-<ul>
-<li>“Reference” category is absorbed into the intercept.</li>
-</ul></li>
-<li>Interaction terms: different intercept, different slope.</li>
-<li>Significance of a dummy variable (or interaction with one)</li>
-<li>Extra sum-of-squares to test whether categories are statistically different
-<ul>
-<li>What kind of test is this? ANOVA? ANCOVA?</li>
-</ul></li>
-</ul>
-</section>
-<section id="multicollinearity" class="level3">
-<h3 class="anchored" data-anchor-id="multicollinearity">Multicollinearity</h3>
-<ul>
-<li>Why it increases variance (many different parameter combinations are equivalent)</li>
-<li>Detecting via the variance inflation factor
-<ul>
-<li>Approx 10 is bad, but this is just a rule-of-thumb.</li>
-</ul></li>
-<li>What to do about it, and what it means for interpreting coefficients.</li>
-</ul>
-</section>
-<section id="best-subset-selection" class="level3">
-<h3 class="anchored" data-anchor-id="best-subset-selection">Best Subset Selection</h3>
-<ul>
-<li>Goal: Inference or prediction?
-<ul>
-<li>How does Subset Selection fit into this?</li>
-</ul></li>
-<li>General idea of the algorithms.
-<ul>
-<li>Don’t need to know Mallow’s Cp etc.</li>
-</ul></li>
-<li>Why the p-values can’t really be trusted.</li>
-<li>Useful as a preliminary step (sometimes).</li>
-</ul>
-</section>
-<section id="degrees-of-freedom" class="level3">
-<h3 class="anchored" data-anchor-id="degrees-of-freedom">Degrees of Freedom</h3>
-<ul>
-<li>General modelling strategies.</li>
-<li>Choosing transformations based on domain knowledge.</li>
-<li>Being explicit about the decisions made while modelling.</li>
-</ul>
-</section>
-<section id="regularization" class="level3">
-<h3 class="anchored" data-anchor-id="regularization">Regularization</h3>
-<ul>
-<li>It’s just linear regression with “smaller” slope estimates!
-<ul>
-<li>Intercept isn’t constrained.</li>
-<li>Some slopes can be bigger than the slopes for linear regression, but sum of abs/squares is smaller.</li>
-</ul></li>
-<li>Regularization prevents overfitting.
-<ul>
-<li>Choose the penalty parameter <span class="math inline">\(\lambda\)</span> by minimizing out-of-sample prediction error, measured via cross-validation.</li>
-<li>Within 1 SE of minimum MSE leads to a simpler (more regularized) model.</li>
-</ul></li>
-<li>Adds bias, which is a good thing?</li>
-<li><em>Requires</em> standardization of the predictors.</li>
-<li>LASSO sets parameters to 0, Ridge does not.</li>
-</ul>
-</section>
-<section id="classification" class="level3">
-<h3 class="anchored" data-anchor-id="classification">Classification</h3>
-<ul>
-<li>Response values are 0 or 1
-<ul>
-<li><em>Expected</em> value of <span class="math inline">\(y\)</span> is the proportion of 1s given a value of <span class="math inline">\(x\)</span>.</li>
-<li>Predictions can be converted to 0s and 1s, with two types of errors (confusion matrix).</li>
-</ul></li>
-<li>Logistic function looks like an “S”
-<ul>
-<li>Exact shape determined by linear predictor <span class="math inline">\(\eta(X) = X\underline\beta\)</span></li>
-</ul></li>
-<li>Other than transformations of response, all <code>lm</code> topics apply.
-<ul>
-<li>Including regularization!</li>
-</ul></li>
-<li>“Residuals” are weird
-<ul>
-<li>Not “observed minus expected” anymore!</li>
-</ul></li>
-</ul>
-</section>
-</section>
-<section id="midterm-solutions" class="level2" data-number="22.2">
-<h2 data-number="22.2" class="anchored" data-anchor-id="midterm-solutions"><span class="header-section-number">22.2</span> Midterm Solutions</h2>
-<section id="anova" class="level3 t">
-<h3 class="t anchored" data-anchor-id="anova">ANOVA</h3>
-<p>Explain how a hypotheses test based on the ratio <span class="math inline">\(MS_{Reg}/MS_E\)</span> in the ANOVA table is a test for whether any of the slope parameters are 0.</p>
-<ul>
-<li>A line with all slopes equal to 0 is a horizontal line, which will have 0 variance around <span class="math inline">\(\bar y\)</span>, i.e.&nbsp;<span class="math inline">\(MS_{Reg} = 0\)</span>.</li>
-<li>Due to random chance, we will never actually get <span class="math inline">\(MS_{Reg} = 0\)</span>. Dividing by MSE gives us a way to evaluate the size of <span class="math inline">\(MS_{Reg}\)</span>.</li>
-</ul>
-</section>
-<section id="biasvariance" class="level3 t">
-<h3 class="t anchored" data-anchor-id="biasvariance">Bias/Variance</h3>
-<p>For this question, assume that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>.</p>
-<ol type="1">
-<li>Given the model <span class="math inline">\(y_i = \beta_0 + \epsilon_i\)</span>, show that <span class="math inline">\(\hat\beta_0 = \bar y\)</span> minimizes the sum of squared error.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-\frac{1}{n}\sum(y_i - \hat y)^2 &amp;= \frac{1}{n}\sum(y_i - \beta_0)^2\\
-\frac{d}{d\beta}\frac{1}{n} &amp;= \frac{1}{n}\sum(y_i - \beta_0)^2\\
-&amp;= \frac{2}{n}(\sum y_i - n\beta_0) \stackrel{set}{=}0\\
-\implies \frac{2}{n}\sum y_i &amp;= \frac{2}{n}n\beta_0 \implies \bar y = \beta_0
-\end{align*}\]</span></p>
-<p>This is a minimum since this is a polynomial in <span class="math inline">\(\beta_0\)</span> with a positive coefficient for <span class="math inline">\(\beta_0\)</span>.</p>
-</section>
-<section id="biasvariance-1" class="level3 t">
-<h3 class="t anchored" data-anchor-id="biasvariance-1">Bias/Variance</h3>
-<p>For this question, assume that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>.</p>
-<ol start="2" type="1">
-<li>Given the model <span class="math inline">\(y_i = \beta_0 + \epsilon_i\)</span>, show that <span class="math inline">\(E(\hat\beta_0) = \beta_0\)</span> and <span class="math inline">\(V(\hat\beta_0) = \sigma^2/n\)</span>.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-E(\hat\beta_0) &amp;= E\left(\frac{1}{n}\sum y_i\right)= \frac{1}{n}\sum E(y_i)\\
-&amp;= \frac{1}{n}\sum E(\beta_0 + \epsilon_i)= \frac{1}{n}n\beta_0 = \beta_0
-\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}
-V(\hat\beta_0) &amp;= V\left(\frac{1}{n}\sum y_i\right)= \frac{1}{n^2}\sum V(y_i)\\
-&amp;= \frac{1}{n^2}\sum V(\beta_0 + \epsilon_i)= \frac{1}{n^2}n\sigma^2 = \frac{\sigma^2}{n}
-\end{align*}\]</span></p>
-</section>
-<section id="biasvariance-2" class="level3 t">
-<h3 class="t anchored" data-anchor-id="biasvariance-2">Bias/Variance</h3>
-<p>For this question, assume that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>.</p>
-<ol start="3" type="1">
-<li>Now consider the multiple linear regression model <span class="math inline">\(Y = X\beta + \underline\epsilon\)</span>, where we know that <span class="math inline">\(\hat{\underline{\beta}} = (X^TX)^{-1}X^TY\)</span>. Show that <span class="math inline">\(E(\hat{\underline{\beta}}) = \underline{\beta}\)</span>.</li>
-</ol>
+<section id="the-source-of-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="the-source-of-the-problem">The Source of the Problem</h3>
 <p><span class="math display">\[
-E(\hat{\underline{\beta}}) = E((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^TE(Y) = (X^TX)^{-1}X^TX\underline\beta = \underline\beta
+\hat{\underline{\beta}} = (X^TX)^{-1}X^TY,\quad V(\hat{\underline{\beta}}) = (X^TX)^{-1}\sigma^2
 \]</span></p>
+<ul>
+<li>If two columns of <span class="math inline">\(X\)</span> are <strong>linearly dependent</strong>, then <span class="math inline">\(X^TX\)</span> is <strong>singular</strong>.
+<ul>
+<li>Constant predictor value (linearly dependent with column of 1s).</li>
+<li>Unit change (one column for Celcius, one for Fahrenheit).</li>
+</ul></li>
+<li>If two columns of <span class="math inline">\(X\)</span> are <strong>nearly linearly dependent</strong>, then some elements of <span class="math inline">\((X^TX)^{-1}\)</span> are <em>humungous</em>.
+<ul>
+<li>Two proxy measure for the same thing (e.g., daily high and low temperatures).</li>
+<li>Nearly linear transformation (e.g., polynomial or BMI)</li>
+</ul></li>
+</ul>
+</section>
+<section id="detecting-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="detecting-the-problem">Detecting the Problem</h3>
+<p>The variance-covariance matrix of <span class="math inline">\(X\)</span> can be useful: <span class="math display">\[
+Cov(X) = \begin{bmatrix}
+0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots\\
+0 &amp; V(X_1) &amp; Cov(X_1, X_2) &amp; Cov(X_1, X_3) &amp; \cdots\\
+0 &amp; Cov(X_1, X_2) &amp; V(X_2) &amp; Cov(X_2, X_3) &amp; \cdots\\
+0 &amp; Cov(X_1, X_3) &amp; Cov(X_2, X_3) &amp; V(X_3) &amp; \cdots\\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots
+\end{bmatrix}
+\]</span> Why are the first column/row 0?</p>
+</section>
+<section id="plotting-corx" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-corx">Plotting <span class="math inline">\(Cor(X)\)</span></h3>
+<div class="cell" data-hash="L15-Multicollinearity_cache/html/penguins-corr_d19030382c43f574afb6e3b480b29a96">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins); <span class="fu">library</span>(GGally)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorr</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggcorr(penguins): data in column(s) 'species', 'island', 'sex' are
+not numeric and were ignored</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="L15-Multicollinearity_files/figure-html/penguins-corr-1.png" class="img-fluid" width="960"></p>
+</div>
+</div>
+</section>
+<section id="detecting-the-problem-vhatunderlinebeta" class="level3">
+<h3 class="anchored" data-anchor-id="detecting-the-problem-vhatunderlinebeta">Detecting the Problem: <span class="math inline">\(V(\hat{\underline\beta})\)</span></h3>
+<p>Unfortunately, the var-covar matrix is hard to get from R.</p>
+<ul>
+<li>We can look at the SE column of the summary output!
+<ul>
+<li>Very very very much not conclusive.</li>
+</ul></li>
+<li>The <strong>Variance Inflation Factor</strong></li>
+</ul>
+</section>
+<section id="the-variance-inflation-factor" class="level3">
+<h3 class="anchored" data-anchor-id="the-variance-inflation-factor">The Variance Inflation Factor</h3>
+<p>We can write the variance of each estimated coefficeint as: <span class="math display">\[
+V(\hat\beta_i) = VIF_i\frac{\sigma^2}{S_{ii}}
+\]</span> where <span class="math inline">\(S_{ii} = \sum_{k=1}^n(x_{ki} - \bar{x_i})^2\)</span> is the “SS” for the <span class="math inline">\(i\)</span>th column of <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li>If there is no “Variance Inflation”, then VIF = 1
+<ul>
+<li>“Inflation” comes from the idea of rotating a plane around a “tube”.</li>
+<li>Also interpreted as a measure of linear dependence with other columns of <span class="math inline">\(X\)</span>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="interpreting-the-variance-inflation-factor" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-variance-inflation-factor">Interpreting the Variance Inflation Factor</h3>
+<p>Consider a regression of <span class="math inline">\(X_i\)</span> against all other columns of <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li>The <span class="math inline">\(R^2\)</span> measures how well the other predictors can model <span class="math inline">\(X_i\)</span>
+<ul>
+<li>Label this <span class="math inline">\(R_i^2\)</span> to indicate it’s the <span class="math inline">\(R^2\)</span> for <span class="math inline">\(X_i\)</span> against other columns.</li>
+</ul></li>
+<li>Important: We’re not considering <span class="math inline">\(\underline y\)</span> at all!</li>
+</ul>
+<p>The VIF can be calculated as: <span class="math display">\[
+VIF_i = \frac{1}{1 - R_i^2}
+\]</span></p>
+<ul>
+<li>If <span class="math inline">\(R_i^2=0\)</span>, then <span class="math inline">\(VIF_i = 1\)</span></li>
+<li>If <span class="math inline">\(R_i^2\rightarrow 1\)</span>, then <span class="math inline">\(VIF_i \rightarrow \infty\)</span></li>
+</ul>
+</section>
+</section>
+<section id="will-scaling-fix-the-problem" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="will-scaling-fix-the-problem"><span class="header-section-number">15.2</span> Will Scaling Fix the Problem</h2>
+<section id="scaling-the-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="scaling-the-predictors">Scaling the Predictors</h3>
+<p>If we subtract the mean and divide by the sd, <em>some of</em> the correlation goes away.</p>
+<ul>
+<li>This is actually kinda bad - we’ve hidden some multicollinearity from ourselves!</li>
+</ul>
+<p>If <span class="math inline">\(Z\)</span> is the <strong>standardized</strong> version of <span class="math inline">\(X\)</span>, then <span class="math display">\[
+Cor(X) = Z^TZ/(n-1)
+\]</span></p>
+<p>If <span class="math inline">\(Z\)</span> is the <strong>mean-centered</strong> version of <span class="math inline">\(X\)</span>, then <span class="math display">\[
+Cov(X) = Z^TZ/(n-1)
+\]</span></p>
+</section>
+</section>
+<section id="fixing-the-problem" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="fixing-the-problem"><span class="header-section-number">15.3</span> Fixing The Problem</h2>
+<section id="one-way-to-fix-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="one-way-to-fix-the-problem">One way to fix the problem</h3>
+<p>Don’t.</p>
+<p>We can’t get good estimates of the <span class="math inline">\(\hat\beta\)</span>s, but we can still get good predictions.</p>
+<ul>
+<li>This <em>only</em> works if the new values are in the same “tube” as the others.</li>
+<li>If the multicollinearity is real, what estimates do you expect?
+<ul>
+<li>Without a controlled experiment, there <em>isn’t</em> a good way to estimate the effect of <span class="math inline">\(X_1\)</span> on it’s own!</li>
+</ul></li>
+</ul>
+</section>
+<section id="removing-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="removing-predictors">Removing predictors</h3>
+<p>If two predictors are measuring the same thing, then just include one?</p>
+<ul>
+<li>This might lose some information!
+<ul>
+<li>It also might not!</li>
+</ul></li>
+<li>The estimated <span class="math inline">\(\beta\)</span> won’t be meaningful.
+<ul>
+<li>Inferences will be difficult.</li>
+</ul></li>
+</ul>
 
 
 </section>
@@ -1005,13 +1021,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L22-Logistic.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span>
+      <a href="./L14-Dummies.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Lb02-OLS_Estimates.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">OLS Estimates</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L16-Modelling_Poorly.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

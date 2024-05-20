@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-03">
+<meta name="author" content="Devan Becker">
+<meta name="dcterms.date" content="2024-05-20">
 
-<title>STAR Notes - 19&nbsp; Degrees of Freedom</title>
+<title>STAR Notes - 17&nbsp; Analysis of MTCars</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L21-Regularization.html" rel="next">
-<link href="./L19-Example_Analysis_mtcars.html" rel="prev">
+<link href="./L18-Degrees_of_Freedom.html" rel="next">
+<link href="./L16-Modelling_Poorly.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L13-Wrong_Model.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L20-Degrees_of_Freedom.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L11-Wrong_Model.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L17-Example_Analysis_mtcars.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -200,26 +200,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></span></a>
+  <a href="./L08-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
+  <a href="./L09-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
+  <a href="./L10-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
       </ul>
@@ -235,50 +229,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
+  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-NonLinear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
+  <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
+  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -294,14 +288,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L22-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -317,8 +311,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L23-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -410,18 +404,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#generating-data-for-the-project" id="toc-generating-data-for-the-project" class="nav-link active" data-scroll-target="#generating-data-for-the-project"><span class="header-section-number">19.1</span> Generating Data (for the Project)</a>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link active" data-scroll-target="#exploratory-data-analysis"><span class="header-section-number">17.1</span> Exploratory Data Analysis</a>
   <ul class="collapse">
-  <li><a href="#model.matrix-and-matrix-multiplication" id="toc-model.matrix-and-matrix-multiplication" class="nav-link" data-scroll-target="#model.matrix-and-matrix-multiplication"><code>model.matrix()</code> and Matrix Multiplication</a></li>
+  <li><a href="#understanding-data" id="toc-understanding-data" class="nav-link" data-scroll-target="#understanding-data">Understanding Data</a></li>
+  <li><a href="#plotting-the-data" id="toc-plotting-the-data" class="nav-link" data-scroll-target="#plotting-the-data">Plotting the Data</a></li>
+  <li><a href="#patterns-in-the-predictors" id="toc-patterns-in-the-predictors" class="nav-link" data-scroll-target="#patterns-in-the-predictors">Patterns in the Predictors</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   </ul></li>
-  <li><a href="#df" id="toc-df" class="nav-link" data-scroll-target="#df"><span class="header-section-number">19.2</span> df</a>
-  <ul class="collapse">
-  <li><a href="#degrees-of-freedom" id="toc-degrees-of-freedom" class="nav-link" data-scroll-target="#degrees-of-freedom">Degrees of Freedom</a></li>
-  <li><a href="#choose-it-and-use-it" id="toc-choose-it-and-use-it" class="nav-link" data-scroll-target="#choose-it-and-use-it">Choose it and Use it</a></li>
-  <li><a href="#bad-use-of-df" id="toc-bad-use-of-df" class="nav-link" data-scroll-target="#bad-use-of-df">Bad use of df</a></li>
-  <li><a href="#saving-df" id="toc-saving-df" class="nav-link" data-scroll-target="#saving-df">Saving df</a></li>
-  <li><a href="#researcher-degrees-of-freedom" id="toc-researcher-degrees-of-freedom" class="nav-link" data-scroll-target="#researcher-degrees-of-freedom">Researcher Degrees of Freedom</a></li>
-  </ul></li>
+  <li><a href="#more-eda-relationships-with-the-response-interactions" id="toc-more-eda-relationships-with-the-response-interactions" class="nav-link" data-scroll-target="#more-eda-relationships-with-the-response-interactions"><span class="header-section-number">17.2</span> More EDA: Relationships with the Response / Interactions</a></li>
+  <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling"><span class="header-section-number">17.3</span> Modelling</a></li>
   </ul>
 </nav>
     </div>
@@ -430,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></h1>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></h1>
 </div>
 
 
@@ -439,11 +430,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Dr.&nbsp;Devan Becker </p>
+    <p class="author">Devan Becker </p>
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            <strong>Jam TBD</strong>
+            Wilfrid Laurier University
           </p>
       </div>
     </div>
@@ -454,7 +445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-03</p>
+      <p class="date">2024-05-20</p>
     </div>
   </div>
   
@@ -464,368 +455,319 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="generating-data-for-the-project" class="level2" data-number="19.1">
-<h2 data-number="19.1" class="anchored" data-anchor-id="generating-data-for-the-project"><span class="header-section-number">19.1</span> Generating Data (for the Project)</h2>
-<section id="model.matrix-and-matrix-multiplication" class="level3">
-<h3 class="anchored" data-anchor-id="model.matrix-and-matrix-multiplication"><code>model.matrix()</code> and Matrix Multiplication</h3>
-<div class="notes">
-<p>You may find it convenient to use the <code>model.matrix()</code> function to set up dummy variables and polynomial terms for you. It will make sure that there is a reference category, which it will choose alphabetically.</p>
-<p>Also note that you’ll want to set <code>raw = TRUE</code> to ensure that people can find the coefficient values that you set. With <code>raw = FALSE</code> they will get the exact same predictions (and thus the same error), but not the same coefficient values.</p>
-<p>In the code below, I also demonstrate a log-transform for <span class="math inline">\(y\)</span>. To get a log on the left side of the equation, we use an exponential on the right.</p>
-</div>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-3_ada816f4e0076819cf9061ecea247b55">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mycat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"category"</span>, <span class="st">"category"</span>, <span class="st">"dogegory"</span>, <span class="st">"category"</span>, <span class="st">"birdegory"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mycont <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">4</span>, <span class="dv">10</span>,  <span class="dv">20</span> )</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> mycat <span class="sc">+</span> <span class="fu">poly</span>(mycont, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>  (Intercept) mycatcategory mycatdogegory poly(mycont, 2, raw = TRUE)1
-1           1             1             0                           12
-2           1             1             0                           14
-3           1             0             1                            4
-4           1             1             0                           10
-5           1             0             0                           20
-  poly(mycont, 2, raw = TRUE)2
-1                          144
-2                          196
-3                           16
-4                          100
-5                          400
-attr(,"assign")
-[1] 0 1 1 2 2
-attr(,"contrasts")
-attr(,"contrasts")$mycat
-[1] "contr.treatment"</code></pre>
-</div>
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Names are just for my own purposes, they don't need to be included.</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The names help me keep track of which column in X they correspond to.</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">intercpt =</span> <span class="dv">10</span>, <span class="at">cat =</span> <span class="dv">20</span>, <span class="at">dog =</span> <span class="dv">0</span>, <span class="at">c1 =</span> <span class="dv">0</span>, <span class="at">c2 =</span> <span class="fl">0.05</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>X <span class="sc">%*%</span> betas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>  [,1]
-1 37.2
-2 39.8
-3 10.8
-4 35.0
-5 30.0</code></pre>
-</div>
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mydf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">exp</span>(X <span class="sc">%*%</span> betas <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="fl">0.01</span>)), </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mycat =</span> mycat, </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mycont =</span> mycont</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">lm</span>(<span class="fu">log</span>(y) <span class="sc">~</span> mycat <span class="sc">+</span> <span class="fu">poly</span>(mycont, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), <span class="at">data =</span> mydf))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>                 (Intercept)                mycatcategory 
-                9.712145e+00                 1.978742e+01 
-               mycatdogegory poly(mycont, 2, raw = TRUE)1 
-                5.406038e-04                 8.415754e-02 
-poly(mycont, 2, raw = TRUE)2 
-                4.652628e-02 </code></pre>
-</div>
-</div>
-<p>For the project, you ould only need to submit the <code>mydf</code> object; the others should be able to recover your coefficient values from that alone!</p>
+<section id="exploratory-data-analysis" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="exploratory-data-analysis"><span class="header-section-number">17.1</span> Exploratory Data Analysis</h2>
+<section id="understanding-data" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-data">Understanding Data</h3>
+<p>What do the column names mean?</p>
+<p>The help file gives a (very) brief description. I spent a few minutes just looking at the descriptions and trying to guess what relationships I might find.</p>
+<p>Overall, most of the predictors are trying to answer the question “Is this a powerful car?”</p>
 </section>
+<section id="plotting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-data">Plotting the Data</h3>
+<p>From a pairs plot (<code>pairs(mtcars)</code>, which I have not included to reduce the amount of output):</p>
+<ul>
+<li>Only 1 car has carb = 6, 1 has carb = 8</li>
+<li>wt and drat are (-ively) correlated
+<ul>
+<li>disp and hp</li>
+<li>disp and drat (-ive)</li>
+<li>disp and wt</li>
+<li>hp and wt</li>
+<li>hp and qsec</li>
+</ul></li>
+</ul>
+<p>wt and disp are clearly multicollinear, and they’re measuring the same thing so I might want to include just one of them.</p>
 </section>
-<section id="df" class="level2" data-number="19.2">
-<h2 data-number="19.2" class="anchored" data-anchor-id="df"><span class="header-section-number">19.2</span> df</h2>
-<section id="degrees-of-freedom" class="level3">
-<h3 class="anchored" data-anchor-id="degrees-of-freedom">Degrees of Freedom</h3>
-<p>A measure of how much information you chose to put in the model.</p>
-<ul>
-<li>Continuous predictors add 1</li>
-<li>Categorical predictors add <span class="math inline">\(k-1\)</span></li>
-<li>Each term in a polynomial adds 1</li>
-<li>Interactions add 1</li>
-<li>etc.</li>
-</ul>
-</section>
-<section id="choose-it-and-use-it" class="level3">
-<h3 class="anchored" data-anchor-id="choose-it-and-use-it">Choose it and Use it</h3>
-<ul>
-<li>Decide on the df, try to use all of them
-<ul>
-<li>Choice is based on how much information you think you can extract.</li>
-<li>Many rows = much information; you can probably use more predictors.</li>
-</ul></li>
-</ul>
-</section>
-<section id="bad-use-of-df" class="level3">
-<h3 class="anchored" data-anchor-id="bad-use-of-df">Bad use of df</h3>
-<ul>
-<li>Discretising a categorical variable
-<ul>
-<li>You better have a <em>reeeaaaalllllyyyy</em> good justification</li>
-<li>For example, discretising age to match up with insurance categories.</li>
-<li>You should almost never choose to discretise based on your own logic; only to fit in with other analyses or use cases.</li>
-</ul></li>
-<li>Polynomial terms when interactions would work.</li>
-<li>Redundant categories
-<ul>
-<li>Categories that are redundant</li>
-<li>If you have redundant categories, then you have categories that are redundant</li>
-<li>For example, if the “JobTitle” column has entries like “Data Scientist” as well as “Data Scientist and Machine Learning Expert”, you could just code those both as “DS”.</li>
-</ul></li>
-</ul>
-</section>
-<section id="saving-df" class="level3">
-<h3 class="anchored" data-anchor-id="saving-df">Saving df</h3>
-<ul>
-<li>Combine categories
-<ul>
-<li>Just “Data Scientist” or “Software Engineer”</li>
-</ul></li>
-<li>Combine predictors
-<ul>
-<li>Volume of beak = <span class="math inline">\(\pi r^2h/3\)</span>?</li>
-</ul></li>
-<li>Transform response rather than add polynomial terms
-<ul>
-<li>Not always recommended.</li>
-</ul></li>
-</ul>
-<div class="notes">
-<p>Here’s an example of using transformations to (1) match the context of the problem and (2) get better results with fewer degrees of freedom.</p>
-<p>We’ll use the <code>trees</code> dataset that’s built into R. The “Girth” column is actually the diameter, and it’s the only column measured in inches rather than feet. I’m going to make a new predictor based on Girth that’s more useful for later models.</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-4_f33333e2d9113422c03ed511e6195ef3">
+<section id="patterns-in-the-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="patterns-in-the-predictors">Patterns in the Predictors</h3>
+<p>In the following code, I tried x as am, cyl, gear, and carb. The y axis was wt, disp, drat, and qsec. I essentially tried every combination of these and wrote down the most interesting patterns.</p>
+<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/cont_v_cat_ea295b5df885873dea746d6fec867d6e">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Saving df</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(trees) <span class="co"># "Girth" is actually diameter, according to help file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous versus categorical</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(am), <span class="at">y =</span> wt) <span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Girth Height Volume
-1   8.3     70   10.3
-2   8.6     65   10.3
-3   8.8     63   10.2
-4  10.5     72   16.4
-5  10.7     81   18.8
-6  10.8     83   19.7</code></pre>
-</div>
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>Radius <span class="ot">&lt;-</span> trees<span class="sc">$</span>Girth<span class="sc">/</span><span class="dv">24</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>A naive model might be a basic multiple linear regression.</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-5_fea486a2e23d0be26cb80284767594c7">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>multiple_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> Radius <span class="sc">+</span> Height, <span class="at">data =</span> trees)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multiple_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = Volume ~ Radius + Height, data = trees)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--6.4065 -2.6493 -0.2876  2.2003  8.4847 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -57.9877     8.6382  -6.713 2.75e-07 ***
-Radius      112.9959     6.3424  17.816  &lt; 2e-16 ***
-Height        0.3393     0.1302   2.607   0.0145 *  
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 3.882 on 28 degrees of freedom
-Multiple R-squared:  0.948, Adjusted R-squared:  0.9442 
-F-statistic:   255 on 2 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<p>We could make this fit better by blindly adding polynomial terms and doing a transformation:</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-6_acbbd59ea9bece600b9830460e8d6e41">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>transformed_and_poly <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Volume) <span class="sc">~</span> <span class="fu">poly</span>(Girth, <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">poly</span>(Height, <span class="dv">2</span>), <span class="at">data =</span> trees)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(transformed_and_poly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = log(Volume) ~ poly(Girth, 2) + poly(Height, 2), 
-    data = trees)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.16094 -0.04023 -0.00295  0.05474  0.13434 
-
-Coefficients:
-                 Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)       3.27273    0.01492 219.360  &lt; 2e-16 ***
-poly(Girth, 2)1   2.51150    0.09732  25.808  &lt; 2e-16 ***
-poly(Girth, 2)2  -0.26046    0.09206  -2.829  0.00887 ** 
-poly(Height, 2)1  0.54845    0.09746   5.628 6.47e-06 ***
-poly(Height, 2)2 -0.05518    0.09191  -0.600  0.55349    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.08307 on 26 degrees of freedom
-Multiple R-squared:  0.9784,    Adjusted R-squared:  0.9751 
-F-statistic: 294.5 on 4 and 26 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<ul>
-<li>It is interesting that the squared term for height is <em>not</em> significant. Why is this so interesting to me? Look at the next equation in this lesson…</li>
-</ul>
-<p>A slightly better model might be one of the form <span class="math display">\[
-V = \pi r^2h
-\]</span> which assumes that trees are perfect cylinders. This can be accomplished by modelling: <span class="math display">\[\begin{align*}
-\log(V) &amp;= \beta_0 + \beta_1\log(r) + \beta_2\log(h) + \epsilon\\
-\implies V &amp;= \exp(\beta_0)r^\beta_1h^\beta_2\exp(\epsilon)
-\end{align*}\]</span> and expecting that <span class="math inline">\(\exp(\beta_0)\)</span> is close to <span class="math inline">\(\pi\)</span>, <span class="math inline">\(\beta_1 = 2\)</span>, and <span class="math inline">\(\beta_2 = 1\)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-7_1743ed60771bfa18614271310b013877">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>volume_logs <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Volume) <span class="sc">~</span> <span class="fu">log</span>(Girth) <span class="sc">+</span> <span class="fu">log</span>(Height), <span class="at">data =</span> trees)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(volume_logs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = log(Volume) ~ log(Girth) + log(Height), data = trees)
-
-Residuals:
-      Min        1Q    Median        3Q       Max 
--0.168561 -0.048488  0.002431  0.063637  0.129223 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -6.63162    0.79979  -8.292 5.06e-09 ***
-log(Girth)   1.98265    0.07501  26.432  &lt; 2e-16 ***
-log(Height)  1.11712    0.20444   5.464 7.81e-06 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.08139 on 28 degrees of freedom
-Multiple R-squared:  0.9777,    Adjusted R-squared:  0.9761 
-F-statistic: 613.2 on 2 and 28 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<ul>
-<li>We get something close to our hopes!
-<ul>
-<li>Except for <span class="math inline">\(\beta_0\)</span>, which we’ll talk about later.</li>
-</ul></li>
-<li>With this model, we could do a hypothesis test for <span class="math inline">\(\beta_1 = 2\)</span> and <span class="math inline">\(\beta_2 = 1\)</span>.
-<ul>
-<li>If these are reasonable values, loggers could confidently calculate the volume of a tree assuming that it’s a cylinder!</li>
-</ul></li>
-</ul>
-<p>We could also assume these values from the start, and include a “naive” volume.</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-8_c18fee25cf92fc133027fa23c84ed379">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>naive_volume <span class="ot">&lt;-</span> pi <span class="sc">*</span> trees<span class="sc">$</span>Radius<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> trees<span class="sc">$</span>Height</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>We could then model this according to <span class="math display">\[\begin{align*}
-V &amp; = \beta_0N + \epsilon
-\end{align*}\]</span> where <span class="math inline">\(N\)</span> is our “naive” volume. We might have the expectation that <span class="math inline">\(\beta_0 = 1\)</span> if the naive volume is correct.</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-9_16bf70842d2ceabb5c41f665ebcc0f12">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming trees are cylinders</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>diff_from_cylinder <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> naive_volume, <span class="at">data =</span> trees)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(diff_from_cylinder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = Volume ~ -1 + naive_volume, data = trees)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--4.6696 -1.0832 -0.3341  1.6045  4.2944 
-
-Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-naive_volume 0.386513   0.004991   77.44   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 2.455 on 30 degrees of freedom
-Multiple R-squared:  0.995, Adjusted R-squared:  0.9949 
-F-statistic:  5996 on 1 and 30 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<p>This tells us that the estimated usable lumber from a given tree is about 40% of what we would expect if the tree were a perfect cylinder.</p>
-<p>Importantly for this lecture, we have an <span class="math inline">\(R^2\)</span> of 0.9949 on a single degree of freedom! <span class="math inline">\(R^2\)</span> is not the greatest measure, but it’s informative in this case:</p>
-<div class="cell" data-hash="L20-Degrees_of_Freedom_cache/html/unnamed-chunk-10_037bfbd80fbd9ed79fa1280ebbd5dfa2">
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">model</th>
-<th style="text-align: right;">R2</th>
-<th style="text-align: right;">df</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">multiple_lm</td>
-<td style="text-align: right;">0.9442322</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">transformed_and_poly</td>
-<td style="text-align: right;">0.9750853</td>
-<td style="text-align: right;">4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">volume_logs</td>
-<td style="text-align: right;">0.9760840</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">diff_from_cylinder</td>
-<td style="text-align: right;">0.9948560</td>
-<td style="text-align: right;">1</td>
-</tr>
-</tbody>
-</table>
+<p><img src="L17-Example_Analysis_mtcars_files/figure-html/cont_v_cat-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>By choosing our transformations carefully, we have a model that is both <em>better</em> and <em>simpler</em>! The coefficient estimate also relates to a physical quantity that is useful to us - the percent of usable wood we can get from a tree! Statistics is amazing.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-</div>
-</section>
-<section id="researcher-degrees-of-freedom" class="level3">
-<h3 class="anchored" data-anchor-id="researcher-degrees-of-freedom">Researcher Degrees of Freedom</h3>
-<p>You add information that isn’t measured by df!</p>
 <ul>
-<li>Choosing one predictor rather than another.
+<li>wt is different across categories of am, cyl, carb, gear (all positive)
 <ul>
-<li>Bill length <em>or</em> bill depth?</li>
+<li>disp has same relationships</li>
+<li>hp has same relationships, except 4 gear cars have lower hp than 3 and 5 gear cars</li>
+<li>drat has opposite relationships</li>
 </ul></li>
-<li>Transforming a predictor/response</li>
-<li>Removing outliers</li>
-<li>Using/not using autoregressive error structures</li>
-<li>etc.</li>
 </ul>
-<p>This is why we use RMarkdown/Quarto/Jupyter - all of this is (should be) recorded!</p>
-
-
+<p>I did something similar with the following code, checking every combination of all relevant predictors and writing down anything that stuck out to me.</p>
+<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/cont_v_cont_0f05c53ea27904896306bb124b7b14e1">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous vs. continuous</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> wt, <span class="at">colour =</span> <span class="fu">factor</span>(cyl)) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L17-Example_Analysis_mtcars_files/figure-html/cont_v_cont-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Clear separation between disp and wt when coloured by am or cyl.
+<ul>
+<li>In other words, there are distinct groups. This probably means that one of the continuous predictors has all of the information necessary, and it won’t be necessary to include an interaction between continuous predictors (it rarely is).</li>
+</ul></li>
+<li>Otherwise, there are not many relationships that might be present.</li>
+</ul>
+<p>The following plot was also used with all combinations of categorical predictors.</p>
+<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/cats_4f779edfe574b5563e02ac11c3e96321">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># categorical variables</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(am), <span class="at">fill =</span> <span class="fu">factor</span>(vs)) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L17-Example_Analysis_mtcars_files/figure-html/cats-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Some kind of “correlation” between am and cyl.
+<ul>
+<li>Measuring something similar, but from different perspectives.</li>
+</ul></li>
+<li>Very little relation between am and vs - they’re measuring different things.
+<ul>
+<li>Might be worth checking models where am is switched with vs.&nbsp;</li>
+</ul></li>
+</ul>
+</section>
+<section id="conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
+<p>Most things are measuring “how powerful is this car”, so we should just choose the ones that make sense to us and check a few categorical predictors.</p>
+<p><code>wt</code> and <code>disp</code> make the most sense as measures for <code>mpg</code>, and <code>am</code> and <code>cyl</code> also make some sense. I’ll try switching out some of the other predictors, but I expect that the final model will either be <code>wt*am</code> or <code>disp*cyl</code>.</p>
 </section>
 </section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>It makes me very happy that we’re taking the “log” when talking about lumber.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>T-shirt idea: “If you don’t think stats is lit af then you ain’t woke, fam!”<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
+<section id="more-eda-relationships-with-the-response-interactions" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="more-eda-relationships-with-the-response-interactions"><span class="header-section-number">17.2</span> More EDA: Relationships with the Response / Interactions</h2>
+<p>Now we’re finally looking at mpg!</p>
+<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/mpg_v_disp_8b95ea18e530d498e934b3e0068d898c">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> mpg, <span class="at">x =</span> disp, <span class="at">colour =</span> <span class="fu">factor</span>(cyl)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L17-Example_Analysis_mtcars_files/figure-html/mpg_v_disp-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From looking at many many plots, I propose the following candidate models:</p>
+<ul>
+<li>mpg versus disp * cyl</li>
+<li>mpg versus wt * am (cyl?)</li>
+<li>mpg versus wt * vs (maybe not an interaction)</li>
+<li>mpg versus wt * gear?</li>
+</ul>
+<p>I had also considered including qsec, but a plot of mpg versus qsec with colours from cyl revealed that cyl explains the relationship; if we include cyl, then the slope for mpg versus qsec is 0. The same thing happens with drat, so cyl is probably enough to include in the model rather than either qsec or drat.</p>
+</section>
+<section id="modelling" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="modelling"><span class="header-section-number">17.3</span> Modelling</h2>
+<p>Let’s test out our models!</p>
+<p>Again, to reduce the amount of output I have to wade through, I changed the following code a bunch and left it at something meaningful to my final analysis.</p>
+<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/dispmodel_plot_a8cbb99c4648270ace2f465dda5ae52d">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dispmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dispmodel, <span class="at">col =</span> mtcars<span class="sc">$</span>cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L17-Example_Analysis_mtcars_files/figure-html/dispmodel_plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>Residuals versus fitted looks good</li>
+<li>QQ norm looks great! For this small of a data set, we don’t expect much from the qq-plot, so this is actually very nice.</li>
+<li>Scale-Location has a slight U shape, which isn’t ideal. There may still be a predictor that’s worth including.</li>
+<li>There’s a high influence point. This is likely due to the interaction between cyl and disp.
+<ul>
+<li>When we have this kind of interaction, there are essentially three lines, each with fewer observations. It is much easier for a point to be influential with interaction present.</li>
+</ul></li>
+</ul>
+<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/wtmodel_plot_9f8d6e551e654bee1f4d03bb4c7f1a0e">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>wtmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">*</span> am, <span class="at">data =</span> mtcars)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L17-Example_Analysis_mtcars_files/figure-html/wtmodel_plot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li>First plot looks good!</li>
+<li>QQplot has some heavy tails - not bad, but not ideal. <code>dispmodel</code> was better.</li>
+<li>Scale-location is great!</li>
+<li>No high leverage points.</li>
+</ul>
+<p>Both models are good in different ways. Let’s check their summaries.</p>
+<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/dispmodel_summary_3c12c1e1cdf237165e22ef12fefadf44">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dispmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ disp * factor(cyl), data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.4766 -1.8101 -0.2297  1.3523  5.0208 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        40.87196    3.02012  13.533 2.79e-13 ***
+disp               -0.13514    0.02791  -4.842 5.10e-05 ***
+factor(cyl)6      -21.78997    5.30660  -4.106 0.000354 ***
+factor(cyl)8      -18.83916    4.61166  -4.085 0.000374 ***
+disp:factor(cyl)6   0.13875    0.03635   3.817 0.000753 ***
+disp:factor(cyl)8   0.11551    0.02955   3.909 0.000592 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.372 on 26 degrees of freedom
+Multiple R-squared:  0.8701,    Adjusted R-squared:  0.8452 
+F-statistic: 34.84 on 5 and 26 DF,  p-value: 9.968e-11</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/wtmodel_summary_0246d245465517259d6d8929ce6682dc">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ wt * am, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.6004 -1.5446 -0.5325  0.9012  6.0909 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  31.4161     3.0201  10.402 4.00e-11 ***
+wt           -3.7859     0.7856  -4.819 4.55e-05 ***
+am           14.8784     4.2640   3.489  0.00162 ** 
+wt:am        -5.2984     1.4447  -3.667  0.00102 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.591 on 28 degrees of freedom
+Multiple R-squared:  0.833, Adjusted R-squared:  0.8151 
+F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11</code></pre>
+</div>
+</div>
+<p>The <span class="math inline">\(R^2\)</span> for <code>dispmodel</code> is a fair bit higher (although there’s no standard for how much an <span class="math inline">\(R^2\)</span> should change, so this might not be a meaningful difference). As we saw in class, the <span class="math inline">\(R^2\)</span> is based on the same quantities as the F-test for different models.</p>
+<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/unnamed-chunk-10_e93818774a8372abec6bd29673f46130">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(dispmodel, wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: mpg ~ disp * factor(cyl)
+Model 2: mpg ~ wt * am
+  Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)  
+1     26 146.23                              
+2     28 188.01 -2   -41.773 3.7136 0.03814 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>The models fit significantly differently. Which one fits better?</p>
+<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/unnamed-chunk-11_04bbd160e911d0689d4df4bc5079a717">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE values</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dispmodel)<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.371581</code></pre>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wtmodel)<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.591247</code></pre>
+</div>
+</div>
+<p><code>dispmodel</code> has a higher <span class="math inline">\(R^2\)</span> and a lower MSE, so it seems to be the winner.</p>
+<p>From the pairs plot, I saw that disp has a slight relationship with other continuous predictors, and the scale-location plot wasn’t perfect. Perhaps another predictor will help?</p>
+<p>I can do this with the magical <code>update()</code> function. The <code>~ . + hp</code> notation means the response versus (<code>~</code>) everything <code>.</code>, then add <code>hp</code>. The <code>~</code> means “versus” (with the response on the left, which isn’t allowed to change in this case, and the predictors on the right), and the <code>.</code> means “everything”, which in this case refers to everything that was already in the model. The form <code>lm(mpg ~ ., data = mtcars)</code> will fit mpg against everything else it sees in the mtcars dataset.</p>
+<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/unnamed-chunk-12_00c8e3aeb2f29f22d023408626900db1">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">update</span>(dispmodel, <span class="sc">~</span> . <span class="sc">+</span> hp)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ disp + factor(cyl) + hp + disp:factor(cyl), 
+    data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.3442 -1.7647  0.0994  1.4480  4.4796 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        41.53521    3.04752  13.629 4.48e-13 ***
+disp               -0.13037    0.02798  -4.660 9.00e-05 ***
+factor(cyl)6      -19.95406    5.48572  -3.637 0.001249 ** 
+factor(cyl)8      -16.99535    4.83011  -3.519 0.001685 ** 
+hp                 -0.01410    0.01184  -1.191 0.245018    
+disp:factor(cyl)6   0.12975    0.03685   3.521 0.001675 ** 
+disp:factor(cyl)8   0.11199    0.02946   3.801 0.000824 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.353 on 25 degrees of freedom
+Multiple R-squared:  0.8771,    Adjusted R-squared:  0.8476 
+F-statistic: 29.74 on 6 and 25 DF,  p-value: 3.199e-10</code></pre>
+</div>
+</div>
+<p>I checked qsec, drat, and hp, and none seemed worth including in the model. I’ll just leave it as is.</p>
+<p>To interpret the model we must be careful about the interaction term!</p>
+<p><span class="math display">\[
+mpg = \begin{cases}
+\beta_0 + \beta_1 disp &amp; \text{if }cyl == 4\\
+(\beta_0 + \beta_2) + (\beta_1 + \beta_4) disp &amp; \text{if }cyl == 6\\
+(\beta_0 + \beta_3) + (\beta_1 + \beta_5) disp &amp; \text{if }cyl == 8\\
+\end{cases}
+\]</span></p>
+<ul>
+<li>For 4 cylinder cars, the baseline mpg is 40 and decreases by 0.135 for each one unit increase in disp.</li>
+<li>For 6 cylinder cars, the baseline mpg is about 21.5 and isn’t really related to the displacement.</li>
+<li>For 8 cylinder cars, the baseline mpg is about 24.5 and decreases by about 0.02 for each one-unit increase in displacement.
+<ul>
+<li>Note that displacement has really large units, so 0.02 over hundreds of one-unit increases is still a lot!</li>
+</ul></li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -1179,13 +1121,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L19-Example_Analysis_mtcars.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span>
+      <a href="./L16-Modelling_Poorly.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L21-Regularization.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L18-Degrees_of_Freedom.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

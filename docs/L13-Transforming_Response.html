@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-03">
+<meta name="dcterms.date" content="2024-05-20">
 
-<title>STAR Notes - 14&nbsp; Transforming the Response</title>
+<title>STAR Notes - 13&nbsp; Transforming the Response</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,8 +32,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L16-Dummies.html" rel="next">
-<link href="./L14-NonLinear.html" rel="prev">
+<link href="./L14-Dummies.html" rel="next">
+<link href="./L12-NonLinear.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -79,7 +79,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L13-Wrong_Model.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L15-Transforming_Response.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transforming the Response</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L11-Wrong_Model.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L13-Transforming_Response.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -166,26 +166,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Serial_Correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Serial Correlation in the Residuals</span></span></a>
+  <a href="./L08-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
+  <a href="./L09-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-Admin_Slides.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L12-Extra_Topics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
+  <a href="./L10-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
       </ul>
@@ -201,50 +195,50 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
+  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-NonLinear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
+  <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Transforming_Response.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
+  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -260,14 +254,14 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L22-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -283,8 +277,8 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L23-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -376,7 +370,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#transformations" id="toc-transformations" class="nav-link active" data-scroll-target="#transformations"><span class="header-section-number">14.1</span> Transformations</a>
+  <li><a href="#transformations" id="toc-transformations" class="nav-link active" data-scroll-target="#transformations"><span class="header-section-number">13.1</span> Transformations</a>
   <ul class="collapse">
   <li><a href="#transforming-the-predictors" id="toc-transforming-the-predictors" class="nav-link" data-scroll-target="#transforming-the-predictors">Transforming the Predictors</a></li>
   <li><a href="#transforming-the-predictors-1" id="toc-transforming-the-predictors-1" class="nav-link" data-scroll-target="#transforming-the-predictors-1">Transforming the predictors</a></li>
@@ -384,13 +378,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#logarithms-and-errors" id="toc-logarithms-and-errors" class="nav-link" data-scroll-target="#logarithms-and-errors">Logarithms and Errors</a></li>
   <li><a href="#general-practice" id="toc-general-practice" class="nav-link" data-scroll-target="#general-practice">General Practice</a></li>
   </ul></li>
-  <li><a href="#residuals-in-transformed-space" id="toc-residuals-in-transformed-space" class="nav-link" data-scroll-target="#residuals-in-transformed-space"><span class="header-section-number">14.2</span> Residuals in Transformed Space</a>
+  <li><a href="#residuals-in-transformed-space" id="toc-residuals-in-transformed-space" class="nav-link" data-scroll-target="#residuals-in-transformed-space"><span class="header-section-number">13.2</span> Residuals in Transformed Space</a>
   <ul class="collapse">
   <li><a href="#variance-stabilization" id="toc-variance-stabilization" class="nav-link" data-scroll-target="#variance-stabilization">Variance Stabilization</a></li>
   <li><a href="#funderline-y-xbeta-underlineepsilon" id="toc-funderline-y-xbeta-underlineepsilon" class="nav-link" data-scroll-target="#funderline-y-xbeta-underlineepsilon"><span class="math inline">\(f(\underline y) = X\beta + \underline\epsilon\)</span></a></li>
   <li><a href="#some-good-news" id="toc-some-good-news" class="nav-link" data-scroll-target="#some-good-news">Some Good News</a></li>
   </ul></li>
-  <li><a href="#choosing-transformations" id="toc-choosing-transformations" class="nav-link" data-scroll-target="#choosing-transformations"><span class="header-section-number">14.3</span> Choosing Transformations</a>
+  <li><a href="#choosing-transformations" id="toc-choosing-transformations" class="nav-link" data-scroll-target="#choosing-transformations"><span class="header-section-number">13.3</span> Choosing Transformations</a>
   <ul class="collapse">
   <li><a href="#methods-for-choosing-transformations" id="toc-methods-for-choosing-transformations" class="nav-link" data-scroll-target="#methods-for-choosing-transformations">Methods for Choosing Transformations</a></li>
   <li><a href="#box-cox" id="toc-box-cox" class="nav-link" data-scroll-target="#box-cox">Box-Cox</a></li>
@@ -406,7 +400,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Transforming the Response</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></h1>
 </div>
 
 
@@ -430,7 +424,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-03</p>
+      <p class="date">2024-05-20</p>
     </div>
   </div>
   
@@ -440,8 +434,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="transformations" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="transformations"><span class="header-section-number">14.1</span> Transformations</h2>
+<section id="transformations" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="transformations"><span class="header-section-number">13.1</span> Transformations</h2>
 <section id="transforming-the-predictors" class="level3">
 <h3 class="anchored" data-anchor-id="transforming-the-predictors">Transforming the Predictors</h3>
 <p>Suppose we found that the following second order polynomial model was a “good” fit: <span class="math display">\[
@@ -463,16 +457,16 @@ y_i = \beta_0 + \beta_1x_{i1} + \beta_{11}x_{i1}^2 +\beta_2x_{i2} + \beta_{22}x_
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Original scale</p>
-<div class="cell" data-hash="L15-Transforming_Response_cache/html/unnamed-chunk-2_d7cf9040eb14132cb48747f60638593e">
+<div class="cell" data-hash="L13-Transforming_Response_cache/html/unnamed-chunk-2_7e0e315a7c4a87de9e9fe77e2026299f">
 <div class="cell-output-display">
-<p><img src="L15-Transforming_Response_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="480"></p>
+<p><img src="L13-Transforming_Response_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <p>Log scale</p>
-<div class="cell" data-hash="L15-Transforming_Response_cache/html/unnamed-chunk-3_d308cf2400315eb9a74cf00e918d4d50">
+<div class="cell" data-hash="L13-Transforming_Response_cache/html/unnamed-chunk-3_03d65f516d3b353197b39443575f0833">
 <div class="cell-output-display">
-<p><img src="L15-Transforming_Response_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="480"></p>
+<p><img src="L13-Transforming_Response_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
 </div>
@@ -527,8 +521,8 @@ y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2}e^{\epsilon_i}
 <p>This has <em>consequences</em>:</p>
 </section>
 </section>
-<section id="residuals-in-transformed-space" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="residuals-in-transformed-space"><span class="header-section-number">14.2</span> Residuals in Transformed Space</h2>
+<section id="residuals-in-transformed-space" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="residuals-in-transformed-space"><span class="header-section-number">13.2</span> Residuals in Transformed Space</h2>
 <section id="variance-stabilization" class="level3">
 <h3 class="anchored" data-anchor-id="variance-stabilization">Variance Stabilization</h3>
 <p>The two main purposes of transformations:</p>
@@ -580,8 +574,8 @@ y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2}e^{\epsilon_i}
 </ul>
 </section>
 </section>
-<section id="choosing-transformations" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="choosing-transformations"><span class="header-section-number">14.3</span> Choosing Transformations</h2>
+<section id="choosing-transformations" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="choosing-transformations"><span class="header-section-number">13.3</span> Choosing Transformations</h2>
 <section id="methods-for-choosing-transformations" class="level3">
 <h3 class="anchored" data-anchor-id="methods-for-choosing-transformations">Methods for Choosing Transformations</h3>
 <ol type="1">
@@ -1021,13 +1015,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L14-NonLinear.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span>
+      <a href="./L12-NonLinear.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L16-Dummies.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L14-Dummies.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
