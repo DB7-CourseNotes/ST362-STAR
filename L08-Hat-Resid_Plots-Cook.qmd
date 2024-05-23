@@ -178,7 +178,7 @@ $$
 - If $\hat\epsilon_i$ is large, then $s^2$ is large.
     - If $s^2$ is large, then $r_i$ is small!
     - "**Internally**": the variance includes the residual of interest.\lspace
-- "**Studentized**" because Student made it popular.\lspace
+- "**Studentized**" because "Student" (William Gosset) made it popular.\lspace
 - Often called "standardized".
 
 ### Externally Studentized Step 1

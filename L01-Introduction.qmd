@@ -546,11 +546,11 @@ If the sampling distribution of the sample mean is normal, i.e. $\bar X\sim N(\m
 1. $\dfrac{S^2(n-1)}{\sigma^2} = \chi^2_{n-1} \implies S / \sigma = \sqrt{\chi^2_{n-1}/(n-1)}$, and\lspace
 2. $\dfrac{\bar X - \mu}{\sigma / \sqrt{n}} = N(0,1)$
 
-With a little trickery,
-
 ::: {.content-visible when-profile="book"}
 The following math will *not* be on the exam! This is graduate level math. The rest of this course is going to focus on much simpler ideas! The takeaway message is that $(\bar x - \mu)/(\sigma/\sqrt{n})$ follows a $t$ distribution **because** the $X_i$ are assumed to be normal.
 :::
+
+With a little trickery,
 
 $$
 \dfrac{\bar X - \mu}{S / \sqrt{n}} = \dfrac{\bar X - \mu}{S / \sqrt{n}}\cdot\dfrac{\sigma}{\sigma} = \dfrac{\bar X - \mu}{\sigma / \sqrt{n}}\cdot\dfrac{1}{S / \sigma} = \dfrac{Z}{\sqrt{\chi^2_{n-1}/(n-1)}} = t_{n-1}

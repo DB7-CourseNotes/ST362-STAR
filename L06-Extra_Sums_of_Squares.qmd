@@ -28,7 +28,7 @@ If you add or remove predictors, the variance of the residuals changes!
 - As always, we ask if it's a "big" change.
     - All sizes are relative to the standard error!\lspace
 - Different predictors have a different effect on the residuals.\lspace
-- A group of predictors can be tested for whether all parameters are 0.
+- A group of predictors can be tested for whether the change is "big".
 
 \pspace\pause
 
@@ -65,7 +65,7 @@ If M2 is **nested** within M1, \emph{e.g.}:
 - M1: $\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}$
 - M2: $\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength}$
 
-Then the Extra sum of squares is defined as:
+Then the **Extra Sum of Squares** is defined as:
 $$
 SS(\hat\beta_3 | \hat\beta_0, \hat\beta_1, \hat\beta_2) = S_1 - S_2
 $$
