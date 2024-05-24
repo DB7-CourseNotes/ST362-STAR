@@ -2,6 +2,7 @@
 title: "ESS Exampless"
 institute: "**Jam TBD**"
 code-fold: false
+code-line-numbers: false
 ---
 
 ```{r}
@@ -71,9 +72,9 @@ anova(lm1)
 ```
 \normalsize
 
-### Calculating the SSE
-
 From this model, SSE is 50814912 on 329 degrees of freedom. This is the same as the SSE in the output of `anova(lm2, lm1)`.
+
+### Calculating the SSE
 
 \scriptsize
 ```{r}
@@ -89,7 +90,10 @@ Note that the F-value in `anova()` is just the ratio of the MSEs, but this is no
 
 ### Final Calculations
 
-We can calculate $s^2$ as the MSE for the larger model:
+::: {.columns}
+::: {.column}
+
+$s^2$ is the MSE for the **larger** model:
 
 \scriptsize
 ```{r}
@@ -100,7 +104,9 @@ s2
 ```
 \normalsize
 
-And now we can calculate the F-value as expected:
+\pspace
+
+And now we can calculate the F-value:
 
 \scriptsize
 ```{r}
@@ -115,6 +121,23 @@ And now we can calculate the F-value as expected:
 print(1- pf(1.28539, 2, 329))
 ```
 \normalsize
+
+:::
+::: {.column}
+
+\scriptsize
+```{r}
+#| label: ess-again
+#| echo: true
+#| eval: true
+#| code-line-numbers: false
+anova(lm2, lm1)
+```
+
+:::
+:::
+
+\pspace
 
 - Try to calculate these values based on matrix multiplication. 
     - With and without correction factors!
@@ -299,11 +322,9 @@ anova(
 
 ### Choosing Predictor Sets
 
-These algorithms assume that you have a set of predictors that you already know you want to check. 
-
-\pspace
-
-There are other predictors in the mtcars dataset that we did not consider!
+- These algorithms assume that you have a set of predictors that you already know you want to check.\lspace
+- There are other predictors in the mtcars dataset that we did not consider!
+    - We only looked at continuous predictors - we'll see categorical predictors later.
 
 ### Advice
 
@@ -313,15 +334,22 @@ There are other predictors in the mtcars dataset that we did not consider!
 -   Based on your knowledge of the context, check significance of groups of predictors that you think are highly correlated.\lspace
 -   Your final model will be based on the tests for groups of (or individual) predictors that you suspect would be relevant.
 
-### The Guiding Principle of Model Selection
+### The Guiding Principles of Model Selection
 
 **Minimize the number of p-values that you check.**
 
-\quad
-
 - ESS tests check a set of predictors, rather than each one individually.
-    - Fewer p-values!\lspace
+    - Fewer p-values!
 - The Type I, II, and III algorithms are sometimes important, but intuition and knowledge is better!
+
+\pspace
+
+**Minimize the number of degrees of freedom that you use**
+
+- More degrees of freedom = more complexity.
+    - A simpler model that explains the same amount of variance is preferred!
+- Non-linear trends (e.g. polynomial models) use more degrees of freedom.
+    - Polynomials are hard to interpret.
 
 ::: {.content-visible when-profile="book"}
 ## Exercises
@@ -340,6 +368,6 @@ In order for Type 2 SS to be appropriate, the predictors need to have a logical 
 *****
 
 5. For the penguins data, fit a model with flipper length, bill length, and bill depth (in that order), and check the output of `anova()`. Reverse the order of predictors and repeat. Which values in the ANOVA table stay the same? Which values change? Why do they change? What does this tell you about interpreting `anova()` output?
-6. Give an example of a context where a collection of predictors might be tested all at once.
+6. Give an example of a context where a collection of predictors might be tested for significance all at once.
 :::
 

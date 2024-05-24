@@ -14,7 +14,9 @@ set.seed(2112)
 
 ### Announcements
 
-- Lab 3 on Wednesday!
+- Lab 3 on Wednesday!\lspace
+- Assignment 2 is out!
+
 :::
 
 ## Introduction
@@ -55,7 +57,9 @@ Note: M2 is **nested** in M1; M1 has all the same predictors and then some.
 \pspace
 
 ::: {.callout-important}
-$\beta_1$ in the first model is **different** from $\beta_1$ in the second model.
+#### $\beta_1$ in the first model is **different from** $\beta_1$ in the second model.
+
+(Only exception: the correlation between predictors is exactly 0.)
 :::
 
 ### Extra Sum-of-Squares
@@ -64,6 +68,8 @@ If M2 is **nested** within M1, \emph{e.g.}:
 
 - M1: $\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength} + \beta_3 \texttt{billdepth}$
 - M2: $\texttt{bodymass} = \beta_0 + \beta_1 \texttt{flipperlength} + \beta_2 \texttt{billlength}$
+
+\pspace
 
 Then the **Extra Sum of Squares** is defined as:
 $$
@@ -142,7 +148,8 @@ $$
 
 \pspace
 
-Note that it doesn't matter which is nested: $S_1 - S_2$ has the same sign as $p-q$, so the F-statistic always positive.
+- Note that it doesn't matter which is nested: $S_1 - S_2$ has the same sign as $p-q$, so the F-statistic always positive.
+    - The df in F requires an absolute value.
 
 ### The Big Idea: Omnibus Tests for Multiple Predictors
 
@@ -217,6 +224,7 @@ If significant, then at least one of $(\beta_2, \beta_3)$ is not 0.
 
 ### ESS In R
 
+\scriptsize
 ```{r}
 #| eval: true
 #| echo: true
@@ -228,6 +236,11 @@ m2 <- lm(body_mass_g ~ flipper_length_mm,
     data = peng)
 anova(m1, m2) |> knitr::kable()
 ```
+
+\normalsize
+
+- Including the bill measurements does *not* significantly change the variance of the regression model.
+    - $SS_{Reg}(\hat\beta_3,\hat\beta_4|\hat\beta_0,\hat\beta_1) = 0 \Leftrightarrow \beta_3 = \beta_4 = 0$.
 
 ::: {.content-visible unless-profile="book"}
 ## Participation Questions
@@ -294,7 +307,7 @@ b. FALSE
 
 <!--- A --->
 
-### Q5
+### Q6
 
 The following table shows the output of `mpg ~ hp + wt`.
 
