@@ -312,6 +312,8 @@ anova(
 )
 ```
 
+::: {.content-visible unless-profile="book"}
+
 ## Participation Questions
 
 ### Q1
@@ -368,6 +370,7 @@ c. We suspect that one predictor in a group of predictors has a non-zero slope.\
 d. To demonstrate that at least one predictor is significant in our regression.
 
 <!--- C --->
+:::
 
 
 ## Modelling Strategies
