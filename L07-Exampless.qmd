@@ -367,7 +367,7 @@ b. A group of predictors may be natural to include/exclude together.\lspace
 c. We suspect that one predictor in a group of predictors has a non-zero slope.\lspace
 d. To demonstrate that at least one predictor is significant in our regression.
 
---->
+<!--- C --->
 
 
 ## Modelling Strategies
