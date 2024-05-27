@@ -19,6 +19,8 @@ peng <- penguins[complete.cases(penguins), ]
 
 ### Announcements
 
+- Virtual Classes again next week.
+
 :::
 
 ## Review
@@ -309,6 +311,64 @@ anova(
     lm(mpg ~ disp + wt + qsec, data = mtcars)
 )
 ```
+
+## Participation Questions
+
+### Q1
+
+The Extra Sum of Squares test explicitly tests:
+
+\pspace
+
+a. Whether the slope parameters are 0.\lspace
+b. Whether the variance in the line is large relative to the variance in the response.
+c. Whether the variance in the line is significantly larger when new terms are added.
+
+<!--- C --->
+
+### Q2
+
+The following lines of code will produce the same ANOVA table.
+
+```{r}
+#| label: Sequential_order_matters
+#| echo: true
+#| eval: false
+anova(lm(mpg ~ wt + hp, data = mtcars))
+anova(lm(mpg ~ hp + wt, data = mtcars))
+```
+
+\psapce
+
+a. True\lspace
+b. False
+
+<!--- B --->
+
+### Q3
+
+Why would we test a group of predictors when we can test them all at once?
+
+\pspace
+
+a. Type 1 error.\lspace
+b. **Also type 1 error, but bold.**
+
+<!--- B --->
+
+### Q4
+
+Which of the following is *not* a good reason to use an ESS test?
+
+\pspace
+
+a. Even though the predictors don't change the variance of the line, they still may affect the slope estimates of relevant predictors.\lspace
+b. A group of predictors may be natural to include/exclude together.\lspace
+c. We suspect that one predictor in a group of predictors has a non-zero slope.\lspace
+d. To demonstrate that at least one predictor is significant in our regression.
+
+--->
+
 
 ## Modelling Strategies
 
