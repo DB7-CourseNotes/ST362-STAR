@@ -1,6 +1,6 @@
 ---
 title: "Extra Sum-of-Squares"
-institute: "**Jam TBD**"
+institute: "**All At Once** by The Airborne Toxic Event, Calder Quartet"
 ---
 
 ```{r}
@@ -15,7 +15,7 @@ set.seed(2112)
 ### Announcements
 
 - Lab 3 on Wednesday!\lspace
-- Assignment 2 is out!
+- Assignment 2 - groups?
 
 :::
 

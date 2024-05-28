@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-20">
+<meta name="dcterms.date" content="2024-05-27">
 
 <title>STAR Notes - 7&nbsp; ESS Exampless</title>
 <style>
@@ -432,7 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-art-of-modelling" id="toc-the-art-of-modelling" class="nav-link" data-scroll-target="#the-art-of-modelling">The Art of Modelling</a></li>
   <li><a href="#choosing-predictor-sets" id="toc-choosing-predictor-sets" class="nav-link" data-scroll-target="#choosing-predictor-sets">Choosing Predictor Sets</a></li>
   <li><a href="#advice" id="toc-advice" class="nav-link" data-scroll-target="#advice">Advice</a></li>
-  <li><a href="#the-guiding-principle-of-model-selection" id="toc-the-guiding-principle-of-model-selection" class="nav-link" data-scroll-target="#the-guiding-principle-of-model-selection">The Guiding Principle of Model Selection</a></li>
+  <li><a href="#the-guiding-principles-of-model-selection" id="toc-the-guiding-principles-of-model-selection" class="nav-link" data-scroll-target="#the-guiding-principles-of-model-selection">The Guiding Principles of Model Selection</a></li>
   </ul></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">7.4</span> Exercises</a></li>
   </ul>
@@ -467,7 +467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-20</p>
+      <p class="date">2024-05-27</p>
     </div>
   </div>
   
@@ -531,10 +531,10 @@ Residuals         329  50814912    154453
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
+<p>From this model, SSE is 50814912 on 329 degrees of freedom. This is the same as the SSE in the output of <code>anova(lm2, lm1)</code>.</p>
 </section>
 <section id="calculating-the-sse" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-the-sse">Calculating the SSE</h3>
-<p>From this model, SSE is 50814912 on 329 degrees of freedom. This is the same as the SSE in the output of <code>anova(lm2, lm1)</code>.</p>
 <div class="cell" data-hash="L07-Exampless_cache/html/anova-lm2_ddec8065e39cff309dfbfa7e24dc26cb">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -553,7 +553,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="final-calculations" class="level3">
 <h3 class="anchored" data-anchor-id="final-calculations">Final Calculations</h3>
-<p>We can calculate <span class="math inline">\(s^2\)</span> as the MSE for the larger model:</p>
+<div class="columns">
+<div class="column">
+<p><span class="math inline">\(s^2\)</span> is the MSE for the <strong>larger</strong> model:</p>
 <div class="cell" data-hash="L07-Exampless_cache/html/s2_6e0e5abaf970154d79d49a22cccad663">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="dv">50814912</span><span class="sc">/</span><span class="dv">329</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>s2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -561,7 +563,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <pre><code>[1] 154452.6</code></pre>
 </div>
 </div>
-<p>And now we can calculate the F-value as expected:</p>
+<p>And now we can calculate the F-value:</p>
 <div class="cell" data-hash="L07-Exampless_cache/html/calc-f_7db524a3877879241901517c8265713b">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">51211963</span> <span class="sc">-</span> <span class="dv">50814912</span>)<span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> s2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -572,6 +574,21 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="dv">1</span><span class="sc">-</span> <span class="fu">pf</span>(<span class="fl">1.28539</span>, <span class="dv">2</span>, <span class="dv">329</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2779278</code></pre>
+</div>
+</div>
+</div><div class="column">
+<div class="cell" data-hash="L07-Exampless_cache/html/ess-again_7595938585c69abdee126b0040cbf3c0">
+<div class="sourceCode cell-code" id="cb15" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm2, lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: body_mass_g ~ flipper_length_mm
+Model 2: body_mass_g ~ flipper_length_mm + bill_length_mm + bill_depth_mm
+  Res.Df      RSS Df Sum of Sq      F Pr(&gt;F)
+1    331 51211963                           
+2    329 50814912  2    397051 1.2853 0.2779</code></pre>
+</div>
+</div>
 </div>
 </div>
 <ul>
@@ -642,9 +659,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="type-2-anova-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="type-2-anova-in-r">Type 2 ANOVA in R</h3>
 <div class="cell" data-hash="L07-Exampless_cache/html/type-I_e9ca96868d8c7b25da2c3d21ddefd84f">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Try changing the order to see how the significance changes!</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> qsec <span class="sc">+</span> disp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Try changing the order to see how the significance changes!</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> qsec <span class="sc">+</span> disp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -657,7 +674,7 @@ Residuals 28 195.46    6.98
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mylm)<span class="sc">$</span>coef <span class="co"># No obvious connection to anova</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mylm)<span class="sc">$</span>coef <span class="co"># No obvious connection to anova</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 Estimate Std. Error     t value     Pr(&gt;|t|)
 (Intercept) 19.7775575655 5.93828659  3.33051585 0.0024420674
@@ -684,9 +701,9 @@ y_i = \beta_0 + \beta_1x_i + \beta_2x_i^2 + \beta_3x_i^3 + ... + \beta_{p-1}x_i^
 </ol>
 <p>In the code below, I use the <code>I()</code> function (the <code>I</code> means identity) to make the polynomial model. The “formula” notation in R, <code>y ~ x + z</code>, has a lot of options. Including <code>x^2</code>, rather than <code>I(x^2)</code>, makes R think we want to do one of the more fancy things, but the <code>I()</code> tells it that we want to literally square it. In the future, we’ll use a better way of doing this.</p>
 <div class="cell" data-hash="L07-Exampless_cache/html/polynomial-type-1-plot_e239b21c0b36e82f2726bfd48197d87f">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">600</span>, <span class="dv">0</span>, <span class="dv">20</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>x <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="fl">0.3</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">600</span>, <span class="dv">0</span>, <span class="dv">100</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">600</span>, <span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>x <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="fl">0.3</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">600</span>, <span class="dv">0</span>, <span class="dv">100</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L07-Exampless_files/figure-html/polynomial-type-1-plot-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -695,8 +712,8 @@ y_i = \beta_0 + \beta_1x_i + \beta_2x_i^2 + \beta_3x_i^3 + ... + \beta_{p-1}x_i^
 <section id="sequential-ss-for-polynomial-regression" class="level3">
 <h3 class="anchored" data-anchor-id="sequential-ss-for-polynomial-regression">Sequential SS for Polynomial Regression</h3>
 <div class="cell" data-hash="L07-Exampless_cache/html/polynomial-type-1-anova_57a7dbd944920e0694cf2e74e3fa4426">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">6</span>))</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">6</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -732,7 +749,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="change-in-anova-when-adding-predictors" class="level3">
 <h3 class="anchored" data-anchor-id="change-in-anova-when-adding-predictors">Change in ANOVA when adding predictors</h3>
 <div class="cell" data-hash="L07-Exampless_cache/html/add-predictor-changes-anova_5bd48dd5b4152f1f5ddca1076a055f3f">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -743,7 +760,7 @@ Residuals 30 317.16   10.57
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -763,10 +780,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h3 class="anchored" data-anchor-id="type-iii-ss-in-r">Type III SS in R</h3>
 <p>There isn’t a built-in function to do this. To create this, we can either use our math (my preferred method) or test each one individually.</p>
 <div class="cell" data-hash="L07-Exampless_cache/html/anova-type-3_79d6c2a0b69b24f1c6da09966d24a36c">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars),</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt, <span class="at">data =</span> mtcars),</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -778,10 +795,10 @@ Model 2: mpg ~ disp + wt + qsec
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars),</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars)</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars),</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -793,10 +810,10 @@ Model 2: mpg ~ disp + wt + qsec
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars),</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars),</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> wt <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -827,8 +844,13 @@ Model 2: mpg ~ disp + wt + qsec
 </section>
 <section id="choosing-predictor-sets" class="level3">
 <h3 class="anchored" data-anchor-id="choosing-predictor-sets">Choosing Predictor Sets</h3>
-<p>These algorithms assume that you have a set of predictors that you already know you want to check.</p>
-<p>There are other predictors in the mtcars dataset that we did not consider!</p>
+<ul>
+<li>These algorithms assume that you have a set of predictors that you already know you want to check.</li>
+<li>There are other predictors in the mtcars dataset that we did not consider!
+<ul>
+<li>We only looked at continuous predictors - we’ll see categorical predictors later.</li>
+</ul></li>
+</ul>
 </section>
 <section id="advice" class="level3">
 <h3 class="anchored" data-anchor-id="advice">Advice</h3>
@@ -840,8 +862,8 @@ Model 2: mpg ~ disp + wt + qsec
 <li>Your final model will be based on the tests for groups of (or individual) predictors that you suspect would be relevant.</li>
 </ul>
 </section>
-<section id="the-guiding-principle-of-model-selection" class="level3">
-<h3 class="anchored" data-anchor-id="the-guiding-principle-of-model-selection">The Guiding Principle of Model Selection</h3>
+<section id="the-guiding-principles-of-model-selection" class="level3">
+<h3 class="anchored" data-anchor-id="the-guiding-principles-of-model-selection">The Guiding Principles of Model Selection</h3>
 <p><strong>Minimize the number of p-values that you check.</strong></p>
 <ul>
 <li>ESS tests check a set of predictors, rather than each one individually.
@@ -849,6 +871,17 @@ Model 2: mpg ~ disp + wt + qsec
 <li>Fewer p-values!</li>
 </ul></li>
 <li>The Type I, II, and III algorithms are sometimes important, but intuition and knowledge is better!</li>
+</ul>
+<p><strong>Minimize the number of degrees of freedom that you use</strong></p>
+<ul>
+<li>More degrees of freedom = more complexity.
+<ul>
+<li>A simpler model that explains the same amount of variance is preferred!</li>
+</ul></li>
+<li>Non-linear trends (e.g.&nbsp;polynomial models) use more degrees of freedom.
+<ul>
+<li>Polynomials are hard to interpret.</li>
+</ul></li>
 </ul>
 </section>
 </section>
@@ -870,7 +903,7 @@ In order for Type 2 SS to be appropriate, the predictors need to have a logical 
 <hr>
 <ol start="5" type="1">
 <li>For the penguins data, fit a model with flipper length, bill length, and bill depth (in that order), and check the output of <code>anova()</code>. Reverse the order of predictors and repeat. Which values in the ANOVA table stay the same? Which values change? Why do they change? What does this tell you about interpreting <code>anova()</code> output?</li>
-<li>Give an example of a context where a collection of predictors might be tested all at once.</li>
+<li>Give an example of a context where a collection of predictors might be tested for significance all at once.</li>
 </ol>
 
 
