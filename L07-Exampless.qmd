@@ -19,7 +19,10 @@ peng <- penguins[complete.cases(penguins), ]
 
 ### Announcements
 
-- Virtual Classes again next week.
+- Virtual Classes again next week.\lspace
+- Assignment 2 groups are self-registered - get your groups now!!!
+    - Like, right now. Stop paying attention to me and do it now.\lspace
+
 
 :::
 
@@ -30,11 +33,19 @@ peng <- penguins[complete.cases(penguins), ]
 From last time, we basically learned what the following means:
 
 $$
-\frac{SS(\hat\beta_{q+1}, ..., \hat\beta_p | \hat\beta_0, ... \hat\beta_q)}{(p-q)s^2} =\frac{S_1 - S(\hat\beta_0) - (S_2 - S(\hat\beta_0))}{(p-q)s^2}\sim F_{p-q, \max(p, q)}
+\frac{SS(\hat\beta_{q+1}, ..., \hat\beta_{p-1} | \hat\beta_0, ... \hat\beta_q)}{(p-q)s^2} =\frac{S_1 - S(\hat\beta_0) - (S_2 - S(\hat\beta_0))}{(p-q)s^2}\sim F_{p-q, \max(p, q)}
 $$
 where $s^2$ is the MSE calculated from the larger model.
 
-This allows us to do a test for whether $\beta_{q+1} = \beta_{q+2} = ... = \beta_p = 0$.
+This allows us to do a test for whether $\beta_{q+1} = \beta_{q+2} = ... = \beta_{p-1} = 0$.
+
+::: {.content-visible when-profile="book"}
+Recall that this is accomplished by testing whether the variance of the line significantly changes when those predictors are included. A line with zero variance is horizontal; if adding one predictor to that line changes the variance significantly, then it's no longer a horizontal line (and thus the slope is non-zero). This works when extending into arbitrary dimensions by adding more predictors - if a predictor is not included in a model, then the hyperplane defined by the linear regression is "horizontal" in that direction.
+
+Mathematically, the regression equation $y = \beta_0 + \beta_1x_1 + \beta_2x_2$ defines a plane in 3 dimensions, with the slopes determined by $\beta_1$ and $\beta_2$ (and a slope of $1$ in the y direction). If we have also recorded $x_3$ but not included it in the model, we can write the hyperplane as $y = \beta_0 + \beta_1x_1 +\beta_2x_2 + 0x_3$, i.e. the hyperplane has a slope of 0 in the $x_3$ direction. Adding $x_3$ as a predictor means we are allowing the slope in the $x_3$ direction to be non-zero.
+
+The big lesson here is that analysing the variance allows us to determine if the slope is 0! This is very important for understanding what's happening with regression.
+:::
 
 
 ### Penguins Example
@@ -55,10 +66,8 @@ nrow(peng)
 ```{r}
 #| echo: true
 #| label: ess-bills
-lm1 <- lm(body_mass_g ~ flipper_length_mm + bill_length_mm + bill_depth_mm,
-    data = peng)
-lm2 <- lm(body_mass_g ~ flipper_length_mm,
-    data = peng)
+lm1 <- lm(body_mass_g ~ flipper_length_mm + bill_length_mm + bill_depth_mm, data = peng)
+lm2 <- lm(body_mass_g ~ flipper_length_mm, data = peng)
 anova(lm2, lm1)
 ```
 
@@ -101,7 +110,7 @@ $s^2$ is the MSE for the **larger** model:
 ```{r}
 #| echo: true
 #| label: s2
-s2 <- 50814912/329
+s2 <- 50814912 / 329
 s2
 ```
 \normalsize
@@ -114,13 +123,13 @@ And now we can calculate the F-value:
 ```{r}
 #| echo: true
 #| label: calc-f
-(51211963 - 50814912)/ (2 * s2)
+(51211963 - 50814912) / (2 * s2)
 ```
 
 ```{r}
 #| echo: true
 #| label: calc-f-pval
-print(1- pf(1.28539, 2, 329))
+1 - pf(1.28539, 2, 329)
 ```
 \normalsize
 
@@ -338,7 +347,7 @@ anova(lm(mpg ~ wt + hp, data = mtcars))
 anova(lm(mpg ~ hp + wt, data = mtcars))
 ```
 
-\psapce
+\pspace
 
 a. True\lspace
 b. False

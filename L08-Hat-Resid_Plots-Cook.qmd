@@ -14,6 +14,10 @@ set.seed(2112)
 
 ### Announcements
 
+- If you're not in a group for A2, **GET IN A GROUP**.
+    - The number of groups is limited; most groups need to have 4 people.\lspace
+- If you're already in a group, expect randoms to join your group.
+    - This is expected and encouraged.
 
 
 :::
@@ -34,8 +38,67 @@ shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps",
 \pspace
 
 - Leverage: affects the line.
-    - Measured by the hat matrix.\lspace
+    - Measured by the hat matrix.
+    - Forcing the line to be what it would be anyway counts as leverage.\lspace
 - Influence: affects the line in a "*meaningful*" way
+    - Measured by vibes (and Cook's Distance).
+    - If the point were removed the line would be different.
+
+### Leverage $\ne$ Influence; Extreme Case
+
+:::: {.columns}
+::: {.column width="45%"}
+
+```{r}
+#| label: hilev-lowinf
+#| fig-height: 4
+#| fig-width: 5
+# Generate n-1 data points
+x <- runif(39, 0, 10)
+y <- 4 + 10 * x + rnorm(39, 0, 5)
+
+# Generate nth data point - prefectly on line
+x[40] <- 20
+y[40] <- 4 + 10 * 20
+
+h <- hatvalues(lm(y ~ x))
+
+plot(x, y)
+abline(lm(y ~ x))
+text(x[40], y[40], labels = round(h[40], 4),
+    adj = c(1,1))
+```
+
+If the point above moves, the entire line moves with it! However, the point happens to be perfectly on the line.
+
+:::
+::: {.column width="5%"}
+
+:::
+::: {.column width="45%"}
+
+```{r}
+#| label: hilev-hiinf
+#| fig-height: 4
+#| fig-width: 5
+# Generate nth data point - prefectly on line
+x[40] <- 20
+y[40] <- 50
+
+h <- hatvalues(lm(y ~ x))
+
+plot(x, y)
+abline(lm(y ~ x))
+text(x[40], y[40], labels = round(h[40], 4),
+    adj = c(1,1))
+```
+
+Exact same leverage, but the line is now completely different!
+:::
+::::
+
+**Conclusion**: Leverage measures *whether* the point affects the line, not *how*.
+
 
 ## Le Chapeau
 
@@ -71,6 +134,8 @@ V(\underline{\hat\epsilon}) &= E([\underline{\hat\epsilon} - E(\underline{\hat\e
 \end{align*}
 where we used the idempotency and symmetry of $I-H$.
 
+- Note: $h_{ii}\in [0,1]$ for all $i$, so the variance is positive.
+
 
 ### The variance of a residual
 
@@ -89,14 +154,15 @@ $$
 \rho_{ij} = \frac{Cov(\hat\epsilon_i, \hat\epsilon_j)}{\sqrt{V(\hat\epsilon_i)V(\hat\epsilon_j)}} = \frac{-h_{ij}}{\sqrt{(1-h_{ii})(1-h_{jj})}}
 $$
 
-- The covariance is negative! A large residual tells us there are small residuals.
-    - "Large" and "small" are relative
+- Note that $h_{ij}\in [-1, 1]$. Covariance can be negative or positive.
 
 ### More H Facts
 
 1. $SS(\hat{\underline\beta}) = \hat{\underline\beta}^TX^TY = \hat Y^TY = Y^TH^TY = Y^TH^THY = \hat Y^T\hat Y$
-    - We used the facts $H^T= H^TH$ and $\hat Y = HY$.\lspace
+    - We used the facts $H^T= H^TH$ and $\hat Y = HY$.
+    - It is *super* weird that this proof implies $\hat Y^TY = \hat Y^T\hat Y$, even though $\hat Y \ne Y$.\lspace
 2. $\sum_{i=1}^nV(\hat Y_i) = trace(H\sigma^2) = p\sigma^2$
+    - $trace(A)$ is the sum of the diagonal elements of $A$.
     - $p$ is the number of parameters.
     - Proof is homework\lspace
 3. $H1 = 1$ if the model contains a $\beta_0$ term.
@@ -107,6 +173,8 @@ $$
 
 ::: {.content-visible when-profile="book"}
 The first one is a little hard to believe! How can $\hat Y^TY = \hat Y^T\hat Y$ when $\hat Y \ne Y$???
+
+First, here's a demonstration that each equality holds (at least for these particular data):
 
 ```{r}
 mylm <- lm(mpg ~ wt, data = mtcars)
@@ -122,7 +190,7 @@ t(Y) %*% t(H) %*% H %*% Y
 t(Yhat) %*% Yhat
 ```
 
-
+Why $\hat Y^TY = \hat Y^T\hat Y$? $\hat Y$ is trying to approximate $Y$, so you can expect that they're correlated. If $Y$ were to be changed so that one of the values were higher, $\hat Y$ would make a corresponding change. If $\hat Y$ is too high in one place, it will be too low in another to compensate. This property is not true in general, it's specifically because of the relationship between $\hat Y$ and $Y$ that this works.
 
 :::
 
@@ -210,6 +278,32 @@ is the variance of the residuals **without** observation $i$.
     - We can see what happened without it
     - No need to re-estimate the model!!!
 
+::: {.content-visible when-profile="book"}
+Let's demonstrate this quickly!
+
+```{r}
+#| label: externally-studentized
+
+mylm <- lm(mpg ~ wt, data = mtcars)
+
+# s can be extracted as folows:
+s <- summary(mylm)$sigma
+# Therefore s1^2 is:
+summary(lm(mpg ~ wt, data = mtcars[-1, ]))$sigma^2
+
+# Now let's get it *without* re-fitting the model
+# The hat matrix
+h <- hatvalues(mylm)
+e <- residuals(mylm)
+p <- 2
+n <- nrow(mtcars)
+((n - p) * s^2 - e[1]^2 / (1 - h[1])) / (n - p - 1)
+
+```
+
+They're exactly the same, except the second one did *not* require re-fitting the model! Math is truly astounding. 
+:::
+
 ### Externally Studentized Residuals
 
 Use $s^2_{(i)}$ in place of $s^2$.
@@ -230,7 +324,7 @@ Most software uses Studentized residuals for plots/diagnostics!
 
 ### Better Measures of Influence
 
-The hat matrix is intepreted as influence, but it has problems.
+The hat matrix is sometimes intepreted as influence, but it has problems.
 
 - $y_i$'s "influence" on *it's own* prediction,
     - *given all other points.*
@@ -256,17 +350,18 @@ $$
 
 \pspace
 
-Again, this *would* involve re-fitting the model $n$ time (one for each obs).
+Again, this *would* involve re-fitting the model $n$ times (one re-fit for each observation).
 
 ### Cook's Distance: Alternate Form
 
+Again, we can use $H$ to avoid re-fitting the model.
+
 $$
-D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\frac{1}{p}\left[\frac{h_{ii}}{1 - h_{ii}}\right] = r_i^2\frac{1}{p}\frac{\text{variance of $i$th predicted value}}{\text{variance of $i$th residual}}
+D_i = \frac{\sum_{i=1}^n(\hat y_i - \hat y_{(i)})^2}{ps^2} = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\frac{1}{p}\left[\frac{h_{ii}}{1 - h_{ii}}\right] = r_i^2\frac{1}{p}\frac{\text{variance of $i$th predicted value}}{\text{variance of $i$th residual}}
 $$
 
 \pspace
 
-- Again, we can use $H$ rather than re-fitting the model.\lspace
 - Cook's distance is a modification of the *internally* studentized residual.
     - Variances are based on same "deletion" idea as studentized.\lspace
 - Ratio of Variances!
@@ -384,6 +479,41 @@ h11 <- H[1,1]
 ```
 
 6. For the data in the previous question, note that the mean of $x$ should be around 5. Move the first point to this x-value, keeping the y-value the same. First, make a guess at how do each of $h_{11}$, $\hat\epsilon_1$, $s_1$, $t_1$, and $D_1$ change, writing down your guess. Then calculate the values and see if you were right!
+7. The covariance of the estimated residuals is a strange idea to consider. I consider a lot of strange ideas; let's do this via simulation! Generate a single vector of x values which will be used throughout the simulations, and a preliminary simulation of y values to use for now. For 1000 times, generate new y values, noting the first and second residuals. At the end, find the correlation between these two vectors, and compare to the theoretical correlation found by the $\rho_{ij}$ formula.
+
+<details>
+<summary>**Solution**</summary>
+
+```{r}
+#| label: corr_resids
+#| code-fold: false
+
+x <- runif(40, 0, 10)
+y <- 4 + 10 * x + rnorm(40, 0, 10)
+X <- cbind(1, x)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+cor12 <- -H[1, 2] / sqrt((1 - H[1, 1]) * (1 - H[2, 2]))
+
+R <- 10000
+e1 <- c()
+e2 <- c()
+for (i in 1:R) {
+    y <- 4 + 3 * x + rnorm(40, 0, 3)
+    e <- residuals(lm(y ~ x))
+    e1[i] <- e[1]
+    e2[i] <- e[2]
+}
+cor(e1, e2)
+cor12
+
+```
+
+It's a simulation and there's a lot of variance, but I'm satisfied with that.
+
+The important thing: The correlation of residuals is based on if we were to do many different samples (with the x-values the same each time). 
+
+*****
+</details>
 
 
 :::

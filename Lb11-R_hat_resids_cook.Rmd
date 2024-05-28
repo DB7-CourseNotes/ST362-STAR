@@ -55,6 +55,7 @@ H %*% rep(1, ncol(H)) # H1 = 1
 See `?influence.measures`.
 
 ```{r}
+#| eval: false
 ?rstandard
 cooks.distance(mylm)
 ```
@@ -75,14 +76,14 @@ Notice that it includes:
 -   `.hat` = $diag(H)$
 -   `.sigma` = $s_{(i)}$
 -   `.cooksd` = `D`
--   `.std.resid` = are these standardized or studentized residuals? Find out yourself!
+-   `.std.resid` = are these standardized or studentized residuals? Find out yourself as homework!!
 
 ### Plotting the residuals
 
 If you've ever accidentally typed `plot(mylm)`, you've seen some plots of the residuals.
 
 ```{r}
-par(mfrow = c(2, 2))
+par(mfrow = c(2, 2)) # plot.lm produces four plots.
 plot(mylm) # ?plot.lm
 ```
 
@@ -93,7 +94,7 @@ par(mfrow = c(2, 3))
 plot(mylm, which = 1:6)
 ```
 
-99% of the time, the default plots are the ones you'll want to look at. For teaching purposes, we'll look at a few extra.
+99% of the time, the default plots are the ones you'll want to look at. For teaching purposes, we'll look at the extra.
 
 ### Demonstrations
 
@@ -224,4 +225,4 @@ newzone[row.names(newzone) %in% c(1, 58, 243), ]
     -   Studying fish and a shark was included? That's real, but maybe you should narrow your scope!
 -   Many large outliers: you may need to try more predictors or a non-linear model.
 
-Do *NOT* remove a point simply because it's an outlier!!!
+**DO NOT** remove a point simply because it's an outlier!!!
