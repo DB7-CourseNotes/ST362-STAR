@@ -34,7 +34,7 @@ book:
         - L06-Extra_Sums_of_Squares.qmd
         - L07-Exampless.qmd
         - L08-Hat-Resid_Plots-Cook.qmd
-        - L09-Admin_Slides.qmd
+        - L09-Analysing-Resids.qmd
         - L10-Extra_Topics.qmd
     - part: Choosing Models
       chapters:
