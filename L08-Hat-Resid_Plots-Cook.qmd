@@ -129,7 +129,7 @@ and therefore:
 \begin{align*}
 V(\underline{\hat\epsilon}) &= E([\underline{\hat\epsilon} - E(\underline{\hat\epsilon})][\underline{\hat\epsilon} - E(\underline{\hat\epsilon})]^T)\\
 &= [I-H]E(\underline{\epsilon}\underline{\epsilon}^T)[I-H]^T\\
-&= [I-H]\sigma^2[I-H]\\
+&= [I-H]\sigma^2[I-H]^T\\
 &= [I-H]\sigma^2
 \end{align*}
 where we used the idempotency and symmetry of $I-H$.
