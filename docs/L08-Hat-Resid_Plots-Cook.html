@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-21">
+<meta name="dcterms.date" content="2024-05-29">
 
 <title>STAR Notes - 8&nbsp; The Hat Matrix</title>
 <style>
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L09-Admin_Slides.html" rel="next">
+<link href="./L09-Analysing-Resids.html" rel="next">
 <link href="./L07-Exampless.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -206,7 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+  <a href="./L09-Analysing-Resids.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
@@ -407,6 +407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#effect-of-a-single-point" id="toc-effect-of-a-single-point" class="nav-link active" data-scroll-target="#effect-of-a-single-point"><span class="header-section-number">8.1</span> Effect of a Single Point</a>
   <ul class="collapse">
   <li><a href="#leverage-and-influence" id="toc-leverage-and-influence" class="nav-link" data-scroll-target="#leverage-and-influence">Leverage and Influence</a></li>
+  <li><a href="#leverage-ne-influence-extreme-case" id="toc-leverage-ne-influence-extreme-case" class="nav-link" data-scroll-target="#leverage-ne-influence-extreme-case">Leverage <span class="math inline">\(\ne\)</span> Influence; Extreme Case</a></li>
   </ul></li>
   <li><a href="#le-chapeau" id="toc-le-chapeau" class="nav-link" data-scroll-target="#le-chapeau"><span class="header-section-number">8.2</span> Le Chapeau</a>
   <ul class="collapse">
@@ -464,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-21</p>
+      <p class="date">2024-05-29</p>
     </div>
   </div>
   
@@ -489,9 +490,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Leverage: affects the line.
 <ul>
 <li>Measured by the hat matrix.</li>
+<li>Forcing the line to be what it would be anyway counts as leverage.</li>
 </ul></li>
-<li>Influence: affects the line in a “<em>meaningful</em>” way</li>
+<li>Influence: affects the line in a “<em>meaningful</em>” way
+<ul>
+<li>Measured by vibes (and Cook’s Distance).</li>
+<li>If the point were removed the line would be different.</li>
+</ul></li>
 </ul>
+</section>
+<section id="leverage-ne-influence-extreme-case" class="level3">
+<h3 class="anchored" data-anchor-id="leverage-ne-influence-extreme-case">Leverage <span class="math inline">\(\ne\)</span> Influence; Extreme Case</h3>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="cell" data-hash="L08-Hat-Resid_Plots-Cook_cache/html/hilev-lowinf_f03a6776294018381f089d2da39ccb96">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate n-1 data points</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">39</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">39</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate nth data point - prefectly on line</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">40</span>] <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">40</span>] <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">*</span> <span class="dv">20</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hatvalues</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[<span class="dv">40</span>], y[<span class="dv">40</span>], <span class="at">labels =</span> <span class="fu">round</span>(h[<span class="dv">40</span>], <span class="dv">4</span>),</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">adj =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L08-Hat-Resid_Plots-Cook_files/figure-html/hilev-lowinf-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>If the point above moves, the entire line moves with it! However, the point happens to be perfectly on the line.</p>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:45%;">
+<div class="cell" data-hash="L08-Hat-Resid_Plots-Cook_cache/html/hilev-hiinf_93a3a4ff9736a3d72e3da87612d909ad">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate nth data point - prefectly on line</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">40</span>] <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">40</span>] <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hatvalues</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(x[<span class="dv">40</span>], y[<span class="dv">40</span>], <span class="at">labels =</span> <span class="fu">round</span>(h[<span class="dv">40</span>], <span class="dv">4</span>),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">adj =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="L08-Hat-Resid_Plots-Cook_files/figure-html/hilev-hiinf-1.png" class="img-fluid" width="480"></p>
+</div>
+</div>
+<p>Exact same leverage, but the line is now completely different!</p>
+</div>
+</div>
+<p><strong>Conclusion</strong>: Leverage measures <em>whether</em> the point affects the line, not <em>how</em>.</p>
 </section>
 </section>
 <section id="le-chapeau" class="level2" data-number="8.2">
@@ -518,9 +577,12 @@ H = X(X^TX)^{-1}X^T
 \]</span> and therefore: <span class="math display">\[\begin{align*}
 V(\underline{\hat\epsilon}) &amp;= E([\underline{\hat\epsilon} - E(\underline{\hat\epsilon})][\underline{\hat\epsilon} - E(\underline{\hat\epsilon})]^T)\\
 &amp;= [I-H]E(\underline{\epsilon}\underline{\epsilon}^T)[I-H]^T\\
-&amp;= [I-H]\sigma^2[I-H]\\
+&amp;= [I-H]\sigma^2[I-H]^T\\
 &amp;= [I-H]\sigma^2
 \end{align*}\]</span> where we used the idempotency and symmetry of <span class="math inline">\(I-H\)</span>.</p>
+<ul>
+<li>Note: <span class="math inline">\(h_{ii}\in [0,1]\)</span> for all <span class="math inline">\(i\)</span>, so the variance is positive.</li>
+</ul>
 </section>
 <section id="the-variance-of-a-residual" class="level3">
 <h3 class="anchored" data-anchor-id="the-variance-of-a-residual">The variance of a residual</h3>
@@ -537,10 +599,7 @@ V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 \rho_{ij} = \frac{Cov(\hat\epsilon_i, \hat\epsilon_j)}{\sqrt{V(\hat\epsilon_i)V(\hat\epsilon_j)}} = \frac{-h_{ij}}{\sqrt{(1-h_{ii})(1-h_{jj})}}
 \]</span></p>
 <ul>
-<li>The covariance is negative! A large residual tells us there are small residuals.
-<ul>
-<li>“Large” and “small” are relative</li>
-</ul></li>
+<li>Note that <span class="math inline">\(h_{ij}\in [-1, 1]\)</span>. Covariance can be negative or positive.</li>
 </ul>
 </section>
 <section id="more-h-facts" class="level3">
@@ -549,9 +608,11 @@ V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 <li><span class="math inline">\(SS(\hat{\underline\beta}) = \hat{\underline\beta}^TX^TY = \hat Y^TY = Y^TH^TY = Y^TH^THY = \hat Y^T\hat Y\)</span>
 <ul>
 <li>We used the facts <span class="math inline">\(H^T= H^TH\)</span> and <span class="math inline">\(\hat Y = HY\)</span>.</li>
+<li>It is <em>super</em> weird that this proof implies <span class="math inline">\(\hat Y^TY = \hat Y^T\hat Y\)</span>, even though <span class="math inline">\(\hat Y \ne Y\)</span>.</li>
 </ul></li>
 <li><span class="math inline">\(\sum_{i=1}^nV(\hat Y_i) = trace(H\sigma^2) = p\sigma^2\)</span>
 <ul>
+<li><span class="math inline">\(trace(A)\)</span> is the sum of the diagonal elements of <span class="math inline">\(A\)</span>.</li>
 <li><span class="math inline">\(p\)</span> is the number of parameters.</li>
 <li>Proof is homework</li>
 </ul></li>
@@ -566,16 +627,17 @@ V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 </ul></li>
 </ol>
 <p>The first one is a little hard to believe! How can <span class="math inline">\(\hat Y^TY = \hat Y^T\hat Y\)</span> when <span class="math inline">\(\hat Y \ne Y\)</span>???</p>
-<div class="cell" data-hash="L08-Hat-Resid_Plots-Cook_cache/html/unnamed-chunk-3_f5555e67606a3460d90dbb7a5f94a486">
+<p>First, here’s a demonstration that each equality holds (at least for these particular data):</p>
+<div class="cell" data-hash="L08-Hat-Resid_Plots-Cook_cache/html/unnamed-chunk-5_6cbdd02fa663cc1ba4bc018413c09a8d">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mylm)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(mylm)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>H <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">coef</span>(mylm))</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(beta) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mylm)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Yhat <span class="ot">&lt;-</span> <span class="fu">predict</span>(mylm)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>H <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">coef</span>(mylm))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(beta) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
@@ -583,7 +645,7 @@ V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 </div>
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Yhat) <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Yhat) <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
@@ -591,7 +653,7 @@ V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 </div>
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Y) <span class="sc">%*%</span> H <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Y) <span class="sc">%*%</span> H <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
@@ -599,7 +661,7 @@ V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 </div>
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Y) <span class="sc">%*%</span> <span class="fu">t</span>(H) <span class="sc">%*%</span> H <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Y) <span class="sc">%*%</span> <span class="fu">t</span>(H) <span class="sc">%*%</span> H <span class="sc">%*%</span> Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
@@ -607,13 +669,14 @@ V(\hat\epsilon_i) = (1-h_{ii})\sigma^2
 </div>
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Yhat) <span class="sc">%*%</span> Yhat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Yhat) <span class="sc">%*%</span> Yhat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]
 [1,] 13763.99</code></pre>
 </div>
 </div>
+<p>Why <span class="math inline">\(\hat Y^TY = \hat Y^T\hat Y\)</span>? <span class="math inline">\(\hat Y\)</span> is trying to approximate <span class="math inline">\(Y\)</span>, so you can expect that they’re correlated. If <span class="math inline">\(Y\)</span> were to be changed so that one of the values were higher, <span class="math inline">\(\hat Y\)</span> would make a corresponding change. If <span class="math inline">\(\hat Y\)</span> is too high in one place, it will be too low in another to compensate. This property is not true in general, it’s specifically because of the relationship between <span class="math inline">\(\hat Y\)</span> and <span class="math inline">\(Y\)</span> that this works.</p>
 </section>
 <section id="proof-that-h1-1" class="level3">
 <h3 class="anchored" data-anchor-id="proof-that-h1-1">Proof that <span class="math inline">\(H1 = 1\)</span></h3>
@@ -685,6 +748,36 @@ s^2_{(i)} = \frac{(n-p)s^2 - \hat\epsilon_i^2/(1-h_{ii})}{n-p-1}
 <li>No need to re-estimate the model!!!</li>
 </ul></li>
 </ul>
+<p>Let’s demonstrate this quickly!</p>
+<div class="cell" data-hash="L08-Hat-Resid_Plots-Cook_cache/html/externally-studentized_0edb766c380fd1aaadc08a7bd62b6f72">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># s can be extracted as folows:</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">summary</span>(mylm)<span class="sc">$</span>sigma</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Therefore s1^2 is:</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars[<span class="sc">-</span><span class="dv">1</span>, ]))<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.409517</code></pre>
+</div>
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now let's get it *without* re-fitting the model</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The hat matrix</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">hatvalues</span>(mylm)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mylm)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(mtcars)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>((n <span class="sc">-</span> p) <span class="sc">*</span> s<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> e[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> h[<span class="dv">1</span>])) <span class="sc">/</span> (n <span class="sc">-</span> p <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mazda RX4 
+ 9.409517 </code></pre>
+</div>
+</div>
+<p>They’re exactly the same, except the second one did <em>not</em> require re-fitting the model! Math is truly astounding.</p>
 </section>
 <section id="externally-studentized-residuals" class="level3">
 <h3 class="anchored" data-anchor-id="externally-studentized-residuals">Externally Studentized Residuals</h3>
@@ -706,7 +799,7 @@ t_i = \frac{\hat\epsilon_i}{\sqrt{s_{(i)}^2(1-h_{ii})}} \sim t_{n-p-1}
 <h2 data-number="8.4" class="anchored" data-anchor-id="cooks-distance"><span class="header-section-number">8.4</span> Cook’s Distance</h2>
 <section id="better-measures-of-influence" class="level3">
 <h3 class="anchored" data-anchor-id="better-measures-of-influence">Better Measures of Influence</h3>
-<p>The hat matrix is intepreted as influence, but it has problems.</p>
+<p>The hat matrix is sometimes intepreted as influence, but it has problems.</p>
 <ul>
 <li><span class="math inline">\(y_i\)</span>’s “influence” on <em>it’s own</em> prediction,
 <ul>
@@ -734,15 +827,15 @@ D_i = \frac{\sum_{i=1}^n(\hat y_i - \hat y_{(i)})^2}{ps^2}
 <li><span class="math inline">\(D_i\)</span> decreases as <span class="math inline">\(p\)</span> increases!</li>
 </ul></li>
 </ul>
-<p>Again, this <em>would</em> involve re-fitting the model <span class="math inline">\(n\)</span> time (one for each obs).</p>
+<p>Again, this <em>would</em> involve re-fitting the model <span class="math inline">\(n\)</span> times (one re-fit for each observation).</p>
 </section>
 <section id="cooks-distance-alternate-form" class="level3">
 <h3 class="anchored" data-anchor-id="cooks-distance-alternate-form">Cook’s Distance: Alternate Form</h3>
+<p>Again, we can use <span class="math inline">\(H\)</span> to avoid re-fitting the model.</p>
 <p><span class="math display">\[
-D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\frac{1}{p}\left[\frac{h_{ii}}{1 - h_{ii}}\right] = r_i^2\frac{1}{p}\frac{\text{variance of $i$th predicted value}}{\text{variance of $i$th residual}}
+D_i = \frac{\sum_{i=1}^n(\hat y_i - \hat y_{(i)})^2}{ps^2} = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\frac{1}{p}\left[\frac{h_{ii}}{1 - h_{ii}}\right] = r_i^2\frac{1}{p}\frac{\text{variance of $i$th predicted value}}{\text{variance of $i$th residual}}
 \]</span></p>
 <ul>
-<li>Again, we can use <span class="math inline">\(H\)</span> rather than re-fitting the model.</li>
 <li>Cook’s distance is a modification of the <em>internally</em> studentized residual.
 <ul>
 <li>Variances are based on same “deletion” idea as studentized.</li>
@@ -771,21 +864,55 @@ D_i = \left[\frac{\hat \epsilon_i}{\sqrt{s^2(1-h_{ii})}}\right]^2\frac{1}{p}\lef
 <li>Prove that <span class="math inline">\(\sum_{i=1}^nV(\hat Y_i) = trace(H\sigma^2) = p\sigma^2\)</span>. You may use the fact that the “trace” function allows you to move the last term to the front (i.e.&nbsp;you can “cycle” the entries): <span class="math inline">\(trace(ABCD) = trace(DABC) = trace(CDAB) = trace(BCDA) \ne trace(BACD)\)</span>.</li>
 <li>For the following data, calculate <span class="math inline">\(h_{11}\)</span>, <span class="math inline">\(\hat\epsilon_1\)</span>, <span class="math inline">\(s_1\)</span>, <span class="math inline">\(t_1\)</span>, and <span class="math inline">\(D_1\)</span> using R. Plot the data; comment on whether the first value is an outlier, and whether you would know this from each of the calculated values.</li>
 </ol>
-<div class="cell" data-hash="L08-Hat-Resid_Plots-Cook_cache/html/unnamed-chunk-4_e245e5a36e0972036f4f4a0a670322e0">
+<div class="cell" data-hash="L08-Hat-Resid_Plots-Cook_cache/html/unnamed-chunk-7_419a2d2a7572bca0005bd482c415c0f6">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="fu">runif</span>(<span class="dv">49</span>, <span class="dv">0</span>, <span class="dv">10</span>))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">49</span>, <span class="dv">0</span>, <span class="dv">3</span>))</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mylm)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>H <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>h11 <span class="ot">&lt;-</span> H[<span class="dv">1</span>,<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="fu">runif</span>(<span class="dv">49</span>, <span class="dv">0</span>, <span class="dv">10</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">49</span>, <span class="dv">0</span>, <span class="dv">3</span>))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(mylm)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>H <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>h11 <span class="ot">&lt;-</span> H[<span class="dv">1</span>,<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ol start="6" type="1">
 <li>For the data in the previous question, note that the mean of <span class="math inline">\(x\)</span> should be around 5. Move the first point to this x-value, keeping the y-value the same. First, make a guess at how do each of <span class="math inline">\(h_{11}\)</span>, <span class="math inline">\(\hat\epsilon_1\)</span>, <span class="math inline">\(s_1\)</span>, <span class="math inline">\(t_1\)</span>, and <span class="math inline">\(D_1\)</span> change, writing down your guess. Then calculate the values and see if you were right!</li>
+<li>The covariance of the estimated residuals is a strange idea to consider. I consider a lot of strange ideas; let’s do this via simulation! Generate a single vector of x values which will be used throughout the simulations, and a preliminary simulation of y values to use for now. For 1000 times, generate new y values, noting the first and second residuals. At the end, find the correlation between these two vectors, and compare to the theoretical correlation found by the <span class="math inline">\(\rho_{ij}\)</span> formula.</li>
 </ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell" data-hash="L08-Hat-Resid_Plots-Cook_cache/html/corr_resids_a6e0244038b935db76f0689f55112336">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">40</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>H <span class="ot">&lt;-</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>cor12 <span class="ot">&lt;-</span> <span class="sc">-</span>H[<span class="dv">1</span>, <span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sqrt</span>((<span class="dv">1</span> <span class="sc">-</span> H[<span class="dv">1</span>, <span class="dv">1</span>]) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> H[<span class="dv">2</span>, <span class="dv">2</span>]))</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>e1 <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>e2 <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R) {</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    e <span class="ot">&lt;-</span> <span class="fu">residuals</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    e1[i] <span class="ot">&lt;-</span> e[<span class="dv">1</span>]</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    e2[i] <span class="ot">&lt;-</span> e[<span class="dv">2</span>]</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(e1, e2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01971098</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cor12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.006790357</code></pre>
+</div>
+</div>
+<p>It’s a simulation and there’s a lot of variance, but I’m satisfied with that.</p>
+<p>The important thing: The correlation of residuals is based on if we were to do many different samples (with the x-values the same each time).</p>
+<hr>
+</details>
 
 
 </section>
@@ -1146,7 +1273,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L09-Admin_Slides.html" class="pagination-link">
+      <a href="./L09-Analysing-Resids.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

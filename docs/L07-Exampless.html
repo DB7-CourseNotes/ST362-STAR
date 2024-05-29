@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-27">
+<meta name="dcterms.date" content="2024-05-29">
 
 <title>STAR Notes - 7&nbsp; ESS Exampless</title>
 <style>
@@ -206,7 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Admin_Slides.html" class="sidebar-item-text sidebar-link">
+  <a href="./L09-Analysing-Resids.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
@@ -467,7 +467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-27</p>
+      <p class="date">2024-05-29</p>
     </div>
   </div>
   
@@ -483,9 +483,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="extra-sum-of-squares">Extra Sum of Squares</h3>
 <p>From last time, we basically learned what the following means:</p>
 <p><span class="math display">\[
-\frac{SS(\hat\beta_{q+1}, ..., \hat\beta_p | \hat\beta_0, ... \hat\beta_q)}{(p-q)s^2} =\frac{S_1 - S(\hat\beta_0) - (S_2 - S(\hat\beta_0))}{(p-q)s^2}\sim F_{p-q, \max(p, q)}
+\frac{SS(\hat\beta_{q+1}, ..., \hat\beta_{p-1} | \hat\beta_0, ... \hat\beta_q)}{(p-q)s^2} =\frac{S_1 - S(\hat\beta_0) - (S_2 - S(\hat\beta_0))}{(p-q)s^2}\sim F_{p-q, \max(p, q)}
 \]</span> where <span class="math inline">\(s^2\)</span> is the MSE calculated from the larger model.</p>
-<p>This allows us to do a test for whether <span class="math inline">\(\beta_{q+1} = \beta_{q+2} = ... = \beta_p = 0\)</span>.</p>
+<p>This allows us to do a test for whether <span class="math inline">\(\beta_{q+1} = \beta_{q+2} = ... = \beta_{p-1} = 0\)</span>.</p>
+<p>Recall that this is accomplished by testing whether the variance of the line significantly changes when those predictors are included. A line with zero variance is horizontal; if adding one predictor to that line changes the variance significantly, then it’s no longer a horizontal line (and thus the slope is non-zero). This works when extending into arbitrary dimensions by adding more predictors - if a predictor is not included in a model, then the hyperplane defined by the linear regression is “horizontal” in that direction.</p>
+<p>Mathematically, the regression equation <span class="math inline">\(y = \beta_0 + \beta_1x_1 + \beta_2x_2\)</span> defines a plane in 3 dimensions, with the slopes determined by <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> (and a slope of <span class="math inline">\(1\)</span> in the y direction). If we have also recorded <span class="math inline">\(x_3\)</span> but not included it in the model, we can write the hyperplane as <span class="math inline">\(y = \beta_0 + \beta_1x_1 +\beta_2x_2 + 0x_3\)</span>, i.e.&nbsp;the hyperplane has a slope of 0 in the <span class="math inline">\(x_3\)</span> direction. Adding <span class="math inline">\(x_3\)</span> as a predictor means we are allowing the slope in the <span class="math inline">\(x_3\)</span> direction to be non-zero.</p>
+<p>The big lesson here is that analysing the variance allows us to determine if the slope is 0! This is very important for understanding what’s happening with regression.</p>
 </section>
 <section id="penguins-example" class="level3">
 <h3 class="anchored" data-anchor-id="penguins-example">Penguins Example</h3>
@@ -496,12 +499,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 333</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="L07-Exampless_cache/html/ess-bills_2ac685cca8327d84ec722917ae21d7ab">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> peng)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm2, lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="L07-Exampless_cache/html/ess-bills_76ac7e984db30ff75c9eb230f7c88054">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm, <span class="at">data =</span> peng)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass_g <span class="sc">~</span> flipper_length_mm, <span class="at">data =</span> peng)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm2, lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -556,22 +557,22 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="columns">
 <div class="column">
 <p><span class="math inline">\(s^2\)</span> is the MSE for the <strong>larger</strong> model:</p>
-<div class="cell" data-hash="L07-Exampless_cache/html/s2_6e0e5abaf970154d79d49a22cccad663">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="dv">50814912</span><span class="sc">/</span><span class="dv">329</span></span>
+<div class="cell" data-hash="L07-Exampless_cache/html/s2_a9a230ac1e0502b6236bde2fab94439a">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="dv">50814912</span> <span class="sc">/</span> <span class="dv">329</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>s2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 154452.6</code></pre>
 </div>
 </div>
 <p>And now we can calculate the F-value:</p>
-<div class="cell" data-hash="L07-Exampless_cache/html/calc-f_7db524a3877879241901517c8265713b">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">51211963</span> <span class="sc">-</span> <span class="dv">50814912</span>)<span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> s2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="L07-Exampless_cache/html/calc-f_2ef7fdb7f1c5a8768237626223c1d110">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">51211963</span> <span class="sc">-</span> <span class="dv">50814912</span>) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> s2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.285349</code></pre>
 </div>
 </div>
-<div class="cell" data-hash="L07-Exampless_cache/html/calc-f-pval_9f4fd50f6d992aa7e77098deef57137d">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="dv">1</span><span class="sc">-</span> <span class="fu">pf</span>(<span class="fl">1.28539</span>, <span class="dv">2</span>, <span class="dv">329</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="L07-Exampless_cache/html/calc-f-pval_bbcb3876f24fd7cca00c14a72af120f9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(<span class="fl">1.28539</span>, <span class="dv">2</span>, <span class="dv">329</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2779278</code></pre>
 </div>
