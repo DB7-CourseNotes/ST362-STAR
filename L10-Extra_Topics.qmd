@@ -27,8 +27,6 @@ $$
 x'_i = x_i - \bar x
 $$
 
-\pspace
-
 Then $\bar{x'} = 0$ and the coefficient estimates become:
 \begin{align*}
 \hat\beta_0 &= \bar y - \hat\beta_1\bar{x'} = \bar y\\
@@ -111,7 +109,7 @@ $$
 
 - $V(\hat\beta_0) = \sigma^2/n \implies sd(\hat\beta_0) = \sigma/\sqrt{n}$.
     - The t-test for significance of $\beta_0$ is just a hypothesis test for $\bar y = 0$. \lspace
-- Note that $\underline y$ hasn't changed, so $\hat{\underline\epsilon}$ and $\sigma^2$ are unchanged.
+- Note that $\underline y$ hasn't changed, so $\hat{\underline\epsilon}$ and $\sigma^2$ are unchanged.\lspace
 - $V(\hat\beta_0) = \sigma^2/\sum_{i=1}^n{x'}_i^2$ isn't all that interesting...
 
 ### Standardizing $\underline x$
@@ -146,6 +144,51 @@ Several things happen:
 \pspace
 
 Standardizing doesn't hurt and can often help $\implies$ it's almost always worth it!
+
+\pspace
+
+Possible downside:
+
+- Have to "un-standardize" to interpret the results.
+
+### Standardization Example
+
+:::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| label: standardize1
+#| echo: true
+x <- mtcars$wt
+y <- mtcars$mpg
+coef(lm(y ~ x))
+```
+:::
+::: {.column width="50%"}
+
+```{r}
+#| label: standardize2
+#| echo: true
+# Standardize x:
+x_prime <- (x - mean(x)) / sd(x)
+coef(lm(y ~ x_prime))
+```
+
+:::
+::::
+
+\pspace
+
+To get back our original estimates, we "un-standardize".\pause
+$$
+y = \beta_0' + \beta_1'x' = \beta_0' + \beta_1'\left(\frac{x - \bar x}{sd(x)}\right) = \left(\beta_0' - \beta_1'\frac{\bar x}{sd(x)}\right) + \frac{\beta_1'}{sd(x)}x = \beta_0 + \beta_1x
+$$
+
+```{webr-r}
+#| echo: true
+#| label: unstandardize
+c(20.090625 - (-5.229338) * mean(x)/sd(x), -5.229338 / sd(x))
+```
 
 ## General Linear Hypotheses
 

@@ -16,6 +16,11 @@ parquiz/*
 # https://en.wikipedia.org/wiki/Gravity_of_Earth
 Slides/figs/Gravity_anomalies_on_Earth.jpg
 figs/Gravity_anomalies_on_Earth.jpg
+
+# RStudio stuff
 .Rproj.user
 .Rhistory
 ST362-STAR.Rproj
+
+# Quarto extensions
+_extensions/*

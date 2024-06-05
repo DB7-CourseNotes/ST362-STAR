@@ -2,6 +2,10 @@ project:
   type: book
   output-dir: docs
 
+engine: knitr
+filters:
+  - webr
+
 date: "last-modified"
 date-format: iso
 institute: "Wilfrid Laurier University"
