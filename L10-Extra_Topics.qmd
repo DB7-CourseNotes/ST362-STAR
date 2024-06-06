@@ -184,7 +184,7 @@ $$
 y = \beta_0' + \beta_1'x' = \beta_0' + \beta_1'\left(\frac{x - \bar x}{sd(x)}\right) = \left(\beta_0' - \beta_1'\frac{\bar x}{sd(x)}\right) + \frac{\beta_1'}{sd(x)}x = \beta_0 + \beta_1x
 $$
 
-```{webr-r}
+```{r}
 #| echo: true
 #| label: unstandardize
 c(20.090625 - (-5.229338) * mean(x)/sd(x), -5.229338 / sd(x))
