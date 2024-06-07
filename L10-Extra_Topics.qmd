@@ -119,7 +119,7 @@ $$
 z_i = \frac{x_i - \bar x}{\sqrt{S_{XX}/(n-1)}}
 $$
 
-Then $\bar z = 0$ and $sd(z) = 0 \implies S_{ZZ} = n-1$.
+Then $\bar z = 0$ and $sd(z) = 1 \implies S_{ZZ} = n-1$.
 
 
 \pspace\pause
@@ -133,7 +133,7 @@ $$
 
 ### Standardizing in Multiple Linear Regression
 
-Suppose we standardize each column of $X$ (except the first).
+Suppose we standardize each column of $X$ (except the intercept).
 
 Several things happen:
 
@@ -190,7 +190,80 @@ $$
 c(20.090625 - (-5.229338) * mean(x)/sd(x), -5.229338 / sd(x))
 ```
 
+### Interpretations
+
+- Raw: a one unit increase in $x$ leads to a 1 unit increase in $y$.
+    - Slopes are in the units of the predictors.
+    - Assuming all other predictors are held constant.\lspace
+- Standardized: a one *standard deviation* increase in $x$ leads to a 1 *unit* increase in $y$
+    - Slopes are all in the same units!
+        - Bigger coefficient $\implies$ bigger effect on $y$.
+    - Still assumes other predictors are held constant.
+
+### Standardizing in R
+
+```{r}
+#| label: scale-example
+#| echo: true
+# Use the RHS of the model formula for mtcars
+# But remove the column of 1s
+X <- model.matrix(~ wt + disp + qsec, data = mtcars)[, -1]
+X <- scale(X)
+lm(mtcars$mpg ~ X)
+```
+
+Homework: recover the un-standardized coefficients.
+
+### Simulation Example
+
+```{r}
+#| label: standard_sim
+#| fig-height: 6
+#| fig-width: 12
+n <- 50
+x1 <- runif(n, 0, 10)
+x2 <- runif(n, 0, 10) + 0.3 * x1
+
+x1s <- scale(x1)
+x2s <- scale(x2)
+
+raw_ests <- matrix(ncol = 3, nrow = 1000)
+std_ests <- matrix(ncol = 3, nrow = 1000)
+for (i in 1:1000) {
+    y <- -10 + 5 * x1 + 2 * x2 + rnorm(n, 0, 10)
+    lm_raw <- lm(y ~ x1 + x2)
+    raw_ests[i, ] <- coef(lm_raw)
+    lm_std <- lm(y ~ x1s + x2s)
+    std_ests[i, ] <- coef(lm_std)
+}
+
+par(mfrow = c(2, 2))
+plot(x = raw_ests[, 1], y = raw_ests[, 2],
+    xlab = "beta0", ylab = "beta1",
+    main = "Raw")
+plot(x = raw_ests[, 3], y = raw_ests[, 2],
+    xlab = "beta2", ylab = "beta1",
+    main = "Raw")
+plot(x = std_ests[, 1], y = std_ests[, 2],
+    xlab = "beta0", ylab = "beta1",
+    main = "Standardized")
+plot(x = std_ests[, 3], y = std_ests[, 2],
+    xlab = "beta2", ylab = "beta1",
+    main = "Standardized")
+
+```
+
+::: {.content-visible when-profile="book"}
+In the plots above, the correlation between $\beta_0$ and $\beta_1$ has been removed, even though we get the same estimates!!!
+
+Note, however, that the correlation between $\beta_1$ and $\beta_2$ has not changed at all. If you look closely, they are *exactly* the same, but with different scales. As a homework problem, you'll show exactly what this change of scale is.
+:::
+
+::: {.content-visible when-profile="book"}
+
 ## General Linear Hypotheses
+
+Note that this section was skipped in class.
 
 ### Diet vs. Exercise
 
@@ -282,6 +355,8 @@ $$
 $$
 In other words, we test whether the restrictions significantly change the $SS_E$!
 
+:::
+
 ## Generalized Least Squares
 
 ### Main Idea
@@ -338,7 +413,7 @@ Let $\hat{\underline\beta}_O$ be the estimate of $\underline\beta$ if we were to
 - $E(\hat{\underline\beta}_O) = \underline\beta$
 - $V(\hat{\underline\beta}_O) = (X^TX)^{-1}X^TVX(X^TX)^{-1}\sigma^2$
 
-The OLS estimate is **unbiased**, but has a much higher **variance**!
+The OLS estimate is still **unbiased**, but has a much higher **variance**!
 
 ### Choosing $V$
 
@@ -349,6 +424,52 @@ The OLS estimate is **unbiased**, but has a much higher **variance**!
     - Choosing $V$ based on the data\lspace
 - In a controlled experiment, where we have known weights for different $x$-values
     - E.g., more skilled surgeons, machine age.
+
+## What have we learned?
+
+### Multiple Linear Regression Concepts
+
+- If you add a predictor, the other coefficients change.
+- Variance is everything
+    - $MS_E$ = variance of residuals, $MS_{Reg}$ = variance of the line!
+    - $SS_T = SS_{Reg} + SS_E$
+        - $df_T = df_{Reg} + df_E$
+- Always check assumptions
+    - Residual plots!
+- Try to test as few hypotheses as possible!
+- The hat matrix is magical.
+
+### Ordinary Least Squares Estimates
+
+For the model $y = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i$:
+
+- Find the OLS estimate by minimizing $\sum_{i=1}^n\epsilon_i^2 = \sum(y_i - \beta_0 - \beta_1x_{i1} - \beta_2x_{i2})^2 = \underline\epsilon^T\underline\epsilon$
+    - $\hat{\underline\beta} = (X^TX)^{-1}X^TY$
+    - These estimates *do not* require the normality assumption.
+- MLE gets the same estiamtes (assuming normality).
+
+\pspace
+
+With normality assumptions,
+
+- $V(\hat{\underline\beta}) = (X^TX)^{-1}\sigma^2$
+    - Confidence intervals and confidence regions
+
+### ANOVA: Variance tells us about slopes
+
+$H_0: SS_{Reg} = 0$ is equivalent to $H_0: \beta_1 = \beta_2 = \dots = \beta_{p-1} = 0$.
+
+- A horizontal line has a variance of 0!
+    - $\beta_0 = \bar y$ does not have variance in the $y$-direction
+    - More variance is a good thing, since this is the variance *explained*.
+
+\pspace
+
+This extends to **extra** sum-of-squares due to adding predictons.
+
+- $H_0: SS_1 - SS_2 = 0\; \Leftrightarrow\; H_0: \beta_q = \beta_{q+1} = \dots = \beta_{p-1} = 0$
+
+
 
 ::: {.content-visible unless-profile="book"}
 
@@ -377,41 +498,28 @@ What's the primary reason for standardizing the predictors?
 3. Ensure that the values of $\hat\beta$ are comparable.
 4. Make it so that general linear hypotheses are possible.
 
+
 ### Q3
 
-In a general linear hypothesis, $q$ is the rank of the $C$ matrix in $C\underline\beta = \underline 0$. 
+Ignoring correlation/unequal variance in $\underline\epsilon$ will lead to a *biased* estimate of $\underline\beta$
+
+\pspace
 
 1. True
 2. False
 
 ### Q4
 
-Generalized Least Squares requires strong assumptions about the matrix $V$.
 
-\pspace
-
-1. True
-2. False
-
-### Q5
-
-Ignoring correlation/unequal variance in $\underline\epsilon$ will lead to a biased estimate of $\underline\beta$
-
-\pspace
-
-1. True
-2. False
-
-### Q6
-
-What do you expect the hat matrix to be for GLS?
-
-\pspace
-
-1. $X(X^TX)^{-1}X^TY$
-2. $X(X^TV^{-1}X)^{-1}X^TV^{-1}Y$
-3. $XV^{-1}(X^TV^{-1}X)^{-1}X^TV^{-1}Y$
-4. $XV^{-T}(X^TV^{-1}X)^{-1}X^TV^{-1}Y$
 
 :::
 
+::: {.content-visible when-profile="book"}
+## Exercises
+
+
+1. Repeat (and verify)the "un-standardizing" process for multiple linear regression. Use the regression formula `mpg ~ disp + wt + qsec` compared to the centered version to verify.
+2. Explain in your own words why the correlation between the intercept and the slope disappears when mean centering.
+3. Use the 
+
+:::

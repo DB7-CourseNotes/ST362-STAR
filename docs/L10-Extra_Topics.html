@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-06-05">
+<meta name="dcterms.date" content="2024-06-07">
 
 <title>STAR Notes – 10&nbsp; Special Topics</title>
 <style>
@@ -447,6 +447,9 @@ window.Quarto = {
   <li><a href="#standardizing-underline-x" id="toc-standardizing-underline-x" class="nav-link" data-scroll-target="#standardizing-underline-x">Standardizing <span class="math inline">\(\underline x\)</span></a></li>
   <li><a href="#standardizing-in-multiple-linear-regression" id="toc-standardizing-in-multiple-linear-regression" class="nav-link" data-scroll-target="#standardizing-in-multiple-linear-regression">Standardizing in Multiple Linear Regression</a></li>
   <li><a href="#standardization-example" id="toc-standardization-example" class="nav-link" data-scroll-target="#standardization-example">Standardization Example</a></li>
+  <li><a href="#interpretations" id="toc-interpretations" class="nav-link" data-scroll-target="#interpretations">Interpretations</a></li>
+  <li><a href="#standardizing-in-r" id="toc-standardizing-in-r" class="nav-link" data-scroll-target="#standardizing-in-r">Standardizing in R</a></li>
+  <li><a href="#simulation-example" id="toc-simulation-example" class="nav-link" data-scroll-target="#simulation-example">Simulation Example</a></li>
   </ul></li>
   <li><a href="#general-linear-hypotheses" id="toc-general-linear-hypotheses" class="nav-link" data-scroll-target="#general-linear-hypotheses"><span class="header-section-number">10.2</span> General Linear Hypotheses</a>
   <ul class="collapse">
@@ -464,6 +467,13 @@ window.Quarto = {
   <li><a href="#ols-when-you-should-have-used-gls" id="toc-ols-when-you-should-have-used-gls" class="nav-link" data-scroll-target="#ols-when-you-should-have-used-gls">OLS when you should have used GLS</a></li>
   <li><a href="#choosing-v" id="toc-choosing-v" class="nav-link" data-scroll-target="#choosing-v">Choosing <span class="math inline">\(V\)</span></a></li>
   </ul></li>
+  <li><a href="#what-have-we-learned" id="toc-what-have-we-learned" class="nav-link" data-scroll-target="#what-have-we-learned"><span class="header-section-number">10.4</span> What have we learned?</a>
+  <ul class="collapse">
+  <li><a href="#multiple-linear-regression-concepts" id="toc-multiple-linear-regression-concepts" class="nav-link" data-scroll-target="#multiple-linear-regression-concepts">Multiple Linear Regression Concepts</a></li>
+  <li><a href="#ordinary-least-squares-estimates" id="toc-ordinary-least-squares-estimates" class="nav-link" data-scroll-target="#ordinary-least-squares-estimates">Ordinary Least Squares Estimates</a></li>
+  <li><a href="#anova-variance-tells-us-about-slopes" id="toc-anova-variance-tells-us-about-slopes" class="nav-link" data-scroll-target="#anova-variance-tells-us-about-slopes">ANOVA: Variance tells us about slopes</a></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">10.5</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -496,7 +506,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-06-05</p>
+      <p class="date">2024-06-07</p>
     </div>
   </div>
   
@@ -566,7 +576,7 @@ V(\hat{\underline\beta}^c) = \sigma^2\begin{bmatrix}n^{-1} &amp; 0 \\ 0 &amp; (\
 <p>In addition to mean-centering, divide by the sd of <span class="math inline">\(\underline x\)</span>: <span class="math display">\[
 z_i = \frac{x_i - \bar x}{\sqrt{S_{XX}/(n-1)}}
 \]</span></p>
-<p>Then <span class="math inline">\(\bar z = 0\)</span> and <span class="math inline">\(sd(z) = 0 \implies S_{ZZ} = n-1\)</span>.</p>
+<p>Then <span class="math inline">\(\bar z = 0\)</span> and <span class="math inline">\(sd(z) = 1 \implies S_{ZZ} = n-1\)</span>.</p>
 <p>It can be shown that: <span class="math display">\[
 V(\hat{\underline\beta}^s) = \sigma^2\begin{bmatrix}n^{-1} &amp; 0 \\ 0 &amp; (n-1)^{-1}\end{bmatrix}
 \]</span></p>
@@ -576,7 +586,7 @@ V(\hat{\underline\beta}^s) = \sigma^2\begin{bmatrix}n^{-1} &amp; 0 \\ 0 &amp; (n
 </section>
 <section id="standardizing-in-multiple-linear-regression" class="level3">
 <h3 class="anchored" data-anchor-id="standardizing-in-multiple-linear-regression">Standardizing in Multiple Linear Regression</h3>
-<p>Suppose we standardize each column of <span class="math inline">\(X\)</span> (except the first).</p>
+<p>Suppose we standardize each column of <span class="math inline">\(X\)</span> (except the intercept).</p>
 <p>Several things happen:</p>
 <ul>
 <li>All predictors are now in units of standard deviations!!!
@@ -635,9 +645,98 @@ y = \beta_0' + \beta_1'x' = \beta_0' + \beta_1'\left(\frac{x - \bar x}{sd(x)}\ri
 </div>
 </div>
 </section>
+<section id="interpretations" class="level3">
+<h3 class="anchored" data-anchor-id="interpretations">Interpretations</h3>
+<ul>
+<li>Raw: a one unit increase in <span class="math inline">\(x\)</span> leads to a 1 unit increase in <span class="math inline">\(y\)</span>.
+<ul>
+<li>Slopes are in the units of the predictors.</li>
+<li>Assuming all other predictors are held constant.</li>
+</ul></li>
+<li>Standardized: a one <em>standard deviation</em> increase in <span class="math inline">\(x\)</span> leads to a 1 <em>unit</em> increase in <span class="math inline">\(y\)</span>
+<ul>
+<li>Slopes are all in the same units!
+<ul>
+<li>Bigger coefficient <span class="math inline">\(\implies\)</span> bigger effect on <span class="math inline">\(y\)</span>.</li>
+</ul></li>
+<li>Still assumes other predictors are held constant.</li>
+</ul></li>
+</ul>
+</section>
+<section id="standardizing-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="standardizing-in-r">Standardizing in R</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the RHS of the model formula for mtcars</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># But remove the column of 1s</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(<span class="sc">~</span> wt <span class="sc">+</span> disp <span class="sc">+</span> qsec, <span class="at">data =</span> mtcars)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">scale</span>(X)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(mtcars<span class="sc">$</span>mpg <span class="sc">~</span> X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mtcars$mpg ~ X)
+
+Coefficients:
+(Intercept)          Xwt        Xdisp        Xqsec  
+   20.09062     -4.92596     -0.01585      1.65587  </code></pre>
+</div>
+</div>
+<p>Homework: recover the un-standardized coefficients.</p>
+</section>
+<section id="simulation-example" class="level3">
+<h3 class="anchored" data-anchor-id="simulation-example">Simulation Example</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>) <span class="sc">+</span> <span class="fl">0.3</span> <span class="sc">*</span> x1</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>x1s <span class="ot">&lt;-</span> <span class="fu">scale</span>(x1)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>x2s <span class="ot">&lt;-</span> <span class="fu">scale</span>(x2)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>raw_ests <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">1000</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>std_ests <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">1000</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    lm_raw <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    raw_ests[i, ] <span class="ot">&lt;-</span> <span class="fu">coef</span>(lm_raw)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    lm_std <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1s <span class="sc">+</span> x2s)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    std_ests[i, ] <span class="ot">&lt;-</span> <span class="fu">coef</span>(lm_std)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> raw_ests[, <span class="dv">1</span>], <span class="at">y =</span> raw_ests[, <span class="dv">2</span>],</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"beta0"</span>, <span class="at">ylab =</span> <span class="st">"beta1"</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Raw"</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> raw_ests[, <span class="dv">3</span>], <span class="at">y =</span> raw_ests[, <span class="dv">2</span>],</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"beta2"</span>, <span class="at">ylab =</span> <span class="st">"beta1"</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Raw"</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> std_ests[, <span class="dv">1</span>], <span class="at">y =</span> std_ests[, <span class="dv">2</span>],</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"beta0"</span>, <span class="at">ylab =</span> <span class="st">"beta1"</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Standardized"</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> std_ests[, <span class="dv">3</span>], <span class="at">y =</span> std_ests[, <span class="dv">2</span>],</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"beta2"</span>, <span class="at">ylab =</span> <span class="st">"beta1"</span>,</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Standardized"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L10-Extra_Topics_files/figure-html/standard_sim-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the plots above, the correlation between <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> has been removed, even though we get the same estimates!!!</p>
+<p>Note, however, that the correlation between <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> has not changed at all. If you look closely, they are <em>exactly</em> the same, but with different scales. As a homework problem, you’ll show exactly what this change of scale is.</p>
+</section>
 </section>
 <section id="general-linear-hypotheses" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="general-linear-hypotheses"><span class="header-section-number">10.2</span> General Linear Hypotheses</h2>
+<p>Note that this section was skipped in class.</p>
 <section id="diet-vs.-exercise" class="level3">
 <h3 class="anchored" data-anchor-id="diet-vs.-exercise">Diet vs.&nbsp;Exercise</h3>
 <p>Which is more important for weight loss?</p>
@@ -746,7 +845,7 @@ SST &amp;= Z^TZ = Y^TV^{-1}Y\\
 <li><span class="math inline">\(E(\hat{\underline\beta}_O) = \underline\beta\)</span></li>
 <li><span class="math inline">\(V(\hat{\underline\beta}_O) = (X^TX)^{-1}X^TVX(X^TX)^{-1}\sigma^2\)</span></li>
 </ul>
-<p>The OLS estimate is <strong>unbiased</strong>, but has a much higher <strong>variance</strong>!</p>
+<p>The OLS estimate is still <strong>unbiased</strong>, but has a much higher <strong>variance</strong>!</p>
 </section>
 <section id="choosing-v" class="level3">
 <h3 class="anchored" data-anchor-id="choosing-v">Choosing <span class="math inline">\(V\)</span></h3>
@@ -765,9 +864,74 @@ SST &amp;= Z^TZ = Y^TV^{-1}Y\\
 <li>E.g., more skilled surgeons, machine age.</li>
 </ul></li>
 </ul>
-
-
 </section>
+</section>
+<section id="what-have-we-learned" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="what-have-we-learned"><span class="header-section-number">10.4</span> What have we learned?</h2>
+<section id="multiple-linear-regression-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-linear-regression-concepts">Multiple Linear Regression Concepts</h3>
+<ul>
+<li>If you add a predictor, the other coefficients change.</li>
+<li>Variance is everything
+<ul>
+<li><span class="math inline">\(MS_E\)</span> = variance of residuals, <span class="math inline">\(MS_{Reg}\)</span> = variance of the line!</li>
+<li><span class="math inline">\(SS_T = SS_{Reg} + SS_E\)</span>
+<ul>
+<li><span class="math inline">\(df_T = df_{Reg} + df_E\)</span></li>
+</ul></li>
+</ul></li>
+<li>Always check assumptions
+<ul>
+<li>Residual plots!</li>
+</ul></li>
+<li>Try to test as few hypotheses as possible!</li>
+<li>The hat matrix is magical.</li>
+</ul>
+</section>
+<section id="ordinary-least-squares-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="ordinary-least-squares-estimates">Ordinary Least Squares Estimates</h3>
+<p>For the model <span class="math inline">\(y = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i\)</span>:</p>
+<ul>
+<li>Find the OLS estimate by minimizing <span class="math inline">\(\sum_{i=1}^n\epsilon_i^2 = \sum(y_i - \beta_0 - \beta_1x_{i1} - \beta_2x_{i2})^2 = \underline\epsilon^T\underline\epsilon\)</span>
+<ul>
+<li><span class="math inline">\(\hat{\underline\beta} = (X^TX)^{-1}X^TY\)</span></li>
+<li>These estimates <em>do not</em> require the normality assumption.</li>
+</ul></li>
+<li>MLE gets the same estiamtes (assuming normality).</li>
+</ul>
+<p>With normality assumptions,</p>
+<ul>
+<li><span class="math inline">\(V(\hat{\underline\beta}) = (X^TX)^{-1}\sigma^2\)</span>
+<ul>
+<li>Confidence intervals and confidence regions</li>
+</ul></li>
+</ul>
+</section>
+<section id="anova-variance-tells-us-about-slopes" class="level3">
+<h3 class="anchored" data-anchor-id="anova-variance-tells-us-about-slopes">ANOVA: Variance tells us about slopes</h3>
+<p><span class="math inline">\(H_0: SS_{Reg} = 0\)</span> is equivalent to <span class="math inline">\(H_0: \beta_1 = \beta_2 = \dots = \beta_{p-1} = 0\)</span>.</p>
+<ul>
+<li>A horizontal line has a variance of 0!
+<ul>
+<li><span class="math inline">\(\beta_0 = \bar y\)</span> does not have variance in the <span class="math inline">\(y\)</span>-direction</li>
+<li>More variance is a good thing, since this is the variance <em>explained</em>.</li>
+</ul></li>
+</ul>
+<p>This extends to <strong>extra</strong> sum-of-squares due to adding predictons.</p>
+<ul>
+<li><span class="math inline">\(H_0: SS_1 - SS_2 = 0\; \Leftrightarrow\; H_0: \beta_q = \beta_{q+1} = \dots = \beta_{p-1} = 0\)</span></li>
+</ul>
+</section>
+</section>
+<section id="exercises" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">10.5</span> Exercises</h2>
+<ol type="1">
+<li>Repeat (and verify)the “un-standardizing” process for multiple linear regression. Use the regression formula <code>mpg ~ disp + wt + qsec</code> compared to the centered version to verify.</li>
+<li>Explain in your own words why the correlation between the intercept and the slope disappears when mean centering.</li>
+<li>Use the</li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->
