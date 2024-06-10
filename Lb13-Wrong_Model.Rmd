@@ -38,7 +38,8 @@ sigma
 We'll use these values as if they are *population* values and forget that they were calculated from a sample.
 
 -   The x-values will stay the same, we'll simulate new $y$ values according to this model.
--   The advantage of this approach is that the predictors retain any correlation that they had.
+-   The advantage of this approach is that the predictors retain any correlation that they had!
+    - By simulating from real data, we have correlations but we match the linear modelling assumptions perfectly!
 
 ## Simulating from the "Right" model
 
@@ -73,16 +74,16 @@ dim(res)
 
 ```{r}
 par(mfrow = c(2, 2))
-for(i in 1:4) {
-    hist(beta[i] - res[, i], 
-        main =paste0("Bias = ",round(beta[i], 2), " - ", 
-            round(mean(res[, i]), 2), " = ", 
+for (i in 1:4) {
+    hist(beta[i] - res[, i],
+        main =paste0("Bias = ", round(beta[i], 2), " - ",
+            round(mean(res[, i]), 2), " = ",
             round(beta[i] - mean(res[, i]), 2)))
     abline(v = 0, col = 2, lwd = 2)
 }
 ```
 
-This looks good- we simulated according to the values in `beta`, and we were able to recover them. We've also shown that the linear model is unbiased!
+This looks good - we simulated according to the values in `beta`, and we were able to recover them. We've also shown that the linear model is unbiased!
 
 ## Estimating the Wrong Model - Too few predictors
 
@@ -107,11 +108,11 @@ dim(res_reduced)
 
 ```{r}
 par(mfrow = c(2, 2))
-for(i in 1:3) {
+for (i in 1:3) {
     bias <- beta[i] - res_reduced[, i]
     hist(bias, 
-        main =paste0("Bias = ",round(beta[i], 2), " - ", 
-            round(mean(res_reduced[, i]), 2), " = ", 
+        main = paste0("Bias = ", round(beta[i], 2), " - ",
+            round(mean(res_reduced[, i]), 2), " = ",
             round(mean(bias), 2)),
         xlim = range(0, bias))
     abline(v = 0, col = 2, lwd = 2)
@@ -160,11 +161,11 @@ for (i in 1:10000) {
 }
 
 par(mfrow = c(2, 2))
-for(i in 1:3) {
+for (i in 1:3) {
     bias <- beta_reduced[i] - res[, i]
-    hist(bias, 
-        main =paste0("Bias = ",round(beta[i], 2), " - ", 
-            round(mean(res[, i]), 2), " = ", 
+    hist(bias,
+        main =paste0("Bias = ", round(beta[i], 2), " - ",
+            round(mean(res[, i]), 2), " = ",
             round(mean(bias), 2)),
         xlim = range(0, bias))
     abline(v = 0, col = 2, lwd = 2)

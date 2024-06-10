@@ -519,7 +519,9 @@ Ignoring correlation/unequal variance in $\underline\epsilon$ will lead to a *bi
 
 
 1. Repeat (and verify)the "un-standardizing" process for multiple linear regression. Use the regression formula `mpg ~ disp + wt + qsec` compared to the centered version to verify.
+    - Use this to explain why the slopes are still correlated after standardizing.
+    - Verify that the predictions from a standardized linear model are the same as those for an unstandardized linear model.
 2. Explain in your own words why the correlation between the intercept and the slope disappears when mean centering.
-3. Use the 
+3. In general, show that a linear transformation of $x$, i.e. $x' \leftarrow a + bx$, results in a transformation of $\beta_1$ *as well as* $\beta_0$.
 
 :::
