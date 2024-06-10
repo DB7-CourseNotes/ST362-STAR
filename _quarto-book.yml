@@ -40,9 +40,9 @@ book:
         - L08-Hat-Resid_Plots-Cook.qmd
         - L09-Analysing-Resids.qmd
         - L10-Extra_Topics.qmd
+        - L11-Wrong_Model.qmd
     - part: Choosing Models
       chapters:
-        - L11-Wrong_Model.qmd
         - L12-NonLinear.qmd
         - L13-Transforming_Response.qmd
         - L14-Dummies.qmd

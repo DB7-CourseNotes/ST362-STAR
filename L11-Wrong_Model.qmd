@@ -49,6 +49,18 @@ E(\hat{\underline\beta}) &= E((X^TX)^{-1}X^TY)\\
 &= \underline\beta + A\underline\beta_2
 \end{align*}
 
+### What is $A$?
+
+Recall that $\hat{\underline\beta} = (X^TX)^{-1}X^TY$.
+
+\pspace
+
+On the previous slide, we had the equation:
+$$
+E(\hat{\underline\beta}) = \underline\beta+ (X^TX)^{-1}X^TX_2\underline\beta_2
+$$
+Thoughts?
+
 ### Bias due to wrong predictors
 
 The bias of an estimator is:
