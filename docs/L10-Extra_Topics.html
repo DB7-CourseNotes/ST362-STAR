@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-06-07">
+<meta name="dcterms.date" content="2024-06-08">
 
 <title>STAR Notes – 10&nbsp; Special Topics</title>
 <style>
@@ -251,6 +251,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -262,12 +268,6 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
@@ -506,7 +506,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-06-07</p>
+      <p class="date">2024-06-08</p>
     </div>
   </div>
   
@@ -926,9 +926,13 @@ SST &amp;= Z^TZ = Y^TV^{-1}Y\\
 <section id="exercises" class="level2" data-number="10.5">
 <h2 data-number="10.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">10.5</span> Exercises</h2>
 <ol type="1">
-<li>Repeat (and verify)the “un-standardizing” process for multiple linear regression. Use the regression formula <code>mpg ~ disp + wt + qsec</code> compared to the centered version to verify.</li>
+<li>Repeat (and verify)the “un-standardizing” process for multiple linear regression. Use the regression formula <code>mpg ~ disp + wt + qsec</code> compared to the centered version to verify.
+<ul>
+<li>Use this to explain why the slopes are still correlated after standardizing.</li>
+<li>Verify that the predictions from a standardized linear model are the same as those for an unstandardized linear model.</li>
+</ul></li>
 <li>Explain in your own words why the correlation between the intercept and the slope disappears when mean centering.</li>
-<li>Use the</li>
+<li>In general, show that a linear transformation of <span class="math inline">\(x\)</span>, i.e.&nbsp;<span class="math inline">\(x' \leftarrow a + bx\)</span>, results in a transformation of <span class="math inline">\(\beta_1\)</span> <em>as well as</em> <span class="math inline">\(\beta_0\)</span>.</li>
 </ol>
 
 

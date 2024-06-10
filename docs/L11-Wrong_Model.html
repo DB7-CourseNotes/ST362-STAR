@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-20">
+<meta name="dcterms.date" content="2024-06-08">
 
 <title>STAR Notes – 11&nbsp; Getting the Wrong Model</title>
 <style>
@@ -114,7 +114,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L11-Wrong_Model.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L11-Wrong_Model.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">OLS Basics</a></li><li class="breadcrumb-item"><a href="./L11-Wrong_Model.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -150,13 +150,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">OLS Basics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
@@ -217,23 +217,23 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Choosing Models</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Choosing Models</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
@@ -409,6 +409,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#the-right-model" id="toc-the-right-model" class="nav-link" data-scroll-target="#the-right-model">The Right Model?</a></li>
   <li><a href="#the-wrong-predictors" id="toc-the-wrong-predictors" class="nav-link" data-scroll-target="#the-wrong-predictors">The Wrong Predictors</a></li>
+  <li><a href="#what-is-a" id="toc-what-is-a" class="nav-link" data-scroll-target="#what-is-a">What is <span class="math inline">\(A\)</span>?</a></li>
   <li><a href="#bias-due-to-wrong-predictors" id="toc-bias-due-to-wrong-predictors" class="nav-link" data-scroll-target="#bias-due-to-wrong-predictors">Bias due to wrong predictors</a></li>
   <li><a href="#expected-mean-square" id="toc-expected-mean-square" class="nav-link" data-scroll-target="#expected-mean-square">Expected Mean Square</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
@@ -419,7 +420,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L11-Wrong_Model.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L11-Wrong_Model.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Introduction.html">OLS Basics</a></li><li class="breadcrumb-item"><a href="./L11-Wrong_Model.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></h1>
 </div>
@@ -445,7 +446,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-20</p>
+      <p class="date">2024-06-08</p>
     </div>
   </div>
   
@@ -482,6 +483,13 @@ E(\hat{\underline\beta}) &amp;= E((X^TX)^{-1}X^TY)\\
 &amp;= \underline\beta+ (X^TX)^{-1}X^TX_2\underline\beta_2\\
 &amp;= \underline\beta + A\underline\beta_2
 \end{align*}\]</span></p>
+</section>
+<section id="what-is-a" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-a">What is <span class="math inline">\(A\)</span>?</h3>
+<p>Recall that <span class="math inline">\(\hat{\underline\beta} = (X^TX)^{-1}X^TY\)</span>.</p>
+<p>On the previous slide, we had the equation: <span class="math display">\[
+E(\hat{\underline\beta}) = \underline\beta+ (X^TX)^{-1}X^TX_2\underline\beta_2
+\]</span> Thoughts?</p>
 </section>
 <section id="bias-due-to-wrong-predictors" class="level3">
 <h3 class="anchored" data-anchor-id="bias-due-to-wrong-predictors">Bias due to wrong predictors</h3>
