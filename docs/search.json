@@ -855,22 +855,11 @@
     ]
   },
   {
-    "objectID": "L10-Extra_Topics.html#what-have-we-learned",
-    "href": "L10-Extra_Topics.html#what-have-we-learned",
-    "title": "10  Special Topics",
-    "section": "10.4 What have we learned?",
-    "text": "10.4 What have we learned?\n\nMultiple Linear Regression Concepts\n\nIf you add a predictor, the other coefficients change.\nVariance is everything\n\n\\(MS_E\\) = variance of residuals, \\(MS_{Reg}\\) = variance of the line!\n\\(SS_T = SS_{Reg} + SS_E\\)\n\n\\(df_T = df_{Reg} + df_E\\)\n\n\nAlways check assumptions\n\nResidual plots!\n\nTry to test as few hypotheses as possible!\nThe hat matrix is magical.\n\n\n\nOrdinary Least Squares Estimates\nFor the model \\(y = \\beta_0 + \\beta_1x_{i1} + \\beta_2x_{i2} + \\epsilon_i\\):\n\nFind the OLS estimate by minimizing \\(\\sum_{i=1}^n\\epsilon_i^2 = \\sum(y_i - \\beta_0 - \\beta_1x_{i1} - \\beta_2x_{i2})^2 = \\underline\\epsilon^T\\underline\\epsilon\\)\n\n\\(\\hat{\\underline\\beta} = (X^TX)^{-1}X^TY\\)\nThese estimates do not require the normality assumption.\n\nMLE gets the same estiamtes (assuming normality).\n\nWith normality assumptions,\n\n\\(V(\\hat{\\underline\\beta}) = (X^TX)^{-1}\\sigma^2\\)\n\nConfidence intervals and confidence regions\n\n\n\n\nANOVA: Variance tells us about slopes\n\\(H_0: SS_{Reg} = 0\\) is equivalent to \\(H_0: \\beta_1 = \\beta_2 = \\dots = \\beta_{p-1} = 0\\).\n\nA horizontal line has a variance of 0!\n\n\\(\\beta_0 = \\bar y\\) does not have variance in the \\(y\\)-direction\nMore variance is a good thing, since this is the variance explained.\n\n\nThis extends to extra sum-of-squares due to adding predictons.\n\n\\(H_0: SS_1 - SS_2 = 0\\; \\Leftrightarrow\\; H_0: \\beta_q = \\beta_{q+1} = \\dots = \\beta_{p-1} = 0\\)",
-    "crumbs": [
-      "OLS Basics",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Special Topics</span>"
-    ]
-  },
-  {
     "objectID": "L10-Extra_Topics.html#exercises",
     "href": "L10-Extra_Topics.html#exercises",
     "title": "10  Special Topics",
-    "section": "10.5 Exercises",
-    "text": "10.5 Exercises\n\nRepeat (and verify)the “un-standardizing” process for multiple linear regression. Use the regression formula mpg ~ disp + wt + qsec compared to the centered version to verify.\n\nUse this to explain why the slopes are still correlated after standardizing.\nVerify that the predictions from a standardized linear model are the same as those for an unstandardized linear model.\n\nExplain in your own words why the correlation between the intercept and the slope disappears when mean centering.\nIn general, show that a linear transformation of \\(x\\), i.e. \\(x' \\leftarrow a + bx\\), results in a transformation of \\(\\beta_1\\) as well as \\(\\beta_0\\).",
+    "section": "10.4 Exercises",
+    "text": "10.4 Exercises\n\nRepeat (and verify)the “un-standardizing” process for multiple linear regression. Use the regression formula mpg ~ disp + wt + qsec compared to the centered version to verify.\n\nUse this to explain why the slopes are still correlated after standardizing.\nVerify that the predictions from a standardized linear model are the same as those for an unstandardized linear model.\n\nExplain in your own words why the correlation between the intercept and the slope disappears when mean centering.\nIn general, show that a linear transformation of \\(x\\), i.e. \\(x' \\leftarrow a + bx\\), results in a transformation of \\(\\beta_1\\) as well as \\(\\beta_0\\).",
     "crumbs": [
       "OLS Basics",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Special Topics</span>"
@@ -893,6 +882,17 @@
     "title": "11  Getting the Wrong Model",
     "section": "",
     "text": "The Right Model?\nRecall: All models are wrong, some are useful!\nBut how wrong can a model be while still being useful?\n\nThis is an extraordinarily challenging philosophical question.\nWe will touch on a very small part of it\n\n\n\nThe Wrong Predictors\nSo far, we’ve talked about a model of the form \\(Y=X\\underline\\beta + \\underline\\epsilon\\).\n\n\\(E(\\hat{\\underline\\beta}) = E((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^TX\\underline\\beta = \\underline\\beta\\)\n\nHowever, what if we are missing some predictors?\nWhat if the true model is \\(Y=X\\underline\\beta + X_2\\underline\\beta_2 + \\underline\\epsilon\\)? \\[\\begin{align*}\nE(\\hat{\\underline\\beta}) &= E((X^TX)^{-1}X^TY)\\\\\n& = (X^TX)^{-1}X^T(X\\underline\\beta + X_2\\underline\\beta_2) \\\\\n& = (X^TX)^{-1}X^TX\\underline\\beta + (X^TX)^{-1}X^TX_2\\underline\\beta_2 \\\\\n&= \\underline\\beta+ (X^TX)^{-1}X^TX_2\\underline\\beta_2\\\\\n&= \\underline\\beta + A\\underline\\beta_2\n\\end{align*}\\]\n\n\nWhat is \\(A\\)?\nRecall that \\(\\hat{\\underline\\beta} = (X^TX)^{-1}X^TY\\).\nOn the previous slide, we had the equation: \\[\nE(\\hat{\\underline\\beta}) = \\underline\\beta+ (X^TX)^{-1}X^TX_2\\underline\\beta_2\n\\] Thoughts?\n\n\nBias due to wrong predictors\nThe bias of an estimator is: \\[\n\\text{Bias}(\\hat{\\underline\\beta}) = \\underline\\beta - E(\\hat{\\underline\\beta})\n\\]\nFor the case where \\(Y = X\\underline\\beta + X_2\\underline\\beta_2 +\\underline\\epsilon\\), \\[\n\\text{Bias}(\\hat{\\underline\\beta}) = \\underline\\beta - (\\underline\\beta + A\\underline\\beta_2) = A\\underline\\beta_2\n\\]\n\n\nExpected Mean Square\nSee text.\nUses the identity: For an \\(n\\times n\\) matrix \\(Q\\) and \\(n\\times 1\\) random vector \\(Y\\) with variance \\(V(Y)=\\Sigma\\), \\[\nE(Y^TQY) = (E(Y))^TQE(Y) + trace(Q\\Sigma)\n\\]\nThis may be useful for a future assignment question (will notify if you need it), but for now I’m going to explore this via simulation in the Rmd.\n\n\nSummary\n\nChoosing the wrong set of predictors can affect the model!",
+    "crumbs": [
+      "OLS Basics",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Getting the Wrong Model</span>"
+    ]
+  },
+  {
+    "objectID": "L11-Wrong_Model.html#what-have-we-learned",
+    "href": "L11-Wrong_Model.html#what-have-we-learned",
+    "title": "11  Getting the Wrong Model",
+    "section": "11.2 What have we learned?",
+    "text": "11.2 What have we learned?\n\nMultiple Linear Regression Concepts\n\nIf you add a predictor, the other coefficients change.\nVariance is everything\n\n\\(MS_E\\) = variance of residuals, \\(MS_{Reg}\\) = variance of the line!\n\\(SS_T = SS_{Reg} + SS_E\\)\n\n\\(df_T = df_{Reg} + df_E\\)\n\n\nAlways check assumptions\n\nResidual plots!\n\nTry to test as few hypotheses as possible!\nThe hat matrix is magical.\n\n\n\nOrdinary Least Squares Estimates\nFor the model \\(y = \\beta_0 + \\beta_1x_{i1} + \\beta_2x_{i2} + \\epsilon_i\\):\n\nFind the OLS estimate by minimizing \\(\\sum_{i=1}^n\\epsilon_i^2 = \\sum(y_i - \\beta_0 - \\beta_1x_{i1} - \\beta_2x_{i2})^2 = \\underline\\epsilon^T\\underline\\epsilon\\)\n\n\\(\\hat{\\underline\\beta} = (X^TX)^{-1}X^TY\\)\nThese estimates do not require the normality assumption.\n\nMLE gets the same estiamtes (assuming normality).\n\nWith normality assumptions,\n\n\\(V(\\hat{\\underline\\beta}) = (X^TX)^{-1}\\sigma^2\\)\n\nConfidence intervals and confidence regions\n\n\n\n\nANOVA: Variance tells us about slopes\n\\(H_0: SS_{Reg} = 0\\) is equivalent to \\(H_0: \\beta_1 = \\beta_2 = \\dots = \\beta_{p-1} = 0\\).\n\nA horizontal line has a variance of 0!\n\n\\(\\beta_0 = \\bar y\\) does not have variance in the \\(y\\)-direction\nMore variance is a good thing, since this is the variance explained.\n\n\nThis extends to extra sum-of-squares due to adding predictons.\n\n\\(H_0: SS_1 - SS_2 = 0\\; \\Leftrightarrow\\; H_0: \\beta_q = \\beta_{q+1} = \\dots = \\beta_{p-1} = 0\\)",
     "crumbs": [
       "OLS Basics",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Getting the Wrong Model</span>"

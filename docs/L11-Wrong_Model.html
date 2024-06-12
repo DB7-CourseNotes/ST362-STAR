@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-06-08">
+<meta name="dcterms.date" content="2024-06-12">
 
 <title>STAR Notes – 11&nbsp; Getting the Wrong Model</title>
 <style>
@@ -414,6 +414,12 @@ window.Quarto = {
   <li><a href="#expected-mean-square" id="toc-expected-mean-square" class="nav-link" data-scroll-target="#expected-mean-square">Expected Mean Square</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
+  <li><a href="#what-have-we-learned" id="toc-what-have-we-learned" class="nav-link" data-scroll-target="#what-have-we-learned"><span class="header-section-number">11.2</span> What have we learned?</a>
+  <ul class="collapse">
+  <li><a href="#multiple-linear-regression-concepts" id="toc-multiple-linear-regression-concepts" class="nav-link" data-scroll-target="#multiple-linear-regression-concepts">Multiple Linear Regression Concepts</a></li>
+  <li><a href="#ordinary-least-squares-estimates" id="toc-ordinary-least-squares-estimates" class="nav-link" data-scroll-target="#ordinary-least-squares-estimates">Ordinary Least Squares Estimates</a></li>
+  <li><a href="#anova-variance-tells-us-about-slopes" id="toc-anova-variance-tells-us-about-slopes" class="nav-link" data-scroll-target="#anova-variance-tells-us-about-slopes">ANOVA: Variance tells us about slopes</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -446,7 +452,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-06-08</p>
+      <p class="date">2024-06-12</p>
     </div>
   </div>
   
@@ -512,6 +518,63 @@ E(Y^TQY) = (E(Y))^TQE(Y) + trace(Q\Sigma)
 <h3 class="anchored" data-anchor-id="summary">Summary</h3>
 <ul>
 <li>Choosing the wrong set of predictors can affect the model!</li>
+</ul>
+</section>
+</section>
+<section id="what-have-we-learned" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="what-have-we-learned"><span class="header-section-number">11.2</span> What have we learned?</h2>
+<section id="multiple-linear-regression-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-linear-regression-concepts">Multiple Linear Regression Concepts</h3>
+<ul>
+<li>If you add a predictor, the other coefficients change.</li>
+<li>Variance is everything
+<ul>
+<li><span class="math inline">\(MS_E\)</span> = variance of residuals, <span class="math inline">\(MS_{Reg}\)</span> = variance of the line!</li>
+<li><span class="math inline">\(SS_T = SS_{Reg} + SS_E\)</span>
+<ul>
+<li><span class="math inline">\(df_T = df_{Reg} + df_E\)</span></li>
+</ul></li>
+</ul></li>
+<li>Always check assumptions
+<ul>
+<li>Residual plots!</li>
+</ul></li>
+<li>Try to test as few hypotheses as possible!</li>
+<li>The hat matrix is magical.</li>
+</ul>
+</section>
+<section id="ordinary-least-squares-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="ordinary-least-squares-estimates">Ordinary Least Squares Estimates</h3>
+<p>For the model <span class="math inline">\(y = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i\)</span>:</p>
+<ul>
+<li>Find the OLS estimate by minimizing <span class="math inline">\(\sum_{i=1}^n\epsilon_i^2 = \sum(y_i - \beta_0 - \beta_1x_{i1} - \beta_2x_{i2})^2 = \underline\epsilon^T\underline\epsilon\)</span>
+<ul>
+<li><span class="math inline">\(\hat{\underline\beta} = (X^TX)^{-1}X^TY\)</span></li>
+<li>These estimates <em>do not</em> require the normality assumption.</li>
+</ul></li>
+<li>MLE gets the same estiamtes (assuming normality).</li>
+</ul>
+<p>With normality assumptions,</p>
+<ul>
+<li><span class="math inline">\(V(\hat{\underline\beta}) = (X^TX)^{-1}\sigma^2\)</span>
+<ul>
+<li>Confidence intervals and confidence regions</li>
+</ul></li>
+</ul>
+</section>
+<section id="anova-variance-tells-us-about-slopes" class="level3">
+<h3 class="anchored" data-anchor-id="anova-variance-tells-us-about-slopes">ANOVA: Variance tells us about slopes</h3>
+<p><span class="math inline">\(H_0: SS_{Reg} = 0\)</span> is equivalent to <span class="math inline">\(H_0: \beta_1 = \beta_2 = \dots = \beta_{p-1} = 0\)</span>.</p>
+<ul>
+<li>A horizontal line has a variance of 0!
+<ul>
+<li><span class="math inline">\(\beta_0 = \bar y\)</span> does not have variance in the <span class="math inline">\(y\)</span>-direction</li>
+<li>More variance is a good thing, since this is the variance <em>explained</em>.</li>
+</ul></li>
+</ul>
+<p>This extends to <strong>extra</strong> sum-of-squares due to adding predictons.</p>
+<ul>
+<li><span class="math inline">\(H_0: SS_1 - SS_2 = 0\; \Leftrightarrow\; H_0: \beta_q = \beta_{q+1} = \dots = \beta_{p-1} = 0\)</span></li>
 </ul>
 
 

@@ -128,3 +128,49 @@ Proxy measures of important predictors help remove bias, but the coefficient has
 2. False
 
 :::
+
+
+## What have we learned?
+
+### Multiple Linear Regression Concepts
+
+- If you add a predictor, the other coefficients change.
+- Variance is everything
+    - $MS_E$ = variance of residuals, $MS_{Reg}$ = variance of the line!
+    - $SS_T = SS_{Reg} + SS_E$
+        - $df_T = df_{Reg} + df_E$
+- Always check assumptions
+    - Residual plots!
+- Try to test as few hypotheses as possible!
+- The hat matrix is magical.
+
+### Ordinary Least Squares Estimates
+
+For the model $y = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i$:
+
+- Find the OLS estimate by minimizing $\sum_{i=1}^n\epsilon_i^2 = \sum(y_i - \beta_0 - \beta_1x_{i1} - \beta_2x_{i2})^2 = \underline\epsilon^T\underline\epsilon$
+    - $\hat{\underline\beta} = (X^TX)^{-1}X^TY$
+    - These estimates *do not* require the normality assumption.
+- MLE gets the same estiamtes (assuming normality).
+
+\pspace
+
+With normality assumptions,
+
+- $V(\hat{\underline\beta}) = (X^TX)^{-1}\sigma^2$
+    - Confidence intervals and confidence regions
+
+### ANOVA: Variance tells us about slopes
+
+$H_0: SS_{Reg} = 0$ is equivalent to $H_0: \beta_1 = \beta_2 = \dots = \beta_{p-1} = 0$.
+
+- A horizontal line has a variance of 0!
+    - $\beta_0 = \bar y$ does not have variance in the $y$-direction
+    - More variance is a good thing, since this is the variance *explained*.
+
+\pspace
+
+This extends to **extra** sum-of-squares due to adding predictons.
+
+- $H_0: SS_1 - SS_2 = 0\; \Leftrightarrow\; H_0: \beta_q = \beta_{q+1} = \dots = \beta_{p-1} = 0$
+
