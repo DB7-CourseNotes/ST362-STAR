@@ -140,7 +140,7 @@ Proxy measures of important predictors help remove bias, but the coefficient has
     - $SS_T = SS_{Reg} + SS_E$
         - $df_T = df_{Reg} + df_E$
 - Always check assumptions
-    - Residual plots!
+    - Residual plots (using the appropriate residuals)!
 - Try to test as few hypotheses as possible!
 - The hat matrix is magical.
 

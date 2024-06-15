@@ -35,7 +35,7 @@ Then $\bar{x'} = 0$ and the coefficient estimates become:
 \begin{align*}
 \hat\beta_0 &= \bar y - \hat\beta_1\bar{x'} = \bar y\\
 &\text{and}\\
-\hat\beta_1 &= \frac{S_{XX}}{S_{YY}} = \frac{\sum_{i=1}^n(x_i' - \bar{x'})^2}{\sum_{i=1}^n(x_i' - \bar{x'})(y_i - \bar{y})} = \frac{\sum_{i=1}^nx_i'^2}{\sum_{i=1}^nx_i'(y_i - \bar{y})}
+\hat\beta_1 &= \frac{S_{XX}}{S_{XY}} = \frac{\sum_{i=1}^n(x_i' - \bar{x'})^2}{\sum_{i=1}^n(x_i' - \bar{x'})(y_i - \bar{y})} = \frac{\sum_{i=1}^nx_i'^2}{\sum_{i=1}^nx_i'(y_i - \bar{y})}
 \end{align*}
 
 ### Mean-Centering and Covariance
@@ -105,16 +105,16 @@ plot(b1cs, b0cs, main = "Centered",
 ::::
 
 
-### Comments on $V(\hat{\underline\beta})$
+### Comments on $V(\hat{\underline\beta}^c)$
 
 $$
 V(\hat{\underline\beta}^c) = \sigma^2\begin{bmatrix}n^{-1} & 0 \\ 0 & (\sum_{i=1}^n{x'}_i^2)^{-1}\end{bmatrix}
 $$
 
-- $V(\hat\beta_0) = \sigma^2/n \implies sd(\hat\beta_0) = \sigma/\sqrt{n}$.
+- $V(\hat\beta_0^c) = \sigma^2/n \implies sd(\hat\beta_0) = \sigma/\sqrt{n}$.
     - The t-test for significance of $\beta_0$ is just a hypothesis test for $\bar y = 0$. \lspace
 - Note that $\underline y$ hasn't changed, so $\hat{\underline\epsilon}$ and $\sigma^2$ are unchanged.\lspace
-- $V(\hat\beta_0) = \sigma^2/\sum_{i=1}^n{x'}_i^2$ isn't all that interesting...
+- $V(\hat\beta_0^c) = \sigma^2/\sum_{i=1}^n{x'}_i^2$ isn't all that interesting...
 
 ### Standardizing $\underline x$
 
@@ -196,10 +196,10 @@ c(20.090625 - (-5.229338) * mean(x)/sd(x), -5.229338 / sd(x))
 
 ### Interpretations
 
-- Raw: a one unit increase in $x$ leads to a 1 unit increase in $y$.
+- Raw: a one unit increase in $x$ leads to a $\hat\beta$ unit increase in $y$.
     - Slopes are in the units of the predictors.
     - Assuming all other predictors are held constant.\lspace
-- Standardized: a one *standard deviation* increase in $x$ leads to a 1 *unit* increase in $y$
+- Standardized: a one *standard deviation* increase in $x$ leads to a $\hat\beta^c$ *unit* increase in $y$
     - Slopes are all in the same units!
         - Bigger coefficient $\implies$ bigger effect on $y$.
     - Still assumes other predictors are held constant.
@@ -441,11 +441,12 @@ Which of the following will result in no correlation between $\beta_0$ and $\bet
 
 \pspace
 
-1. Centering
-2. Standardizing
-3. Both centering and standardizing
-4. None of the above
+a. Centering
+b. Standardizing
+c. Both centering and standardizing
+d. None of the above
 
+<!--- A --->
 
 ### Q2
 
@@ -453,23 +454,12 @@ What's the primary reason for standardizing the predictors?
 
 \pspace
 
-1. Remove correlation between the $\hat\beta$s
-2. Make it so that the variance is not a function of the $X$-values.
-3. Ensure that the values of $\hat\beta$ are comparable.
-4. Make it so that general linear hypotheses are possible.
+a. Remove correlation between the $\hat\beta$s
+b. Make it so that the variance is not a function of the $X$-values.
+c. Ensure that the values of $\hat\beta$ are comparable.
+d. Make it so that general linear hypotheses are possible.
 
-
-### Q3
-
-Ignoring correlation/unequal variance in $\underline\epsilon$ will lead to a *biased* estimate of $\underline\beta$
-
-\pspace
-
-1. True
-2. False
-
-### Q4
-
+<!--- C --->
 
 
 :::

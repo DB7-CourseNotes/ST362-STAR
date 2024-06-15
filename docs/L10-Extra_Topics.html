@@ -443,7 +443,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#mean-centering" id="toc-mean-centering" class="nav-link" data-scroll-target="#mean-centering">Mean-Centering</a></li>
   <li><a href="#mean-centering-and-covariance" id="toc-mean-centering-and-covariance" class="nav-link" data-scroll-target="#mean-centering-and-covariance">Mean-Centering and Covariance</a></li>
-  <li><a href="#comments-on-vhatunderlinebeta" id="toc-comments-on-vhatunderlinebeta" class="nav-link" data-scroll-target="#comments-on-vhatunderlinebeta">Comments on <span class="math inline">\(V(\hat{\underline\beta})\)</span></a></li>
+  <li><a href="#comments-on-vhatunderlinebetac" id="toc-comments-on-vhatunderlinebetac" class="nav-link" data-scroll-target="#comments-on-vhatunderlinebetac">Comments on <span class="math inline">\(V(\hat{\underline\beta}^c)\)</span></a></li>
   <li><a href="#standardizing-underline-x" id="toc-standardizing-underline-x" class="nav-link" data-scroll-target="#standardizing-underline-x">Standardizing <span class="math inline">\(\underline x\)</span></a></li>
   <li><a href="#standardizing-in-multiple-linear-regression" id="toc-standardizing-in-multiple-linear-regression" class="nav-link" data-scroll-target="#standardizing-in-multiple-linear-regression">Standardizing in Multiple Linear Regression</a></li>
   <li><a href="#standardization-example" id="toc-standardization-example" class="nav-link" data-scroll-target="#standardization-example">Standardization Example</a></li>
@@ -522,7 +522,7 @@ x'_i = x_i - \bar x
 <p>Then <span class="math inline">\(\bar{x'} = 0\)</span> and the coefficient estimates become: <span class="math display">\[\begin{align*}
 \hat\beta_0 &amp;= \bar y - \hat\beta_1\bar{x'} = \bar y\\
 &amp;\text{and}\\
-\hat\beta_1 &amp;= \frac{S_{XX}}{S_{YY}} = \frac{\sum_{i=1}^n(x_i' - \bar{x'})^2}{\sum_{i=1}^n(x_i' - \bar{x'})(y_i - \bar{y})} = \frac{\sum_{i=1}^nx_i'^2}{\sum_{i=1}^nx_i'(y_i - \bar{y})}
+\hat\beta_1 &amp;= \frac{S_{XX}}{S_{XY}} = \frac{\sum_{i=1}^n(x_i' - \bar{x'})^2}{\sum_{i=1}^n(x_i' - \bar{x'})(y_i - \bar{y})} = \frac{\sum_{i=1}^nx_i'^2}{\sum_{i=1}^nx_i'(y_i - \bar{y})}
 \end{align*}\]</span></p>
 </section>
 <section id="mean-centering-and-covariance" class="level3">
@@ -551,18 +551,18 @@ V(\hat{\underline\beta}^c) &amp;= \frac{\sigma^2}{nS_{X'X'}}\begin{bmatrix}\sum 
 </div>
 </div>
 </section>
-<section id="comments-on-vhatunderlinebeta" class="level3">
-<h3 class="anchored" data-anchor-id="comments-on-vhatunderlinebeta">Comments on <span class="math inline">\(V(\hat{\underline\beta})\)</span></h3>
+<section id="comments-on-vhatunderlinebetac" class="level3">
+<h3 class="anchored" data-anchor-id="comments-on-vhatunderlinebetac">Comments on <span class="math inline">\(V(\hat{\underline\beta}^c)\)</span></h3>
 <p><span class="math display">\[
 V(\hat{\underline\beta}^c) = \sigma^2\begin{bmatrix}n^{-1} &amp; 0 \\ 0 &amp; (\sum_{i=1}^n{x'}_i^2)^{-1}\end{bmatrix}
 \]</span></p>
 <ul>
-<li><span class="math inline">\(V(\hat\beta_0) = \sigma^2/n \implies sd(\hat\beta_0) = \sigma/\sqrt{n}\)</span>.
+<li><span class="math inline">\(V(\hat\beta_0^c) = \sigma^2/n \implies sd(\hat\beta_0) = \sigma/\sqrt{n}\)</span>.
 <ul>
 <li>The t-test for significance of <span class="math inline">\(\beta_0\)</span> is just a hypothesis test for <span class="math inline">\(\bar y = 0\)</span>. </li>
 </ul></li>
 <li>Note that <span class="math inline">\(\underline y\)</span> hasn’t changed, so <span class="math inline">\(\hat{\underline\epsilon}\)</span> and <span class="math inline">\(\sigma^2\)</span> are unchanged.</li>
-<li><span class="math inline">\(V(\hat\beta_0) = \sigma^2/\sum_{i=1}^n{x'}_i^2\)</span> isn’t all that interesting…</li>
+<li><span class="math inline">\(V(\hat\beta_0^c) = \sigma^2/\sum_{i=1}^n{x'}_i^2\)</span> isn’t all that interesting…</li>
 </ul>
 </section>
 <section id="standardizing-underline-x" class="level3">
@@ -642,12 +642,12 @@ y = \beta_0' + \beta_1'x' = \beta_0' + \beta_1'\left(\frac{x - \bar x}{sd(x)}\ri
 <section id="interpretations" class="level3">
 <h3 class="anchored" data-anchor-id="interpretations">Interpretations</h3>
 <ul>
-<li>Raw: a one unit increase in <span class="math inline">\(x\)</span> leads to a 1 unit increase in <span class="math inline">\(y\)</span>.
+<li>Raw: a one unit increase in <span class="math inline">\(x\)</span> leads to a <span class="math inline">\(\hat\beta\)</span> unit increase in <span class="math inline">\(y\)</span>.
 <ul>
 <li>Slopes are in the units of the predictors.</li>
 <li>Assuming all other predictors are held constant.</li>
 </ul></li>
-<li>Standardized: a one <em>standard deviation</em> increase in <span class="math inline">\(x\)</span> leads to a 1 <em>unit</em> increase in <span class="math inline">\(y\)</span>
+<li>Standardized: a one <em>standard deviation</em> increase in <span class="math inline">\(x\)</span> leads to a <span class="math inline">\(\hat\beta^c\)</span> <em>unit</em> increase in <span class="math inline">\(y\)</span>
 <ul>
 <li>Slopes are all in the same units!
 <ul>
