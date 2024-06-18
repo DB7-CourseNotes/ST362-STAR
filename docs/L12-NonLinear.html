@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-05-20">
+<meta name="dcterms.date" content="2024-06-18">
 
 <title>STAR Notes – 12&nbsp; Non-Linear Relationships with Linear Models</title>
 <style>
@@ -497,7 +497,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-05-20</p>
+      <p class="date">2024-06-18</p>
     </div>
   </div>
   
@@ -519,7 +519,7 @@ window.Quarto = {
 y = 2 + \frac{1}{5}x^2 - 8\log(x) - 0.005x^3 + 20\sin\left(\frac{x}{2}\right) + \epsilon
 \]</span></p>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L12-NonLinear_cache/html/nonlin-plot_89ac5703158c68a1cf930c09653e1ac7">
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -569,7 +569,7 @@ x_1 = x;\; x_2 = x^2;\; x_3 = x^3;\;...
 <li>A cubic does something funky at 0.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L12-NonLinear_cache/html/cars-nonlin_304ec1596a3c4b33ebf09a7c048fba42">
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -583,7 +583,7 @@ x_1 = x;\; x_2 = x^2;\; x_3 = x^3;\;...
 </section>
 <section id="choosing-order-with-anova" class="level3">
 <h3 class="anchored" data-anchor-id="choosing-order-with-anova">Choosing Order with ANOVA</h3>
-<div class="cell" data-hash="L12-NonLinear_cache/html/anova-order_6470ca5a5450a3d42f51eaf19496c329">
+<div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dist =</span> cars<span class="sc">$</span>dist, <span class="at">x1 =</span> cars<span class="sc">$</span>speed, <span class="at">x2 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">2</span>, </span>
@@ -617,7 +617,7 @@ y = \beta_0 + \beta_1x + \beta_2x^2
 y = \beta_2x^2
 \]</span></p>
 </div><div class="column" style="width:50%;">
-<div class="cell" data-hash="L12-NonLinear_cache/html/speed-squared_ab8f0aa813e6e1ff805bb0ef87c65698">
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -631,7 +631,7 @@ y = \beta_2x^2
 </section>
 <section id="unconventional-ess" class="level3">
 <h3 class="anchored" data-anchor-id="unconventional-ess">Unconventional ESS</h3>
-<div class="cell" data-hash="L12-NonLinear_cache/html/ESS-odd_72b72f30c6acad37d8d9fdb5ba197d95">
+<div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">dist =</span> cars<span class="sc">$</span>dist, <span class="at">x1 =</span> cars<span class="sc">$</span>speed, <span class="at">x2 =</span> cars<span class="sc">$</span>speed<span class="sc">^</span><span class="dv">2</span>, </span>
@@ -658,7 +658,7 @@ Model 2: dist ~ x1 + x2
 <section id="polynomial-models-will-overfit" class="level3">
 <h3 class="anchored" data-anchor-id="polynomial-models-will-overfit">Polynomial Models <em>will</em> Overfit!</h3>
 <p>True model: <span class="math inline">\(f(x) = 2 + 25x + 5x^2 - x^3\)</span> (cubic), Var(<span class="math inline">\(\epsilon\)</span>) = 40</p>
-<div class="cell" data-hash="L12-NonLinear_cache/html/poly-overfit_700c3cb38e426cab14ca5875be6876d2">
+<div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -673,7 +673,7 @@ Model 2: dist ~ x1 + x2
 <p>A full polynomial model of order 2 with two predictors is: <span class="math display">\[
 y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \beta_{12}x_1x_2
 \]</span> In R this can be specified as:</p>
-<div class="cell" data-hash="L12-NonLinear_cache/html/polyfit_770ed7764df254154b653276f2f76bf1">
+<div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> (x1 <span class="sc">+</span> x2)<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -708,10 +708,10 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 <section id="extrapolation-is-fraught-with-peril" class="level3">
 <h3 class="anchored" data-anchor-id="extrapolation-is-fraught-with-peril">Extrapolation is Fraught with Peril</h3>
 <p>Unless you have the true order (you don’t), polynomials diverge almost immediately.</p>
-<div class="cell" data-hash="L12-NonLinear_cache/html/poly-extrap_346484b0724fc4ca216fdc8894b22c29">
+<div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes"</span>, </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/polyFit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -723,7 +723,7 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 </section>
 <section id="poly-uses-orthogonal-polynomials" class="level3">
 <h3 class="anchored" data-anchor-id="poly-uses-orthogonal-polynomials"><code>poly()</code> uses <strong>orthogonal</strong> polynomials</h3>
-<div class="cell" data-hash="L12-NonLinear_cache/html/orthog-1_054942b437a17391763982d1d19e1fc5">
+<div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, </span>
@@ -742,7 +742,7 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 </section>
 <section id="orthogonal-polynomials" class="level3">
 <h3 class="anchored" data-anchor-id="orthogonal-polynomials">Orthogonal Polynomials</h3>
-<div class="cell" data-hash="L12-NonLinear_cache/html/orthog-2_bdd3454d3f3d543601d338433a929642">
+<div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">runif</span>(<span class="dv">60</span>, <span class="dv">0</span>, <span class="dv">10</span>))</span>

@@ -298,7 +298,7 @@ Unless you have the true order (you don't), polynomials diverge almost immediate
 #| label: poly-extrap
 #| echo: true
 #| eval: false
-shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+shiny::runGitHub(repo = "DB7-CourseNotes", 
     subdir = "Apps/polyFit")
 ```
 
