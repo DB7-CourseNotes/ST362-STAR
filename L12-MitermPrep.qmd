@@ -1,0 +1,26 @@
+---
+title: "Midterm Review Session"
+---
+
+## Preamble
+
+### Announcements
+
+- Midterm is **Wednesday at 9am in lab**!!!\lspace
+    - Allowed a cheat sheet
+    - Practice MC/TF questions on MyLS in Other -> Self-Assessment.\lspace
+- There will be a session to discuss the take-home portion of the midterm at 10:30am on June 19th
+
+
+## Practice Problems
+
+### Worked Homework Problems
+
+- [Question 1.2](https://db7-coursenotes.github.io/ST362-STAR/L01-Introduction.html#homework-problems): What does the simulation do?
+- [Questions 2.3 and 2.6](https://db7-coursenotes.github.io/ST362-STAR/L02-Fitting_Straight_Lines.html#exercises)
+    - True model is $y_i = \beta_1x_i + \epsilon_i$, but we fit the model $\hat y_i = \hat\beta_0 + \hat\beta_1x_i$?
+- [Question 3.9](https://db7-coursenotes.github.io/ST362-STAR/L03-Residuals.html#exercises)
+- [Question 4.2 and 4.12](https://db7-coursenotes.github.io/ST362-STAR/L04-Matrix_Form.html#exercises)
+- [Question 5.2](https://db7-coursenotes.github.io/ST362-STAR/L05-General_Regression.html)
+- [Question 6.4](https://db7-coursenotes.github.io/ST362-STAR/L06-Extra_Sums_of_Squares.html#exercises)
+- [Question 10.3](https://db7-coursenotes.github.io/ST362-STAR/L10-Extra_Topics.html#exercises)

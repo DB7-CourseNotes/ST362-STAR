@@ -35,7 +35,7 @@ Then $\bar{x'} = 0$ and the coefficient estimates become:
 \begin{align*}
 \hat\beta_0 &= \bar y - \hat\beta_1\bar{x'} = \bar y\\
 &\text{and}\\
-\hat\beta_1 &= \frac{S_{XX}}{S_{XY}} = \frac{\sum_{i=1}^n(x_i' - \bar{x'})^2}{\sum_{i=1}^n(x_i' - \bar{x'})(y_i - \bar{y})} = \frac{\sum_{i=1}^nx_i'^2}{\sum_{i=1}^nx_i'(y_i - \bar{y})}
+\hat\beta_1 &= \frac{S_{XY}}{S_{XX}} = \frac{\sum_{i=1}^n(x_i' - \bar{x'})^2}{\sum_{i=1}^n(x_i' - \bar{x'})(y_i - \bar{y})} = \frac{\sum_{i=1}^nx_i'^2}{\sum_{i=1}^nx_i'(y_i - \bar{y})}
 \end{align*}
 
 ### Mean-Centering and Covariance
