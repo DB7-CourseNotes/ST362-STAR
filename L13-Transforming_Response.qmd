@@ -33,7 +33,7 @@ $$
 
 \pause Now consider the model:
 $$
-\ln(y_i) = \beta_0 + \beta_1x_{i1} + \beta-2x_{i2} + \epsilon_i
+\ln(y_i) = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i
 $$
 
 - 3 parameters instead of 6!
@@ -78,7 +78,7 @@ scatter3D(x1, x2, log(y), phi = 15, theta = 45, bty = "g",
 :::
 ::::
 
-The logarithm made it more linear, even if it's not quite right.
+The logarithm made it simpler, even if it's still not quite right.
 
 ::: {.content-visible when-profile="book"}
 
@@ -106,14 +106,14 @@ rgl::plot3d(x1, x2, y)
 
 Consider the simple model $E(y_i) = \beta x^2$. Taking the logarithm of both sides:
 $$
-\ln(E(y_i)) = \ln(\beta) + 2\ln(x) = \beta_0 + \beta_1 \ln(x)
+\ln(E(y_i)) = \ln(\beta) + 2\ln(x) := \beta_0 + \beta_1 \ln(x)
 $$
 and we have something that looks more like a linear model.
 
 \pspace
 
 - Note that, instead of $x^2$, $x^{2.1}$ would also work as a model.
-    - The power of $x$ can be estimated.\lspace
+    - The power of $x$ is estimated.\lspace
 - It's also possible that the log scale is the *correct* scale for $y$
     - $E(\ln(y_i)) = \beta_0 + \beta_1x$
     - In other words, don't get too bogged down by whether we take the ln of $x$.
@@ -145,11 +145,11 @@ $$
 **No (the usual case)**
 
 $$
-\ln(E(y_i)) = \beta_0 + \beta_1\ln x_{i1} + \beta_2 \ln x_{i2} + \epsilon
+\ln(E(y_i)) = \beta_0 + \beta_1x_{i1} + \beta_2 x_{i2}
 $$
 
 $$
-\implies y_i = e^{\beta_1}x_{i1}^{\beta_1}x_{i2}^{\beta_2}e^{\epsilon_i}
+\implies y_i = e^{\beta_1}e^{\beta_1x_{i1}}e^{\beta_2x_{i2}}e^{\epsilon_i}
 $$
 
 - Usually used in order to make the plot look more linear.
@@ -160,11 +160,11 @@ $$
 **Yes (if there's good reason)**
 
 $$
-\ln(E(y_i)) = \beta_0 + \beta_1x_{i1} + \beta_2 x_{i2} + \epsilon
+\ln(E(y_i)) = \beta_0 + \beta_1\ln x_{i1} + \beta_2 \ln x_{i2}
 $$
 
 $$
-\implies y_i = e^{\beta_1}e^{\beta_1x_{i1}}e^{\beta_2x_{i2}}e^{\epsilon_i}
+\implies y_i = e^{\beta_1}x_{i1}^{\beta_1}x_{i2}^{\beta_2}e^{\epsilon_i}
 $$
 
 - Usually used if we think the form $y = \beta_0x^\beta e^\epsilon$ is the correct form.
@@ -172,24 +172,28 @@ $$
 :::
 ::::
 
+\quad
+
 Secret third option: transform the $x$ values only (example: polynomial regression).
+
+::: {.content-visible when-profile="book"}
+You may notice that the first row in each column transforms $E(y_i)$, but the second is the transform of $y_i$. This is not a mistake. We transform the expected relationship between $X$ and $y$, then fit the model assuming that the residuals are additive so we can use our usual least squares estimators. To transform them back, we don't know the residuals and therefore they get caught up in the transformation.
+:::
 
 ### General Practice
 
-We often simply use the model:
-$$
-\ln \underline y = X\beta + \underline \epsilon
-$$
-and do *everything* on the log scale.
+We often simply use the model $\ln \underline y = X\beta + \underline \epsilon$ and do *everything* on the log scale.
 
 - Simpler, but still useful.\lspace
 - Good predictions of $\ln y_i$ can be transformed to good predictions of $y_i$.\lspace
+- If there's a good reason to transform the $x$ values, we'll try that first.
+    - E.g. stopping distance $\propto$ speed$^2$; decibels are on the log scale but we might want them on the raw sale, etc.
 
 \pspace
 
 In general: Decide on a functional relationship between $f(y)$ and $X$, then use additive errors on the scale of $f(y)$.
 
-This has *consequences*:
+This has *consequences* for the residuals.
 
 ## Residuals in Transformed Space
 
@@ -240,8 +244,7 @@ If $(a,b)$ is a $(1-\alpha)$ CI on the scale of $f(y)$, then $(f^{-1}(a), f^{-1}
 1. Theory.
     - If theory says that the log transform makes sense, use that.
         - Don't even consider the next steps. Just go with theory.
-    - Example: Forest fire burn sizes are right skewed, the log-transform makes sense.
-        - In my research, I used the lognorman lodel for the residuals to acheive the same effect.\lspace
+    - Example: Forest fire burn sizes are right skewed, the log-transform makes sense.\lspace
 2. Experimentation after looking at the Scale-Location plot.
     - If log or sqrt don't work, move on to step three.\lspace
 3. The Box-Cox Transformation
@@ -275,6 +278,18 @@ W = \begin{cases}
 \end{cases}
 $$
 
+\pspace
+
+Notice:
+
+- $\lambda \approx -1 \implies$ inverse transformation.
+- $\lambda \approx 0 \implies$ log transformation.
+- $\lambda \approx 0.5 \implies$ sqrt transformation.
+- $\lambda \approx 1 \implies$ no transformation.
+- $\lambda \approx k, k\in\mathbb{Z} \implies$ use $y^k$.
+- There's no $\lambda$ for $exp(y)$!
+
+
 ### Variance of $\lambda$
 
 If we had a different data set, we'd get a different value of $\lambda$!
@@ -288,12 +303,40 @@ R reports the the log-likelihood values, along with the top 5%.
 - Usually, we check the best $\lambda$ values and round to something nice.
     - log, sqrt, squared, inverse, etc.
 
+
+### Example
+
+1. Generate `y ~ log(x)`, try fitting `y ~ log(x)` and also a transformation for `y`.
+2. Generate `log(y) ~ x`, try fitting `y ~ exp(x)` and also `log(y) ~ x`.
+
+::: {.content-visible when-profile="book"}
+
+```{webr-r}
+#| label: trans1
+set.seed(2112)
+n <- 60
+x <- runif(n, 1, 10)
+xl <- log(x)
+epsilon <- rnorm(n, 0, 3)
+# y ~ exp(x) has linear errors
+y1 <- log(x) + epsilon
+# log(y) ~ x <=> y = exp(x + epsilon)
+y2 <- exp(x + epsilon)
+
+mylm <- lm(y1^3 ~ x)
+par(mfrow = c(2, 2))
+plot(mylm)
+```
+
+:::
+
+
 ### Summary
 
 - Choosing a transformation:
     1. Theory
     2. Exploration
-    3. Round the value from Box-Cox.\lspace
+    3. Rounded value from Box-Cox.\lspace
 - Working with a transformation:
     - Choose functional form, assume additive errors (usually, not always!)
     - Stay on the transformed scale
@@ -310,25 +353,28 @@ To be useful, all transformations should consider the context of the problem!
 
 ### Q1
 
-If the true relationship has the form $y = f(X) + \epsilon_i$, we can always find a transformation $f^{-1}$ to make it linear.
+If the true relationship has the form $y = f(X) + \epsilon_i$, we can always find a transformation $f^{-1}(y)$ to make it linear.
 
 \pspace
 
-1. True
-2. False
+a. True
+b. False
+
+<!--- B --->
 
 ### Q2
 
 If we find that $\lambda = 2$ is the best transformation, then the following models are equivalent:
 $$
-\frac{Y^2 - 1}{2} = X\beta\quad\text{and}\quad Y^2 = 2X\beta + 1
+\frac{Y^2 - 1}{2} = X\beta \quad \text{and} \quad Y^2 = 2X\beta + 1
 $$
 
 \pspace
 
-1. True
-2. False
-3. Technically not, but good enough in practice.
+a. True
+b. False
+
+<!--- A --->
 
 ### Q3
 
@@ -336,8 +382,10 @@ A transformation of the form $y = f(X) + \epsilon$ leads to multiplicative error
 
 \pspace
 
-1. True 
-2. False
+a. True 
+b. False
+
+<!--- B --->
 
 ### Q4
 
@@ -345,17 +393,19 @@ Which of the following is *not* a good reason to investigate transformations?
 
 \pspace
 
-1. If the variance looks unstable.
-2. If the theory says a transformation is necessary.
-3. If a transformation might lead to a much simpler model.
-4. If $y$ doesn't look normal.
+a. If the variance looks unstable.
+b. If the theory says a transformation is necessary.
+c. If a transformation might lead to a much simpler model.
+d. If $y$ doesn't look normal.
+
+<!---  --->
 
 ### Q5
 
 The default residual plots in R can help diagnose the need for a transformation.
 
-1. True
-2. False
+a. True
+b. False
 
 :::
 
