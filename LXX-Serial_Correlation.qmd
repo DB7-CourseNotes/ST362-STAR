@@ -319,6 +319,6 @@ In the normal distribution this isn't true, so we apply a correction factor:
 ```{r}
 #| eval: false
 #| echo: true
-shiny::runGitHub(repo = "DB7-CourseNotes", 
+shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
     subdir = "Apps/SerialCorrelation")
 ```

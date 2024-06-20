@@ -304,7 +304,7 @@ Unless you have the true order (you don't), polynomials diverge almost immediate
 #| label: poly-extrap
 #| echo: true
 #| eval: false
-shiny::runGitHub(repo = "DB7-CourseNotes", 
+shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
     subdir = "Apps/polyFit")
 ```
 
@@ -403,6 +403,16 @@ ggplot(mtcars) +
 
 :::
 
+### Closing Notes: Linear Models are fine with non-linear trends
+
+The formula $y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ... + \epsilon_i$ doesn't care how $x$ is defined.
+
+- $x_{i2} = x_{i1}^2$ works as if $x_{i1}$ and $x_{i2}$ are just two predictors.\lspace
+- $x_{i2} = \log(x_{i1})$ is fine too!\lspace
+- $x_{i2} = \log(x_{i1}) + \exp(x_{i3})\tan(1)$? Sure, why not!\lspace
+- $x_{i2} = \log(\beta_1x_{i1})$ is a total no-go.
+    - Linear models are linear *in the parameters*.
+
 
 
 
@@ -415,31 +425,37 @@ ggplot(mtcars) +
 
 Given a correctly structured model matrix ($X$), polynomial models can be fit with the same routines as linear models (without modification).
 
-1. True
-2. False
+a. True
+b. False
+
+<!--- A --->
 
 ### Q2
 
 Any smooth function can be approximated by a polynomial.
 
-1. True
-2. False
+a. True
+b. False
+
+<!--- A --->
 
 ### Q3
 
 Orthogonal polynomials are used because:
 
-1. They remove covariance between $x$, $x^2$, $x^3$, etc.
-2. They remove the covariance between $\beta_1$, $\beta_{11}$, $\beta_{111}$, etc.
-3. They result in p-values that make sense.
-4. All of the above.
+a. They remove covariance between $x$, $x^2$, $x^3$, etc.
+b. They remove the covariance between $\beta_1$, $\beta_{11}$, $\beta_{111}$, etc.
+c. They result in p-values that make sense.
+d. All of the above.
+
+<!--- D --->
 
 ### Q4
 
 Which statement is *true*?
 
-1. We should start with a high order polynomial and use Sequential Sum-of-Squares to choose the order.
-2. We should try second order polynomials if we think there's a curve to our model, but should generally avoid polynomials unless there's a strong contextual reason.
-3. We saw last week that estimates are still unbiased in the presence of extraneous predictors, so it's fine to include a higher order polynomial in our model.
+a. We should start with a high order polynomial and use Sequential Sum-of-Squares to choose the order.
+b. We should try second order polynomials if we think there's a curve to our model, but should generally avoid polynomials unless there's a strong contextual reason.
+c. We saw last week that estimates are still unbiased in the presence of extraneous predictors, so it's fine to include a higher order polynomial in our model.
 
 :::

@@ -281,7 +281,7 @@ From this, we can find the lower and upper $\alpha/2$\% of the $t$ curve.
 ```{r}
 #| eval: false
 #| echo: true
-shiny::runGitHub(repo = "DB7-CourseNotes", 
+shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
     subdir = "Tools/pvalues")
 ```
 :::
