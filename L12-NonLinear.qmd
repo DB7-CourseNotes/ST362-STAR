@@ -1,6 +1,8 @@
 ---
 title: "Non-Linear Relationships with Linear Models"
 institute: "Jam: **Higher Order** by Empire Me"
+filter:
+  - webr
 ---
 
 ```{r}
@@ -13,6 +15,10 @@ set.seed(2112)
 ## Preamble
 
 ### Announcements
+
+- Take-home midterm due Weds!
+    - Feel free to message on discord/email if files aren't compiling.\lspace
+- Assignment 3 will be out soon.
 
 :::
 
@@ -352,6 +358,50 @@ for(i in 1:3) {
 ### Example: mtcars
 
 [code]
+
+::: {.content-visible when-profile="book"}
+
+Play around with the polynomial order in the following code to try and get a good fit! Then, reveal the solution below.
+
+```{webr-r}
+#| label: mtcars_poly
+plot(mpg ~ wt, data = mtcars)
+
+# Can't simply "abline" a polynomial since it treats 
+# the polynomial terms as separate predictors, so it's
+# a multiple linear regression
+my_lm <- lm(mpg ~ poly(wt, 9), data = mtcars)
+wt_seq <- seq(min(mtcars$wt), max(mtcars$wt),
+    length.out = 100)
+my_preds <- predict(my_lm,
+    newdata = data.frame(wt = wt_seq))
+lines(wt_seq, my_preds, col = 2, lwd = 2)
+```
+
+<details>
+<summary>**Solution**</summary>
+A polynomial model is *not* the best model here! The following plot shows three related linear models (which we'll learn about later), demonstrating that it is linear but there's a hidden grouping!
+
+```{r}
+#| label: mtcars_cat
+#| echo: false
+library(ggplot2)
+ggplot(mtcars) +
+    theme_bw() +
+    aes(x = wt, y = mpg, colour = factor(cyl)) +
+    geom_point() +
+    geom_smooth(
+        method = "lm", se = FALSE,
+        formula = y ~ x
+    )
+```
+
+*****
+</details>
+
+:::
+
+
 
 ### Summary
 
