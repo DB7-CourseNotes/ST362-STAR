@@ -1,9 +1,12 @@
 ---
 title: "Transforming the Response"
 institute: "Jam: **Stabilise** by Nilüfer Yanya"
+filter:
+    - webr
 ---
 
 ```{r}
+#| label: setup
 #| include: false
 set.seed(2112)
 ```
@@ -35,7 +38,7 @@ $$
 
 - 3 parameters instead of 6!
     - No interaction term!
-- If we're okay with the log scale for $y$, easier to interpret.
+- If we're okay with the log scale for $y$, it's easier to interpret.
 
 ### Transforming the predictors
 
@@ -79,9 +82,21 @@ The logarithm made it more linear, even if it's not quite right.
 
 ::: {.content-visible when-profile="book"}
 
-```{webr-r}
-#| label: rgl-version?
+The code below can be run on your local machine (the `rgl` library needs to make it's own window, which it can't do in any online format). 
+
+Play around with some transformations of $x_1$ and $x_2$, then play around with transformations of $y$!
+
+```{r}
+#| label: rgl-version
+#| echo: true
+#| code-fold: false
+#| eval: false
 library(rgl)
+set.seed(2112)
+n <- 200
+x1 <- runif(n, 3, 10)
+x2 <- runif(n, 3, 10)
+y <- 20 + 5*x1 + 15*x1^2 + 5*x2 + 15*x2^2  + 2*x1*x2 + rnorm(n, 0, 2)
 
 rgl::plot3d(x1, x2, y)
 ```
@@ -104,6 +119,7 @@ and we have something that looks more like a linear model.
     - In other words, don't get too bogged down by whether we take the ln of $x$.
 
 
+
 ### Logarithms and Errors
 
 If we believe that the log scale is a better scale for $y$, we may postulate the model:
@@ -120,6 +136,43 @@ $$
     - Allows us to use least squares.\lspace
 - Option 2: Use the model $y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2} + \epsilon_i$
     - Might be better, but requires a bespoke estimation algorithm.
+
+
+### Are we also taking the log of $x$?
+
+:::: {.columns}
+::: {.column width="50%"}
+**No (the usual case)**
+
+$$
+\ln(E(y_i)) = \beta_0 + \beta_1\ln x_{i1} + \beta_2 \ln x_{i2} + \epsilon
+$$
+
+$$
+\implies y_i = e^{\beta_1}x_{i1}^{\beta_1}x_{i2}^{\beta_2}e^{\epsilon_i}
+$$
+
+- Usually used in order to make the plot look more linear.
+
+:::
+::: {.column width="50%"}
+
+**Yes (if there's good reason)**
+
+$$
+\ln(E(y_i)) = \beta_0 + \beta_1x_{i1} + \beta_2 x_{i2} + \epsilon
+$$
+
+$$
+\implies y_i = e^{\beta_1}e^{\beta_1x_{i1}}e^{\beta_2x_{i2}}e^{\epsilon_i}
+$$
+
+- Usually used if we think the form $y = \beta_0x^\beta e^\epsilon$ is the correct form.
+
+:::
+::::
+
+Secret third option: transform the $x$ values only (example: polynomial regression).
 
 ### General Practice
 
