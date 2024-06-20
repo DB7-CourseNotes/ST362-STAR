@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"code":"plot(mpg ~ wt, data = mtcars)\n\n# Can't simply \"abline\" a polynomial since it treats \n# the polynomial terms as separate predictors, so it's\n# a multiple linear regression\nmy_lm <- lm(mpg ~ poly(wt, 9), data = mtcars)\nwt_seq <- seq(min(mtcars$wt), max(mtcars$wt),\n    length.out = 100)\nmy_preds <- predict(my_lm,\n    newdata = data.frame(wt = wt_seq))\nlines(wt_seq, my_preds, col = 2, lwd = 2)","options":{"editor-quick-suggestions":"false","fig-width":7,"editor-max-height":"","classes":"","fig-height":5,"editor-font-scale":1,"comment":"","fig-cap":"","results":"markup","context":"interactive","out-height":"","dpi":72,"output":"true","read-only":"false","out-width":"700px","warning":"true","message":"true","label":"mtcars_poly","autorun":"false"}}];
+globalThis.qwebrCellDetails = [{"code":"plot(mpg ~ wt, data = mtcars)\n\n# Can't simply \"abline\" a polynomial since it treats \n# the polynomial terms as separate predictors, so it's\n# a multiple linear regression\nmy_lm <- lm(mpg ~ poly(wt, 9), data = mtcars)\nwt_seq <- seq(min(mtcars$wt), max(mtcars$wt),\n    length.out = 100)\nmy_preds <- predict(my_lm,\n    newdata = data.frame(wt = wt_seq))\nlines(wt_seq, my_preds, col = 2, lwd = 2)","id":1,"options":{"context":"interactive","output":"true","editor-font-scale":1,"message":"true","editor-quick-suggestions":"false","fig-width":7,"out-height":"","autorun":"false","label":"mtcars_poly","classes":"","results":"markup","fig-cap":"","comment":"","fig-height":5,"dpi":72,"read-only":"false","out-width":"700px","warning":"true","editor-max-height":""}}];
 
 </script>
 <script type="module">
@@ -1504,7 +1504,6 @@ window.Quarto = {
   <li><a href="#should-i-use-a-polynomial" id="toc-should-i-use-a-polynomial" class="nav-link" data-scroll-target="#should-i-use-a-polynomial"><span class="header-section-number">12.3</span> Should I Use a Polynomial?</a>
   <ul class="collapse">
   <li><a href="#example-mtcars" id="toc-example-mtcars" class="nav-link" data-scroll-target="#example-mtcars">Example: mtcars</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -2030,7 +2029,8 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 <section id="example-mtcars" class="level3">
 <h3 class="anchored" data-anchor-id="example-mtcars">Example: mtcars</h3>
 <p>[code]</p>
-<p>Play around with the polynomial order in the following code to try and get a good fit! Then, reveal the solution below.</p>
+<p>Play around with the polynomial order in the following code to try and get a good fit! (For fun, also try a degree 17 polynomial.) Then, reveal the solution below.</p>
+<p>Note that you can run this code right here - you don’t need to use your own computer! This is magical!</p>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <details>
@@ -2049,9 +2049,6 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 </div>
 <hr>
 </details>
-</section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary">Summary</h3>
 
 
 </section>

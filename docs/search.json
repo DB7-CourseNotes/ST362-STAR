@@ -936,7 +936,7 @@
     "href": "L12-NonLinear.html#should-i-use-a-polynomial",
     "title": "12  Non-Linear Relationships with Linear Models",
     "section": "12.3 Should I Use a Polynomial?",
-    "text": "12.3 Should I Use a Polynomial?\n\nExample: mtcars\n[code]\nPlay around with the polynomial order in the following code to try and get a good fit! Then, reveal the solution below.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nSolution\n\nA polynomial model is not the best model here! The following plot shows three related linear models (which we’ll learn about later), demonstrating that it is linear but there’s a hidden grouping!\n\n\n\n\n\n\n\n\n\n\n\n\n\nSummary",
+    "text": "12.3 Should I Use a Polynomial?\n\nExample: mtcars\n[code]\nPlay around with the polynomial order in the following code to try and get a good fit! (For fun, also try a degree 17 polynomial.) Then, reveal the solution below.\nNote that you can run this code right here - you don’t need to use your own computer! This is magical!\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nSolution\n\nA polynomial model is not the best model here! The following plot shows three related linear models (which we’ll learn about later), demonstrating that it is linear but there’s a hidden grouping!",
     "crumbs": [
       "Choosing Models",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Non-Linear Relationships with Linear Models</span>"

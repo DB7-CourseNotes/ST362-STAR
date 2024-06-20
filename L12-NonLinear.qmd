@@ -361,7 +361,9 @@ for(i in 1:3) {
 
 ::: {.content-visible when-profile="book"}
 
-Play around with the polynomial order in the following code to try and get a good fit! Then, reveal the solution below.
+Play around with the polynomial order in the following code to try and get a good fit! (For fun, also try a degree 17 polynomial.) Then, reveal the solution below.
+
+Note that you can run this code right here - you don't need to use your own computer! This is magical!
 
 ```{webr-r}
 #| label: mtcars_poly
@@ -402,8 +404,6 @@ ggplot(mtcars) +
 :::
 
 
-
-### Summary
 
 
 ::: {.content-visible unless-profile="book"}
