@@ -14,7 +14,9 @@ set.seed(2112)
 ### Announcements
 
 - July 2nd is last date to drop without failure on transcript.\lspace
-- Apply to graduate by June 30th for fall convocation.
+- Apply to graduate by June 30th for fall convocation.\lspace
+- Take-home midterm is due by midnight tonight!
+
 :::
 
 ## Transformations
@@ -41,6 +43,7 @@ $$
 ::: {.column width="50%"}
 Original scale 
 ```{r}
+#| label: original-scale
 #| echo: false
 #| eval: true
 #| fig-width: 5
@@ -53,7 +56,7 @@ x1 <- runif(n, 3, 10)
 x2 <- runif(n, 3, 10)
 y <- 20 + 5*x1 + 15*x1^2 + 5*x2 + 15*x2^2  + 2*x1*x2 + rnorm(n, 0, 2)
 
-scatter3D(x1, x2, y, phi = 20, theta = 45, bty = "g",
+scatter3D(x1, x2, y, phi = 10, theta = 45, bty = "g",
     xlab = "x1", ylab = "x2", zlab = "y")
 ```
 
@@ -61,17 +64,28 @@ scatter3D(x1, x2, y, phi = 20, theta = 45, bty = "g",
 ::: {.column width="50%"}
 Log scale
 ```{r}
+#| label: log-scale
 #| echo: false
 #| eval: true
 #| fig-width: 5
 #| fig-height: 5
-scatter3D(x1, x2, log(y), phi = 20, theta = 45, bty = "g",
+scatter3D(x1, x2, log(y), phi = 15, theta = 45, bty = "g",
     xlab = "x1", ylab = "x2", zlab = "ln(y)")
 ```
 :::
 ::::
 
 The logarithm made it more linear, even if it's not quite right.
+
+::: {.content-visible when-profile="book"}
+
+```{webr-r}
+#| label: rgl-version?
+library(rgl)
+
+rgl::plot3d(x1, x2, y)
+```
+:::
 
 ### Consequences of Logarithms
 
