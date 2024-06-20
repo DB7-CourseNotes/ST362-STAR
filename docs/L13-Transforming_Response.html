@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ exp(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)","options":{"editor-font-scale":1,"label":"trans1","out-width":"700px","autorun":"false","results":"markup","out-height":"","fig-height":5,"warning":"true","output":"true","editor-max-height":"","context":"interactive","fig-width":7,"editor-quick-suggestions":"false","read-only":"false","classes":"","message":"true","dpi":72,"fig-cap":"","comment":""}}];
+globalThis.qwebrCellDetails = [{"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)","options":{"editor-quick-suggestions":"false","dpi":72,"out-height":"","read-only":"false","fig-height":5,"message":"true","context":"interactive","comment":"","results":"markup","editor-max-height":"","warning":"true","classes":"","fig-width":7,"autorun":"false","label":"trans1","editor-font-scale":1,"output":"true","fig-cap":"","out-width":"700px"},"id":1}];
 
 </script>
 <script type="module">
@@ -2044,9 +2044,14 @@ W = \begin{cases}
 <ol type="1">
 <li>Generate <code>y ~ log(x)</code>, try fitting <code>y ~ log(x)</code> and also a transformation for <code>y</code>.</li>
 <li>Generate <code>log(y) ~ x</code>, try fitting <code>y ~ exp(x)</code> and also <code>log(y) ~ x</code>.</li>
+<li>Generate <code>log(y) ~ log(x)</code>, try various transformations of <code>y</code> and <code>x</code>.</li>
+<li>Generate <code>y ~ x^2</code>, try various transformations of <code>y</code> and <code>x</code>.</li>
+<li>Generate <code>y^2 ~ x</code>, try various transformations of <code>y</code> and <code>x</code>.</li>
 </ol>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>After some exploring, you should find that the log and sqrt transformations cover most situations adequately. Fitting the correct model is obviously best, but we can <em>never</em> know what the correct model is!!!</p>
+<p>As practice, try writing out all models in the form <span class="math inline">\(y = g(f(x) + \epsilon)\)</span> to see how the error terms get affected. For example, generating data like <span class="math inline">\(log(y) = log(x) + epsilon\)</span> implies the model <span class="math inline">\(y = exp(log(x) + \epsilon)\)</span>, which does <em>not</em> simplify due to the additive error term in the exponential.</p>
 </section>
 <section id="summary" class="level3">
 <h3 class="anchored" data-anchor-id="summary">Summary</h3>

@@ -308,6 +308,9 @@ R reports the the log-likelihood values, along with the top 5%.
 
 1. Generate `y ~ log(x)`, try fitting `y ~ log(x)` and also a transformation for `y`.
 2. Generate `log(y) ~ x`, try fitting `y ~ exp(x)` and also `log(y) ~ x`.
+3. Generate `log(y) ~ log(x)`, try various transformations of `y` and `x`.
+4. Generate `y ~ x^2`, try various transformations of `y` and `x`.
+5. Generate `y^2 ~ x`, try various transformations of `y` and `x`.
 
 ::: {.content-visible when-profile="book"}
 
@@ -318,7 +321,7 @@ n <- 60
 x <- runif(n, 1, 10)
 xl <- log(x)
 epsilon <- rnorm(n, 0, 3)
-# y ~ exp(x) has linear errors
+# y ~ log(x) has linear errors
 y1 <- log(x) + epsilon
 # log(y) ~ x <=> y = exp(x + epsilon)
 y2 <- exp(x + epsilon)
@@ -327,6 +330,10 @@ mylm <- lm(y1^3 ~ x)
 par(mfrow = c(2, 2))
 plot(mylm)
 ```
+
+After some exploring, you should find that the log and sqrt transformations cover most situations adequately. Fitting the correct model is obviously best, but we can *never* know what the correct model is!!!
+
+As practice, try writing out all models in the form $y = g(f(x) + \epsilon)$ to see how the error terms get affected. For example, generating data like $log(y) = log(x) + epsilon$ implies the model $y = exp(log(x) + \epsilon)$, which does *not* simplify due to the additive error term in the exponential. 
 
 :::
 
@@ -396,16 +403,20 @@ Which of the following is *not* a good reason to investigate transformations?
 a. If the variance looks unstable.
 b. If the theory says a transformation is necessary.
 c. If a transformation might lead to a much simpler model.
-d. If $y$ doesn't look normal.
+d. If a histogram of $y$ doesn't look normal.
 
-<!---  --->
+<!--- D --->
 
 ### Q5
 
 The default residual plots in R can help diagnose the need for a transformation.
 
+\pspace
+
 a. True
 b. False
+
+<!--- A --->
 
 :::
 

@@ -304,7 +304,7 @@ Unless you have the true order (you don't), polynomials diverge almost immediate
 #| label: poly-extrap
 #| echo: true
 #| eval: false
-shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
+shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps",
     subdir = "Apps/polyFit")
 ```
 
@@ -457,5 +457,7 @@ Which statement is *true*?
 a. We should start with a high order polynomial and use Sequential Sum-of-Squares to choose the order.
 b. We should try second order polynomials if we think there's a curve to our model, but should generally avoid polynomials unless there's a strong contextual reason.
 c. We saw last week that estimates are still unbiased in the presence of extraneous predictors, so it's fine to include a higher order polynomial in our model.
+
+<!--- B --->
 
 :::

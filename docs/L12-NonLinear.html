@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-06-19">
+<meta name="dcterms.date" content="2024-06-20">
 
 <title>STAR Notes – 12&nbsp; Non-Linear Relationships with Linear Models</title>
 <style>
@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"fig-height":5,"warning":"true","editor-max-height":"","read-only":"false","out-width":"700px","fig-width":7,"context":"interactive","comment":"","dpi":72,"editor-quick-suggestions":"false","message":"true","results":"markup","output":"true","out-height":"","fig-cap":"","label":"mtcars_poly","autorun":"false","editor-font-scale":1,"classes":""},"id":1,"code":"plot(mpg ~ wt, data = mtcars)\n\n# Can't simply \"abline\" a polynomial since it treats \n# the polynomial terms as separate predictors, so it's\n# a multiple linear regression\nmy_lm <- lm(mpg ~ poly(wt, 9), data = mtcars)\nwt_seq <- seq(min(mtcars$wt), max(mtcars$wt),\n    length.out = 100)\nmy_preds <- predict(my_lm,\n    newdata = data.frame(wt = wt_seq))\nlines(wt_seq, my_preds, col = 2, lwd = 2)"}];
+globalThis.qwebrCellDetails = [{"options":{"editor-quick-suggestions":"false","autorun":"false","warning":"true","fig-cap":"","classes":"","results":"markup","editor-max-height":"","message":"true","editor-font-scale":1,"context":"interactive","output":"true","label":"mtcars_poly","comment":"","dpi":72,"read-only":"false","fig-height":5,"out-width":"700px","fig-width":7,"out-height":""},"id":1,"code":"plot(mpg ~ wt, data = mtcars)\n\n# Can't simply \"abline\" a polynomial since it treats \n# the polynomial terms as separate predictors, so it's\n# a multiple linear regression\nmy_lm <- lm(mpg ~ poly(wt, 9), data = mtcars)\nwt_seq <- seq(min(mtcars$wt), max(mtcars$wt),\n    length.out = 100)\nmy_preds <- predict(my_lm,\n    newdata = data.frame(wt = wt_seq))\nlines(wt_seq, my_preds, col = 2, lwd = 2)"}];
 
 </script>
 <script type="module">
@@ -1504,6 +1504,7 @@ window.Quarto = {
   <li><a href="#should-i-use-a-polynomial" id="toc-should-i-use-a-polynomial" class="nav-link" data-scroll-target="#should-i-use-a-polynomial"><span class="header-section-number">12.3</span> Should I Use a Polynomial?</a>
   <ul class="collapse">
   <li><a href="#example-mtcars" id="toc-example-mtcars" class="nav-link" data-scroll-target="#example-mtcars">Example: mtcars</a></li>
+  <li><a href="#closing-notes-linear-models-are-fine-with-non-linear-trends" id="toc-closing-notes-linear-models-are-fine-with-non-linear-trends" class="nav-link" data-scroll-target="#closing-notes-linear-models-are-fine-with-non-linear-trends">Closing Notes: Linear Models are fine with non-linear trends</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1764,7 +1765,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-06-19</p>
+      <p class="date">2024-06-20</p>
     </div>
   </div>
   
@@ -1978,7 +1979,7 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes"</span>, </span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/polyFit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -2049,6 +2050,19 @@ y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_{11}x_1^2 + \beta_{22}x_2^2 + \bet
 </div>
 <hr>
 </details>
+</section>
+<section id="closing-notes-linear-models-are-fine-with-non-linear-trends" class="level3">
+<h3 class="anchored" data-anchor-id="closing-notes-linear-models-are-fine-with-non-linear-trends">Closing Notes: Linear Models are fine with non-linear trends</h3>
+<p>The formula <span class="math inline">\(y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ... + \epsilon_i\)</span> doesn’t care how <span class="math inline">\(x\)</span> is defined.</p>
+<ul>
+<li><span class="math inline">\(x_{i2} = x_{i1}^2\)</span> works as if <span class="math inline">\(x_{i1}\)</span> and <span class="math inline">\(x_{i2}\)</span> are just two predictors.</li>
+<li><span class="math inline">\(x_{i2} = \log(x_{i1})\)</span> is fine too!</li>
+<li><span class="math inline">\(x_{i2} = \log(x_{i1}) + \exp(x_{i3})\tan(1)\)</span>? Sure, why not!</li>
+<li><span class="math inline">\(x_{i2} = \log(\beta_1x_{i1})\)</span> is a total no-go.
+<ul>
+<li>Linear models are linear <em>in the parameters</em>.</li>
+</ul></li>
+</ul>
 
 
 </section>
