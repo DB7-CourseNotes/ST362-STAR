@@ -1,6 +1,6 @@
 ---
 title: "Non-Linear Relationships with Linear Models"
-institute: "Jam: **Higher Order** by Empire Me"
+institute: "Jam: **The Unconventional** by Japan"
 filter:
   - webr
 ---

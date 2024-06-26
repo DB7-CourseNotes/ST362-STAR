@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-06-20">
+<meta name="dcterms.date" content="2024-06-26">
 
-<title>STAR Notes – 13&nbsp; Transforming the Response</title>
+<title>STAR Notes – 13&nbsp; Transformations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)","options":{"editor-quick-suggestions":"false","dpi":72,"out-height":"","read-only":"false","fig-height":5,"message":"true","context":"interactive","comment":"","results":"markup","editor-max-height":"","warning":"true","classes":"","fig-width":7,"autorun":"false","label":"trans1","editor-font-scale":1,"output":"true","fig-cap":"","out-width":"700px"},"id":1}];
+globalThis.qwebrCellDetails = [{"options":{"results":"markup","editor-max-height":"","classes":"","context":"interactive","fig-cap":"","comment":"","warning":"true","dpi":72,"fig-width":7,"autorun":"false","output":"true","read-only":"false","editor-quick-suggestions":"false","out-height":"","label":"unnamed-chunk-1","message":"true","fig-height":5,"out-width":"700px","editor-font-scale":1},"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))","id":1},{"options":{"results":"markup","editor-max-height":"","classes":"","context":"interactive","fig-cap":"","comment":"","warning":"true","dpi":72,"fig-width":7,"autorun":"false","output":"true","read-only":"false","editor-quick-suggestions":"false","out-height":"","label":"trans1","message":"true","fig-height":5,"out-width":"700px","editor-font-scale":1},"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)","id":2}];
 
 </script>
 <script type="module">
@@ -1189,7 +1189,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L13-Transforming_Response.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L13-Transforming_Response.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transformations</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1318,7 +1318,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1494,6 +1494,7 @@ window.Quarto = {
   <li><a href="#variance-stabilization" id="toc-variance-stabilization" class="nav-link" data-scroll-target="#variance-stabilization">Variance Stabilization</a></li>
   <li><a href="#funderline-y-xbeta-underlineepsilon" id="toc-funderline-y-xbeta-underlineepsilon" class="nav-link" data-scroll-target="#funderline-y-xbeta-underlineepsilon"><span class="math inline">\(f(\underline y) = X\beta + \underline\epsilon\)</span></a></li>
   <li><a href="#some-good-news" id="toc-some-good-news" class="nav-link" data-scroll-target="#some-good-news">Some Good News</a></li>
+  <li><a href="#example-dugongs" id="toc-example-dugongs" class="nav-link" data-scroll-target="#example-dugongs">Example: Dugongs</a></li>
   </ul></li>
   <li><a href="#choosing-transformations" id="toc-choosing-transformations" class="nav-link" data-scroll-target="#choosing-transformations"><span class="header-section-number">13.3</span> Choosing Transformations</a>
   <ul class="collapse">
@@ -1737,9 +1738,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 }
 </script>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L13-Transforming_Response.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L13-Transforming_Response.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transformations</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transforming the Response</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transformations</span></h1>
 </div>
 
 
@@ -1763,7 +1764,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-06-20</p>
+      <p class="date">2024-06-26</p>
     </div>
   </div>
   
@@ -1966,6 +1967,13 @@ y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2}e^{\epsilon_i}
 </ul></li>
 </ul>
 </section>
+<section id="example-dugongs" class="level3">
+<h3 class="anchored" data-anchor-id="example-dugongs">Example: Dugongs</h3>
+<p>Check the diagnostic plots for the following models!</p>
+<p>This is that in-browser R magic that we’ve seen before! Also ask yourself what it means for the log of age to increase with the length of the dugong. Is the log easy to interpret? Do the x and y variables make sense like this?</p>
+<div id="qwebr-insertion-location-1"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
 </section>
 <section id="choosing-transformations" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="choosing-transformations"><span class="header-section-number">13.3</span> Choosing Transformations</h2>
@@ -2048,7 +2056,7 @@ W = \begin{cases}
 <li>Generate <code>y ~ x^2</code>, try various transformations of <code>y</code> and <code>x</code>.</li>
 <li>Generate <code>y^2 ~ x</code>, try various transformations of <code>y</code> and <code>x</code>.</li>
 </ol>
-<div id="qwebr-insertion-location-1"></div>
+<div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>After some exploring, you should find that the log and sqrt transformations cover most situations adequately. Fitting the correct model is obviously best, but we can <em>never</em> know what the correct model is!!!</p>
 <p>As practice, try writing out all models in the form <span class="math inline">\(y = g(f(x) + \epsilon)\)</span> to see how the error terms get affected. For example, generating data like <span class="math inline">\(log(y) = log(x) + epsilon\)</span> implies the model <span class="math inline">\(y = exp(log(x) + \epsilon)\)</span>, which does <em>not</em> simplify due to the additive error term in the exponential.</p>

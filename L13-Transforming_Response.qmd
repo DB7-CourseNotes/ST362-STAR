@@ -1,5 +1,5 @@
 ---
-title: "Transforming the Response"
+title: "Transformations"
 institute: "Jam: **Stabilise** by Nilüfer Yanya"
 filter:
     - webr
@@ -236,6 +236,51 @@ If $(a,b)$ is a $(1-\alpha)$ CI on the scale of $f(y)$, then $(f^{-1}(a), f^{-1}
 - Works for $y$ as well as the $\beta$ parameters.
     - Transformation might induce dependence among the parameters.
     - A CI for $\beta_1$ is useless if there's high covariance with $\beta_2$. 
+
+
+### Example: Dugongs
+
+Check the diagnostic plots for the following models!
+
+::: {.content-visible when-profile="book"}
+
+This is that in-browser R magic that we've seen before! Also ask yourself what it means for the log of age to increase with the length of the dugong. Is the log easy to interpret? Do the x and y variables make sense like this?
+
+```{webr-r}
+dugongs <- read.csv("https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv")
+
+par(mfrow = c(1, 2))
+plot(Age ~ Length, data = dugongs)
+abline(lm(Age ~ Length, data = dugongs))
+plot(log(Age) ~ Length, data = dugongs)
+abline(lm(log(Age) ~ Length, data = dugongs))
+```
+:::
+
+::: {.content-visible unless-profile="book"}
+::: {.columns}
+::: {.column}
+```{r}
+#| eval: true
+#| echo: false
+dugongs <- read.csv("https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv")
+
+par(mfrow = c(1, 2))
+plot(Age ~ Length, data = dugongs)
+abline(lm(Age ~ Length, data = dugongs))
+plot(log(Age) ~ Length, data = dugongs)
+abline(lm(log(Age) ~ Length, data = dugongs))
+```
+:::
+::: {.column}
+- Check the diagnostic plots!\lspace
+- What is the interpretation of `log(Age)`?
+:::
+:::
+
+:::
+
+
 
 ## Choosing Transformations
 

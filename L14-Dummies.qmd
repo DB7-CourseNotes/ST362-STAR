@@ -1,6 +1,8 @@
 ---
 title: "Dummy Variables"
 institute: "**Jam TBD**"
+filter:
+    - webr
 ---
 
 ```{r}
@@ -38,7 +40,7 @@ Usual interpretation: as $x$ increases by 1, $y$ increases by $\beta$.
 
 This doesn't go away, but we get a new interpretation!
 
-- $x$ can only increase by one (from 0 to 1).
+- $x$ can *only* increase by one (from 0 to 1).
     - $\beta$ is the *difference in groups*.
 
 \pspace
@@ -61,11 +63,11 @@ $$
 y = \beta_0 + \beta_1I(cyl == 4) + \beta_2I(cyl == 6) + \beta_3I(cyl == 8)
 $$
 
-What is the intercept here? 
+What's the interpretation of the intercept here? 
 
 ### Categorical Variable Dummy Coding
 
-Instead, we set one as a **reference** variable and let the intercept "absorb" it:
+Better: set one as a **reference** variable and let the intercept "absorb" it:
 
 - $I(cyl == 6)$
 - $I(cyl == 8)$
@@ -85,7 +87,7 @@ where
 
 The model $y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8)$ is equivalent to:
 $$
-y_i = \begin{cases}\beta_0 & \text{if }\; cyl == 4\\ \beta_0 + \beta_1 & \text{if }\; cyl == 6\\\beta_0  + \beta_2 & \text{if }\; cyl == 8\end{cases}
+y_i = \begin{cases}\beta_0 + 0 & \text{if }\; cyl == 4\\ \beta_0 + \beta_1 & \text{if }\; cyl == 6\\\beta_0  + \beta_2 & \text{if }\; cyl == 8\end{cases}
 $$
 
 This is equivalent to fitting an intercept-only model $y = \beta_0$ for subsets of the data.
@@ -93,6 +95,25 @@ This is equivalent to fitting an intercept-only model $y = \beta_0$ for subsets 
 \pspace
 
 By putting them in the same model, we can easily test for significance. 
+
+::: {.content-visible when-profile="book"}
+The following code demonstrates that this is true - make sure you understand where each value is coming from!
+
+```{web-r}
+# Three intercepts
+coef(lm(mpg ~ factor(cyl), data = mtcars))
+
+# For each value of cylinder
+# You'll have to do some math to get the same numbers as above!
+coef(lm(mpg ~ 1, data = subset(mtcars, cyl == 4)))
+# 26.66364
+coef(lm(mpg ~ 1, data = subset(mtcars, cyl == 6)))
+# 19.74286 = 26.66364 - 6.920779
+coef(lm(mpg ~ 1, data = subset(mtcars, cyl == 8)))
+# 15.1 = 26.66364 - 11.563636
+```
+
+:::
 
 ## Interactions
 
@@ -105,9 +126,20 @@ y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8) + \beta_3 disp
 $$
 which is equivalent to:
 $$
-y_i = \begin{cases}\beta_0  + \beta_3 disp& \text{if }\; cyl == 4\\ \beta_0 + \beta_1  + \beta_3 disp& \text{if }\; cyl == 6\\\beta_0  + \beta_2  + \beta_3 disp& \text{if }\; cyl == 8\end{cases}
+y_i = \begin{cases}(\beta_0  + 0) + \beta_3 disp& \text{if }\; cyl == 4\\ (\beta_0 + \beta_1)  + \beta_3 disp& \text{if }\; cyl == 6\\(\beta_0  + \beta_2)  + \beta_3 disp& \text{if }\; cyl == 8\end{cases}
 $$
-This is three different models of mpg versus disp, but with a different intercept depending on the value of `cyl`.
+*Like* three different models, but with a different **intercept** depending on `cyl`.
+
+::: {.content-visible when-profile="book"}
+
+In this case, the model is *not* equivalent. The slope must be the same for all three models, which cannot be done if we're fitting three separate models. As you know, the slope and intercept are correlated, so different slopes lead to different intercepts.
+
+```{webr-r}
+coef(lm(mpg ~ factor(cyl) + disp, data = mtcars))
+
+coef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))
+```
+:::
 
 ### Interaction Terms: Different Intercepts, Different Slopes
 
@@ -119,20 +151,31 @@ where $I(6)$ is just shorthand for $I(cyl == 6)$.
 
 This is the same as:
 $$
-y_i = \begin{cases}\beta_0  + \beta_3 disp& \text{if }\; cyl == 4\\ (\beta_0 + \beta_1)  + (\beta_3 + \beta_4) disp& \text{if }\; cyl == 6\\(\beta_0  + \beta_2)  + (\beta_3 + \beta_5) disp& \text{if }\; cyl == 8\end{cases}
+y_i = \begin{cases}(\beta_0 + 0)  + (\beta_3 + 0) disp& \text{if }\; cyl == 4\\ (\beta_0 + \beta_1)  + (\beta_3 + \beta_4) disp& \text{if }\; cyl == 6\\(\beta_0  + \beta_2)  + (\beta_3 + \beta_5) disp& \text{if }\; cyl == 8\end{cases}
 $$
 In this case, we might as well fit 3 completely different models!
 
 (Except we can test for significance!)
 
+::: {.content-visible when-profile="book"}
+
+And we're back to equivalence! Double check the intercepts and slopes for `cyl == 6` and `cyl == 8`, using the equations above.
+
+```{webr-r}
+coef(lm(mpg ~ factor(cyl) * disp, data = mtcars))
+
+coef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))
+```
+:::
+
 ### ANCOVA
 
 If `g` is a categorical variable, then:
 
-- `lm(y ~ g)` is a t-test if `g` is binary
+- `lm(y ~ g)` is a t-test (with equal variance) if `g` is binary
 - `lm(y ~ g)` is an ANOVA if `g` has more than 2 categories
 - `lm(y ~ x * g)` is an **ANCOVA** model
-    - Analysis of **Covariance**.
+    - ANalysis of **COVAriance**.
 
 \pspace
 
@@ -151,9 +194,9 @@ Main idea: Is the covariance (or correlation) between $x$ and $y$ different for 
 - Choosing interaction terms is *hard*.
     - `ggplot2` makes parts of it a lot easier.
 
+
+
 ::: {.content-visible unless-profile="book"}
-
-
 ## Participation 
 
 ### Q1
@@ -162,9 +205,11 @@ A dummy variable is:
 
 \pspace
 
-1. A stupid variable. Just a dumb, stupid variable that only idiots use.
-2. A variable that naturaly takes the values 0 and 1.
-3. A variable that has been coded as 0 and 1 to indicate different groups.
+a. A stupid variable. Just a dumb, stupid variable that only idiots use.
+b. A variable that naturaly takes the values 0 and 1.
+c. A variable that has been coded as 0 and 1 to indicate different groups.
+
+<!--- C --->
 
 ### Q2
 
@@ -172,8 +217,10 @@ A reference category is used because:
 
 \pspace
 
-1. We are always more interested in one particular category and how the other categories compare to it.
-2. The intercept is the mean of y when all predictors are 0, so we need a case where all predictors are 0.
+a. We are always more interested in one particular category and how the other categories compare to it.
+b. The intercept is the mean of y when all predictors are 0, so we need a case where all predictors are 0.
+
+<!--- B --->
 
 ### Q3
 
@@ -181,10 +228,12 @@ In the `mpg ~ factor(cyl)` there will be a dummy variable labelled:
 
 \pspace
 
-1. `6`
-2. `cyl6`
-3. `factor(cyl)6`
-4. `factor(cyl)4`
+a. `6`
+b. `cyl6`
+c. `factor(cyl)6`
+d. `factor(cyl)4`
+
+<!--- C --->
 
 ### Q4
 
@@ -192,10 +241,12 @@ Which statement is false?
 
 \pspace
 
-1. t-test is a special case of linear regression.
-2. ANCOVA is a special case of linear regression.
-3. Welch's t-test for samples with unequal variances is a special case of regression.
-4. ANOVA is a special case where Sequential Sum-of-Squares makes sense.
+a. t-test is a special case of linear regression.
+b. ANCOVA is a special case of linear regression.
+c. Welch's t-test for samples with unequal variances is a special case of regression.
+d. ANOVA is a special case where Sequential Sum-of-Squares makes sense.
+
+<!--- C --->
 
 ### Q5
 
@@ -203,8 +254,10 @@ It is possible to have interaction terms between two categorical variables.
 
 \pspace
 
-1. True
-2. False
+a. True
+b. False
+
+<!--- A --->
 
 ### Q6
 
@@ -212,9 +265,10 @@ In the regression `mpg ~ factor(cyl) + disp + factor(cyl):disp`, if we find that
 
 \pspace
 
-1. True
-2. False
+a. True
+b. False
 
+<!--- B --->
 
 :::
 
@@ -248,7 +302,22 @@ We can test $\beta_1=\beta_4 = 0$ using ESS to test whether mpg versus disp is t
 
 \pspace
 
-In R, we need to set up our own dummies to do this. 
+In R, we need to set up our own dummies to do this.:
 
+```{r}
+#| label: set_reference
+#| echo: true
+#| eval: true
+#| code-fold: false
+mtcars$cyl <- relevel(factor(mtcars$cyl), ref = "8")
+levels(mtcars$cyl)
+```
+
+
+::: {.content-visible when-profile="book"}
+## Exercises
+
+1. Complete the runnable R code above. 
+:::
 
 

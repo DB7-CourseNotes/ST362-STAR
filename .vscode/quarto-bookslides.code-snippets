@@ -56,5 +56,11 @@
         "scope": "quarto",
         "prefix": "betahat",
         "body": "\\underline{\\hat{\\beta}}"
+    },
+
+    "mcqans": {
+        "scope": "quarto",
+        "prefix": "mcqans",
+        "body": "<!--- $0 --->"
     }
 }
