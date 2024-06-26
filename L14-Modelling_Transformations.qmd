@@ -1,0 +1,320 @@
+---
+title: "Modelling with Transformations"
+---
+
+::: {.content-visible unless-profile="book"}
+
+## Preamble
+
+### Announcements
+
+- Assignment 3?
+
+:::
+
+
+## Introduction
+
+### The Trees Data
+
+:::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| label: trees
+#| echo: true
+#| eval: true
+data(trees)
+trees$Diam <- trees$Girth / 12
+trees$Girth <- NULL
+head(trees)
+```
+
+:::
+::: {.column width="50%"}
+\vspace{1cm}
+
+From the help file:
+
+- "`Girth`" is actually the diameter, in inches
+    - Renamed `Diam`, transformed to feet\lspace
+- `Height` is in feet\lspace
+- `Volume` of the *timber* (usable wood) (cubic feet)
+
+
+:::
+::::
+
+\quad
+
+Goal: Model the `volume` of the tree as a function of `Height` and `Diameter`.
+
+### DIY
+
+The course notes include some starter code (that can be run in browser). Can you fit a better model than the basic multiple linear regression?
+
+Get in groups, use pen and paper to record the important parts of the transformations you try.
+
+Hint: what's the `Volume` of a cylinder?
+
+::: {.content-visible when-profile="book"}
+
+```{webr-r}
+data(trees)
+trees$Diam <- trees$Girth / 12
+trees$Girth <- NULL
+head(trees)
+
+par(mfrow = c(2,3))
+summary(lm(Volume ~ Diam + Height, data = trees))
+plot(Volume ~ Diam, data = trees,
+    main = "Volume versus Diameter")
+plot(Volume ~ Height, data = trees,
+    main = "Volume versus Height")
+plot(lm(Volume ~ Diam + Height, data = trees))
+```
+:::
+
+
+::: {.content-visible unless-profile="book"}
+
+### My Attempts
+
+In the following, I'll try a couple different models.
+
+\quad
+
+Note that I've made the output smaller for the slides - you want to look at more than just these values!
+
+### Multiple Linear Regression
+
+
+```{r}
+#| label: base-model
+#| eval: true
+#| echo: true
+data(trees)
+trees$Diam <- trees$Girth / 12
+trees$Girth <- NULL
+base_lm <- lm(Volume ~ Diam + Height, data = trees)
+summary(base_lm)$coef |> round(4)
+summary(base_lm)$adj.r.squared
+```
+
+### Multiple Linear Regression - Plots
+
+```{r}
+#| label: base-model-plots
+#| eval: true
+#| echo: false
+par(mfrow = c(2,3))
+plot(Volume ~ Diam, data = trees,
+    main = "Volume versus Diameter")
+plot(Volume ~ Height, data = trees,
+    main = "Volume versus Height")
+plot(lm(Volume ~ Diam + Height, data = trees))
+```
+
+### Attempt 1: Logs
+
+Notice that the model $E(y_i) = \beta_1x_{i1}^2x_{i2}$ is equivalent to:
+$$
+\ln(E(y_i)) = \ln(\beta_1) + 2\ln(x_{i1}) + \ln(x_{i2})
+$$
+
+```{r}
+#| label: full-log-model
+#| echo: true
+#| eval: true
+full_log_lm <- lm(log(Volume) ~ log(Height) + log(Diam), data = trees)
+summary(full_log_lm)$coef |> round(4)
+summary(full_log_lm)$adj.r.squared
+```
+
+### Attempt 1 Residual Plots
+
+```{r}
+#| label: full-log-model-plots
+#| echo: false
+#| eval: true
+par(mfrow = c(2,3))
+plot(log(Volume) ~ log(Diam), data = trees,
+    main = "log(Volume) versus log(Diameter)")
+plot(log(Volume) ~ log(Height), data = trees,
+    main = "log(Volume) versus log(Height)")
+plot(full_log_lm)
+```
+
+### Alternative 2: log(y)
+
+Let's try not logging the x-values
+
+```{r}
+#| label: y-log-model
+#| echo: true
+#| eval: true
+y_log_lm <- lm(log(Volume) ~ Height + Diam, data = trees)
+summary(y_log_lm)$coef |> round(4)
+summary(y_log_lm)$adj.r.squared
+```
+
+### Attempt 2 Residual Plots
+
+```{r}
+#| label: y-log-model-plots
+#| echo: false
+#| eval: true
+par(mfrow = c(2,3))
+plot(log(Volume) ~ Diam, data = trees,
+    main = "log(Volume) versus Diameter")
+plot(log(Volume) ~ Height, data = trees,
+    main = "log(Volume) versus Height")
+plot(y_log_lm)
+```
+
+### Box-Cox?
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+- Box-Cox says something between 0 and 1, closer to 0.\lspace
+- What could we round to?
+:::
+::: {.column width="50%"}
+
+```{r}
+#| label: box-cox
+#| eval: true
+#| echo: true
+#| fig-height: 6
+library(MASS)
+boxcox(lm(Volume ~ Height + Diam, data = trees))
+```
+:::
+::::
+
+### Using the Box-Cox Parameter: Sqrt
+
+```{r}
+#| label: box-cox-model
+#| echo: true
+#| eval: true
+y_sqrt_lm <- lm(sqrt(Volume) ~ Height + Diam, data = trees)
+summary(y_sqrt_lm)$coef |> round(4)
+summary(y_sqrt_lm)$adj.r.squared
+```
+
+### Using the Box-Cox Parameter: Quarter Power
+
+```{r}
+#| label: quarter-model
+#| echo: true
+#| eval: true
+y_quarter_lm <- lm(I(Volume^(1/4)) ~ Height + Diam, data = trees)
+summary(y_quarter_lm)$coef |> round(4)
+summary(y_quarter_lm)$adj.r.squared
+```
+
+### What About Transforming $x$ only?
+
+```{r}
+#| label: poly-model
+#| echo: true
+#| eval: true
+poly_lm <- lm(Volume ~ poly(Height, 2) + poly(Diam, 2), data = trees)
+summary(poly_lm)$coef |> round(4)
+summary(poly_lm)$adj.r.squared
+```
+
+### Quadratic Polynomial Plots
+
+```{r}
+#| label: poly-model-plots
+#| echo: false
+#| eval: true
+par(mfrow = c(2, 3))
+height_seq <- with(trees, seq(min(Height), max(Height), length.out = 50))
+diam_seq <- with(trees, seq(min(Diam), max(Diam), length.out = 50))
+plot(Volume ~ Diam, data = trees,
+    main = "Volume versus Diameter")
+diam_poly <- predict(lm(Volume ~ poly(Diam, 2), data = trees),
+    newdata = list(Diam = diam_seq))
+lines(diam_seq, diam_poly)
+plot(Volume ~ Height, data = trees,
+    main = "lVolume versus Height")
+height_poly <- predict(lm(Volume ~ poly(Height, 2), data = trees),
+    newdata = list(Height = height_seq))
+lines(height_seq, height_poly)
+plot(y_log_lm)
+```
+
+### Polynomials of Order 8?($R^2$ = 0.9864, $R^2_{adj}$ = 0.9708)
+
+```{r}
+#| label: poly8-model-plots
+#| echo: false
+#| eval: true
+par(mfrow = c(2, 3))
+height_seq <- with(trees, seq(min(Height), max(Height), length.out = 50))
+diam_seq <- with(trees, seq(min(Diam), max(Diam), length.out = 50))
+plot(Volume ~ Diam, data = trees,
+    main = "Volume versus Diameter")
+diam_poly <- predict(lm(Volume ~ poly(Diam, 8), data = trees),
+    newdata = list(Diam = diam_seq))
+lines(diam_seq, diam_poly)
+plot(Volume ~ Height, data = trees,
+    main = "lVolume versus Height")
+height_poly <- predict(lm(Volume ~ poly(Height, 8), data = trees),
+    newdata = list(Height = height_seq))
+lines(height_seq, height_poly)
+plot(lm(Volume ~ poly(Height, 8) + poly(Diam, 8), data = trees))
+```
+
+
+### My Solution
+
+Let `CylVolume` be the volume of the cylinder defined by `Height` and `Diam`, $V = \pi (d/2)^2h$.
+
+The model is $Volume_i = \beta_1CylVolume_i + \epsilon_i$, where $\beta_1$ is the proportion of an ideal cylinder that is actual usable wood.\pause
+
+```{r}
+#| label: my-solution
+#| echo: true
+#| eval: true
+trees$CylVolume <- pi * (trees$Diam/2)^2 * trees$Height
+cyl_lm <- lm(Volume ~ -1 + CylVolume, data = trees)
+summary(cyl_lm)$coef |> round(4)
+summary(cyl_lm)$adj.r.squared
+```
+
+
+### CylVolume Plots
+
+```{r}
+#| label: my-solution-plots
+par(mfrow = c(2, 3))
+plot(Volume ~ CylVolume, data = trees,
+    main = "Volume versus CylVolume")
+plot(1, main = "Blank Space", bty = "n", xaxt = "n", yaxt = "n",
+    xlab = "", ylab = "", pch = "")
+plot(cyl_lm)
+```
+
+### Some Closing Thoughts
+
+- Using `ln(y) ~ ln(x)` made the $R^2$ slightly better, even though plots looked similar.
+    - Plots looked slightly better for full log, though.\lspace
+- We were using `log` just to make the relationship linear.
+    - Box-Cox told us to use sqrt or quarter power instead - result was better!\lspace
+- Very interestingly, models that chose powers of $x$ chose 1 for Height, 2 for Diam...\lspace
+- Trees are not perfect cylinders.
+    - However, a cylinder model fits best and with fewer parameters!!!
+
+In conclusion, always think through the problem before blindly modelling.
+
+
+
+:::
+
+
