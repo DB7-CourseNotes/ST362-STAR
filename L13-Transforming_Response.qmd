@@ -1,6 +1,6 @@
 ---
 title: "Transformations"
-institute: "Jam: **Stabilise** by Nilüfer Yanya"
+institute: "Jam: **Stabilize** by Craig Cardiff and **Stabilise** by Nilüfer Yanya"
 filter:
     - webr
 ---
@@ -18,7 +18,7 @@ set.seed(2112)
 
 - July 2nd is last date to drop without failure on transcript.\lspace
 - Apply to graduate by June 30th for fall convocation.\lspace
-- Take-home midterm is due by midnight tonight!
+- Take-home midterm is due by midnight ~~tonight~~ tomorrow!
 
 :::
 

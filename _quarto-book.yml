@@ -45,18 +45,19 @@ book:
       chapters:
         - L12-NonLinear.qmd
         - L13-Transforming_Response.qmd
-        - L14-Dummies.qmd
-        - L15-Multicollinearity.qmd
-        - L16-Modelling_Poorly.qmd
-        - L17-Example_Analysis_mtcars.qmd
-        - L18-Degrees_of_Freedom.qmd
+        - L14-Modelling_Transformations.qmd
+        - L15-Dummies.qmd
+        - L16-Multicollinearity.qmd
+        - L17-Modelling_Poorly.qmd
+        - L18-Example_Analysis_mtcars.qmd
+        - L19-Degrees_of_Freedom.qmd
     - part: Advanced Topics
       chapters:
-        - L19-Regularization.qmd
-        - L20-Logistic.qmd
+        - L20-Regularization.qmd
+        - L21-Logistic.qmd
     - part: Review
       chapters:
-        - L21-Review.qmd
+        - L22-Review.qmd
   appendices:
     - Lb02-OLS_Estimates.Rmd
     - Lb03-MSE.Rmd
