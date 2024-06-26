@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-06-21">
+<meta name="dcterms.date" content="2024-06-26">
 
-<title>STAR Notes – 14&nbsp; Dummy Variables</title>
+<title>STAR Notes – 14&nbsp; Modelling with Transformations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L15-Multicollinearity.html" rel="next">
+<link href="./L15-Dummies.html" rel="next">
 <link href="./L13-Transforming_Response.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"label":"unnamed-chunk-1","context":"interactive","results":"markup","autorun":"false","comment":"","warning":"true","message":"true","read-only":"false","output":"true","classes":"","dpi":72,"fig-cap":"","editor-quick-suggestions":"false","editor-font-scale":1,"editor-max-height":"","out-width":"700px","out-height":"","fig-height":5,"fig-width":7},"id":1,"code":"coef(lm(mpg ~ factor(cyl) + disp, data = mtcars))\n\ncoef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))"},{"options":{"label":"unnamed-chunk-2","context":"interactive","results":"markup","autorun":"false","comment":"","warning":"true","message":"true","read-only":"false","output":"true","classes":"","dpi":72,"fig-cap":"","editor-quick-suggestions":"false","editor-font-scale":1,"editor-max-height":"","out-width":"700px","out-height":"","fig-height":5,"fig-width":7},"id":2,"code":"coef(lm(mpg ~ factor(cyl) * disp, data = mtcars))\n\ncoef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))"}];
+globalThis.qwebrCellDetails = [{"options":{"fig-height":5,"context":"interactive","output":"true","editor-quick-suggestions":"false","read-only":"false","message":"true","classes":"","editor-font-scale":1,"fig-cap":"","results":"markup","label":"unnamed-chunk-1","comment":"","dpi":72,"fig-width":7,"out-height":"","editor-max-height":"","out-width":"700px","warning":"true","autorun":"false"},"id":1,"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))"}];
 
 </script>
 <script type="module">
@@ -1189,7 +1189,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L14-Dummies.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L14-Modelling_Transformations.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1323,32 +1323,38 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Modelling_Transformations.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -1364,14 +1370,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L20-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L21-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -1387,8 +1393,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -1480,27 +1486,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#predictors" id="toc-predictors" class="nav-link active" data-scroll-target="#predictors"><span class="header-section-number">14.1</span> 0/1 Predictors</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">14.1</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#dummy-coding" id="toc-dummy-coding" class="nav-link" data-scroll-target="#dummy-coding">Dummy Coding</a></li>
-  <li><a href="#slopes-with-a-dummy-variable" id="toc-slopes-with-a-dummy-variable" class="nav-link" data-scroll-target="#slopes-with-a-dummy-variable">Slopes with a Dummy Variable</a></li>
-  <li><a href="#categorical-variables" id="toc-categorical-variables" class="nav-link" data-scroll-target="#categorical-variables">Categorical Variables</a></li>
-  <li><a href="#categorical-variable-dummy-coding" id="toc-categorical-variable-dummy-coding" class="nav-link" data-scroll-target="#categorical-variable-dummy-coding">Categorical Variable Dummy Coding</a></li>
-  <li><a href="#models-with-categorical-variables" id="toc-models-with-categorical-variables" class="nav-link" data-scroll-target="#models-with-categorical-variables">Models with Categorical Variables</a></li>
+  <li><a href="#the-trees-data" id="toc-the-trees-data" class="nav-link" data-scroll-target="#the-trees-data">The Trees Data</a></li>
+  <li><a href="#diy" id="toc-diy" class="nav-link" data-scroll-target="#diy">DIY</a></li>
   </ul></li>
-  <li><a href="#interactions" id="toc-interactions" class="nav-link" data-scroll-target="#interactions"><span class="header-section-number">14.2</span> Interactions</a>
-  <ul class="collapse">
-  <li><a href="#different-intercepts-same-slope" id="toc-different-intercepts-same-slope" class="nav-link" data-scroll-target="#different-intercepts-same-slope">Different Intercepts, Same Slope</a></li>
-  <li><a href="#interaction-terms-different-intercepts-different-slopes" id="toc-interaction-terms-different-intercepts-different-slopes" class="nav-link" data-scroll-target="#interaction-terms-different-intercepts-different-slopes">Interaction Terms: Different Intercepts, Different Slopes</a></li>
-  <li><a href="#ancova" id="toc-ancova" class="nav-link" data-scroll-target="#ancova">ANCOVA</a></li>
-  <li><a href="#beyond-x-and-g" id="toc-beyond-x-and-g" class="nav-link" data-scroll-target="#beyond-x-and-g">Beyond <span class="math inline">\(x\)</span> and <span class="math inline">\(g\)</span></a></li>
-  </ul></li>
-  <li><a href="#significance-of-a-group" id="toc-significance-of-a-group" class="nav-link" data-scroll-target="#significance-of-a-group"><span class="header-section-number">14.3</span> Significance of a Group</a>
-  <ul class="collapse">
-  <li><a href="#output-of-summary.lm" id="toc-output-of-summary.lm" class="nav-link" data-scroll-target="#output-of-summary.lm">Output of <code>summary.lm()</code></a></li>
-  <li><a href="#changing-the-reference-group" id="toc-changing-the-reference-group" class="nav-link" data-scroll-target="#changing-the-reference-group">Changing the reference group</a></li>
-  </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">14.4</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -1734,9 +1724,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 }
 </script>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L14-Dummies.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L14-Modelling_Transformations.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></h1>
 </div>
 
 
@@ -1749,7 +1739,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            <strong>Jam TBD</strong>
+            Wilfrid Laurier University
           </p>
       </div>
   </div>
@@ -1760,7 +1750,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-06-21</p>
+      <p class="date">2024-06-26</p>
     </div>
   </div>
   
@@ -1772,200 +1762,54 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </header>
 
 
-<section id="predictors" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="predictors"><span class="header-section-number">14.1</span> 0/1 Predictors</h2>
-<section id="dummy-coding" class="level3">
-<h3 class="anchored" data-anchor-id="dummy-coding">Dummy Coding</h3>
-<p>“Dummy” variables are just predictors that only take the values 0 and 1.</p>
+<section id="introduction" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">14.1</span> Introduction</h2>
+<section id="the-trees-data" class="level3">
+<h3 class="anchored" data-anchor-id="the-trees-data">The Trees Data</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(trees)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>Diam <span class="ot">&lt;-</span> trees<span class="sc">$</span>Girth <span class="sc">/</span> <span class="dv">12</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>Girth <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(trees)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Height Volume      Diam
+1     70   10.3 0.6916667
+2     65   10.3 0.7166667
+3     63   10.2 0.7333333
+4     72   16.4 0.8750000
+5     81   18.8 0.8916667
+6     83   19.7 0.9000000</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>From the help file:</p>
 <ul>
-<li>0 pairs of glasses versus 1 pair of glasses
+<li>“<code>Girth</code>” is actually the diameter, in inches
 <ul>
-<li>This is a count that can only be 0 or 1</li>
+<li>Renamed <code>Diam</code>, transformed to feet</li>
 </ul></li>
-<li>0 means automatic, 1 means manual
-<ul>
-<li>Arbitrary choice of 0/1</li>
-</ul></li>
-<li>0 means off, 1 means on
-<ul>
-<li>Natural choice of 0/1, but still arbitrary</li>
-</ul></li>
+<li><code>Height</code> is in feet</li>
+<li><code>Volume</code> of the <em>timber</em> (usable wood) (cubic feet)</li>
 </ul>
+</div>
+</div>
+<p>Goal: Model the <code>volume</code> of the tree as a function of <code>Height</code> and <code>Diameter</code>.</p>
 </section>
-<section id="slopes-with-a-dummy-variable" class="level3">
-<h3 class="anchored" data-anchor-id="slopes-with-a-dummy-variable">Slopes with a Dummy Variable</h3>
-<p>Usual interpretation: as <span class="math inline">\(x\)</span> increases by 1, <span class="math inline">\(y\)</span> increases by <span class="math inline">\(\beta\)</span>.</p>
-<p>This doesn’t go away, but we get a new interpretation!</p>
-<ul>
-<li><span class="math inline">\(x\)</span> can <em>only</em> increase by one (from 0 to 1).
-<ul>
-<li><span class="math inline">\(\beta\)</span> is the <em>difference in groups</em>.</li>
-</ul></li>
-</ul>
-<p>Note that we assume constant variance; this means the variance is the same in both groups</p>
-<ul>
-<li><em>Exact</em> same assumptions as a t-test.
-<ul>
-<li>(Different from a “Welch” t-test)</li>
-</ul></li>
-</ul>
-</section>
-<section id="categorical-variables" class="level3">
-<h3 class="anchored" data-anchor-id="categorical-variables">Categorical Variables</h3>
-<p>Consider the <code>cyl</code> column in mtcars. We <em>could</em> code three dummy variables:</p>
-<ul>
-<li><span class="math inline">\(I(cyl == 4)\)</span></li>
-<li><span class="math inline">\(I(cyl == 6)\)</span></li>
-<li><span class="math inline">\(I(cyl == 8)\)</span></li>
-</ul>
-<p>This would lead to the model: <span class="math display">\[
-y = \beta_0 + \beta_1I(cyl == 4) + \beta_2I(cyl == 6) + \beta_3I(cyl == 8)
-\]</span></p>
-<p>What’s the interpretation of the intercept here?</p>
-</section>
-<section id="categorical-variable-dummy-coding" class="level3">
-<h3 class="anchored" data-anchor-id="categorical-variable-dummy-coding">Categorical Variable Dummy Coding</h3>
-<p>Better: set one as a <strong>reference</strong> variable and let the intercept “absorb” it:</p>
-<ul>
-<li><span class="math inline">\(I(cyl == 6)\)</span></li>
-<li><span class="math inline">\(I(cyl == 8)\)</span></li>
-</ul>
-<p>This would lead to the model: <span class="math display">\[
-y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8)
-\]</span> where</p>
-<ul>
-<li><span class="math inline">\(\beta_0\)</span> is the mean of mpg when cyl = 4.</li>
-<li><span class="math inline">\(\beta_1\)</span> is the difference in mean of mpg between 4 and 6 cylinder cars.</li>
-<li><span class="math inline">\(\beta_2\)</span> is the difference in means for 4 versus 8.
-<ul>
-<li>Difference btwn 6 and 8 can be found with some cleverness.</li>
-</ul></li>
-</ul>
-</section>
-<section id="models-with-categorical-variables" class="level3">
-<h3 class="anchored" data-anchor-id="models-with-categorical-variables">Models with Categorical Variables</h3>
-<p>The model <span class="math inline">\(y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8)\)</span> is equivalent to: <span class="math display">\[
-y_i = \begin{cases}\beta_0 + 0 &amp; \text{if }\; cyl == 4\\ \beta_0 + \beta_1 &amp; \text{if }\; cyl == 6\\\beta_0  + \beta_2 &amp; \text{if }\; cyl == 8\end{cases}
-\]</span></p>
-<p>This is equivalent to fitting an intercept-only model <span class="math inline">\(y = \beta_0\)</span> for subsets of the data.</p>
-<p>By putting them in the same model, we can easily test for significance.</p>
-<p>The following code demonstrates that this is true - make sure you understand where each value is coming from!</p>
-<pre class="{web-r}"><code># Three intercepts
-coef(lm(mpg ~ factor(cyl), data = mtcars))
-
-# For each value of cylinder
-# You'll have to do some math to get the same numbers as above!
-coef(lm(mpg ~ 1, data = subset(mtcars, cyl == 4)))
-# 26.66364
-coef(lm(mpg ~ 1, data = subset(mtcars, cyl == 6)))
-# 19.74286 = 26.66364 - 6.920779
-coef(lm(mpg ~ 1, data = subset(mtcars, cyl == 8)))
-# 15.1 = 26.66364 - 11.563636</code></pre>
-</section>
-</section>
-<section id="interactions" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="interactions"><span class="header-section-number">14.2</span> Interactions</h2>
-<section id="different-intercepts-same-slope" class="level3">
-<h3 class="anchored" data-anchor-id="different-intercepts-same-slope">Different Intercepts, Same Slope</h3>
-<p>If we have <code>cyl</code> and <code>disp</code> in the model, we get the following:</p>
-<p><span class="math display">\[
-y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8) + \beta_3 disp
-\]</span> which is equivalent to: <span class="math display">\[
-y_i = \begin{cases}(\beta_0  + 0) + \beta_3 disp&amp; \text{if }\; cyl == 4\\ (\beta_0 + \beta_1)  + \beta_3 disp&amp; \text{if }\; cyl == 6\\(\beta_0  + \beta_2)  + \beta_3 disp&amp; \text{if }\; cyl == 8\end{cases}
-\]</span> <em>Like</em> three different models, but with a different <strong>intercept</strong> depending on <code>cyl</code>.</p>
-<p>In this case, the model is <em>not</em> equivalent. The slope must be the same for all three models, which cannot be done if we’re fitting three separate models. As you know, the slope and intercept are correlated, so different slopes lead to different intercepts.</p>
+<section id="diy" class="level3">
+<h3 class="anchored" data-anchor-id="diy">DIY</h3>
+<p>The course notes include some starter code (that can be run in browser). Can you fit a better model than the basic multiple linear regression?</p>
+<p>Get in groups, use pen and paper to record the important parts of the transformations you try.</p>
+<p>Hint: what’s the <code>Volume</code> of a cylinder?</p>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="interaction-terms-different-intercepts-different-slopes" class="level3">
-<h3 class="anchored" data-anchor-id="interaction-terms-different-intercepts-different-slopes">Interaction Terms: Different Intercepts, Different Slopes</h3>
-<p>We can expand the model above with an <strong>interaction term</strong>. <span class="math display">\[
-y = \beta_0 + \beta_1I(6) + \beta_2I(8) + \beta_3 disp + \beta_4I(6)disp + \beta_5I(8)disp
-\]</span> where <span class="math inline">\(I(6)\)</span> is just shorthand for <span class="math inline">\(I(cyl == 6)\)</span>.</p>
-<p>This is the same as: <span class="math display">\[
-y_i = \begin{cases}(\beta_0 + 0)  + (\beta_3 + 0) disp&amp; \text{if }\; cyl == 4\\ (\beta_0 + \beta_1)  + (\beta_3 + \beta_4) disp&amp; \text{if }\; cyl == 6\\(\beta_0  + \beta_2)  + (\beta_3 + \beta_5) disp&amp; \text{if }\; cyl == 8\end{cases}
-\]</span> In this case, we might as well fit 3 completely different models!</p>
-<p>(Except we can test for significance!)</p>
-<p>And we’re back to equivalence! Double check the intercepts and slopes for <code>cyl == 6</code> and <code>cyl == 8</code>, using the equations above.</p>
-<div id="qwebr-insertion-location-2"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-</section>
-<section id="ancova" class="level3">
-<h3 class="anchored" data-anchor-id="ancova">ANCOVA</h3>
-<p>If <code>g</code> is a categorical variable, then:</p>
-<ul>
-<li><code>lm(y ~ g)</code> is a t-test (with equal variance) if <code>g</code> is binary</li>
-<li><code>lm(y ~ g)</code> is an ANOVA if <code>g</code> has more than 2 categories</li>
-<li><code>lm(y ~ x * g)</code> is an <strong>ANCOVA</strong> model
-<ul>
-<li>ANalysis of <strong>COVAriance</strong>.</li>
-</ul></li>
-</ul>
-<p>Main idea: Is the covariance (or correlation) between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> different for different categories of <span class="math inline">\(g\)</span>?</p>
-<ul>
-<li>Only a small extension to ANOVA
-<ul>
-<li>t-test: exactly 2 means</li>
-<li>ANOVA: 2+ means</li>
-<li>ANCOVA: 2+ covariances</li>
-</ul></li>
-</ul>
-</section>
-<section id="beyond-x-and-g" class="level3">
-<h3 class="anchored" data-anchor-id="beyond-x-and-g">Beyond <span class="math inline">\(x\)</span> and <span class="math inline">\(g\)</span></h3>
-<ul>
-<li>In the simple cases, we’re doing t-test, ANOVA, or ANCOVA.</li>
-<li>Beyond this, we’re just doing regression, no special names.
-<ul>
-<li>“Controlling for” is a term we’ll use later.</li>
-</ul></li>
-<li>Choosing interaction terms is <em>hard</em>.
-<ul>
-<li><code>ggplot2</code> makes parts of it a lot easier.</li>
-</ul></li>
-</ul>
-</section>
-</section>
-<section id="significance-of-a-group" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="significance-of-a-group"><span class="header-section-number">14.3</span> Significance of a Group</h2>
-<section id="output-of-summary.lm" class="level3">
-<h3 class="anchored" data-anchor-id="output-of-summary.lm">Output of <code>summary.lm()</code></h3>
-<p>The output compares each slope to 0.</p>
-<ul>
-<li>For a categorical predictor, this tests if a category is different <em>from the reference</em>.</li>
-</ul>
-<p>There is not an easy built-in way to check significance of a specific group</p>
-<ul>
-<li>For example, we may want to test for equality of intercepts and slopes for 6 and 8 cylinder cars, allowing 4 to have separate values.
-<ul>
-<li>Test for equality of slopes is something covered in the textbook</li>
-<li>Alternative: Change Reference group and use ESS</li>
-</ul></li>
-</ul>
-</section>
-<section id="changing-the-reference-group" class="level3">
-<h3 class="anchored" data-anchor-id="changing-the-reference-group">Changing the reference group</h3>
-<p>Suppose we want to compare 6 and 8 cylinder cars. We can set up our model as: <span class="math display">\[
-y = \beta_0 + \beta_1I(8) + \beta_2I(4) + \beta_3disp + \beta_4dispI(8) + \beta_5dispI(4)
-\]</span> where now <code>6</code> is the reference group.</p>
-<p>We can test <span class="math inline">\(\beta_1=\beta_4 = 0\)</span> using ESS to test whether mpg versus disp is the same in these two categories.</p>
-<p>In R, we need to set up our own dummies to do this.:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>cyl <span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(mtcars<span class="sc">$</span>cyl), <span class="at">ref =</span> <span class="st">"8"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(mtcars<span class="sc">$</span>cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "8" "4" "6"</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="exercises" class="level2" data-number="14.4">
-<h2 data-number="14.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">14.4</span> Exercises</h2>
-<ol type="1">
-<li>Complete the runnable R code above.</li>
-</ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -2540,8 +2384,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L15-Multicollinearity.html" class="pagination-link" aria-label="Multicollinearity">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L15-Dummies.html" class="pagination-link" aria-label="Dummy Variables">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

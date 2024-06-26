@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Dr.&nbsp;Devan Becker">
+<meta name="author" content="Devan Becker">
 <meta name="dcterms.date" content="2024-05-20">
 
-<title>STAR Notes – 21&nbsp; Final Exam Review</title>
+<title>STAR Notes – 18&nbsp; Analysis of MTCars</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,8 +66,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Lb02-OLS_Estimates.html" rel="next">
-<link href="./L20-Logistic.html" rel="prev">
+<link href="./L19-Degrees_of_Freedom.html" rel="next">
+<link href="./L17-Modelling_Poorly.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -114,7 +148,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L21-Review.html">Review</a></li><li class="breadcrumb-item"><a href="./L21-Review.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L18-Example_Analysis_mtcars.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -227,13 +261,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Choosing Models</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
@@ -248,32 +282,38 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Modelling_Transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -289,31 +329,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L20-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L21-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
  <span class="menu-text">Review</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -405,36 +445,24 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#summaries" id="toc-summaries" class="nav-link active" data-scroll-target="#summaries"><span class="header-section-number">21.1</span> Summaries</a>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link active" data-scroll-target="#exploratory-data-analysis"><span class="header-section-number">18.1</span> Exploratory Data Analysis</a>
   <ul class="collapse">
-  <li><a href="#generally-important-things" id="toc-generally-important-things" class="nav-link" data-scroll-target="#generally-important-things">Generally important things</a></li>
-  <li><a href="#extra-topics-lecture" id="toc-extra-topics-lecture" class="nav-link" data-scroll-target="#extra-topics-lecture">“Extra Topics” Lecture</a></li>
-  <li><a href="#getting-the-wrong-model" id="toc-getting-the-wrong-model" class="nav-link" data-scroll-target="#getting-the-wrong-model">Getting the Wrong Model</a></li>
-  <li><a href="#transforming-the-predictors" id="toc-transforming-the-predictors" class="nav-link" data-scroll-target="#transforming-the-predictors">Transforming the Predictors</a></li>
-  <li><a href="#transforming-the-response" id="toc-transforming-the-response" class="nav-link" data-scroll-target="#transforming-the-response">Transforming the Response</a></li>
-  <li><a href="#dummy-variables" id="toc-dummy-variables" class="nav-link" data-scroll-target="#dummy-variables">Dummy Variables</a></li>
-  <li><a href="#multicollinearity" id="toc-multicollinearity" class="nav-link" data-scroll-target="#multicollinearity">Multicollinearity</a></li>
-  <li><a href="#best-subset-selection" id="toc-best-subset-selection" class="nav-link" data-scroll-target="#best-subset-selection">Best Subset Selection</a></li>
-  <li><a href="#degrees-of-freedom" id="toc-degrees-of-freedom" class="nav-link" data-scroll-target="#degrees-of-freedom">Degrees of Freedom</a></li>
-  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization">Regularization</a></li>
-  <li><a href="#classification" id="toc-classification" class="nav-link" data-scroll-target="#classification">Classification</a></li>
+  <li><a href="#understanding-data" id="toc-understanding-data" class="nav-link" data-scroll-target="#understanding-data">Understanding Data</a></li>
+  <li><a href="#plotting-the-data" id="toc-plotting-the-data" class="nav-link" data-scroll-target="#plotting-the-data">Plotting the Data</a></li>
+  <li><a href="#patterns-in-the-predictors" id="toc-patterns-in-the-predictors" class="nav-link" data-scroll-target="#patterns-in-the-predictors">Patterns in the Predictors</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   </ul></li>
-  <li><a href="#midterm-solutions" id="toc-midterm-solutions" class="nav-link" data-scroll-target="#midterm-solutions"><span class="header-section-number">21.2</span> Midterm Solutions</a>
-  <ul class="collapse">
-  <li><a href="#anova" id="toc-anova" class="nav-link" data-scroll-target="#anova">ANOVA</a></li>
-  <li><a href="#biasvariance" id="toc-biasvariance" class="nav-link" data-scroll-target="#biasvariance">Bias/Variance</a></li>
-  <li><a href="#biasvariance-1" id="toc-biasvariance-1" class="nav-link" data-scroll-target="#biasvariance-1">Bias/Variance</a></li>
-  <li><a href="#biasvariance-2" id="toc-biasvariance-2" class="nav-link" data-scroll-target="#biasvariance-2">Bias/Variance</a></li>
-  </ul></li>
+  <li><a href="#more-eda-relationships-with-the-response-interactions" id="toc-more-eda-relationships-with-the-response-interactions" class="nav-link" data-scroll-target="#more-eda-relationships-with-the-response-interactions"><span class="header-section-number">18.2</span> More EDA: Relationships with the Response / Interactions</a></li>
+  <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling"><span class="header-section-number">18.3</span> Modelling</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L21-Review.html">Review</a></li><li class="breadcrumb-item"><a href="./L21-Review.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L18-Example_Analysis_mtcars.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></h1>
+<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></h1>
 </div>
 
 
@@ -443,7 +471,7 @@ window.Quarto = {
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Dr.&nbsp;Devan Becker </p>
+    <p class="author">Devan Becker </p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -470,219 +498,343 @@ window.Quarto = {
 </header>
 
 
-<section id="summaries" class="level2" data-number="21.1">
-<h2 data-number="21.1" class="anchored" data-anchor-id="summaries"><span class="header-section-number">21.1</span> Summaries</h2>
-<section id="generally-important-things" class="level3">
-<h3 class="anchored" data-anchor-id="generally-important-things">Generally important things</h3>
-<ul>
-<li>The bias and variance of <span class="math inline">\(\hat{\underline\beta}\)</span>.</li>
-<li>Interpreting coefficients and inference.</li>
-<li>Variance, rather than point estimates.</li>
-<li>Interpreting residual plots.</li>
-<li>Choosing a reasonable model given the context of the problem.</li>
-</ul>
+<section id="exploratory-data-analysis" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="exploratory-data-analysis"><span class="header-section-number">18.1</span> Exploratory Data Analysis</h2>
+<section id="understanding-data" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-data">Understanding Data</h3>
+<p>What do the column names mean?</p>
+<p>The help file gives a (very) brief description. I spent a few minutes just looking at the descriptions and trying to guess what relationships I might find.</p>
+<p>Overall, most of the predictors are trying to answer the question “Is this a powerful car?”</p>
 </section>
-<section id="extra-topics-lecture" class="level3">
-<h3 class="anchored" data-anchor-id="extra-topics-lecture">“Extra Topics” Lecture</h3>
+<section id="plotting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-data">Plotting the Data</h3>
+<p>From a pairs plot (<code>pairs(mtcars)</code>, which I have not included to reduce the amount of output):</p>
 <ul>
-<li>Standardizing
+<li>Only 1 car has carb = 6, 1 has carb = 8</li>
+<li>wt and drat are (-ively) correlated
 <ul>
-<li>Effect on parameter estimates</li>
-</ul></li>
-<li>General Linear Hypotheses
-<ul>
-<li>Full versus hypothesized model, and the form of the F test
-<ul>
-<li>(Not the math, but possibly the degrees of freedom)</li>
-</ul></li>
-</ul></li>
-<li>Weighted/Generalized Least Squares
-<ul>
-<li>Understand what <span class="math inline">\(V\)</span> and <span class="math inline">\(P\)</span> represent.</li>
-<li>Manipulate formulas by replacing <span class="math inline">\(\underline f\)</span> with <span class="math inline">\(P^{-1}\underline \epsilon\)</span>.</li>
-<li>Suggest <span class="math inline">\(V\)</span> based on the context of the question.</li>
+<li>disp and hp</li>
+<li>disp and drat (-ive)</li>
+<li>disp and wt</li>
+<li>hp and wt</li>
+<li>hp and qsec</li>
 </ul></li>
 </ul>
+<p>wt and disp are clearly multicollinear, and they’re measuring the same thing so I might want to include just one of them.</p>
 </section>
-<section id="getting-the-wrong-model" class="level3">
-<h3 class="anchored" data-anchor-id="getting-the-wrong-model">Getting the Wrong Model</h3>
+<section id="patterns-in-the-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="patterns-in-the-predictors">Patterns in the Predictors</h3>
+<p>In the following code, I tried x as am, cyl, gear, and carb. The y axis was wt, disp, drat, and qsec. I essentially tried every combination of these and wrote down the most interesting patterns.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous versus categorical</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(am), <span class="at">y =</span> wt) <span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L18-Example_Analysis_mtcars_files/figure-html/cont_v_cat-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <ul>
-<li>Bias due to missing predictors.</li>
-<li>What does it even mean to have the “right” model?
+<li>wt is different across categories of am, cyl, carb, gear (all positive)
 <ul>
-<li>Proxy measures and their effect on the other parameter estimates</li>
+<li>disp has same relationships</li>
+<li>hp has same relationships, except 4 gear cars have lower hp than 3 and 5 gear cars</li>
+<li>drat has opposite relationships</li>
 </ul></li>
 </ul>
-</section>
-<section id="transforming-the-predictors" class="level3">
-<h3 class="anchored" data-anchor-id="transforming-the-predictors">Transforming the Predictors</h3>
+<p>I did something similar with the following code, checking every combination of all relevant predictors and writing down anything that stuck out to me.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous vs. continuous</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> wt, <span class="at">colour =</span> <span class="fu">factor</span>(cyl)) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L18-Example_Analysis_mtcars_files/figure-html/cont_v_cont-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <ul>
-<li>Polynomial regression
+<li>Clear separation between disp and wt when coloured by am or cyl.
 <ul>
-<li>When to use them</li>
-<li>Lower order terms</li>
-<li>Extrapolation</li>
+<li>In other words, there are distinct groups. This probably means that one of the continuous predictors has all of the information necessary, and it won’t be necessary to include an interaction between continuous predictors (it rarely is).</li>
 </ul></li>
-<li>Other transformations (e.g.&nbsp;log, combining predictors, etc.)</li>
+<li>Otherwise, there are not many relationships that might be present.</li>
 </ul>
-</section>
-<section id="transforming-the-response" class="level3">
-<h3 class="anchored" data-anchor-id="transforming-the-response">Transforming the Response</h3>
+<p>The following plot was also used with all combinations of categorical predictors.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># categorical variables</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(am), <span class="at">fill =</span> <span class="fu">factor</span>(vs)) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L18-Example_Analysis_mtcars_files/figure-html/cats-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <ul>
-<li>Explain “Stabilizing the variance”</li>
-<li>Diagnosing the need for a transformation</li>
-<li>Choosing transformations</li>
-<li>The effect on the model
+<li>Some kind of “correlation” between am and cyl.
 <ul>
-<li>E.g. multiplicative errors, changes to the parameter estimates</li>
+<li>Measuring something similar, but from different perspectives.</li>
 </ul></li>
-</ul>
-</section>
-<section id="dummy-variables" class="level3">
-<h3 class="anchored" data-anchor-id="dummy-variables">Dummy Variables</h3>
+<li>Very little relation between am and vs - they’re measuring different things.
 <ul>
-<li>Definition and interpretation
-<ul>
-<li><code>factor(cyl)8</code> in the coefficients table</li>
-</ul></li>
-<li>If there are three categories, we need two dummies
-<ul>
-<li>“Reference” category is absorbed into the intercept.</li>
-</ul></li>
-<li>Interaction terms: different intercept, different slope.</li>
-<li>Significance of a dummy variable (or interaction with one)</li>
-<li>Extra sum-of-squares to test whether categories are statistically different
-<ul>
-<li>What kind of test is this? ANOVA? ANCOVA?</li>
-</ul></li>
-</ul>
-</section>
-<section id="multicollinearity" class="level3">
-<h3 class="anchored" data-anchor-id="multicollinearity">Multicollinearity</h3>
-<ul>
-<li>Why it increases variance (many different parameter combinations are equivalent)</li>
-<li>Detecting via the variance inflation factor
-<ul>
-<li>Approx 10 is bad, but this is just a rule-of-thumb.</li>
-</ul></li>
-<li>What to do about it, and what it means for interpreting coefficients.</li>
-</ul>
-</section>
-<section id="best-subset-selection" class="level3">
-<h3 class="anchored" data-anchor-id="best-subset-selection">Best Subset Selection</h3>
-<ul>
-<li>Goal: Inference or prediction?
-<ul>
-<li>How does Subset Selection fit into this?</li>
-</ul></li>
-<li>General idea of the algorithms.
-<ul>
-<li>Don’t need to know Mallow’s Cp etc.</li>
-</ul></li>
-<li>Why the p-values can’t really be trusted.</li>
-<li>Useful as a preliminary step (sometimes).</li>
-</ul>
-</section>
-<section id="degrees-of-freedom" class="level3">
-<h3 class="anchored" data-anchor-id="degrees-of-freedom">Degrees of Freedom</h3>
-<ul>
-<li>General modelling strategies.</li>
-<li>Choosing transformations based on domain knowledge.</li>
-<li>Being explicit about the decisions made while modelling.</li>
-</ul>
-</section>
-<section id="regularization" class="level3">
-<h3 class="anchored" data-anchor-id="regularization">Regularization</h3>
-<ul>
-<li>It’s just linear regression with “smaller” slope estimates!
-<ul>
-<li>Intercept isn’t constrained.</li>
-<li>Some slopes can be bigger than the slopes for linear regression, but sum of abs/squares is smaller.</li>
-</ul></li>
-<li>Regularization prevents overfitting.
-<ul>
-<li>Choose the penalty parameter <span class="math inline">\(\lambda\)</span> by minimizing out-of-sample prediction error, measured via cross-validation.</li>
-<li>Within 1 SE of minimum MSE leads to a simpler (more regularized) model.</li>
-</ul></li>
-<li>Adds bias, which is a good thing?</li>
-<li><em>Requires</em> standardization of the predictors.</li>
-<li>LASSO sets parameters to 0, Ridge does not.</li>
-</ul>
-</section>
-<section id="classification" class="level3">
-<h3 class="anchored" data-anchor-id="classification">Classification</h3>
-<ul>
-<li>Response values are 0 or 1
-<ul>
-<li><em>Expected</em> value of <span class="math inline">\(y\)</span> is the proportion of 1s given a value of <span class="math inline">\(x\)</span>.</li>
-<li>Predictions can be converted to 0s and 1s, with two types of errors (confusion matrix).</li>
-</ul></li>
-<li>Logistic function looks like an “S”
-<ul>
-<li>Exact shape determined by linear predictor <span class="math inline">\(\eta(X) = X\underline\beta\)</span></li>
-</ul></li>
-<li>Other than transformations of response, all <code>lm</code> topics apply.
-<ul>
-<li>Including regularization!</li>
-</ul></li>
-<li>“Residuals” are weird
-<ul>
-<li>Not “observed minus expected” anymore!</li>
+<li>Might be worth checking models where am is switched with vs.&nbsp;</li>
 </ul></li>
 </ul>
 </section>
+<section id="conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
+<p>Most things are measuring “how powerful is this car”, so we should just choose the ones that make sense to us and check a few categorical predictors.</p>
+<p><code>wt</code> and <code>disp</code> make the most sense as measures for <code>mpg</code>, and <code>am</code> and <code>cyl</code> also make some sense. I’ll try switching out some of the other predictors, but I expect that the final model will either be <code>wt*am</code> or <code>disp*cyl</code>.</p>
 </section>
-<section id="midterm-solutions" class="level2" data-number="21.2">
-<h2 data-number="21.2" class="anchored" data-anchor-id="midterm-solutions"><span class="header-section-number">21.2</span> Midterm Solutions</h2>
-<section id="anova" class="level3 t">
-<h3 class="t anchored" data-anchor-id="anova">ANOVA</h3>
-<p>Explain how a hypotheses test based on the ratio <span class="math inline">\(MS_{Reg}/MS_E\)</span> in the ANOVA table is a test for whether any of the slope parameters are 0.</p>
+</section>
+<section id="more-eda-relationships-with-the-response-interactions" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="more-eda-relationships-with-the-response-interactions"><span class="header-section-number">18.2</span> More EDA: Relationships with the Response / Interactions</h2>
+<p>Now we’re finally looking at mpg!</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> mpg, <span class="at">x =</span> disp, <span class="at">colour =</span> <span class="fu">factor</span>(cyl)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L18-Example_Analysis_mtcars_files/figure-html/mpg_v_disp-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>From looking at many many plots, I propose the following candidate models:</p>
 <ul>
-<li>A line with all slopes equal to 0 is a horizontal line, which will have 0 variance around <span class="math inline">\(\bar y\)</span>, i.e.&nbsp;<span class="math inline">\(MS_{Reg} = 0\)</span>.</li>
-<li>Due to random chance, we will never actually get <span class="math inline">\(MS_{Reg} = 0\)</span>. Dividing by MSE gives us a way to evaluate the size of <span class="math inline">\(MS_{Reg}\)</span>.</li>
+<li>mpg versus disp * cyl</li>
+<li>mpg versus wt * am (cyl?)</li>
+<li>mpg versus wt * vs (maybe not an interaction)</li>
+<li>mpg versus wt * gear?</li>
 </ul>
+<p>I had also considered including qsec, but a plot of mpg versus qsec with colours from cyl revealed that cyl explains the relationship; if we include cyl, then the slope for mpg versus qsec is 0. The same thing happens with drat, so cyl is probably enough to include in the model rather than either qsec or drat.</p>
 </section>
-<section id="biasvariance" class="level3 t">
-<h3 class="t anchored" data-anchor-id="biasvariance">Bias/Variance</h3>
-<p>For this question, assume that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>.</p>
-<ol type="1">
-<li>Given the model <span class="math inline">\(y_i = \beta_0 + \epsilon_i\)</span>, show that <span class="math inline">\(\hat\beta_0 = \bar y\)</span> minimizes the sum of squared error.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-\frac{1}{n}\sum(y_i - \hat y)^2 &amp;= \frac{1}{n}\sum(y_i - \beta_0)^2\\
-\frac{d}{d\beta}\frac{1}{n} &amp;= \frac{1}{n}\sum(y_i - \beta_0)^2\\
-&amp;= \frac{2}{n}(\sum y_i - n\beta_0) \stackrel{set}{=}0\\
-\implies \frac{2}{n}\sum y_i &amp;= \frac{2}{n}n\beta_0 \implies \bar y = \beta_0
-\end{align*}\]</span></p>
-<p>This is a minimum since this is a polynomial in <span class="math inline">\(\beta_0\)</span> with a positive coefficient for <span class="math inline">\(\beta_0\)</span>.</p>
-</section>
-<section id="biasvariance-1" class="level3 t">
-<h3 class="t anchored" data-anchor-id="biasvariance-1">Bias/Variance</h3>
-<p>For this question, assume that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>.</p>
-<ol start="2" type="1">
-<li>Given the model <span class="math inline">\(y_i = \beta_0 + \epsilon_i\)</span>, show that <span class="math inline">\(E(\hat\beta_0) = \beta_0\)</span> and <span class="math inline">\(V(\hat\beta_0) = \sigma^2/n\)</span>.</li>
-</ol>
-<p><span class="math display">\[\begin{align*}
-E(\hat\beta_0) &amp;= E\left(\frac{1}{n}\sum y_i\right)= \frac{1}{n}\sum E(y_i)\\
-&amp;= \frac{1}{n}\sum E(\beta_0 + \epsilon_i)= \frac{1}{n}n\beta_0 = \beta_0
-\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}
-V(\hat\beta_0) &amp;= V\left(\frac{1}{n}\sum y_i\right)= \frac{1}{n^2}\sum V(y_i)\\
-&amp;= \frac{1}{n^2}\sum V(\beta_0 + \epsilon_i)= \frac{1}{n^2}n\sigma^2 = \frac{\sigma^2}{n}
-\end{align*}\]</span></p>
-</section>
-<section id="biasvariance-2" class="level3 t">
-<h3 class="t anchored" data-anchor-id="biasvariance-2">Bias/Variance</h3>
-<p>For this question, assume that <span class="math inline">\(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</span>.</p>
-<ol start="3" type="1">
-<li>Now consider the multiple linear regression model <span class="math inline">\(Y = X\beta + \underline\epsilon\)</span>, where we know that <span class="math inline">\(\hat{\underline{\beta}} = (X^TX)^{-1}X^TY\)</span>. Show that <span class="math inline">\(E(\hat{\underline{\beta}}) = \underline{\beta}\)</span>.</li>
-</ol>
+<section id="modelling" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="modelling"><span class="header-section-number">18.3</span> Modelling</h2>
+<p>Let’s test out our models!</p>
+<p>Again, to reduce the amount of output I have to wade through, I changed the following code a bunch and left it at something meaningful to my final analysis.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dispmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dispmodel, <span class="at">col =</span> mtcars<span class="sc">$</span>cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L18-Example_Analysis_mtcars_files/figure-html/dispmodel_plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Residuals versus fitted looks good</li>
+<li>QQ norm looks great! For this small of a data set, we don’t expect much from the qq-plot, so this is actually very nice.</li>
+<li>Scale-Location has a slight U shape, which isn’t ideal. There may still be a predictor that’s worth including.</li>
+<li>There’s a high influence point. This is likely due to the interaction between cyl and disp.
+<ul>
+<li>When we have this kind of interaction, there are essentially three lines, each with fewer observations. It is much easier for a point to be influential with interaction present.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>wtmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">*</span> am, <span class="at">data =</span> mtcars)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L18-Example_Analysis_mtcars_files/figure-html/wtmodel_plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>First plot looks good!</li>
+<li>QQplot has some heavy tails - not bad, but not ideal. <code>dispmodel</code> was better.</li>
+<li>Scale-location is great!</li>
+<li>No high leverage points.</li>
+</ul>
+<p>Both models are good in different ways. Let’s check their summaries.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dispmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ disp * factor(cyl), data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.4766 -1.8101 -0.2297  1.3523  5.0208 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        40.87196    3.02012  13.533 2.79e-13 ***
+disp               -0.13514    0.02791  -4.842 5.10e-05 ***
+factor(cyl)6      -21.78997    5.30660  -4.106 0.000354 ***
+factor(cyl)8      -18.83916    4.61166  -4.085 0.000374 ***
+disp:factor(cyl)6   0.13875    0.03635   3.817 0.000753 ***
+disp:factor(cyl)8   0.11551    0.02955   3.909 0.000592 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.372 on 26 degrees of freedom
+Multiple R-squared:  0.8701,    Adjusted R-squared:  0.8452 
+F-statistic: 34.84 on 5 and 26 DF,  p-value: 9.968e-11</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ wt * am, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.6004 -1.5446 -0.5325  0.9012  6.0909 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  31.4161     3.0201  10.402 4.00e-11 ***
+wt           -3.7859     0.7856  -4.819 4.55e-05 ***
+am           14.8784     4.2640   3.489  0.00162 ** 
+wt:am        -5.2984     1.4447  -3.667  0.00102 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.591 on 28 degrees of freedom
+Multiple R-squared:  0.833, Adjusted R-squared:  0.8151 
+F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11</code></pre>
+</div>
+</div>
+<p>The <span class="math inline">\(R^2\)</span> for <code>dispmodel</code> is a fair bit higher (although there’s no standard for how much an <span class="math inline">\(R^2\)</span> should change, so this might not be a meaningful difference). As we saw in class, the <span class="math inline">\(R^2\)</span> is based on the same quantities as the F-test for different models.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(dispmodel, wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: mpg ~ disp * factor(cyl)
+Model 2: mpg ~ wt * am
+  Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)  
+1     26 146.23                              
+2     28 188.01 -2   -41.773 3.7136 0.03814 *
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>The models fit significantly differently. Which one fits better?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE values</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dispmodel)<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.371581</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wtmodel)<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.591247</code></pre>
+</div>
+</div>
+<p><code>dispmodel</code> has a higher <span class="math inline">\(R^2\)</span> and a lower MSE, so it seems to be the winner.</p>
+<p>From the pairs plot, I saw that disp has a slight relationship with other continuous predictors, and the scale-location plot wasn’t perfect. Perhaps another predictor will help?</p>
+<p>I can do this with the magical <code>update()</code> function. The <code>~ . + hp</code> notation means the response versus (<code>~</code>) everything <code>.</code>, then add <code>hp</code>. The <code>~</code> means “versus” (with the response on the left, which isn’t allowed to change in this case, and the predictors on the right), and the <code>.</code> means “everything”, which in this case refers to everything that was already in the model. The form <code>lm(mpg ~ ., data = mtcars)</code> will fit mpg against everything else it sees in the mtcars dataset.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">update</span>(dispmodel, <span class="sc">~</span> . <span class="sc">+</span> hp)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ disp + factor(cyl) + hp + disp:factor(cyl), 
+    data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.3442 -1.7647  0.0994  1.4480  4.4796 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        41.53521    3.04752  13.629 4.48e-13 ***
+disp               -0.13037    0.02798  -4.660 9.00e-05 ***
+factor(cyl)6      -19.95406    5.48572  -3.637 0.001249 ** 
+factor(cyl)8      -16.99535    4.83011  -3.519 0.001685 ** 
+hp                 -0.01410    0.01184  -1.191 0.245018    
+disp:factor(cyl)6   0.12975    0.03685   3.521 0.001675 ** 
+disp:factor(cyl)8   0.11199    0.02946   3.801 0.000824 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.353 on 25 degrees of freedom
+Multiple R-squared:  0.8771,    Adjusted R-squared:  0.8476 
+F-statistic: 29.74 on 6 and 25 DF,  p-value: 3.199e-10</code></pre>
+</div>
+</div>
+<p>I checked qsec, drat, and hp, and none seemed worth including in the model. I’ll just leave it as is.</p>
+<p>To interpret the model we must be careful about the interaction term!</p>
 <p><span class="math display">\[
-E(\hat{\underline{\beta}}) = E((X^TX)^{-1}X^TY) = (X^TX)^{-1}X^TE(Y) = (X^TX)^{-1}X^TX\underline\beta = \underline\beta
+mpg = \begin{cases}
+\beta_0 + \beta_1 disp &amp; \text{if }cyl == 4\\
+(\beta_0 + \beta_2) + (\beta_1 + \beta_4) disp &amp; \text{if }cyl == 6\\
+(\beta_0 + \beta_3) + (\beta_1 + \beta_5) disp &amp; \text{if }cyl == 8\\
+\end{cases}
 \]</span></p>
+<ul>
+<li>For 4 cylinder cars, the baseline mpg is 40 and decreases by 0.135 for each one unit increase in disp.</li>
+<li>For 6 cylinder cars, the baseline mpg is about 21.5 and isn’t really related to the displacement.</li>
+<li>For 8 cylinder cars, the baseline mpg is about 24.5 and decreases by about 0.02 for each one-unit increase in displacement.
+<ul>
+<li>Note that displacement has really large units, so 0.02 over hundreds of one-unit increases is still a lot!</li>
+</ul></li>
+</ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1252,13 +1404,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L20-Logistic.html" class="pagination-link" aria-label="Classification">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span>
+      <a href="./L17-Modelling_Poorly.html" class="pagination-link" aria-label="Modelling Poorly">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Lb02-OLS_Estimates.html" class="pagination-link" aria-label="OLS Estimates">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">OLS Estimates</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L19-Degrees_of_Freedom.html" class="pagination-link" aria-label="Degrees of Freedom">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

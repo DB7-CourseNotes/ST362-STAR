@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Devan Becker">
+<meta name="author" content="Dr.&nbsp;Devan Becker">
 <meta name="dcterms.date" content="2024-05-20">
 
-<title>STAR Notes – 17&nbsp; Analysis of MTCars</title>
+<title>STAR Notes – 20&nbsp; Regularization Methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L18-Degrees_of_Freedom.html" rel="next">
-<link href="./L16-Modelling_Poorly.html" rel="prev">
+<link href="./L21-Logistic.html" rel="next">
+<link href="./L19-Degrees_of_Freedom.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -148,7 +148,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L17-Example_Analysis_mtcars.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L20-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L20-Regularization.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -261,13 +261,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Choosing Models</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
@@ -282,55 +282,61 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Modelling_Transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Advanced Topics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L20-Regularization.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L21-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -346,8 +352,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -439,24 +445,44 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link active" data-scroll-target="#exploratory-data-analysis"><span class="header-section-number">17.1</span> Exploratory Data Analysis</a>
+  <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link active" data-scroll-target="#loss-functions"><span class="header-section-number">20.1</span> Loss Functions</a>
   <ul class="collapse">
-  <li><a href="#understanding-data" id="toc-understanding-data" class="nav-link" data-scroll-target="#understanding-data">Understanding Data</a></li>
-  <li><a href="#plotting-the-data" id="toc-plotting-the-data" class="nav-link" data-scroll-target="#plotting-the-data">Plotting the Data</a></li>
-  <li><a href="#patterns-in-the-predictors" id="toc-patterns-in-the-predictors" class="nav-link" data-scroll-target="#patterns-in-the-predictors">Patterns in the Predictors</a></li>
-  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  <li><a href="#why-are-we-minimizing-the-sum-of-squares" id="toc-why-are-we-minimizing-the-sum-of-squares" class="nav-link" data-scroll-target="#why-are-we-minimizing-the-sum-of-squares">Why are we minimizing the <em>sum of squares</em>?</a></li>
+  <li><a href="#other-loss-functions" id="toc-other-loss-functions" class="nav-link" data-scroll-target="#other-loss-functions">Other loss functions</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#loss-function-summary" id="toc-loss-function-summary" class="nav-link" data-scroll-target="#loss-function-summary">Loss Function Summary</a></li>
   </ul></li>
-  <li><a href="#more-eda-relationships-with-the-response-interactions" id="toc-more-eda-relationships-with-the-response-interactions" class="nav-link" data-scroll-target="#more-eda-relationships-with-the-response-interactions"><span class="header-section-number">17.2</span> More EDA: Relationships with the Response / Interactions</a></li>
-  <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling"><span class="header-section-number">17.3</span> Modelling</a></li>
+  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization"><span class="header-section-number">20.2</span> Regularization</a>
+  <ul class="collapse">
+  <li><a href="#regular-methods" id="toc-regular-methods" class="nav-link" data-scroll-target="#regular-methods">Regular Methods</a></li>
+  <li><a href="#regularization-constraints" id="toc-regularization-constraints" class="nav-link" data-scroll-target="#regularization-constraints">Regularization Constraints</a></li>
+  <li><a href="#regularizing-with-norms" id="toc-regularizing-with-norms" class="nav-link" data-scroll-target="#regularizing-with-norms">Regularizing with Norms</a></li>
+  <li><a href="#why-choose-underlinebeta_p-10" id="toc-why-choose-underlinebeta_p-10" class="nav-link" data-scroll-target="#why-choose-underlinebeta_p-10">Why choose <span class="math inline">\(||\underline\beta||_p = 10\)</span>?</a></li>
+  <li><a href="#choosing-s-in-underlinebeta_p-s" id="toc-choosing-s-in-underlinebeta_p-s" class="nav-link" data-scroll-target="#choosing-s-in-underlinebeta_p-s">Choosing <span class="math inline">\(s\)</span> in <span class="math inline">\(||\underline\beta||_p = s\)</span></a></li>
+  <li><a href="#mle-estimates-of-underlinebeta-are-unbiased" id="toc-mle-estimates-of-underlinebeta-are-unbiased" class="nav-link" data-scroll-target="#mle-estimates-of-underlinebeta-are-unbiased">MLE estimates of <span class="math inline">\(\underline\beta\)</span> are <em>unbiased</em></a></li>
+  <li><a href="#but-what-about-the-scales-of-the-features" id="toc-but-what-about-the-scales-of-the-features" class="nav-link" data-scroll-target="#but-what-about-the-scales-of-the-features">But what about the scales of the features?</a></li>
+  <li><a href="#choosing-lambda-via-cross-validation" id="toc-choosing-lambda-via-cross-validation" class="nav-link" data-scroll-target="#choosing-lambda-via-cross-validation">Choosing <span class="math inline">\(\lambda\)</span> via cross-validation</a></li>
+  <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation">Cross-Validation</a></li>
+  <li><a href="#special-cases-of-regularization-l_1-or-l_2" id="toc-special-cases-of-regularization-l_1-or-l_2" class="nav-link" data-scroll-target="#special-cases-of-regularization-l_1-or-l_2">Special Cases of Regularization: <span class="math inline">\(L_1\)</span> or <span class="math inline">\(L_2\)</span>?</a></li>
+  <li><a href="#geometric-interpretation-contours-of-the-rss" id="toc-geometric-interpretation-contours-of-the-rss" class="nav-link" data-scroll-target="#geometric-interpretation-contours-of-the-rss">Geometric Interpretation (Contours of the RSS)</a></li>
+  <li><a href="#langrangian-multipliers-and-estimation" id="toc-langrangian-multipliers-and-estimation" class="nav-link" data-scroll-target="#langrangian-multipliers-and-estimation">Langrangian Multipliers and Estimation</a></li>
+  <li><a href="#lagrangian-multipliers-and-estimation" id="toc-lagrangian-multipliers-and-estimation" class="nav-link" data-scroll-target="#lagrangian-multipliers-and-estimation">Lagrangian Multipliers and Estimation</a></li>
+  <li><a href="#ridge-regularization" id="toc-ridge-regularization" class="nav-link" data-scroll-target="#ridge-regularization">Ridge Regularization</a></li>
+  <li><a href="#lasso-feature-selection-as-we-vary-lambda" id="toc-lasso-feature-selection-as-we-vary-lambda" class="nav-link" data-scroll-target="#lasso-feature-selection-as-we-vary-lambda">LASSO Feature Selection as we Vary <span class="math inline">\(\lambda\)</span></a></li>
+  <li><a href="#personal-opinion-time" id="toc-personal-opinion-time" class="nav-link" data-scroll-target="#personal-opinion-time">Personal Opinion Time</a></li>
+  <li><a href="#implementation-in-r-glmnet" id="toc-implementation-in-r-glmnet" class="nav-link" data-scroll-target="#implementation-in-r-glmnet">Implementation in R: <code>glmnet</code></a></li>
+  <li><a href="#elastic-net-like-a-lasso-but-more-flexible" id="toc-elastic-net-like-a-lasso-but-more-flexible" class="nav-link" data-scroll-target="#elastic-net-like-a-lasso-but-more-flexible">Elastic Net: Like a lasso, but more “flexible”</a></li>
+  <li><a href="#elasticnet-and-lassoridge" id="toc-elasticnet-and-lassoridge" class="nav-link" data-scroll-target="#elasticnet-and-lassoridge">Elasticnet and LASSO/Ridge</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L17-Example_Analysis_mtcars.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L20-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L20-Regularization.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></h1>
+<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></h1>
 </div>
 
 
@@ -465,11 +491,11 @@ window.Quarto = {
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Devan Becker </p>
+    <p class="author">Dr.&nbsp;Devan Becker </p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Wilfrid Laurier University
+            Jam: <strong>Ted Lasso Theme</strong> by Marcus Mumford and Tom Howe
           </p>
       </div>
   </div>
@@ -492,343 +518,358 @@ window.Quarto = {
 </header>
 
 
-<section id="exploratory-data-analysis" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="exploratory-data-analysis"><span class="header-section-number">17.1</span> Exploratory Data Analysis</h2>
-<section id="understanding-data" class="level3">
-<h3 class="anchored" data-anchor-id="understanding-data">Understanding Data</h3>
-<p>What do the column names mean?</p>
-<p>The help file gives a (very) brief description. I spent a few minutes just looking at the descriptions and trying to guess what relationships I might find.</p>
-<p>Overall, most of the predictors are trying to answer the question “Is this a powerful car?”</p>
+<section id="loss-functions" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">20.1</span> Loss Functions</h2>
+<section id="why-are-we-minimizing-the-sum-of-squares" class="level3">
+<h3 class="anchored" data-anchor-id="why-are-we-minimizing-the-sum-of-squares">Why are we minimizing the <em>sum of squares</em>?</h3>
+<p>The MSE is defined as: <span class="math display">\[
+MSE(\underline\beta) = \frac{1}{n}\sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
+\]</span> This is the Maximum Likelihood Estimate, which seeks to model the <em>mean</em> of <span class="math inline">\(Y\)</span> at each value of <span class="math inline">\(X\)</span>, <span class="math inline">\(E(Y) = X\underline\beta\)</span>, with Gaussian errors. </p>
+<p>MSE, seen as a function of <span class="math inline">\(\underline\beta\)</span>, is a <strong>loss function</strong>, i.e.&nbsp;the function we minimize to find our estimates.</p>
+<p>But it’s FAR from the only loss function.</p>
 </section>
-<section id="plotting-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="plotting-the-data">Plotting the Data</h3>
-<p>From a pairs plot (<code>pairs(mtcars)</code>, which I have not included to reduce the amount of output):</p>
+<section id="other-loss-functions" class="level3">
+<h3 class="anchored" data-anchor-id="other-loss-functions">Other loss functions</h3>
+<p>By minimizing <span class="math display">\[
+MAE(\underline\beta) = \frac{1}{n}\sum_{i=1}^n\left|y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right|
+\]</span> we end up estimating the <span class="math inline">\(median\)</span> of <span class="math inline">\(Y\)</span>. </p>
+<p>Others:</p>
 <ul>
-<li>Only 1 car has carb = 6, 1 has carb = 8</li>
-<li>wt and drat are (-ively) correlated
+<li>Mean Absolute Log Error
 <ul>
-<li>disp and hp</li>
-<li>disp and drat (-ive)</li>
-<li>disp and wt</li>
-<li>hp and wt</li>
-<li>hp and qsec</li>
+<li>Lower penalty for larger errors.</li>
+<li>More robust to outliers?</li>
 </ul></li>
+<li>Mean Relative Error
+<ul>
+<li>Penalize errors relative to size of <span class="math inline">\(y\)</span> (larger errors at large <span class="math inline">\(y\)</span> values aren’t as big of a deal).</li>
+<li>Assumes that variance depends on mean (kinda like Poisson).</li>
+</ul></li>
+<li>etc.</li>
 </ul>
-<p>wt and disp are clearly multicollinear, and they’re measuring the same thing so I might want to include just one of them.</p>
 </section>
-<section id="patterns-in-the-predictors" class="level3">
-<h3 class="anchored" data-anchor-id="patterns-in-the-predictors">Patterns in the Predictors</h3>
-<p>In the following code, I tried x as am, cyl, gear, and carb. The y axis was wt, disp, drat, and qsec. I essentially tried every combination of these and wrote down the most interesting patterns.</p>
-<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/cont_v_cat_ea295b5df885873dea746d6fec867d6e">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous versus categorical</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(am), <span class="at">y =</span> wt) <span class="sc">+</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L17-Example_Analysis_mtcars_files/figure-html/cont_v_cat-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
 <ul>
-<li>wt is different across categories of am, cyl, carb, gear (all positive)
+<li>0.5 hectares verus 4 hectares can make a huge difference
 <ul>
-<li>disp has same relationships</li>
-<li>hp has same relationships, except 4 gear cars have lower hp than 3 and 5 gear cars</li>
-<li>drat has opposite relationships</li>
+<li>100 versus 150, congrats on the great prediction!</li>
 </ul></li>
-</ul>
-<p>I did something similar with the following code, checking every combination of all relevant predictors and writing down anything that stuck out to me.</p>
-<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/cont_v_cont_0f05c53ea27904896306bb124b7b14e1">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous vs. continuous</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> disp, <span class="at">y =</span> wt, <span class="at">colour =</span> <span class="fu">factor</span>(cyl)) <span class="sc">+</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L17-Example_Analysis_mtcars_files/figure-html/cont_v_cont-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<li>Predicting an income of 15,000 versus 25,000 is big
 <ul>
-<li>Clear separation between disp and wt when coloured by am or cyl.
-<ul>
-<li>In other words, there are distinct groups. This probably means that one of the continuous predictors has all of the information necessary, and it won’t be necessary to include an interaction between continuous predictors (it rarely is).</li>
-</ul></li>
-<li>Otherwise, there are not many relationships that might be present.</li>
-</ul>
-<p>The following plot was also used with all combinations of categorical predictors.</p>
-<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/cats_4f779edfe574b5563e02ac11c3e96321">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># categorical variables</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(am), <span class="at">fill =</span> <span class="fu">factor</span>(vs)) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L17-Example_Analysis_mtcars_files/figure-html/cats-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>Some kind of “correlation” between am and cyl.
-<ul>
-<li>Measuring something similar, but from different perspectives.</li>
-</ul></li>
-<li>Very little relation between am and vs - they’re measuring different things.
-<ul>
-<li>Might be worth checking models where am is switched with vs.&nbsp;</li>
+<li>Modelling the average income is not usually reasonable.</li>
 </ul></li>
 </ul>
 </section>
-<section id="conclusions" class="level3">
-<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
-<p>Most things are measuring “how powerful is this car”, so we should just choose the ones that make sense to us and check a few categorical predictors.</p>
-<p><code>wt</code> and <code>disp</code> make the most sense as measures for <code>mpg</code>, and <code>am</code> and <code>cyl</code> also make some sense. I’ll try switching out some of the other predictors, but I expect that the final model will either be <code>wt*am</code> or <code>disp*cyl</code>.</p>
-</section>
-</section>
-<section id="more-eda-relationships-with-the-response-interactions" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="more-eda-relationships-with-the-response-interactions"><span class="header-section-number">17.2</span> More EDA: Relationships with the Response / Interactions</h2>
-<p>Now we’re finally looking at mpg!</p>
-<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/mpg_v_disp_8b95ea18e530d498e934b3e0068d898c">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> mpg, <span class="at">x =</span> disp, <span class="at">colour =</span> <span class="fu">factor</span>(cyl)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L17-Example_Analysis_mtcars_files/figure-html/mpg_v_disp-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>From looking at many many plots, I propose the following candidate models:</p>
+<section id="loss-function-summary" class="level3">
+<h3 class="anchored" data-anchor-id="loss-function-summary">Loss Function Summary</h3>
 <ul>
-<li>mpg versus disp * cyl</li>
-<li>mpg versus wt * am (cyl?)</li>
-<li>mpg versus wt * vs (maybe not an interaction)</li>
-<li>mpg versus wt * gear?</li>
-</ul>
-<p>I had also considered including qsec, but a plot of mpg versus qsec with colours from cyl revealed that cyl explains the relationship; if we include cyl, then the slope for mpg versus qsec is 0. The same thing happens with drat, so cyl is probably enough to include in the model rather than either qsec or drat.</p>
-</section>
-<section id="modelling" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="modelling"><span class="header-section-number">17.3</span> Modelling</h2>
-<p>Let’s test out our models!</p>
-<p>Again, to reduce the amount of output I have to wade through, I changed the following code a bunch and left it at something meaningful to my final analysis.</p>
-<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/dispmodel_plot_a8cbb99c4648270ace2f465dda5ae52d">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dispmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">*</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dispmodel, <span class="at">col =</span> mtcars<span class="sc">$</span>cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L17-Example_Analysis_mtcars_files/figure-html/dispmodel_plot-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<li>Minimize the loss function with respect to the parameters of interest.</li>
+<li>For the same parameters, there can be many loss functions.</li>
+<li>Other names:
 <ul>
-<li>Residuals versus fitted looks good</li>
-<li>QQ norm looks great! For this small of a data set, we don’t expect much from the qq-plot, so this is actually very nice.</li>
-<li>Scale-Location has a slight U shape, which isn’t ideal. There may still be a predictor that’s worth including.</li>
-<li>There’s a high influence point. This is likely due to the interaction between cyl and disp.
-<ul>
-<li>When we have this kind of interaction, there are essentially three lines, each with fewer observations. It is much easier for a point to be influential with interaction present.</li>
+<li>Likelihood function (special case of loss function)</li>
+<li>Cost function (synonym)</li>
 </ul></li>
 </ul>
-<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/wtmodel_plot_9f8d6e551e654bee1f4d03bb4c7f1a0e">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>wtmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">*</span> am, <span class="at">data =</span> mtcars)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L17-Example_Analysis_mtcars_files/figure-html/wtmodel_plot-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li>First plot looks good!</li>
-<li>QQplot has some heavy tails - not bad, but not ideal. <code>dispmodel</code> was better.</li>
-<li>Scale-location is great!</li>
-<li>No high leverage points.</li>
-</ul>
-<p>Both models are good in different ways. Let’s check their summaries.</p>
-<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/dispmodel_summary_3c12c1e1cdf237165e22ef12fefadf44">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dispmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = mpg ~ disp * factor(cyl), data = mtcars)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--3.4766 -1.8101 -0.2297  1.3523  5.0208 
-
-Coefficients:
-                   Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)        40.87196    3.02012  13.533 2.79e-13 ***
-disp               -0.13514    0.02791  -4.842 5.10e-05 ***
-factor(cyl)6      -21.78997    5.30660  -4.106 0.000354 ***
-factor(cyl)8      -18.83916    4.61166  -4.085 0.000374 ***
-disp:factor(cyl)6   0.13875    0.03635   3.817 0.000753 ***
-disp:factor(cyl)8   0.11551    0.02955   3.909 0.000592 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 2.372 on 26 degrees of freedom
-Multiple R-squared:  0.8701,    Adjusted R-squared:  0.8452 
-F-statistic: 34.84 on 5 and 26 DF,  p-value: 9.968e-11</code></pre>
-</div>
-</div>
-<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/wtmodel_summary_0246d245465517259d6d8929ce6682dc">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = mpg ~ wt * am, data = mtcars)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--3.6004 -1.5446 -0.5325  0.9012  6.0909 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  31.4161     3.0201  10.402 4.00e-11 ***
-wt           -3.7859     0.7856  -4.819 4.55e-05 ***
-am           14.8784     4.2640   3.489  0.00162 ** 
-wt:am        -5.2984     1.4447  -3.667  0.00102 ** 
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 2.591 on 28 degrees of freedom
-Multiple R-squared:  0.833, Adjusted R-squared:  0.8151 
-F-statistic: 46.57 on 3 and 28 DF,  p-value: 5.209e-11</code></pre>
-</div>
-</div>
-<p>The <span class="math inline">\(R^2\)</span> for <code>dispmodel</code> is a fair bit higher (although there’s no standard for how much an <span class="math inline">\(R^2\)</span> should change, so this might not be a meaningful difference). As we saw in class, the <span class="math inline">\(R^2\)</span> is based on the same quantities as the F-test for different models.</p>
-<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/unnamed-chunk-10_e93818774a8372abec6bd29673f46130">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(dispmodel, wtmodel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Variance Table
-
-Model 1: mpg ~ disp * factor(cyl)
-Model 2: mpg ~ wt * am
-  Res.Df    RSS Df Sum of Sq      F  Pr(&gt;F)  
-1     26 146.23                              
-2     28 188.01 -2   -41.773 3.7136 0.03814 *
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<p>The models fit significantly differently. Which one fits better?</p>
-<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/unnamed-chunk-11_04bbd160e911d0689d4df4bc5079a717">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE values</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dispmodel)<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.371581</code></pre>
-</div>
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wtmodel)<span class="sc">$</span>sigma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.591247</code></pre>
-</div>
-</div>
-<p><code>dispmodel</code> has a higher <span class="math inline">\(R^2\)</span> and a lower MSE, so it seems to be the winner.</p>
-<p>From the pairs plot, I saw that disp has a slight relationship with other continuous predictors, and the scale-location plot wasn’t perfect. Perhaps another predictor will help?</p>
-<p>I can do this with the magical <code>update()</code> function. The <code>~ . + hp</code> notation means the response versus (<code>~</code>) everything <code>.</code>, then add <code>hp</code>. The <code>~</code> means “versus” (with the response on the left, which isn’t allowed to change in this case, and the predictors on the right), and the <code>.</code> means “everything”, which in this case refers to everything that was already in the model. The form <code>lm(mpg ~ ., data = mtcars)</code> will fit mpg against everything else it sees in the mtcars dataset.</p>
-<div class="cell" data-hash="L17-Example_Analysis_mtcars_cache/html/unnamed-chunk-12_00c8e3aeb2f29f22d023408626900db1">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">update</span>(dispmodel, <span class="sc">~</span> . <span class="sc">+</span> hp)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = mpg ~ disp + factor(cyl) + hp + disp:factor(cyl), 
-    data = mtcars)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--3.3442 -1.7647  0.0994  1.4480  4.4796 
-
-Coefficients:
-                   Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)        41.53521    3.04752  13.629 4.48e-13 ***
-disp               -0.13037    0.02798  -4.660 9.00e-05 ***
-factor(cyl)6      -19.95406    5.48572  -3.637 0.001249 ** 
-factor(cyl)8      -16.99535    4.83011  -3.519 0.001685 ** 
-hp                 -0.01410    0.01184  -1.191 0.245018    
-disp:factor(cyl)6   0.12975    0.03685   3.521 0.001675 ** 
-disp:factor(cyl)8   0.11199    0.02946   3.801 0.000824 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 2.353 on 25 degrees of freedom
-Multiple R-squared:  0.8771,    Adjusted R-squared:  0.8476 
-F-statistic: 29.74 on 6 and 25 DF,  p-value: 3.199e-10</code></pre>
-</div>
-</div>
-<p>I checked qsec, drat, and hp, and none seemed worth including in the model. I’ll just leave it as is.</p>
-<p>To interpret the model we must be careful about the interaction term!</p>
-<p><span class="math display">\[
-mpg = \begin{cases}
-\beta_0 + \beta_1 disp &amp; \text{if }cyl == 4\\
-(\beta_0 + \beta_2) + (\beta_1 + \beta_4) disp &amp; \text{if }cyl == 6\\
-(\beta_0 + \beta_3) + (\beta_1 + \beta_5) disp &amp; \text{if }cyl == 8\\
-\end{cases}
+</section>
+</section>
+<section id="regularization" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="regularization"><span class="header-section-number">20.2</span> Regularization</h2>
+<section id="regular-methods" class="level3">
+<h3 class="anchored" data-anchor-id="regular-methods">Regular Methods</h3>
+<p>Ordinary least squares is a minimization problem: <span class="math display">\[
+RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
+\]</span></p>
+<p>What if I don’t like how big the <span class="math inline">\(\underline\beta\)</span> values are?</p>
+</section>
+<section id="regularization-constraints" class="level3">
+<h3 class="anchored" data-anchor-id="regularization-constraints">Regularization Constraints</h3>
+<p>Let’s arbitrarily say that <span class="math inline">\(\sum_{j=1}^p \beta_j = 10\)</span>.</p>
+<p>With this constraint, one large <span class="math inline">\(\beta_j\)</span> can be countered by a large negative <span class="math inline">\(\beta_k\)</span>.</p>
+</section>
+<section id="regularizing-with-norms" class="level3">
+<h3 class="anchored" data-anchor-id="regularizing-with-norms">Regularizing with Norms</h3>
+<p>The <span class="math inline">\(L_p\)</span>-norm of a vector is: <span class="math display">\[
+||\beta||_p = \left(\sum_{j=1}^p|\beta|^p\right)^{1/p}
 \]</span></p>
 <ul>
-<li>For 4 cylinder cars, the baseline mpg is 40 and decreases by 0.135 for each one unit increase in disp.</li>
-<li>For 6 cylinder cars, the baseline mpg is about 21.5 and isn’t really related to the displacement.</li>
-<li>For 8 cylinder cars, the baseline mpg is about 24.5 and decreases by about 0.02 for each one-unit increase in displacement.
+<li>When <span class="math inline">\(p = 2\)</span>, this is the Euclidean distance.
 <ul>
-<li>Note that displacement has really large units, so 0.02 over hundreds of one-unit increases is still a lot!</li>
+<li>Pythagoras strikes again!</li>
+</ul></li>
+<li>When <span class="math inline">\(p = 1\)</span>, this is the sum of absolute values.</li>
+<li>When <span class="math inline">\(p=\infty\)</span>, this ends up being max(<span class="math inline">\(|\underline\beta|\)</span>).
+<ul>
+<li>Not useful for our purposes, but interesting!</li>
 </ul></li>
 </ul>
+</section>
+<section id="why-choose-underlinebeta_p-10" class="level3">
+<h3 class="anchored" data-anchor-id="why-choose-underlinebeta_p-10">Why choose <span class="math inline">\(||\underline\beta||_p = 10\)</span>?</h3>
+<p>Or, in general, why choose a particular value of <span class="math inline">\(s\)</span> in <span class="math inline">\(||\underline\beta||_p = s\)</span>?</p>
+<div class="notes">
+<p>There’s no good reason to choose a <em>particular</em> value of <span class="math inline">\(s\)</span>, but regularizing stops us from having steep slopes for predictors that aren’t actually related.</p>
+<p>In other words, we ignore spurious patterns!</p>
+<p>Too little regularization and we just have the OLS estimate. Too much regularization and we restrict the parameters too much.</p>
+</div>
+</section>
+<section id="choosing-s-in-underlinebeta_p-s" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-s-in-underlinebeta_p-s">Choosing <span class="math inline">\(s\)</span> in <span class="math inline">\(||\underline\beta||_p = s\)</span></h3>
+<ul>
+<li>Recall: more flexible models are able to estimate more subtle patterns, but may find patterns that aren’t there.
+<ul>
+<li>Too flexible = bad out-of-sample prediction.</li>
+</ul></li>
+<li>For linear models, the <em>least flexible</em> model is one where all <span class="math inline">\(\beta_j\)</span> values are given a fixed value.
+<ul>
+<li>For example, all are 0. </li>
+</ul></li>
+</ul>
+<p>For a linear model, restricting the values with <span class="math inline">\(||\underline\beta||_p = s\)</span> <em>reduces flexibility</em>, which can <em>improve out-of-sample</em> prediction performance.</p>
+</section>
+<section id="mle-estimates-of-underlinebeta-are-unbiased" class="level3">
+<h3 class="anchored" data-anchor-id="mle-estimates-of-underlinebeta-are-unbiased">MLE estimates of <span class="math inline">\(\underline\beta\)</span> are <em>unbiased</em></h3>
+<p>… therefore constrained estimates are biased.</p>
+</section>
+<section id="but-what-about-the-scales-of-the-features" class="level3">
+<h3 class="anchored" data-anchor-id="but-what-about-the-scales-of-the-features">But what about the scales of the features?</h3>
+<p>What a great question! Thank you so much for asking! You must be smart.</p>
+<p>For <span class="math inline">\(||\underline\beta||_p\)</span> to make sense, the predictors must all have the same scale.</p>
+<p>This is accomplished by <strong>standardizing</strong> the features: Replace each <span class="math inline">\(x_{ij}\)</span> with <span class="math display">\[
+\frac{x_{ij} - \bar{\mathbf{x}_{j}}}{\frac{1}{n}\sum_{i=1}^n(x_{ij} - \bar{\mathbf{x}_{j}})^2}
+\]</span></p>
+</section>
+<section id="choosing-lambda-via-cross-validation" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-lambda-via-cross-validation">Choosing <span class="math inline">\(\lambda\)</span> via cross-validation</h3>
+<ul>
+<li>For each value of <span class="math inline">\(\lambda\)</span>:
+<ul>
+<li>Split data into 5 “folds”.</li>
+<li>For each “fold”:
+<ul>
+<li>Set aside the data points in the current fold.</li>
+<li>Fit the model to data in all other “folds” using your value of <span class="math inline">\(\lambda\)</span>.</li>
+<li>Predict the missing points, record the average error.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Choose the lambda with the lowest out-of-sample prediction error.</p>
+</section>
+<section id="cross-validation" class="level3">
+<h3 class="anchored" data-anchor-id="cross-validation">Cross-Validation</h3>
+<p><img src="figs/kfold.png" class="img-fluid"></p>
+</section>
+<section id="special-cases-of-regularization-l_1-or-l_2" class="level3">
+<h3 class="anchored" data-anchor-id="special-cases-of-regularization-l_1-or-l_2">Special Cases of Regularization: <span class="math inline">\(L_1\)</span> or <span class="math inline">\(L_2\)</span>?</h3>
+<p>So far, we’ve been talking about general <span class="math inline">\(L_p\)</span> norms, i.e.&nbsp;<span class="math inline">\(||\underline\beta||_p\)</span>.</p>
+<ul>
+<li><span class="math inline">\(L_1\)</span>: LASSO</li>
+<li><span class="math inline">\(L_2\)</span>: Ridge</li>
+</ul>
+</section>
+<section id="geometric-interpretation-contours-of-the-rss" class="level3">
+<h3 class="anchored" data-anchor-id="geometric-interpretation-contours-of-the-rss">Geometric Interpretation (Contours of the RSS)</h3>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img src="figs/Reg_Geom.png" class="img-fluid"></p>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>LASSO will set coefficients to 0.
+<ul>
+<li>“Least Absolute Shrinkage and Selection Operator”</li>
+</ul></li>
+<li>Ridge has less variance (why?)</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="langrangian-multipliers-and-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="langrangian-multipliers-and-estimation">Langrangian Multipliers and Estimation</h3>
+<p>Wikipedia screenshot:</p>
+<p><img src="figs/Lagrange.png" class="img-fluid"></p>
+</section>
+<section id="lagrangian-multipliers-and-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="lagrangian-multipliers-and-estimation">Lagrangian Multipliers and Estimation</h3>
+<p>Minimize <span class="math inline">\(MSE(\underline\beta)\)</span> subject to <span class="math inline">\(||\underline\beta||_p\)</span>.</p>
+<p>is equivalent to</p>
+<p>Minimize <span class="math inline">\(MSE(\underline\beta) + \lambda||\underline\beta||_p\)</span></p>
+<p>For the rest of your life, this is the way you’ll see Ridge and LASSO.</p>
+<ul>
+<li>Ridge: Analytical solution, can calculate an arbitrary number of <span class="math inline">\(\lambda\)</span> values at once.</li>
+<li>LASSO: Non-iterative numerical technique</li>
+</ul>
+</section>
+<section id="ridge-regularization" class="level3">
+<h3 class="anchored" data-anchor-id="ridge-regularization">Ridge Regularization</h3>
+<ul>
+<li>One of the coefficients <em>increases</em> with a tighter constraint!</li>
+</ul>
+</section>
+<section id="lasso-feature-selection-as-we-vary-lambda" class="level3">
+<h3 class="anchored" data-anchor-id="lasso-feature-selection-as-we-vary-lambda">LASSO Feature Selection as we Vary <span class="math inline">\(\lambda\)</span></h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>As <span class="math inline">\(\lambda\)</span> increases, more coefficients are allowed to be non-zero.</li>
+<li>If <span class="math inline">\(\lambda\)</span> doesn’t constrain, we get the least squares estimate.
+<ul>
+<li>Denoted as <span class="math inline">\(\hat\beta\)</span> in the plot.</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p></p>
+</div>
+</div>
+</section>
+<section id="personal-opinion-time" class="level3">
+<h3 class="anchored" data-anchor-id="personal-opinion-time">Personal Opinion Time</h3>
+<p>With the existence of LASSO, there’s no reason to do automated feature selection.</p>
+<p>Best subset selection can be written as: <span class="math display">\[
+\text{Minimize } MSE(\underline\beta)\text{ subject to }\sum_{j=1}^pI(\beta\ne 0) \le s
+\]</span> This can minimize out-of-sample error, but results in something that could be mistaken for inference.</p>
+<p>With LASSO, you know the estimates are biased and you know why. Best subset tricks you into thinking your <span class="math inline">\(\underline\beta\)</span> estimates are accurate - <em>they are not</em>.</p>
+</section>
+<section id="implementation-in-r-glmnet" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-in-r-glmnet">Implementation in R: <code>glmnet</code></h3>
+<ul>
+<li>The <code>glm</code> in <code>glmnet</code> is because it fits all GLMs.
+<ul>
+<li>Including Logistic Regression.</li>
+<li>The <code>family = binomial</code> argument works as in <code>glm()</code>
+<ul>
+<li>However, <code>family = "binomial"</code> is an optimized version.</li>
+</ul></li>
+</ul></li>
+<li>The <code>net</code> in <code>glmnet</code> refers to elasticnet.
+<ul>
+<li>Next slide or two.</li>
+</ul></li>
+</ul>
+</section>
+<section id="elastic-net-like-a-lasso-but-more-flexible" class="level3 t">
+<h3 class="t anchored" data-anchor-id="elastic-net-like-a-lasso-but-more-flexible">Elastic Net: Like a lasso, but more “flexible”</h3>
+<p><span class="math display">\[
+\text{Minimize } MSE(\underline\beta) + \lambda\left[\alpha||\underline\beta||_1 + (1-\alpha)||\underline\beta||_2\right]
+\]</span></p>
+<p>Elastic Net is “doubly regularized”.</p>
+<p>Elastic net needs more time to fit and needs more data.</p>
+</section>
+<section id="elasticnet-and-lassoridge" class="level3 t">
+<h3 class="t anchored" data-anchor-id="elasticnet-and-lassoridge">Elasticnet and LASSO/Ridge</h3>
+<p><span class="math display">\[
+\text{Minimize } MSE(\underline\beta) + \lambda\left[\alpha||\underline\beta||_1 + (1-\alpha)||\underline\beta||_2\right]
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\alpha = 0 \implies\)</span> Ridge</li>
+<li><span class="math inline">\(\alpha = 1 \implies\)</span> LASSO</li>
+</ul>
+<div class="notes">
+<p>Here’s an example of LASSO in R. We’ll load in the <code>Wage</code> data from <code>ISLR2</code> package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>This data set has a column for <code>wage</code> and a column for <code>logwage</code>. We’re going to use <code>wage</code> as our response, and removing <code>wage</code> makes it easier to tell R to use all columns other than <code>logwage</code>. I also remove <code>region</code> since there are some regions with too few observations and I am not going to set up cross-validation appropriately for this scenario.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet) <span class="co"># cv.glmnet() and glmnet()</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2) <span class="co"># Wage data set</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Wage <span class="ot">&lt;-</span> ISLR2<span class="sc">::</span>Wage</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># From names(Wage), I want to remove "region" and "wage"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Wage <span class="ot">&lt;-</span> Wage[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">11</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><code>glmnet</code> doesn’t use the formula notation (<code>y ~ x</code>); we have to manually set up the design matrix (including dummy variables) and the response vector.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(logwage <span class="sc">~</span> ., <span class="at">data =</span> Wage)[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(Wage<span class="sc">$</span>logwage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The first step to fitting a LASSO model is choosing <span class="math inline">\(\lambda\)</span> via cv. The <code>cv.glmnet()</code> function does this for us. The results are <em>not</em> a final model; the resultant object gives us an idea of which value of <span class="math inline">\(\lambda\)</span> is appropriate.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cv_check <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> X, <span class="at">y =</span> y, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_check)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20-Regularization_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The first dotted line indicates the value of <span class="math inline">\(\lambda\)</span> that minimizes the “loss function.” However, across different samples we would get different values of <span class="math inline">\(\lambda\)</span>. Because we know there’s randomness, we know that a slightly larger (more restrictive) value of <span class="math inline">\(\lambda\)</span> would also be consistent with our data. Since cross-validation emulates the idea of having many samples, we can get an estimate of the <strong>standard error</strong> of <span class="math inline">\(\lambda\)</span>. We can then choose the value of <span class="math inline">\(\lambda\)</span> that is within 1 standard error of the minimum. This gives a much simpler model while still having a plausible <span class="math inline">\(\lambda\)</span>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Now that we have a way of telling R what value we want for lambda, we can fit the model.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_lasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(X, y, <span class="at">lambda =</span> cv_check<span class="sc">$</span>lambda<span class="fl">.1</span>se)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>my_lasso</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:  glmnet(x = X, y = y, lambda = cv_check$lambda.1se) 
+
+  Df  %Dev Lambda
+1  9 35.59 0.0127</code></pre>
+</div>
+</div>
+<p>The output isn’t very informative, but the model can make predictions via the <code>predict()</code> function and these will be comparable or better than the predictions from an unconstrained linear model.</p>
+<p>Let’s compare the coefficient values to see the shrinkage in action! Of course, glmnet standardizes by default, so we need to ensure that the linear model is based on standardized predictors.</p>
+<p>In the output, I include a column for the difference in the coefficients. Specifically, it’s lm minus lasso, so we may expect “shrinkage” to mean that the lasso estimates are smaller.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>standardized_X <span class="ot">&lt;-</span> <span class="fu">apply</span>(X, <span class="dv">2</span>, scale)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>standardized_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> standardized_X)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>coef_mat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">coef</span>(my_lasso),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(standardized_lm))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        coef_mat, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">apply</span>(coef_mat, <span class="dv">1</span>, <span class="cf">function</span>(x) <span class="fu">abs</span>(x[<span class="dv">2</span>]) <span class="sc">-</span> <span class="fu">abs</span>(x[<span class="dv">1</span>]))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(res) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"lasso"</span>, <span class="st">"lm"</span>, <span class="st">"|lm|-|lasso|"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>17 x 3 sparse Matrix of class "dgCMatrix"
+                             lasso     lm |lm|-|lasso|
+(Intercept)                 -7.830  4.654       -3.176
+year                         0.006  0.026        0.019
+age                          0.002  0.029        0.027
+maritl2. Married             0.128  0.076       -0.052
+maritl3. Widowed             .      0.004        0.004
+maritl4. Divorced            .      0.012        0.012
+maritl5. Separated           .      0.017        0.017
+race2. Black                 .     -0.012        0.012
+race3. Asian                 .     -0.005        0.005
+race4. Other                 .     -0.007        0.007
+education2. HS Grad          .      0.038        0.038
+education3. Some College     0.058  0.075        0.018
+education4. College Grad     0.166  0.119       -0.047
+education5. Advanced Degree  0.313  0.151       -0.162
+jobclass2. Information       0.017  0.013       -0.004
+health2. &gt;=Very Good         0.041  0.027       -0.014
+health_ins2. No             -0.189 -0.089       -0.100</code></pre>
+</div>
+</div>
+</div>
+<p>The estimates aren’t all smaller! Lasso chose to set some to 0, which freed up some coefficient “budget” to spend elsewhere.</p>
 
 
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>ISLR stands for Introduction to Statistical Learning with R, a fantastic (and free) book if you want to learn more advanced topics in predictive modelling!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This is similar to the Box-Cox transformation, where we find a bunch of plausible transformations, and go with a simple one like <code>\log()</code> or <code>sqrt()</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
@@ -1398,13 +1439,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L16-Modelling_Poorly.html" class="pagination-link" aria-label="Modelling Poorly">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span>
+      <a href="./L19-Degrees_of_Freedom.html" class="pagination-link" aria-label="Degrees of Freedom">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L18-Degrees_of_Freedom.html" class="pagination-link" aria-label="Degrees of Freedom">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L21-Logistic.html" class="pagination-link" aria-label="Classification">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

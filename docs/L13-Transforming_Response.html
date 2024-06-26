@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L14-Dummies.html" rel="next">
+<link href="./L14-Modelling_Transformations.html" rel="next">
 <link href="./L12-NonLinear.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"results":"markup","editor-max-height":"","classes":"","context":"interactive","fig-cap":"","comment":"","warning":"true","dpi":72,"fig-width":7,"autorun":"false","output":"true","read-only":"false","editor-quick-suggestions":"false","out-height":"","label":"unnamed-chunk-1","message":"true","fig-height":5,"out-width":"700px","editor-font-scale":1},"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))","id":1},{"options":{"results":"markup","editor-max-height":"","classes":"","context":"interactive","fig-cap":"","comment":"","warning":"true","dpi":72,"fig-width":7,"autorun":"false","output":"true","read-only":"false","editor-quick-suggestions":"false","out-height":"","label":"trans1","message":"true","fig-height":5,"out-width":"700px","editor-font-scale":1},"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)","id":2}];
+globalThis.qwebrCellDetails = [{"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))","options":{"out-width":"700px","autorun":"false","context":"interactive","label":"unnamed-chunk-1","fig-cap":"","editor-quick-suggestions":"false","message":"true","fig-width":7,"warning":"true","editor-max-height":"","results":"markup","output":"true","read-only":"false","classes":"","fig-height":5,"comment":"","editor-font-scale":1,"out-height":"","dpi":72},"id":1},{"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)","options":{"out-width":"700px","autorun":"false","context":"interactive","label":"trans1","fig-cap":"","editor-quick-suggestions":"false","message":"true","fig-width":7,"warning":"true","editor-max-height":"","results":"markup","output":"true","read-only":"false","classes":"","fig-height":5,"comment":"","editor-font-scale":1,"out-height":"","dpi":72},"id":2}];
 
 </script>
 <script type="module">
@@ -1323,32 +1323,38 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L14-Modelling_Transformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L15-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L16-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L17-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
+  <a href="./L18-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
   </div>
 </li>
       </ul>
@@ -1364,14 +1370,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L20-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+  <a href="./L21-Logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -1387,8 +1393,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+  <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -1753,7 +1759,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: <strong>Stabilise</strong> by Nilüfer Yanya
+            Jam: <strong>Stabilize</strong> by Craig Cardiff and <strong>Stabilise</strong> by Nilüfer Yanya
           </p>
       </div>
   </div>
@@ -2657,8 +2663,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L14-Dummies.html" class="pagination-link" aria-label="Dummy Variables">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L14-Modelling_Transformations.html" class="pagination-link" aria-label="Modelling with Transformations">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
