@@ -242,14 +242,14 @@ diam_poly <- predict(lm(Volume ~ poly(Diam, 2), data = trees),
     newdata = list(Diam = diam_seq))
 lines(diam_seq, diam_poly)
 plot(Volume ~ Height, data = trees,
-    main = "lVolume versus Height")
+    main = "Volume versus Height")
 height_poly <- predict(lm(Volume ~ poly(Height, 2), data = trees),
     newdata = list(Height = height_seq))
 lines(height_seq, height_poly)
 plot(y_log_lm)
 ```
 
-### Polynomials of Order 8?($R^2$ = 0.9864, $R^2_{adj}$ = 0.9708)
+### Polynomials of Order 8? ($R^2$ = 0.9864, $R^2_{adj}$ = 0.9708)
 
 ```{r}
 #| label: poly8-model-plots
