@@ -8,7 +8,8 @@ title: "Modelling with Transformations"
 
 ### Announcements
 
-- Assignment 3?
+- Take-home still being marked, expect it Friday.\lspace
+- Assignment 3 will be released at the end of this class
 
 :::
 
