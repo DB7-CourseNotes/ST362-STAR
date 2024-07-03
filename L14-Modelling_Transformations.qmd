@@ -77,8 +77,6 @@ plot(lm(Volume ~ Diam + Height, data = trees))
 :::
 
 
-::: {.content-visible unless-profile="book"}
-
 ### My Attempts
 
 In the following, I'll try a couple different models.
@@ -315,7 +313,5 @@ plot(cyl_lm)
 In conclusion, always think through the problem before blindly modelling.
 
 
-
-:::
 
 
