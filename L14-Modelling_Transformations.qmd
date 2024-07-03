@@ -1,5 +1,6 @@
 ---
 title: "Modelling with Transformations"
+code-fold: false
 ---
 
 ::: {.content-visible unless-profile="book"}
@@ -311,6 +312,10 @@ plot(cyl_lm)
     - However, a cylinder model fits best and with fewer parameters!!!
 
 In conclusion, always think through the problem before blindly modelling.
+
+::: {.content-visible when-profile="book"}
+Note that the best model in this case used our knowledge of the physical problem, and this happened to correspond to the best fitting model. This isn't always the case! It is very common that we'll have to choose between a model that fits well and a model that matches our understanding of the world, and this is not an easy choice!
+:::
 
 
 
