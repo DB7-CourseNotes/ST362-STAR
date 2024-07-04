@@ -1,6 +1,6 @@
 ---
 title: "Multicollinearity"
-institute: "**Jam TBD**"
+institute: "**Tube** by Phish"
 ---
 
 ::: {.content-visible unless-profile="book"}
@@ -23,15 +23,27 @@ library(GGally)
 ### The Problem with Multicollinearity
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="60%"}
 \vspace{1cm}
 
 - Multiple regression fits a hyperplane\lspace
 - If the points form a "tube", an infinite number of hyperplanes work.
-    - Rotate plane around axis of tube.
+    - Rotate plane around axis of tube.\lspace
+
+```{r}
+#| label: shiny
+#| echo: true
+#| eval: false
+#| code-fold: false
+
+shiny::runGitHub(
+    repo = "DB7-CourseNotes/TeachingApps",
+    subdir = "Apps/multico"
+)
+```
 
 :::
-::: {.column width="50%"}
+::: {.column width="40%"}
 
 ```{r}
 #| label: plot3d
@@ -84,11 +96,8 @@ replicate(1000, {
 
 ### Another Formulation of the Problem
 
-Consider the model $y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i$, where
-$$
-x_{i1} = a + bx_{i2} + z_i
-$$
-where $z_i$ represents some extra uncertainty. 
+Consider the model $y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i$, where $x_{i1} = a + bx_{i2} + z_i
+$ and $z_i$ represents some extra uncertainty. 
 
 \pspace
 
@@ -96,9 +105,10 @@ Fitting the model, we could:
 
 - Set $\hat\beta_1$ to 0, let $x_2$ model all of the variance.
 - Set $\hat\beta_2$ to 0, let $x_1$ model all of the variance.
-- Let $x_1$ model any proportion of the variance, let $x_2$ model the rest.
+- Set $\hat\beta_1$ to any value, solve for $\hat\beta_2$.
+    - Basically the same results regardless of what $\hat\beta_1$ is chosen as.
 
-The parameter estimates are **not unique**.
+In other words, the parameter estimates are **not unique** (or nearly not unique).
 
 ### The Source of the Problem
 
@@ -127,7 +137,7 @@ Cov(X) = \begin{bmatrix}
 $$
 Why are the first column/row 0?
 
-### Plotting $Cor(X)$
+### Plotting $V(X)$
 
 ```{r}
 #| label: penguins-corr
@@ -165,21 +175,87 @@ where $S_{ii} = \sum_{k=1}^n(x_{ki} - \bar{x_i})^2$ is the "SS" for the $i$th co
 
 ### Interpreting the Variance Inflation Factor
 
-Consider a regression of $X_i$ against all other columns of $X$.
+Consider a regression of $X_i$ against all other predictors.
 
 - The $R^2$ measures how well the other predictors can model $X_i$
     - Label this $R_i^2$ to indicate it's the $R^2$ for $X_i$ against other columns.
-- Important: We're not considering $\underline y$ at all!
+- **Important**: We're not considering $\underline y$ at all!
 
 \pspace
 
-The VIF can be calculated as:
+The VIF is calculated as:
 $$
 VIF_i = \frac{1}{1 - R_i^2}
 $$
 
 - If $R_i^2=0$, then $VIF_i = 1$
 - If $R_i^2\rightarrow 1$, then $VIF_i \rightarrow \infty$
+
+### Penguins VIF in R
+
+```{r}
+#| label: peng_vif
+#| echo: true
+library(car) # vif() function
+bogy_mass_lm <- lm(
+    formula = body_mass_g ~ flipper_length_mm + bill_length_mm + bill_depth_mm,
+    data = subset(penguins, species == "Chinstrap")
+)
+vif(bogy_mass_lm)
+```
+
+### Bad VIF in R
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+```{r}
+#| label: bad_vif
+#| echo: true
+x1 <- runif(n, 0, 10)
+x2 <- 2 + x1 + runif(n, -1, 1)
+y <- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)
+
+mylm <- lm(y ~ x1 + x2)
+vif(mylm)
+```
+
+\pspace
+
+Rule of thumb: VIF > 10 is a bad thing. 5 < VIF < 10 is worth looking into.
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| label: bad_vif_plot
+
+scatter3D(x1, x2, y, bty = "g", colkey = FALSE,
+    xlab = "x1", ylab = "x2", zlab = "y")
+```
+:::
+::::
+
+
+::: {.content-visible when-profile="book"}
+Try changing the code until the VIF is less than 10. What do you notice about the plot?
+
+```{webr-r}
+#| label: diy_vif
+#| echo: true
+library(plot3D)
+x1 <- runif(n, 0, 10)
+x2 <- 2 + x1 + runif(n, -1, 1)
+y <- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)
+
+mylm <- lm(y ~ x1 + x2)
+vif(mylm)
+
+scatter3D(x1, x2, y, bty = "g", colkey = FALSE,
+    xlab = "x1", ylab = "x2", zlab = "y")
+
+```
+:::
 
 ## Will Scaling Fix the Problem
 
@@ -224,7 +300,12 @@ If two predictors are measuring the same thing, then just include one?
 - This might lose some information!
     - It also might not!\lspace
 - The estimated $\beta$ won't be meaningful.
-    - Inferences will be difficult.
+    - Inferences will be difficult.\lspace
+- There might be a good reason to choose one predictor (or transform them).
+    - Example: Height and weight are correlated, but BMI might be more useful to medical researchers.
+        - BMI is highly fraught.
+    - Example: If you have Celcius and Fahrenheight...
+    
 
 ::: {.content-visible unless-profile="book"}
 
@@ -237,10 +318,12 @@ Multicollinearity can come from:
 
 \pspace
 
-1. Unit changes
-2. Polynomial terms
-3. Proxy measures
-4. All of the above
+a. Unit changes
+b. Polynomial terms
+c. Proxy measures
+d. All of the above
+
+<!--- D --->
 
 ### Q2
 
@@ -248,10 +331,11 @@ Multicollinearity is a problem because
 
 \pspace
 
-1. Strong correlation in $X$ makes estimates of $\beta$ invalid.
-2. Strong correlation in $X$ means there are many values of $\underline\beta$ that are equally probable.
-3. There's no way to fix strong correlation in $X$.
+a. Strong correlation in $X$ makes estimates of $\beta$ invalid.
+b. Strong correlation in $X$ means there are many values of $\underline\beta$ that are equally probable.
+c. There's no way to fix strong correlation in $X$.
 
+<!--- B --->
 
 ### Q3
 
@@ -259,21 +343,25 @@ When multicollinearity is present, which of the following is still valid?
 
 \pspace
 
-1. Inferences about the effect of one of the predictors.
-2. Confidence intervals for a single coefficients.
-3. Predictions.
-4. Overall F test for significance of any slope parameter.
+a. Inferences about the effect of one of the predictors.
+b. Confidence intervals for a single coefficients.
+c. Predictions of the response variable.
+d. Overall F test for significance of any slope parameter.
+
+<!--- C --->
 
 ### Q4
 
-The VIF is defined as:
+The VIF is defined based on:
 
 \pspace
 
-1. The amount that the MSE increases due to the variance in $\hat{\underline\beta}$.
-2. The coefficient of determination of $X_i$ against all other predictors.
-3. The correlation between $X_i$ and all other predictors.
-4. The $R^2$ value for $Y$ against $X_i$.
+a. The amount that the MSE increases due to the variance in $\hat{\underline\beta}$.
+b. The $R^2$ value for $X_i$ against all other predictors.
+c. The correlation between $X_i$ and all other predictors.
+d. The $R^2$ value for $Y$ against $X_i$.
+
+<!--- B --->
 
 :::
 
