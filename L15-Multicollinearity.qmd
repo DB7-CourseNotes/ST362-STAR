@@ -240,21 +240,38 @@ scatter3D(x1, x2, y, bty = "g", colkey = FALSE,
 ::: {.content-visible when-profile="book"}
 Try changing the code until the VIF is less than 10. What do you notice about the plot?
 
+Change the variables that say "Change me!" and see what happens. Note: You can hold the "Shift" button and hit "Enter" to run the code. You can hold shift and hit enter repeatedly to do a sort of psuedo-simulation (notice how VIF also has a sampling distribution!).
+
 ```{webr-r}
 #| label: diy_vif
 #| echo: true
 library(plot3D)
-x1 <- runif(n, 0, 10)
-x2 <- 2 + x1 + runif(n, -1, 1)
-y <- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)
+library(car)
+library(MASS)
+n <- 50
 
-mylm <- lm(y ~ x1 + x2)
+x1_x2_corr <- 0.8 # Change me!
+x1_x3_corr <- 0 # Change me!
+coef_of_x2_in_y <- 2 # Change me too!
+X <- mvrnorm(n = n, mu = c(0, 0, 0), 
+        Sigma = matrix(c(
+                1,          x1_x2_corr, x1_x3_corr,
+                x1_x2_corr, 1,          0,
+                x1_x3_corr, 0,          1),
+            nrow = 3))
+mydata <- data.frame(
+    y = 0 + 4*X[, 1] + coef_of_x2_in_y*X[, 2] +
+        2 * X[, 3] + rnorm(n, 0, 5),
+    x1 = X[, 1], x2 = X[, 2], x3 = X[, 3]
+)
+mylm <- lm(y ~ x1 + x2 + x3, data = mydata)
 vif(mylm)
-
-scatter3D(x1, x2, y, bty = "g", colkey = FALSE,
-    xlab = "x1", ylab = "x2", zlab = "y")
+pairs(mydata)
 
 ```
+
+Limitation: This is just one of many, many, many ways in which predictors can be correlated.
+
 :::
 
 ## Will Scaling Fix the Problem

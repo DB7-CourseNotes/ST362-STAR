@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"fig-width":7,"fig-height":5,"read-only":"false","out-width":"700px","classes":"","out-height":"","results":"markup","autorun":"false","message":"true","output":"true","fig-cap":"","editor-font-scale":1,"echo":"true","editor-max-height":"","editor-quick-suggestions":"false","label":"diy_vif","dpi":72,"warning":"true","comment":"","context":"interactive"},"id":1,"code":"library(plot3D)\nx1 <- runif(n, 0, 10)\nx2 <- 2 + x1 + runif(n, -1, 1)\ny <- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)\n\nmylm <- lm(y ~ x1 + x2)\nvif(mylm)\n\nscatter3D(x1, x2, y, bty = \"g\", colkey = FALSE,\n    xlab = \"x1\", ylab = \"x2\", zlab = \"y\")"}];
+globalThis.qwebrCellDetails = [{"id":1,"options":{"classes":"","message":"true","fig-height":5,"label":"diy_vif","output":"true","fig-width":7,"context":"interactive","warning":"true","echo":"true","read-only":"false","fig-cap":"","autorun":"false","comment":"","editor-quick-suggestions":"false","out-height":"","out-width":"700px","editor-max-height":"","editor-font-scale":1,"dpi":72,"results":"markup"},"code":"library(plot3D)\nlibrary(car)\nlibrary(MASS)\nn <- 50\n\nx1_x2_corr <- 0.8 # Change me!\nx1_x3_corr <- 0 # Change me!\ncoef_of_x2_in_y <- 2 # Change me too!\nX <- mvrnorm(n = n, mu = c(0, 0, 0), \n        Sigma = matrix(c(\n                1,          x1_x2_corr, x1_x3_corr,\n                x1_x2_corr, 1,          0,\n                x1_x3_corr, 0,          1),\n            nrow = 3))\nmydata <- data.frame(\n    y = 0 + 4*X[, 1] + coef_of_x2_in_y*X[, 2] +\n        2 * X[, 3] + rnorm(n, 0, 5),\n    x1 = X[, 1], x2 = X[, 2], x3 = X[, 3]\n)\nmylm <- lm(y ~ x1 + x2 + x3, data = mydata)\nvif(mylm)\npairs(mydata)"}];
 
 </script>
 <script type="module">
@@ -2009,8 +2009,10 @@ VIF_i = \frac{1}{1 - R_i^2}
 </div>
 </div>
 <p>Try changing the code until the VIF is less than 10. What do you notice about the plot?</p>
+<p>Change the variables that say “Change me!” and see what happens. Note: You can hold the “Shift” button and hit “Enter” to run the code. You can hold shift and hit enter repeatedly to do a sort of psuedo-simulation (notice how VIF also has a sampling distribution!).</p>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Limitation: This is just one of many, many, many ways in which predictors can be correlated.</p>
 </section>
 </section>
 <section id="will-scaling-fix-the-problem" class="level2" data-number="15.2">
