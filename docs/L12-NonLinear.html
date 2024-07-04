@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"plot(mpg ~ wt, data = mtcars)\n\n# Can't simply \"abline\" a polynomial since it treats \n# the polynomial terms as separate predictors, so it's\n# a multiple linear regression\nmy_lm <- lm(mpg ~ poly(wt, 9), data = mtcars)\nwt_seq <- seq(min(mtcars$wt), max(mtcars$wt),\n    length.out = 100)\nmy_preds <- predict(my_lm,\n    newdata = data.frame(wt = wt_seq))\nlines(wt_seq, my_preds, col = 2, lwd = 2)","options":{"message":"true","warning":"true","out-width":"700px","editor-font-scale":1,"fig-height":5,"output":"true","editor-quick-suggestions":"false","editor-max-height":"","label":"mtcars_poly","fig-cap":"","results":"markup","classes":"","out-height":"","dpi":72,"fig-width":7,"comment":"","read-only":"false","autorun":"false","context":"interactive"},"id":1}];
+globalThis.qwebrCellDetails = [{"code":"plot(mpg ~ wt, data = mtcars)\n\n# Can't simply \"abline\" a polynomial since it treats \n# the polynomial terms as separate predictors, so it's\n# a multiple linear regression\nmy_lm <- lm(mpg ~ poly(wt, 9), data = mtcars)\nwt_seq <- seq(min(mtcars$wt), max(mtcars$wt),\n    length.out = 100)\nmy_preds <- predict(my_lm,\n    newdata = data.frame(wt = wt_seq))\nlines(wt_seq, my_preds, col = 2, lwd = 2)","id":1,"options":{"comment":"","out-width":"700px","dpi":72,"autorun":"false","fig-cap":"","fig-width":7,"message":"true","warning":"true","fig-height":5,"classes":"","results":"markup","read-only":"false","editor-font-scale":1,"editor-max-height":"","editor-quick-suggestions":"false","context":"interactive","output":"true","out-height":"","label":"mtcars_poly"}}];
 
 </script>
 <script type="module">
@@ -1329,14 +1329,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">

@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-06-26">
+<meta name="dcterms.date" content="2024-07-04">
 
-<title>STAR Notes – 13&nbsp; Transformations</title>
+<title>STAR Notes – 15&nbsp; Multicollinearity</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L14-Modelling_Transformations.html" rel="next">
-<link href="./L12-NonLinear.html" rel="prev">
+<link href="./L16-Dummies.html" rel="next">
+<link href="./L14-Modelling_Transformations.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))","options":{"out-height":"","label":"unnamed-chunk-1","dpi":72,"fig-width":7,"output":"true","out-width":"700px","autorun":"false","editor-font-scale":1,"editor-quick-suggestions":"false","fig-height":5,"classes":"","comment":"","editor-max-height":"","message":"true","fig-cap":"","warning":"true","results":"markup","context":"interactive","read-only":"false"},"id":1},{"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)","options":{"out-height":"","label":"trans1","dpi":72,"fig-width":7,"output":"true","out-width":"700px","autorun":"false","editor-font-scale":1,"editor-quick-suggestions":"false","fig-height":5,"classes":"","comment":"","editor-max-height":"","message":"true","fig-cap":"","warning":"true","results":"markup","context":"interactive","read-only":"false"},"id":2}];
+globalThis.qwebrCellDetails = [{"options":{"fig-width":7,"fig-height":5,"read-only":"false","out-width":"700px","classes":"","out-height":"","results":"markup","autorun":"false","message":"true","output":"true","fig-cap":"","editor-font-scale":1,"echo":"true","editor-max-height":"","editor-quick-suggestions":"false","label":"diy_vif","dpi":72,"warning":"true","comment":"","context":"interactive"},"id":1,"code":"library(plot3D)\nx1 <- runif(n, 0, 10)\nx2 <- 2 + x1 + runif(n, -1, 1)\ny <- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)\n\nmylm <- lm(y ~ x1 + x2)\nvif(mylm)\n\nscatter3D(x1, x2, y, bty = \"g\", colkey = FALSE,\n    xlab = \"x1\", ylab = \"x2\", zlab = \"y\")"}];
 
 </script>
 <script type="module">
@@ -1189,7 +1189,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L13-Transforming_Response.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transformations</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L15-Multicollinearity.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1317,7 +1317,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
@@ -1329,7 +1329,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
@@ -1486,30 +1486,28 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#transformations" id="toc-transformations" class="nav-link active" data-scroll-target="#transformations"><span class="header-section-number">13.1</span> Transformations</a>
+  <li><a href="#the-problem" id="toc-the-problem" class="nav-link active" data-scroll-target="#the-problem"><span class="header-section-number">15.1</span> The Problem</a>
   <ul class="collapse">
-  <li><a href="#transforming-the-predictors" id="toc-transforming-the-predictors" class="nav-link" data-scroll-target="#transforming-the-predictors">Transforming the Predictors</a></li>
-  <li><a href="#transforming-the-predictors-1" id="toc-transforming-the-predictors-1" class="nav-link" data-scroll-target="#transforming-the-predictors-1">Transforming the predictors</a></li>
-  <li><a href="#consequences-of-logarithms" id="toc-consequences-of-logarithms" class="nav-link" data-scroll-target="#consequences-of-logarithms">Consequences of Logarithms</a></li>
-  <li><a href="#logarithms-and-errors" id="toc-logarithms-and-errors" class="nav-link" data-scroll-target="#logarithms-and-errors">Logarithms and Errors</a></li>
-  <li><a href="#are-we-also-taking-the-log-of-x" id="toc-are-we-also-taking-the-log-of-x" class="nav-link" data-scroll-target="#are-we-also-taking-the-log-of-x">Are we also taking the log of <span class="math inline">\(x\)</span>?</a></li>
-  <li><a href="#general-practice" id="toc-general-practice" class="nav-link" data-scroll-target="#general-practice">General Practice</a></li>
+  <li><a href="#the-problem-with-multicollinearity" id="toc-the-problem-with-multicollinearity" class="nav-link" data-scroll-target="#the-problem-with-multicollinearity">The Problem with Multicollinearity</a></li>
+  <li><a href="#consequences-of-the-problem" id="toc-consequences-of-the-problem" class="nav-link" data-scroll-target="#consequences-of-the-problem">Consequences of the Problem</a></li>
+  <li><a href="#another-formulation-of-the-problem" id="toc-another-formulation-of-the-problem" class="nav-link" data-scroll-target="#another-formulation-of-the-problem">Another Formulation of the Problem</a></li>
+  <li><a href="#the-source-of-the-problem" id="toc-the-source-of-the-problem" class="nav-link" data-scroll-target="#the-source-of-the-problem">The Source of the Problem</a></li>
+  <li><a href="#detecting-the-problem" id="toc-detecting-the-problem" class="nav-link" data-scroll-target="#detecting-the-problem">Detecting the Problem</a></li>
+  <li><a href="#plotting-vx" id="toc-plotting-vx" class="nav-link" data-scroll-target="#plotting-vx">Plotting <span class="math inline">\(V(X)\)</span></a></li>
+  <li><a href="#detecting-the-problem-vhatunderlinebeta" id="toc-detecting-the-problem-vhatunderlinebeta" class="nav-link" data-scroll-target="#detecting-the-problem-vhatunderlinebeta">Detecting the Problem: <span class="math inline">\(V(\hat{\underline\beta})\)</span></a></li>
+  <li><a href="#the-variance-inflation-factor" id="toc-the-variance-inflation-factor" class="nav-link" data-scroll-target="#the-variance-inflation-factor">The Variance Inflation Factor</a></li>
+  <li><a href="#interpreting-the-variance-inflation-factor" id="toc-interpreting-the-variance-inflation-factor" class="nav-link" data-scroll-target="#interpreting-the-variance-inflation-factor">Interpreting the Variance Inflation Factor</a></li>
+  <li><a href="#penguins-vif-in-r" id="toc-penguins-vif-in-r" class="nav-link" data-scroll-target="#penguins-vif-in-r">Penguins VIF in R</a></li>
+  <li><a href="#bad-vif-in-r" id="toc-bad-vif-in-r" class="nav-link" data-scroll-target="#bad-vif-in-r">Bad VIF in R</a></li>
   </ul></li>
-  <li><a href="#residuals-in-transformed-space" id="toc-residuals-in-transformed-space" class="nav-link" data-scroll-target="#residuals-in-transformed-space"><span class="header-section-number">13.2</span> Residuals in Transformed Space</a>
+  <li><a href="#will-scaling-fix-the-problem" id="toc-will-scaling-fix-the-problem" class="nav-link" data-scroll-target="#will-scaling-fix-the-problem"><span class="header-section-number">15.2</span> Will Scaling Fix the Problem</a>
   <ul class="collapse">
-  <li><a href="#variance-stabilization" id="toc-variance-stabilization" class="nav-link" data-scroll-target="#variance-stabilization">Variance Stabilization</a></li>
-  <li><a href="#funderline-y-xbeta-underlineepsilon" id="toc-funderline-y-xbeta-underlineepsilon" class="nav-link" data-scroll-target="#funderline-y-xbeta-underlineepsilon"><span class="math inline">\(f(\underline y) = X\beta + \underline\epsilon\)</span></a></li>
-  <li><a href="#some-good-news" id="toc-some-good-news" class="nav-link" data-scroll-target="#some-good-news">Some Good News</a></li>
-  <li><a href="#example-dugongs" id="toc-example-dugongs" class="nav-link" data-scroll-target="#example-dugongs">Example: Dugongs</a></li>
+  <li><a href="#scaling-the-predictors" id="toc-scaling-the-predictors" class="nav-link" data-scroll-target="#scaling-the-predictors">Scaling the Predictors</a></li>
   </ul></li>
-  <li><a href="#choosing-transformations" id="toc-choosing-transformations" class="nav-link" data-scroll-target="#choosing-transformations"><span class="header-section-number">13.3</span> Choosing Transformations</a>
+  <li><a href="#fixing-the-problem" id="toc-fixing-the-problem" class="nav-link" data-scroll-target="#fixing-the-problem"><span class="header-section-number">15.3</span> Fixing The Problem</a>
   <ul class="collapse">
-  <li><a href="#methods-for-choosing-transformations" id="toc-methods-for-choosing-transformations" class="nav-link" data-scroll-target="#methods-for-choosing-transformations">Methods for Choosing Transformations</a></li>
-  <li><a href="#box-cox" id="toc-box-cox" class="nav-link" data-scroll-target="#box-cox">Box-Cox</a></li>
-  <li><a href="#simpler-box-cox" id="toc-simpler-box-cox" class="nav-link" data-scroll-target="#simpler-box-cox">Simpler Box-Cox</a></li>
-  <li><a href="#variance-of-lambda" id="toc-variance-of-lambda" class="nav-link" data-scroll-target="#variance-of-lambda">Variance of <span class="math inline">\(\lambda\)</span></a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#one-way-to-fix-the-problem" id="toc-one-way-to-fix-the-problem" class="nav-link" data-scroll-target="#one-way-to-fix-the-problem">One way to fix the problem</a></li>
+  <li><a href="#removing-predictors" id="toc-removing-predictors" class="nav-link" data-scroll-target="#removing-predictors">Removing predictors</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1744,9 +1742,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 }
 </script>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L13-Transforming_Response.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transformations</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L15-Multicollinearity.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transformations</span></h1>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></h1>
 </div>
 
 
@@ -1759,7 +1757,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: <strong>Stabilize</strong> by Craig Cardiff and <strong>Stabilise</strong> by Nilüfer Yanya
+            <strong>Tube</strong> by Phish
           </p>
       </div>
   </div>
@@ -1770,7 +1768,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-06-26</p>
+      <p class="date">2024-07-04</p>
     </div>
   </div>
   
@@ -1782,310 +1780,290 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </header>
 
 
-<section id="transformations" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="transformations"><span class="header-section-number">13.1</span> Transformations</h2>
-<section id="transforming-the-predictors" class="level3">
-<h3 class="anchored" data-anchor-id="transforming-the-predictors">Transforming the Predictors</h3>
-<p>Suppose we found that the following second order polynomial model was a “good” fit: <span class="math display">\[
-y_i = \beta_0 + \beta_1x_{i1} + \beta_{11}x_{i1}^2 +\beta_2x_{i2} + \beta_{22}x_{i2}^2 + \beta_{12}x_{i1}x_{i2} + \epsilon_i
-\]</span></p>
-<p>Now consider the model: <span class="math display">\[
-\ln(y_i) = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i
-\]</span></p>
-<ul>
-<li>3 parameters instead of 6!
-<ul>
-<li>No interaction term!</li>
-</ul></li>
-<li>If we’re okay with the log scale for <span class="math inline">\(y\)</span>, it’s easier to interpret.</li>
-</ul>
-</section>
-<section id="transforming-the-predictors-1" class="level3">
-<h3 class="anchored" data-anchor-id="transforming-the-predictors-1">Transforming the predictors</h3>
+<section id="the-problem" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="the-problem"><span class="header-section-number">15.1</span> The Problem</h2>
+<section id="the-problem-with-multicollinearity" class="level3">
+<h3 class="anchored" data-anchor-id="the-problem-with-multicollinearity">The Problem with Multicollinearity</h3>
 <div class="columns">
-<div class="column" style="width:50%;">
-<p>Original scale</p>
+<div class="column" style="width:60%;">
+<ul>
+<li>Multiple regression fits a hyperplane</li>
+<li>If the points form a “tube”, an infinite number of hyperplanes work.
+<ul>
+<li>Rotate plane around axis of tube.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/multico"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:40%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L13-Transforming_Response_files/figure-html/original-scale-1.png" class="img-fluid figure-img" width="480"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<p>Log scale</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L13-Transforming_Response_files/figure-html/log-scale-1.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="L15-Multicollinearity_files/figure-html/plot3d-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
-<p>The logarithm made it simpler, even if it’s still not quite right.</p>
-<p>The code below can be run on your local machine (the <code>rgl</code> library needs to make it’s own window, which it can’t do in any online format).</p>
-<p>Play around with some transformations of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, then play around with transformations of <span class="math inline">\(y\)</span>!</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgl)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">3</span>, <span class="dv">10</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">3</span>, <span class="dv">10</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">15</span><span class="sc">*</span>x1<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">5</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="dv">15</span><span class="sc">*</span>x2<span class="sc">^</span><span class="dv">2</span>  <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x1<span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>rgl<span class="sc">::</span><span class="fu">plot3d</span>(x1, x2, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
-<section id="consequences-of-logarithms" class="level3">
-<h3 class="anchored" data-anchor-id="consequences-of-logarithms">Consequences of Logarithms</h3>
-<p>Consider the simple model <span class="math inline">\(E(y_i) = \beta x^2\)</span>. Taking the logarithm of both sides: <span class="math display">\[
-\ln(E(y_i)) = \ln(\beta) + 2\ln(x) := \beta_0 + \beta_1 \ln(x)
-\]</span> and we have something that looks more like a linear model.</p>
-<ul>
-<li>Note that, instead of <span class="math inline">\(x^2\)</span>, <span class="math inline">\(x^{2.1}\)</span> would also work as a model.
-<ul>
-<li>The power of <span class="math inline">\(x\)</span> is estimated.</li>
-</ul></li>
-<li>It’s also possible that the log scale is the <em>correct</em> scale for <span class="math inline">\(y\)</span>
-<ul>
-<li><span class="math inline">\(E(\ln(y_i)) = \beta_0 + \beta_1x\)</span></li>
-<li>In other words, don’t get too bogged down by whether we take the ln of <span class="math inline">\(x\)</span>.</li>
-</ul></li>
-</ul>
-</section>
-<section id="logarithms-and-errors" class="level3">
-<h3 class="anchored" data-anchor-id="logarithms-and-errors">Logarithms and Errors</h3>
-<p>If we believe that the log scale is a better scale for <span class="math inline">\(y\)</span>, we may postulate the model: <span class="math display">\[
-\ln(y_i) = \beta_0 + \beta_1\ln x_{i1} + \beta_2\ln x_{i2} + \epsilon
-\]</span> which implies that the orginal scale for <span class="math inline">\(y\)</span> has the form: <span class="math display">\[
-y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2}e^{\epsilon_i}
-\]</span> <em>The errors are multiplicative!!!</em></p>
-<ul>
-<li>Option 1: Accept this
-<ul>
-<li>Allows us to use least squares.</li>
-</ul></li>
-<li>Option 2: Use the model <span class="math inline">\(y_i = e^{\beta_0}x_{i1}^{\beta_1}x_{i2}^{\beta_2} + \epsilon_i\)</span>
-<ul>
-<li>Might be better, but requires a bespoke estimation algorithm.</li>
-</ul></li>
-</ul>
-</section>
-<section id="are-we-also-taking-the-log-of-x" class="level3">
-<h3 class="anchored" data-anchor-id="are-we-also-taking-the-log-of-x">Are we also taking the log of <span class="math inline">\(x\)</span>?</h3>
+<section id="consequences-of-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="consequences-of-the-problem">Consequences of the Problem</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>No (the usual case)</strong></p>
-<p><span class="math display">\[
-\ln(E(y_i)) = \beta_0 + \beta_1x_{i1} + \beta_2 x_{i2}
-\]</span></p>
-<p><span class="math display">\[
-\implies y_i = e^{\beta_1}e^{\beta_1x_{i1}}e^{\beta_2x_{i2}}e^{\epsilon_i}
-\]</span></p>
+<p>High cor. in <span class="math inline">\(X\)</span> <span class="math inline">\(\implies\)</span> high cor. in <span class="math inline">\(\hat{\underline\beta}\)</span>.</p>
 <ul>
-<li>Usually used in order to make the plot look more linear.</li>
+<li>Many combos of <span class="math inline">\(\hat{\underline\beta}\)</span> are equally likely</li>
+<li>No meaningful CIs</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<p><strong>Yes (if there’s good reason)</strong></p>
-<p><span class="math display">\[
-\ln(E(y_i)) = \beta_0 + \beta_1\ln x_{i1} + \beta_2 \ln x_{i2}
-\]</span></p>
-<p><span class="math display">\[
-\implies y_i = e^{\beta_1}x_{i1}^{\beta_1}x_{i2}^{\beta_2}e^{\epsilon_i}
-\]</span></p>
-<ul>
-<li>Usually used if we think the form <span class="math inline">\(y = \beta_0x^\beta e^\epsilon\)</span> is the correct form.</li>
-</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="at">xlab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta)[<span class="dv">1</span>]), </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta[<span class="dv">2</span>])),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Estimated betas for correlated</span><span class="sc">\n</span><span class="st">predictors, many samples"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L15-Multicollinearity_files/figure-html/multicor-consequences-1.png" class="img-fluid figure-img" width="384"></p>
+</figure>
 </div>
 </div>
-<p>Secret third option: transform the <span class="math inline">\(x\)</span> values only (example: polynomial regression).</p>
-<p>You may notice that the first row in each column transforms <span class="math inline">\(E(y_i)\)</span>, but the second is the transform of <span class="math inline">\(y_i\)</span>. This is not a mistake. We transform the expected relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(y\)</span>, then fit the model assuming that the residuals are additive so we can use our usual least squares estimators. To transform them back, we don’t know the residuals and therefore they get caught up in the transformation.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="general-practice" class="level3">
-<h3 class="anchored" data-anchor-id="general-practice">General Practice</h3>
-<p>We often simply use the model <span class="math inline">\(\ln \underline y = X\beta + \underline \epsilon\)</span> and do <em>everything</em> on the log scale.</p>
+<section id="another-formulation-of-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="another-formulation-of-the-problem">Another Formulation of the Problem</h3>
+<p>Consider the model <span class="math inline">\(y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i\)</span>, where <span class="math inline">\(x_{i1} = a + bx_{i2} + z_i\)</span> and <span class="math inline">\(z_i\)</span> represents some extra uncertainty.</p>
+<p>Fitting the model, we could:</p>
 <ul>
-<li>Simpler, but still useful.</li>
-<li>Good predictions of <span class="math inline">\(\ln y_i\)</span> can be transformed to good predictions of <span class="math inline">\(y_i\)</span>.</li>
-<li>If there’s a good reason to transform the <span class="math inline">\(x\)</span> values, we’ll try that first.
+<li>Set <span class="math inline">\(\hat\beta_1\)</span> to 0, let <span class="math inline">\(x_2\)</span> model all of the variance.</li>
+<li>Set <span class="math inline">\(\hat\beta_2\)</span> to 0, let <span class="math inline">\(x_1\)</span> model all of the variance.</li>
+<li>Set <span class="math inline">\(\hat\beta_1\)</span> to any value, solve for <span class="math inline">\(\hat\beta_2\)</span>.
 <ul>
-<li>E.g. stopping distance <span class="math inline">\(\propto\)</span> speed<span class="math inline">\(^2\)</span>; decibels are on the log scale but we might want them on the raw sale, etc.</li>
+<li>Basically the same results regardless of what <span class="math inline">\(\hat\beta_1\)</span> is chosen as.</li>
 </ul></li>
 </ul>
-<p>In general: Decide on a functional relationship between <span class="math inline">\(f(y)\)</span> and <span class="math inline">\(X\)</span>, then use additive errors on the scale of <span class="math inline">\(f(y)\)</span>.</p>
-<p>This has <em>consequences</em> for the residuals.</p>
+<p>In other words, the parameter estimates are <strong>not unique</strong> (or nearly not unique).</p>
 </section>
-</section>
-<section id="residuals-in-transformed-space" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="residuals-in-transformed-space"><span class="header-section-number">13.2</span> Residuals in Transformed Space</h2>
-<section id="variance-stabilization" class="level3">
-<h3 class="anchored" data-anchor-id="variance-stabilization">Variance Stabilization</h3>
-<p>The two main purposes of transformations:</p>
-<ol type="1">
-<li>Fit non-linear functional forms.</li>
-<li>Stabilize the variance!
+<section id="the-source-of-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="the-source-of-the-problem">The Source of the Problem</h3>
+<p><span class="math display">\[
+\hat{\underline{\beta}} = (X^TX)^{-1}X^TY,\quad V(\hat{\underline{\beta}}) = (X^TX)^{-1}\sigma^2
+\]</span></p>
 <ul>
-<li>Scale-Location plot in the R defaults.</li>
+<li>If two columns of <span class="math inline">\(X\)</span> are <strong>linearly dependent</strong>, then <span class="math inline">\(X^TX\)</span> is <strong>singular</strong>.
+<ul>
+<li>Constant predictor value (linearly dependent with column of 1s).</li>
+<li>Unit change (one column for Celcius, one for Fahrenheit).</li>
 </ul></li>
-</ol>
-<p>For example, the log function brings large values down a lot, small values down a little.</p>
+<li>If two columns of <span class="math inline">\(X\)</span> are <strong>nearly linearly dependent</strong>, then some elements of <span class="math inline">\((X^TX)^{-1}\)</span> are <em>humungous</em>.
 <ul>
-<li>The scale of large residuals is decreased more than the scale of small residuals.</li>
-</ul>
-</section>
-<section id="funderline-y-xbeta-underlineepsilon" class="level3">
-<h3 class="anchored" data-anchor-id="funderline-y-xbeta-underlineepsilon"><span class="math inline">\(f(\underline y) = X\beta + \underline\epsilon\)</span></h3>
-<p>The estimated residuals are <span class="math inline">\(\hat\epsilon_i = f(y_i) - \widehat{f(y_i)}\)</span></p>
-<ul>
-<li>Note the awkwardly long hat!
-<ul>
-<li>We’re estimating the value of the function, not the value of <span class="math inline">\(y_i\)</span>.</li>
-<li>If <span class="math inline">\(f(y_i) - \widehat{f(y_i)} = f(y_i - \widehat{y_i})\)</span>, then the original function must have been linear (and a transformation was useless).</li>
-</ul></li>
-<li>We’re assuming <span class="math inline">\(\epsilon_i\stackrel{iid}{\sim} N(0, \sigma^2)\)</span>, which is difficult to translate to <span class="math inline">\(f^{-1}(X\beta + \underline\epsilon)\)</span>.
-<ul>
-<li>In the special case of <span class="math inline">\(\ln\)</span>, <span class="math inline">\(\exp{\epsilon_i} \sim \text{LogNormal}(0, \sigma^2)\)</span>.</li>
-<li>No assumption of <strong>independence</strong> on the original scale!!!</li>
-</ul></li>
-<li>We assume that the residuals have the same variance on the <em>transformed</em> scale.
-<ul>
-<li>Likely not true for the original scale of <span class="math inline">\(y\)</span>.</li>
+<li>Two proxy measure for the same thing (e.g., daily high and low temperatures).</li>
+<li>Nearly linear transformation (e.g., polynomial or BMI)</li>
 </ul></li>
 </ul>
 </section>
-<section id="some-good-news" class="level3">
-<h3 class="anchored" data-anchor-id="some-good-news">Some Good News</h3>
-<p>If <span class="math inline">\((a,b)\)</span> is a <span class="math inline">\((1-\alpha)\)</span> CI on the scale of <span class="math inline">\(f(y)\)</span>, then <span class="math inline">\((f^{-1}(a), f^{-1}(b))\)</span> is a valid CI on the scale of <span class="math inline">\(y\)</span>.</p>
+<section id="detecting-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="detecting-the-problem">Detecting the Problem</h3>
+<p>The variance-covariance matrix of <span class="math inline">\(X\)</span> can be useful: <span class="math display">\[
+Cov(X) = \begin{bmatrix}
+0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots\\
+0 &amp; V(X_1) &amp; Cov(X_1, X_2) &amp; Cov(X_1, X_3) &amp; \cdots\\
+0 &amp; Cov(X_1, X_2) &amp; V(X_2) &amp; Cov(X_2, X_3) &amp; \cdots\\
+0 &amp; Cov(X_1, X_3) &amp; Cov(X_2, X_3) &amp; V(X_3) &amp; \cdots\\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots
+\end{bmatrix}
+\]</span> Why are the first column/row 0?</p>
+</section>
+<section id="plotting-vx" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-vx">Plotting <span class="math inline">\(V(X)\)</span></h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins); <span class="fu">library</span>(GGally)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorr</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggcorr(penguins): data in column(s) 'species', 'island', 'sex' are
+not numeric and were ignored</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L15-Multicollinearity_files/figure-html/penguins-corr-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="detecting-the-problem-vhatunderlinebeta" class="level3">
+<h3 class="anchored" data-anchor-id="detecting-the-problem-vhatunderlinebeta">Detecting the Problem: <span class="math inline">\(V(\hat{\underline\beta})\)</span></h3>
+<p>Unfortunately, the var-covar matrix is hard to get from R.</p>
 <ul>
-<li>It’s not the only valid CI!
+<li>We can look at the SE column of the summary output!
 <ul>
-<li>Note that it’s not a symmetric CI!</li>
+<li>Very very very much not conclusive.</li>
 </ul></li>
-<li>Works for <span class="math inline">\(y\)</span> as well as the <span class="math inline">\(\beta\)</span> parameters.
+<li>The <strong>Variance Inflation Factor</strong></li>
+</ul>
+</section>
+<section id="the-variance-inflation-factor" class="level3">
+<h3 class="anchored" data-anchor-id="the-variance-inflation-factor">The Variance Inflation Factor</h3>
+<p>We can write the variance of each estimated coefficeint as: <span class="math display">\[
+V(\hat\beta_i) = VIF_i\frac{\sigma^2}{S_{ii}}
+\]</span> where <span class="math inline">\(S_{ii} = \sum_{k=1}^n(x_{ki} - \bar{x_i})^2\)</span> is the “SS” for the <span class="math inline">\(i\)</span>th column of <span class="math inline">\(X\)</span>.</p>
 <ul>
-<li>Transformation might induce dependence among the parameters.</li>
-<li>A CI for <span class="math inline">\(\beta_1\)</span> is useless if there’s high covariance with <span class="math inline">\(\beta_2\)</span>.</li>
+<li>If there is no “Variance Inflation”, then VIF = 1
+<ul>
+<li>“Inflation” comes from the idea of rotating a plane around a “tube”.</li>
+<li>Also interpreted as a measure of linear dependence with other columns of <span class="math inline">\(X\)</span>.</li>
 </ul></li>
 </ul>
 </section>
-<section id="example-dugongs" class="level3">
-<h3 class="anchored" data-anchor-id="example-dugongs">Example: Dugongs</h3>
-<p>Check the diagnostic plots for the following models!</p>
-<p>This is that in-browser R magic that we’ve seen before! Also ask yourself what it means for the log of age to increase with the length of the dugong. Is the log easy to interpret? Do the x and y variables make sense like this?</p>
+<section id="interpreting-the-variance-inflation-factor" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-variance-inflation-factor">Interpreting the Variance Inflation Factor</h3>
+<p>Consider a regression of <span class="math inline">\(X_i\)</span> against all other predictors.</p>
+<ul>
+<li>The <span class="math inline">\(R^2\)</span> measures how well the other predictors can model <span class="math inline">\(X_i\)</span>
+<ul>
+<li>Label this <span class="math inline">\(R_i^2\)</span> to indicate it’s the <span class="math inline">\(R^2\)</span> for <span class="math inline">\(X_i\)</span> against other columns.</li>
+</ul></li>
+<li><strong>Important</strong>: We’re not considering <span class="math inline">\(\underline y\)</span> at all!</li>
+</ul>
+<p>The VIF is calculated as: <span class="math display">\[
+VIF_i = \frac{1}{1 - R_i^2}
+\]</span></p>
+<ul>
+<li>If <span class="math inline">\(R_i^2=0\)</span>, then <span class="math inline">\(VIF_i = 1\)</span></li>
+<li>If <span class="math inline">\(R_i^2\rightarrow 1\)</span>, then <span class="math inline">\(VIF_i \rightarrow \infty\)</span></li>
+</ul>
+</section>
+<section id="penguins-vif-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="penguins-vif-in-r">Penguins VIF in R</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car) <span class="co"># vif() function</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>bogy_mass_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">subset</span>(penguins, species <span class="sc">==</span> <span class="st">"Chinstrap"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(bogy_mass_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>flipper_length_mm    bill_length_mm     bill_depth_mm 
+         1.541994          1.785702          2.092955 </code></pre>
+</div>
+</div>
+</section>
+<section id="bad-vif-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="bad-vif-in-r">Bad VIF in R</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> x1 <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      x1       x2 
+23.39082 23.39082 </code></pre>
+</div>
+</div>
+<p>Rule of thumb: VIF &gt; 10 is a bad thing. 5 &lt; VIF &lt; 10 is worth looking into.</p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter3D</span>(x1, x2, y, <span class="at">bty =</span> <span class="st">"g"</span>, <span class="at">colkey =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"x1"</span>, <span class="at">ylab =</span> <span class="st">"x2"</span>, <span class="at">zlab =</span> <span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L15-Multicollinearity_files/figure-html/bad_vif_plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Try changing the code until the VIF is less than 10. What do you notice about the plot?</p>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 </section>
-<section id="choosing-transformations" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="choosing-transformations"><span class="header-section-number">13.3</span> Choosing Transformations</h2>
-<section id="methods-for-choosing-transformations" class="level3">
-<h3 class="anchored" data-anchor-id="methods-for-choosing-transformations">Methods for Choosing Transformations</h3>
-<ol type="1">
-<li>Theory.
+<section id="will-scaling-fix-the-problem" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="will-scaling-fix-the-problem"><span class="header-section-number">15.2</span> Will Scaling Fix the Problem</h2>
+<section id="scaling-the-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="scaling-the-predictors">Scaling the Predictors</h3>
+<p>If we subtract the mean and divide by the sd, <em>some of</em> the correlation goes away.</p>
 <ul>
-<li>If theory says that the log transform makes sense, use that.
-<ul>
-<li>Don’t even consider the next steps. Just go with theory.</li>
-</ul></li>
-<li>Example: Forest fire burn sizes are right skewed, the log-transform makes sense.</li>
-</ul></li>
-<li>Experimentation after looking at the Scale-Location plot.
-<ul>
-<li>If log or sqrt don’t work, move on to step three.</li>
-</ul></li>
-<li>The Box-Cox Transformation
-<ul>
-<li>Finds an appropriate transformation using maximum likelihood.</li>
-</ul></li>
-</ol>
-</section>
-<section id="box-cox" class="level3">
-<h3 class="anchored" data-anchor-id="box-cox">Box-Cox</h3>
-<p>We use the transformation: <span class="math display">\[
-V = \begin{cases}
-\frac{Y^\lambda - 1}{\lambda \dot{Y}^{\lambda - 1}} &amp; \text{if }\lambda \ne 0\\
-\dot{Y}\ln(Y) &amp; \text{if }\lambda = 0
-\end{cases}
-\]</span> where <span class="math inline">\(\dot Y\)</span> is the geometric mean of <span class="math inline">\(y\)</span>.</p>
-<p><span class="math inline">\(\lambda\)</span> is chosen through maximum likelihood</p>
-<ul>
-<li>Essentially, refit with each value of <span class="math inline">\(\lambda\)</span> and see which minimizes the residual variance.
-<ul>
-<li>Plot the likelihhods and choose the highest.</li>
-</ul></li>
+<li>This is actually kinda bad - we’ve hidden some multicollinearity from ourselves!</li>
 </ul>
-</section>
-<section id="simpler-box-cox" class="level3">
-<h3 class="anchored" data-anchor-id="simpler-box-cox">Simpler Box-Cox</h3>
-<p>The textbook recommends the previous formula, however R uses: <span class="math display">\[
-W = \begin{cases}
-\frac{Y^\lambda - 1}{\lambda} &amp; \text{if }\lambda \ne 0\\
-\ln(Y) &amp; \text{if }\lambda = 0
-\end{cases}
+<p>If <span class="math inline">\(Z\)</span> is the <strong>standardized</strong> version of <span class="math inline">\(X\)</span>, then <span class="math display">\[
+Cor(X) = Z^TZ/(n-1)
 \]</span></p>
-<p>Notice:</p>
-<ul>
-<li><span class="math inline">\(\lambda \approx -1 \implies\)</span> inverse transformation.</li>
-<li><span class="math inline">\(\lambda \approx 0 \implies\)</span> log transformation.</li>
-<li><span class="math inline">\(\lambda \approx 0.5 \implies\)</span> sqrt transformation.</li>
-<li><span class="math inline">\(\lambda \approx 1 \implies\)</span> no transformation.</li>
-<li><span class="math inline">\(\lambda \approx k, k\in\mathbb{Z} \implies\)</span> use <span class="math inline">\(y^k\)</span>.</li>
-<li>There’s no <span class="math inline">\(\lambda\)</span> for <span class="math inline">\(exp(y)\)</span>!</li>
-</ul>
+<p>If <span class="math inline">\(Z\)</span> is the <strong>mean-centered</strong> version of <span class="math inline">\(X\)</span>, then <span class="math display">\[
+Cov(X) = Z^TZ/(n-1)
+\]</span></p>
 </section>
-<section id="variance-of-lambda" class="level3">
-<h3 class="anchored" data-anchor-id="variance-of-lambda">Variance of <span class="math inline">\(\lambda\)</span></h3>
-<p>If we had a different data set, we’d get a different value of <span class="math inline">\(\lambda\)</span>!</p>
-<p>R reports the the log-likelihood values, along with the top 5%.</p>
+</section>
+<section id="fixing-the-problem" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="fixing-the-problem"><span class="header-section-number">15.3</span> Fixing The Problem</h2>
+<section id="one-way-to-fix-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="one-way-to-fix-the-problem">One way to fix the problem</h3>
+<p>Don’t.</p>
+<p>We can’t get good estimates of the <span class="math inline">\(\hat\beta\)</span>s, but we can still get good predictions.</p>
 <ul>
-<li>Anything in the top 5% is reasonable.
+<li>This <em>only</em> works if the new values are in the same “tube” as the others.</li>
+<li>If the multicollinearity is real, what estimates do you expect?
 <ul>
-<li>It’s not an exact science.</li>
-</ul></li>
-<li>Usually, we check the best <span class="math inline">\(\lambda\)</span> values and round to something nice.
-<ul>
-<li>log, sqrt, squared, inverse, etc.</li>
+<li>Without a controlled experiment, there <em>isn’t</em> a good way to estimate the effect of <span class="math inline">\(X_1\)</span> on it’s own!</li>
 </ul></li>
 </ul>
 </section>
-<section id="example" class="level3">
-<h3 class="anchored" data-anchor-id="example">Example</h3>
-<ol type="1">
-<li>Generate <code>y ~ log(x)</code>, try fitting <code>y ~ log(x)</code> and also a transformation for <code>y</code>.</li>
-<li>Generate <code>log(y) ~ x</code>, try fitting <code>y ~ exp(x)</code> and also <code>log(y) ~ x</code>.</li>
-<li>Generate <code>log(y) ~ log(x)</code>, try various transformations of <code>y</code> and <code>x</code>.</li>
-<li>Generate <code>y ~ x^2</code>, try various transformations of <code>y</code> and <code>x</code>.</li>
-<li>Generate <code>y^2 ~ x</code>, try various transformations of <code>y</code> and <code>x</code>.</li>
-</ol>
-<div id="qwebr-insertion-location-2"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>After some exploring, you should find that the log and sqrt transformations cover most situations adequately. Fitting the correct model is obviously best, but we can <em>never</em> know what the correct model is!!!</p>
-<p>As practice, try writing out all models in the form <span class="math inline">\(y = g(f(x) + \epsilon)\)</span> to see how the error terms get affected. For example, generating data like <span class="math inline">\(log(y) = log(x) + epsilon\)</span> implies the model <span class="math inline">\(y = exp(log(x) + \epsilon)\)</span>, which does <em>not</em> simplify due to the additive error term in the exponential.</p>
-</section>
-<section id="summary" class="level3">
-<h3 class="anchored" data-anchor-id="summary">Summary</h3>
+<section id="removing-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="removing-predictors">Removing predictors</h3>
+<p>If two predictors are measuring the same thing, then just include one?</p>
 <ul>
-<li>Choosing a transformation:
-<ol type="1">
-<li>Theory</li>
-<li>Exploration</li>
-<li>Rounded value from Box-Cox.</li>
-</ol></li>
-<li>Working with a transformation:
+<li>This might lose some information!
 <ul>
-<li>Choose functional form, assume additive errors (usually, not always!)</li>
-<li>Stay on the transformed scale
-<ul>
-<li>All assumptions about residuals apply to the transformed scale!</li>
+<li>It also might not!</li>
 </ul></li>
+<li>The estimated <span class="math inline">\(\beta\)</span> won’t be meaningful.
+<ul>
+<li>Inferences will be difficult.</li>
+</ul></li>
+<li>There might be a good reason to choose one predictor (or transform them).
+<ul>
+<li>Example: Height and weight are correlated, but BMI might be more useful to medical researchers.
+<ul>
+<li>BMI is highly fraught.</li>
+</ul></li>
+<li>Example: If you have Celcius and Fahrenheight…</li>
 </ul></li>
 </ul>
-<p>To be useful, all transformations should consider the context of the problem!</p>
 
 
 </section>
@@ -2658,13 +2636,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L12-NonLinear.html" class="pagination-link" aria-label="Non-Linear Relationships with Linear Models">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span>
+      <a href="./L14-Modelling_Transformations.html" class="pagination-link" aria-label="Modelling with Transformations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L14-Modelling_Transformations.html" class="pagination-link" aria-label="Modelling with Transformations">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L16-Dummies.html" class="pagination-link" aria-label="Dummy Variables">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

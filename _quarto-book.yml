@@ -46,8 +46,8 @@ book:
         - L12-NonLinear.qmd
         - L13-Transforming_Response.qmd
         - L14-Modelling_Transformations.qmd
-        - L15-Dummies.qmd
-        - L16-Multicollinearity.qmd
+        - L15-Multicollinearity.qmd
+        - L16-Dummies.qmd
         - L17-Modelling_Poorly.qmd
         - L18-Example_Analysis_mtcars.qmd
         - L19-Degrees_of_Freedom.qmd

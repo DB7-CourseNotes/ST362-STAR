@@ -1009,102 +1009,102 @@
     ]
   },
   {
-    "objectID": "L15-Dummies.html",
-    "href": "L15-Dummies.html",
-    "title": "15  Dummy Variables",
+    "objectID": "L15-Multicollinearity.html",
+    "href": "L15-Multicollinearity.html",
+    "title": "15  Multicollinearity",
     "section": "",
-    "text": "15.1 0/1 Predictors",
+    "text": "15.1 The Problem",
     "crumbs": [
       "Choosing Models",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Dummy Variables</span>"
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Multicollinearity</span>"
     ]
   },
   {
-    "objectID": "L15-Dummies.html#predictors",
-    "href": "L15-Dummies.html#predictors",
-    "title": "15  Dummy Variables",
+    "objectID": "L15-Multicollinearity.html#the-problem",
+    "href": "L15-Multicollinearity.html#the-problem",
+    "title": "15  Multicollinearity",
+    "section": "",
+    "text": "The Problem with Multicollinearity\n\n\n\nMultiple regression fits a hyperplane\nIf the points form a “tube”, an infinite number of hyperplanes work.\n\nRotate plane around axis of tube.\n\n\n\nshiny::runGitHub(\n    repo = \"DB7-CourseNotes/TeachingApps\",\n    subdir = \"Apps/multico\"\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nConsequences of the Problem\n\n\nHigh cor. in \\(X\\) \\(\\implies\\) high cor. in \\(\\hat{\\underline\\beta}\\).\n\nMany combos of \\(\\hat{\\underline\\beta}\\) are equally likely\nNo meaningful CIs\n\n\n\n\nShow the code\nset.seed(2112)\nreplicate(1000, {\n    y &lt;- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)\n    coef(lm(y ~ x1 + x2))[-1]\n}) |&gt; \n    t() |&gt; \n    plot(xlab = expression(hat(beta)[1]), \n        ylab = expression(hat(beta[2])),\n        main = \"Estimated betas for correlated\\npredictors, many samples\")\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnother Formulation of the Problem\nConsider the model \\(y_i = \\beta_0 + \\beta_1x_{i1} + \\beta_2x_{i2} + \\epsilon_i\\), where \\(x_{i1} = a + bx_{i2} + z_i\\) and \\(z_i\\) represents some extra uncertainty.\nFitting the model, we could:\n\nSet \\(\\hat\\beta_1\\) to 0, let \\(x_2\\) model all of the variance.\nSet \\(\\hat\\beta_2\\) to 0, let \\(x_1\\) model all of the variance.\nSet \\(\\hat\\beta_1\\) to any value, solve for \\(\\hat\\beta_2\\).\n\nBasically the same results regardless of what \\(\\hat\\beta_1\\) is chosen as.\n\n\nIn other words, the parameter estimates are not unique (or nearly not unique).\n\n\nThe Source of the Problem\n\\[\n\\hat{\\underline{\\beta}} = (X^TX)^{-1}X^TY,\\quad V(\\hat{\\underline{\\beta}}) = (X^TX)^{-1}\\sigma^2\n\\]\n\nIf two columns of \\(X\\) are linearly dependent, then \\(X^TX\\) is singular.\n\nConstant predictor value (linearly dependent with column of 1s).\nUnit change (one column for Celcius, one for Fahrenheit).\n\nIf two columns of \\(X\\) are nearly linearly dependent, then some elements of \\((X^TX)^{-1}\\) are humungous.\n\nTwo proxy measure for the same thing (e.g., daily high and low temperatures).\nNearly linear transformation (e.g., polynomial or BMI)\n\n\n\n\nDetecting the Problem\nThe variance-covariance matrix of \\(X\\) can be useful: \\[\nCov(X) = \\begin{bmatrix}\n0 & 0 & 0 & 0 & \\cdots\\\\\n0 & V(X_1) & Cov(X_1, X_2) & Cov(X_1, X_3) & \\cdots\\\\\n0 & Cov(X_1, X_2) & V(X_2) & Cov(X_2, X_3) & \\cdots\\\\\n0 & Cov(X_1, X_3) & Cov(X_2, X_3) & V(X_3) & \\cdots\\\\\n\\vdots & \\vdots & \\vdots & \\vdots & \\ddots\n\\end{bmatrix}\n\\] Why are the first column/row 0?\n\n\nPlotting \\(V(X)\\)\n\n\nShow the code\nlibrary(palmerpenguins); library(GGally)\nggcorr(penguins)\n\n\nWarning in ggcorr(penguins): data in column(s) 'species', 'island', 'sex' are\nnot numeric and were ignored\n\n\n\n\n\n\n\n\n\n\n\nDetecting the Problem: \\(V(\\hat{\\underline\\beta})\\)\nUnfortunately, the var-covar matrix is hard to get from R.\n\nWe can look at the SE column of the summary output!\n\nVery very very much not conclusive.\n\nThe Variance Inflation Factor\n\n\n\nThe Variance Inflation Factor\nWe can write the variance of each estimated coefficeint as: \\[\nV(\\hat\\beta_i) = VIF_i\\frac{\\sigma^2}{S_{ii}}\n\\] where \\(S_{ii} = \\sum_{k=1}^n(x_{ki} - \\bar{x_i})^2\\) is the “SS” for the \\(i\\)th column of \\(X\\).\n\nIf there is no “Variance Inflation”, then VIF = 1\n\n“Inflation” comes from the idea of rotating a plane around a “tube”.\nAlso interpreted as a measure of linear dependence with other columns of \\(X\\).\n\n\n\n\nInterpreting the Variance Inflation Factor\nConsider a regression of \\(X_i\\) against all other predictors.\n\nThe \\(R^2\\) measures how well the other predictors can model \\(X_i\\)\n\nLabel this \\(R_i^2\\) to indicate it’s the \\(R^2\\) for \\(X_i\\) against other columns.\n\nImportant: We’re not considering \\(\\underline y\\) at all!\n\nThe VIF is calculated as: \\[\nVIF_i = \\frac{1}{1 - R_i^2}\n\\]\n\nIf \\(R_i^2=0\\), then \\(VIF_i = 1\\)\nIf \\(R_i^2\\rightarrow 1\\), then \\(VIF_i \\rightarrow \\infty\\)\n\n\n\nPenguins VIF in R\n\n\nShow the code\nlibrary(car) # vif() function\nbogy_mass_lm &lt;- lm(\n    formula = body_mass_g ~ flipper_length_mm + bill_length_mm + bill_depth_mm,\n    data = subset(penguins, species == \"Chinstrap\")\n)\nvif(bogy_mass_lm)\n\n\nflipper_length_mm    bill_length_mm     bill_depth_mm \n         1.541994          1.785702          2.092955 \n\n\n\n\nBad VIF in R\n\n\n\n\nShow the code\nx1 &lt;- runif(n, 0, 10)\nx2 &lt;- 2 + x1 + runif(n, -1, 1)\ny &lt;- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)\n\nmylm &lt;- lm(y ~ x1 + x2)\nvif(mylm)\n\n\n      x1       x2 \n23.39082 23.39082 \n\n\nRule of thumb: VIF &gt; 10 is a bad thing. 5 &lt; VIF &lt; 10 is worth looking into.\n\n\n\nShow the code\nscatter3D(x1, x2, y, bty = \"g\", colkey = FALSE,\n    xlab = \"x1\", ylab = \"x2\", zlab = \"y\")\n\n\n\n\n\n\n\n\n\n\n\nTry changing the code until the VIF is less than 10. What do you notice about the plot?\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Choosing Models",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Multicollinearity</span>"
+    ]
+  },
+  {
+    "objectID": "L15-Multicollinearity.html#will-scaling-fix-the-problem",
+    "href": "L15-Multicollinearity.html#will-scaling-fix-the-problem",
+    "title": "15  Multicollinearity",
+    "section": "15.2 Will Scaling Fix the Problem",
+    "text": "15.2 Will Scaling Fix the Problem\n\nScaling the Predictors\nIf we subtract the mean and divide by the sd, some of the correlation goes away.\n\nThis is actually kinda bad - we’ve hidden some multicollinearity from ourselves!\n\nIf \\(Z\\) is the standardized version of \\(X\\), then \\[\nCor(X) = Z^TZ/(n-1)\n\\]\nIf \\(Z\\) is the mean-centered version of \\(X\\), then \\[\nCov(X) = Z^TZ/(n-1)\n\\]",
+    "crumbs": [
+      "Choosing Models",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Multicollinearity</span>"
+    ]
+  },
+  {
+    "objectID": "L15-Multicollinearity.html#fixing-the-problem",
+    "href": "L15-Multicollinearity.html#fixing-the-problem",
+    "title": "15  Multicollinearity",
+    "section": "15.3 Fixing The Problem",
+    "text": "15.3 Fixing The Problem\n\nOne way to fix the problem\nDon’t.\nWe can’t get good estimates of the \\(\\hat\\beta\\)s, but we can still get good predictions.\n\nThis only works if the new values are in the same “tube” as the others.\nIf the multicollinearity is real, what estimates do you expect?\n\nWithout a controlled experiment, there isn’t a good way to estimate the effect of \\(X_1\\) on it’s own!\n\n\n\n\nRemoving predictors\nIf two predictors are measuring the same thing, then just include one?\n\nThis might lose some information!\n\nIt also might not!\n\nThe estimated \\(\\beta\\) won’t be meaningful.\n\nInferences will be difficult.\n\nThere might be a good reason to choose one predictor (or transform them).\n\nExample: Height and weight are correlated, but BMI might be more useful to medical researchers.\n\nBMI is highly fraught.\n\nExample: If you have Celcius and Fahrenheight…",
+    "crumbs": [
+      "Choosing Models",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Multicollinearity</span>"
+    ]
+  },
+  {
+    "objectID": "L16-Dummies.html",
+    "href": "L16-Dummies.html",
+    "title": "16  Dummy Variables",
+    "section": "",
+    "text": "16.1 0/1 Predictors",
+    "crumbs": [
+      "Choosing Models",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Dummy Variables</span>"
+    ]
+  },
+  {
+    "objectID": "L16-Dummies.html#predictors",
+    "href": "L16-Dummies.html#predictors",
+    "title": "16  Dummy Variables",
     "section": "",
     "text": "Dummy Coding\n“Dummy” variables are just predictors that only take the values 0 and 1.\n\n0 pairs of glasses versus 1 pair of glasses\n\nThis is a count that can only be 0 or 1\n\n0 means automatic, 1 means manual\n\nArbitrary choice of 0/1\n\n0 means off, 1 means on\n\nNatural choice of 0/1, but still arbitrary\n\n\n\n\nSlopes with a Dummy Variable\nUsual interpretation: as \\(x\\) increases by 1, \\(y\\) increases by \\(\\beta\\).\nThis doesn’t go away, but we get a new interpretation!\n\n\\(x\\) can only increase by one (from 0 to 1).\n\n\\(\\beta\\) is the difference in groups.\n\n\nNote that we assume constant variance; this means the variance is the same in both groups\n\nExact same assumptions as a t-test.\n\n(Different from a “Welch” t-test)\n\n\n\n\nCategorical Variables\nConsider the cyl column in mtcars. We could code three dummy variables:\n\n\\(I(cyl == 4)\\)\n\\(I(cyl == 6)\\)\n\\(I(cyl == 8)\\)\n\nThis would lead to the model: \\[\ny = \\beta_0 + \\beta_1I(cyl == 4) + \\beta_2I(cyl == 6) + \\beta_3I(cyl == 8)\n\\]\nWhat’s the interpretation of the intercept here?\n\n\nCategorical Variable Dummy Coding\nBetter: set one as a reference variable and let the intercept “absorb” it:\n\n\\(I(cyl == 6)\\)\n\\(I(cyl == 8)\\)\n\nThis would lead to the model: \\[\ny = \\beta_0 + \\beta_1I(cyl == 6) + \\beta_2I(cyl == 8)\n\\] where\n\n\\(\\beta_0\\) is the mean of mpg when cyl = 4.\n\\(\\beta_1\\) is the difference in mean of mpg between 4 and 6 cylinder cars.\n\\(\\beta_2\\) is the difference in means for 4 versus 8.\n\nDifference btwn 6 and 8 can be found with some cleverness.\n\n\n\n\nModels with Categorical Variables\nThe model \\(y = \\beta_0 + \\beta_1I(cyl == 6) + \\beta_2I(cyl == 8)\\) is equivalent to: \\[\ny_i = \\begin{cases}\\beta_0 + 0 & \\text{if }\\; cyl == 4\\\\ \\beta_0 + \\beta_1 & \\text{if }\\; cyl == 6\\\\\\beta_0  + \\beta_2 & \\text{if }\\; cyl == 8\\end{cases}\n\\]\nThis is equivalent to fitting an intercept-only model \\(y = \\beta_0\\) for subsets of the data.\nBy putting them in the same model, we can easily test for significance.\nThe following code demonstrates that this is true - make sure you understand where each value is coming from!\n# Three intercepts\ncoef(lm(mpg ~ factor(cyl), data = mtcars))\n\n# For each value of cylinder\n# You'll have to do some math to get the same numbers as above!\ncoef(lm(mpg ~ 1, data = subset(mtcars, cyl == 4)))\n# 26.66364\ncoef(lm(mpg ~ 1, data = subset(mtcars, cyl == 6)))\n# 19.74286 = 26.66364 - 6.920779\ncoef(lm(mpg ~ 1, data = subset(mtcars, cyl == 8)))\n# 15.1 = 26.66364 - 11.563636",
     "crumbs": [
       "Choosing Models",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Dummy Variables</span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Dummy Variables</span>"
     ]
   },
   {
-    "objectID": "L15-Dummies.html#interactions",
-    "href": "L15-Dummies.html#interactions",
-    "title": "15  Dummy Variables",
-    "section": "15.2 Interactions",
-    "text": "15.2 Interactions\n\nDifferent Intercepts, Same Slope\nIf we have cyl and disp in the model, we get the following:\n\\[\ny = \\beta_0 + \\beta_1I(cyl == 6) + \\beta_2I(cyl == 8) + \\beta_3 disp\n\\] which is equivalent to: \\[\ny_i = \\begin{cases}(\\beta_0  + 0) + \\beta_3 disp& \\text{if }\\; cyl == 4\\\\ (\\beta_0 + \\beta_1)  + \\beta_3 disp& \\text{if }\\; cyl == 6\\\\(\\beta_0  + \\beta_2)  + \\beta_3 disp& \\text{if }\\; cyl == 8\\end{cases}\n\\] Like three different models, but with a different intercept depending on cyl.\nIn this case, the model is not equivalent. The slope must be the same for all three models, which cannot be done if we’re fitting three separate models. As you know, the slope and intercept are correlated, so different slopes lead to different intercepts.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nInteraction Terms: Different Intercepts, Different Slopes\nWe can expand the model above with an interaction term. \\[\ny = \\beta_0 + \\beta_1I(6) + \\beta_2I(8) + \\beta_3 disp + \\beta_4I(6)disp + \\beta_5I(8)disp\n\\] where \\(I(6)\\) is just shorthand for \\(I(cyl == 6)\\).\nThis is the same as: \\[\ny_i = \\begin{cases}(\\beta_0 + 0)  + (\\beta_3 + 0) disp& \\text{if }\\; cyl == 4\\\\ (\\beta_0 + \\beta_1)  + (\\beta_3 + \\beta_4) disp& \\text{if }\\; cyl == 6\\\\(\\beta_0  + \\beta_2)  + (\\beta_3 + \\beta_5) disp& \\text{if }\\; cyl == 8\\end{cases}\n\\] In this case, we might as well fit 3 completely different models!\n(Except we can test for significance!)\nAnd we’re back to equivalence! Double check the intercepts and slopes for cyl == 6 and cyl == 8, using the equations above.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nANCOVA\nIf g is a categorical variable, then:\n\nlm(y ~ g) is a t-test (with equal variance) if g is binary\nlm(y ~ g) is an ANOVA if g has more than 2 categories\nlm(y ~ x * g) is an ANCOVA model\n\nANalysis of COVAriance.\n\n\nMain idea: Is the covariance (or correlation) between \\(x\\) and \\(y\\) different for different categories of \\(g\\)?\n\nOnly a small extension to ANOVA\n\nt-test: exactly 2 means\nANOVA: 2+ means\nANCOVA: 2+ covariances\n\n\n\n\nBeyond \\(x\\) and \\(g\\)\n\nIn the simple cases, we’re doing t-test, ANOVA, or ANCOVA.\nBeyond this, we’re just doing regression, no special names.\n\n“Controlling for” is a term we’ll use later.\n\nChoosing interaction terms is hard.\n\nggplot2 makes parts of it a lot easier.",
+    "objectID": "L16-Dummies.html#interactions",
+    "href": "L16-Dummies.html#interactions",
+    "title": "16  Dummy Variables",
+    "section": "16.2 Interactions",
+    "text": "16.2 Interactions\n\nDifferent Intercepts, Same Slope\nIf we have cyl and disp in the model, we get the following:\n\\[\ny = \\beta_0 + \\beta_1I(cyl == 6) + \\beta_2I(cyl == 8) + \\beta_3 disp\n\\] which is equivalent to: \\[\ny_i = \\begin{cases}(\\beta_0  + 0) + \\beta_3 disp& \\text{if }\\; cyl == 4\\\\ (\\beta_0 + \\beta_1)  + \\beta_3 disp& \\text{if }\\; cyl == 6\\\\(\\beta_0  + \\beta_2)  + \\beta_3 disp& \\text{if }\\; cyl == 8\\end{cases}\n\\] Like three different models, but with a different intercept depending on cyl.\nIn this case, the model is not equivalent. The slope must be the same for all three models, which cannot be done if we’re fitting three separate models. As you know, the slope and intercept are correlated, so different slopes lead to different intercepts.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nInteraction Terms: Different Intercepts, Different Slopes\nWe can expand the model above with an interaction term. \\[\ny = \\beta_0 + \\beta_1I(6) + \\beta_2I(8) + \\beta_3 disp + \\beta_4I(6)disp + \\beta_5I(8)disp\n\\] where \\(I(6)\\) is just shorthand for \\(I(cyl == 6)\\).\nThis is the same as: \\[\ny_i = \\begin{cases}(\\beta_0 + 0)  + (\\beta_3 + 0) disp& \\text{if }\\; cyl == 4\\\\ (\\beta_0 + \\beta_1)  + (\\beta_3 + \\beta_4) disp& \\text{if }\\; cyl == 6\\\\(\\beta_0  + \\beta_2)  + (\\beta_3 + \\beta_5) disp& \\text{if }\\; cyl == 8\\end{cases}\n\\] In this case, we might as well fit 3 completely different models!\n(Except we can test for significance!)\nAnd we’re back to equivalence! Double check the intercepts and slopes for cyl == 6 and cyl == 8, using the equations above.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nANCOVA\nIf g is a categorical variable, then:\n\nlm(y ~ g) is a t-test (with equal variance) if g is binary\nlm(y ~ g) is an ANOVA if g has more than 2 categories\nlm(y ~ x * g) is an ANCOVA model\n\nANalysis of COVAriance.\n\n\nMain idea: Is the covariance (or correlation) between \\(x\\) and \\(y\\) different for different categories of \\(g\\)?\n\nOnly a small extension to ANOVA\n\nt-test: exactly 2 means\nANOVA: 2+ means\nANCOVA: 2+ covariances\n\n\n\n\nBeyond \\(x\\) and \\(g\\)\n\nIn the simple cases, we’re doing t-test, ANOVA, or ANCOVA.\nBeyond this, we’re just doing regression, no special names.\n\n“Controlling for” is a term we’ll use later.\n\nChoosing interaction terms is hard.\n\nggplot2 makes parts of it a lot easier.",
     "crumbs": [
       "Choosing Models",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Dummy Variables</span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Dummy Variables</span>"
     ]
   },
   {
-    "objectID": "L15-Dummies.html#significance-of-a-group",
-    "href": "L15-Dummies.html#significance-of-a-group",
-    "title": "15  Dummy Variables",
-    "section": "15.3 Significance of a Group",
-    "text": "15.3 Significance of a Group\n\nOutput of summary.lm()\nThe output compares each slope to 0.\n\nFor a categorical predictor, this tests if a category is different from the reference.\n\nThere is not an easy built-in way to check significance of a specific group\n\nFor example, we may want to test for equality of intercepts and slopes for 6 and 8 cylinder cars, allowing 4 to have separate values.\n\nTest for equality of slopes is something covered in the textbook\nAlternative: Change Reference group and use ESS\n\n\n\n\nChanging the reference group\nSuppose we want to compare 6 and 8 cylinder cars. We can set up our model as: \\[\ny = \\beta_0 + \\beta_1I(8) + \\beta_2I(4) + \\beta_3disp + \\beta_4dispI(8) + \\beta_5dispI(4)\n\\] where now 6 is the reference group.\nWe can test \\(\\beta_1=\\beta_4 = 0\\) using ESS to test whether mpg versus disp is the same in these two categories.\nIn R, we need to set up our own dummies to do this.:\n\nmtcars$cyl &lt;- relevel(factor(mtcars$cyl), ref = \"8\")\nlevels(mtcars$cyl)\n\n[1] \"8\" \"4\" \"6\"",
+    "objectID": "L16-Dummies.html#significance-of-a-group",
+    "href": "L16-Dummies.html#significance-of-a-group",
+    "title": "16  Dummy Variables",
+    "section": "16.3 Significance of a Group",
+    "text": "16.3 Significance of a Group\n\nOutput of summary.lm()\nThe output compares each slope to 0.\n\nFor a categorical predictor, this tests if a category is different from the reference.\n\nThere is not an easy built-in way to check significance of a specific group\n\nFor example, we may want to test for equality of intercepts and slopes for 6 and 8 cylinder cars, allowing 4 to have separate values.\n\nTest for equality of slopes is something covered in the textbook\nAlternative: Change Reference group and use ESS\n\n\n\n\nChanging the reference group\nSuppose we want to compare 6 and 8 cylinder cars. We can set up our model as: \\[\ny = \\beta_0 + \\beta_1I(8) + \\beta_2I(4) + \\beta_3disp + \\beta_4dispI(8) + \\beta_5dispI(4)\n\\] where now 6 is the reference group.\nWe can test \\(\\beta_1=\\beta_4 = 0\\) using ESS to test whether mpg versus disp is the same in these two categories.\nIn R, we need to set up our own dummies to do this.:\n\nmtcars$cyl &lt;- relevel(factor(mtcars$cyl), ref = \"8\")\nlevels(mtcars$cyl)\n\n[1] \"8\" \"4\" \"6\"",
     "crumbs": [
       "Choosing Models",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Dummy Variables</span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Dummy Variables</span>"
     ]
   },
   {
-    "objectID": "L15-Dummies.html#exercises",
-    "href": "L15-Dummies.html#exercises",
-    "title": "15  Dummy Variables",
-    "section": "15.4 Exercises",
-    "text": "15.4 Exercises\n\nComplete the runnable R code above.",
+    "objectID": "L16-Dummies.html#exercises",
+    "href": "L16-Dummies.html#exercises",
+    "title": "16  Dummy Variables",
+    "section": "16.4 Exercises",
+    "text": "16.4 Exercises\n\nComplete the runnable R code above.",
     "crumbs": [
       "Choosing Models",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Dummy Variables</span>"
-    ]
-  },
-  {
-    "objectID": "L16-Multicollinearity.html",
-    "href": "L16-Multicollinearity.html",
-    "title": "16  Multicollinearity",
-    "section": "",
-    "text": "16.1 The Problem",
-    "crumbs": [
-      "Choosing Models",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Multicollinearity</span>"
-    ]
-  },
-  {
-    "objectID": "L16-Multicollinearity.html#the-problem",
-    "href": "L16-Multicollinearity.html#the-problem",
-    "title": "16  Multicollinearity",
-    "section": "",
-    "text": "The Problem with Multicollinearity\n\n\n\nMultiple regression fits a hyperplane\nIf the points form a “tube”, an infinite number of hyperplanes work.\n\nRotate plane around axis of tube.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nConsequences of the Problem\n\n\nHigh cor. in \\(X\\) \\(\\implies\\) high cor. in \\(\\hat{\\underline\\beta}\\).\n\nMany combos of \\(\\hat{\\underline\\beta}\\) are equally likely\nNo meaningful CIs\n\n\n\n\nShow the code\nset.seed(2112)\nreplicate(1000, {\n    y &lt;- 0 + 4*x1 + 3*x2 + rnorm(n, 0, 5)\n    coef(lm(y ~ x1 + x2))[-1]\n}) |&gt; \n    t() |&gt; \n    plot(xlab = expression(hat(beta)[1]), \n        ylab = expression(hat(beta[2])),\n        main = \"Estimated betas for correlated\\npredictors, many samples\")\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnother Formulation of the Problem\nConsider the model \\(y_i = \\beta_0 + \\beta_1x_{i1} + \\beta_2x_{i2} + \\epsilon_i\\), where \\[\nx_{i1} = a + bx_{i2} + z_i\n\\] where \\(z_i\\) represents some extra uncertainty.\nFitting the model, we could:\n\nSet \\(\\hat\\beta_1\\) to 0, let \\(x_2\\) model all of the variance.\nSet \\(\\hat\\beta_2\\) to 0, let \\(x_1\\) model all of the variance.\nLet \\(x_1\\) model any proportion of the variance, let \\(x_2\\) model the rest.\n\nThe parameter estimates are not unique.\n\n\nThe Source of the Problem\n\\[\n\\hat{\\underline{\\beta}} = (X^TX)^{-1}X^TY,\\quad V(\\hat{\\underline{\\beta}}) = (X^TX)^{-1}\\sigma^2\n\\]\n\nIf two columns of \\(X\\) are linearly dependent, then \\(X^TX\\) is singular.\n\nConstant predictor value (linearly dependent with column of 1s).\nUnit change (one column for Celcius, one for Fahrenheit).\n\nIf two columns of \\(X\\) are nearly linearly dependent, then some elements of \\((X^TX)^{-1}\\) are humungous.\n\nTwo proxy measure for the same thing (e.g., daily high and low temperatures).\nNearly linear transformation (e.g., polynomial or BMI)\n\n\n\n\nDetecting the Problem\nThe variance-covariance matrix of \\(X\\) can be useful: \\[\nCov(X) = \\begin{bmatrix}\n0 & 0 & 0 & 0 & \\cdots\\\\\n0 & V(X_1) & Cov(X_1, X_2) & Cov(X_1, X_3) & \\cdots\\\\\n0 & Cov(X_1, X_2) & V(X_2) & Cov(X_2, X_3) & \\cdots\\\\\n0 & Cov(X_1, X_3) & Cov(X_2, X_3) & V(X_3) & \\cdots\\\\\n\\vdots & \\vdots & \\vdots & \\vdots & \\ddots\n\\end{bmatrix}\n\\] Why are the first column/row 0?\n\n\nPlotting \\(Cor(X)\\)\n\n\nShow the code\nlibrary(palmerpenguins); library(GGally)\nggcorr(penguins)\n\n\nWarning in ggcorr(penguins): data in column(s) 'species', 'island', 'sex' are\nnot numeric and were ignored\n\n\n\n\n\n\n\n\n\n\n\nDetecting the Problem: \\(V(\\hat{\\underline\\beta})\\)\nUnfortunately, the var-covar matrix is hard to get from R.\n\nWe can look at the SE column of the summary output!\n\nVery very very much not conclusive.\n\nThe Variance Inflation Factor\n\n\n\nThe Variance Inflation Factor\nWe can write the variance of each estimated coefficeint as: \\[\nV(\\hat\\beta_i) = VIF_i\\frac{\\sigma^2}{S_{ii}}\n\\] where \\(S_{ii} = \\sum_{k=1}^n(x_{ki} - \\bar{x_i})^2\\) is the “SS” for the \\(i\\)th column of \\(X\\).\n\nIf there is no “Variance Inflation”, then VIF = 1\n\n“Inflation” comes from the idea of rotating a plane around a “tube”.\nAlso interpreted as a measure of linear dependence with other columns of \\(X\\).\n\n\n\n\nInterpreting the Variance Inflation Factor\nConsider a regression of \\(X_i\\) against all other columns of \\(X\\).\n\nThe \\(R^2\\) measures how well the other predictors can model \\(X_i\\)\n\nLabel this \\(R_i^2\\) to indicate it’s the \\(R^2\\) for \\(X_i\\) against other columns.\n\nImportant: We’re not considering \\(\\underline y\\) at all!\n\nThe VIF can be calculated as: \\[\nVIF_i = \\frac{1}{1 - R_i^2}\n\\]\n\nIf \\(R_i^2=0\\), then \\(VIF_i = 1\\)\nIf \\(R_i^2\\rightarrow 1\\), then \\(VIF_i \\rightarrow \\infty\\)",
-    "crumbs": [
-      "Choosing Models",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Multicollinearity</span>"
-    ]
-  },
-  {
-    "objectID": "L16-Multicollinearity.html#will-scaling-fix-the-problem",
-    "href": "L16-Multicollinearity.html#will-scaling-fix-the-problem",
-    "title": "16  Multicollinearity",
-    "section": "16.2 Will Scaling Fix the Problem",
-    "text": "16.2 Will Scaling Fix the Problem\n\nScaling the Predictors\nIf we subtract the mean and divide by the sd, some of the correlation goes away.\n\nThis is actually kinda bad - we’ve hidden some multicollinearity from ourselves!\n\nIf \\(Z\\) is the standardized version of \\(X\\), then \\[\nCor(X) = Z^TZ/(n-1)\n\\]\nIf \\(Z\\) is the mean-centered version of \\(X\\), then \\[\nCov(X) = Z^TZ/(n-1)\n\\]",
-    "crumbs": [
-      "Choosing Models",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Multicollinearity</span>"
-    ]
-  },
-  {
-    "objectID": "L16-Multicollinearity.html#fixing-the-problem",
-    "href": "L16-Multicollinearity.html#fixing-the-problem",
-    "title": "16  Multicollinearity",
-    "section": "16.3 Fixing The Problem",
-    "text": "16.3 Fixing The Problem\n\nOne way to fix the problem\nDon’t.\nWe can’t get good estimates of the \\(\\hat\\beta\\)s, but we can still get good predictions.\n\nThis only works if the new values are in the same “tube” as the others.\nIf the multicollinearity is real, what estimates do you expect?\n\nWithout a controlled experiment, there isn’t a good way to estimate the effect of \\(X_1\\) on it’s own!\n\n\n\n\nRemoving predictors\nIf two predictors are measuring the same thing, then just include one?\n\nThis might lose some information!\n\nIt also might not!\n\nThe estimated \\(\\beta\\) won’t be meaningful.\n\nInferences will be difficult.",
-    "crumbs": [
-      "Choosing Models",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Multicollinearity</span>"
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Dummy Variables</span>"
     ]
   },
   {

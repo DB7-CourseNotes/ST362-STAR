@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-06-26">
+<meta name="dcterms.date" content="2024-07-03">
 
-<title>STAR Notes – 15&nbsp; Dummy Variables</title>
+<title>STAR Notes – 16&nbsp; Dummy Variables</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L16-Multicollinearity.html" rel="next">
-<link href="./L14-Modelling_Transformations.html" rel="prev">
+<link href="./L17-Modelling_Poorly.html" rel="next">
+<link href="./L15-Multicollinearity.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"code":"coef(lm(mpg ~ factor(cyl) + disp, data = mtcars))\n\ncoef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))","options":{"dpi":72,"results":"markup","classes":"","warning":"true","out-width":"700px","editor-font-scale":1,"message":"true","fig-cap":"","output":"true","comment":"","out-height":"","fig-height":5,"fig-width":7,"autorun":"false","read-only":"false","editor-max-height":"","editor-quick-suggestions":"false","context":"interactive","label":"unnamed-chunk-1"}},{"id":2,"code":"coef(lm(mpg ~ factor(cyl) * disp, data = mtcars))\n\ncoef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))","options":{"dpi":72,"results":"markup","classes":"","warning":"true","out-width":"700px","editor-font-scale":1,"message":"true","fig-cap":"","output":"true","comment":"","out-height":"","fig-height":5,"fig-width":7,"autorun":"false","read-only":"false","editor-max-height":"","editor-quick-suggestions":"false","context":"interactive","label":"unnamed-chunk-2"}}];
+globalThis.qwebrCellDetails = [{"options":{"classes":"","results":"markup","warning":"true","fig-width":7,"fig-cap":"","editor-quick-suggestions":"false","read-only":"false","editor-font-scale":1,"fig-height":5,"context":"interactive","dpi":72,"comment":"","out-width":"700px","out-height":"","editor-max-height":"","output":"true","label":"unnamed-chunk-1","message":"true","autorun":"false"},"code":"coef(lm(mpg ~ factor(cyl) + disp, data = mtcars))\n\ncoef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))","id":1},{"options":{"classes":"","results":"markup","warning":"true","fig-width":7,"fig-cap":"","editor-quick-suggestions":"false","read-only":"false","editor-font-scale":1,"fig-height":5,"context":"interactive","dpi":72,"comment":"","out-width":"700px","out-height":"","editor-max-height":"","output":"true","label":"unnamed-chunk-2","message":"true","autorun":"false"},"code":"coef(lm(mpg ~ factor(cyl) * disp, data = mtcars))\n\ncoef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))","id":2}];
 
 </script>
 <script type="module">
@@ -1189,7 +1189,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L15-Dummies.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L16-Dummies.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Variables</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1329,14 +1329,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Dummies.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1486,7 +1486,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#predictors" id="toc-predictors" class="nav-link active" data-scroll-target="#predictors"><span class="header-section-number">15.1</span> 0/1 Predictors</a>
+  <li><a href="#predictors" id="toc-predictors" class="nav-link active" data-scroll-target="#predictors"><span class="header-section-number">16.1</span> 0/1 Predictors</a>
   <ul class="collapse">
   <li><a href="#dummy-coding" id="toc-dummy-coding" class="nav-link" data-scroll-target="#dummy-coding">Dummy Coding</a></li>
   <li><a href="#slopes-with-a-dummy-variable" id="toc-slopes-with-a-dummy-variable" class="nav-link" data-scroll-target="#slopes-with-a-dummy-variable">Slopes with a Dummy Variable</a></li>
@@ -1494,19 +1494,19 @@ window.Quarto = {
   <li><a href="#categorical-variable-dummy-coding" id="toc-categorical-variable-dummy-coding" class="nav-link" data-scroll-target="#categorical-variable-dummy-coding">Categorical Variable Dummy Coding</a></li>
   <li><a href="#models-with-categorical-variables" id="toc-models-with-categorical-variables" class="nav-link" data-scroll-target="#models-with-categorical-variables">Models with Categorical Variables</a></li>
   </ul></li>
-  <li><a href="#interactions" id="toc-interactions" class="nav-link" data-scroll-target="#interactions"><span class="header-section-number">15.2</span> Interactions</a>
+  <li><a href="#interactions" id="toc-interactions" class="nav-link" data-scroll-target="#interactions"><span class="header-section-number">16.2</span> Interactions</a>
   <ul class="collapse">
   <li><a href="#different-intercepts-same-slope" id="toc-different-intercepts-same-slope" class="nav-link" data-scroll-target="#different-intercepts-same-slope">Different Intercepts, Same Slope</a></li>
   <li><a href="#interaction-terms-different-intercepts-different-slopes" id="toc-interaction-terms-different-intercepts-different-slopes" class="nav-link" data-scroll-target="#interaction-terms-different-intercepts-different-slopes">Interaction Terms: Different Intercepts, Different Slopes</a></li>
   <li><a href="#ancova" id="toc-ancova" class="nav-link" data-scroll-target="#ancova">ANCOVA</a></li>
   <li><a href="#beyond-x-and-g" id="toc-beyond-x-and-g" class="nav-link" data-scroll-target="#beyond-x-and-g">Beyond <span class="math inline">\(x\)</span> and <span class="math inline">\(g\)</span></a></li>
   </ul></li>
-  <li><a href="#significance-of-a-group" id="toc-significance-of-a-group" class="nav-link" data-scroll-target="#significance-of-a-group"><span class="header-section-number">15.3</span> Significance of a Group</a>
+  <li><a href="#significance-of-a-group" id="toc-significance-of-a-group" class="nav-link" data-scroll-target="#significance-of-a-group"><span class="header-section-number">16.3</span> Significance of a Group</a>
   <ul class="collapse">
   <li><a href="#output-of-summary.lm" id="toc-output-of-summary.lm" class="nav-link" data-scroll-target="#output-of-summary.lm">Output of <code>summary.lm()</code></a></li>
   <li><a href="#changing-the-reference-group" id="toc-changing-the-reference-group" class="nav-link" data-scroll-target="#changing-the-reference-group">Changing the reference group</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">15.4</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">16.4</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -1740,9 +1740,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 }
 </script>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L15-Dummies.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L16-Dummies.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Variables</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></h1>
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Variables</span></h1>
 </div>
 
 
@@ -1766,7 +1766,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-06-26</p>
+      <p class="date">2024-07-03</p>
     </div>
   </div>
   
@@ -1778,8 +1778,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </header>
 
 
-<section id="predictors" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="predictors"><span class="header-section-number">15.1</span> 0/1 Predictors</h2>
+<section id="predictors" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="predictors"><span class="header-section-number">16.1</span> 0/1 Predictors</h2>
 <section id="dummy-coding" class="level3">
 <h3 class="anchored" data-anchor-id="dummy-coding">Dummy Coding</h3>
 <p>“Dummy” variables are just predictors that only take the values 0 and 1.</p>
@@ -1869,8 +1869,8 @@ coef(lm(mpg ~ 1, data = subset(mtcars, cyl == 8)))
 # 15.1 = 26.66364 - 11.563636</code></pre>
 </section>
 </section>
-<section id="interactions" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="interactions"><span class="header-section-number">15.2</span> Interactions</h2>
+<section id="interactions" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="interactions"><span class="header-section-number">16.2</span> Interactions</h2>
 <section id="different-intercepts-same-slope" class="level3">
 <h3 class="anchored" data-anchor-id="different-intercepts-same-slope">Different Intercepts, Same Slope</h3>
 <p>If we have <code>cyl</code> and <code>disp</code> in the model, we get the following:</p>
@@ -1932,8 +1932,8 @@ y_i = \begin{cases}(\beta_0 + 0)  + (\beta_3 + 0) disp&amp; \text{if }\; cyl == 
 </ul>
 </section>
 </section>
-<section id="significance-of-a-group" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="significance-of-a-group"><span class="header-section-number">15.3</span> Significance of a Group</h2>
+<section id="significance-of-a-group" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="significance-of-a-group"><span class="header-section-number">16.3</span> Significance of a Group</h2>
 <section id="output-of-summary.lm" class="level3">
 <h3 class="anchored" data-anchor-id="output-of-summary.lm">Output of <code>summary.lm()</code></h3>
 <p>The output compares each slope to 0.</p>
@@ -1965,8 +1965,8 @@ y = \beta_0 + \beta_1I(8) + \beta_2I(4) + \beta_3disp + \beta_4dispI(8) + \beta_
 </div>
 </section>
 </section>
-<section id="exercises" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">15.4</span> Exercises</h2>
+<section id="exercises" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="exercises"><span class="header-section-number">16.4</span> Exercises</h2>
 <ol type="1">
 <li>Complete the runnable R code above.</li>
 </ol>
@@ -2541,13 +2541,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L14-Modelling_Transformations.html" class="pagination-link" aria-label="Modelling with Transformations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></span>
+      <a href="./L15-Multicollinearity.html" class="pagination-link" aria-label="Multicollinearity">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L16-Multicollinearity.html" class="pagination-link" aria-label="Multicollinearity">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L17-Modelling_Poorly.html" class="pagination-link" aria-label="Modelling Poorly">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

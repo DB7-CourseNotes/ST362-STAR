@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L15-Dummies.html" rel="next">
+<link href="./L15-Multicollinearity.html" rel="next">
 <link href="./L13-Transforming_Response.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))","options":{"fig-cap":"","context":"interactive","output":"true","read-only":"false","out-width":"700px","message":"true","editor-font-scale":1,"label":"unnamed-chunk-1","autorun":"false","dpi":72,"fig-width":7,"results":"markup","fig-height":5,"editor-max-height":"","out-height":"","comment":"","classes":"","warning":"true","editor-quick-suggestions":"false"},"id":1}];
+globalThis.qwebrCellDetails = [{"id":1,"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))","options":{"autorun":"false","label":"unnamed-chunk-1","out-height":"","context":"interactive","warning":"true","editor-font-scale":1,"comment":"","read-only":"false","out-width":"700px","results":"markup","fig-cap":"","dpi":72,"fig-width":7,"fig-height":5,"output":"true","message":"true","classes":"","editor-max-height":"","editor-quick-suggestions":"false"}}];
 
 </script>
 <script type="module">
@@ -1329,14 +1329,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Dummies.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Multicollinearity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
+  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -2652,8 +2652,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L15-Dummies.html" class="pagination-link" aria-label="Dummy Variables">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L15-Multicollinearity.html" class="pagination-link" aria-label="Multicollinearity">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
