@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-07-04">
+<meta name="dcterms.date" content="2024-07-08">
 
 <title>STAR Notes – 15&nbsp; Multicollinearity</title>
 <style>
@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"options":{"classes":"","message":"true","fig-height":5,"label":"diy_vif","output":"true","fig-width":7,"context":"interactive","warning":"true","echo":"true","read-only":"false","fig-cap":"","autorun":"false","comment":"","editor-quick-suggestions":"false","out-height":"","out-width":"700px","editor-max-height":"","editor-font-scale":1,"dpi":72,"results":"markup"},"code":"library(plot3D)\nlibrary(car)\nlibrary(MASS)\nn <- 50\n\nx1_x2_corr <- 0.8 # Change me!\nx1_x3_corr <- 0 # Change me!\ncoef_of_x2_in_y <- 2 # Change me too!\nX <- mvrnorm(n = n, mu = c(0, 0, 0), \n        Sigma = matrix(c(\n                1,          x1_x2_corr, x1_x3_corr,\n                x1_x2_corr, 1,          0,\n                x1_x3_corr, 0,          1),\n            nrow = 3))\nmydata <- data.frame(\n    y = 0 + 4*X[, 1] + coef_of_x2_in_y*X[, 2] +\n        2 * X[, 3] + rnorm(n, 0, 5),\n    x1 = X[, 1], x2 = X[, 2], x3 = X[, 3]\n)\nmylm <- lm(y ~ x1 + x2 + x3, data = mydata)\nvif(mylm)\npairs(mydata)"}];
+globalThis.qwebrCellDetails = [{"options":{"read-only":"false","classes":"","echo":"true","warning":"true","autorun":"false","message":"true","dpi":72,"fig-cap":"","out-height":"","comment":"","output":"true","fig-width":7,"label":"diy_vif","context":"interactive","results":"markup","fig-height":5,"out-width":"700px","editor-quick-suggestions":"false","editor-font-scale":1,"editor-max-height":""},"id":1,"code":"library(car)\nlibrary(MASS)\nn <- 50\n\nx1_x2_corr <- 0.8 # Change me!\nx1_x3_corr <- 0 # Change me!\ncoef_of_x2_in_y <- 2 # Change me too!\nX <- mvrnorm(n = n, mu = c(0, 0, 0), \n        Sigma = matrix(c(\n                1,          x1_x2_corr, x1_x3_corr,\n                x1_x2_corr, 1,          0,\n                x1_x3_corr, 0,          1),\n            nrow = 3))\nmydata <- data.frame(\n    y = 0 + 4*X[, 1] + coef_of_x2_in_y*X[, 2] +\n        2 * X[, 3] + rnorm(n, 0, 5),\n    x1 = X[, 1], x2 = X[, 2], x3 = X[, 3]\n)\nmylm <- lm(y ~ x1 + x2 + x3, data = mydata)\nvif(mylm)\npairs(mydata)"}];
 
 </script>
 <script type="module">
@@ -1768,7 +1768,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-04</p>
+      <p class="date">2024-07-08</p>
     </div>
   </div>
   

@@ -245,7 +245,6 @@ Change the variables that say "Change me!" and see what happens. Note: You can h
 ```{webr-r}
 #| label: diy_vif
 #| echo: true
-library(plot3D)
 library(car)
 library(MASS)
 n <- 50
