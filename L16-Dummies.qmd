@@ -8,6 +8,8 @@ filter:
 ```{r}
 #| include: false
 library(ggplot2)
+library(palmerpenguins)
+penguins <- penguins[complete.cases(penguins),]
 set.seed(2112)
 ```
 
@@ -56,15 +58,17 @@ Note that we assume constant variance; this means the variance is the same in bo
 
 ### Categorical Variables
 
-Consider the `cyl` column in mtcars. We *could* code three dummy variables:
+Consider the `species` column in penguins. We *could* code three dummy variables:
 
-- $I(cyl == 4)$
-- $I(cyl == 6)$
-- $I(cyl == 8)$
+- $I(species == Adelie)$
+- $I(species == Chinstrap)$
+- $I(species == Gentoo)$
+
+For brevity, $I(Adelie)$ is the same as $I(species == Adelie)$.
 
 This would lead to the model:
 $$
-y = \beta_0 + \beta_1I(cyl == 4) + \beta_2I(cyl == 6) + \beta_3I(cyl == 8)
+y = \beta_0 + \beta_1I(Adelie) + \beta_2I(Chinstrap) + \beta_3I(Gentoo)
 $$
 
 What's the interpretation of the intercept here? 
@@ -73,19 +77,19 @@ What's the interpretation of the intercept here?
 
 Better: set one as a **reference** variable and let the intercept "absorb" it:
 
-- $I(cyl == 6)$
-- $I(cyl == 8)$
+- $I(species == Chinstrap)$
+- $I(species == Gentoo)$
 
 This would lead to the model:
 $$
-y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8)
+y = \beta_0 + \beta_1I(Chinstrap) + \beta_2I(Gentoo)
 $$
 where
 
-- $\beta_0$ is the mean of mpg when cyl = 4.
-- $\beta_1$ is the difference in mean mpg between 4 and 6 cylinder cars.
-- $\beta_2$ is the difference in mean mpg for 4 versus 8.
-    - Difference btwn 6 and 8 can be found with some cleverness.
+- $\beta_0$ is the mean of body mass for Adelie penguins.
+- $\beta_1$ is the difference in mean body mass between Adelie and Chinstrap.
+- $\beta_2$ is the difference in mean body mass for Adelie versus Gentoo.
+    - Difference between Chinstrap and Gentoo can be found with some cleverness.
 
 ### Model-related plot
 
@@ -93,7 +97,7 @@ where
 ::: {.column width="50%"}
 \vspace{1cm}
 
-- `mpg` varies by different levels of `cyl`
+- `body_mass_g` varies by different levels of `species`
     - **Model assumes equal variance.**\lspace
 
 This is the plot you should check to see if a dummy variable makes sense to include.
@@ -109,7 +113,7 @@ Another plot better describes the results...
 #| label: dummy-plot
 #| fig-height: 6
 
-plot(mpg ~ factor(cyl), data = mtcars)
+plot(body_mass_g ~ species, data = penguins)
 ```
 :::
 ::::
@@ -118,9 +122,9 @@ plot(mpg ~ factor(cyl), data = mtcars)
 
 ### Models with Categorical Variables
 
-The model $y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8)$ is equivalent to:
+The model $y = \beta_0 + \beta_1I(species == Chinstrap) + \beta_2I(species == Gentoo)$ is equivalent to:
 $$
-y_i = \begin{cases}\beta_0 + 0 & \text{if }\; cyl == 4\\ \beta_0 + \beta_1 & \text{if }\; cyl == 6\\\beta_0  + \beta_2 & \text{if }\; cyl == 8\end{cases}
+y_i = \begin{cases}\beta_0 + 0 & \text{if }\; species == Adelie\\ \beta_0 + \beta_1 & \text{if }\; species == Chinstrap\\\beta_0  + \beta_2 & \text{if }\; species == Gentoo\end{cases}
 $$
 
 This is equivalent to fitting an intercept-only model $y = \beta_0$ for subsets of the data.
@@ -136,15 +140,15 @@ The following code demonstrates that this is true - make sure you understand whe
 #| label: intercept-model
 #| echo: true
 # Three intercepts
-coef(lm(mpg ~ factor(cyl), data = mtcars))
+coef(lm(body_mass_g ~ species, data = penguins))
 
 # For each value of cylinder
 # You'll have to do some math to get the same numbers as above!
-coef(lm(mpg ~ 1, data = subset(mtcars, cyl == 4)))
+coef(lm(body_mass_g ~ 1, data = subset(penguins, species == Adelie)))
 # 26.66364
-coef(lm(mpg ~ 1, data = subset(mtcars, cyl == 6)))
+coef(lm(body_mass_g ~ 1, data = subset(penguins, species == "Chinstrap")))
 # 19.74286 = 26.66364 - 6.920779
-coef(lm(mpg ~ 1, data = subset(mtcars, cyl == 8)))
+coef(lm(body_mass_g ~ 1, data = subset(penguins, species == "Gentoo")))
 # 15.1 = 26.66364 - 11.563636
 ```
 
@@ -157,7 +161,7 @@ coef(lm(mpg ~ 1, data = subset(mtcars, cyl == 8)))
 ```{r}
 #| label: intercept-significance
 #| echo: true
-summary(lm(mpg ~ factor(cyl), data = mtcars))$coef
+summary(lm(body_mass_g ~ species, data = penguins))$coef
 ```
 
 So... is `cyl` significant? \pause
@@ -165,7 +169,7 @@ So... is `cyl` significant? \pause
 ```{r}
 #| label: intercept-significance-anova
 #| echo: true
-anova(lm(mpg ~ factor(cyl), data = mtcars))
+anova(lm(body_mass_g ~ species, data = penguins))
 ```
 
 It's an ESS test!!!
@@ -179,13 +183,13 @@ It's an ESS test!!!
 
 We fit a model with **two predictors**: 
 $$
-I(cyl == 6)\text{ and }I(cyl == 8)
+I(species == Chinstrap)\text{ and }I(species == Gentoo)
 $$
 As far as R knows, these are two completely separate predictors!
 
 \pspace
 
-For plots on the right, Red line is the mean of `mpg` when cyl is 4, 6, and 8, respectively.
+For plots on the right, Red line is the mean of `body_mass_g` when speciesis 4, 6, and 8, respectively.
 
 :::
 ::: {.column width="50%"}
@@ -195,19 +199,19 @@ For plots on the right, Red line is the mean of `mpg` when cyl is 4, 6, and 8, r
 #| echo: false
 #| fig-height: 6
 
-mylm <- lm(mpg ~ factor(cyl), data = mtcars)
+mylm <- lm(body_mass_g ~ species, data = penguins)
 
 X <- model.matrix(mylm)
 
 par(mfrow = c(1, 2))
-plot(X[, "factor(cyl)6"], mtcars$mpg, main = "mpg versus I(cyl == 6)")
+plot(X[, "speciesChinstrap"], penguins$body_mass_g, main = "body_mass_g versus I(species == \"Chinstrap\")")
 abline(mylm$coef[1], mylm$coef[2])
-lines(c(-0.05, 0.05), rep(mean(mtcars$mpg[mtcars$cyl == 4]), 2), col = "red")
-lines(c(0.95, 1.05),  rep(mean(mtcars$mpg[mtcars$cyl == 6]), 2), col = "red")
-plot(X[, "factor(cyl)8"], mtcars$mpg, main = "y versus x1")
-abline(mylm$coef[1], mylm$coef[3], main = "mpg versus I(cyl == 8)")
-lines(c(-0.05, 0.05), rep(mean(mtcars$mpg[mtcars$cyl == 4]), 2), col = "red")
-lines(c(0.95, 1.05),  rep(mean(mtcars$mpg[mtcars$cyl == 8]), 2), col = "red")
+lines(c(-0.05, 0.05), rep(mean(penguins$body_mass_g[penguins$species == "Adelie"]), 2), col = "red")
+lines(c(0.95, 1.05),  rep(mean(penguins$body_mass_g[penguins$species == "Chinstrap"]), 2), col = "red")
+plot(X[, "speciesGentoo"], penguins$body_mass_g, main = "y versus x1")
+abline(mylm$coef[1], mylm$coef[3], main = "body_mass_g versus I(species == \"Gentoo\")")
+lines(c(-0.05, 0.05), rep(mean(penguins$body_mass_g[penguins$species == "Adelie"]), 2), col = "red")
+lines(c(0.95, 1.05),  rep(mean(penguins$body_mass_g[penguins$species == "Gentoo"]), 2), col = "red")
 ```
 :::
 ::::
@@ -217,18 +221,18 @@ lines(c(0.95, 1.05),  rep(mean(mtcars$mpg[mtcars$cyl == 8]), 2), col = "red")
 
 ### Different Intercepts, Same Slope
 
-If we have `cyl` and `disp` in the model, we get the following:
+If we have `cyl` and `flipper_length_mm` in the model, we get the following:
 
 $$
-y = \beta_0 + \beta_1I(cyl == 6) + \beta_2I(cyl == 8) + \beta_3 disp
+y = \beta_0 + \beta_1I(species == Chinstrap) + \beta_2I(species == Gentoo) + \beta_3 flipper_length_mm
 $$
 which is equivalent to:
 $$
-y_i = \begin{cases}(\beta_0  + 0) + \beta_3 disp& \text{if }\; cyl == 4\\ (\beta_0 + \beta_1)  + \beta_3 disp& \text{if }\; cyl == 6\\(\beta_0  + \beta_2)  + \beta_3 disp& \text{if }\; cyl == 8\end{cases}
+y_i = \begin{cases}(\beta_0  + 0) + \beta_3 flipper_length_mm& \text{if }\; species == Adelie\\ (\beta_0 + \beta_1)  + \beta_3 flipper_length_mm& \text{if }\; species == Chinstrap\\(\beta_0  + \beta_2)  + \beta_3 flipper_length_mm& \text{if }\; species == Gentoo\end{cases}
 $$
 
 - *Like* three different models, but with a different **intercept** depending on `cyl`.
-    - Unless $\overline{disp} = 0$, the intercept and slope are correlated.
+    - Unless $\overline{flipper_length_mm} = 0$, the intercept and slope are correlated.
 
 ::: {.content-visible when-profile="book"}
 
@@ -237,9 +241,9 @@ In this case, the model is *not* equivalent. The slope must be the same for all 
 ```{webr-r}
 #| label: intercept-slope-model
 #| echo: true
-coef(lm(mpg ~ factor(cyl) + disp, data = mtcars))
+coef(lm(body_mass_g ~ species + flipper_length_mm, data = penguins))
 
-coef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))
+coef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == "Adelie")))
 ```
 :::
 
@@ -249,8 +253,8 @@ coef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))
 ::: {.column width="50%"}
 \vspace{1cm}
 
-- `cyl == 4` seems to have a different intercept than the others.\lspace
-- `cyl == 6` and `cyl == 8` could probbaly have the same intercept. 
+- `species == "Adelie"` seems to have a different intercept than the others.\lspace
+- `species == "Chinstrap"` and `species == "Gentoo"` could probably have the same intercept. 
 
 \pspace
 
@@ -263,13 +267,13 @@ We would *not* generally fit a model where only one dummy gets a different value
 #| label: intercept-slope-plot
 #| fig-height: 6
 
-mylm <- lm(mpg ~ disp + factor(cyl), data = mtcars)
-mtcars$preds <- predict(mylm)
+mylm <- lm(body_mass_g ~ flipper_length_mm + species, data = penguins)
+penguins$preds <- predict(mylm)
 
-ggplot(mtcars) +
+ggplot(penguins) +
     theme_bw() +
-    aes(x = disp, colour = factor(cyl)) +
-    geom_point(aes(y = mpg)) +
+    aes(x = flipper_length_mm, colour = species) +
+    geom_point(aes(y = body_mass_g)) +
     geom_line(aes(y = preds))
 ```
 :::
@@ -285,13 +289,13 @@ Let's introduce some fun R magic!
 #| label: intercept-slope-sig
 #| echo: true
 
-mylm <- lm(mpg ~ factor(cyl) + disp, data = mtcars)
-anova(mylm, update(mylm, ~ . - factor(cyl)))
+mylm <- lm(body_mass_g ~ species + flipper_length_mm, data = penguins)
+anova(mylm, update(mylm, ~ . - species))
 ```
 
 \normalsize
 
-The `update()` function takes `mylm`, uses the full formula (`~ .`), then removes `factor(cyl)`. 
+The `update()` function takes `mylm`, uses the full formula (`~ .`), then removes `species`. 
 
 This is an ESS ANOVA. There *is* a sig. diff., but it won't say which group is different!
 
@@ -302,17 +306,17 @@ Note that we can get the same results if we put the predictors in a specific ord
 #| echo: true
 #| label: intercept-slope-sig-type2SS
 
-mylm <- lm(mpg ~ disp + factor(cyl), data = mtcars)
+mylm <- lm(body_mass_g ~ flipper_length_mm + species, data = penguins)
 anova(mylm)
 ```
 
-Ignore the line for `disp`, since that's testing whether adding displacement to an empty model improves the results.
+Ignore the line for `flipper_length_mm`, since that's testing whether adding flipper_length_mmlacement to an empty model improves the results.
 
 Using the code above, verify and explain the following:
 
-1. The p-value in the table would be different if we wrote `factor(cyl) + disp`.
+1. The p-value in the table would be different if we wrote `species + flipper_length_mm`.
     - Note that it would be *incorrect*.
-2. The p-value for `disp` is different from the one we get in the `summary(mylm)` table.
+2. The p-value for `flipper_length_mm` is different from the one we get in the `summary(mylm)` table.
 :::
 
 
@@ -320,13 +324,13 @@ Using the code above, verify and explain the following:
 
 We can expand the model above with an **interaction term**.
 $$
-y = \beta_0 + \beta_1I(6) + \beta_2I(8) + \beta_3 disp + \beta_4I(6)disp + \beta_5I(8)disp
+y = \beta_0 + \beta_1I(Chinstrap) + \beta_2I(Gentoo) + \beta_3 flipper_length_mm + \beta_4I(Chinstrap)flipper_length_mm + \beta_5I(Gentoo)flipper_length_mm
 $$
-where $I(6)$ is just shorthand for $I(cyl == 6)$.\pause
+where $I(Chinstrap)$ is just shorthand for $I(species == Chinstrap)$.\pause
 
 This is the same as:
 $$
-y_i = \begin{cases}(\beta_0 + 0)  + (\beta_3 + 0) disp& \text{if }\; cyl == 4\\ (\beta_0 + \beta_1)  + (\beta_3 + \beta_4) disp& \text{if }\; cyl == 6\\(\beta_0  + \beta_2)  + (\beta_3 + \beta_5) disp& \text{if }\; cyl == 8\end{cases}
+y_i = \begin{cases}(\beta_0 + 0)  + (\beta_3 + 0) flipper_length_mm& \text{if }\; species == Adelie\\ (\beta_0 + \beta_1)  + (\beta_3 + \beta_4) flipper_length_mm& \text{if }\; species == Chinstrap\\(\beta_0  + \beta_2)  + (\beta_3 + \beta_5) flipper_length_mm& \text{if }\; species == Gentoo\end{cases}
 $$
 In this case, we might as well fit 3 completely different models!
 
@@ -334,14 +338,14 @@ In this case, we might as well fit 3 completely different models!
 
 ::: {.content-visible when-profile="book"}
 
-And we're back to equivalence! Double check the intercepts and slopes for `cyl == 6` and `cyl == 8`, using the equations above.
+And we're back to equivalence! Double check the intercepts and slopes for `species == "Chinstrap"` and `species == "Gentoo"`, using the equations above.
 
 ```{webr-r}
 #| label: interaction-model
 #| echo: true
-coef(lm(mpg ~ factor(cyl) * disp, data = mtcars))
+coef(lm(body_mass_g ~ species * flipper_length_mm, data = penguins))
 
-coef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))
+coef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == "Adelie")))
 ```
 :::
 
@@ -349,9 +353,9 @@ coef(lm(mpg ~ disp, data = subset(mtcars, cyl == 4)))
 
 ```{r}
 #| label: interaction-plot
-ggplot(mtcars) +
+ggplot(penguins) +
     theme_bw() +
-    aes(x = disp, y = mpg, colour = factor(cyl)) +
+    aes(x = flipper_length_mm, y = body_mass_g, colour = species) +
     geom_point() +
     geom_smooth(method = "lm", se = FALSE, formula = y ~ x)
 ```
@@ -362,10 +366,10 @@ ggplot(mtcars) +
 #| label: interaction-lm
 #| echo: true
 #| eval: false
-interact_lm <- lm(mpg ~ factor(cyl) * disp, data = mtcars)
+interact_lm <- lm(body_mass_g ~ species * flipper_length_mm, data = penguins)
 ```
 
-- Significance of `factor(cyl)`?
+- Significance of `species`?
 - Significance of the interaction?
 
 \pause
@@ -379,8 +383,8 @@ This is just an ESS for a model with versus without the interaction term:
 ```{r}
 #| label: interaction-sig
 #| echo: true
-interact_lm <- lm(mpg ~ factor(cyl) * disp, data = mtcars)
-base_lm <- lm(mpg ~ factor(cyl) + disp, data = mtcars)
+interact_lm <- lm(body_mass_g ~ species * flipper_length_mm, data = penguins)
+base_lm <- lm(body_mass_g ~ species + flipper_length_mm, data = penguins)
 anova(interact_lm, base_lm)
 ```
 
@@ -427,7 +431,7 @@ A dummy variable is:
 
 a. A stupid variable. Just a dumb, stupid variable that only idiots use.
 b. A variable that naturaly takes the values 0 and 1.
-c. A variable that has been coded as 0 and 1 to indicate different groups.
+c. A variable that has been coded as 0 and 1 to indicate different levels of a factor.
 
 <!--- C --->
 
@@ -444,14 +448,14 @@ b. The intercept is the mean of y when all predictors are 0, so we need a case w
 
 ### Q3
 
-In the `mpg ~ factor(cyl)` there will be a dummy variable labelled:
+In the output of `lm(body_mass_g ~ species)` there will be a term labelled:
 
 \pspace
 
-a. `6`
-b. `cyl6`
-c. `factor(cyl)6`
-d. `factor(cyl)4`
+a. `Adelie`
+b. `speciesAdelie`
+c. `speciesChinstrap`
+d. `species`
 
 <!--- C --->
 
@@ -481,7 +485,7 @@ b. False
 
 ### Q6
 
-In the regression `mpg ~ factor(cyl) + disp + factor(cyl):disp`, if we find that `disp` is not significant then we can safely remove it.
+In the regression `body_mass_g ~ species + bill_length_mm + species:bill_length_mm`, if we find that `bill_length_mm` is not significant then we can safely remove it.
 
 \pspace
 
@@ -506,7 +510,7 @@ The output compares each slope to 0.
 
 There is not an easy built-in way to check significance of a specific group
 
-- For example, we may want to test for equality of intercepts and slopes for 6 and 8 cylinder cars, allowing 4 to have separate values.
+- For example, we may want to test for equality of intercepts and slopes for Chinstrap and Gentoo penguins, allowing Adelie to have separate values.
     - Test for equality of slopes is something covered in the textbook
     - Alternative: Change Reference group and use ESS
 
@@ -514,11 +518,11 @@ There is not an easy built-in way to check significance of a specific group
 
 Suppose we want to compare 6 and 8 cylinder cars. We can set up our model as:
 $$
-y = \beta_0 + \beta_1I(8) + \beta_2I(4) + \beta_3disp + \beta_4dispI(8) + \beta_5dispI(4)
+y = \beta_0 + \beta_1I(Gentoo) + \beta_2I(4) + \beta_3flipper_length_mm + \beta_4flipper_length_mmI(Gentoo) + \beta_5flipper_length_mmI(4)
 $$
 where now `6` is the reference group.
 
-We can test $\beta_1=\beta_4 = 0$ using ESS to test whether mpg versus disp is the same in these two categories.
+We can test $\beta_1=\beta_4 = 0$ using ESS to test whether body_mass_g versus flipper_length_mm is the same in these two categories.
 
 \pspace
 
@@ -529,8 +533,8 @@ In R, we need to set up our own dummies to do this.:
 #| echo: true
 #| eval: true
 #| code-fold: false
-mtcars$cyl <- relevel(factor(mtcars$cyl), ref = "8")
-levels(mtcars$cyl)
+penguins$species<- relevel(factor(penguins$species), ref = "Gentoo")
+levels(penguins$cyl)
 ```
 
 
