@@ -1,6 +1,6 @@
 ---
 title: "Dummy Variables"
-institute: "**Jam TBD**"
+institute: "**Same Mistake - But Different Remix** by Jan Blomqvist"
 filter:
     - webr
 ---
@@ -219,7 +219,7 @@ lines(c(0.95, 1.05),  rep(mean(penguins$body_mass_g[penguins$species == "Gentoo"
 
 ## Interactions
 
-### Different Intercepts, Same Slope
+### Same Slope but Different Intercepts
 
 If we have `cyl` and `flipper_length_mm` in the model, we get the following:
 

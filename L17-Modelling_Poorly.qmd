@@ -19,7 +19,7 @@ set.seed(2112)
 
 ### Selecting Predictors
 
-As you've seen from the assignment, choosing predictors is hard!
+As you've seen, choosing predictors is hard!
 
 \pspace
 
@@ -88,10 +88,12 @@ That's it. You just try them all.
 - **Backward Selection**
     - Include all predictors, try removing one
         - Check the $R^2$, p-values, Mallow's Cp, or AIC
-    - Put that one back in the model, try removing another\lspace
+    - Put that one back in the model, try removing another
+    - Repeat unti you've found the "best" predictor to exclude. Then find the next best one!\lspace
 - **Forward Selection**
     - Find the best predictor to include first
     - Find the best predictor to include second
+    - ...
 
 \pspace
 
