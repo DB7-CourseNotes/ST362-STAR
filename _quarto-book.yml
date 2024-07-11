@@ -48,8 +48,8 @@ book:
         - L14-Modelling_Transformations.qmd
         - L15-Multicollinearity.qmd
         - L16-Dummies.qmd
-        - L17-Modelling_Poorly.qmd
-        - L18-Example_Analysis_mtcars.qmd
+        - L17-Example_Analysis_mtcars.qmd
+        - L18-Modelling_Poorly.qmd
         - L19-Degrees_of_Freedom.qmd
     - part: Advanced Topics
       chapters:
