@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-07-03">
+<meta name="author" content="Devan Becker">
+<meta name="dcterms.date" content="2024-07-12">
 
-<title>STAR Notes – 14&nbsp; Modelling with Transformations</title>
+<title>STAR Notes – 17&nbsp; Analysis of MTCars</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -66,8 +32,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L15-Multicollinearity.html" rel="next">
-<link href="./L13-Transforming_Response.html" rel="prev">
+<link href="./L18-Modelling_Poorly.html" rel="next">
+<link href="./L16-Dummies.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -311,7 +277,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))","options":{"output":"true","warning":"true","read-only":"false","editor-quick-suggestions":"false","results":"markup","context":"interactive","message":"true","fig-cap":"","out-width":"700px","dpi":72,"comment":"","label":"unnamed-chunk-1","out-height":"","fig-width":7,"editor-max-height":"","classes":"","editor-font-scale":1,"autorun":"false","fig-height":5},"id":1}];
+globalThis.qwebrCellDetails = [{"code":"head(mtcars)","id":1,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"unnamed-chunk-1","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"# Choosing the first few columns to make it smaller on my screen\npairs(mtcars[, c(\"mpg\", \"cyl\", \"disp\", \"hp\", \"drat\", \"wt\", \"qsec\")])","id":2,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"unnamed-chunk-2","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"# Continuous versus categorical\nplot(wt ~ factor(am), data = mtcars)","id":3,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"cont_v_cat","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"# Continuous vs. continuous\nplot(disp ~ wt, col = factor(am), data = mtcars)","id":4,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"cont_v_cont","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"# categorical variables\nbarplot(table(mtcars$am, mtcars$vs), beside = TRUE, legend = TRUE)","id":5,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"cats","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"plot(mpg ~ disp, col = factor(cyl), data = mtcars)","id":6,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"mpg_v_disp","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)\n\npar(mfrow = c(2,2))\nplot(dispmodel, col = mtcars$cyl)","id":7,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"dispmodel_plot","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"wtmodel <- lm(mpg ~ wt * am, data = mtcars)\n\npar(mfrow = c(2,2))\nplot(wtmodel)","id":8,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"wtmodel_plot","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)\nsummary(dispmodel)","id":9,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"dispmodel_summary","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"wtmodel <- lm(mpg ~ wt * am, data = mtcars)\nsummary(wtmodel)","id":10,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"wtmodel_summary","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)\nanova(dispmodel, wtmodel)","id":11,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"unnamed-chunk-11","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"# MSE values\ndispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)\nwtmodel <- lm(mpg ~ wt * am, data = mtcars)\nsummary(dispmodel)$sigma\nsummary(wtmodel)$sigma","id":12,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"unnamed-chunk-12","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}},{"code":"dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)\nsummary(update(dispmodel, ~ . + hp)) ","id":13,"options":{"read-only":"false","comment":"","fig-cap":"","fig-height":5,"editor-max-height":"","classes":"","warning":"true","context":"interactive","dpi":72,"autorun":"false","label":"unnamed-chunk-13","editor-quick-suggestions":"false","fig-width":7,"output":"true","results":"markup","out-width":"700px","message":"true","editor-font-scale":1,"out-height":""}}];
 
 </script>
 <script type="module">
@@ -1189,7 +1155,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L14-Modelling_Transformations.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L17-Example_Analysis_mtcars.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1323,7 +1289,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-Modelling_Transformations.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L14-Modelling_Transformations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></span></a>
   </div>
 </li>
@@ -1341,7 +1307,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
   </div>
 </li>
@@ -1486,27 +1452,15 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">14.1</span> Introduction</a>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link active" data-scroll-target="#exploratory-data-analysis"><span class="header-section-number">17.1</span> Exploratory Data Analysis</a>
   <ul class="collapse">
-  <li><a href="#the-trees-data" id="toc-the-trees-data" class="nav-link" data-scroll-target="#the-trees-data">The Trees Data</a></li>
-  <li><a href="#diy" id="toc-diy" class="nav-link" data-scroll-target="#diy">DIY</a></li>
-  <li><a href="#my-attempts" id="toc-my-attempts" class="nav-link" data-scroll-target="#my-attempts">My Attempts</a></li>
-  <li><a href="#multiple-linear-regression" id="toc-multiple-linear-regression" class="nav-link" data-scroll-target="#multiple-linear-regression">Multiple Linear Regression</a></li>
-  <li><a href="#multiple-linear-regression---plots" id="toc-multiple-linear-regression---plots" class="nav-link" data-scroll-target="#multiple-linear-regression---plots">Multiple Linear Regression - Plots</a></li>
-  <li><a href="#attempt-1-logs" id="toc-attempt-1-logs" class="nav-link" data-scroll-target="#attempt-1-logs">Attempt 1: Logs</a></li>
-  <li><a href="#attempt-1-residual-plots" id="toc-attempt-1-residual-plots" class="nav-link" data-scroll-target="#attempt-1-residual-plots">Attempt 1 Residual Plots</a></li>
-  <li><a href="#alternative-2-logy" id="toc-alternative-2-logy" class="nav-link" data-scroll-target="#alternative-2-logy">Alternative 2: log(y)</a></li>
-  <li><a href="#attempt-2-residual-plots" id="toc-attempt-2-residual-plots" class="nav-link" data-scroll-target="#attempt-2-residual-plots">Attempt 2 Residual Plots</a></li>
-  <li><a href="#box-cox" id="toc-box-cox" class="nav-link" data-scroll-target="#box-cox">Box-Cox?</a></li>
-  <li><a href="#using-the-box-cox-parameter-sqrt" id="toc-using-the-box-cox-parameter-sqrt" class="nav-link" data-scroll-target="#using-the-box-cox-parameter-sqrt">Using the Box-Cox Parameter: Sqrt</a></li>
-  <li><a href="#using-the-box-cox-parameter-quarter-power" id="toc-using-the-box-cox-parameter-quarter-power" class="nav-link" data-scroll-target="#using-the-box-cox-parameter-quarter-power">Using the Box-Cox Parameter: Quarter Power</a></li>
-  <li><a href="#what-about-transforming-x-only" id="toc-what-about-transforming-x-only" class="nav-link" data-scroll-target="#what-about-transforming-x-only">What About Transforming <span class="math inline">\(x\)</span> only?</a></li>
-  <li><a href="#quadratic-polynomial-plots" id="toc-quadratic-polynomial-plots" class="nav-link" data-scroll-target="#quadratic-polynomial-plots">Quadratic Polynomial Plots</a></li>
-  <li><a href="#polynomials-of-order-8-r2-0.9864-r2_adj-0.9708" id="toc-polynomials-of-order-8-r2-0.9864-r2_adj-0.9708" class="nav-link" data-scroll-target="#polynomials-of-order-8-r2-0.9864-r2_adj-0.9708">Polynomials of Order 8? (<span class="math inline">\(R^2\)</span> = 0.9864, <span class="math inline">\(R^2_{adj}\)</span> = 0.9708)</a></li>
-  <li><a href="#my-solution" id="toc-my-solution" class="nav-link" data-scroll-target="#my-solution">My Solution</a></li>
-  <li><a href="#cylvolume-plots" id="toc-cylvolume-plots" class="nav-link" data-scroll-target="#cylvolume-plots">CylVolume Plots</a></li>
-  <li><a href="#some-closing-thoughts" id="toc-some-closing-thoughts" class="nav-link" data-scroll-target="#some-closing-thoughts">Some Closing Thoughts</a></li>
+  <li><a href="#understanding-data" id="toc-understanding-data" class="nav-link" data-scroll-target="#understanding-data">Understanding Data</a></li>
+  <li><a href="#plotting-the-data" id="toc-plotting-the-data" class="nav-link" data-scroll-target="#plotting-the-data">Plotting the Data</a></li>
+  <li><a href="#patterns-in-the-predictors" id="toc-patterns-in-the-predictors" class="nav-link" data-scroll-target="#patterns-in-the-predictors">Patterns in the Predictors</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   </ul></li>
+  <li><a href="#more-eda-relationships-with-the-response-interactions" id="toc-more-eda-relationships-with-the-response-interactions" class="nav-link" data-scroll-target="#more-eda-relationships-with-the-response-interactions"><span class="header-section-number">17.2</span> More EDA: Relationships with the Response / Interactions</a></li>
+  <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling"><span class="header-section-number">17.3</span> Modelling</a></li>
   </ul>
 </nav>
     </div>
@@ -1740,9 +1694,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 }
 </script>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L14-Modelling_Transformations.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L17-Example_Analysis_mtcars.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></h1>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></h1>
 </div>
 
 
@@ -1751,7 +1705,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Dr.&nbsp;Devan Becker </p>
+    <p class="author">Devan Becker </p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -1766,7 +1720,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-03</p>
+      <p class="date">2024-07-12</p>
     </div>
   </div>
   
@@ -1778,306 +1732,150 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </header>
 
 
-<section id="introduction" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">14.1</span> Introduction</h2>
-<section id="the-trees-data" class="level3">
-<h3 class="anchored" data-anchor-id="the-trees-data">The Trees Data</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(trees)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>Diam <span class="ot">&lt;-</span> trees<span class="sc">$</span>Girth <span class="sc">/</span> <span class="dv">12</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>Girth <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(trees)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Height Volume      Diam
-1     70   10.3 0.6916667
-2     65   10.3 0.7166667
-3     63   10.2 0.7333333
-4     72   16.4 0.8750000
-5     81   18.8 0.8916667
-6     83   19.7 0.9000000</code></pre>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<p>From the help file:</p>
-<ul>
-<li>“<code>Girth</code>” is actually the diameter, in inches
-<ul>
-<li>Renamed <code>Diam</code>, transformed to feet</li>
-</ul></li>
-<li><code>Height</code> is in feet</li>
-<li><code>Volume</code> of the <em>timber</em> (usable wood) (cubic feet)</li>
-</ul>
-</div>
-</div>
-<p>Goal: Model the <code>volume</code> of the tree as a function of <code>Height</code> and <code>Diameter</code>.</p>
-</section>
-<section id="diy" class="level3">
-<h3 class="anchored" data-anchor-id="diy">DIY</h3>
-<p>The course notes include some starter code (that can be run in browser). Can you fit a better model than the basic multiple linear regression?</p>
-<p>Get in groups, use pen and paper to record the important parts of the transformations you try.</p>
-<p>Hint: what’s the <code>Volume</code> of a cylinder?</p>
+<section id="exploratory-data-analysis" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="exploratory-data-analysis"><span class="header-section-number">17.1</span> Exploratory Data Analysis</h2>
+<section id="understanding-data" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-data">Understanding Data</h3>
+<p>What do the column names mean?</p>
+<p>The help file gives a (very) brief description. I spent a few minutes just looking at the descriptions and trying to guess what relationships I might find.</p>
+<p>Overall, most of the predictors are trying to answer the question “Is this a powerful car?”</p>
+<p>In the code below, change <code>head()</code> to <code>str()</code>.</p>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
-<section id="my-attempts" class="level3">
-<h3 class="anchored" data-anchor-id="my-attempts">My Attempts</h3>
-<p>In the following, I’ll try a couple different models.</p>
-<p>Note that I’ve made the output smaller for the slides - you want to look at more than just these values!</p>
+<section id="plotting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="plotting-the-data">Plotting the Data</h3>
+<p>From the pairs plot below:</p>
+<div id="qwebr-insertion-location-2"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ul>
+<li>Only 1 car has <code>carb</code> = 6, 1 has <code>carb</code> = 8</li>
+<li><code>wt</code> and <code>drat</code> are (-ively) correlated
+<ul>
+<li><code>disp</code> and <code>hp</code></li>
+<li><code>disp</code> and <code>drat</code> (-ive)</li>
+<li><code>disp</code> and <code>wt</code></li>
+<li><code>hp</code> and <code>wt</code></li>
+<li><code>hp</code> and <code>qsec</code></li>
+</ul></li>
+</ul>
+<p><code>wt</code> and <code>disp</code> are clearly multicollinear,; they’re measuring the same thing so I might want to include just one of them.</p>
 </section>
-<section id="multiple-linear-regression" class="level3">
-<h3 class="anchored" data-anchor-id="multiple-linear-regression">Multiple Linear Regression</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(trees)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>Diam <span class="ot">&lt;-</span> trees<span class="sc">$</span>Girth <span class="sc">/</span> <span class="dv">12</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>Girth <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>base_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> Diam <span class="sc">+</span> Height, <span class="at">data =</span> trees)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_lm)<span class="sc">$</span>coef <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept) -57.9877     8.6382 -6.7129   0.0000
-Diam         56.4979     3.1712 17.8161   0.0000
-Height        0.3393     0.1302  2.6066   0.0145</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_lm)<span class="sc">$</span>adj.r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9442322</code></pre>
-</div>
-</div>
+<section id="patterns-in-the-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="patterns-in-the-predictors">Patterns in the Predictors</h3>
+<p>In the following code, try setting the term on the right of the <code>~</code> as <code>am</code>, <code>cyl</code>, <code>gear</code>, and <code>carb</code>. Try the terms on the left side of the as <code>wt</code>, <code>disp</code>, <code>drat</code>, and <code>qsec</code>. Essentially, tried every combination of these and wrote down the most interesting patterns.</p>
+<div id="qwebr-insertion-location-3"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ul>
+<li><code>wt</code> is different across categories of <code>am</code>, <code>cyl</code>, <code>carb</code>, <code>gear</code> (all positive)
+<ul>
+<li><code>disp</code> has same relationships</li>
+<li><code>hp</code> has same relationships, except 4 gear cars have lower hp than 3 and 5 gear cars</li>
+<li><code>drat</code> has opposite relationships</li>
+</ul></li>
+</ul>
+<p>I did something similar with the following code, checking every combination of all relevant predictors and writing down anything that stuck out to me.</p>
+<div id="qwebr-insertion-location-4"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ul>
+<li>Clear separation between <code>disp</code> and <code>wt</code> when coloured by am or <code>cyl</code>.
+<ul>
+<li>In other words, there are distinct groups. This probably means that one of the continuous predictors has all of the information necessary, and it won’t be necessary to include an interaction between continuous predictors (it rarely is).</li>
+</ul></li>
+<li>Otherwise, there are not many relationships that might be present.</li>
+</ul>
+<p>The following plot was also used with all combinations of categorical predictors.</p>
+<div id="qwebr-insertion-location-5"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ul>
+<li>Some kind of “correlation” between <code>am</code> and <code>cyl</code>.
+<ul>
+<li>Measuring something similar, but from different perspectives.</li>
+</ul></li>
+<li>Very little relation between <code>am</code> and <code>vs</code> - they’re measuring different things.
+<ul>
+<li>Might be worth checking models where <code>am</code> is switched with <code>vs</code>.</li>
+</ul></li>
+</ul>
 </section>
-<section id="multiple-linear-regression---plots" class="level3">
-<h3 class="anchored" data-anchor-id="multiple-linear-regression---plots">Multiple Linear Regression - Plots</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L14-Modelling_Transformations_files/figure-html/base-model-plots-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<section id="conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
+<p>Most things are measuring “how powerful is this car” or “how heavy is this car”, so we should just choose the ones that make sense to us and check a few categorical predictors.</p>
+<p><code>wt</code> and <code>disp</code> make the most sense as measures for <code>mpg</code>, and <code>am</code> and <code>cyl</code> also make some sense. I’ll try switching out some of the other predictors, but I expect that the final model will either be <code>wt*am</code> or <code>disp*cyl</code>.</p>
 </section>
-<section id="attempt-1-logs" class="level3">
-<h3 class="anchored" data-anchor-id="attempt-1-logs">Attempt 1: Logs</h3>
-<p>Notice that the model <span class="math inline">\(E(y_i) = \beta_1x_{i1}^2x_{i2}\)</span> is equivalent to: <span class="math display">\[
-\ln(E(y_i)) = \ln(\beta_1) + 2\ln(x_{i1}) + \ln(x_{i2})
+</section>
+<section id="more-eda-relationships-with-the-response-interactions" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="more-eda-relationships-with-the-response-interactions"><span class="header-section-number">17.2</span> More EDA: Relationships with the Response / Interactions</h2>
+<p>Now we’re finally looking at mpg!</p>
+<div id="qwebr-insertion-location-6"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>From looking at many many plots, I propose the following candidate models:</p>
+<ul>
+<li><code>mpg</code> versus <code>disp</code> * <code>cyl</code></li>
+<li><code>mpg</code> versus <code>wt</code> * <code>am</code> (<code>cyl</code>?)</li>
+<li><code>mpg</code> versus <code>wt</code> * <code>vs</code> (maybe not an interaction)</li>
+<li><code>mpg</code> versus <code>wt</code> * <code>gear</code>?</li>
+</ul>
+<p>I had also considered including <code>qsec</code>, but a plot of <code>mpg</code> versus <code>qsec</code> with colours from <code>cyl</code> revealed that <code>cyl</code> explains the relationship; if we include <code>cyl</code>, then the slope for mpg versus <code>qsec</code> is 0. The same thing happens with <code>drat</code>, so <code>cyl</code> is probably enough to include in the model rather than either <code>qsec</code> or <code>drat</code>.</p>
+</section>
+<section id="modelling" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="modelling"><span class="header-section-number">17.3</span> Modelling</h2>
+<p>Let’s test out our models!</p>
+<p>Again, to reduce the amount of output I have to wade through, I changed the following code a bunch and left it at something meaningful to my final analysis.</p>
+<div id="qwebr-insertion-location-7"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ul>
+<li>Residuals versus fitted looks good</li>
+<li>QQ norm looks great! For this small of a data set, we don’t expect much from the qq-plot, so this is actually very nice.</li>
+<li>Scale-Location has a slight U shape, which isn’t ideal. There may still be a predictor that’s worth including.</li>
+<li>There’s a high influence point. This is likely due to the interaction between cyl and disp.
+<ul>
+<li>When we have this kind of interaction, there are essentially three lines, each with fewer observations. It is much easier for a point to be influential with interaction present.</li>
+</ul></li>
+</ul>
+<div id="qwebr-insertion-location-8"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ul>
+<li>First plot looks good!</li>
+<li>QQplot has some heavy tails - not bad, but not ideal. <code>dispmodel</code> was better.</li>
+<li>Scale-location is great!</li>
+<li>No high leverage points.</li>
+</ul>
+<p>Both models are good in different ways. Let’s check their summaries.</p>
+<div id="qwebr-insertion-location-9"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div id="qwebr-insertion-location-10"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>The <span class="math inline">\(R^2\)</span> for <code>dispmodel</code> is a fair bit higher (although there’s no standard for how much an <span class="math inline">\(R^2\)</span> should change, so this might not be a meaningful difference). As we saw in class, the <span class="math inline">\(R^2\)</span> is based on the same quantities as the F-test for different models.</p>
+<div id="qwebr-insertion-location-11"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>The models fit significantly differently. Which one fits better?</p>
+<div id="qwebr-insertion-location-12"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p><code>dispmodel</code> has a higher <span class="math inline">\(R^2\)</span> and a lower MSE, so it seems to be the winner.</p>
+<p>From the pairs plot, I saw that disp has a slight relationship with other continuous predictors, and the scale-location plot wasn’t perfect. Perhaps another predictor will help?</p>
+<p>I can do this with the magical <code>update()</code> function. The <code>~ . + hp</code> notation means the response versus (<code>~</code>) everything <code>.</code>, then add <code>hp</code>. The <code>~</code> means “versus” (with the response on the left, which isn’t allowed to change in this case, and the predictors on the right), and the <code>.</code> means “everything”, which in this case refers to everything that was already in the model. The form <code>lm(mpg ~ ., data = mtcars)</code> will fit <code>mpg</code> against everything else it sees in the mtcars dataset.</p>
+<div id="qwebr-insertion-location-13"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>I checked <code>qsec</code>, <code>drat</code>, and <code>hp</code>, and none seemed worth including in the model. I’ll just leave it as is.</p>
+<p>To interpret the model we must be careful about the interaction term!</p>
+<p><span class="math display">\[
+mpg = \begin{cases}
+\beta_0 + \beta_1 disp &amp; \text{if }cyl == 4\\
+(\beta_0 + \beta_2) + (\beta_1 + \beta_4) disp &amp; \text{if }cyl == 6\\
+(\beta_0 + \beta_3) + (\beta_1 + \beta_5) disp &amp; \text{if }cyl == 8\\
+\end{cases}
 \]</span></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>full_log_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Volume) <span class="sc">~</span> <span class="fu">log</span>(Height) <span class="sc">+</span> <span class="fu">log</span>(Diam), <span class="at">data =</span> trees)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full_log_lm)<span class="sc">$</span>coef <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)  -1.7049     0.8819 -1.9332   0.0634
-log(Height)   1.1171     0.2044  5.4644   0.0000
-log(Diam)     1.9826     0.0750 26.4316   0.0000</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(full_log_lm)<span class="sc">$</span>adj.r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.976084</code></pre>
-</div>
-</div>
-</section>
-<section id="attempt-1-residual-plots" class="level3">
-<h3 class="anchored" data-anchor-id="attempt-1-residual-plots">Attempt 1 Residual Plots</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L14-Modelling_Transformations_files/figure-html/full-log-model-plots-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="alternative-2-logy" class="level3">
-<h3 class="anchored" data-anchor-id="alternative-2-logy">Alternative 2: log(y)</h3>
-<p>Let’s try not logging the x-values</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>y_log_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Volume) <span class="sc">~</span> Height <span class="sc">+</span> Diam, <span class="at">data =</span> trees)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(y_log_lm)<span class="sc">$</span>coef <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)   0.1026     0.2153  0.4764   0.6375
-Height        0.0164     0.0032  5.0508   0.0000
-Diam          1.7435     0.0790 22.0569   0.0000</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(y_log_lm)<span class="sc">$</span>adj.r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9661964</code></pre>
-</div>
-</div>
-</section>
-<section id="attempt-2-residual-plots" class="level3">
-<h3 class="anchored" data-anchor-id="attempt-2-residual-plots">Attempt 2 Residual Plots</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L14-Modelling_Transformations_files/figure-html/y-log-model-plots-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="box-cox" class="level3">
-<h3 class="anchored" data-anchor-id="box-cox">Box-Cox?</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
 <ul>
-<li>Box-Cox says something between 0 and 1, closer to 0.</li>
-<li>What could we round to?</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcox</span>(<span class="fu">lm</span>(Volume <span class="sc">~</span> Height <span class="sc">+</span> Diam, <span class="at">data =</span> trees))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L14-Modelling_Transformations_files/figure-html/box-cox-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="using-the-box-cox-parameter-sqrt" class="level3">
-<h3 class="anchored" data-anchor-id="using-the-box-cox-parameter-sqrt">Using the Box-Cox Parameter: Sqrt</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>y_sqrt_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">sqrt</span>(Volume) <span class="sc">~</span> Height <span class="sc">+</span> Diam, <span class="at">data =</span> trees)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(y_sqrt_lm)<span class="sc">$</span>coef <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)  -2.7700     0.5094 -5.4375    0e+00
-Height        0.0358     0.0077  4.6589    1e-04
-Diam          4.8591     0.1870 25.9828    0e+00</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(y_sqrt_lm)<span class="sc">$</span>adj.r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9740084</code></pre>
-</div>
-</div>
-</section>
-<section id="using-the-box-cox-parameter-quarter-power" class="level3">
-<h3 class="anchored" data-anchor-id="using-the-box-cox-parameter-quarter-power">Using the Box-Cox Parameter: Quarter Power</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>y_quarter_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">I</span>(Volume<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>)) <span class="sc">~</span> Height <span class="sc">+</span> Diam, <span class="at">data =</span> trees)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(y_quarter_lm)<span class="sc">$</span>coef <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)   0.5108     0.1057  4.8318        0
-Height        0.0085     0.0016  5.3258        0
-Diam          1.0235     0.0388 26.3699        0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(y_quarter_lm)<span class="sc">$</span>adj.r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9753826</code></pre>
-</div>
-</div>
-</section>
-<section id="what-about-transforming-x-only" class="level3">
-<h3 class="anchored" data-anchor-id="what-about-transforming-x-only">What About Transforming <span class="math inline">\(x\)</span> only?</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>poly_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> <span class="fu">poly</span>(Height, <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">poly</span>(Diam, <span class="dv">2</span>), <span class="at">data =</span> trees)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(poly_lm)<span class="sc">$</span>coef <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                 Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)       30.1710     0.4802 62.8290   0.0000
-poly(Height, 2)1  13.1319     3.1368  4.1864   0.0003
-poly(Height, 2)2   0.4266     2.9584  0.1442   0.8865
-poly(Diam, 2)1    80.2382     3.1323 25.6167   0.0000
-poly(Diam, 2)2    15.2171     2.9632  5.1354   0.0000</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(poly_lm)<span class="sc">$</span>adj.r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9735436</code></pre>
-</div>
-</div>
-</section>
-<section id="quadratic-polynomial-plots" class="level3">
-<h3 class="anchored" data-anchor-id="quadratic-polynomial-plots">Quadratic Polynomial Plots</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L14-Modelling_Transformations_files/figure-html/poly-model-plots-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="polynomials-of-order-8-r2-0.9864-r2_adj-0.9708" class="level3">
-<h3 class="anchored" data-anchor-id="polynomials-of-order-8-r2-0.9864-r2_adj-0.9708">Polynomials of Order 8? (<span class="math inline">\(R^2\)</span> = 0.9864, <span class="math inline">\(R^2_{adj}\)</span> = 0.9708)</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L14-Modelling_Transformations_files/figure-html/poly8-model-plots-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="my-solution" class="level3">
-<h3 class="anchored" data-anchor-id="my-solution">My Solution</h3>
-<p>Let <code>CylVolume</code> be the volume of the cylinder defined by <code>Height</code> and <code>Diam</code>, <span class="math inline">\(V = \pi (d/2)^2h\)</span>.</p>
-<p>The model is <span class="math inline">\(Volume_i = \beta_1CylVolume_i + \epsilon_i\)</span>, where <span class="math inline">\(\beta_1\)</span> is the proportion of an ideal cylinder that is actual usable wood.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>trees<span class="sc">$</span>CylVolume <span class="ot">&lt;-</span> pi <span class="sc">*</span> (trees<span class="sc">$</span>Diam<span class="sc">/</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> trees<span class="sc">$</span>Height</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>cyl_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> CylVolume, <span class="at">data =</span> trees)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cyl_lm)<span class="sc">$</span>coef <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          Estimate Std. Error t value Pr(&gt;|t|)
-CylVolume   0.3865      0.005 77.4365        0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cyl_lm)<span class="sc">$</span>adj.r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.994856</code></pre>
-</div>
-</div>
-</section>
-<section id="cylvolume-plots" class="level3">
-<h3 class="anchored" data-anchor-id="cylvolume-plots">CylVolume Plots</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Volume <span class="sc">~</span> CylVolume, <span class="at">data =</span> trees,</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Volume versus CylVolume"</span>)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span>, <span class="at">main =</span> <span class="st">"Blank Space"</span>, <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">xaxt =</span> <span class="st">"n"</span>, <span class="at">yaxt =</span> <span class="st">"n"</span>,</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">""</span>, <span class="at">ylab =</span> <span class="st">""</span>, <span class="at">pch =</span> <span class="st">""</span>)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cyl_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L14-Modelling_Transformations_files/figure-html/my-solution-plots-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="some-closing-thoughts" class="level3">
-<h3 class="anchored" data-anchor-id="some-closing-thoughts">Some Closing Thoughts</h3>
+<li>For 4 cylinder cars, the baseline mpg is 40 and decreases by 0.135 for each one unit increase in disp.</li>
+<li>For 6 cylinder cars, the baseline mpg is about 21.5 and isn’t really related to the displacement.</li>
+<li>For 8 cylinder cars, the baseline mpg is about 24.5 and decreases by about 0.02 for each one-unit increase in displacement.
 <ul>
-<li>Using <code>ln(y) ~ ln(x)</code> made the <span class="math inline">\(R^2\)</span> slightly better, even though plots looked similar.
-<ul>
-<li>Plots looked slightly better for full log, though.</li>
-</ul></li>
-<li>We were using <code>log</code> just to make the relationship linear.
-<ul>
-<li>Box-Cox told us to use sqrt or quarter power instead - result was better!</li>
-</ul></li>
-<li>Very interestingly, models that chose powers of <span class="math inline">\(x\)</span> chose 1 for Height, 2 for Diam…</li>
-<li>Trees are not perfect cylinders.
-<ul>
-<li>However, a cylinder model fits best and with fewer parameters!!!</li>
+<li>Note that displacement has really large units, so 0.02 over hundreds of one-unit increases is still a lot!</li>
 </ul></li>
 </ul>
-<p>In conclusion, always think through the problem before blindly modelling.</p>
-<p>Note that the best model in this case used our knowledge of the physical problem, and this happened to correspond to the best fitting model. This isn’t always the case! It is very common that we’ll have to choose between a model that fits well and a model that matches our understanding of the world, and this is not an easy choice!</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -2647,13 +2445,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L13-Transforming_Response.html" class="pagination-link" aria-label="Transformations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transformations</span></span>
+      <a href="./L16-Dummies.html" class="pagination-link" aria-label="Dummy Variables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L15-Multicollinearity.html" class="pagination-link" aria-label="Multicollinearity">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L18-Modelling_Poorly.html" class="pagination-link" aria-label="Modelling Poorly">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -3,6 +3,8 @@ title: "Analysis of MTCars"
 author: "Devan Becker"
 format: html
 editor: visual
+filter:
+  - webr
 ---
 
 ```{r}
@@ -18,6 +20,9 @@ theme_set(theme_bw())
 
 ### Announcements
 
+- Groups are ready to be joined!\lspace
+- 
+
 :::
 
 ## Exploratory Data Analysis
@@ -30,94 +35,95 @@ The help file gives a (very) brief description. I spent a few minutes just looki
 
 Overall, most of the predictors are trying to answer the question "Is this a powerful car?" 
 
+In the code below, change `head()` to `str()`.
+
+```{webr-r}
+head(mtcars)
+```
+
 ### Plotting the Data
 
-From a pairs plot (`pairs(mtcars)`, which I have not included to reduce the amount of output):
+From the pairs plot below:
 
-- Only 1 car has carb = 6, 1 has carb = 8
-- wt and drat are (-ively) correlated
-    - disp and hp
-    - disp and drat (-ive)
-    - disp and wt
-    - hp and wt 
-    - hp and qsec
+```{webr-r}
+# Choosing the first few columns to make it smaller on my screen
+pairs(mtcars[, c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec")])
+```
 
-wt and disp are clearly multicollinear, and they're measuring the same thing so I might want to include just one of them.
+- Only 1 car has `carb` = 6, 1 has `carb` = 8
+- `wt` and `drat` are (-ively) correlated
+    - `disp` and `hp`
+    - `disp` and `drat` (-ive)
+    - `disp` and `wt`
+    - `hp` and `wt` 
+    - `hp` and `qsec`
+
+`wt` and `disp` are clearly multicollinear,; they're measuring the same thing so I might want to include just one of them.
 
 ### Patterns in the Predictors
 
-In the following code, I tried x as am, cyl, gear, and carb. The y axis was wt, disp, drat, and qsec. I essentially tried every combination of these and wrote down the most interesting patterns. 
+In the following code, try setting the term on the right of the `~` as `am`, `cyl`, `gear`, and `carb`. Try the terms on the left side of the as `wt`, `disp`, `drat`, and `qsec`. Essentially, tried every combination of these and wrote down the most interesting patterns. 
 
-```{r}
+```{webr-r}
 #| label: cont_v_cat
 # Continuous versus categorical
-ggplot(mtcars) +
-    aes(x = factor(am), y = wt) +
-    geom_boxplot()
+plot(wt ~ factor(am), data = mtcars)
 ```
 
-- wt is different across categories of am, cyl, carb, gear (all positive)
-    - disp has same relationships
-    - hp has same relationships, except 4 gear cars have lower hp than 3 and 5 gear cars
-    - drat has opposite relationships
+- `wt` is different across categories of `am`, `cyl`, `carb`, `gear` (all positive)
+    - `disp` has same relationships
+    - `hp` has same relationships, except 4 gear cars have lower hp than 3 and 5 gear cars
+    - `drat` has opposite relationships
     
 I did something similar with the following code, checking every combination of all relevant predictors and writing down anything that stuck out to me. 
     
-```{r}
+```{webr-r}
 #| label: cont_v_cont
 # Continuous vs. continuous
-ggplot(mtcars) +
-    aes(x = disp, y = wt, colour = factor(cyl)) +
-    geom_point()
+plot(disp ~ wt, col = factor(am), data = mtcars)
 ```
 
-- Clear separation between disp and wt when coloured by am or cyl.
+- Clear separation between `disp` and `wt` when coloured by am or `cyl`.
     - In other words, there are distinct groups. This probably means that one of the continuous predictors has all of the information necessary, and it won't be necessary to include an interaction between continuous predictors (it rarely is).
 - Otherwise, there are not many relationships that might be present.
 
 
 The following plot was also used with all combinations of categorical predictors. 
 
-```{r}
+```{webr-r}
 #| label: cats
 # categorical variables
-ggplot(mtcars) + 
-    aes(x = factor(am), fill = factor(vs)) +
-    geom_bar(position = "dodge")
+barplot(table(mtcars$am, mtcars$vs), beside = TRUE, legend = TRUE)
 ```
 
-- Some kind of "correlation" between am and cyl.
+- Some kind of "correlation" between `am` and `cyl`.
     - Measuring something similar, but from different perspectives.
-- Very little relation between am and vs - they're measuring different things.
-    - Might be worth checking models where am is switched with vs. 
+- Very little relation between `am` and `vs` - they're measuring different things.
+    - Might be worth checking models where `am` is switched with `vs`. 
 
 ### Conclusions
 
-Most things are measuring "how powerful is this car", so we should just choose the ones that make sense to us and check a few categorical predictors.
+Most things are measuring "how powerful is this car" or "how heavy is this car", so we should just choose the ones that make sense to us and check a few categorical predictors.
 
 `wt` and `disp` make the most sense as measures for `mpg`, and `am` and `cyl` also make some sense. I'll try switching out some of the other predictors, but I expect that the final model will either be `wt*am` or `disp*cyl`.
 
 ## More EDA: Relationships with the Response / Interactions
 
-
 Now we're finally looking at mpg!
 
-```{r}
+```{webr-r}
 #| label: mpg_v_disp
-ggplot(mtcars) +
-    aes(y = mpg, x = disp, colour = factor(cyl)) +
-    geom_point() +
-    geom_smooth(method = "lm", se = TRUE, formula = y ~ x)
+plot(mpg ~ disp, col = factor(cyl), data = mtcars)
 ```
 
 From looking at many many plots, I propose the following candidate models:
 
-- mpg versus disp * cyl
-- mpg versus wt * am (cyl?)
-- mpg versus wt * vs (maybe not an interaction)
-- mpg versus wt * gear?
+- `mpg` versus `disp` * `cyl`
+- `mpg` versus `wt` * `am` (`cyl`?)
+- `mpg` versus `wt` * `vs` (maybe not an interaction)
+- `mpg` versus `wt` * `gear`?
 
-I had also considered including qsec, but a plot of mpg versus qsec with colours from cyl revealed that cyl explains the relationship; if we include cyl, then the slope for mpg versus qsec is 0. The same thing happens with drat, so cyl is probably enough to include in the model rather than either qsec or drat. 
+I had also considered including `qsec`, but a plot of `mpg` versus `qsec` with colours from `cyl` revealed that `cyl` explains the relationship; if we include `cyl`, then the slope for mpg versus `qsec` is 0. The same thing happens with `drat`, so `cyl` is probably enough to include in the model rather than either `qsec` or `drat`. 
 
 
 ## Modelling 
@@ -126,7 +132,7 @@ Let's test out our models!
 
 Again, to reduce the amount of output I have to wade through, I changed the following code a bunch and left it at something meaningful to my final analysis.
 
-```{r}
+```{webr-r}
 #| label: dispmodel_plot
 dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
 
@@ -140,7 +146,7 @@ plot(dispmodel, col = mtcars$cyl)
 - There's a high influence point. This is likely due to the interaction between cyl and disp.
     - When we have this kind of interaction, there are essentially three lines, each with fewer observations. It is much easier for a point to be influential with interaction present. 
 
-```{r}
+```{webr-r}
 #| label: wtmodel_plot
 wtmodel <- lm(mpg ~ wt * am, data = mtcars)
 
@@ -155,26 +161,31 @@ plot(wtmodel)
 
 Both models are good in different ways. Let's check their summaries.
 
-```{r}
+```{webr-r}
 #| label: dispmodel_summary
+dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
 summary(dispmodel)
 ```
 
-```{r}
+```{webr-r}
 #| label: wtmodel_summary
+wtmodel <- lm(mpg ~ wt * am, data = mtcars)
 summary(wtmodel)
 ```
 
 The $R^2$ for `dispmodel` is a fair bit higher (although there's no standard for how much an $R^2$ should change, so this might not be a meaningful difference). As we saw in class, the $R^2$ is based on the same quantities as the F-test for different models. 
 
-```{r}
+```{webr-r}
+dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
 anova(dispmodel, wtmodel)
 ```
 
 The models fit significantly differently. Which one fits better?
 
-```{r}
+```{webr-r}
 # MSE values
+dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
+wtmodel <- lm(mpg ~ wt * am, data = mtcars)
 summary(dispmodel)$sigma
 summary(wtmodel)$sigma
 ```
@@ -183,13 +194,14 @@ summary(wtmodel)$sigma
 
 From the pairs plot, I saw that disp has a slight relationship with other continuous predictors, and the scale-location plot wasn't perfect. Perhaps another predictor will help?
 
-I can do this with the magical `update()` function. The `~ . + hp` notation means the response versus (`~`) everything `.`, then add `hp`. The `~` means "versus" (with the response on the left, which isn't allowed to change in this case, and the predictors on the right), and the `.` means "everything", which in this case refers to everything that was already in the model. The form `lm(mpg ~ ., data = mtcars)` will fit mpg against everything else it sees in the mtcars dataset. 
+I can do this with the magical `update()` function. The `~ . + hp` notation means the response versus (`~`) everything `.`, then add `hp`. The `~` means "versus" (with the response on the left, which isn't allowed to change in this case, and the predictors on the right), and the `.` means "everything", which in this case refers to everything that was already in the model. The form `lm(mpg ~ ., data = mtcars)` will fit `mpg` against everything else it sees in the mtcars dataset. 
 
-```{r}
+```{webr-r}
+dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
 summary(update(dispmodel, ~ . + hp)) 
 ```
 
-I checked qsec, drat, and hp, and none seemed worth including in the model. I'll just leave it as is.
+I checked `qsec`, `drat`, and `hp`, and none seemed worth including in the model. I'll just leave it as is.
 
 To interpret the model we must be careful about the interaction term!
 
@@ -205,9 +217,3 @@ $$
 - For 6 cylinder cars, the baseline mpg is about 21.5 and isn't really related to the displacement.
 - For 8 cylinder cars, the baseline mpg is about 24.5 and decreases by about 0.02 for each one-unit increase in displacement.
     - Note that displacement has really large units, so 0.02 over hundreds of one-unit increases is still a lot!
-
-
-
-
-
-

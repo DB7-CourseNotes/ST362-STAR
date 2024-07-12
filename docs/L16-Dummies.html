@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-07-09">
+<meta name="dcterms.date" content="2024-07-10">
 
 <title>STAR Notes – 16&nbsp; Dummy Variables</title>
 <style>
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L17-Modelling_Poorly.html" rel="next">
+<link href="./L17-Example_Analysis_mtcars.html" rel="next">
 <link href="./L15-Multicollinearity.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"out-width":"700px","dpi":72,"read-only":"false","editor-font-scale":1,"editor-max-height":"","out-height":"","context":"interactive","label":"intercept-model","fig-height":5,"echo":"true","warning":"true","comment":"","results":"markup","autorun":"false","output":"true","fig-width":7,"message":"true","fig-cap":"","editor-quick-suggestions":"false","classes":""},"id":1,"code":"# Three intercepts\ncoef(lm(body_mass_g ~ species, data = penguins))\n\n# For each value of cylinder\n# You'll have to do some math to get the same numbers as above!\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == Adelie)))\n# 26.66364\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Chinstrap\")))\n# 19.74286 = 26.66364 - 6.920779\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Gentoo\")))\n# 15.1 = 26.66364 - 11.563636"},{"options":{"out-width":"700px","dpi":72,"read-only":"false","editor-font-scale":1,"editor-max-height":"","out-height":"","context":"interactive","label":"intercept-slope-model","fig-height":5,"echo":"true","warning":"true","comment":"","results":"markup","autorun":"false","output":"true","fig-width":7,"message":"true","fig-cap":"","editor-quick-suggestions":"false","classes":""},"id":2,"code":"coef(lm(body_mass_g ~ species + flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))"},{"options":{"out-width":"700px","dpi":72,"read-only":"false","editor-font-scale":1,"editor-max-height":"","out-height":"","context":"interactive","label":"intercept-slope-sig-type2SS","fig-height":5,"echo":"true","warning":"true","comment":"","results":"markup","autorun":"false","output":"true","fig-width":7,"message":"true","fig-cap":"","editor-quick-suggestions":"false","classes":""},"id":3,"code":"\nmylm <- lm(body_mass_g ~ flipper_length_mm + species, data = penguins)\nanova(mylm)"},{"options":{"out-width":"700px","dpi":72,"read-only":"false","editor-font-scale":1,"editor-max-height":"","out-height":"","context":"interactive","label":"interaction-model","fig-height":5,"echo":"true","warning":"true","comment":"","results":"markup","autorun":"false","output":"true","fig-width":7,"message":"true","fig-cap":"","editor-quick-suggestions":"false","classes":""},"id":4,"code":"coef(lm(body_mass_g ~ species * flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))"}];
+globalThis.qwebrCellDetails = [{"id":1,"code":"# Three intercepts\ncoef(lm(body_mass_g ~ species, data = penguins))\n\n# For each value of cylinder\n# You'll have to do some math to get the same numbers as above!\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == Adelie)))\n# 26.66364\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Chinstrap\")))\n# 19.74286 = 26.66364 - 6.920779\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Gentoo\")))\n# 15.1 = 26.66364 - 11.563636","options":{"out-height":"","editor-max-height":"","classes":"","fig-cap":"","output":"true","editor-quick-suggestions":"false","message":"true","label":"intercept-model","fig-height":5,"editor-font-scale":1,"fig-width":7,"results":"markup","autorun":"false","echo":"true","context":"interactive","read-only":"false","warning":"true","comment":"","out-width":"700px","dpi":72}},{"id":2,"code":"coef(lm(body_mass_g ~ species + flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))","options":{"out-height":"","editor-max-height":"","classes":"","fig-cap":"","output":"true","editor-quick-suggestions":"false","message":"true","label":"intercept-slope-model","fig-height":5,"editor-font-scale":1,"fig-width":7,"results":"markup","autorun":"false","echo":"true","context":"interactive","read-only":"false","warning":"true","comment":"","out-width":"700px","dpi":72}},{"id":3,"code":"\nmylm <- lm(body_mass_g ~ flipper_length_mm + species, data = penguins)\nanova(mylm)","options":{"out-height":"","editor-max-height":"","classes":"","fig-cap":"","output":"true","editor-quick-suggestions":"false","message":"true","label":"intercept-slope-sig-type2SS","fig-height":5,"editor-font-scale":1,"fig-width":7,"results":"markup","autorun":"false","echo":"true","context":"interactive","read-only":"false","warning":"true","comment":"","out-width":"700px","dpi":72}},{"id":4,"code":"coef(lm(body_mass_g ~ species * flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))","options":{"out-height":"","editor-max-height":"","classes":"","fig-cap":"","output":"true","editor-quick-suggestions":"false","message":"true","label":"interaction-model","fig-height":5,"editor-font-scale":1,"fig-width":7,"results":"markup","autorun":"false","echo":"true","context":"interactive","read-only":"false","warning":"true","comment":"","out-width":"700px","dpi":72}}];
 
 </script>
 <script type="module">
@@ -1341,14 +1341,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
+  <a href="./L17-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Example_Analysis_mtcars.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span></a>
+  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1499,7 +1499,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#interactions" id="toc-interactions" class="nav-link" data-scroll-target="#interactions"><span class="header-section-number">16.2</span> Interactions</a>
   <ul class="collapse">
-  <li><a href="#different-intercepts-same-slope" id="toc-different-intercepts-same-slope" class="nav-link" data-scroll-target="#different-intercepts-same-slope">Different Intercepts, Same Slope</a></li>
+  <li><a href="#same-slope-but-different-intercepts" id="toc-same-slope-but-different-intercepts" class="nav-link" data-scroll-target="#same-slope-but-different-intercepts">Same Slope but Different Intercepts</a></li>
   <li><a href="#visualizing-different-intercepts-same-slopes" id="toc-visualizing-different-intercepts-same-slopes" class="nav-link" data-scroll-target="#visualizing-different-intercepts-same-slopes">Visualizing Different Intercepts (Same Slopes)</a></li>
   <li><a href="#testing-significance-1" id="toc-testing-significance-1" class="nav-link" data-scroll-target="#testing-significance-1">Testing Significance</a></li>
   <li><a href="#interaction-terms-different-intercepts-different-slopes" id="toc-interaction-terms-different-intercepts-different-slopes" class="nav-link" data-scroll-target="#interaction-terms-different-intercepts-different-slopes">Interaction Terms: Different Intercepts, Different Slopes</a></li>
@@ -1763,7 +1763,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            <strong>Jam TBD</strong>
+            <strong>Same Mistake - But Different Remix</strong> by Jan Blomqvist
           </p>
       </div>
   </div>
@@ -1774,7 +1774,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-09</p>
+      <p class="date">2024-07-10</p>
     </div>
   </div>
   
@@ -1950,8 +1950,8 @@ I(species == Chinstrap)\text{ and }I(species == Gentoo)
 </section>
 <section id="interactions" class="level2" data-number="16.2">
 <h2 data-number="16.2" class="anchored" data-anchor-id="interactions"><span class="header-section-number">16.2</span> Interactions</h2>
-<section id="different-intercepts-same-slope" class="level3">
-<h3 class="anchored" data-anchor-id="different-intercepts-same-slope">Different Intercepts, Same Slope</h3>
+<section id="same-slope-but-different-intercepts" class="level3">
+<h3 class="anchored" data-anchor-id="same-slope-but-different-intercepts">Same Slope but Different Intercepts</h3>
 <p>If we have <code>cyl</code> and <code>flipper_length_mm</code> in the model, we get the following:</p>
 <p><span class="math display">\[
 y = \beta_0 + \beta_1I(species == Chinstrap) + \beta_2I(species == Gentoo) + \beta_3 flipper_length_mm
@@ -2758,8 +2758,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L17-Modelling_Poorly.html" class="pagination-link" aria-label="Modelling Poorly">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L17-Example_Analysis_mtcars.html" class="pagination-link" aria-label="Analysis of MTCars">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Analysis of MTCars</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
