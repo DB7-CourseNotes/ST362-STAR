@@ -68,7 +68,7 @@ The code below demonstrates this for the `cars` data. Notice how similar this is
 
 ```{webr-r}
 data(cars)
-x < cars$speed
+x <- cars$speed
 y <- cars$dist
 obs_beta <- coef(lm(y ~ x))[2]
 betas <- c()
@@ -90,7 +90,7 @@ pvalue <- mean(betas < below | betas > above)
 pvalue
 ```
 
-Under the null, the sample slopes can range from -2 to 2. However, our actual slope was 4! Notice that the p-value calculation is the probability of a value at least as extreme; we first find the distance from the mean, then count the number of values this far or further from the mean. The expression `bestas < below | betas > above` returns a bunch of true/false values, with "TRUE" meaning that the point is either below `below` or above `above`. The `mean()` function, when applied to a bunch of true/false values, is a proportion. Thus, we are calculating the proportion of points that were at least as far away as the data we got, which is the definition of a p-value!
+Under the null, the sample slopes can range from -2 to 2. However, our actual slope was 4! Notice that the p-value calculation is the probability of a value at least as extreme; we first find the distance from the mean, then count the number of values this far or further from the mean. The expression `betas < below | betas > above` returns a bunch of true/false values, with "TRUE" meaning that the point is either below `below` or above `above`. The `mean()` function, when applied to a bunch of true/false values, is a proportion. Thus, we are calculating the proportion of points that were at least as far away as the data we got, which is the definition of a p-value!
 
 In the end, we got a p-value of exactly 0. The p-value from normality assumptions is below:
 
@@ -98,7 +98,7 @@ In the end, we got a p-value of exactly 0. The p-value from normality assumption
 summary(lm(dist ~ speed, data = cars))$coef
 ```
 
-That's a p-value of 0.0000000000015. To get a p-value this low in a permutation test, we'd need somewhere near 10000000000 permutations, and even then we might not get one outside of our critical region. 
+That's a p-value of 0.0000000000015. To get a p-value this low in a permutation test, we'd need somewhere near 10000000000 permutations, and even then we might not get one outside of our critical region. It's not a surprise that our permutation test p-value was 0!
 
 ## Permute the response or the predictor(s)?
 
@@ -119,6 +119,8 @@ For the last two, we often just care about the response given our predictors; it
 Note that there's a secret fifth option: permute *some* of the predictors together. This is like an Extra Sum-of-Squares test for a group of predictors!
 
 Run the following code many times with `kind = "y"` and watch what changes. Change `kind` to `"x"` to see what changes, then also try `"xx"`. 
+
+(Note: you can click on the last line and hit "Shit+Enter" to run the code cell without scrolling up and clicking the "Run Code" button.)
 
 ```{webr-r}
 # Always get same data
@@ -157,6 +159,57 @@ pairs(permute(mydf, kind = "xx"))
 - `kind = "x"` affects *all* relationships involving `x`
 - `kind = "xx"` affects relationships involving `x1` *and* `x2`, but there's an important exception...
 
+## Example: Permutation Test for Bill Depth
 
+Is `bill_depth_mm` an important predictor in the Palmer Penguins data? 
 
+The method for getting the answer depends on the model that we choose! In the following, we're modelling the body mass against the flipper length, bill length, and bill depth (all with an interaction term with species), and the the different islands are given different intercepts. This is by no means a "good" model - `flipper_length_mm * species` is a good enough model. However, this model has an interaction term that will persist if we take bill depth out of the equation, and so it's a good example of doing an ESS test for all parameters involving bill_depth. We also know that there's some multicollinearity in these data, which has implications for the permutation test.
 
+```{webr-r}
+# This will take a while the first time it's run in the browser
+library(palmerpenguins)
+peng <- na.omit(penguins)
+mylm <- lm(
+    formula = body_mass_g ~ species * (flipper_length_mm +
+        bill_depth_mm + bill_length_mm) + island,
+    data = peng)
+
+obs_F <- summary(mylm)$fstatistic[1]
+
+perm_F <- c()
+for(i in 1:1000) {
+    peng2 <- peng
+    peng2$bill_depth_mm <- sample(
+        peng2$bill_depth_mm, size = nrow(peng), replace = TRUE
+    )
+    # The update() function can also update the data set and re-fit
+    newmod <- update(mylm, data = peng2)
+    perm_F[i] <- summary(newmod)$fstatistic[1]
+}
+
+hist(perm_F, xlim = range(perm_F, obs_F))
+abline(v = obs_F, col = "red")
+```
+
+That looks pretty definitively like `bill_depth_mm` affects the F statistic!
+
+Compare this to the ESS test:
+
+```{webr-r}
+#| eval: FALSE
+library(palmerpenguins)
+peng <- na.omit(penguins)
+mylm <- lm(
+    formula = body_mass_g ~ species * (flipper_length_mm +
+        bill_depth_mm + bill_length_mm) + island,
+    data = peng)
+
+mylm2 <- lm(
+    formula = ???,
+    data = peng)
+anova(mylm2, mylm)
+```
+
+If you entered the formula correctly, you should get a p-value of 1.352e-11, which is also a pretty definitive difference.
+
+If we wanted to do an ANOVA test for overall significance, we would have permuted `body_mass_g`. Try it out using the two code blocks above!

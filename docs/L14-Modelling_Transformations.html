@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"classes":"","message":"true","label":"unnamed-chunk-1","out-width":"700px","warning":"true","output":"true","editor-max-height":"","context":"interactive","fig-cap":"","results":"markup","fig-width":7,"out-height":"","editor-font-scale":1,"autorun":"false","dpi":72,"comment":"","read-only":"false","editor-quick-suggestions":"false","fig-height":5},"id":1,"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))"}];
+globalThis.qwebrCellDetails = [{"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))","id":1,"options":{"context":"interactive","comment":"","message":"true","editor-max-height":"","warning":"true","fig-cap":"","editor-quick-suggestions":"false","label":"unnamed-chunk-1","classes":"","read-only":"false","results":"markup","out-width":"700px","autorun":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"fig-height":5,"out-height":"","output":"true"}}];
 
 </script>
 <script type="module">
