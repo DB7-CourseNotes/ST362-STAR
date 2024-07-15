@@ -70,6 +70,7 @@ book:
     - Lb16-Regression_with_Dummies.Rmd
     - Lb17-Multico.Rmd
     - Lb18-Backwards_Selection_is_Bad.Rmd
+    - Lb19-Permutation.qmd
 
 format:
   html:

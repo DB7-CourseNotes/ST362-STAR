@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-07-08">
+<meta name="dcterms.date" content="2024-07-15">
 
-<title>STAR Notes – 15&nbsp; Multicollinearity</title>
+<title>STAR Notes – Appendix L — Permutation Tests</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -66,8 +32,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L16-Dummies.html" rel="next">
-<link href="./L14-Modelling_Transformations.html" rel="prev">
+<link href="./Lb18-Backwards_Selection_is_Bad.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -311,7 +276,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"read-only":"false","label":"diy_vif","fig-height":5,"fig-width":7,"out-height":"","comment":"","fig-cap":"","editor-max-height":"","warning":"true","output":"true","echo":"true","autorun":"false","out-width":"700px","message":"true","results":"markup","classes":"","dpi":72,"editor-quick-suggestions":"false","context":"interactive","editor-font-scale":1},"code":"library(car)\nlibrary(MASS)\nn <- 50\n\nx1_x2_corr <- 0.8 # Change me!\nx1_x3_corr <- 0 # Change me!\ncoef_of_x2_in_y <- 2 # Change me too!\nX <- mvrnorm(n = n, mu = c(0, 0, 0), \n        Sigma = matrix(c(\n                1,          x1_x2_corr, x1_x3_corr,\n                x1_x2_corr, 1,          0,\n                x1_x3_corr, 0,          1),\n            nrow = 3))\nmydata <- data.frame(\n    y = 0 + 4*X[, 1] + coef_of_x2_in_y*X[, 2] +\n        2 * X[, 3] + rnorm(n, 0, 5),\n    x1 = X[, 1], x2 = X[, 2], x3 = X[, 3]\n)\nmylm <- lm(y ~ x1 + x2 + x3, data = mydata)\nvif(mylm)\npairs(mydata)","id":1}];
+globalThis.qwebrCellDetails = [{"id":1,"options":{"comment":"","autorun":"false","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false","read-only":"false","classes":"","warning":"true","message":"true","fig-cap":"","results":"markup","fig-width":7,"dpi":72,"label":"unnamed-chunk-1","editor-font-scale":1,"context":"interactive","fig-height":5,"out-height":"","output":"true"},"code":"data(women)\nx <- women$weight\n# Choose a random index. This plot will be the true data\nreal_data_index <- sample(1:20, size = 1)\n# Prepare the plotting space to be 5 plots by 4 plots and smaller margins\npar(mfrow = c(5,4), mar = c(3, 3, 2, 2))\nfor(i in 1 : 20) {\n    if (i != real_data_index) {\n        # randomly reorder the rows\n        # i.e. sample n rows from n rows without replacement.\n        y = women$height[sample(1:nrow(women), size = nrow(women), replace = FALSE)]\n    } else {\n        y = women$height\n    }\n    plot(y ~ x)\n}"},{"id":2,"options":{"comment":"","autorun":"false","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false","read-only":"false","classes":"","warning":"true","message":"true","fig-cap":"","results":"markup","fig-width":7,"dpi":72,"label":"unnamed-chunk-2","editor-font-scale":1,"context":"interactive","fig-height":5,"out-height":"","output":"true"},"code":"data(cars)\nx <- cars$speed\n# Choose a random index. This plot will be the true data\nreal_data_index <- sample(1:20, size = 1)\n# Prepare the plotting space to be 5 plots by 4 plots and smaller margins\npar(mfrow = c(5,4), mar = c(3, 3, 2, 2))\nfor(i in 1 : 20) {\n    if (i != real_data_index) {\n        # randomly reorder the rows\n        # i.e. sample n rows from n rows without replacement.\n        y = cars$dist[sample(1:nrow(cars), size = nrow(cars), replace = FALSE)]\n    } else {\n        y = cars$dist\n    }\n    plot(y ~ x)\n}"},{"id":3,"options":{"comment":"","autorun":"false","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false","read-only":"false","classes":"","warning":"true","message":"true","fig-cap":"","results":"markup","fig-width":7,"dpi":72,"label":"unnamed-chunk-3","editor-font-scale":1,"context":"interactive","fig-height":5,"out-height":"","output":"true"},"code":"data(cars)\nx < cars$speed\ny <- cars$dist\nobs_beta <- coef(lm(y ~ x))[2]\nbetas <- c()\nfor(i in 1:1000) {\n    y <- cars$dist[sample(1:nrow(cars), size = nrow(cars), replace = FALSE)]\n    mylm <- lm(y ~ x)\n    betas[i] <- coef(mylm)[2] # Extract beta_1\n}\n\nhist(betas, xlim = range(betas, obs_beta))\nabline(v = obs_beta, col = \"red\")\n\n# Probability of a value *at least as extreme*\nmean_beta <- mean(betas)\nas_extreme <- abs(obs_beta - mean_beta)\nabove <- mean_beta + as_extreme\nbelow <- mean_beta - as_extreme\npvalue <- mean(betas < below | betas > above)\npvalue"},{"id":4,"options":{"comment":"","autorun":"false","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false","read-only":"false","classes":"","warning":"true","message":"true","fig-cap":"","results":"markup","fig-width":7,"dpi":72,"label":"unnamed-chunk-4","editor-font-scale":1,"context":"interactive","fig-height":5,"out-height":"","output":"true"},"code":"summary(lm(dist ~ speed, data = cars))$coef"},{"id":5,"options":{"comment":"","autorun":"false","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false","read-only":"false","classes":"","warning":"true","message":"true","fig-cap":"","results":"markup","fig-width":7,"dpi":72,"label":"unnamed-chunk-5","editor-font-scale":1,"context":"interactive","fig-height":5,"out-height":"","output":"true"},"code":"# Always get same data\nset.seed(57362)\nn <- 50\n\n# Generate linearly related predictors.\nx1 <- runif(n, -2, 2)\nx2 <- 0.5 * x1 + rnorm(n, 0, 1)\nx3 <- 1.5 * x1 + rnorm(n, 0, 1)\n\ny <- 5 + x1 - 3 * x2 + 0.5 * x3 + rnorm(50, 0, 1)\nmydf <- data.frame(y = y, x1 = x1, x2 = x2, x3 = x3)\n\n# Unset the seed to get different permutations\nset.seed(as.numeric(Sys.time()))\n\n# Assumes first column is y and there are three predictor columns\npermute <- function(yxxx, kind = c(\"y\", \"x\", \"xx\")[1]) {\n    n <- nrow(yxxx)\n    reshuffled_indices <- sample(1:n, n, replace = FALSE)\n    if (kind == \"y\") {\n        yxxx[, 1] <- yxxx[reshuffled_indices, 1]\n    } else if (kind == \"x\") {\n        yxxx[, 2] <- yxxx[reshuffled_indices, 2]\n    } else if (kind == \"xx\") {\n        yxxx[, 2:3] <- yxxx[reshuffled_indices, 2:3]\n    }\n    yxxx\n}\n\npairs(permute(mydf, kind = \"xx\"))"}];
 
 </script>
 <script type="module">
@@ -1189,7 +1154,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L15-Multicollinearity.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Lb19-Permutation.html"><span class="chapter-number">L</span>&nbsp; <span class="chapter-title">Permutation Tests</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1302,13 +1267,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Choosing Models</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
@@ -1329,7 +1294,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
@@ -1401,13 +1366,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Lb02-OLS_Estimates.html" class="sidebar-item-text sidebar-link">
@@ -1476,7 +1441,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb19-Permutation.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb19-Permutation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">L</span>&nbsp; <span class="chapter-title">Permutation Tests</span></span></a>
   </div>
 </li>
@@ -1492,29 +1457,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-problem" id="toc-the-problem" class="nav-link active" data-scroll-target="#the-problem"><span class="header-section-number">15.1</span> The Problem</a>
-  <ul class="collapse">
-  <li><a href="#the-problem-with-multicollinearity" id="toc-the-problem-with-multicollinearity" class="nav-link" data-scroll-target="#the-problem-with-multicollinearity">The Problem with Multicollinearity</a></li>
-  <li><a href="#consequences-of-the-problem" id="toc-consequences-of-the-problem" class="nav-link" data-scroll-target="#consequences-of-the-problem">Consequences of the Problem</a></li>
-  <li><a href="#another-formulation-of-the-problem" id="toc-another-formulation-of-the-problem" class="nav-link" data-scroll-target="#another-formulation-of-the-problem">Another Formulation of the Problem</a></li>
-  <li><a href="#the-source-of-the-problem" id="toc-the-source-of-the-problem" class="nav-link" data-scroll-target="#the-source-of-the-problem">The Source of the Problem</a></li>
-  <li><a href="#detecting-the-problem" id="toc-detecting-the-problem" class="nav-link" data-scroll-target="#detecting-the-problem">Detecting the Problem</a></li>
-  <li><a href="#plotting-vx" id="toc-plotting-vx" class="nav-link" data-scroll-target="#plotting-vx">Plotting <span class="math inline">\(V(X)\)</span></a></li>
-  <li><a href="#detecting-the-problem-vhatunderlinebeta" id="toc-detecting-the-problem-vhatunderlinebeta" class="nav-link" data-scroll-target="#detecting-the-problem-vhatunderlinebeta">Detecting the Problem: <span class="math inline">\(V(\hat{\underline\beta})\)</span></a></li>
-  <li><a href="#the-variance-inflation-factor" id="toc-the-variance-inflation-factor" class="nav-link" data-scroll-target="#the-variance-inflation-factor">The Variance Inflation Factor</a></li>
-  <li><a href="#interpreting-the-variance-inflation-factor" id="toc-interpreting-the-variance-inflation-factor" class="nav-link" data-scroll-target="#interpreting-the-variance-inflation-factor">Interpreting the Variance Inflation Factor</a></li>
-  <li><a href="#penguins-vif-in-r" id="toc-penguins-vif-in-r" class="nav-link" data-scroll-target="#penguins-vif-in-r">Penguins VIF in R</a></li>
-  <li><a href="#bad-vif-in-r" id="toc-bad-vif-in-r" class="nav-link" data-scroll-target="#bad-vif-in-r">Bad VIF in R</a></li>
-  </ul></li>
-  <li><a href="#will-scaling-fix-the-problem" id="toc-will-scaling-fix-the-problem" class="nav-link" data-scroll-target="#will-scaling-fix-the-problem"><span class="header-section-number">15.2</span> Will Scaling Fix the Problem</a>
-  <ul class="collapse">
-  <li><a href="#scaling-the-predictors" id="toc-scaling-the-predictors" class="nav-link" data-scroll-target="#scaling-the-predictors">Scaling the Predictors</a></li>
-  </ul></li>
-  <li><a href="#fixing-the-problem" id="toc-fixing-the-problem" class="nav-link" data-scroll-target="#fixing-the-problem"><span class="header-section-number">15.3</span> Fixing The Problem</a>
-  <ul class="collapse">
-  <li><a href="#one-way-to-fix-the-problem" id="toc-one-way-to-fix-the-problem" class="nav-link" data-scroll-target="#one-way-to-fix-the-problem">One way to fix the problem</a></li>
-  <li><a href="#removing-predictors" id="toc-removing-predictors" class="nav-link" data-scroll-target="#removing-predictors">Removing predictors</a></li>
-  </ul></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">L.1</span> Introduction</a></li>
+  <li><a href="#intuition-the-facial-impact-test" id="toc-intuition-the-facial-impact-test" class="nav-link" data-scroll-target="#intuition-the-facial-impact-test"><span class="header-section-number">L.2</span> Intuition: the facial impact test</a></li>
+  <li><a href="#the-permutation-test-for-significance-of-regression" id="toc-the-permutation-test-for-significance-of-regression" class="nav-link" data-scroll-target="#the-permutation-test-for-significance-of-regression"><span class="header-section-number">L.3</span> The Permutation Test for Significance of Regression</a></li>
+  <li><a href="#permute-the-response-or-the-predictors" id="toc-permute-the-response-or-the-predictors" class="nav-link" data-scroll-target="#permute-the-response-or-the-predictors"><span class="header-section-number">L.4</span> Permute the response or the predictor(s)?</a></li>
   </ul>
 </nav>
     </div>
@@ -1748,9 +1694,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 }
 </script>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-NonLinear.html">Choosing Models</a></li><li class="breadcrumb-item"><a href="./L15-Multicollinearity.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Lb02-OLS_Estimates.html">Appendices</a></li><li class="breadcrumb-item"><a href="./Lb19-Permutation.html"><span class="chapter-number">L</span>&nbsp; <span class="chapter-title">Permutation Tests</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></h1>
+<h1 class="title">Appendix L — Permutation Tests</h1>
 </div>
 
 
@@ -1763,7 +1709,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            <strong>Tube</strong> by Phish
+            Wilfrid Laurier University
           </p>
       </div>
   </div>
@@ -1774,7 +1720,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-08</p>
+      <p class="date">2024-07-15</p>
     </div>
   </div>
   
@@ -1786,295 +1732,64 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </header>
 
 
-<section id="the-problem" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="the-problem"><span class="header-section-number">15.1</span> The Problem</h2>
-<section id="the-problem-with-multicollinearity" class="level3">
-<h3 class="anchored" data-anchor-id="the-problem-with-multicollinearity">The Problem with Multicollinearity</h3>
-<div class="columns">
-<div class="column" style="width:60%;">
-<ul>
-<li>Multiple regression fits a hyperplane</li>
-<li>If the points form a “tube”, an infinite number of hyperplanes work.
-<ul>
-<li>Rotate plane around axis of tube.</li>
-</ul></li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/multico"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:40%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L15-Multicollinearity_files/figure-html/plot3d-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
+<section id="introduction" class="level2" data-number="L.1">
+<h2 data-number="L.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">L.1</span> Introduction</h2>
+<p>A <em>permutation</em> is a re-ordering of a set of things. In this case, we’re randomly re-ordering the data. Note that we are not randomly sampling rows, we are just changing the order. In particular, we’re randomly re-ordering the measurements independently of each other!</p>
+<p>Why would we do this? Because it destroys the correlation between our variables while preserving their statistical properties. This gives us a “null” distribution that makes no assumptions about the distribution of the data!</p>
 </section>
-<section id="consequences-of-the-problem" class="level3">
-<h3 class="anchored" data-anchor-id="consequences-of-the-problem">Consequences of the Problem</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>High cor. in <span class="math inline">\(X\)</span> <span class="math inline">\(\implies\)</span> high cor. in <span class="math inline">\(\hat{\underline\beta}\)</span>.</p>
-<ul>
-<li>Many combos of <span class="math inline">\(\hat{\underline\beta}\)</span> are equally likely</li>
-<li>No meaningful CIs</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2112</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2))[<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="at">xlab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta)[<span class="dv">1</span>]), </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(beta[<span class="dv">2</span>])),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Estimated betas for correlated</span><span class="sc">\n</span><span class="st">predictors, many samples"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L15-Multicollinearity_files/figure-html/multicor-consequences-1.png" class="img-fluid figure-img" width="384"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="another-formulation-of-the-problem" class="level3">
-<h3 class="anchored" data-anchor-id="another-formulation-of-the-problem">Another Formulation of the Problem</h3>
-<p>Consider the model <span class="math inline">\(y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \epsilon_i\)</span>, where <span class="math inline">\(x_{i1} = a + bx_{i2} + z_i\)</span> and <span class="math inline">\(z_i\)</span> represents some extra uncertainty.</p>
-<p>Fitting the model, we could:</p>
-<ul>
-<li>Set <span class="math inline">\(\hat\beta_1\)</span> to 0, let <span class="math inline">\(x_2\)</span> model all of the variance.</li>
-<li>Set <span class="math inline">\(\hat\beta_2\)</span> to 0, let <span class="math inline">\(x_1\)</span> model all of the variance.</li>
-<li>Set <span class="math inline">\(\hat\beta_1\)</span> to any value, solve for <span class="math inline">\(\hat\beta_2\)</span>.
-<ul>
-<li>Basically the same results regardless of what <span class="math inline">\(\hat\beta_1\)</span> is chosen as.</li>
-</ul></li>
-</ul>
-<p>In other words, the parameter estimates are <strong>not unique</strong> (or nearly not unique).</p>
-</section>
-<section id="the-source-of-the-problem" class="level3">
-<h3 class="anchored" data-anchor-id="the-source-of-the-problem">The Source of the Problem</h3>
-<p><span class="math display">\[
-\hat{\underline{\beta}} = (X^TX)^{-1}X^TY,\quad V(\hat{\underline{\beta}}) = (X^TX)^{-1}\sigma^2
-\]</span></p>
-<ul>
-<li>If two columns of <span class="math inline">\(X\)</span> are <strong>linearly dependent</strong>, then <span class="math inline">\(X^TX\)</span> is <strong>singular</strong>.
-<ul>
-<li>Constant predictor value (linearly dependent with column of 1s).</li>
-<li>Unit change (one column for Celcius, one for Fahrenheit).</li>
-</ul></li>
-<li>If two columns of <span class="math inline">\(X\)</span> are <strong>nearly linearly dependent</strong>, then some elements of <span class="math inline">\((X^TX)^{-1}\)</span> are <em>humungous</em>.
-<ul>
-<li>Two proxy measure for the same thing (e.g., daily high and low temperatures).</li>
-<li>Nearly linear transformation (e.g., polynomial or BMI)</li>
-</ul></li>
-</ul>
-</section>
-<section id="detecting-the-problem" class="level3">
-<h3 class="anchored" data-anchor-id="detecting-the-problem">Detecting the Problem</h3>
-<p>The variance-covariance matrix of <span class="math inline">\(X\)</span> can be useful: <span class="math display">\[
-Cov(X) = \begin{bmatrix}
-0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots\\
-0 &amp; V(X_1) &amp; Cov(X_1, X_2) &amp; Cov(X_1, X_3) &amp; \cdots\\
-0 &amp; Cov(X_1, X_2) &amp; V(X_2) &amp; Cov(X_2, X_3) &amp; \cdots\\
-0 &amp; Cov(X_1, X_3) &amp; Cov(X_2, X_3) &amp; V(X_3) &amp; \cdots\\
-\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots
-\end{bmatrix}
-\]</span> Why are the first column/row 0?</p>
-</section>
-<section id="plotting-vx" class="level3">
-<h3 class="anchored" data-anchor-id="plotting-vx">Plotting <span class="math inline">\(V(X)\)</span></h3>
-<div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins); <span class="fu">library</span>(GGally)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorr</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in ggcorr(penguins): data in column(s) 'species', 'island', 'sex' are
-not numeric and were ignored</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L15-Multicollinearity_files/figure-html/penguins-corr-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="detecting-the-problem-vhatunderlinebeta" class="level3">
-<h3 class="anchored" data-anchor-id="detecting-the-problem-vhatunderlinebeta">Detecting the Problem: <span class="math inline">\(V(\hat{\underline\beta})\)</span></h3>
-<p>Unfortunately, the var-covar matrix is hard to get from R.</p>
-<ul>
-<li>We can look at the SE column of the summary output!
-<ul>
-<li>Very very very much not conclusive.</li>
-</ul></li>
-<li>The <strong>Variance Inflation Factor</strong></li>
-</ul>
-</section>
-<section id="the-variance-inflation-factor" class="level3">
-<h3 class="anchored" data-anchor-id="the-variance-inflation-factor">The Variance Inflation Factor</h3>
-<p>We can write the variance of each estimated coefficeint as: <span class="math display">\[
-V(\hat\beta_i) = VIF_i\frac{\sigma^2}{S_{ii}}
-\]</span> where <span class="math inline">\(S_{ii} = \sum_{k=1}^n(x_{ki} - \bar{x_i})^2\)</span> is the “SS” for the <span class="math inline">\(i\)</span>th column of <span class="math inline">\(X\)</span>.</p>
-<ul>
-<li>If there is no “Variance Inflation”, then VIF = 1
-<ul>
-<li>“Inflation” comes from the idea of rotating a plane around a “tube”.</li>
-<li>Also interpreted as a measure of linear dependence with other columns of <span class="math inline">\(X\)</span>.</li>
-</ul></li>
-</ul>
-</section>
-<section id="interpreting-the-variance-inflation-factor" class="level3">
-<h3 class="anchored" data-anchor-id="interpreting-the-variance-inflation-factor">Interpreting the Variance Inflation Factor</h3>
-<p>Consider a regression of <span class="math inline">\(X_i\)</span> against all other predictors.</p>
-<ul>
-<li>The <span class="math inline">\(R^2\)</span> measures how well the other predictors can model <span class="math inline">\(X_i\)</span>
-<ul>
-<li>Label this <span class="math inline">\(R_i^2\)</span> to indicate it’s the <span class="math inline">\(R^2\)</span> for <span class="math inline">\(X_i\)</span> against other columns.</li>
-</ul></li>
-<li><strong>Important</strong>: We’re not considering <span class="math inline">\(\underline y\)</span> at all!</li>
-</ul>
-<p>The VIF is calculated as: <span class="math display">\[
-VIF_i = \frac{1}{1 - R_i^2}
-\]</span></p>
-<ul>
-<li>If <span class="math inline">\(R_i^2=0\)</span>, then <span class="math inline">\(VIF_i = 1\)</span></li>
-<li>If <span class="math inline">\(R_i^2\rightarrow 1\)</span>, then <span class="math inline">\(VIF_i \rightarrow \infty\)</span></li>
-</ul>
-</section>
-<section id="penguins-vif-in-r" class="level3">
-<h3 class="anchored" data-anchor-id="penguins-vif-in-r">Penguins VIF in R</h3>
-<div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car) <span class="co"># vif() function</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>bogy_mass_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> body_mass_g <span class="sc">~</span> flipper_length_mm <span class="sc">+</span> bill_length_mm <span class="sc">+</span> bill_depth_mm,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">subset</span>(penguins, species <span class="sc">==</span> <span class="st">"Chinstrap"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(bogy_mass_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>flipper_length_mm    bill_length_mm     bill_depth_mm 
-         1.541994          1.785702          2.092955 </code></pre>
-</div>
-</div>
-</section>
-<section id="bad-vif-in-r" class="level3">
-<h3 class="anchored" data-anchor-id="bad-vif-in-r">Bad VIF in R</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> x1 <span class="sc">+</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>x1 <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">5</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>      x1       x2 
-23.39082 23.39082 </code></pre>
-</div>
-</div>
-<p>Rule of thumb: VIF &gt; 10 is a bad thing. 5 &lt; VIF &lt; 10 is worth looking into.</p>
-</div><div class="column" style="width:50%;">
-<div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scatter3D</span>(x1, x2, y, <span class="at">bty =</span> <span class="st">"g"</span>, <span class="at">colkey =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"x1"</span>, <span class="at">ylab =</span> <span class="st">"x2"</span>, <span class="at">zlab =</span> <span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L15-Multicollinearity_files/figure-html/bad_vif_plot-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p>Try changing the code until the VIF is less than 10. What do you notice about the plot?</p>
-<p>Change the variables that say “Change me!” and see what happens. Note: You can hold the “Shift” button and hit “Enter” to run the code. You can hold shift and hit enter repeatedly to do a sort of psuedo-simulation (notice how VIF also has a sampling distribution!).</p>
+<section id="intuition-the-facial-impact-test" class="level2" data-number="L.2">
+<h2 data-number="L.2" class="anchored" data-anchor-id="intuition-the-facial-impact-test"><span class="header-section-number">L.2</span> Intuition: the facial impact test</h2>
+<p>The best statistical test is the “facial impact test”. In this test, we reject the null hypothesis if the results are so obvious that they jump off the page and slap you in the face (facial impact).</p>
+<p>For this example I’m going to plot 20 different plots. One of them is going to be the original data, and the rest will be random permutations. If you can tell which is the tru data, then there’s probably something important going on! In other words, the relationship between the response and the predictor matters.</p>
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>Limitation: This is just one of many, many, many ways in which predictors can be correlated.</p>
+<p>I’ve ran this several times and my cheek hurts from how much the results have slapped me in the face.</p>
+<p>Here’s a less obvious example, but I’m sure you can still pick out the real data:</p>
+<div id="qwebr-insertion-location-2"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
+<section id="the-permutation-test-for-significance-of-regression" class="level2" data-number="L.3">
+<h2 data-number="L.3" class="anchored" data-anchor-id="the-permutation-test-for-significance-of-regression"><span class="header-section-number">L.3</span> The Permutation Test for Significance of Regression</h2>
+<p>A test for significance usually finds the probability of getting results at least as significant as the results we got, assuming that the null is true.</p>
+<p>For regression, the null is that there is no relationship. Permutations destroy the relationship, so permutations create a null distribution without making any normality assumptions! To get the p-value, we can do a bunch of permutations and look at our data compared to the distribution under the null hypothesis.</p>
+<p>The code below demonstrates this for the <code>cars</code> data. Notice how similar this is to the simulation code we’ve used, but we’re not generating any new data. Try it again with the <code>women</code> data!</p>
+<div id="qwebr-insertion-location-3"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Under the null, the sample slopes can range from -2 to 2. However, our actual slope was 4! Notice that the p-value calculation is the probability of a value at least as extreme; we first find the distance from the mean, then count the number of values this far or further from the mean. The expression <code>bestas &lt; below | betas &gt; above</code> returns a bunch of true/false values, with “TRUE” meaning that the point is either below <code>below</code> or above <code>above</code>. The <code>mean()</code> function, when applied to a bunch of true/false values, is a proportion. Thus, we are calculating the proportion of points that were at least as far away as the data we got, which is the definition of a p-value!</p>
+<p>In the end, we got a p-value of exactly 0. The p-value from normality assumptions is below:</p>
+<div id="qwebr-insertion-location-4"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>That’s a p-value of 0.0000000000015. To get a p-value this low in a permutation test, we’d need somewhere near 10000000000 permutations, and even then we might not get one outside of our critical region.</p>
 </section>
-<section id="will-scaling-fix-the-problem" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="will-scaling-fix-the-problem"><span class="header-section-number">15.2</span> Will Scaling Fix the Problem</h2>
-<section id="scaling-the-predictors" class="level3">
-<h3 class="anchored" data-anchor-id="scaling-the-predictors">Scaling the Predictors</h3>
-<p>If we subtract the mean and divide by the sd, <em>some of</em> the correlation goes away.</p>
+<section id="permute-the-response-or-the-predictors" class="level2" data-number="L.4">
+<h2 data-number="L.4" class="anchored" data-anchor-id="permute-the-response-or-the-predictors"><span class="header-section-number">L.4</span> Permute the response or the predictor(s)?</h2>
+<p>For the simple linear regression examples above, it doesn’t matter. Once one is permuted, any existing relationship is destroyed.</p>
+<p>For multiple linear regression, it suddenly matters a lot!</p>
 <ul>
-<li>This is actually kinda bad - we’ve hidden some multicollinearity from ourselves!</li>
+<li>If we permute the response, it’s severing the relationship between the response and <em>all</em> predictors.
+<ul>
+<li>This is like an F-test for overall significance!!!</li>
+</ul></li>
+<li>If we permute <em>one</em> of the predictors, it severs the relationship between the response and that particular predictor, while <em>also</em> severing any multicollinearity!
+<ul>
+<li>This is often a good way to do things since it tests whether that predictor contributes to the regression, not just the response.</li>
+<li>Watch how the other predictors’ coefficients change!</li>
+</ul></li>
+<li>If we permute <em>all</em> of the predictors <em>together</em> then the relationship between y and x is removed, but all multicolinearity remains.</li>
+<li>If we permute the predictors individually, then there should be no relationships anywhere among the data.</li>
 </ul>
-<p>If <span class="math inline">\(Z\)</span> is the <strong>standardized</strong> version of <span class="math inline">\(X\)</span>, then <span class="math display">\[
-Cor(X) = Z^TZ/(n-1)
-\]</span></p>
-<p>If <span class="math inline">\(Z\)</span> is the <strong>mean-centered</strong> version of <span class="math inline">\(X\)</span>, then <span class="math display">\[
-Cov(X) = Z^TZ/(n-1)
-\]</span></p>
-</section>
-</section>
-<section id="fixing-the-problem" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="fixing-the-problem"><span class="header-section-number">15.3</span> Fixing The Problem</h2>
-<section id="one-way-to-fix-the-problem" class="level3">
-<h3 class="anchored" data-anchor-id="one-way-to-fix-the-problem">One way to fix the problem</h3>
-<p>Don’t.</p>
-<p>We can’t get good estimates of the <span class="math inline">\(\hat\beta\)</span>s, but we can still get good predictions.</p>
+<p>For the last two, we often just care about the response given our predictors; it doesn’t often make sense to permute the predictors individually.</p>
+<p>Note that there’s a secret fifth option: permute <em>some</em> of the predictors together. This is like an Extra Sum-of-Squares test for a group of predictors!</p>
+<p>Run the following code many times with <code>kind = "y"</code> and watch what changes. Change <code>kind</code> to <code>"x"</code> to see what changes, then also try <code>"xx"</code>.</p>
+<div id="qwebr-insertion-location-5"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <ul>
-<li>This <em>only</em> works if the new values are in the same “tube” as the others.</li>
-<li>If the multicollinearity is real, what estimates do you expect?
-<ul>
-<li>Without a controlled experiment, there <em>isn’t</em> a good way to estimate the effect of <span class="math inline">\(X_1\)</span> on it’s own!</li>
-</ul></li>
-</ul>
-</section>
-<section id="removing-predictors" class="level3">
-<h3 class="anchored" data-anchor-id="removing-predictors">Removing predictors</h3>
-<p>If two predictors are measuring the same thing, then just include one?</p>
-<ul>
-<li>This might lose some information!
-<ul>
-<li>It also might not!</li>
-</ul></li>
-<li>The estimated <span class="math inline">\(\beta\)</span> won’t be meaningful.
-<ul>
-<li>Inferences will be difficult.</li>
-</ul></li>
-<li>There might be a good reason to choose one predictor (or transform them).
-<ul>
-<li>Example: Height and weight are correlated, but BMI might be more useful to medical researchers.
-<ul>
-<li>BMI is highly fraught.</li>
-</ul></li>
-<li>Example: If you have Celcius and Fahrenheight…</li>
-</ul></li>
+<li><code>kind = "y"</code> affects the response, without affecting multicollinearity.</li>
+<li><code>kind = "x"</code> affects <em>all</em> relationships involving <code>x</code></li>
+<li><code>kind = "xx"</code> affects relationships involving <code>x1</code> <em>and</em> <code>x2</code>, but there’s an important exception…</li>
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -2644,14 +2359,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L14-Modelling_Transformations.html" class="pagination-link" aria-label="Modelling with Transformations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></span>
+      <a href="./Lb18-Backwards_Selection_is_Bad.html" class="pagination-link" aria-label="Backwards p-values">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">K</span>&nbsp; <span class="chapter-title">Backwards p-values</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L16-Dummies.html" class="pagination-link" aria-label="Dummy Variables">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

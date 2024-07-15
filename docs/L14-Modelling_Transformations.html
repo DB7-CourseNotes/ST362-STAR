@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"editor-max-height":"","results":"markup","classes":"","message":"true","fig-cap":"","editor-font-scale":1,"warning":"true","output":"true","comment":"","autorun":"false","label":"unnamed-chunk-1","out-width":"700px","dpi":72,"context":"interactive","out-height":"","editor-quick-suggestions":"false","fig-width":7,"read-only":"false","fig-height":5},"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))","id":1}];
+globalThis.qwebrCellDetails = [{"options":{"classes":"","message":"true","label":"unnamed-chunk-1","out-width":"700px","warning":"true","output":"true","editor-max-height":"","context":"interactive","fig-cap":"","results":"markup","fig-width":7,"out-height":"","editor-font-scale":1,"autorun":"false","dpi":72,"comment":"","read-only":"false","editor-quick-suggestions":"false","fig-height":5},"id":1,"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))"}];
 
 </script>
 <script type="module">
@@ -1472,6 +1472,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./Lb18-Backwards_Selection_is_Bad.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">K</span>&nbsp; <span class="chapter-title">Backwards p-values</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb19-Permutation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">L</span>&nbsp; <span class="chapter-title">Permutation Tests</span></span></a>
   </div>
 </li>
       </ul>

@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"options":{"fig-height":5,"message":"true","results":"markup","read-only":"false","classes":"","dpi":72,"context":"interactive","comment":"","warning":"true","fig-width":7,"output":"true","editor-font-scale":1,"fig-cap":"","out-width":"700px","editor-quick-suggestions":"false","label":"unnamed-chunk-1","out-height":"","autorun":"false","editor-max-height":""},"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))"},{"id":2,"options":{"fig-height":5,"message":"true","results":"markup","read-only":"false","classes":"","dpi":72,"context":"interactive","comment":"","warning":"true","fig-width":7,"output":"true","editor-font-scale":1,"fig-cap":"","out-width":"700px","editor-quick-suggestions":"false","label":"trans1","out-height":"","autorun":"false","editor-max-height":""},"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)"}];
+globalThis.qwebrCellDetails = [{"id":1,"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))","options":{"fig-height":5,"read-only":"false","fig-width":7,"out-height":"","output":"true","warning":"true","fig-cap":"","editor-quick-suggestions":"false","context":"interactive","classes":"","editor-font-scale":1,"autorun":"false","dpi":72,"message":"true","editor-max-height":"","results":"markup","label":"unnamed-chunk-1","out-width":"700px","comment":""}},{"id":2,"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)","options":{"fig-height":5,"read-only":"false","fig-width":7,"out-height":"","output":"true","warning":"true","fig-cap":"","editor-quick-suggestions":"false","context":"interactive","classes":"","editor-font-scale":1,"autorun":"false","dpi":72,"message":"true","editor-max-height":"","results":"markup","label":"trans1","out-width":"700px","comment":""}}];
 
 </script>
 <script type="module">
@@ -1472,6 +1472,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./Lb18-Backwards_Selection_is_Bad.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">K</span>&nbsp; <span class="chapter-title">Backwards p-values</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Lb19-Permutation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">L</span>&nbsp; <span class="chapter-title">Permutation Tests</span></span></a>
   </div>
 </li>
       </ul>
