@@ -277,7 +277,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"out-height":"","context":"interactive","message":"true","fig-height":5,"editor-quick-suggestions":"false","classes":"","out-width":"700px","editor-font-scale":1,"warning":"true","read-only":"false","comment":"","dpi":72,"label":"unnamed-chunk-1","editor-max-height":"","fig-width":7,"fig-cap":"","output":"true","autorun":"false","results":"markup"},"id":1,"code":"head(mtcars)"},{"options":{"out-height":"","context":"interactive","message":"true","fig-height":5,"editor-quick-suggestions":"false","classes":"","out-width":"700px","editor-font-scale":1,"warning":"true","read-only":"false","comment":"","dpi":72,"label":"unnamed-chunk-2","editor-max-height":"","fig-width":7,"fig-cap":"","output":"true","autorun":"false","results":"markup"},"id":2,"code":"# Choosing the first few columns to make it smaller on my screen\npairs(mtcars[, c(\"mpg\", \"cyl\", \"disp\", \"hp\", \"drat\", \"wt\", \"qsec\")])"},{"options":{"out-height":"","context":"interactive","message":"true","fig-height":5,"editor-quick-suggestions":"false","classes":"","out-width":"700px","editor-font-scale":1,"warning":"true","read-only":"false","comment":"","dpi":72,"label":"cont_v_cat","editor-max-height":"","fig-width":7,"fig-cap":"","output":"true","autorun":"false","results":"markup"},"id":3,"code":"# Continuous versus categorical\nplot(wt ~ factor(am), data = mtcars)"},{"options":{"out-height":"","context":"interactive","message":"true","fig-height":5,"editor-quick-suggestions":"false","classes":"","out-width":"700px","editor-font-scale":1,"warning":"true","read-only":"false","comment":"","dpi":72,"label":"cont_v_cont","editor-max-height":"","fig-width":7,"fig-cap":"","output":"true","autorun":"false","results":"markup"},"id":4,"code":"# Continuous vs. continuous\nplot(disp ~ wt, col = factor(am), data = mtcars)"},{"options":{"out-height":"","context":"interactive","message":"true","fig-height":5,"editor-quick-suggestions":"false","classes":"","out-width":"700px","editor-font-scale":1,"warning":"true","read-only":"false","comment":"","dpi":72,"label":"cats","editor-max-height":"","fig-width":7,"fig-cap":"","output":"true","autorun":"false","results":"markup"},"id":5,"code":"# categorical variables\nbarplot(table(mtcars$am, mtcars$vs), beside = TRUE, legend = TRUE)"},{"options":{"out-height":"","context":"interactive","message":"true","fig-height":5,"editor-quick-suggestions":"false","classes":"","out-width":"700px","editor-font-scale":1,"warning":"true","read-only":"false","comment":"","dpi":72,"label":"mpg_v_disp","editor-max-height":"","fig-width":7,"fig-cap":"","output":"true","autorun":"false","results":"markup"},"id":6,"code":"plot(mpg ~ disp, col = factor(cyl), data = mtcars)"},{"options":{"out-height":"","context":"interactive","message":"true","fig-height":5,"editor-quick-suggestions":"false","classes":"","out-width":"700px","editor-font-scale":1,"warning":"true","read-only":"false","comment":"","dpi":72,"label":"dispmodel_plot","editor-max-height":"","fig-width":7,"fig-cap":"","output":"true","autorun":"false","results":"markup"},"id":7,"code":"mymodel <- lm(mpg ~ wt * factor(vs), data = mtcars)\n\npar(mfrow = c(2,2))\nplot(mymodel, col = mtcars$vs)"},{"options":{"out-height":"","context":"interactive","message":"true","fig-height":5,"editor-quick-suggestions":"false","classes":"","out-width":"700px","editor-font-scale":1,"warning":"true","read-only":"false","comment":"","dpi":72,"label":"unnamed-chunk-8","editor-max-height":"","fig-width":7,"fig-cap":"","output":"true","autorun":"false","results":"markup"},"id":8,"code":"mymodel <- lm(mpg ~ wt * factor(vs), data = mtcars)\n\nupdate(mymode, ~ . - wt : factor(vs))"}];
+globalThis.qwebrCellDetails = [{"code":"head(mtcars)","id":1,"options":{"editor-font-scale":1,"warning":"true","out-width":"700px","output":"true","message":"true","editor-quick-suggestions":"false","dpi":72,"read-only":"false","fig-cap":"","fig-height":5,"results":"markup","label":"unnamed-chunk-1","fig-width":7,"context":"interactive","autorun":"false","editor-max-height":"","out-height":"","classes":"","comment":""}},{"code":"# Choosing the first few columns to make it smaller on my screen\npairs(mtcars[, c(\"mpg\", \"cyl\", \"disp\", \"hp\", \"drat\", \"wt\", \"qsec\")])","id":2,"options":{"editor-font-scale":1,"warning":"true","out-width":"700px","output":"true","message":"true","editor-quick-suggestions":"false","dpi":72,"read-only":"false","fig-cap":"","fig-height":5,"results":"markup","label":"unnamed-chunk-2","fig-width":7,"context":"interactive","autorun":"false","editor-max-height":"","out-height":"","classes":"","comment":""}},{"code":"# Continuous versus categorical\nplot(wt ~ factor(am), data = mtcars)","id":3,"options":{"editor-font-scale":1,"warning":"true","out-width":"700px","output":"true","message":"true","editor-quick-suggestions":"false","dpi":72,"read-only":"false","fig-cap":"","fig-height":5,"results":"markup","label":"cont_v_cat","fig-width":7,"context":"interactive","autorun":"false","editor-max-height":"","out-height":"","classes":"","comment":""}},{"code":"# Continuous vs. continuous\nplot(disp ~ wt, col = factor(am), data = mtcars)","id":4,"options":{"editor-font-scale":1,"warning":"true","out-width":"700px","output":"true","message":"true","editor-quick-suggestions":"false","dpi":72,"read-only":"false","fig-cap":"","fig-height":5,"results":"markup","label":"cont_v_cont","fig-width":7,"context":"interactive","autorun":"false","editor-max-height":"","out-height":"","classes":"","comment":""}},{"code":"# categorical variables\nbarplot(table(mtcars$am, mtcars$vs), beside = TRUE, legend = TRUE)","id":5,"options":{"editor-font-scale":1,"warning":"true","out-width":"700px","output":"true","message":"true","editor-quick-suggestions":"false","dpi":72,"read-only":"false","fig-cap":"","fig-height":5,"results":"markup","label":"cats","fig-width":7,"context":"interactive","autorun":"false","editor-max-height":"","out-height":"","classes":"","comment":""}},{"code":"plot(mpg ~ disp, col = factor(cyl), data = mtcars)","id":6,"options":{"editor-font-scale":1,"warning":"true","out-width":"700px","output":"true","message":"true","editor-quick-suggestions":"false","dpi":72,"read-only":"false","fig-cap":"","fig-height":5,"results":"markup","label":"mpg_v_disp","fig-width":7,"context":"interactive","autorun":"false","editor-max-height":"","out-height":"","classes":"","comment":""}},{"code":"mymodel <- lm(mpg ~ wt * factor(vs), data = mtcars)\n\npar(mfrow = c(2,2))\nplot(mymodel, col = mtcars$vs)","id":7,"options":{"editor-font-scale":1,"warning":"true","out-width":"700px","output":"true","message":"true","editor-quick-suggestions":"false","dpi":72,"read-only":"false","fig-cap":"","fig-height":5,"results":"markup","label":"dispmodel_plot","fig-width":7,"context":"interactive","autorun":"false","editor-max-height":"","out-height":"","classes":"","comment":""}},{"code":"mymodel <- lm(mpg ~ wt * factor(vs), data = mtcars)\n\nupdate(mymode, ~ . - wt : factor(vs))","id":8,"options":{"editor-font-scale":1,"warning":"true","out-width":"700px","output":"true","message":"true","editor-quick-suggestions":"false","dpi":72,"read-only":"false","fig-cap":"","fig-height":5,"results":"markup","label":"unnamed-chunk-8","fig-width":7,"context":"interactive","autorun":"false","editor-max-height":"","out-height":"","classes":"","comment":""}}];
 
 </script>
 <script type="module">
@@ -1708,7 +1708,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Wilfrid Laurier University
+            <strong>Empty Cars</strong> by LWC
           </p>
       </div>
   </div>
@@ -1831,7 +1831,7 @@ I had also considered including `qsec`, but a plot of `mpg` versus `qsec` with c
 - There's a high influence point. This is likely due to the interaction between cyl and disp.
     - When we have this kind of interaction, there are essentially three lines, each with fewer observations. It is much easier for a point to be influential with interaction present. 
 
-```vgdwatgi
+```ztnmwowa
 #| label: wtmodel_plot
 wtmodel <- lm(mpg ~ wt * am, data = mtcars)
 
@@ -1847,13 +1847,13 @@ plot(wtmodel)
 Both models are good in different ways. Let's check their summaries.
 
 
-```vgdwatgi
+```ztnmwowa
 #| label: dispmodel_summary
 dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
 summary(dispmodel)
 ```
 
-```vgdwatgi
+```ztnmwowa
 #| label: wtmodel_summary
 wtmodel <- lm(mpg ~ wt * am, data = mtcars)
 summary(wtmodel)
@@ -1861,14 +1861,14 @@ summary(wtmodel)
 
 The $R^2$ for `dispmodel` is a fair bit higher (although there's no standard for how much an $R^2$ should change, so this might not be a meaningful difference). As we saw in class, the $R^2$ is based on the same quantities as the F-test for different models. 
 
-```vgdwatgi
+```ztnmwowa
 dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
 anova(dispmodel, wtmodel)
 ```
 
 The models fit significantly differently. Which one fits better?
 
-```vgdwatgi
+```ztnmwowa
 # MSE values
 dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
 wtmodel <- lm(mpg ~ wt * am, data = mtcars)
@@ -1884,7 +1884,7 @@ From the pairs plot, I saw that disp has a slight relationship with other contin
 
 I can do this with the magical `update()` function. The `~ . + hp` notation means the response versus (`~`) everything `.`, then add `hp`. The `~` means "versus" (with the response on the left, which isn't allowed to change in this case, and the predictors on the right), and the `.` means "everything", which in this case refers to everything that was already in the model. The form `lm(mpg ~ ., data = mtcars)` will fit `mpg` against everything else it sees in the mtcars dataset. 
 
-```vgdwatgi
+```ztnmwowa
 dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
 summary(update(dispmodel, ~ . + hp)) 
 ```
