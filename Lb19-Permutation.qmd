@@ -22,7 +22,7 @@ x <- women$weight
 # Choose a random index. This plot will be the true data
 real_data_index <- sample(1:20, size = 1)
 # Prepare the plotting space to be 5 plots by 4 plots and smaller margins
-par(mfrow = c(5,4), mar = c(3, 3, 2, 2))
+par(mfrow = c(5, 4), mar = c(2, 2, 1, 1))
 for(i in 1 : 20) {
     if (i != real_data_index) {
         # randomly reorder the rows
@@ -45,7 +45,7 @@ x <- cars$speed
 # Choose a random index. This plot will be the true data
 real_data_index <- sample(1:20, size = 1)
 # Prepare the plotting space to be 5 plots by 4 plots and smaller margins
-par(mfrow = c(5,4), mar = c(3, 3, 2, 2))
+par(mfrow = c(5, 4), mar = c(2, 2, 1, 1))
 for(i in 1 : 20) {
     if (i != real_data_index) {
         # randomly reorder the rows
