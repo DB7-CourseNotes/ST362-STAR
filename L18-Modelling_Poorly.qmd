@@ -1,6 +1,8 @@
 ---
 title: "Modelling Poorly"
 institute: "**Bad** by Michael Jackson"
+filter:
+  - webr
 ---
 
 ```{r}
@@ -128,6 +130,24 @@ Final model: `mpg ~ wt + am + qsec`
 \pspace
 
 Final model: `mpg ~ wt + cyl`
+
+
+::: {.content-visible when-profile="book"}
+
+```{webr-r}
+last_digit_of_student_number <- 0
+Hitters <- read.csv(paste0("https://raw.githubusercontent.com/DB7-CourseNotes/ST362-STAR/main/data/Hitters_", last_digit_of_student_number, ".csv"))
+
+mymodel <- lm(Salary ~ ., data = Hitters)
+par(mfrow = c(2, 2))
+plot(mymodel)
+
+# Find the best model you can come up with!
+# Try ?step to look at automated subset selection!
+# You might also want to try Salary ~ .^2, which includes all interaction
+# terms, but you should probably use forward selection on that (explain why!)
+```
+:::
 
 ### Best Subset Selection
 
