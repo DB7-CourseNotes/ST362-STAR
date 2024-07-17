@@ -191,6 +191,9 @@ step(lm(y ~ ., data = mydf), direction = "backward", trace = 0) |>
     - If our model is using race to make a decision, *we want to know about it*!
 - Possible approach: [not dummy variables](https://drkowal.github.io/lmabc/reference/lmabc.html).
 
+
+::: {.content-visible unless-profile="book"}
+
 ## Paticipation Questions
 
 ### Q1
@@ -239,6 +242,7 @@ c. A few of them.
 d. What? What kind of question is that? How could I possibly know without seeing the context of the problem?!?
 
 <!--- D --->
+:::
 
 ## The Best Model
 

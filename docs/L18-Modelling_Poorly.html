@@ -277,7 +277,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"last_digit_of_student_number <- 0\nHitters <- read.csv(paste0(\"https://raw.githubusercontent.com/DB7-CourseNotes/ST362-STAR/main/data/Hitters_\", last_digit_of_student_number, \".csv\"))\n\nmymodel <- lm(Salary ~ ., data = Hitters)\npar(mfrow = c(2, 2))\nplot(mymodel)\n\n# Find the best model you can come up with!\n# Try ?step to look at automated subset selection!\n# You might also want to try Salary ~ .^2, which includes all interaction\n# terms, but you should probably use forward selection on that (explain why!)","options":{"comment":"","label":"unnamed-chunk-1","dpi":72,"fig-width":7,"autorun":"false","fig-cap":"","editor-max-height":"","output":"true","context":"interactive","editor-quick-suggestions":"false","warning":"true","fig-height":5,"classes":"","results":"markup","out-width":"700px","message":"true","read-only":"false","out-height":"","editor-font-scale":1},"id":1},{"code":"n <- 100\np <- 30\n# Generate 30 uncorrelated predictors\nX <- matrix(ncol = p, nrow = n, data = runif(n * p, 0, 10))\n# y is uncorrelated with the predictors\ny <- matrix(ncol = 1, nrow = n, data = rnorm(n, 0, 3))\nmydf <- cbind(y = y, X) |> as.data.frame()\nnames(mydf)[1] <- \"y\"\nstep(lm(y ~ ., data = mydf), direction = \"backward\", trace = 0) |>\n    coef()","options":{"comment":"","label":"unnamed-chunk-2","dpi":72,"fig-width":7,"autorun":"false","fig-cap":"","editor-max-height":"","output":"true","context":"interactive","editor-quick-suggestions":"false","warning":"true","fig-height":5,"classes":"","results":"markup","out-width":"700px","message":"true","read-only":"false","out-height":"","editor-font-scale":1},"id":2}];
+globalThis.qwebrCellDetails = [{"options":{"fig-width":7,"out-width":"700px","fig-height":5,"label":"unnamed-chunk-1","warning":"true","out-height":"","dpi":72,"comment":"","fig-cap":"","classes":"","autorun":"false","read-only":"false","message":"true","output":"true","editor-max-height":"","context":"interactive","results":"markup","editor-quick-suggestions":"false","editor-font-scale":1},"code":"last_digit_of_student_number <- 0\nHitters <- read.csv(paste0(\"https://raw.githubusercontent.com/DB7-CourseNotes/ST362-STAR/main/data/Hitters_\", last_digit_of_student_number, \".csv\"))\n\nmymodel <- lm(Salary ~ ., data = Hitters)\npar(mfrow = c(2, 2))\nplot(mymodel)\n\n# Find the best model you can come up with!\n# Try ?step to look at automated subset selection!\n# You might also want to try Salary ~ .^2, which includes all interaction\n# terms, but you should probably use forward selection on that (explain why!)","id":1},{"options":{"fig-width":7,"out-width":"700px","fig-height":5,"label":"unnamed-chunk-2","warning":"true","out-height":"","dpi":72,"comment":"","fig-cap":"","classes":"","autorun":"false","read-only":"false","message":"true","output":"true","editor-max-height":"","context":"interactive","results":"markup","editor-quick-suggestions":"false","editor-font-scale":1},"code":"n <- 100\np <- 30\n# Generate 30 uncorrelated predictors\nX <- matrix(ncol = p, nrow = n, data = runif(n * p, 0, 10))\n# y is uncorrelated with the predictors\ny <- matrix(ncol = 1, nrow = n, data = rnorm(n, 0, 3))\nmydf <- cbind(y = y, X) |> as.data.frame()\nnames(mydf)[1] <- \"y\"\nstep(lm(y ~ ., data = mydf), direction = \"backward\", trace = 0) |>\n    coef()","id":2}];
 
 </script>
 <script type="module">
@@ -1479,14 +1479,7 @@ window.Quarto = {
   <li><a href="#evaluating-algorithmic-predictor-selection" id="toc-evaluating-algorithmic-predictor-selection" class="nav-link" data-scroll-target="#evaluating-algorithmic-predictor-selection">Evaluating Algorithmic Predictor Selection</a></li>
   <li><a href="#a-special-case-race" id="toc-a-special-case-race" class="nav-link" data-scroll-target="#a-special-case-race">A Special Case: Race</a></li>
   </ul></li>
-  <li><a href="#paticipation-questions" id="toc-paticipation-questions" class="nav-link" data-scroll-target="#paticipation-questions"><span class="header-section-number">18.4</span> Paticipation Questions</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  </ul></li>
-  <li><a href="#the-best-model-1" id="toc-the-best-model-1" class="nav-link" data-scroll-target="#the-best-model-1"><span class="header-section-number">18.5</span> The Best Model</a>
+  <li><a href="#the-best-model-1" id="toc-the-best-model-1" class="nav-link" data-scroll-target="#the-best-model-1"><span class="header-section-number">18.4</span> The Best Model</a>
   <ul class="collapse">
   <li><a href="#neural-networks-and-random-forests" id="toc-neural-networks-and-random-forests" class="nav-link" data-scroll-target="#neural-networks-and-random-forests">Neural Networks and Random Forests</a></li>
   <li><a href="#causal-inference" id="toc-causal-inference" class="nav-link" data-scroll-target="#causal-inference">Causal Inference</a></li>
@@ -1934,50 +1927,8 @@ L(y|\underline\beta, X, \sigma) = \prod_{i=1}^nf_Y(X|\underline\beta, \sigma^2),
 </ul>
 </section>
 </section>
-<section id="paticipation-questions" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="paticipation-questions"><span class="header-section-number">18.4</span> Paticipation Questions</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>Why do Forward and Backward selection procedures not choose the same model?</p>
-<ol type="a">
-<li>They do choose the same model.</li>
-<li>Because the order that the predictors enter the model matters.</li>
-<li>Because the best model is different depending on which approach you use.</li>
-</ol>
-<!--- C --->
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>Best Subset selection will always choose the same model regardless of which statistic it’s based on (<span class="math inline">\(R^2\)</span>, Mallow’s <span class="math inline">\(C_p\)</span>, AIC, etc).</p>
-<ol type="a">
-<li>True</li>
-<li>False</li>
-</ol>
-<!--- B --->
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>Under the null hypothesis, p-values follow a uniform distribution.</p>
-<ol type="a">
-<li>True</li>
-<li>False</li>
-</ol>
-<!--- A --->
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>Suppose we have 30 predictors in the model. How many should we keep?</p>
-<ol type="a">
-<li>Most of them.</li>
-<li>About half of them.</li>
-<li>A few of them.</li>
-<li>What? What kind of question is that? How could I possibly know without seeing the context of the problem?!?</li>
-</ol>
-<!--- D --->
-</section>
-</section>
-<section id="the-best-model-1" class="level2" data-number="18.5">
-<h2 data-number="18.5" class="anchored" data-anchor-id="the-best-model-1"><span class="header-section-number">18.5</span> The Best Model</h2>
+<section id="the-best-model-1" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="the-best-model-1"><span class="header-section-number">18.4</span> The Best Model</h2>
 <section id="neural-networks-and-random-forests" class="level3">
 <h3 class="anchored" data-anchor-id="neural-networks-and-random-forests">Neural Networks and Random Forests</h3>
 <ul>
