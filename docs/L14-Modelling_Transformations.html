@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"options":{"out-height":"","dpi":72,"label":"unnamed-chunk-1","editor-max-height":"","fig-cap":"","fig-width":7,"fig-height":5,"message":"true","comment":"","autorun":"false","classes":"","editor-quick-suggestions":"false","context":"interactive","read-only":"false","output":"true","results":"markup","out-width":"700px","warning":"true","editor-font-scale":1},"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))"}];
+globalThis.qwebrCellDetails = [{"id":1,"options":{"out-width":"700px","fig-width":7,"message":"true","editor-font-scale":1,"classes":"","fig-height":5,"label":"unnamed-chunk-1","output":"true","editor-quick-suggestions":"false","context":"interactive","out-height":"","results":"markup","editor-max-height":"","autorun":"false","warning":"true","comment":"","fig-cap":"","dpi":72,"read-only":"false"},"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))"}];
 
 </script>
 <script type="module">

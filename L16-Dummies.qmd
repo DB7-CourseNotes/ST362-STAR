@@ -141,15 +141,16 @@ The following code demonstrates that this is true - make sure you understand whe
 #| echo: true
 # Three intercepts
 coef(lm(body_mass_g ~ species, data = penguins))
+# 3700.66225, 32.42598, 1375.35401
 
-# For each value of cylinder
+# For each value of species
 # You'll have to do some math to get the same numbers as above!
-coef(lm(body_mass_g ~ 1, data = subset(penguins, species == Adelie)))
-# 26.66364
+coef(lm(body_mass_g ~ 1, data = subset(penguins, species == "Adelie")))
+# 3700.662
 coef(lm(body_mass_g ~ 1, data = subset(penguins, species == "Chinstrap")))
-# 19.74286 = 26.66364 - 6.920779
+# 3733.088 = 3700.662 + 32.42598
 coef(lm(body_mass_g ~ 1, data = subset(penguins, species == "Gentoo")))
-# 15.1 = 26.66364 - 11.563636
+# 5076.016 = 3700.662 + 1375.35401
 ```
 
 :::
@@ -164,7 +165,7 @@ coef(lm(body_mass_g ~ 1, data = subset(penguins, species == "Gentoo")))
 summary(lm(body_mass_g ~ species, data = penguins))$coef
 ```
 
-So... is `cyl` significant? \pause
+So... is `species` significant? \pause
 
 ```{r}
 #| label: intercept-significance-anova
@@ -189,7 +190,7 @@ As far as R knows, these are two completely separate predictors!
 
 \pspace
 
-For plots on the right, Red line is the mean of `body_mass_g` when speciesis 4, 6, and 8, respectively.
+For plots on the right, Red line is the mean of `body_mass_g` when species is Adelie, Chinstrap, or Gentoo, respectively.
 
 :::
 ::: {.column width="50%"}
@@ -221,7 +222,7 @@ lines(c(0.95, 1.05),  rep(mean(penguins$body_mass_g[penguins$species == "Gentoo"
 
 ### Same Slope but Different Intercepts
 
-If we have `cyl` and `flipper_length_mm` in the model, we get the following:
+If we have `species` and `flipper_length_mm` in the model, we get the following:
 
 $$
 y = \beta_0 + \beta_1I(species == Chinstrap) + \beta_2I(species == Gentoo) + \beta_3 flipper_length_mm
@@ -231,7 +232,7 @@ $$
 y_i = \begin{cases}(\beta_0  + 0) + \beta_3 flipper_length_mm& \text{if }\; species == Adelie\\ (\beta_0 + \beta_1)  + \beta_3 flipper_length_mm& \text{if }\; species == Chinstrap\\(\beta_0  + \beta_2)  + \beta_3 flipper_length_mm& \text{if }\; species == Gentoo\end{cases}
 $$
 
-- *Like* three different models, but with a different **intercept** depending on `cyl`.
+- *Like* three different models, but with a different **intercept** depending on `species`.
     - Unless $\overline{flipper_length_mm} = 0$, the intercept and slope are correlated.
 
 ::: {.content-visible when-profile="book"}
@@ -516,13 +517,13 @@ There is not an easy built-in way to check significance of a specific group
 
 ### Changing the reference group
 
-Suppose we want to compare 6 and 8 cylinder cars. We can set up our model as:
+Suppose we want to compare Gentoo and Chinstrap penguins. We can set up our model as:
 $$
-y = \beta_0 + \beta_1I(Gentoo) + \beta_2I(4) + \beta_3flipper_length_mm + \beta_4flipper_length_mmI(Gentoo) + \beta_5flipper_length_mmI(4)
+y = \beta_0 + \beta_1I(Gentoo) + \beta_2I(Adelie) + \beta_3flipper_length_mm + \beta_4flipper_length_mmI(Gentoo) + \beta_5flipper_length_mmI(Adelie)
 $$
-where now `6` is the reference group.
+where now `Chinstrap` is the reference group.
 
-We can test $\beta_1=\beta_4 = 0$ using ESS to test whether body_mass_g versus flipper_length_mm is the same in these two categories.
+We can test $\beta_1=\beta_4 = 0$ using ESS to test whether `body_mass_g` versus `flipper_length_mm` is the same in these two categories.
 
 \pspace
 
@@ -534,7 +535,7 @@ In R, we need to set up our own dummies to do this.:
 #| eval: true
 #| code-fold: false
 penguins$species<- relevel(factor(penguins$species), ref = "Gentoo")
-levels(penguins$cyl)
+levels(penguins$species)
 ```
 
 

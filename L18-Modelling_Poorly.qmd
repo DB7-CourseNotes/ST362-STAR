@@ -47,7 +47,7 @@ The "best" model depends on the goal of the study!
 ### Model Comparison Criteria
 
 - $R^2$, or adjusted $R^2$
-    - Lower is better, but $R^2$ increases as we add predictors\lspace
+    - Higher is better, but $R^2$ increases as we add predictors\lspace
 - $s^2$, the residual variance.
     - Adding predictors always decreases $s^2$\lspace
 - Mallow's $C_p$ statistic

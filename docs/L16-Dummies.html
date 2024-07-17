@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-07-10">
+<meta name="dcterms.date" content="2024-07-17">
 
 <title>STAR Notes – 16&nbsp; Dummy Variables</title>
 <style>
@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"message":"true","comment":"","context":"interactive","out-height":"","dpi":72,"warning":"true","fig-height":5,"fig-cap":"","output":"true","echo":"true","editor-font-scale":1,"classes":"","read-only":"false","editor-max-height":"","fig-width":7,"label":"intercept-model","editor-quick-suggestions":"false","results":"markup","out-width":"700px","autorun":"false"},"id":1,"code":"# Three intercepts\ncoef(lm(body_mass_g ~ species, data = penguins))\n\n# For each value of cylinder\n# You'll have to do some math to get the same numbers as above!\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == Adelie)))\n# 26.66364\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Chinstrap\")))\n# 19.74286 = 26.66364 - 6.920779\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Gentoo\")))\n# 15.1 = 26.66364 - 11.563636"},{"options":{"message":"true","comment":"","context":"interactive","out-height":"","dpi":72,"warning":"true","fig-height":5,"fig-cap":"","output":"true","echo":"true","editor-font-scale":1,"classes":"","read-only":"false","editor-max-height":"","fig-width":7,"label":"intercept-slope-model","editor-quick-suggestions":"false","results":"markup","out-width":"700px","autorun":"false"},"id":2,"code":"coef(lm(body_mass_g ~ species + flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))"},{"options":{"message":"true","comment":"","context":"interactive","out-height":"","dpi":72,"warning":"true","fig-height":5,"fig-cap":"","output":"true","echo":"true","editor-font-scale":1,"classes":"","read-only":"false","editor-max-height":"","fig-width":7,"label":"intercept-slope-sig-type2SS","editor-quick-suggestions":"false","results":"markup","out-width":"700px","autorun":"false"},"id":3,"code":"\nmylm <- lm(body_mass_g ~ flipper_length_mm + species, data = penguins)\nanova(mylm)"},{"options":{"message":"true","comment":"","context":"interactive","out-height":"","dpi":72,"warning":"true","fig-height":5,"fig-cap":"","output":"true","echo":"true","editor-font-scale":1,"classes":"","read-only":"false","editor-max-height":"","fig-width":7,"label":"interaction-model","editor-quick-suggestions":"false","results":"markup","out-width":"700px","autorun":"false"},"id":4,"code":"coef(lm(body_mass_g ~ species * flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))"}];
+globalThis.qwebrCellDetails = [{"code":"# Three intercepts\ncoef(lm(body_mass_g ~ species, data = penguins))\n# 3700.66225, 32.42598, 1375.35401\n\n# For each value of species\n# You'll have to do some math to get the same numbers as above!\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Adelie\")))\n# 3700.662\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Chinstrap\")))\n# 3733.088 = 3700.662 + 32.42598\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Gentoo\")))\n# 5076.016 = 3700.662 + 1375.35401","options":{"editor-font-scale":1,"results":"markup","context":"interactive","read-only":"false","label":"intercept-model","comment":"","warning":"true","message":"true","editor-quick-suggestions":"false","autorun":"false","editor-max-height":"","echo":"true","output":"true","dpi":72,"fig-width":7,"fig-cap":"","out-height":"","fig-height":5,"classes":"","out-width":"700px"},"id":1},{"code":"coef(lm(body_mass_g ~ species + flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))","options":{"editor-font-scale":1,"results":"markup","context":"interactive","read-only":"false","label":"intercept-slope-model","comment":"","warning":"true","message":"true","editor-quick-suggestions":"false","autorun":"false","editor-max-height":"","echo":"true","output":"true","dpi":72,"fig-width":7,"fig-cap":"","out-height":"","fig-height":5,"classes":"","out-width":"700px"},"id":2},{"code":"\nmylm <- lm(body_mass_g ~ flipper_length_mm + species, data = penguins)\nanova(mylm)","options":{"editor-font-scale":1,"results":"markup","context":"interactive","read-only":"false","label":"intercept-slope-sig-type2SS","comment":"","warning":"true","message":"true","editor-quick-suggestions":"false","autorun":"false","editor-max-height":"","echo":"true","output":"true","dpi":72,"fig-width":7,"fig-cap":"","out-height":"","fig-height":5,"classes":"","out-width":"700px"},"id":3},{"code":"coef(lm(body_mass_g ~ species * flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))","options":{"editor-font-scale":1,"results":"markup","context":"interactive","read-only":"false","label":"interaction-model","comment":"","warning":"true","message":"true","editor-quick-suggestions":"false","autorun":"false","editor-max-height":"","echo":"true","output":"true","dpi":72,"fig-width":7,"fig-cap":"","out-height":"","fig-height":5,"classes":"","out-width":"700px"},"id":4}];
 
 </script>
 <script type="module">
@@ -1780,7 +1780,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-10</p>
+      <p class="date">2024-07-17</p>
     </div>
   </div>
   
@@ -1913,7 +1913,7 @@ speciesChinstrap   26.92385   67.65243  0.3979732  6.909073e-01
 speciesGentoo    1386.27259   56.90893 24.3594924  1.009947e-75</code></pre>
 </div>
 </div>
-<p>So… is <code>cyl</code> significant? </p>
+<p>So… is <code>species</code> significant? </p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -1939,7 +1939,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>We fit a model with <strong>two predictors</strong>: <span class="math display">\[
 I(species == Chinstrap)\text{ and }I(species == Gentoo)
 \]</span> As far as R knows, these are two completely separate predictors!</p>
-<p>For plots on the right, Red line is the mean of <code>body_mass_g</code> when speciesis 4, 6, and 8, respectively.</p>
+<p>For plots on the right, Red line is the mean of <code>body_mass_g</code> when species is Adelie, Chinstrap, or Gentoo, respectively.</p>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
@@ -1958,14 +1958,14 @@ I(species == Chinstrap)\text{ and }I(species == Gentoo)
 <h2 data-number="16.2" class="anchored" data-anchor-id="interactions"><span class="header-section-number">16.2</span> Interactions</h2>
 <section id="same-slope-but-different-intercepts" class="level3">
 <h3 class="anchored" data-anchor-id="same-slope-but-different-intercepts">Same Slope but Different Intercepts</h3>
-<p>If we have <code>cyl</code> and <code>flipper_length_mm</code> in the model, we get the following:</p>
+<p>If we have <code>species</code> and <code>flipper_length_mm</code> in the model, we get the following:</p>
 <p><span class="math display">\[
 y = \beta_0 + \beta_1I(species == Chinstrap) + \beta_2I(species == Gentoo) + \beta_3 flipper_length_mm
 \]</span> which is equivalent to: <span class="math display">\[
 y_i = \begin{cases}(\beta_0  + 0) + \beta_3 flipper_length_mm&amp; \text{if }\; species == Adelie\\ (\beta_0 + \beta_1)  + \beta_3 flipper_length_mm&amp; \text{if }\; species == Chinstrap\\(\beta_0  + \beta_2)  + \beta_3 flipper_length_mm&amp; \text{if }\; species == Gentoo\end{cases}
 \]</span></p>
 <ul>
-<li><em>Like</em> three different models, but with a different <strong>intercept</strong> depending on <code>cyl</code>.
+<li><em>Like</em> three different models, but with a different <strong>intercept</strong> depending on <code>species</code>.
 <ul>
 <li>Unless <span class="math inline">\(\overline{flipper_length_mm} = 0\)</span>, the intercept and slope are correlated.</li>
 </ul></li>
@@ -2169,16 +2169,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="changing-the-reference-group" class="level3">
 <h3 class="anchored" data-anchor-id="changing-the-reference-group">Changing the reference group</h3>
-<p>Suppose we want to compare 6 and 8 cylinder cars. We can set up our model as: <span class="math display">\[
-y = \beta_0 + \beta_1I(Gentoo) + \beta_2I(4) + \beta_3flipper_length_mm + \beta_4flipper_length_mmI(Gentoo) + \beta_5flipper_length_mmI(4)
-\]</span> where now <code>6</code> is the reference group.</p>
-<p>We can test <span class="math inline">\(\beta_1=\beta_4 = 0\)</span> using ESS to test whether body_mass_g versus flipper_length_mm is the same in these two categories.</p>
+<p>Suppose we want to compare Gentoo and Chinstrap penguins. We can set up our model as: <span class="math display">\[
+y = \beta_0 + \beta_1I(Gentoo) + \beta_2I(Adelie) + \beta_3flipper_length_mm + \beta_4flipper_length_mmI(Gentoo) + \beta_5flipper_length_mmI(Adelie)
+\]</span> where now <code>Chinstrap</code> is the reference group.</p>
+<p>We can test <span class="math inline">\(\beta_1=\beta_4 = 0\)</span> using ESS to test whether <code>body_mass_g</code> versus <code>flipper_length_mm</code> is the same in these two categories.</p>
 <p>In R, we need to set up our own dummies to do this.:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>penguins<span class="sc">$</span>species<span class="ot">&lt;-</span> <span class="fu">relevel</span>(<span class="fu">factor</span>(penguins<span class="sc">$</span>species), <span class="at">ref =</span> <span class="st">"Gentoo"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(penguins<span class="sc">$</span>cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(penguins<span class="sc">$</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>NULL</code></pre>
+<pre><code>[1] "Gentoo"    "Adelie"    "Chinstrap"</code></pre>
 </div>
 </div>
 </section>
