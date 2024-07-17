@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"plot(mpg ~ wt, data = mtcars)\n\n# Can't simply \"abline\" a polynomial since it treats \n# the polynomial terms as separate predictors, so it's\n# a multiple linear regression\nmy_lm <- lm(mpg ~ poly(wt, 9), data = mtcars)\nwt_seq <- seq(min(mtcars$wt), max(mtcars$wt),\n    length.out = 100)\nmy_preds <- predict(my_lm,\n    newdata = data.frame(wt = wt_seq))\nlines(wt_seq, my_preds, col = 2, lwd = 2)","id":1,"options":{"label":"mtcars_poly","editor-font-scale":1,"fig-width":7,"message":"true","classes":"","fig-cap":"","autorun":"false","context":"interactive","results":"markup","read-only":"false","warning":"true","editor-quick-suggestions":"false","editor-max-height":"","out-width":"700px","output":"true","comment":"","dpi":72,"fig-height":5,"out-height":""}}];
+globalThis.qwebrCellDetails = [{"code":"plot(mpg ~ wt, data = mtcars)\n\n# Can't simply \"abline\" a polynomial since it treats \n# the polynomial terms as separate predictors, so it's\n# a multiple linear regression\nmy_lm <- lm(mpg ~ poly(wt, 9), data = mtcars)\nwt_seq <- seq(min(mtcars$wt), max(mtcars$wt),\n    length.out = 100)\nmy_preds <- predict(my_lm,\n    newdata = data.frame(wt = wt_seq))\nlines(wt_seq, my_preds, col = 2, lwd = 2)","id":1,"options":{"editor-max-height":"","read-only":"false","out-height":"","fig-width":7,"context":"interactive","comment":"","fig-cap":"","warning":"true","output":"true","editor-quick-suggestions":"false","results":"markup","autorun":"false","classes":"","message":"true","out-width":"700px","label":"mtcars_poly","dpi":72,"fig-height":5,"editor-font-scale":1}}];
 
 </script>
 <script type="module">

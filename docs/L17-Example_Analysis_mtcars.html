@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Devan Becker">
-<meta name="dcterms.date" content="2024-07-15">
+<meta name="dcterms.date" content="2024-07-17">
 
 <title>STAR Notes – 17&nbsp; Analysis of MTCars</title>
 <style>
@@ -277,7 +277,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"head(mtcars)","id":1,"options":{"warning":"true","editor-quick-suggestions":"false","comment":"","results":"markup","read-only":"false","editor-max-height":"","classes":"","context":"interactive","editor-font-scale":1,"fig-cap":"","label":"unnamed-chunk-1","dpi":72,"out-width":"700px","autorun":"false","output":"true","message":"true","out-height":"","fig-width":7,"fig-height":5}},{"code":"# Choosing the first few columns to make it smaller on my screen\npairs(mtcars[, c(\"mpg\", \"cyl\", \"disp\", \"hp\", \"drat\", \"wt\", \"qsec\")])","id":2,"options":{"warning":"true","editor-quick-suggestions":"false","comment":"","results":"markup","read-only":"false","editor-max-height":"","classes":"","context":"interactive","editor-font-scale":1,"fig-cap":"","label":"unnamed-chunk-2","dpi":72,"out-width":"700px","autorun":"false","output":"true","message":"true","out-height":"","fig-width":7,"fig-height":5}},{"code":"# Continuous versus categorical\nplot(wt ~ factor(am), data = mtcars)","id":3,"options":{"warning":"true","editor-quick-suggestions":"false","comment":"","results":"markup","read-only":"false","editor-max-height":"","classes":"","context":"interactive","editor-font-scale":1,"fig-cap":"","label":"cont_v_cat","dpi":72,"out-width":"700px","autorun":"false","output":"true","message":"true","out-height":"","fig-width":7,"fig-height":5}},{"code":"# Continuous vs. continuous\nplot(disp ~ wt, col = factor(am), data = mtcars)","id":4,"options":{"warning":"true","editor-quick-suggestions":"false","comment":"","results":"markup","read-only":"false","editor-max-height":"","classes":"","context":"interactive","editor-font-scale":1,"fig-cap":"","label":"cont_v_cont","dpi":72,"out-width":"700px","autorun":"false","output":"true","message":"true","out-height":"","fig-width":7,"fig-height":5}},{"code":"# categorical variables\nbarplot(table(mtcars$am, mtcars$vs), beside = TRUE, legend = TRUE)","id":5,"options":{"warning":"true","editor-quick-suggestions":"false","comment":"","results":"markup","read-only":"false","editor-max-height":"","classes":"","context":"interactive","editor-font-scale":1,"fig-cap":"","label":"cats","dpi":72,"out-width":"700px","autorun":"false","output":"true","message":"true","out-height":"","fig-width":7,"fig-height":5}},{"code":"plot(mpg ~ disp, col = factor(cyl), data = mtcars)","id":6,"options":{"warning":"true","editor-quick-suggestions":"false","comment":"","results":"markup","read-only":"false","editor-max-height":"","classes":"","context":"interactive","editor-font-scale":1,"fig-cap":"","label":"mpg_v_disp","dpi":72,"out-width":"700px","autorun":"false","output":"true","message":"true","out-height":"","fig-width":7,"fig-height":5}},{"code":"mymodel <- lm(mpg ~ wt * factor(vs), data = mtcars)\n\npar(mfrow = c(2,2))\nplot(mymodel, col = mtcars$vs)","id":7,"options":{"warning":"true","editor-quick-suggestions":"false","comment":"","results":"markup","read-only":"false","editor-max-height":"","classes":"","context":"interactive","editor-font-scale":1,"fig-cap":"","label":"dispmodel_plot","dpi":72,"out-width":"700px","autorun":"false","output":"true","message":"true","out-height":"","fig-width":7,"fig-height":5}},{"code":"mymodel <- lm(mpg ~ wt * factor(vs), data = mtcars)\n\nupdate(mymode, ~ . - wt : factor(vs))","id":8,"options":{"warning":"true","editor-quick-suggestions":"false","comment":"","results":"markup","read-only":"false","editor-max-height":"","classes":"","context":"interactive","editor-font-scale":1,"fig-cap":"","label":"unnamed-chunk-8","dpi":72,"out-width":"700px","autorun":"false","output":"true","message":"true","out-height":"","fig-width":7,"fig-height":5}}];
+globalThis.qwebrCellDetails = [{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"unnamed-chunk-1","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":1,"code":"head(mtcars)"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"unnamed-chunk-2","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":2,"code":"# Choosing the first few columns to make it smaller on my screen\npairs(mtcars[, c(\"mpg\", \"cyl\", \"disp\", \"hp\", \"drat\", \"wt\", \"qsec\")])"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"cont_v_cat","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":3,"code":"# Continuous versus categorical\nplot(wt ~ factor(am), data = mtcars)"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"cont_v_cont","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":4,"code":"# Continuous vs. continuous\nplot(disp ~ wt, col = factor(am), data = mtcars)"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"cats","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":5,"code":"# categorical variables\nbarplot(table(mtcars$am, mtcars$vs), beside = TRUE, legend = TRUE)"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"mpg_v_disp","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":6,"code":"plot(mpg ~ disp, col = factor(cyl), data = mtcars)"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"dispmodel_plot","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":7,"code":"mymodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)\n\npar(mfrow = c(2,2))\nplot(mymodel, col = mtcars$vs)"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"unnamed-chunk-8","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":8,"code":"mymodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)\n\nupdate(mymode, ~ . - disp : factor(cyl))"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"wtmodel_plot","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":9,"code":"wtmodel <- lm(mpg ~ wt * am, data = mtcars)\n\npar(mfrow = c(2,2))\nplot(wtmodel)"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"dispmodel_summary","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":10,"code":"dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)\nsummary(dispmodel)"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"wtmodel_summary","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":11,"code":"wtmodel <- lm(mpg ~ wt * am, data = mtcars)\nsummary(wtmodel)"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"unnamed-chunk-12","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":12,"code":"dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)\nanova(dispmodel, wtmodel)"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"unnamed-chunk-13","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":13,"code":"# MSE values\ndispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)\nwtmodel <- lm(mpg ~ wt * am, data = mtcars)\nsummary(dispmodel)$sigma\nsummary(wtmodel)$sigma"},{"options":{"read-only":"false","dpi":72,"context":"interactive","classes":"","fig-width":7,"editor-quick-suggestions":"false","out-height":"","out-width":"700px","label":"unnamed-chunk-14","editor-max-height":"","autorun":"false","results":"markup","message":"true","output":"true","fig-cap":"","comment":"","warning":"true","editor-font-scale":1,"fig-height":5},"id":14,"code":"dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)\nsummary(update(dispmodel, ~ . + hp)) "}];
 
 </script>
 <script type="module">
@@ -1463,6 +1463,7 @@ window.Quarto = {
   <li><a href="#understanding-data" id="toc-understanding-data" class="nav-link" data-scroll-target="#understanding-data">Understanding Data</a></li>
   <li><a href="#plotting-the-data" id="toc-plotting-the-data" class="nav-link" data-scroll-target="#plotting-the-data">Plotting the Data</a></li>
   <li><a href="#patterns-in-the-predictors" id="toc-patterns-in-the-predictors" class="nav-link" data-scroll-target="#patterns-in-the-predictors">Patterns in the Predictors</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   </ul></li>
   <li><a href="#more-eda-relationships-with-the-response-interactions" id="toc-more-eda-relationships-with-the-response-interactions" class="nav-link" data-scroll-target="#more-eda-relationships-with-the-response-interactions"><span class="header-section-number">17.2</span> More EDA: Relationships with the Response / Interactions</a></li>
   <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling"><span class="header-section-number">17.3</span> Modelling</a></li>
@@ -1725,7 +1726,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-15</p>
+      <p class="date">2024-07-17</p>
     </div>
   </div>
   
@@ -1753,55 +1754,60 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Write down any conclusions about the relationships you see in the <code>pairs</code> plot below:</p>
 <div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<!---
-
-- Only 1 car has `carb` = 6, 1 has `carb` = 8
-- `wt` and `drat` are (-ively) correlated
-    - `disp` and `hp`
-    - `disp` and `drat` (-ive)
-    - `disp` and `wt`
-    - `hp` and `wt` 
-    - `hp` and `qsec`
-
-`wt` and `disp` are clearly multicollinear,; they're measuring the same thing so I might want to include just one of them.
---->
+<ul>
+<li>Only 1 car has <code>carb</code> = 6, 1 has <code>carb</code> = 8</li>
+<li><code>wt</code> and <code>drat</code> are (-ively) correlated
+<ul>
+<li><code>disp</code> and <code>hp</code></li>
+<li><code>disp</code> and <code>drat</code> (-ive)</li>
+<li><code>disp</code> and <code>wt</code></li>
+<li><code>hp</code> and <code>wt</code></li>
+<li><code>hp</code> and <code>qsec</code></li>
+</ul></li>
+</ul>
+<p><code>wt</code> and <code>disp</code> are clearly multicollinear,; they’re measuring the same thing so I might want to include just one of them.</p>
 </section>
 <section id="patterns-in-the-predictors" class="level3">
 <h3 class="anchored" data-anchor-id="patterns-in-the-predictors">Patterns in the Predictors</h3>
 <p>In the following code, try setting the term on the right of the <code>~</code> as <code>am</code>, <code>cyl</code>, <code>gear</code>, and <code>carb</code>. Try the terms on the left side of the as <code>wt</code>, <code>disp</code>, <code>drat</code>, and <code>qsec</code>. Essentially, tried every combination of these and wrote down the most interesting patterns.</p>
 <div id="qwebr-insertion-location-3"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<!---
-
-
-- `wt` is different across categories of `am`, `cyl`, `carb`, `gear` (all positive)
-    - `disp` has same relationships
-    - `hp` has same relationships, except 4 gear cars have lower hp than 3 and 5 gear cars
-    - `drat` has opposite relationships
---->
+<ul>
+<li><code>wt</code> is different across categories of <code>am</code>, <code>cyl</code>, <code>carb</code>, <code>gear</code> (all positive)
+<ul>
+<li><code>disp</code> has same relationships</li>
+<li><code>hp</code> has same relationships, except 4 gear cars have lower hp than 3 and 5 gear cars</li>
+<li><code>drat</code> has opposite relationships</li>
+</ul></li>
+</ul>
 <p>Do something similar with the following code, checking every combination of all relevant predictors and writing down anything that sticks out.</p>
 <div id="qwebr-insertion-location-4"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<!---
-- Clear separation between `disp` and `wt` when coloured by am or `cyl`.
-    - In other words, there are distinct groups. This probably means that one of the continuous predictors has all of the information necessary, and it won't be necessary to include an interaction between continuous predictors (it rarely is).
-- Otherwise, there are not many relationships that might be present.
---->
+<ul>
+<li>Clear separation between <code>disp</code> and <code>wt</code> when coloured by am or <code>cyl</code>.
+<ul>
+<li>In other words, there are distinct groups. This probably means that one of the continuous predictors has all of the information necessary, and it won’t be necessary to include an interaction between continuous predictors (it rarely is).</li>
+</ul></li>
+<li>Otherwise, there are not many relationships that might be present.</li>
+</ul>
 <p>The following plot can also be used with all combinations of categorical predictors.</p>
 <div id="qwebr-insertion-location-5"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<!---
-- Some kind of "correlation" between `am` and `cyl`.
-    - Measuring something similar, but from different perspectives.
-- Very little relation between `am` and `vs` - they're measuring different things.
-    - Might be worth checking models where `am` is switched with `vs`. 
-
-### Conclusions
-
-Most things are measuring "how powerful is this car" or "how heavy is this car", so we should just choose the ones that make sense to us and check a few categorical predictors.
-
-`wt` and `disp` make the most sense as measures for `mpg`, and `am` and `cyl` also make some sense. I'll try switching out some of the other predictors, but I expect that the final model will either be `wt*am` or `disp*cyl`.
---->
+<ul>
+<li>Some kind of “correlation” between <code>am</code> and <code>cyl</code>.
+<ul>
+<li>Measuring something similar, but from different perspectives.</li>
+</ul></li>
+<li>Very little relation between <code>am</code> and <code>vs</code> - they’re measuring different things.
+<ul>
+<li>Might be worth checking models where <code>am</code> is switched with <code>vs</code>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
+<p>Most things are measuring “how powerful is this car” or “how heavy is this car”, so we should just choose the ones that make sense to us and check a few categorical predictors.</p>
+<p><code>wt</code> and <code>disp</code> make the most sense as measures for <code>mpg</code>, and <code>am</code> and <code>cyl</code> also make some sense. I’ll try switching out some of the other predictors, but I expect that the final model will either be <code>wt*am</code> or <code>disp*cyl</code>.</p>
 </section>
 </section>
 <section id="more-eda-relationships-with-the-response-interactions" class="level2" data-number="17.2">
@@ -1810,108 +1816,77 @@ Most things are measuring "how powerful is this car" or "how heavy is this car",
 <div id="qwebr-insertion-location-6"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>From looking at many many plots, propose 3 (and only 3) candidate models.</p>
-<!---
-
-- `mpg` versus `disp` * `cyl`
-- `mpg` versus `wt` * `am` (`cyl`?)
-- `mpg` versus `wt` * `vs` (maybe not an interaction)
-- `mpg` versus `wt` * `gear`?
-
-I had also considered including `qsec`, but a plot of `mpg` versus `qsec` with colours from `cyl` revealed that `cyl` explains the relationship; if we include `cyl`, then the slope for mpg versus `qsec` is 0. The same thing happens with `drat`, so `cyl` is probably enough to include in the model rather than either `qsec` or `drat`. 
---->
+<ul>
+<li><code>mpg</code> versus <code>disp</code> * <code>cyl</code></li>
+<li><code>mpg</code> versus <code>wt</code> * <code>am</code> (<code>cyl</code>?)</li>
+<li><code>mpg</code> versus <code>wt</code> * <code>vs</code> (maybe not an interaction)</li>
+<li><code>mpg</code> versus <code>wt</code> * <code>gear</code>?</li>
+</ul>
+<p>I had also considered including <code>qsec</code>, but a plot of <code>mpg</code> versus <code>qsec</code> with colours from <code>cyl</code> revealed that <code>cyl</code> explains the relationship; if we include <code>cyl</code>, then the slope for mpg versus <code>qsec</code> is 0. The same thing happens with <code>drat</code>, so <code>cyl</code> is probably enough to include in the model rather than either <code>qsec</code> or <code>drat</code>.</p>
 </section>
 <section id="modelling" class="level2" data-number="17.3">
 <h2 data-number="17.3" class="anchored" data-anchor-id="modelling"><span class="header-section-number">17.3</span> Modelling</h2>
 <p>Let’s test out some models! The following code is already set up with a potentially reasonable model (but it isn’t the final model I would have chosen). Change it to test out your top 3 models, writing down any conclusions about the residuals.</p>
 <p>When you’ve chosen your top candidate write it down!</p>
+<p>My final model is as follows:</p>
 <div id="qwebr-insertion-location-7"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Now, investigate a couple changes to the model, justifying each change based on your plots above. The following code tests removing the interaction term, but you should completely change it according to what you’ve done. You are encouraged to go back and try new plots before you test them in a model.</p>
 <div id="qwebr-insertion-location-8"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Once you have your final model, write some interpretations!</p>
-<!---
-- Residuals versus fitted looks good
-- QQ norm looks great! For this small of a data set, we don't expect much from the qq-plot, so this is actually very nice.
-- Scale-Location has a slight U shape, which isn't ideal. There may still be a predictor that's worth including.
-- There's a high influence point. This is likely due to the interaction between cyl and disp.
-    - When we have this kind of interaction, there are essentially three lines, each with fewer observations. It is much easier for a point to be influential with interaction present. 
-
-```ydhowwgv
-#| label: wtmodel_plot
-wtmodel <- lm(mpg ~ wt * am, data = mtcars)
-
-par(mfrow = c(2,2))
-plot(wtmodel)
-```
-
-- First plot looks good!
-- QQplot has some heavy tails - not bad, but not ideal. `dispmodel` was better.
-- Scale-location is great!
-- No high leverage points.
-
-Both models are good in different ways. Let's check their summaries.
-
-
-```ydhowwgv
-#| label: dispmodel_summary
-dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
-summary(dispmodel)
-```
-
-```ydhowwgv
-#| label: wtmodel_summary
-wtmodel <- lm(mpg ~ wt * am, data = mtcars)
-summary(wtmodel)
-```
-
-The $R^2$ for `dispmodel` is a fair bit higher (although there's no standard for how much an $R^2$ should change, so this might not be a meaningful difference). As we saw in class, the $R^2$ is based on the same quantities as the F-test for different models. 
-
-```ydhowwgv
-dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
-anova(dispmodel, wtmodel)
-```
-
-The models fit significantly differently. Which one fits better?
-
-```ydhowwgv
-# MSE values
-dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
-wtmodel <- lm(mpg ~ wt * am, data = mtcars)
-summary(dispmodel)$sigma
-summary(wtmodel)$sigma
-```
-
-<!---
-`dispmodel` has a higher $R^2$ and a lower MSE, so it seems to be the winner.
-
-From the pairs plot, I saw that disp has a slight relationship with other continuous predictors, and the scale-location plot wasn't perfect. Perhaps another predictor will help?
-
-
-I can do this with the magical `update()` function. The `~ . + hp` notation means the response versus (`~`) everything `.`, then add `hp`. The `~` means "versus" (with the response on the left, which isn't allowed to change in this case, and the predictors on the right), and the `.` means "everything", which in this case refers to everything that was already in the model. The form `lm(mpg ~ ., data = mtcars)` will fit `mpg` against everything else it sees in the mtcars dataset. 
-
-```ydhowwgv
-dispmodel <- lm(mpg ~ disp * factor(cyl), data = mtcars)
-summary(update(dispmodel, ~ . + hp)) 
-```
-
-I checked `qsec`, `drat`, and `hp`, and none seemed worth including in the model. I'll just leave it as is.
-
-To interpret the model we must be careful about the interaction term!
-
-$$
+<ul>
+<li>Residuals versus fitted looks good</li>
+<li>QQ norm looks great! For this small of a data set, we don’t expect much from the qq-plot, so this is actually very nice.</li>
+<li>Scale-Location has a slight U shape, which isn’t ideal. There may still be a predictor that’s worth including.</li>
+<li>There’s a high influence point. This is likely due to the interaction between cyl and disp.
+<ul>
+<li>When we have this kind of interaction, there are essentially three lines, each with fewer observations. It is much easier for a point to be influential with interaction present.</li>
+</ul></li>
+</ul>
+<p>My second model is as follows:</p>
+<div id="qwebr-insertion-location-9"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<ul>
+<li>First plot looks good!</li>
+<li>QQplot has some heavy tails - not bad, but not ideal. <code>dispmodel</code> was better.</li>
+<li>Scale-location is great!</li>
+<li>No high leverage points.</li>
+</ul>
+<p>Both models are good in different ways. Let’s check their summaries.</p>
+<p>(Because of the way <code>webr</code> works, each code chunk is a separate R process. This means I have to re-define the model again in every code chunk.)</p>
+<div id="qwebr-insertion-location-10"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<div id="qwebr-insertion-location-11"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>The <span class="math inline">\(R^2\)</span> for <code>dispmodel</code> is a fair bit higher (although there’s no standard for how much an <span class="math inline">\(R^2\)</span> should change, so this might not be a meaningful difference). As we saw in class, the <span class="math inline">\(R^2\)</span> is based on the same quantities as the F-test for different models.</p>
+<div id="qwebr-insertion-location-12"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>The models fit significantly differently. Which one fits better?</p>
+<div id="qwebr-insertion-location-13"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p><code>dispmodel</code> has a higher <span class="math inline">\(R^2\)</span> and a lower MSE, so it seems to be the winner.</p>
+<p>From the pairs plot, I saw that disp has a slight relationship with other continuous predictors, and the scale-location plot wasn’t perfect. Perhaps another predictor will help?</p>
+<p>I can do this with the magical <code>update()</code> function. The <code>~ . + hp</code> notation means the response versus (<code>~</code>) everything <code>.</code>, then add <code>hp</code>. The <code>~</code> means “versus” (with the response on the left, which isn’t allowed to change in this case, and the predictors on the right), and the <code>.</code> means “everything”, which in this case refers to everything that was already in the model. The form <code>lm(mpg ~ ., data = mtcars)</code> will fit <code>mpg</code> against everything else it sees in the mtcars dataset.</p>
+<div id="qwebr-insertion-location-14"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>I checked <code>qsec</code>, <code>drat</code>, and <code>hp</code>, and none seemed worth including in the model. I’ll just leave it as is.</p>
+<p>To interpret the model we must be careful about the interaction term!</p>
+<p><span class="math display">\[
 mpg = \begin{cases}
-\beta_0 + \beta_1 disp & \text{if }cyl == 4\\
-(\beta_0 + \beta_2) + (\beta_1 + \beta_4) disp & \text{if }cyl == 6\\
-(\beta_0 + \beta_3) + (\beta_1 + \beta_5) disp & \text{if }cyl == 8\\
+\beta_0 + \beta_1 disp &amp; \text{if }cyl == 4\\
+(\beta_0 + \beta_2) + (\beta_1 + \beta_4) disp &amp; \text{if }cyl == 6\\
+(\beta_0 + \beta_3) + (\beta_1 + \beta_5) disp &amp; \text{if }cyl == 8\\
 \end{cases}
-$$
-
-- For 4 cylinder cars, the baseline mpg is 40 and decreases by 0.135 for each one unit increase in disp.
-- For 6 cylinder cars, the baseline mpg is about 21.5 and isn't really related to the displacement.
-- For 8 cylinder cars, the baseline mpg is about 24.5 and decreases by about 0.02 for each one-unit increase in displacement.
-    - Note that displacement has really large units, so 0.02 over hundreds of one-unit increases is still a lot!
---->
+\]</span></p>
+<ul>
+<li>For 4 cylinder cars, the baseline mpg is 40 and decreases by 0.135 for each one unit increase in disp.</li>
+<li>For 6 cylinder cars, the baseline mpg is about 21.5 and isn’t really related to the displacement.</li>
+<li>For 8 cylinder cars, the baseline mpg is about 24.5 and decreases by about 0.02 for each one-unit increase in displacement.
+<ul>
+<li>Note that displacement has really large units, so 0.02 over hundreds of one-unit increases is still a lot!</li>
+</ul></li>
+</ul>
 
 
 </section>
