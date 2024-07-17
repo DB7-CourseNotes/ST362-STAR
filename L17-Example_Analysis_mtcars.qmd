@@ -252,3 +252,26 @@ $$
 - For 6 cylinder cars, the baseline mpg is about 21.5 and isn't really related to the displacement.
 - For 8 cylinder cars, the baseline mpg is about 24.5 and decreases by about 0.02 for each one-unit increase in displacement.
     - Note that displacement has really large units, so 0.02 over hundreds of one-unit increases is still a lot!
+
+## Conclusions
+
+We chose the final model purely based on balancing a good fit without overfitting. This lead us to modelling the fuel efficiency of the car as a linear function of the engine displacement, with a different relationship depending on the number of cylinders. Generally, cars with more cylinders tend to have a lower fuel efficiency, and a larger engine is also associated with lower efficiency.
+
+The engine displacement is a measure of both the weight of the car as well as the power of the car. The number of cylinders can also be seen as a measure of these two things, so our final model seems reasonable.
+
+In this study, we are limited by both the size of the data and the purpose of data collection. These are observational data, with no effort made to control any of the predictors. For instance, we did not simply take a Mazda RX4 and change the number of cylinders to see what might happen. Instead, we observed a correlation in the data. A car company that wants to build a more fuel efficient car might want to use these associations as a starting point, but would need to do some controlled experiments to see what causal relationships might exist.
+
+The data do not include all of the predictors that I would have liked. For instance, there is no measure of the aerodynamics of the cars. Any study focused on fuel efficiency would benefit from such a study. Furthermore, the fuel efficiency is the one reported by the company; a controlled study would measure the actual fuel efficiency in identical conditions for all cars. 
+
+In addition, the data are old. Like, very old. Cars are very different now, and these data are very outdated. There are absolutely no conclusions from this model that would actually be useful for modern cars.
+
+## Comment: The purpose of a study
+
+In this study, we focused on the model fit. However, if a company was interested specifically in the speed of a car rather than it's weight, we might have instead focused on the `qsec` predictor. 
+
+In many studies, researchers may have a set of predictors that they are particularly interested in. For example, in a study on whether a new treatment affects the patients' heart rate, while "controlling" for other factors (biosex, race, weight, age, etc.). Such a regression task could be written as:
+$$
+heartrate_i = \beta_0 + \beta_1I(treatment_i) + \beta_2age_i + \beta_3I(biosexMale_i) + \beta_4weight_i \beta_5I(raceBlack_i) + \beta_6I(raceHispanic) + ... + \epsilon_i
+$$
+and we would **never** investigate a model that does not have the predictor that defines the treatment. Instead, we might find the best model according to all other predictors (possibly with transformations), then look at whether the treatment variable is significant.
+
