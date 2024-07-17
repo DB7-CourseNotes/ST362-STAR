@@ -42,7 +42,7 @@ Wouldn't it be nice if the computer would choose the best model for you?
 
 The "best" model depends on the goal of the study!
 
-## Automatic Predictor Selection
+## Picking the "Best Fitting" Model
 
 ### Model Comparison Criteria
 
@@ -76,6 +76,8 @@ where $f_Y(X|\underline\beta, \sigma^2)$ is the normal distribution.
     - Our model doesn't fit the data well.
 - A low AIC means we've got a good model that isn't overly complicated
     - "Low" is relative to other models
+
+## Automated Model Selection Algorithms
 
 ### Best Subset
 
@@ -149,9 +151,6 @@ plot(mymodel)
 ```
 :::
 
-### Best Subset Selection
-
-Test every combination of predictors, keep the one with the lowest AIC (or other stat).
 
 ### Think-Pair-Share
 
@@ -169,6 +168,23 @@ Suppose we have measured 30 predictors that we know are *not* related to the res
 
 How many predictors should Backwards Selection select?
 
+::: {.content-visible when-profile="book"}
+Try it out yourself!
+
+```{webr-r}
+n <- 100
+p <- 30
+# Generate 30 uncorrelated predictors
+X <- matrix(ncol = p, nrow = n, data = runif(n * p, 0, 10))
+# y is uncorrelated with the predictors
+y <- matrix(ncol = 1, nrow = n, data = rnorm(n, 0, 3))
+mydf <- cbind(y = y, X) |> as.data.frame()
+names(mydf)[1] <- "y"
+step(lm(y ~ ., data = mydf), direction = "backward", trace = 0) |>
+    coef()
+```
+:::
+
 ### A Special Case: Race
 
 - In general, we *almost always* want to include race if it was measured.
@@ -183,9 +199,11 @@ Why do Forward and Backward selection procedures not choose the same model?
 
 \pspace
 
-1. They do choose the same model.
-2. Because the order that the predictors enter the model matters.
-3. Because the best model is different depending on which approach you use.
+a. They do choose the same model.
+b. Because the order that the predictors enter the model matters.
+c. Because the best model is different depending on which approach you use.
+
+<!--- C --->
 
 ### Q2
 
@@ -193,8 +211,10 @@ Best Subset selection will always choose the same model regardless of which stat
 
 \pspace
 
-1. True
-2. False
+a. True
+b. False
+
+<!--- B --->
 
 ### Q3
 
@@ -202,9 +222,10 @@ Under the null hypothesis, p-values follow a uniform distribution.
 
 \pspace
 
-1. True
-2. False
-3. True, but only if you do the study right.
+a. True
+b. False
+
+<!--- A --->
 
 ### Q4
 
@@ -212,10 +233,12 @@ Suppose we have 30 predictors in the model. How many should we keep?
 
 \pspace
 
-1. Most of them.
-2. About half of them.
-3. A few of them.
-4. What? What kind of question is that? How could I possibly know without seeing the context of the problem?!?
+a. Most of them.
+b. About half of them.
+c. A few of them.
+d. What? What kind of question is that? How could I possibly know without seeing the context of the problem?!?
+
+<!--- D --->
 
 ## The Best Model
 

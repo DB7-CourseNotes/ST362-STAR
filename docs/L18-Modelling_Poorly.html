@@ -277,7 +277,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"last_digit_of_student_number <- 0\nHitters <- read.csv(paste0(\"https://raw.githubusercontent.com/DB7-CourseNotes/ST362-STAR/main/data/Hitters_\", last_digit_of_student_number, \".csv\"))\n\nmymodel <- lm(Salary ~ ., data = Hitters)\npar(mfrow = c(2, 2))\nplot(mymodel)\n\n# Find the best model you can come up with!\n# Try ?step to look at automated subset selection!\n# You might also want to try Salary ~ .^2, which includes all interaction\n# terms, but you should probably use forward selection on that (explain why!)","options":{"fig-height":5,"fig-width":7,"results":"markup","context":"interactive","editor-font-scale":1,"out-width":"700px","message":"true","dpi":72,"warning":"true","classes":"","fig-cap":"","comment":"","label":"unnamed-chunk-1","autorun":"false","output":"true","editor-quick-suggestions":"false","editor-max-height":"","out-height":"","read-only":"false"},"id":1}];
+globalThis.qwebrCellDetails = [{"code":"last_digit_of_student_number <- 0\nHitters <- read.csv(paste0(\"https://raw.githubusercontent.com/DB7-CourseNotes/ST362-STAR/main/data/Hitters_\", last_digit_of_student_number, \".csv\"))\n\nmymodel <- lm(Salary ~ ., data = Hitters)\npar(mfrow = c(2, 2))\nplot(mymodel)\n\n# Find the best model you can come up with!\n# Try ?step to look at automated subset selection!\n# You might also want to try Salary ~ .^2, which includes all interaction\n# terms, but you should probably use forward selection on that (explain why!)","options":{"comment":"","label":"unnamed-chunk-1","dpi":72,"fig-width":7,"autorun":"false","fig-cap":"","editor-max-height":"","output":"true","context":"interactive","editor-quick-suggestions":"false","warning":"true","fig-height":5,"classes":"","results":"markup","out-width":"700px","message":"true","read-only":"false","out-height":"","editor-font-scale":1},"id":1},{"code":"n <- 100\np <- 30\n# Generate 30 uncorrelated predictors\nX <- matrix(ncol = p, nrow = n, data = runif(n * p, 0, 10))\n# y is uncorrelated with the predictors\ny <- matrix(ncol = 1, nrow = n, data = rnorm(n, 0, 3))\nmydf <- cbind(y = y, X) |> as.data.frame()\nnames(mydf)[1] <- \"y\"\nstep(lm(y ~ ., data = mydf), direction = \"backward\", trace = 0) |>\n    coef()","options":{"comment":"","label":"unnamed-chunk-2","dpi":72,"fig-width":7,"autorun":"false","fig-cap":"","editor-max-height":"","output":"true","context":"interactive","editor-quick-suggestions":"false","warning":"true","fig-height":5,"classes":"","results":"markup","out-width":"700px","message":"true","read-only":"false","out-height":"","editor-font-scale":1},"id":2}];
 
 </script>
 <script type="module">
@@ -1463,28 +1463,30 @@ window.Quarto = {
   <li><a href="#selecting-predictors" id="toc-selecting-predictors" class="nav-link" data-scroll-target="#selecting-predictors">Selecting Predictors</a></li>
   <li><a href="#the-best-model" id="toc-the-best-model" class="nav-link" data-scroll-target="#the-best-model">The “Best” Model</a></li>
   </ul></li>
-  <li><a href="#automatic-predictor-selection" id="toc-automatic-predictor-selection" class="nav-link" data-scroll-target="#automatic-predictor-selection"><span class="header-section-number">18.2</span> Automatic Predictor Selection</a>
+  <li><a href="#picking-the-best-fitting-model" id="toc-picking-the-best-fitting-model" class="nav-link" data-scroll-target="#picking-the-best-fitting-model"><span class="header-section-number">18.2</span> Picking the “Best Fitting” Model</a>
   <ul class="collapse">
   <li><a href="#model-comparison-criteria" id="toc-model-comparison-criteria" class="nav-link" data-scroll-target="#model-comparison-criteria">Model Comparison Criteria</a></li>
   <li><a href="#more-on-aic" id="toc-more-on-aic" class="nav-link" data-scroll-target="#more-on-aic">More on AIC</a></li>
+  </ul></li>
+  <li><a href="#automated-model-selection-algorithms" id="toc-automated-model-selection-algorithms" class="nav-link" data-scroll-target="#automated-model-selection-algorithms"><span class="header-section-number">18.3</span> Automated Model Selection Algorithms</a>
+  <ul class="collapse">
   <li><a href="#best-subset" id="toc-best-subset" class="nav-link" data-scroll-target="#best-subset">Best Subset</a></li>
   <li><a href="#backward-and-forward-selection" id="toc-backward-and-forward-selection" class="nav-link" data-scroll-target="#backward-and-forward-selection">Backward and Forward Selection</a></li>
   <li><a href="#backward-selection" id="toc-backward-selection" class="nav-link" data-scroll-target="#backward-selection">Backward Selection</a></li>
   <li><a href="#backward-selection-example" id="toc-backward-selection-example" class="nav-link" data-scroll-target="#backward-selection-example">Backward Selection Example</a></li>
   <li><a href="#forward-selection" id="toc-forward-selection" class="nav-link" data-scroll-target="#forward-selection">Forward Selection</a></li>
-  <li><a href="#best-subset-selection" id="toc-best-subset-selection" class="nav-link" data-scroll-target="#best-subset-selection">Best Subset Selection</a></li>
   <li><a href="#think-pair-share" id="toc-think-pair-share" class="nav-link" data-scroll-target="#think-pair-share">Think-Pair-Share</a></li>
   <li><a href="#evaluating-algorithmic-predictor-selection" id="toc-evaluating-algorithmic-predictor-selection" class="nav-link" data-scroll-target="#evaluating-algorithmic-predictor-selection">Evaluating Algorithmic Predictor Selection</a></li>
   <li><a href="#a-special-case-race" id="toc-a-special-case-race" class="nav-link" data-scroll-target="#a-special-case-race">A Special Case: Race</a></li>
   </ul></li>
-  <li><a href="#paticipation-questions" id="toc-paticipation-questions" class="nav-link" data-scroll-target="#paticipation-questions"><span class="header-section-number">18.3</span> Paticipation Questions</a>
+  <li><a href="#paticipation-questions" id="toc-paticipation-questions" class="nav-link" data-scroll-target="#paticipation-questions"><span class="header-section-number">18.4</span> Paticipation Questions</a>
   <ul class="collapse">
   <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
   <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
   <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
   <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
   </ul></li>
-  <li><a href="#the-best-model-1" id="toc-the-best-model-1" class="nav-link" data-scroll-target="#the-best-model-1"><span class="header-section-number">18.4</span> The Best Model</a>
+  <li><a href="#the-best-model-1" id="toc-the-best-model-1" class="nav-link" data-scroll-target="#the-best-model-1"><span class="header-section-number">18.5</span> The Best Model</a>
   <ul class="collapse">
   <li><a href="#neural-networks-and-random-forests" id="toc-neural-networks-and-random-forests" class="nav-link" data-scroll-target="#neural-networks-and-random-forests">Neural Networks and Random Forests</a></li>
   <li><a href="#causal-inference" id="toc-causal-inference" class="nav-link" data-scroll-target="#causal-inference">Causal Inference</a></li>
@@ -1791,8 +1793,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>The “best” model depends on the goal of the study!</p>
 </section>
 </section>
-<section id="automatic-predictor-selection" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="automatic-predictor-selection"><span class="header-section-number">18.2</span> Automatic Predictor Selection</h2>
+<section id="picking-the-best-fitting-model" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="picking-the-best-fitting-model"><span class="header-section-number">18.2</span> Picking the “Best Fitting” Model</h2>
 <section id="model-comparison-criteria" class="level3">
 <h3 class="anchored" data-anchor-id="model-comparison-criteria">Model Comparison Criteria</h3>
 <ul>
@@ -1843,6 +1845,9 @@ L(y|\underline\beta, X, \sigma) = \prod_{i=1}^nf_Y(X|\underline\beta, \sigma^2),
 </ul></li>
 </ul>
 </section>
+</section>
+<section id="automated-model-selection-algorithms" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="automated-model-selection-algorithms"><span class="header-section-number">18.3</span> Automated Model Selection Algorithms</h2>
 <section id="best-subset" class="level3">
 <h3 class="anchored" data-anchor-id="best-subset">Best Subset</h3>
 <ol type="1">
@@ -1905,10 +1910,6 @@ L(y|\underline\beta, X, \sigma) = \prod_{i=1}^nf_Y(X|\underline\beta, \sigma^2),
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
-<section id="best-subset-selection" class="level3">
-<h3 class="anchored" data-anchor-id="best-subset-selection">Best Subset Selection</h3>
-<p>Test every combination of predictors, keep the one with the lowest AIC (or other stat).</p>
-</section>
 <section id="think-pair-share" class="level3">
 <h3 class="anchored" data-anchor-id="think-pair-share">Think-Pair-Share</h3>
 <p>What might these methods be missing?</p>
@@ -1918,6 +1919,9 @@ L(y|\underline\beta, X, \sigma) = \prod_{i=1}^nf_Y(X|\underline\beta, \sigma^2),
 <h3 class="anchored" data-anchor-id="evaluating-algorithmic-predictor-selection">Evaluating Algorithmic Predictor Selection</h3>
 <p>Suppose we have measured 30 predictors that we know are <em>not</em> related to the response.</p>
 <p>How many predictors should Backwards Selection select?</p>
+<p>Try it out yourself!</p>
+<div id="qwebr-insertion-location-2"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="a-special-case-race" class="level3">
 <h3 class="anchored" data-anchor-id="a-special-case-race">A Special Case: Race</h3>
@@ -1930,47 +1934,50 @@ L(y|\underline\beta, X, \sigma) = \prod_{i=1}^nf_Y(X|\underline\beta, \sigma^2),
 </ul>
 </section>
 </section>
-<section id="paticipation-questions" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="paticipation-questions"><span class="header-section-number">18.3</span> Paticipation Questions</h2>
+<section id="paticipation-questions" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="paticipation-questions"><span class="header-section-number">18.4</span> Paticipation Questions</h2>
 <section id="q1" class="level3">
 <h3 class="anchored" data-anchor-id="q1">Q1</h3>
 <p>Why do Forward and Backward selection procedures not choose the same model?</p>
-<ol type="1">
+<ol type="a">
 <li>They do choose the same model.</li>
 <li>Because the order that the predictors enter the model matters.</li>
 <li>Because the best model is different depending on which approach you use.</li>
 </ol>
+<!--- C --->
 </section>
 <section id="q2" class="level3">
 <h3 class="anchored" data-anchor-id="q2">Q2</h3>
 <p>Best Subset selection will always choose the same model regardless of which statistic it’s based on (<span class="math inline">\(R^2\)</span>, Mallow’s <span class="math inline">\(C_p\)</span>, AIC, etc).</p>
-<ol type="1">
+<ol type="a">
 <li>True</li>
 <li>False</li>
 </ol>
+<!--- B --->
 </section>
 <section id="q3" class="level3">
 <h3 class="anchored" data-anchor-id="q3">Q3</h3>
 <p>Under the null hypothesis, p-values follow a uniform distribution.</p>
-<ol type="1">
+<ol type="a">
 <li>True</li>
 <li>False</li>
-<li>True, but only if you do the study right.</li>
 </ol>
+<!--- A --->
 </section>
 <section id="q4" class="level3">
 <h3 class="anchored" data-anchor-id="q4">Q4</h3>
 <p>Suppose we have 30 predictors in the model. How many should we keep?</p>
-<ol type="1">
+<ol type="a">
 <li>Most of them.</li>
 <li>About half of them.</li>
 <li>A few of them.</li>
 <li>What? What kind of question is that? How could I possibly know without seeing the context of the problem?!?</li>
 </ol>
+<!--- D --->
 </section>
 </section>
-<section id="the-best-model-1" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="the-best-model-1"><span class="header-section-number">18.4</span> The Best Model</h2>
+<section id="the-best-model-1" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="the-best-model-1"><span class="header-section-number">18.5</span> The Best Model</h2>
 <section id="neural-networks-and-random-forests" class="level3">
 <h3 class="anchored" data-anchor-id="neural-networks-and-random-forests">Neural Networks and Random Forests</h3>
 <ul>
