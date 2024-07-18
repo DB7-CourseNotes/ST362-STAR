@@ -135,6 +135,8 @@ The x axis is the potential values of $\beta_1$ and the y is $\beta_2$. The colo
 
 The app only draws the SSE values for parameters $\beta_1, \beta_2$ that satisfy $|\beta_1| +|\beta_2| \le s$, where $s$ is chosen in the slider.
 
+The app takes a minute or two to load - it's running purely in your browser.
+
 ```{shinylive-r}
 #| standalone: true
 #| viewerHeight: 1000
@@ -147,10 +149,10 @@ myseed <- 57362
 
 ui <- fluidPage(
     sidebarPanel(
-        sliderInput("b1", "True value of beta_1", -2, 2, -0.5, 0.1),
-        sliderInput("b2", "True value of beta_2", -2, 2, -0.5, 0.1),
+        sliderInput("b1", "True value of beta_1", -2, 2, 2, 0.1),
+        sliderInput("b2", "True value of beta_2", -2, 2, 2, 0.1),
         sliderInput("corr", "Correlation between predictors", -1, 1, 0.5, 0.1),
-        sliderInput("s", "Restriction on sum of abs(beta)", 0, 5, 0.5, 0.1),
+        sliderInput("s", "Restriction on sum of abs(beta)", 0, 5, 5, 0.1),
         actionButton(inputId = "doit", label = "Click me for new data")
     ),
     mainPanel(plotOutput("plot"), )
@@ -166,7 +168,7 @@ server <- function(input, output) {
         set.seed(myseed)
         input$doit
         X <- mvrnorm(100, mu = c(0, 0), 
-            Sigma = matrix(c(2, input$corr, input$corr, 1), ncol = 2))
+            Sigma = matrix(c(1.5, input$corr, input$corr, 1), ncol = 2))
         x1 <- X[, 1]
         x2 <- X[, 2]
         y <- input$b1 * x1 + input$b2 * x2 + rnorm(100, 0, 3)
