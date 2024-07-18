@@ -129,6 +129,8 @@ For a linear model, restricting the values with $||\underline\beta||_p = s$ *red
 
 ```{shinylive-r}
 #| standalone: true
+#| viewerHeight: 700
+#| viewerWidth: 700
 library(ggplot2)
 #library(shiny)
 library(MASS)
@@ -154,7 +156,7 @@ server <- function(input, output) {
         set.seed(myseed)
         input$doit
         X <- mvrnorm(100, mu = c(0, 0), 
-            Sigma = matrix(c(2, input$cor, input$corr, 2), ncol = 2))
+            Sigma = matrix(c(2, input$corr, input$corr, 2), ncol = 2))
         x1 <- X[, 1]
         x2 <- X[, 2]
         y <- -0.2 * x1 + 2*x2 + rnorm(100, 0, 3)
