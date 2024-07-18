@@ -1,6 +1,9 @@
 ---
 title: "Regularization Methods"
 institute: "Jam: **Ted Lasso Theme** by Marcus Mumford and Tom Howe"
+filters:
+  - shinylive
+  - webr
 ---
 
 ```{r}
@@ -122,6 +125,87 @@ Too little regularization and we just have the OLS estimate. Too much regulariza
 
 For a linear model, restricting the values with $||\underline\beta||_p = s$ *reduces flexibility*, which can *improve out-of-sample* prediction performance. 
 
+::: {.content-visible when-profile="book"}
+
+```{shinylive-r}
+#| standalone: true
+library(ggplot2)
+#library(shiny)
+library(MASS)
+
+myseed <- 57362
+
+ui <- fluidPage(
+    sidebarPanel(
+        sliderInput("corr", "Correlation between predictors", -1, 1, 0.5, 0.1),
+        sliderInput("s", "Restriction on sum of abs(beta)", 0, 5, 0.5, 0.1),
+        actionButton(inputId = "doit", label = "Click me for new data")
+    ),
+    mainPanel(plotOutput("plot"), )
+)
+
+server <- function(input, output) {
+    new_seed <- reactive({
+        input$doit
+        myseed <<- myseed + 1
+    })
+
+    make_data <- reactive({
+        set.seed(myseed)
+        input$doit
+        X <- mvrnorm(100, mu = c(0, 0), 
+            Sigma = matrix(c(2, input$cor, input$corr, 2), ncol = 2))
+        x1 <- X[, 1]
+        x2 <- X[, 2]
+        y <- -0.2 * x1 + 2*x2 + rnorm(100, 0, 3)
+
+        beta_grid <- expand.grid(
+            beta_1 = seq(-2, 3, by = 0.05),
+            beta_2 = seq(-2, 3, by = 0.05)
+        )
+        beta_grid$sum <- rowSums(abs(beta_grid))
+        beta_grid$sse <- sapply(1:nrow(beta_grid), function(x) {
+            sum((y - beta_grid[x, 1] * x1 - beta_grid[x, 2] * x2)^2)
+        })
+
+        unrestricted_min <- beta_grid[which.min(beta_grid$sse),]
+
+        beta_grid <- beta_grid[beta_grid$sum <= input$s, ]
+        restricted_min <- beta_grid[which.min(beta_grid$sse),]
+
+        add_points <- rbind(unrestricted_min, restricted_min)
+        add_points$Restriction <- c("Unrestricted",
+            paste0("sum(abs(beta)) <= ", input$s))
+        list(beta_grid = beta_grid, add_points = add_points)
+    })
+
+    output$plot <- renderPlot({
+        new_seed()
+        new_data <- make_data()
+        beta_grid <- new_data$beta_grid
+        add_points <- new_data$add_points
+
+        ggplot() +
+            theme_bw() +
+            geom_tile(
+                data = beta_grid,
+                mapping = aes(x = beta_1, y = beta_2, fill = sse)
+            ) +
+            scale_fill_viridis_c() +
+            coord_cartesian(xlim = c(-2, 2), ylim = c(-2, 3)) +
+            geom_point(
+                data = add_points,
+                mapping = aes(x = beta_1, y = beta_2, colour = Restriction),
+                size = 10
+            )
+    })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+:::
+
 ### MLE estimates of $\underline\beta$ are *unbiased*
 
 ... therefore constrained estimates are biased. 
@@ -237,17 +321,23 @@ library(glmnet)
 library(palmerpenguins)
 
 # glmnet requires separate matrix for X and y,
-# NAs in X might get removed, making X and y have incompatible dimensions.
-# Therefore we must remove NAs ourselves.
+# NAs in X might get removed, making X and y have
+# incompatible dimensions, therefore we must remove
+# NAs ourselves.
 peng <- na.omit(penguins)
 
-# glmnet requires a matrix - it will not create dummy variables for you.
-# The easiest way to do this is to get lm() to do it for us,
-# then extract the results.
-mylm <- lm(body_mass_g ~ (flipper_length_mm + bill_depth_mm + bill_length_mm) * species + flipper_length_mm * island, data = peng)
-summary(mylm) # Lots of predictors are not significant.
+# glmnet requires a matrix - it will not create dummy 
+# variables for you. The easiest way to do this is to
+# get lm() to do it for us, then extract the results.
+mylm <- lm(
+  formula = body_mass_g ~ 
+    (flipper_length_mm + bill_depth_mm + bill_length_mm) * species + 
+    flipper_length_mm * island,
+  data = peng)
+print("Coefficients of the linear model:")
+summary(mylm)$coef # Lots of predictors are not significant.
 
-# The [, -1] removes the first column, which is just the 1s column.
+# The [, -1] removes the first column, which is just 1s
 x <- model.matrix(mylm)[, -1]
 y <- peng$body_mass_g
 
@@ -258,7 +348,9 @@ plot(lambda_estimates)
 # Fit the model with the lambda that minimizes CV error
 # (Also try lasso_estimates$lambda.1se; what do you notice?)
 mylasso <- glmnet(x = x, y = y,
-    lambda = lambda_estimates$lambda.min)
+  lambda = lambda_estimates$lambda.min)
+cat("\n\n\n") # Empty lines to separate R output
+print("Coefficients of the lasso model:")
 coef(mylasso)
 ```
 :::

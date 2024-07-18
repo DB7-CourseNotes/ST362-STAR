@@ -79,6 +79,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<meta name="shinylive:serviceworker_dir" content=".">
+<script src="site_libs/quarto-contrib/shinylive-0.2.3/shinylive/load-shinylive-sw.js" type="module"></script>
+<script src="site_libs/quarto-contrib/shinylive-0.2.3/shinylive/run-python-blocks.js" type="module"></script>
+<link href="site_libs/quarto-contrib/shinylive-0.2.3/shinylive/shinylive.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/shinylive-quarto-css/shinylive-quarto.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -311,7 +316,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"options":{"context":"interactive","output":"true","fig-height":5,"eval":"true","autorun":"false","editor-max-height":"","fig-width":7,"warning":"true","message":"true","classes":"","editor-quick-suggestions":"false","comment":"","out-width":"700px","read-only":"false","out-height":"","label":"unnamed-chunk-1","dpi":72,"editor-font-scale":1,"fig-cap":"","results":"markup"},"code":"# Run this code once and it will install packages,\n# run again and the package installation messages will disappear.\nlibrary(glmnet)\nlibrary(palmerpenguins)\n\n# glmnet requires separate matrix for X and y,\n# NAs in X might get removed, making X and y have incompatible dimensions.\n# Therefore we must remove NAs ourselves.\npeng <- na.omit(penguins)\n\n# glmnet requires a matrix - it will not create dummy variables for you.\n# The easiest way to do this is to get lm() to do it for us,\n# then extract the results.\nmylm <- lm(body_mass_g ~ (flipper_length_mm + bill_depth_mm + bill_length_mm) * species + flipper_length_mm * island, data = peng)\nsummary(mylm) # Lots of predictors are not significant.\n\n# The [, -1] removes the first column, which is just the 1s column.\nx <- model.matrix(mylm)[, -1]\ny <- peng$body_mass_g\n\n# Estimate lambda via cross-validation\nlambda_estimates <- cv.glmnet(x = x, y = y)\nplot(lambda_estimates)\n\n# Fit the model with the lambda that minimizes CV error\n# (Also try lasso_estimates$lambda.1se; what do you notice?)\nmylasso <- glmnet(x = x, y = y,\n    lambda = lambda_estimates$lambda.min)\ncoef(mylasso)"}];
+globalThis.qwebrCellDetails = [{"options":{"autorun":"false","classes":"","dpi":72,"out-width":"700px","context":"interactive","results":"markup","label":"unnamed-chunk-1","comment":"","eval":"true","out-height":"","warning":"true","read-only":"false","editor-font-scale":1,"fig-width":7,"message":"true","fig-height":5,"editor-quick-suggestions":"false","editor-max-height":"","fig-cap":"","output":"true"},"id":1,"code":"# Run this code once and it will install packages,\n# run again and the package installation messages will disappear.\nlibrary(glmnet)\nlibrary(palmerpenguins)\n\n# glmnet requires separate matrix for X and y,\n# NAs in X might get removed, making X and y have\n# incompatible dimensions, therefore we must remove\n# NAs ourselves.\npeng <- na.omit(penguins)\n\n# glmnet requires a matrix - it will not create dummy \n# variables for you. The easiest way to do this is to\n# get lm() to do it for us, then extract the results.\nmylm <- lm(\n  formula = body_mass_g ~ \n    (flipper_length_mm + bill_depth_mm + bill_length_mm) * species + \n    flipper_length_mm * island,\n  data = peng)\nprint(\"Coefficients of the linear model:\")\nsummary(mylm)$coef # Lots of predictors are not significant.\n\n# The [, -1] removes the first column, which is just 1s\nx <- model.matrix(mylm)[, -1]\ny <- peng$body_mass_g\n\n# Estimate lambda via cross-validation\nlambda_estimates <- cv.glmnet(x = x, y = y)\nplot(lambda_estimates)\n\n# Fit the model with the lambda that minimizes CV error\n# (Also try lasso_estimates$lambda.1se; what do you notice?)\nmylasso <- glmnet(x = x, y = y,\n  lambda = lambda_estimates$lambda.min)\ncat(\"\\n\\n\\n\") # Empty lines to separate R output\nprint(\"Coefficients of the lasso model:\")\ncoef(mylasso)"}];
 
 </script>
 <script type="module">
@@ -1901,6 +1906,80 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 </ul></li>
 </ul>
 <p>For a linear model, restricting the values with <span class="math inline">\(||\underline\beta||_p = s\)</span> <em>reduces flexibility</em>, which can <em>improve out-of-sample</em> prediction performance.</p>
+<pre class="shinylive-r" data-engine="r"><code>#| standalone: true
+library(ggplot2)
+#library(shiny)
+library(MASS)
+
+myseed &lt;- 57362
+
+ui &lt;- fluidPage(
+    sidebarPanel(
+        sliderInput("corr", "Correlation between predictors", -1, 1, 0.5, 0.1),
+        sliderInput("s", "Restriction on sum of abs(beta)", 0, 5, 0.5, 0.1),
+        actionButton(inputId = "doit", label = "Click me for new data")
+    ),
+    mainPanel(plotOutput("plot"), )
+)
+
+server &lt;- function(input, output) {
+    new_seed &lt;- reactive({
+        input$doit
+        myseed &lt;&lt;- myseed + 1
+    })
+
+    make_data &lt;- reactive({
+        set.seed(myseed)
+        input$doit
+        X &lt;- mvrnorm(100, mu = c(0, 0), 
+            Sigma = matrix(c(2, input$cor, input$corr, 2), ncol = 2))
+        x1 &lt;- X[, 1]
+        x2 &lt;- X[, 2]
+        y &lt;- -0.2 * x1 + 2*x2 + rnorm(100, 0, 3)
+
+        beta_grid &lt;- expand.grid(
+            beta_1 = seq(-2, 3, by = 0.05),
+            beta_2 = seq(-2, 3, by = 0.05)
+        )
+        beta_grid$sum &lt;- rowSums(abs(beta_grid))
+        beta_grid$sse &lt;- sapply(1:nrow(beta_grid), function(x) {
+            sum((y - beta_grid[x, 1] * x1 - beta_grid[x, 2] * x2)^2)
+        })
+
+        unrestricted_min &lt;- beta_grid[which.min(beta_grid$sse),]
+
+        beta_grid &lt;- beta_grid[beta_grid$sum &lt;= input$s, ]
+        restricted_min &lt;- beta_grid[which.min(beta_grid$sse),]
+
+        add_points &lt;- rbind(unrestricted_min, restricted_min)
+        add_points$Restriction &lt;- c("Unrestricted",
+            paste0("sum(abs(beta)) &lt;= ", input$s))
+        list(beta_grid = beta_grid, add_points = add_points)
+    })
+
+    output$plot &lt;- renderPlot({
+        new_seed()
+        new_data &lt;- make_data()
+        beta_grid &lt;- new_data$beta_grid
+        add_points &lt;- new_data$add_points
+
+        ggplot() +
+            theme_bw() +
+            geom_tile(
+                data = beta_grid,
+                mapping = aes(x = beta_1, y = beta_2, fill = sse)
+            ) +
+            scale_fill_viridis_c() +
+            coord_cartesian(xlim = c(-2, 2), ylim = c(-2, 3)) +
+            geom_point(
+                data = add_points,
+                mapping = aes(x = beta_1, y = beta_2, colour = Restriction),
+                size = 10
+            )
+    })
+}
+
+shinyApp(ui = ui, server = server)</code></pre>
 </section>
 <section id="mle-estimates-of-underlinebeta-are-unbiased" class="level3">
 <h3 class="anchored" data-anchor-id="mle-estimates-of-underlinebeta-are-unbiased">MLE estimates of <span class="math inline">\(\underline\beta\)</span> are <em>unbiased</em></h3>
@@ -2046,28 +2125,28 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet) <span class="co"># cv.glmnet() and glmnet()</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2) <span class="co"># Wage data set</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>Wage <span class="ot">&lt;-</span> ISLR2<span class="sc">::</span>Wage</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># From names(Wage), I want to remove "region" and "wage"</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Wage <span class="ot">&lt;-</span> Wage[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">11</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet) <span class="co"># cv.glmnet() and glmnet()</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2) <span class="co"># Wage data set</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Wage <span class="ot">&lt;-</span> ISLR2<span class="sc">::</span>Wage</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># From names(Wage), I want to remove "region" and "wage"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Wage <span class="ot">&lt;-</span> Wage[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">11</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p><code>glmnet</code> doesn’t use the formula notation (<code>y ~ x</code>); we have to manually set up the design matrix (including dummy variables) and the response vector.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(logwage <span class="sc">~</span> ., <span class="at">data =</span> Wage)[,<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(Wage<span class="sc">$</span>logwage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(logwage <span class="sc">~</span> ., <span class="at">data =</span> Wage)[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(Wage<span class="sc">$</span>logwage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>The first step to fitting a LASSO model is choosing <span class="math inline">\(\lambda\)</span> via cv. The <code>cv.glmnet()</code> function does this for us. The results are <em>not</em> a final model; the resultant object gives us an idea of which value of <span class="math inline">\(\lambda\)</span> is appropriate.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cv_check <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> X, <span class="at">y =</span> y, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_check)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cv_check <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(<span class="at">x =</span> X, <span class="at">y =</span> y, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_check)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -2082,8 +2161,8 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_lasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(X, y, <span class="at">lambda =</span> cv_check<span class="sc">$</span>lambda<span class="fl">.1</span>se)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>my_lasso</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>my_lasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(X, y, <span class="at">lambda =</span> cv_check<span class="sc">$</span>lambda<span class="fl">.1</span>se)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>my_lasso</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -2099,18 +2178,18 @@ Call:  glmnet(x = X, y = y, lambda = cv_check$lambda.1se)
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>standardized_X <span class="ot">&lt;-</span> <span class="fu">apply</span>(X, <span class="dv">2</span>, scale)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>standardized_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> standardized_X)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>coef_mat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">coef</span>(my_lasso),</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(standardized_lm))</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        coef_mat, </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">apply</span>(coef_mat, <span class="dv">1</span>, <span class="cf">function</span>(x) <span class="fu">abs</span>(x[<span class="dv">2</span>]) <span class="sc">-</span> <span class="fu">abs</span>(x[<span class="dv">1</span>]))</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(res) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"lasso"</span>, <span class="st">"lm"</span>, <span class="st">"|lm|-|lasso|"</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>standardized_X <span class="ot">&lt;-</span> <span class="fu">apply</span>(X, <span class="dv">2</span>, scale)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>standardized_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> standardized_X)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>coef_mat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">coef</span>(my_lasso),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coef</span>(standardized_lm))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        coef_mat, </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">apply</span>(coef_mat, <span class="dv">1</span>, <span class="cf">function</span>(x) <span class="fu">abs</span>(x[<span class="dv">2</span>]) <span class="sc">-</span> <span class="fu">abs</span>(x[<span class="dv">1</span>]))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(res) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"lasso"</span>, <span class="st">"lm"</span>, <span class="st">"|lm|-|lasso|"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>17 x 3 sparse Matrix of class "dgCMatrix"
