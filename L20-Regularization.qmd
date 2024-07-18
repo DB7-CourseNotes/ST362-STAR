@@ -127,13 +127,19 @@ For a linear model, restricting the values with $||\underline\beta||_p = s$ *red
 
 ::: {.content-visible when-profile="book"}
 
+### Shiny Example
+
+The following app demonstrates what it means to restrict the sum of the parameters.
+
+The x axis is the potential values of $\beta_1$ and the y is $\beta_2$. The colours represent the value of the SSE, $\sum_{i=1}^n(y_i - \beta_1x_{i1} - \beta_2x_{i2})^2$
+
 ```{shinylive-r}
 #| standalone: true
 #| viewerHeight: 700
 #| viewerWidth: 700
-library(ggplot2)
 #library(shiny)
 library(MASS)
+library(viridisLite)
 
 myseed <- 57362
 
@@ -187,19 +193,17 @@ server <- function(input, output) {
         beta_grid <- new_data$beta_grid
         add_points <- new_data$add_points
 
-        ggplot() +
-            theme_bw() +
-            geom_tile(
-                data = beta_grid,
-                mapping = aes(x = beta_1, y = beta_2, fill = sse)
-            ) +
-            scale_fill_viridis_c() +
-            coord_cartesian(xlim = c(-2, 2), ylim = c(-2, 3)) +
-            geom_point(
-                data = add_points,
-                mapping = aes(x = beta_1, y = beta_2, colour = Restriction),
-                size = 10
-            )
+        n_cols <- 20
+        cols <- viridis(n_cols)
+        rank <- as.factor(as.numeric(cut(beta_grid$sse, n_cols)))
+        plot(beta_2 ~ beta_1, data = beta_grid,
+            col = cols[rank], pch = 15, asp = 1,
+            xlim = c(-2, 2), ylim = c(-2, 3))
+        points(x = add_points[1, 1], y = add_points[1, 2],
+            col = "green", pch = 16, cex = 3)
+        points(x = add_points[2, 1], y = add_points[2, 2],
+            col = "red", pch = 1, cex = 3, lwd = 6)
+
     })
 }
 
