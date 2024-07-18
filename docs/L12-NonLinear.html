@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"context":"interactive","message":"true","autorun":"false","read-only":"false","editor-font-scale":1,"warning":"true","output":"true","out-width":"700px","classes":"","results":"markup","label":"mtcars_poly","fig-cap":"","fig-width":7,"editor-max-height":"","comment":"","editor-quick-suggestions":"false","dpi":72,"out-height":"","fig-height":5},"code":"plot(mpg ~ wt, data = mtcars)\n\n# Can't simply \"abline\" a polynomial since it treats \n# the polynomial terms as separate predictors, so it's\n# a multiple linear regression\nmy_lm <- lm(mpg ~ poly(wt, 9), data = mtcars)\nwt_seq <- seq(min(mtcars$wt), max(mtcars$wt),\n    length.out = 100)\nmy_preds <- predict(my_lm,\n    newdata = data.frame(wt = wt_seq))\nlines(wt_seq, my_preds, col = 2, lwd = 2)","id":1}];
+globalThis.qwebrCellDetails = [{"options":{"context":"interactive","editor-quick-suggestions":"false","autorun":"false","results":"markup","read-only":"false","fig-height":5,"classes":"","editor-font-scale":1,"comment":"","label":"mtcars_poly","output":"true","dpi":72,"message":"true","warning":"true","editor-max-height":"","fig-cap":"","fig-width":7,"out-width":"700px","out-height":""},"id":1,"code":"plot(mpg ~ wt, data = mtcars)\n\n# Can't simply \"abline\" a polynomial since it treats \n# the polynomial terms as separate predictors, so it's\n# a multiple linear regression\nmy_lm <- lm(mpg ~ poly(wt, 9), data = mtcars)\nwt_seq <- seq(min(mtcars$wt), max(mtcars$wt),\n    length.out = 100)\nmy_preds <- predict(my_lm,\n    newdata = data.frame(wt = wt_seq))\nlines(wt_seq, my_preds, col = 2, lwd = 2)"}];
 
 </script>
 <script type="module">

@@ -230,7 +230,36 @@ For the rest of your life, this is the way you'll see Ridge and LASSO.
 ::: {.content-visible when-profile="book"}
 
 ```{webr-r}
+#| eval: true
+# Run this code once and it will install packages,
+# run again and the package installation messages will disappear.
+library(glmnet)
+library(palmerpenguins)
 
+# glmnet requires separate matrix for X and y,
+# NAs in X might get removed, making X and y have incompatible dimensions.
+# Therefore we must remove NAs ourselves.
+peng <- na.omit(penguins)
+
+# glmnet requires a matrix - it will not create dummy variables for you.
+# The easiest way to do this is to get lm() to do it for us,
+# then extract the results.
+mylm <- lm(body_mass_g ~ (flipper_length_mm + bill_depth_mm + bill_length_mm) * species + flipper_length_mm * island, data = peng)
+summary(mylm) # Lots of predictors are not significant.
+
+# The [, -1] removes the first column, which is just the 1s column.
+x <- model.matrix(mylm)[, -1]
+y <- peng$body_mass_g
+
+# Estimate lambda via cross-validation
+lambda_estimates <- cv.glmnet(x = x, y = y)
+plot(lambda_estimates)
+
+# Fit the model with the lambda that minimizes CV error
+# (Also try lasso_estimates$lambda.1se; what do you notice?)
+mylasso <- glmnet(x = x, y = y,
+    lambda = lambda_estimates$lambda.min)
+coef(mylasso)
 ```
 :::
 
