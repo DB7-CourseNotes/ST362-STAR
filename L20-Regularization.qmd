@@ -125,6 +125,67 @@ Too little regularization and we just have the OLS estimate. Too much regulariza
 
 For a linear model, restricting the values with $||\underline\beta||_p = s$ *reduces flexibility*, which can *improve out-of-sample* prediction performance. 
 
+### MLE estimates of $\underline\beta$ are *unbiased*
+
+... therefore constrained estimates are biased. 
+
+
+### But what about the scales of the features?
+
+What a great question! Thank you so much for asking! You must be smart.
+
+\pspace
+
+For $||\underline\beta||_p$ to make sense, the predictors must all have the same scale. 
+
+This is accomplished by **standardizing** the features: Replace each $x_{ij}$ with
+$$
+\frac{x_{ij} - \bar{\mathbf{x}_{j}}}{\frac{1}{n}\sum_{i=1}^n(x_{ij} - \bar{\mathbf{x}_{j}})^2}
+$$
+
+\pspace _Predictors **must** be standardized for regularization to be valid!_
+
+### Choosing $\lambda$ via cross-validation
+
+- For each value of $\lambda$:
+    - Split data into 5 "folds". 
+    - For each "fold":
+        - Set aside the data points in the current fold.
+        - Fit the model to data in all other "folds" using your value of $\lambda$.
+        - Predict the missing points, record the average error.
+
+Choose the lambda with the lowest out-of-sample prediction error.
+
+### Cross-Validation
+
+![](figs/kfold.png)
+
+### Special Cases of Regularization: $L_1$ or $L_2$?
+
+So far, we've been talking about general $L_p$ norms, i.e. $||\underline\beta||_p$.
+
+\pspace
+
+- $L_1$: LASSO\lspace
+- $L_2$: Ridge
+
+### Geometric Interpretation (Contours of the RSS)
+
+:::: {.columns}
+::: {.column width="60%"}
+![](figs/RegGeom.png)
+:::
+::: {.column width="40%"}
+
+\vspace{2cm}
+
+- LASSO will set coefficients to 0.
+    - "Least Absolute Shrinkage and Selection Operator"\newline
+- Ridge has less variance (why?)
+:::
+::::
+
+
 ::: {.content-visible when-profile="book"}
 
 ### Shiny Example
@@ -218,63 +279,6 @@ shinyApp(ui = ui, server = server)
 
 :::
 
-### MLE estimates of $\underline\beta$ are *unbiased*
-
-... therefore constrained estimates are biased. 
-
-
-### But what about the scales of the features?
-
-What a great question! Thank you so much for asking! You must be smart.
-
-\quad
-
-For $||\underline\beta||_p$ to make sense, the predictors must all have the same scale. 
-
-This is accomplished by **standardizing** the features: Replace each $x_{ij}$ with
-$$
-\frac{x_{ij} - \bar{\mathbf{x}_{j}}}{\frac{1}{n}\sum_{i=1}^n(x_{ij} - \bar{\mathbf{x}_{j}})^2}
-$$
-
-### Choosing $\lambda$ via cross-validation
-
-- For each value of $\lambda$:
-    - Split data into 5 "folds". 
-    - For each "fold":
-        - Set aside the data points in the current fold.
-        - Fit the model to data in all other "folds" using your value of $\lambda$.
-        - Predict the missing points, record the average error.
-
-Choose the lambda with the lowest out-of-sample prediction error.
-
-### Cross-Validation
-
-![](figs/kfold.png)
-
-### Special Cases of Regularization: $L_1$ or $L_2$?
-
-So far, we've been talking about general $L_p$ norms, i.e. $||\underline\beta||_p$.
-
-\pspace
-
-- $L_1$: LASSO\lspace
-- $L_2$: Ridge
-
-### Geometric Interpretation (Contours of the RSS)
-
-:::: {.columns}
-::: {.column width="60%"}
-![](figs/RegGeom.png)
-:::
-::: {.column width="40%"}
-
-\vspace{2cm}
-
-- LASSO will set coefficients to 0.
-    - "Least Absolute Shrinkage and Selection Operator"\newline
-- Ridge has less variance (why?)
-:::
-::::
 
 ### Langrangian Multipliers and Estimation
 
@@ -285,7 +289,7 @@ Wikipedia screenshot:
 ### Lagrangian Multipliers and Estimation
 
 \centering
-Minimize $MSE(\underline\beta)$ subject to $||\underline\beta||_p$.
+Minimize $MSE(\underline\beta)$ subject to $||\underline\beta||_p = s$.
 
 is equivalent to
 
@@ -297,6 +301,10 @@ For the rest of your life, this is the way you'll see Ridge and LASSO.
 
 - Ridge: Analytical solution, can calculate an arbitrary number of $\lambda$ values at once.
 - LASSO: Non-iterative numerical technique
+
+::: {.content-visible when-profile="book"}
+For the curious, [converting between $s$ and $\lambda$ is not straightforward](https://stats.stackexchange.com/questions/320028/lasso-relationship-between-lambda-and-t).
+:::
 
 ### Ridge Regularization
 
@@ -378,8 +386,10 @@ For Ridge regression (L2 norm): as $\lambda\rightarrow\infty$, $\sum_{j=1}^p|\be
 
 \pspace
 
-1. True
-2. False
+a. True
+b. False
+
+<!--- B --->
 
 ### Q2
 
@@ -387,8 +397,10 @@ When we set the restriction on the sum of the absolute value of the coefficients
 
 \pspace
 
-1. True
-2. False
+a. True
+b. False
+
+<!--- B --->
 
 ### Q3
 
@@ -396,10 +408,12 @@ Why would we restrict the value of the parameters?
 
 \pspace
 
-1. Depending on the context of the problem, we might have a specific maximum value for the sum of the coefficients.
-2. We want to avoid overfitting the data, and restricting the parameter stops us from modelling irrelevant patterns.
-3. Because in any given regression problem there are always predictors that should have a slope of 0.
-4. Because some parameter estimates are impossible.
+a. Depending on the context of the problem, we might have a specific maximum value for the sum of the coefficients.
+b. We want to avoid overfitting the data, and restricting the parameter stops us from modelling irrelevant patterns.
+c. Because in any given regression problem there are always predictors that should have a slope of 0.
+d. Because some parameter estimates are impossible.
+
+<!--- B --->
 
 ### Q4
 
@@ -407,10 +421,12 @@ What's the primary practical difference between Ridge and LASSO?
 
 \pspace
 
-1. LASSO has a tighter restriction on the parameters than Ridge.
-2. LASSO will set parameters to 0, whereas Ridge will just shrink them towards 0 without making them exactly 0.
-3. Because coefficients are set to 0, LASSO has higher variance in its estimates. 
-4. The only difference is the norm that they use, which has no meaningful impact on the results.
+a. LASSO has a tighter restriction on the parameters than Ridge.
+b. LASSO will set parameters to 0, whereas Ridge will just shrink them towards 0 without making them exactly 0.
+c. Because coefficients are set to 0, LASSO has higher variance in its estimates. 
+d. The only difference is the norm that they use, which has no meaningful impact on the results.
+
+<!--- B --->
 
 ### Q5
 
@@ -418,9 +434,11 @@ What is cross-validation trying to minimize?
 
 \pspace
 
-1. The out-of-sample prediction error. 
-2. The bias in the estimates.
-3. The loss function (MSE).
+a. The out-of-sample prediction error. 
+b. The bias in the estimates.
+c. The loss function (MSE).
+
+<!--- A --->
 
 ### Q6
 
@@ -428,11 +446,11 @@ When should you use regularization?
 
 \pspace
 
-1. When you want un unbiased estimate of the population parameters.
-2. When you want to avoid overfitting.
-3. When you want to be regular/normal/usual/typical.
+a. When you want un unbiased estimate of the population parameters.
+b. When you want to avoid overfitting.
+d. When you want to be regular/normal/usual/typical.
 
-
+<!--- B --->
 
 ### Q7
 
@@ -440,10 +458,12 @@ When should you use LASSO instead of Ridge?
 
 \pspace
 
-1. When you want to do subset selection in a way that minimizes out-of-sample prediction error.
-2. When you want most of the coefficients to be 0.
-3. When you want to minimize out-of-sample prediction error at all costs.
-4. When you only want coefficients with significant p-values left over in your model.
+a. When you want to do subset selection in a way that minimizes out-of-sample prediction error.
+b. When you want most of the coefficients to be 0.
+c. When you want to minimize out-of-sample prediction error at all costs.
+d. When you only want coefficients with significant p-values left over in your model.
+
+<!--- A --->
 
 :::
 
