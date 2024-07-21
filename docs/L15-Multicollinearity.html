@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"options":{"context":"interactive","read-only":"false","autorun":"false","warning":"true","echo":"true","label":"diy_vif","output":"true","fig-cap":"","editor-max-height":"","out-width":"700px","out-height":"","results":"markup","fig-width":7,"dpi":72,"fig-height":5,"editor-quick-suggestions":"false","message":"true","comment":"","editor-font-scale":1,"classes":""},"code":"library(car)\nlibrary(MASS)\nn <- 50\n\nx1_x2_corr <- 0.8 # Change me!\nx1_x3_corr <- 0 # Change me!\ncoef_of_x2_in_y <- 2 # Change me too!\nX <- mvrnorm(n = n, mu = c(0, 0, 0), \n        Sigma = matrix(c(\n                1,          x1_x2_corr, x1_x3_corr,\n                x1_x2_corr, 1,          0,\n                x1_x3_corr, 0,          1),\n            nrow = 3))\nmydata <- data.frame(\n    y = 0 + 4*X[, 1] + coef_of_x2_in_y*X[, 2] +\n        2 * X[, 3] + rnorm(n, 0, 5),\n    x1 = X[, 1], x2 = X[, 2], x3 = X[, 3]\n)\nmylm <- lm(y ~ x1 + x2 + x3, data = mydata)\nvif(mylm)\npairs(mydata)"}];
+globalThis.qwebrCellDetails = [{"options":{"warning":"true","read-only":"false","out-height":"","editor-quick-suggestions":"false","comment":"","fig-cap":"","classes":"","context":"interactive","fig-width":7,"out-width":"700px","label":"diy_vif","echo":"true","autorun":"false","output":"true","dpi":72,"editor-font-scale":1,"message":"true","results":"markup","fig-height":5,"editor-max-height":""},"id":1,"code":"library(car)\nlibrary(MASS)\nn <- 50\n\nx1_x2_corr <- 0.8 # Change me!\nx1_x3_corr <- 0 # Change me!\ncoef_of_x2_in_y <- 2 # Change me too!\nX <- mvrnorm(n = n, mu = c(0, 0, 0), \n        Sigma = matrix(c(\n                1,          x1_x2_corr, x1_x3_corr,\n                x1_x2_corr, 1,          0,\n                x1_x3_corr, 0,          1),\n            nrow = 3))\nmydata <- data.frame(\n    y = 0 + 4*X[, 1] + coef_of_x2_in_y*X[, 2] +\n        2 * X[, 3] + rnorm(n, 0, 5),\n    x1 = X[, 1], x2 = X[, 2], x3 = X[, 3]\n)\nmylm <- lm(y ~ x1 + x2 + x3, data = mydata)\nvif(mylm)\npairs(mydata)"}];
 
 </script>
 <script type="module">
@@ -1351,12 +1351,6 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L19-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1370,14 +1364,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L21-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -1394,7 +1388,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>

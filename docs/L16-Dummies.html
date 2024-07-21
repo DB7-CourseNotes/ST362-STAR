@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"code":"# Three intercepts\ncoef(lm(body_mass_g ~ species, data = penguins))\n# 3700.66225, 32.42598, 1375.35401\n\n# For each value of species\n# You'll have to do some math to get the same numbers as above!\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Adelie\")))\n# 3700.662\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Chinstrap\")))\n# 3733.088 = 3700.662 + 32.42598\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Gentoo\")))\n# 5076.016 = 3700.662 + 1375.35401","options":{"read-only":"false","context":"interactive","fig-height":5,"echo":"true","dpi":72,"out-height":"","classes":"","out-width":"700px","label":"intercept-model","editor-quick-suggestions":"false","comment":"","autorun":"false","warning":"true","message":"true","results":"markup","editor-font-scale":1,"output":"true","editor-max-height":"","fig-width":7,"fig-cap":""}},{"id":2,"code":"coef(lm(body_mass_g ~ species + flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))","options":{"read-only":"false","context":"interactive","fig-height":5,"echo":"true","dpi":72,"out-height":"","classes":"","out-width":"700px","label":"intercept-slope-model","editor-quick-suggestions":"false","comment":"","autorun":"false","warning":"true","message":"true","results":"markup","editor-font-scale":1,"output":"true","editor-max-height":"","fig-width":7,"fig-cap":""}},{"id":3,"code":"\nmylm <- lm(body_mass_g ~ flipper_length_mm + species, data = penguins)\nanova(mylm)","options":{"read-only":"false","context":"interactive","fig-height":5,"echo":"true","dpi":72,"out-height":"","classes":"","out-width":"700px","label":"intercept-slope-sig-type2SS","editor-quick-suggestions":"false","comment":"","autorun":"false","warning":"true","message":"true","results":"markup","editor-font-scale":1,"output":"true","editor-max-height":"","fig-width":7,"fig-cap":""}},{"id":4,"code":"coef(lm(body_mass_g ~ species * flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))","options":{"read-only":"false","context":"interactive","fig-height":5,"echo":"true","dpi":72,"out-height":"","classes":"","out-width":"700px","label":"interaction-model","editor-quick-suggestions":"false","comment":"","autorun":"false","warning":"true","message":"true","results":"markup","editor-font-scale":1,"output":"true","editor-max-height":"","fig-width":7,"fig-cap":""}}];
+globalThis.qwebrCellDetails = [{"code":"# Three intercepts\ncoef(lm(body_mass_g ~ species, data = penguins))\n# 3700.66225, 32.42598, 1375.35401\n\n# For each value of species\n# You'll have to do some math to get the same numbers as above!\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Adelie\")))\n# 3700.662\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Chinstrap\")))\n# 3733.088 = 3700.662 + 32.42598\ncoef(lm(body_mass_g ~ 1, data = subset(penguins, species == \"Gentoo\")))\n# 5076.016 = 3700.662 + 1375.35401","options":{"message":"true","fig-cap":"","editor-max-height":"","context":"interactive","comment":"","editor-quick-suggestions":"false","output":"true","results":"markup","label":"intercept-model","out-height":"","editor-font-scale":1,"echo":"true","out-width":"700px","read-only":"false","classes":"","fig-width":7,"dpi":72,"fig-height":5,"autorun":"false","warning":"true"},"id":1},{"code":"coef(lm(body_mass_g ~ species + flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))","options":{"message":"true","fig-cap":"","editor-max-height":"","context":"interactive","comment":"","editor-quick-suggestions":"false","output":"true","results":"markup","label":"intercept-slope-model","out-height":"","editor-font-scale":1,"echo":"true","out-width":"700px","read-only":"false","classes":"","fig-width":7,"dpi":72,"fig-height":5,"autorun":"false","warning":"true"},"id":2},{"code":"\nmylm <- lm(body_mass_g ~ flipper_length_mm + species, data = penguins)\nanova(mylm)","options":{"message":"true","fig-cap":"","editor-max-height":"","context":"interactive","comment":"","editor-quick-suggestions":"false","output":"true","results":"markup","label":"intercept-slope-sig-type2SS","out-height":"","editor-font-scale":1,"echo":"true","out-width":"700px","read-only":"false","classes":"","fig-width":7,"dpi":72,"fig-height":5,"autorun":"false","warning":"true"},"id":3},{"code":"coef(lm(body_mass_g ~ species * flipper_length_mm, data = penguins))\n\ncoef(lm(body_mass_g ~ flipper_length_mm, data = subset(penguins, species == \"Adelie\")))","options":{"message":"true","fig-cap":"","editor-max-height":"","context":"interactive","comment":"","editor-quick-suggestions":"false","output":"true","results":"markup","label":"interaction-model","out-height":"","editor-font-scale":1,"echo":"true","out-width":"700px","read-only":"false","classes":"","fig-width":7,"dpi":72,"fig-height":5,"autorun":"false","warning":"true"},"id":4}];
 
 </script>
 <script type="module">
@@ -1351,12 +1351,6 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L19-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1370,14 +1364,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L21-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -1394,7 +1388,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>

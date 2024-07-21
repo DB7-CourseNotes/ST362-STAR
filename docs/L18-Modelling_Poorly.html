@@ -32,7 +32,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L19-Degrees_of_Freedom.html" rel="next">
+<link href="./L19-Regularization.html" rel="next">
 <link href="./L17-Example_Analysis_mtcars.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -277,7 +277,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"dpi":72,"autorun":"false","message":"true","label":"unnamed-chunk-1","out-width":"700px","editor-font-scale":1,"results":"markup","warning":"true","context":"interactive","editor-max-height":"","comment":"","read-only":"false","out-height":"","output":"true","classes":"","fig-cap":"","fig-width":7,"fig-height":5,"editor-quick-suggestions":"false"},"code":"last_digit_of_student_number <- 0\nHitters <- read.csv(paste0(\"https://raw.githubusercontent.com/DB7-CourseNotes/ST362-STAR/main/data/Hitters_\", last_digit_of_student_number, \".csv\"))\n\nmymodel <- lm(Salary ~ ., data = Hitters)\npar(mfrow = c(2, 2))\nplot(mymodel)\n\n# Find the best model you can come up with!\n# Try ?step to look at automated subset selection!\n# You might also want to try Salary ~ .^2, which includes all interaction\n# terms, but you should probably use forward selection on that (explain why!)","id":1},{"options":{"dpi":72,"autorun":"false","message":"true","label":"unnamed-chunk-2","out-width":"700px","editor-font-scale":1,"results":"markup","warning":"true","context":"interactive","editor-max-height":"","comment":"","read-only":"false","out-height":"","output":"true","classes":"","fig-cap":"","fig-width":7,"fig-height":5,"editor-quick-suggestions":"false"},"code":"n <- 100\np <- 30\n# Generate 30 uncorrelated predictors\nX <- matrix(ncol = p, nrow = n, data = runif(n * p, 0, 10))\n# y is uncorrelated with the predictors\ny <- matrix(ncol = 1, nrow = n, data = rnorm(n, 0, 3))\nmydf <- cbind(y = y, X) |> as.data.frame()\nnames(mydf)[1] <- \"y\"\nstep(lm(y ~ ., data = mydf), direction = \"backward\", trace = 0) |>\n    coef()","id":2}];
+globalThis.qwebrCellDetails = [{"options":{"read-only":"false","dpi":72,"comment":"","message":"true","warning":"true","context":"interactive","out-height":"","out-width":"700px","fig-cap":"","fig-height":5,"output":"true","editor-max-height":"","results":"markup","fig-width":7,"label":"unnamed-chunk-1","autorun":"false","editor-font-scale":1,"classes":"","editor-quick-suggestions":"false"},"id":1,"code":"last_digit_of_student_number <- 0\nHitters <- read.csv(paste0(\"https://raw.githubusercontent.com/DB7-CourseNotes/ST362-STAR/main/data/Hitters_\", last_digit_of_student_number, \".csv\"))\n\nmymodel <- lm(Salary ~ ., data = Hitters)\npar(mfrow = c(2, 2))\nplot(mymodel)\n\n# Find the best model you can come up with!\n# Try ?step to look at automated subset selection!\n# You might also want to try Salary ~ .^2, which includes all interaction\n# terms, but you should probably use forward selection on that (explain why!)"},{"options":{"read-only":"false","dpi":72,"comment":"","message":"true","warning":"true","context":"interactive","out-height":"","out-width":"700px","fig-cap":"","fig-height":5,"output":"true","editor-max-height":"","results":"markup","fig-width":7,"label":"unnamed-chunk-2","autorun":"false","editor-font-scale":1,"classes":"","editor-quick-suggestions":"false"},"id":2,"code":"n <- 100\np <- 30\n# Generate 30 uncorrelated predictors\nX <- matrix(ncol = p, nrow = n, data = runif(n * p, 0, 10))\n# y is uncorrelated with the predictors\ny <- matrix(ncol = 1, nrow = n, data = rnorm(n, 0, 3))\nmydf <- cbind(y = y, X) |> as.data.frame()\nnames(mydf)[1] <- \"y\"\nstep(lm(y ~ ., data = mydf), direction = \"backward\", trace = 0) |>\n    coef()"}];
 
 </script>
 <script type="module">
@@ -1317,12 +1317,6 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L19-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1336,14 +1330,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L21-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -1360,7 +1354,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -2553,8 +2547,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L19-Degrees_of_Freedom.html" class="pagination-link" aria-label="Degrees of Freedom">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L19-Regularization.html" class="pagination-link" aria-label="Regularization Methods">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

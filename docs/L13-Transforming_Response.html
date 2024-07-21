@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"message":"true","fig-height":5,"out-height":"","results":"markup","editor-font-scale":1,"context":"interactive","out-width":"700px","fig-cap":"","warning":"true","read-only":"false","classes":"","editor-quick-suggestions":"false","comment":"","dpi":72,"fig-width":7,"autorun":"false","label":"unnamed-chunk-1","output":"true","editor-max-height":""},"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))","id":1},{"options":{"message":"true","fig-height":5,"out-height":"","results":"markup","editor-font-scale":1,"context":"interactive","out-width":"700px","fig-cap":"","warning":"true","read-only":"false","classes":"","editor-quick-suggestions":"false","comment":"","dpi":72,"fig-width":7,"autorun":"false","label":"trans1","output":"true","editor-max-height":""},"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)","id":2}];
+globalThis.qwebrCellDetails = [{"options":{"editor-font-scale":1,"fig-width":7,"fig-cap":"","message":"true","context":"interactive","fig-height":5,"dpi":72,"output":"true","out-width":"700px","read-only":"false","label":"unnamed-chunk-1","results":"markup","autorun":"false","classes":"","comment":"","warning":"true","out-height":"","editor-quick-suggestions":"false","editor-max-height":""},"id":1,"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))"},{"options":{"editor-font-scale":1,"fig-width":7,"fig-cap":"","message":"true","context":"interactive","fig-height":5,"dpi":72,"output":"true","out-width":"700px","read-only":"false","label":"trans1","results":"markup","autorun":"false","classes":"","comment":"","warning":"true","out-height":"","editor-quick-suggestions":"false","editor-max-height":""},"id":2,"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)"}];
 
 </script>
 <script type="module">
@@ -1351,12 +1351,6 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L19-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1370,14 +1364,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L21-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -1394,7 +1388,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>

@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-07-18">
+<meta name="dcterms.date" content="2024-07-21">
 
-<title>STAR Notes – 20&nbsp; Regularization Methods</title>
+<title>STAR Notes – 19&nbsp; Regularization Methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,7 +67,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./L21-Logistic.html" rel="next">
-<link href="./L19-Degrees_of_Freedom.html" rel="prev">
+<link href="./L18-Modelling_Poorly.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -316,7 +316,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"options":{"classes":"","editor-max-height":"","warning":"true","fig-cap":"","fig-width":7,"output":"true","results":"markup","label":"unnamed-chunk-1","dpi":72,"autorun":"false","comment":"","editor-font-scale":1,"out-width":"700px","read-only":"false","eval":"true","message":"true","fig-height":5,"editor-quick-suggestions":"false","out-height":"","context":"interactive"},"code":"# Run this code once and it will install packages,\n# run again and the package installation messages will disappear.\nlibrary(glmnet)\nlibrary(palmerpenguins)\n\n# glmnet requires separate matrix for X and y,\n# NAs in X might get removed, making X and y have\n# incompatible dimensions, therefore we must remove\n# NAs ourselves.\npeng <- na.omit(penguins)\n\n# glmnet requires a matrix - it will not create dummy \n# variables for you. The easiest way to do this is to\n# get lm() to do it for us, then extract the results.\nmylm <- lm(\n  formula = body_mass_g ~ \n    (flipper_length_mm + bill_depth_mm + bill_length_mm) * species + \n    flipper_length_mm * island,\n  data = peng)\nprint(\"Coefficients of the linear model:\")\nsummary(mylm)$coef # Lots of predictors are not significant.\n\n# The [, -1] removes the first column, which is just 1s\nx <- model.matrix(mylm)[, -1]\ny <- peng$body_mass_g\n\n# Estimate lambda via cross-validation\nlambda_estimates <- cv.glmnet(x = x, y = y)\nplot(lambda_estimates)\n\n# Fit the model with the lambda that minimizes CV error\n# (Also try lasso_estimates$lambda.1se; what do you notice?)\nmylasso <- glmnet(x = x, y = y,\n  lambda = lambda_estimates$lambda.min)\ncat(\"\\n\\n\\n\") # Empty lines to separate R output\nprint(\"Coefficients of the lasso model:\")\ncoef(mylasso)"}];
+globalThis.qwebrCellDetails = [{"code":"# Run this code once and it will install packages,\n# run again and the package installation messages will disappear.\nlibrary(glmnet)\nlibrary(palmerpenguins)\n\n# glmnet requires separate matrix for X and y,\n# NAs in X might get removed, making X and y have\n# incompatible dimensions, therefore we must remove\n# NAs ourselves.\npeng <- na.omit(penguins)\n\n# glmnet requires a matrix - it will not create dummy \n# variables for you. The easiest way to do this is to\n# get lm() to do it for us, then extract the results.\nmylm <- lm(\n  formula = body_mass_g ~ \n    (flipper_length_mm + bill_depth_mm + bill_length_mm) * species + \n    flipper_length_mm * island,\n  data = peng)\nprint(\"Coefficients of the linear model:\")\nsummary(mylm)$coef # Lots of predictors are not significant.\n\n# The [, -1] removes the first column, which is just 1s\nx <- model.matrix(mylm)[, -1]\ny <- peng$body_mass_g\n\n# Estimate lambda via cross-validation\nlambda_estimates <- cv.glmnet(x = x, y = y)\nplot(lambda_estimates)\n\n# Fit the model with the lambda that minimizes CV error\n# (Also try lasso_estimates$lambda.1se; what do you notice?)\nmylasso <- glmnet(x = x, y = y,\n  lambda = lambda_estimates$lambda.min)\ncat(\"\\n\\n\\n\") # Empty lines to separate R output\nprint(\"Coefficients of the lasso model:\")\ncoef(mylasso)","id":1,"options":{"classes":"","editor-quick-suggestions":"false","eval":"true","out-width":"700px","comment":"","dpi":72,"fig-cap":"","editor-font-scale":1,"read-only":"false","warning":"true","out-height":"","editor-max-height":"","message":"true","fig-height":5,"label":"unnamed-chunk-1","autorun":"false","output":"true","fig-width":7,"context":"interactive","results":"markup"}}];
 
 </script>
 <script type="module">
@@ -1194,7 +1194,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L20-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L20-Regularization.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L19-Regularization.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1356,12 +1356,6 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L19-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1375,14 +1369,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Regularization.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L21-Logistic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -1399,7 +1393,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -1497,27 +1491,27 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link active" data-scroll-target="#loss-functions"><span class="header-section-number">20.1</span> Loss Functions</a>
+  <li><a href="#loss-functions" id="toc-loss-functions" class="nav-link active" data-scroll-target="#loss-functions"><span class="header-section-number">19.1</span> Loss Functions</a>
   <ul class="collapse">
   <li><a href="#why-are-we-minimizing-the-sum-of-squares" id="toc-why-are-we-minimizing-the-sum-of-squares" class="nav-link" data-scroll-target="#why-are-we-minimizing-the-sum-of-squares">Why are we minimizing the <em>sum of squares</em>?</a></li>
   <li><a href="#other-loss-functions" id="toc-other-loss-functions" class="nav-link" data-scroll-target="#other-loss-functions">Other loss functions</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   <li><a href="#loss-function-summary" id="toc-loss-function-summary" class="nav-link" data-scroll-target="#loss-function-summary">Loss Function Summary</a></li>
   </ul></li>
-  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization"><span class="header-section-number">20.2</span> Regularization</a>
+  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization"><span class="header-section-number">19.2</span> Regularization</a>
   <ul class="collapse">
   <li><a href="#regular-methods" id="toc-regular-methods" class="nav-link" data-scroll-target="#regular-methods">Regular Methods</a></li>
   <li><a href="#regularization-constraints" id="toc-regularization-constraints" class="nav-link" data-scroll-target="#regularization-constraints">Regularization Constraints</a></li>
   <li><a href="#regularizing-with-norms" id="toc-regularizing-with-norms" class="nav-link" data-scroll-target="#regularizing-with-norms">Regularizing with Norms</a></li>
   <li><a href="#why-choose-underlinebeta_p-10" id="toc-why-choose-underlinebeta_p-10" class="nav-link" data-scroll-target="#why-choose-underlinebeta_p-10">Why choose <span class="math inline">\(||\underline\beta||_p = 10\)</span>?</a></li>
   <li><a href="#choosing-s-in-underlinebeta_p-s" id="toc-choosing-s-in-underlinebeta_p-s" class="nav-link" data-scroll-target="#choosing-s-in-underlinebeta_p-s">Choosing <span class="math inline">\(s\)</span> in <span class="math inline">\(||\underline\beta||_p = s\)</span></a></li>
-  <li><a href="#shiny-example" id="toc-shiny-example" class="nav-link" data-scroll-target="#shiny-example">Shiny Example</a></li>
   <li><a href="#mle-estimates-of-underlinebeta-are-unbiased" id="toc-mle-estimates-of-underlinebeta-are-unbiased" class="nav-link" data-scroll-target="#mle-estimates-of-underlinebeta-are-unbiased">MLE estimates of <span class="math inline">\(\underline\beta\)</span> are <em>unbiased</em></a></li>
   <li><a href="#but-what-about-the-scales-of-the-features" id="toc-but-what-about-the-scales-of-the-features" class="nav-link" data-scroll-target="#but-what-about-the-scales-of-the-features">But what about the scales of the features?</a></li>
   <li><a href="#choosing-lambda-via-cross-validation" id="toc-choosing-lambda-via-cross-validation" class="nav-link" data-scroll-target="#choosing-lambda-via-cross-validation">Choosing <span class="math inline">\(\lambda\)</span> via cross-validation</a></li>
   <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation">Cross-Validation</a></li>
   <li><a href="#special-cases-of-regularization-l_1-or-l_2" id="toc-special-cases-of-regularization-l_1-or-l_2" class="nav-link" data-scroll-target="#special-cases-of-regularization-l_1-or-l_2">Special Cases of Regularization: <span class="math inline">\(L_1\)</span> or <span class="math inline">\(L_2\)</span>?</a></li>
   <li><a href="#geometric-interpretation-contours-of-the-rss" id="toc-geometric-interpretation-contours-of-the-rss" class="nav-link" data-scroll-target="#geometric-interpretation-contours-of-the-rss">Geometric Interpretation (Contours of the RSS)</a></li>
+  <li><a href="#shiny-example" id="toc-shiny-example" class="nav-link" data-scroll-target="#shiny-example">Shiny Example</a></li>
   <li><a href="#langrangian-multipliers-and-estimation" id="toc-langrangian-multipliers-and-estimation" class="nav-link" data-scroll-target="#langrangian-multipliers-and-estimation">Langrangian Multipliers and Estimation</a></li>
   <li><a href="#lagrangian-multipliers-and-estimation" id="toc-lagrangian-multipliers-and-estimation" class="nav-link" data-scroll-target="#lagrangian-multipliers-and-estimation">Lagrangian Multipliers and Estimation</a></li>
   <li><a href="#ridge-regularization" id="toc-ridge-regularization" class="nav-link" data-scroll-target="#ridge-regularization">Ridge Regularization</a></li>
@@ -1760,9 +1754,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 }
 </script>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L20-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L20-Regularization.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L19-Regularization.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></h1>
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></h1>
 </div>
 
 
@@ -1786,7 +1780,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-18</p>
+      <p class="date">2024-07-21</p>
     </div>
   </div>
   
@@ -1798,8 +1792,8 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </header>
 
 
-<section id="loss-functions" class="level2" data-number="20.1">
-<h2 data-number="20.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">20.1</span> Loss Functions</h2>
+<section id="loss-functions" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="loss-functions"><span class="header-section-number">19.1</span> Loss Functions</h2>
 <section id="why-are-we-minimizing-the-sum-of-squares" class="level3">
 <h3 class="anchored" data-anchor-id="why-are-we-minimizing-the-sum-of-squares">Why are we minimizing the <em>sum of squares</em>?</h3>
 <p>The MSE is defined as: <span class="math display">\[
@@ -1854,8 +1848,8 @@ MAE(\underline\beta) = \frac{1}{n}\sum_{i=1}^n\left|y_i-\beta_0-\sum_{j=1}^p\bet
 </ul>
 </section>
 </section>
-<section id="regularization" class="level2" data-number="20.2">
-<h2 data-number="20.2" class="anchored" data-anchor-id="regularization"><span class="header-section-number">20.2</span> Regularization</h2>
+<section id="regularization" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="regularization"><span class="header-section-number">19.2</span> Regularization</h2>
 <section id="regular-methods" class="level3">
 <h3 class="anchored" data-anchor-id="regular-methods">Regular Methods</h3>
 <p>Ordinary least squares is a minimization problem: <span class="math display">\[
@@ -1907,6 +1901,63 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 </ul></li>
 </ul>
 <p>For a linear model, restricting the values with <span class="math inline">\(||\underline\beta||_p = s\)</span> <em>reduces flexibility</em>, which can <em>improve out-of-sample</em> prediction performance.</p>
+</section>
+<section id="mle-estimates-of-underlinebeta-are-unbiased" class="level3">
+<h3 class="anchored" data-anchor-id="mle-estimates-of-underlinebeta-are-unbiased">MLE estimates of <span class="math inline">\(\underline\beta\)</span> are <em>unbiased</em></h3>
+<p>… therefore constrained estimates are biased.</p>
+</section>
+<section id="but-what-about-the-scales-of-the-features" class="level3">
+<h3 class="anchored" data-anchor-id="but-what-about-the-scales-of-the-features">But what about the scales of the features?</h3>
+<p>What a great question! Thank you so much for asking! You must be smart.</p>
+<p>For <span class="math inline">\(||\underline\beta||_p\)</span> to make sense, the predictors must all have the same scale.</p>
+<p>This is accomplished by <strong>standardizing</strong> the features: Replace each <span class="math inline">\(x_{ij}\)</span> with <span class="math display">\[
+\frac{x_{ij} - \bar{\mathbf{x}_{j}}}{\frac{1}{n}\sum_{i=1}^n(x_{ij} - \bar{\mathbf{x}_{j}})^2}
+\]</span></p>
+<p><em>Predictors <strong>must</strong> be standardized for regularization to be valid!</em></p>
+</section>
+<section id="choosing-lambda-via-cross-validation" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-lambda-via-cross-validation">Choosing <span class="math inline">\(\lambda\)</span> via cross-validation</h3>
+<ul>
+<li>For each value of <span class="math inline">\(\lambda\)</span>:
+<ul>
+<li>Split data into 5 “folds”.</li>
+<li>For each “fold”:
+<ul>
+<li>Set aside the data points in the current fold.</li>
+<li>Fit the model to data in all other “folds” using your value of <span class="math inline">\(\lambda\)</span>.</li>
+<li>Predict the missing points, record the average error.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Choose the lambda with the lowest out-of-sample prediction error.</p>
+</section>
+<section id="cross-validation" class="level3">
+<h3 class="anchored" data-anchor-id="cross-validation">Cross-Validation</h3>
+<p><img src="figs/kfold.png" class="img-fluid"></p>
+</section>
+<section id="special-cases-of-regularization-l_1-or-l_2" class="level3">
+<h3 class="anchored" data-anchor-id="special-cases-of-regularization-l_1-or-l_2">Special Cases of Regularization: <span class="math inline">\(L_1\)</span> or <span class="math inline">\(L_2\)</span>?</h3>
+<p>So far, we’ve been talking about general <span class="math inline">\(L_p\)</span> norms, i.e.&nbsp;<span class="math inline">\(||\underline\beta||_p\)</span>.</p>
+<ul>
+<li><span class="math inline">\(L_1\)</span>: LASSO</li>
+<li><span class="math inline">\(L_2\)</span>: Ridge</li>
+</ul>
+</section>
+<section id="geometric-interpretation-contours-of-the-rss" class="level3">
+<h3 class="anchored" data-anchor-id="geometric-interpretation-contours-of-the-rss">Geometric Interpretation (Contours of the RSS)</h3>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p><img src="figs/RegGeom.png" class="img-fluid"></p>
+</div><div class="column" style="width:40%;">
+<ul>
+<li>LASSO will set coefficients to 0.
+<ul>
+<li>“Least Absolute Shrinkage and Selection Operator”</li>
+</ul></li>
+<li>Ridge has less variance (why?)</li>
+</ul>
+</div>
+</div>
 </section>
 <section id="shiny-example" class="level3">
 <h3 class="anchored" data-anchor-id="shiny-example">Shiny Example</h3>
@@ -1991,62 +2042,6 @@ server &lt;- function(input, output) {
 
 shinyApp(ui = ui, server = server)</code></pre>
 </section>
-<section id="mle-estimates-of-underlinebeta-are-unbiased" class="level3">
-<h3 class="anchored" data-anchor-id="mle-estimates-of-underlinebeta-are-unbiased">MLE estimates of <span class="math inline">\(\underline\beta\)</span> are <em>unbiased</em></h3>
-<p>… therefore constrained estimates are biased.</p>
-</section>
-<section id="but-what-about-the-scales-of-the-features" class="level3">
-<h3 class="anchored" data-anchor-id="but-what-about-the-scales-of-the-features">But what about the scales of the features?</h3>
-<p>What a great question! Thank you so much for asking! You must be smart.</p>
-<p>For <span class="math inline">\(||\underline\beta||_p\)</span> to make sense, the predictors must all have the same scale.</p>
-<p>This is accomplished by <strong>standardizing</strong> the features: Replace each <span class="math inline">\(x_{ij}\)</span> with <span class="math display">\[
-\frac{x_{ij} - \bar{\mathbf{x}_{j}}}{\frac{1}{n}\sum_{i=1}^n(x_{ij} - \bar{\mathbf{x}_{j}})^2}
-\]</span></p>
-</section>
-<section id="choosing-lambda-via-cross-validation" class="level3">
-<h3 class="anchored" data-anchor-id="choosing-lambda-via-cross-validation">Choosing <span class="math inline">\(\lambda\)</span> via cross-validation</h3>
-<ul>
-<li>For each value of <span class="math inline">\(\lambda\)</span>:
-<ul>
-<li>Split data into 5 “folds”.</li>
-<li>For each “fold”:
-<ul>
-<li>Set aside the data points in the current fold.</li>
-<li>Fit the model to data in all other “folds” using your value of <span class="math inline">\(\lambda\)</span>.</li>
-<li>Predict the missing points, record the average error.</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>Choose the lambda with the lowest out-of-sample prediction error.</p>
-</section>
-<section id="cross-validation" class="level3">
-<h3 class="anchored" data-anchor-id="cross-validation">Cross-Validation</h3>
-<p><img src="figs/kfold.png" class="img-fluid"></p>
-</section>
-<section id="special-cases-of-regularization-l_1-or-l_2" class="level3">
-<h3 class="anchored" data-anchor-id="special-cases-of-regularization-l_1-or-l_2">Special Cases of Regularization: <span class="math inline">\(L_1\)</span> or <span class="math inline">\(L_2\)</span>?</h3>
-<p>So far, we’ve been talking about general <span class="math inline">\(L_p\)</span> norms, i.e.&nbsp;<span class="math inline">\(||\underline\beta||_p\)</span>.</p>
-<ul>
-<li><span class="math inline">\(L_1\)</span>: LASSO</li>
-<li><span class="math inline">\(L_2\)</span>: Ridge</li>
-</ul>
-</section>
-<section id="geometric-interpretation-contours-of-the-rss" class="level3">
-<h3 class="anchored" data-anchor-id="geometric-interpretation-contours-of-the-rss">Geometric Interpretation (Contours of the RSS)</h3>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p><img src="figs/RegGeom.png" class="img-fluid"></p>
-</div><div class="column" style="width:40%;">
-<ul>
-<li>LASSO will set coefficients to 0.
-<ul>
-<li>“Least Absolute Shrinkage and Selection Operator”</li>
-</ul></li>
-<li>Ridge has less variance (why?)</li>
-</ul>
-</div>
-</div>
-</section>
 <section id="langrangian-multipliers-and-estimation" class="level3">
 <h3 class="anchored" data-anchor-id="langrangian-multipliers-and-estimation">Langrangian Multipliers and Estimation</h3>
 <p>Wikipedia screenshot:</p>
@@ -2054,7 +2049,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 </section>
 <section id="lagrangian-multipliers-and-estimation" class="level3">
 <h3 class="anchored" data-anchor-id="lagrangian-multipliers-and-estimation">Lagrangian Multipliers and Estimation</h3>
-<p>Minimize <span class="math inline">\(MSE(\underline\beta)\)</span> subject to <span class="math inline">\(||\underline\beta||_p\)</span>.</p>
+<p>Minimize <span class="math inline">\(MSE(\underline\beta)\)</span> subject to <span class="math inline">\(||\underline\beta||_p = s\)</span>.</p>
 <p>is equivalent to</p>
 <p>Minimize <span class="math inline">\(MSE(\underline\beta) + \lambda||\underline\beta||_p\)</span></p>
 <p>For the rest of your life, this is the way you’ll see Ridge and LASSO.</p>
@@ -2062,6 +2057,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <li>Ridge: Analytical solution, can calculate an arbitrary number of <span class="math inline">\(\lambda\)</span> values at once.</li>
 <li>LASSO: Non-iterative numerical technique</li>
 </ul>
+<p>For the curious, <a href="https://stats.stackexchange.com/questions/320028/lasso-relationship-between-lambda-and-t">converting between <span class="math inline">\(s\)</span> and <span class="math inline">\(\lambda\)</span> is not straightforward</a>.</p>
 </section>
 <section id="ridge-regularization" class="level3">
 <h3 class="anchored" data-anchor-id="ridge-regularization">Ridge Regularization</h3>
@@ -2161,7 +2157,7 @@ shinyApp(ui = ui, server = server)</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L20-Regularization_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="L19-Regularization_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -2804,13 +2800,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L19-Degrees_of_Freedom.html" class="pagination-link" aria-label="Degrees of Freedom">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span>
+      <a href="./L18-Modelling_Poorly.html" class="pagination-link" aria-label="Modelling Poorly">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./L21-Logistic.html" class="pagination-link" aria-label="Classification">
-        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

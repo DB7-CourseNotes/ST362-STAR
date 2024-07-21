@@ -9,7 +9,7 @@
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 <meta name="dcterms.date" content="2024-05-20">
 
-<title>STAR Notes – 21&nbsp; Classification</title>
+<title>STAR Notes – 20&nbsp; Classification</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,7 +67,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./L22-Review.html" rel="next">
-<link href="./L20-Regularization.html" rel="prev">
+<link href="./L19-Regularization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -148,7 +148,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L20-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L21-Logistic.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L21-Logistic.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -310,12 +310,6 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L19-Degrees_of_Freedom.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Degrees of Freedom</span></span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -329,14 +323,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L21-Logistic.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
       </ul>
@@ -353,7 +347,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -451,7 +445,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link active" data-scroll-target="#logistic-regression"><span class="header-section-number">21.1</span> Logistic Regression</a>
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link active" data-scroll-target="#logistic-regression"><span class="header-section-number">20.1</span> Logistic Regression</a>
   <ul class="collapse">
   <li><a href="#goal-predict-a-1" id="toc-goal-predict-a-1" class="nav-link" data-scroll-target="#goal-predict-a-1">Goal: Predict a 1</a></li>
   <li><a href="#the-logistic-function---a-sigmoidal-function" id="toc-the-logistic-function---a-sigmoidal-function" class="nav-link" data-scroll-target="#the-logistic-function---a-sigmoidal-function">The Logistic Function - A Sigmoidal Function</a></li>
@@ -468,7 +462,7 @@ window.Quarto = {
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   <li><a href="#predictions---just-plug-it-in" id="toc-predictions---just-plug-it-in" class="nav-link" data-scroll-target="#predictions---just-plug-it-in">Predictions - Just Plug it In!</a></li>
   </ul></li>
-  <li><a href="#classification-basics" id="toc-classification-basics" class="nav-link" data-scroll-target="#classification-basics"><span class="header-section-number">21.2</span> Classification Basics</a>
+  <li><a href="#classification-basics" id="toc-classification-basics" class="nav-link" data-scroll-target="#classification-basics"><span class="header-section-number">20.2</span> Classification Basics</a>
   <ul class="collapse">
   <li><a href="#goal-predict-a-category" id="toc-goal-predict-a-category" class="nav-link" data-scroll-target="#goal-predict-a-category">Goal: Predict a Category</a></li>
   <li><a href="#classification-confusion" id="toc-classification-confusion" class="nav-link" data-scroll-target="#classification-confusion">Classification Confusion</a></li>
@@ -476,7 +470,7 @@ window.Quarto = {
   <li><a href="#the-confusion-matrix-for-default-data" id="toc-the-confusion-matrix-for-default-data" class="nav-link" data-scroll-target="#the-confusion-matrix-for-default-data">The Confusion Matrix for Default Data</a></li>
   <li><a href="#logistic-regression-in-r" id="toc-logistic-regression-in-r" class="nav-link" data-scroll-target="#logistic-regression-in-r">Logistic Regression in R</a></li>
   </ul></li>
-  <li><a href="#multinomial-regression" id="toc-multinomial-regression" class="nav-link" data-scroll-target="#multinomial-regression"><span class="header-section-number">21.3</span> Multinomial Regression</a>
+  <li><a href="#multinomial-regression" id="toc-multinomial-regression" class="nav-link" data-scroll-target="#multinomial-regression"><span class="header-section-number">20.3</span> Multinomial Regression</a>
   <ul class="collapse">
   <li><a href="#multinomial-logistic-regression-k-classes" id="toc-multinomial-logistic-regression-k-classes" class="nav-link" data-scroll-target="#multinomial-logistic-regression-k-classes">Multinomial Logistic Regression: K Classes</a></li>
   </ul></li>
@@ -486,9 +480,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L20-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L21-Logistic.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L21-Logistic.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Classification</span></h1>
+<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></h1>
 </div>
 
 
@@ -524,8 +518,8 @@ window.Quarto = {
 </header>
 
 
-<section id="logistic-regression" class="level2" data-number="21.1">
-<h2 data-number="21.1" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">21.1</span> Logistic Regression</h2>
+<section id="logistic-regression" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">20.1</span> Logistic Regression</h2>
 <section id="goal-predict-a-1" class="level3">
 <h3 class="anchored" data-anchor-id="goal-predict-a-1">Goal: Predict a 1</h3>
 <ul>
@@ -824,8 +818,8 @@ P(\text{defaulting} | x) &amp;= \dfrac{\exp(\eta(x))}{1 + \exp(\eta(x))} \approx
 \end{align*}\]</span></p>
 </section>
 </section>
-<section id="classification-basics" class="level2" data-number="21.2">
-<h2 data-number="21.2" class="anchored" data-anchor-id="classification-basics"><span class="header-section-number">21.2</span> Classification Basics</h2>
+<section id="classification-basics" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="classification-basics"><span class="header-section-number">20.2</span> Classification Basics</h2>
 <section id="goal-predict-a-category" class="level3">
 <h3 class="anchored" data-anchor-id="goal-predict-a-category">Goal: Predict a Category</h3>
 <ul>
@@ -1150,8 +1144,8 @@ speciesGentoo:flipper_length_mm      .         </code></pre>
 </div>
 </section>
 </section>
-<section id="multinomial-regression" class="level2" data-number="21.3">
-<h2 data-number="21.3" class="anchored" data-anchor-id="multinomial-regression"><span class="header-section-number">21.3</span> Multinomial Regression</h2>
+<section id="multinomial-regression" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="multinomial-regression"><span class="header-section-number">20.3</span> Multinomial Regression</h2>
 <section id="multinomial-logistic-regression-k-classes" class="level3">
 <h3 class="anchored" data-anchor-id="multinomial-logistic-regression-k-classes">Multinomial Logistic Regression: K Classes</h3>
 <p>We have a total probability of 1 to distribute across the classes,</p>
@@ -1751,13 +1745,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L20-Regularization.html" class="pagination-link" aria-label="Regularization Methods">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span>
+      <a href="./L19-Regularization.html" class="pagination-link" aria-label="Regularization Methods">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./L22-Review.html" class="pagination-link" aria-label="Final Exam Review">
-        <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
