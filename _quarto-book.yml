@@ -50,10 +50,9 @@ book:
         - L16-Dummies.qmd
         - L17-Example_Analysis_mtcars.qmd
         - L18-Modelling_Poorly.qmd
-        - L19-Degrees_of_Freedom.qmd
     - part: Advanced Topics
       chapters:
-        - L20-Regularization.qmd
+        - L19-Regularization.qmd
         - L21-Logistic.qmd
     - part: Review
       chapters:
