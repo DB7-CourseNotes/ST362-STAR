@@ -520,7 +520,7 @@ Here's an example of LASSO in R. We'll load in the `Wage` data from `ISLR2` pack
 
 This data set has a column for `wage` and a column for `logwage`. We're going to use `wage` as our response, and removing `wage` makes it easier to tell R to use all columns other than `logwage`. I also remove `region` since there are some regions with too few observations and I am not going to set up cross-validation appropriately for this scenario.
 
-```{r}
+```{webr-r}
 library(glmnet) # cv.glmnet() and glmnet()
 library(ISLR2) # Wage data set
 
@@ -531,14 +531,14 @@ Wage <- Wage[, -c(6, 11)]
 
 `glmnet` doesn't use the formula notation (`y ~ x`); we have to manually set up the design matrix (including dummy variables) and the response vector.
 
-```{r}
+```{webr-r}
 X <- model.matrix(logwage ~ ., data = Wage)[,-1]
 y <- as.numeric(Wage$logwage)
 ```
 
 The first step to fitting a LASSO model is choosing $\lambda$ via cv. The `cv.glmnet()` function does this for us. The results are *not* a final model; the resultant object gives us an idea of which value of $\lambda$ is appropriate. 
 
-```{r}
+```{webr-r}
 cv_check <- cv.glmnet(x = X, y = y, alpha = 1)
 plot(cv_check)
 ```
@@ -547,9 +547,10 @@ The first dotted line indicates the value of $\lambda$ that minimizes the "loss 
 
 Now that we have a way of telling R what value we want for lambda, we can fit the model.
 
-```{r}
+```{webr-r}
 my_lasso <- glmnet(X, y, lambda = cv_check$lambda.1se)
 my_lasso
+coef(my_lasso)
 ```
 
 The output isn't very informative, but the model can make predictions via the `predict()` function and these will be comparable or better than the predictions from an unconstrained linear model.
@@ -558,7 +559,7 @@ Let's compare the coefficient values to see the shrinkage in action! Of course, 
 
 In the output, I include a column for the difference in the coefficients. Specifically, it's lm minus lasso, so we may expect "shrinkage" to mean that the lasso estimates are smaller.
 
-```{r}
+```{webr-r}
 standardized_X <- apply(X, 2, scale)
 standardized_lm <- lm(y ~ standardized_X)
 coef_mat <- cbind(coef(my_lasso),
