@@ -567,10 +567,10 @@ coef_mat <- cbind(coef(my_lasso),
 
 res <- cbind(
         coef_mat, 
-        apply(coef_mat, 1, function(x) abs(x[2]) - abs(x[1]))
+        apply(coef_mat, 1, function(x) abs(x[2] - x[1]))
     ) |> 
     round(3)
-colnames(res) <- c("lasso", "lm", "|lm|-|lasso|")
+colnames(res) <- c("lasso", "lm", "|lm - lasso|")
 res
 ```
 :::
