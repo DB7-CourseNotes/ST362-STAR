@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-07-21">
+<meta name="dcterms.date" content="2024-07-22">
 
 <title>STAR Notes – 19&nbsp; Regularization Methods</title>
 <style>
@@ -282,7 +282,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"eval":"true","warning":"true","results":"markup","out-width":"700px","classes":"","fig-height":5,"fig-cap":"","fig-width":7,"context":"interactive","comment":"","label":"unnamed-chunk-1","read-only":"false","autorun":"false","editor-quick-suggestions":"false","message":"true","output":"true","editor-font-scale":1,"dpi":72,"editor-max-height":"","out-height":""},"id":1,"code":"# Run this code once and it will install packages,\n# run again and the package installation messages will disappear.\nlibrary(glmnet)\nlibrary(palmerpenguins)\n\n# glmnet requires separate matrix for X and y,\n# NAs in X might get removed, making X and y have\n# incompatible dimensions, therefore we must remove\n# NAs ourselves.\npeng <- na.omit(penguins)\n\n# glmnet requires a matrix - it will not create dummy \n# variables for you. The easiest way to do this is to\n# get lm() to do it for us, then extract the results.\nmylm <- lm(\n  formula = body_mass_g ~ \n    (flipper_length_mm + bill_depth_mm + bill_length_mm) * species + \n    flipper_length_mm * island,\n  data = peng)\nprint(\"Coefficients of the linear model:\")\nsummary(mylm)$coef # Lots of predictors are not significant.\n\n# The [, -1] removes the first column, which is just 1s\nx <- model.matrix(mylm)[, -1]\ny <- peng$body_mass_g\n\n# Estimate lambda via cross-validation\nlambda_estimates <- cv.glmnet(x = x, y = y)\nplot(lambda_estimates)\n\n# Fit the model with the lambda that minimizes CV error\n# (Also try lasso_estimates$lambda.1se; what do you notice?)\nmylasso <- glmnet(x = x, y = y,\n  lambda = lambda_estimates$lambda.min)\ncat(\"\\n\\n\\n\") # Empty lines to separate R output\nprint(\"Coefficients of the lasso model:\")\ncoef(mylasso)"},{"options":{"warning":"true","results":"markup","out-width":"700px","classes":"","fig-height":5,"fig-cap":"","fig-width":7,"context":"interactive","comment":"","label":"unnamed-chunk-2","read-only":"false","autorun":"false","editor-quick-suggestions":"false","message":"true","output":"true","editor-font-scale":1,"dpi":72,"editor-max-height":"","out-height":""},"id":2,"code":"library(glmnet) # cv.glmnet() and glmnet()\nlibrary(ISLR2) # Wage data set\n\nWage <- ISLR2::Wage\n# From names(Wage), I want to remove \"region\" and \"wage\"\nWage <- Wage[, -c(6, 11)]"},{"options":{"warning":"true","results":"markup","out-width":"700px","classes":"","fig-height":5,"fig-cap":"","fig-width":7,"context":"interactive","comment":"","label":"unnamed-chunk-3","read-only":"false","autorun":"false","editor-quick-suggestions":"false","message":"true","output":"true","editor-font-scale":1,"dpi":72,"editor-max-height":"","out-height":""},"id":3,"code":"X <- model.matrix(logwage ~ ., data = Wage)[,-1]\ny <- as.numeric(Wage$logwage)"},{"options":{"warning":"true","results":"markup","out-width":"700px","classes":"","fig-height":5,"fig-cap":"","fig-width":7,"context":"interactive","comment":"","label":"unnamed-chunk-4","read-only":"false","autorun":"false","editor-quick-suggestions":"false","message":"true","output":"true","editor-font-scale":1,"dpi":72,"editor-max-height":"","out-height":""},"id":4,"code":"cv_check <- cv.glmnet(x = X, y = y, alpha = 1)\nplot(cv_check)"},{"options":{"warning":"true","results":"markup","out-width":"700px","classes":"","fig-height":5,"fig-cap":"","fig-width":7,"context":"interactive","comment":"","label":"unnamed-chunk-5","read-only":"false","autorun":"false","editor-quick-suggestions":"false","message":"true","output":"true","editor-font-scale":1,"dpi":72,"editor-max-height":"","out-height":""},"id":5,"code":"my_lasso <- glmnet(X, y, lambda = cv_check$lambda.1se)\nmy_lasso\ncoef(my_lasso)"},{"options":{"warning":"true","results":"markup","out-width":"700px","classes":"","fig-height":5,"fig-cap":"","fig-width":7,"context":"interactive","comment":"","label":"unnamed-chunk-6","read-only":"false","autorun":"false","editor-quick-suggestions":"false","message":"true","output":"true","editor-font-scale":1,"dpi":72,"editor-max-height":"","out-height":""},"id":6,"code":"standardized_X <- apply(X, 2, scale)\nstandardized_lm <- lm(y ~ standardized_X)\ncoef_mat <- cbind(coef(my_lasso),\n    coef(standardized_lm))\n\nres <- cbind(\n        coef_mat, \n        apply(coef_mat, 1, function(x) abs(x[2] - x[1]))\n    ) |> \n    round(3)\ncolnames(res) <- c(\"lasso\", \"lm\", \"|lm - lasso|\")\nres"}];
+globalThis.qwebrCellDetails = [{"code":"# Run this code once and it will install packages,\n# run again and the package installation messages will disappear.\nlibrary(glmnet)\nlibrary(palmerpenguins)\n\n# glmnet requires separate matrix for X and y,\n# NAs in X might get removed, making X and y have\n# incompatible dimensions, therefore we must remove\n# NAs ourselves.\npeng <- na.omit(penguins)\n\n# glmnet requires a matrix - it will not create dummy \n# variables for you. The easiest way to do this is to\n# get lm() to do it for us, then extract the results.\nmylm <- lm(\n  formula = body_mass_g ~ \n    (flipper_length_mm + bill_depth_mm + bill_length_mm) * species + \n    flipper_length_mm * island,\n  data = peng)\nprint(\"Coefficients of the linear model:\")\nsummary(mylm)$coef # Lots of predictors are not significant.\n\n# The [, -1] removes the first column, which is just 1s\nx <- model.matrix(mylm)[, -1]\ny <- peng$body_mass_g\n\n# Estimate lambda via cross-validation\nlambda_estimates <- cv.glmnet(x = x, y = y)\nplot(lambda_estimates)\n\n# Fit the model with the lambda that minimizes CV error\n# (Also try lasso_estimates$lambda.1se; what do you notice?)\nmylasso <- glmnet(x = x, y = y,\n  lambda = lambda_estimates$lambda.min)\ncat(\"\\n\\n\\n\") # Empty lines to separate R output\nprint(\"Coefficients of the lasso model:\")\ncoef(mylasso)","id":1,"options":{"editor-quick-suggestions":"false","eval":"true","comment":"","read-only":"false","output":"true","context":"interactive","warning":"true","out-height":"","autorun":"false","results":"markup","fig-cap":"","dpi":72,"label":"unnamed-chunk-1","message":"true","editor-max-height":"","classes":"","editor-font-scale":1,"fig-width":7,"fig-height":5,"out-width":"700px"}},{"code":"library(glmnet) # cv.glmnet() and glmnet()\nlibrary(ISLR2) # Wage data set\n\nWage <- ISLR2::Wage\n# From names(Wage), I want to remove \"region\" and \"wage\"\nWage <- Wage[, -c(6, 11)]","id":2,"options":{"editor-quick-suggestions":"false","comment":"","read-only":"false","output":"true","context":"interactive","warning":"true","out-height":"","autorun":"false","results":"markup","fig-cap":"","dpi":72,"label":"unnamed-chunk-2","message":"true","editor-max-height":"","classes":"","editor-font-scale":1,"fig-width":7,"fig-height":5,"out-width":"700px"}},{"code":"X <- model.matrix(logwage ~ ., data = Wage)[,-1]\ny <- as.numeric(Wage$logwage)","id":3,"options":{"editor-quick-suggestions":"false","comment":"","read-only":"false","output":"true","context":"interactive","warning":"true","out-height":"","autorun":"false","results":"markup","fig-cap":"","dpi":72,"label":"unnamed-chunk-3","message":"true","editor-max-height":"","classes":"","editor-font-scale":1,"fig-width":7,"fig-height":5,"out-width":"700px"}},{"code":"cv_check <- cv.glmnet(x = X, y = y, alpha = 1)\nplot(cv_check)","id":4,"options":{"editor-quick-suggestions":"false","comment":"","read-only":"false","output":"true","context":"interactive","warning":"true","out-height":"","autorun":"false","results":"markup","fig-cap":"","dpi":72,"label":"unnamed-chunk-4","message":"true","editor-max-height":"","classes":"","editor-font-scale":1,"fig-width":7,"fig-height":5,"out-width":"700px"}},{"code":"my_lasso <- glmnet(X, y, lambda = cv_check$lambda.1se)\nmy_lasso\ncoef(my_lasso)","id":5,"options":{"editor-quick-suggestions":"false","comment":"","read-only":"false","output":"true","context":"interactive","warning":"true","out-height":"","autorun":"false","results":"markup","fig-cap":"","dpi":72,"label":"unnamed-chunk-5","message":"true","editor-max-height":"","classes":"","editor-font-scale":1,"fig-width":7,"fig-height":5,"out-width":"700px"}},{"code":"standardized_X <- apply(X, 2, scale)\nstandardized_lm <- lm(y ~ standardized_X)\ncoef_mat <- cbind(coef(my_lasso),\n    coef(standardized_lm))\n\nres <- cbind(\n        coef_mat, \n        apply(coef_mat, 1, function(x) abs(x[2] - x[1]))\n    ) |> \n    round(3)\ncolnames(res) <- c(\"lasso\", \"lm\", \"|lm - lasso|\")\nres","id":6,"options":{"editor-quick-suggestions":"false","comment":"","read-only":"false","output":"true","context":"interactive","warning":"true","out-height":"","autorun":"false","results":"markup","fig-cap":"","dpi":72,"label":"unnamed-chunk-6","message":"true","editor-max-height":"","classes":"","editor-font-scale":1,"fig-width":7,"fig-height":5,"out-width":"700px"}}];
 
 </script>
 <script type="module">
@@ -1461,7 +1461,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#why-are-we-minimizing-the-sum-of-squares" id="toc-why-are-we-minimizing-the-sum-of-squares" class="nav-link" data-scroll-target="#why-are-we-minimizing-the-sum-of-squares">Why are we minimizing the <em>sum of squares</em>?</a></li>
   <li><a href="#other-loss-functions" id="toc-other-loss-functions" class="nav-link" data-scroll-target="#other-loss-functions">Other loss functions</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   <li><a href="#loss-function-summary" id="toc-loss-function-summary" class="nav-link" data-scroll-target="#loss-function-summary">Loss Function Summary</a></li>
   </ul></li>
   <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization"><span class="header-section-number">19.2</span> Regularization</a>
@@ -1484,7 +1483,7 @@ window.Quarto = {
   <li><a href="#lasso-feature-selection-as-we-vary-lambda" id="toc-lasso-feature-selection-as-we-vary-lambda" class="nav-link" data-scroll-target="#lasso-feature-selection-as-we-vary-lambda">LASSO Feature Selection as we Vary <span class="math inline">\(\lambda\)</span></a></li>
   <li><a href="#personal-opinion-time" id="toc-personal-opinion-time" class="nav-link" data-scroll-target="#personal-opinion-time">Personal Opinion Time</a></li>
   <li><a href="#implementation-in-r-glmnet" id="toc-implementation-in-r-glmnet" class="nav-link" data-scroll-target="#implementation-in-r-glmnet">Implementation in R: <code>glmnet</code></a></li>
-  <li><a href="#elastic-net-like-a-lasso-but-more-flexible" id="toc-elastic-net-like-a-lasso-but-more-flexible" class="nav-link" data-scroll-target="#elastic-net-like-a-lasso-but-more-flexible">Elastic Net: Like a lasso, but more “flexible”</a></li>
+  <li><a href="#elastic-net-like-a-lassoridge-but-more-flexible" id="toc-elastic-net-like-a-lassoridge-but-more-flexible" class="nav-link" data-scroll-target="#elastic-net-like-a-lassoridge-but-more-flexible">Elastic Net: Like a Lasso/Ridge, but more “flexible”</a></li>
   <li><a href="#elasticnet-and-lassoridge" id="toc-elasticnet-and-lassoridge" class="nav-link" data-scroll-target="#elasticnet-and-lassoridge">Elasticnet and LASSO/Ridge</a></li>
   </ul></li>
   </ul>
@@ -1746,7 +1745,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-21</p>
+      <p class="date">2024-07-22</p>
     </div>
   </div>
   
@@ -1788,19 +1787,6 @@ MAE(\underline\beta) = \frac{1}{n}\sum_{i=1}^n\left|y_i-\beta_0-\sum_{j=1}^p\bet
 <li>etc.</li>
 </ul>
 </section>
-<section id="examples" class="level3">
-<h3 class="anchored" data-anchor-id="examples">Examples</h3>
-<ul>
-<li>0.5 hectares verus 4 hectares can make a huge difference
-<ul>
-<li>100 versus 150, congrats on the great prediction!</li>
-</ul></li>
-<li>Predicting an income of 15,000 versus 25,000 is big
-<ul>
-<li>Modelling the average income is not usually reasonable.</li>
-</ul></li>
-</ul>
-</section>
 <section id="loss-function-summary" class="level3">
 <h3 class="anchored" data-anchor-id="loss-function-summary">Loss Function Summary</h3>
 <ul>
@@ -1821,7 +1807,8 @@ MAE(\underline\beta) = \frac{1}{n}\sum_{i=1}^n\left|y_i-\beta_0-\sum_{j=1}^p\bet
 <p>Ordinary least squares is a minimization problem: <span class="math display">\[
 RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 \]</span></p>
-<p>What if I don’t like how big the <span class="math inline">\(\underline\beta\)</span> values are?</p>
+<p>The parameters are <em>unconstrained</em>.</p>
+<p>Regularization is a method for <em>constraining</em> the parameters to prevent overfitting.</p>
 </section>
 <section id="regularization-constraints" class="level3">
 <h3 class="anchored" data-anchor-id="regularization-constraints">Regularization Constraints</h3>
@@ -1831,7 +1818,7 @@ RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 <section id="regularizing-with-norms" class="level3">
 <h3 class="anchored" data-anchor-id="regularizing-with-norms">Regularizing with Norms</h3>
 <p>The <span class="math inline">\(L_p\)</span>-norm of a vector is: <span class="math display">\[
-||\beta||_p = \left(\sum_{j=1}^p|\beta|^p\right)^{1/p}
+||\underline\beta||_p = \left(\sum_{j=1}^q|\beta_q|^p\right)^{1/p}
 \]</span></p>
 <ul>
 <li>When <span class="math inline">\(p = 2\)</span>, this is the Euclidean distance.
@@ -2074,8 +2061,8 @@ shinyApp(ui = ui, server = server)</code></pre>
 </ul></li>
 </ul>
 </section>
-<section id="elastic-net-like-a-lasso-but-more-flexible" class="level3 t">
-<h3 class="t anchored" data-anchor-id="elastic-net-like-a-lasso-but-more-flexible">Elastic Net: Like a lasso, but more “flexible”</h3>
+<section id="elastic-net-like-a-lassoridge-but-more-flexible" class="level3 t">
+<h3 class="t anchored" data-anchor-id="elastic-net-like-a-lassoridge-but-more-flexible">Elastic Net: Like a Lasso/Ridge, but more “flexible”</h3>
 <p><span class="math display">\[
 \text{Minimize } MSE(\underline\beta) + \lambda\left[\alpha||\underline\beta||_1 + (1-\alpha)||\underline\beta||_2\right]
 \]</span></p>

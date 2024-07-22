@@ -16,6 +16,9 @@ set.seed(2112)
 
 ### Announcements
 
+- 15 people still haven't joined groups for the Final Project!\lspace
+- Final Lab Wednesday
+    - Class in lab again?\lspace
 
 :::
 
@@ -31,7 +34,7 @@ This is the Maximum Likelihood Estimate, which seeks to model the *mean* of $Y$ 
 
 MSE, seen as a function of $\underline\beta$, is a **loss function**, i.e. the function we minimize to find our estimates.
 
-\quad\pause
+\pspace\pause
 
 But it's FAR from the only loss function.
 
@@ -53,17 +56,10 @@ Others:
     - Assumes that variance depends on mean (kinda like Poisson).
 - etc.
 
-### Examples
-
-- 0.5 hectares verus 4 hectares can make a huge difference
-    - 100 versus 150, congrats on the great prediction!\newline
-- Predicting an income of 15,000 versus 25,000 is big
-    - Modelling the average income is not usually reasonable.
-
 ### Loss Function Summary
 
-- Minimize the loss function with respect to the parameters of interest.\newline
-- For the same parameters, there can be many loss functions.\newline
+- Minimize the loss function with respect to the parameters of interest.\lspace
+- For the same parameters, there can be many loss functions.\lspace
 - Other names:
     - Likelihood function (special case of loss function)
     - Cost function (synonym)
@@ -78,14 +74,15 @@ $$
 RSS = \sum_{i=1}^n\left(y_i-\beta_0-\sum_{j=1}^p\beta_jx_{ij}\right)^2
 $$
 
+The parameters are *unconstrained*. 
 
-What if I don't like how big the $\underline\beta$ values are?
+Regularization is a method for *constraining* the parameters to prevent overfitting.
 
 ### Regularization Constraints
 
 Let's arbitrarily say that $\sum_{j=1}^p \beta_j = 10$.
 
-\pause\quad
+\pause\pspace
 
 With this constraint, one large $\beta_j$ can be countered by a large negative $\beta_k$.
 
@@ -93,12 +90,12 @@ With this constraint, one large $\beta_j$ can be countered by a large negative $
 
 The $L_p$-norm of a vector is:
 $$
-||\beta||_p = \left(\sum_{j=1}^p|\beta|^p\right)^{1/p}
+||\underline\beta||_p = \left(\sum_{j=1}^q|\beta_q|^p\right)^{1/p}
 $$
 
 - When $p = 2$, this is the Euclidean distance.
-    - Pythagoras strikes again!\newline
-- When $p = 1$, this is the sum of absolute values.\newline
+    - Pythagoras strikes again!\lspace
+- When $p = 1$, this is the sum of absolute values.\lspace
 - When $p=\infty$, this ends up being max($|\underline\beta|$).
     - Not useful for our purposes, but interesting!
 
@@ -117,11 +114,11 @@ Too little regularization and we just have the OLS estimate. Too much regulariza
 ### Choosing $s$ in $||\underline\beta||_p = s$
 
 - Recall: more flexible models are able to estimate more subtle patterns, but may find patterns that aren't there.
-    - Too flexible = bad out-of-sample prediction.\newline
+    - Too flexible = bad out-of-sample prediction.\lspace
 - For linear models, the *least flexible* model is one where all $\beta_j$ values are given a fixed value.
-    - For example, all are 0. \newline
+    - For example, all are 0. \lspace
 
-\quad\pause
+\pspace\pause
 
 For a linear model, restricting the values with $||\underline\beta||_p = s$ *reduces flexibility*, which can *improve out-of-sample* prediction performance. 
 
@@ -180,7 +177,7 @@ So far, we've been talking about general $L_p$ norms, i.e. $||\underline\beta||_
 \vspace{2cm}
 
 - LASSO will set coefficients to 0.
-    - "Least Absolute Shrinkage and Selection Operator"\newline
+    - "Least Absolute Shrinkage and Selection Operator"\lspace
 - Ridge has less variance (why?)
 :::
 ::::
@@ -295,7 +292,7 @@ is equivalent to
 
 Minimize $MSE(\underline\beta) + \lambda||\underline\beta||_p$
 
-\quad\pause\raggedright
+\pspace\pause\raggedright
 
 For the rest of your life, this is the way you'll see Ridge and LASSO.
 
@@ -320,7 +317,7 @@ For the curious, [converting between $s$ and $\lambda$ is not straightforward](h
 ::: {.column width="50%"}
 
 \vspace{2cm}
-- As $\lambda$ increases, more coefficients are allowed to be non-zero.\newline
+- As $\lambda$ increases, more coefficients are allowed to be non-zero.\lspace
 - If $\lambda$ doesn't constrain, we get the least squares estimate.
     - Denoted as $\hat\beta$ in the plot.
 :::
@@ -477,7 +474,7 @@ $$
 $$
 This can minimize out-of-sample error, but results in something that could be mistaken for inference.
 
-\quad
+\pspace
 
 With LASSO, you know the estimates are biased and you know why. Best subset tricks you into thinking your $\underline\beta$ estimates are accurate - *they are not*.
 
@@ -486,17 +483,17 @@ With LASSO, you know the estimates are biased and you know why. Best subset tric
 - The `glm` in `glmnet` is because it fits all GLMs.
     - Including Logistic Regression.
     - The `family = binomial` argument works as in `glm()`
-        - However, `family = "binomial"` is an optimized version.\newline
+        - However, `family = "binomial"` is an optimized version.\lspace
 - The `net` in `glmnet` refers to elasticnet.
     - Next slide or two.
 
-### Elastic Net: Like a lasso, but more "flexible" {.t}
+### Elastic Net: Like a Lasso/Ridge, but more "flexible" {.t}
 
 $$
 \text{Minimize } MSE(\underline\beta) + \lambda\left[\alpha||\underline\beta||_1 + (1-\alpha)||\underline\beta||_2\right] 
 $$
 
-\quad
+\pspace
 
 Elastic Net is "doubly regularized".
 
