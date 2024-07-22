@@ -1,6 +1,14 @@
 ---
 title: "Classification"
 institute: "Jam: **Love's a Logistical Thing** by PJ Parker"
+format: 
+    revealjs:
+        slide-level: 3
+        theme: serif
+        smaller: true
+filters:
+    - webr
+    - shinylive
 ---
 
 ```{r}
@@ -25,12 +33,18 @@ set.seed(2112)
 
 ### The Logistic Function - A Sigmoidal Function
 
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
 
 If $t\in\mathbb{R}$, then
 $$
 \sigma(t) = \dfrac{\exp(t)}{1 + \exp(t)}\in[0,1]
 $$
 where $\sigma(\cdot)$ is the **logistic** function.
+
+:::
+::: {.column width="50%"}
 
 ```{r}
 #| fig-height: 4
@@ -45,6 +59,8 @@ ggplot() + theme_minimal() +
     labs(x = "t", y = expression(sigma(t)))
 ```
 
+:::
+::::
 
 ### Logistic Function - Now with Parameters
 
@@ -75,15 +91,55 @@ ggplot() + theme_minimal() +
         title = expression(sigma("-3"*t-10)))
 ```
 
+### Logistic Function - Now with Parameters
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 400
+#| viewerWidth: 700
+
+xseq <- seq(-10, 10, 0.05)
+sigma <- function(t) exp(t)/(1 + exp(t))
+
+input <- list(b0 = 0, b1 = 1)
+
+ui <- fluidPage(
+    sidebarPanel(
+        sliderInput("b0", "Intercept", -5, 5, 0, 0.1, animate = list(interval = 100)),
+        sliderInput("b1", "Slope", -5, 5, 1, 0.1, animate = list(interval = 100))
+    ),
+    mainPanel(plotOutput("plot"), )
+)
+
+server <- function(input, output) {
+    output$plot <- renderPlot({
+        yseq <- sigma(input$b0 + input$b1 * xseq)
+        plot(yseq ~ xseq,
+            xlim = c(-10, 10),
+            ylim = c(0, 1),
+            ylab = bquote(sigma (beta[0] *" + " * beta[1] * t)),
+            xlab = "t",
+            type = "l")
+    })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
 ### Logistic Function - Now with Parameters *Estimated from DATA*
 
+:::: {.columns}
+::: {.column width="50%"}
 \vspace{1cm}
+
 \begin{align*}
-\eta(x_i) &= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ...\\
-p(x_i) &= \sigma(\eta(x_i)) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))}\\
-\implies \log\left(\frac{p_i(x_i)}{1-p_i(x_i)}\right) &= \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ...
+\eta(x_i) &= X\underline{\beta}\\
+p_i &= \sigma(\eta(x_i))\\
+\implies \log\left(\frac{p_i}{1-p_i}\right) &= X\underline{\beta}
 \end{align*}
 
+:::
+::: {.column width="50%"}
 
 ```{r}
 #| fig-height: 3
@@ -103,46 +159,83 @@ Default %>%
             y = "Default?")
 ```
 
+:::
+::::
+
 \centering
 $\eta(x_i) = -10.65 + 0.0054\cdot\text{balance}_i$
 
-
 ### Logistic Regression
 
-- The response is 0 or 1 (no or yes, dont' default or default, etc.)\lspace
+- The response is 0 or 1 (no or yes, don't default or default, etc.)\lspace
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+
 - The probability of a 1 increases according to the sigmoid function.
     - The **linear predictor** is $\eta(x_i) = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \cdots$
     - The probability of class 1 is $P(\text{class }1 | \text{predictors}) = \sigma(\eta(x_i))$\lspace
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
 - Instead of normality assumptions, we use a binomial distribution.
 
 It's just one step away from a linear model!
 
 ### Interpreting Parameters
 
-- General structure: "For each one unit increase in $x_i$, some function of $y_i$ changes by some function of $\beta$"".\newline\pause
+- General structure: "For each one unit increase in $x_i$, some function of $y_i$ changes by some function of $\beta$"".
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
 - For logistic regression:
-    - For each one unit increase in $x_i$, $\log\left(\frac{p(x_i)}{1-p(x_i)}\right)$ increases by $\beta$.\pause\newline
+    - One unit increase in $x_i$, $\log\left(\frac{p(x_i)}{1-p(x_i)}\right)$ increases by $\beta$.\pause\newline
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
 - The **odds** are $\frac{p(x_i)}{1-p(x_i)}$.
-    - "1 in 5 people with offs of 1/4 will default on their loan."\newline
-- $\beta$ represents the **change in log odds** for a one unit increase.
+    - "1 in 5 people with odds of 1/4 will default."\newline
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+- $\beta$ is the **change in log odds** for a one unit increase.
     - "**log odds _ratio_**".
 
-### Estimating Parameters: Maximum Likelihood
+### The Loss Function
 
 For all observations:
 
 - If $y_i = 0$, we want $p(x_i)$ to be as *low* as possible.
-    - Maximize $1 - P(Y_{i'} = 1|\beta_0,\beta_1,X)$\lspace
-- If $y_i = 1$, we want $p(x_i)$ to be as *high* as possible.
-    - Maximize $P(Y_{i'} = 1|\beta_0,\beta_1,X)$
+    - Maximize $1 - P(Y_{i} = 1|\beta_0,\beta_1,X)$\lspace
 
-\quad
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+- If $y_i = 1$, we want $p(x_i)$ to be as *high* as possible.
+    - Maximize $P(Y_{i} = 1|\beta_0,\beta_1,X)$
+
+### Estimating the Parameters
 
 These can be combined as:
 $$
-\ell(\beta_0,\beta_1) = \prod_{i':y_{i'} = 0}(1 - P(Y_{i'} = 1|\beta_0,\beta_1,X))\prod_{i:y_i=1}P(Y_i = 1|\beta_0,\beta_1,X)
+\prod_{i':y_{i'} = 0}(1 - P(Y_{i'} = 1|\beta_0,\beta_1,X))\prod_{i:y_i=1}P(Y_i = 1|\beta_0,\beta_1,X)
 $$
 Which is NOT just the sum of squared errors!
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
 
 Unlike linear regression, there's no closed form for $\hat\beta_0$ and $\hat\beta_1$ $\Rightarrow$ need numerical methods.
 
@@ -170,7 +263,7 @@ $$
 \eta(x_i) = -3.5 + 0.5\cdot\text{student}
 $$
 
-The odds of a student defaulting are $\exp(0.5)\approx1.65$ times as high as a non-student.\pause
+Odds of a student defaulting are $\exp(0.5)\approx1.65$ times as high as a non-student.\pause
 :::
 ::: {.column width="45%"}
 ```{r}
@@ -193,7 +286,7 @@ $$
 \eta(x_i) = -10.65 + 0.005\cdot\text{balance}
 $$
 
-Each extra dollar of credit card balance increases the odds of defaulting by a factor of 1.005.
+Each extra dollar of CC balance increases odds of defaulting by a factor of 1.005.
 :::
 ::::
 
@@ -205,14 +298,16 @@ Each extra dollar of credit card balance increases the odds of defaulting by a f
 "The odds of a student defaulting are $\exp(0.5)\approx1.65$ times as high as a non-student."
 
 $$
-\frac{P(\text{defaulting} | \text{student} = 1)}{1 - P(\text{defaulting} | \text{student} = 1)} \biggm/ \frac{P(\text{defaulting} | \text{student} = 0)}{1 - P(\text{defaulting} | \text{student} = 0)} = 1.65
+\frac{P(\text{default} | \text{student} = 1)}{1 - P(\text{default} | \text{student} = 1)} \biggm/ \frac{P(\text{default} | \text{student} = 0)}{1 - P(\text{default} | \text{student} = 0)} = 1.65
 $$
-This **cannot** be solved for $P(\text{defaulting} | \text{student} = 1)$!
+This **cannot** be solved for $P(\text{default} | \text{student} = 1)$!
 
-\quad\pause
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
 
 $$
-P(\text{defaulting} | \text{student} = 1) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))} = \dfrac{\exp(-3.5 + 0.5\cdot 1)}{1 + \exp(-3.5 + 0.5\cdot 1)} \approx 0.047
+P(\text{default} | \text{student} = 1) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))} \approx 0.047
 $$
 
 
@@ -220,21 +315,34 @@ $$
 
 - Predictors can be **multicollinear**, **confounded**, and have **interactions**.
     - Logistic is just Linear on a transformed scale!\lspace
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
 - We do *not* look for transformations of the response.
     - It's already a transformation of the response $p_i(x_i)$!\lspace
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
 - We *do* look for transformations of the predictors!
     - Sigmoid + Polynomial is where the real fun is.\lspace
 
 ### Errors in Logistic Regression: Deviance
 
 - All "errors" are either $p(x_i)$ or $1 - p(x_i)$.
-    - Distance from either 0 or 1.
+    - i.e., distances are measured form either 0 or 1.
 
-\pspace
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
 
 Instead, we use the *deviance*.
 
 - If $p(x_i)$ were the true probability in a binomial distribution, what's the probability of the observed value (0 or 1)? 
+    - In other words, $P(y_i = 1| \beta_0, \beta_1, \sigma)$ and $1 - P(y_i = 0| \beta_0, \beta_1, \sigma)$ are the residuals!
     - This is used more broadly in **Generalized Linear Models** (GLMs). Logistic Regression is one of many GLMs.
 
 
@@ -246,11 +354,11 @@ $$
 P(\text{defaulting} | \eta(x_i)) > p \implies a + bx_1 + cx_2 + dx_3 > e
 $$
 
-For some (linear) hyperplane $a + bx_1 + cx_2 + dx_3$ and some value $e$.
+for some (linear) hyperplane $a + bx_1 + cx_2 + dx_3$ and some value $e$.
 
 \quad
 
-- Choosing $p=0.5$ is logical, but other thresholds can be chosen.
+- Choosing $p=0.5$ is standard, but other thresholds can be chosen.
     - Cancer example: want to be more admissive of false positives
         - Would rather operate and be wrong than falsely tell the patient that they're healthy!
 
@@ -355,7 +463,7 @@ $$
 **Confusion Matrix:** A tabular summary of classification errors.
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="60%"}
 
 | | True Pay ($\cdot 0$) | True Def ($\cdot 1$)|
 |---|---|---|
@@ -364,7 +472,7 @@ $$
 
 
 :::
-::: {.column width="50%"}
+::: {.column width="40%"}
 \vspace{0.25cm}
 
 - Two ways to be wrong\newline
@@ -406,7 +514,7 @@ Task: Predict whether a person has cancer
 
 
 
-### The Confusion Matrix for Default Data
+### The Confusion Matrix for Default Data {.scrollable}
 
 ```{r}
 #| eval: false
@@ -434,14 +542,9 @@ Other important measures (not on exam):
 - Sensitivity: $\dfrac{\text{True Positives}}{\text{All Positives in Data}} = \dfrac{9627}{9627 + 40} = 99.58%$ (Naive: 100%)\lspace
 - Specificity: $\dfrac{\text{True Negatives}}{\text{All Negatives in Data}} = \dfrac{105}{105 + 228} = 31.53$ (Naive: 0%)
 
-### Logistic Regression in R
+### Logistic Regression in R {.scrollable}
 
-See Course Notes
-
-:::notes
-Model building works very similarly, but it's *very* difficult to interpret the residual plots.
-
-```{r}
+```{webr-r}
 library(palmerpenguins)
 peng <- penguins[complete.cases(penguins), ]
 
@@ -468,20 +571,20 @@ coef(log_spec)
 
 The residual plots are the same as before:
 
-```{r}
+```{webr-r}
 par(mfrow = c(2, 2))
 plot(log_spec)
 ```
 
 The predictions can either be on the logit scale (`type = "link"`, the default) or on the response scale (probabilities).
 
-```{r}
+```{webr-r}
 predict(log_spec, type = "response") |> head()
 ```
 
 Regularization is often used with logistic regression (in python's scikit-learn package, Ridge regularization is used by default without warning the user).
 
-```{r}
+```{webr-r}
 library(glmnet)
 
 X <- model.matrix(sex ~ species*(bill_length_mm + 
@@ -496,26 +599,3 @@ mylasso <- glmnet(X, y,
     lambda = mycv$lambda.1se)
 coef(mylasso)
 ```
-:::
-
-## Multinomial Regression
-
-### Multinomial Logistic Regression: K Classes
-
-We have a total probability of 1 to distribute across the classes,\pause
-
-- **Stick breaking**
-    1. Fit a logistic regression of `class 1` versus `not class 1`.
-        - Remove obs. with `class 1`
-    2. Fit a logistic regression of `class 2` versus `not class 1`.
-        - Remove obs. with `class 2`
-    3. ...
-    4. Class $K$ gets whatever probability is left over.\pause\newline
-- **Softmaxing**
-    1. For all classes, fit a logistic regression of `class k` versus `not class k`.
-    2. In the end, divide by the total probability to make sure they sum to 1.
-    - Very often used in machine learning!
-
-These two give the same results!
-
-
