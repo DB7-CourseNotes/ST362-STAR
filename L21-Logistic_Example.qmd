@@ -22,43 +22,57 @@ This is not the only possible question with these data:
 
 Use the following code block to get acquainted with the data. In class, we'll make a lot of plots!
 
+The response variable is a factor with levels "CH" for Citrus Hill and "MM" for Minute Maid. Let's convert this to 1s and 0s so that we can do math on it. We'll set MM to 1 and CH to 0 (this is completely arbitrary and will affect the interpretations but not the results).
+
+Also, the "STORE" predictor is numeric, but the numbers aren't actually meaningful. Store 4 is not twice the store as store 2, these are actually *ordinal* values. Let's make it a factor so that we don't accidentally fit a linear model with it.
+
 ```{webr-r}
 library(ISLR2)
 data(OJ)
+OJ$Purchase <- as.numeric(OJ$Purchase == "MM")
+OJ$StoreID <- factor(OJ$StoreID)
 str(OJ)
+```
+
+What patterns in the predictors can you find? Take a good read of the help file (`?OJ`), there are some hints in there. For example, there's `StoreID`, which includes a store labelled 7, but there's also an indicator for whether the store is 7, likely meaning that the authors thought there was something special about store 7. There are other hints there too!
+
+Change the code below and see what you find!
+
+```{webr-r}
+par(mfrow = c(2, 2))
+
+plot(PriceMM ~ PriceCH, data = OJ)
+abline(0, 1) # If PriceCH == PriceMM, they will be on this line
+# MM is almost always more expensive than CH.
+
+boxplot(PriceMM ~ StoreID, data = OJ)
+boxplot(PriceDiff ~ StoreID, data = OJ)
+hist(OJ$LoyalCH) # Potentially a measure of how loyal they are to CH?
 ```
 
 There are some predictors that require more advanced exploration techniques:
 
 ```{webr-r}
 par(mfrow = c(2, 2))
-plot(PriceMM ~ WeekofPurchase, data = OJ, col = STORE,
+plot(PriceMM ~ WeekofPurchase, data = OJ, col = StoreID,
     main = "Price stays consistent for\nbrief periods within stores")
-plot(PriceCH ~ WeekofPurchase, data = OJ, col = STORE,
+plot(PriceCH ~ WeekofPurchase, data = OJ, col = StoreID,
     main = "This is true for CH, too.")
-plot(PriceDiff ~ WeekofPurchase, data = OJ, col = STORE,
+plot(PriceDiff ~ WeekofPurchase, data = OJ, col = StoreID,
     main = "Price difference changes a lot!")
-plot(PriceMM ~ DiscMM, data = OJ, col = STORE,
+plot(PriceMM ~ DiscMM, data = OJ, col = StoreID,
     main = "DiscMM does not fully\nexplain the price changes")
 ```
 
 Also notice that the prices are all just a little bit below "nice" values. Prices are $1.99, $1.69, etc. because with $1.99 you read the "1" first and it feels like it's just a little above $1 instead of being practically $2. I hate this tactic. Remember: if money is involved, someone is trying to manipulate you.
 
-The response variable is a factor with levels "CH" for Citrus Hill and "MM" for Minute Maid. Let's convert this to 1s and 0s so that we can do math on it. We'll set MM to 1 and CH to 0 (this is completely arbitrary and will affect the interpretations but not the results).
-
-Also, the "STORE" predictor is numeric, but the numbers aren't actually meaningful. Store 4 is not twice the store as store 2, these are actually *ordinal* values. Let's make it a factor so that we don't accidentally fit a linear model with it.
-
-```{webr-r}
-OJ$Purchase <- as.numeric(OJ$Purchase == "MM")
-OJ$STORE <- factor(OJ$STORE)
-```
 
 ## Step 2: Propose some models
 
 Use the following chunk to explore which predictors might be related to the response, including a possible interaction term.
 
 ```{webr-r}
-plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 10, ...) {
+plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 5, ...) {
     if (is.null(g)) {
         g <- 1
     } else {
@@ -68,7 +82,7 @@ plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 10, ...) {
     for(group in g) {
         xg <- x[g == group]
         yg <- y[g == group]
-        xseq <- seq(min(xg), max(xg), length.out = 50)
+        xseq <- seq(min(xg), max(xg), length.out = n)
         window <- diff(range(xg)) * window_frac
         mean_y <- c()
         for(i in seq_along(xseq)) {
@@ -78,16 +92,19 @@ plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 10, ...) {
     }
 }
 par(mfrow = c(2, 2))
-plot_averages(OJ$DiscMM, OJ$Purchase, g = OJ$STORE,
+plot_averages(OJ$DiscMM, OJ$Purchase, g = OJ$StoreID,
+    window_frac = 1/5,
     main = "In all stores, a larger\ndiscount increases P(MM)",
     xlab = "Discount of MM", ylab = "Prob(Purchase MM)")
-plot_averages(OJ$PriceDiff, OJ$Purchase, g = OJ$STORE,
+plot_averages(OJ$PriceDiff, OJ$Purchase, g = OJ$StoreID,
+    window_frac = 1/5,
     main = "In most stores, the cheaper\njuice is more likely to be purchased.",
-    xlab = "Discount of MM", ylab = "Prob(Purchase MM)")
-barplot(table(OJ$Purchase, OJ$STORE), beside = TRUE,
+    xlab = "Price Difference (MM - CH)", ylab = "Prob(Purchase MM)")
+barplot(table(OJ$Purchase, OJ$StoreID), beside = TRUE,
     legend.text = TRUE,
     main = "Stores 0 and 4 sell a lot more CH")
 ```
+
 
 
 

@@ -30,6 +30,55 @@ set.seed(2112)
 - Response: 0 or 1
     - Predictions: probability of a 1?\lspace
 
+### Why Not Linear Regression?
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| eval: true
+#| echo: false
+
+library(ISLR2)
+library(ggplot2)
+
+ggplot(Default) +
+    aes(x = balance, y = as.numeric(default) - 1) +
+    geom_jitter(height = 0.1, width = 0) +
+    theme_bw() +
+    labs(x = "Credit Card Balance",
+        y = "Defaulted (No = 0, Yes = 1)") +
+    scale_y_continuous(breaks = c(0, 1), minor_breaks = c(0, 1))
+```
+:::
+::::
+
+### The mean of y at each value of x
+
+```{r}
+#| label: mean-of-y-for-each-x
+#| echo: false
+#| eval: true
+#| code-fold: false
+plot_averages <- function(x, y, n = 50, window_frac = 1 / 5, ...) {
+    plot(x, y, ...)
+    xseq <- seq(min(x), max(x), length.out = n)
+    window <- diff(range(x)) * window_frac
+    mean_y <- c()
+    for(i in seq_along(xseq)) {
+        mean_y[i] <- mean(y[x < xseq[i] + window & x > xseq[i] - window])
+    }
+    lines(xseq, mean_y)
+}
+plot_averages(x = Default$balance, y = as.numeric(Default$default) - 1,
+    window_frac = 1 / 15,
+    ylab = "Default (0 = No, 1 = Yes)",
+    xlab = "Credit Card Balance")
+```
 
 ### The Logistic Function - A Sigmoidal Function
 
@@ -61,35 +110,6 @@ ggplot() + theme_minimal() +
 
 :::
 ::::
-
-### Logistic Function - Now with Parameters
-
-```{r}
-#| fig-height: 5
-#| fig-width: 4
-#| layout-ncol: 3
-#| echo: false
-library(ggplot2)
-t <- seq(-10, 10, 0.01)
-sigma <- function(t) exp(t)/(1 + exp(t))
-ggplot() + theme_minimal() +
-    geom_line(mapping = aes(x = t, y = sigma(t + 1))) +
-    geom_hline(yintercept = c(0,1), linetype = "dashed") +
-    labs(x = "t", y = expression(sigma(t)),
-        title = expression(sigma(t+1)))
-
-ggplot() + theme_minimal() +
-    geom_line(mapping = aes(x = t, y = sigma(t/3))) +
-    geom_hline(yintercept = c(0,1), linetype = "dashed") +
-    labs(x = "t", y = expression(sigma(t)),
-        title = expression(sigma(t*"/3")))
-
-ggplot() + theme_minimal() +
-    geom_line(mapping = aes(x = t, y = sigma(-t*3 - 10))) +
-    geom_hline(yintercept = c(0,1), linetype = "dashed") +
-    labs(x = "t", y = expression(sigma(t)),
-        title = expression(sigma("-3"*t-10)))
-```
 
 ### Logistic Function - Now with Parameters
 
@@ -142,21 +162,22 @@ p_i &= \sigma(\eta(x_i))\\
 ::: {.column width="50%"}
 
 ```{r}
-#| fig-height: 3
-#| fig-width: 4
+#| fig-height: 4
+#| fig-width: 5
+#| echo: false
+#| code-fold: false
 library(ISLR2)
 library(ggplot2)
 library(dplyr)
-#| echo: false
-Default %>% 
-    mutate(default = as.numeric(factor(default)) - 1) %>%
-    ggplot() + theme_minimal() +
-        aes(x = balance, y = default) + 
-        geom_jitter(width = 0, height = 0.05) +
-        geom_smooth(method = "glm", se = FALSE,
-            method.args = list(family = "binomial")) +
-        labs(x = "Credit Card Balance",
-            y = "Default?")
+
+plot_averages(x = Default$balance, y = as.numeric(Default$default) - 1,
+    window_frac = 1/15,
+    ylab = "Default (0 = No, 1 = Yes)",
+    xlab = "Credit Card Balance")
+xseq <- seq(min(Default$balance), max(Default$balance), by = 10)
+expit <- function(eta) exp(eta) / (1 + exp(eta))
+yseq <- expit(-10.65 + 0.0054 * xseq)
+lines(xseq, yseq,col = "red")
 ```
 
 :::
@@ -217,19 +238,16 @@ For all observations:
 
 - If $y_i = 0$, we want $p(x_i)$ to be as *low* as possible.
     - Maximize $1 - P(Y_{i} = 1|\beta_0,\beta_1,X)$\lspace
+- If $y_i = 1$, we want $p(x_i)$ to be as *high* as possible.
+    - Maximize $P(Y_{i} = 1|\beta_0,\beta_1,X)$
 
 ::: {.content-visible unless-profile="book"}
 &nbsp;
 :::
 
-- If $y_i = 1$, we want $p(x_i)$ to be as *high* as possible.
-    - Maximize $P(Y_{i} = 1|\beta_0,\beta_1,X)$
-
-### Estimating the Parameters
-
 These can be combined as:
 $$
-\prod_{i':y_{i'} = 0}(1 - P(Y_{i'} = 1|\beta_0,\beta_1,X))\prod_{i:y_i=1}P(Y_i = 1|\beta_0,\beta_1,X)
+\prod_{i:y_{i} = 0}\left(1 - P(Y_{i} = 1|\beta_0,\beta_1,X)\right)\prod_{i:y_i=1}P(Y_i = 1|\beta_0,\beta_1,X)
 $$
 Which is NOT just the sum of squared errors!
 
@@ -237,7 +255,7 @@ Which is NOT just the sum of squared errors!
 &nbsp;
 :::
 
-Unlike linear regression, there's no closed form for $\hat\beta_0$ and $\hat\beta_1$ $\Rightarrow$ need numerical methods.
+Unlike linear regression, there's no closed form for $\hat{\beta}_0$ and $\hat\beta_1$; we need numerical methods.
 
 ### Examples: Two different predictors in the `Default` data
 
@@ -290,6 +308,10 @@ Each extra dollar of CC balance increases odds of defaulting by a factor of 1.00
 :::
 ::::
 
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
 \pause
 *The scale of the predictors matters.*
 
@@ -300,11 +322,13 @@ Each extra dollar of CC balance increases odds of defaulting by a factor of 1.00
 $$
 \frac{P(\text{default} | \text{student} = 1)}{1 - P(\text{default} | \text{student} = 1)} \biggm/ \frac{P(\text{default} | \text{student} = 0)}{1 - P(\text{default} | \text{student} = 0)} = 1.65
 $$
-This **cannot** be solved for $P(\text{default} | \text{student} = 1)$!
+
 
 ::: {.content-visible unless-profile="book"}
 &nbsp;
 :::
+
+This **cannot** be solved for $P(\text{default} | \text{student} = 1)$!
 
 $$
 P(\text{default} | \text{student} = 1) = \dfrac{\exp(\eta(x_i))}{1 + \exp(\eta(x_i))} \approx 0.047
@@ -342,7 +366,8 @@ $$
 Instead, we use the *deviance*.
 
 - If $p(x_i)$ were the true probability in a binomial distribution, what's the probability of the observed value (0 or 1)? 
-    - In other words, $P(y_i = 1| \beta_0, \beta_1, \sigma)$ and $1 - P(y_i = 0| \beta_0, \beta_1, \sigma)$ are the residuals!
+    - In other words, $P(Y_i = 1| \beta_0, \beta_1, X)$ and $1 - P(Y_i = 1| \beta_0, \beta_1, X)$ are the residuals!
+        - The residual we use depends on what the response is. If $y_i = 0$, the residual is $P(Y_i = 1 | \beta_0, \beta_1, X)$
     - This is used more broadly in **Generalized Linear Models** (GLMs). Logistic Regression is one of many GLMs.
 
 
@@ -440,6 +465,39 @@ P(\text{defaulting} | x) &= \dfrac{\exp(\eta(x))}{1 + \exp(\eta(x))} \approx \df
 &\\
 &P(\text{defaulting} | x) > 0.5 \implies \text{Predict Default}
 \end{align*}
+
+### Standard Errors: It's complicated
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+We don't have an estimate like $\hat\beta = (X^TX)^{-1}X^TY$. We had to resort to numerical methods.
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+There *is* a closed form for $V(\hat\beta)$ and a way to test significance, but they're beyond the scope of this course.
+
+- Relies on likelihoods, which we avoided in this course.
+- You can assume significance tests in R output are correct.
+
+
+## Participation
+
+### Q1
+
+
+
+### Q2
+
+### Q3
+
+### Q4
+
+### Q5
+
 
 
 ## Classification Basics
