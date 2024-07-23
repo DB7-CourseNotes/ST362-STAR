@@ -76,6 +76,7 @@ plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 10, ...) {
         lines(xseq, mean_y, col = group)
     }
 }
+par(mfrow = c(2, 2))
 plot_averages(OJ$DiscMM, OJ$Purchase, g = OJ$STORE,
     main = "In all stores, a larger\ndiscount increases P(MM)",
     xlab = "Discount of MM", ylab = "Prob(Purchase MM)")
