@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"options":{"output":"true","dpi":72,"out-height":"","fig-width":7,"out-width":"700px","editor-font-scale":1,"warning":"true","message":"true","fig-cap":"","results":"markup","read-only":"false","classes":"","context":"interactive","fig-height":5,"comment":"","label":"unnamed-chunk-1","autorun":"false","editor-quick-suggestions":"false","editor-max-height":""},"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))"},{"id":2,"options":{"output":"true","dpi":72,"out-height":"","fig-width":7,"out-width":"700px","editor-font-scale":1,"warning":"true","message":"true","fig-cap":"","results":"markup","read-only":"false","classes":"","context":"interactive","fig-height":5,"comment":"","label":"trans1","autorun":"false","editor-quick-suggestions":"false","editor-max-height":""},"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)"}];
+globalThis.qwebrCellDetails = [{"options":{"output":"true","fig-cap":"","label":"unnamed-chunk-1","message":"true","comment":"","out-width":"700px","results":"markup","read-only":"false","classes":"","editor-quick-suggestions":"false","fig-height":5,"autorun":"false","editor-font-scale":1,"editor-max-height":"","context":"interactive","warning":"true","fig-width":7,"dpi":72,"out-height":""},"id":1,"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))"},{"options":{"output":"true","fig-cap":"","label":"trans1","message":"true","comment":"","out-width":"700px","results":"markup","read-only":"false","classes":"","editor-quick-suggestions":"false","fig-height":5,"autorun":"false","editor-font-scale":1,"editor-max-height":"","context":"interactive","warning":"true","fig-width":7,"dpi":72,"out-height":""},"id":2,"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)"}];
 
 </script>
 <script type="module">
@@ -1374,12 +1374,6 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L21-Logistic_Example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Modelling with Logistic Regression</span></span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1394,7 +1388,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>

@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L21-Logistic_Example.html" rel="next">
+<link href="./L22-Review.html" rel="next">
 <link href="./L19-Regularization.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -316,7 +316,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"library(palmerpenguins)\npeng <- penguins[complete.cases(penguins), ]\n\nlog_cont <- glm(sex ~ bill_length_mm + \n        bill_depth_mm + flipper_length_mm,\n    data = peng, family = \"binomial\")\n\nanova(log_cont, test = \"Chisq\") # Sequential\n\nlog_spec <- update(log_cont, ~ . + species * flipper_length_mm)\n\nanova(log_cont, log_spec, test = \"Chisq\")\n\nfull_spec <- glm(sex ~ species*(bill_length_mm + \n        bill_depth_mm + flipper_length_mm),\n    data = peng, family = \"binomial\")\n\nanova(log_spec, full_spec, test = \"Chisq\")\nanova(log_spec, update(log_spec, ~ . - species:flipper_length_mm), test = \"Chisq\")\n\nsummary(log_spec)\ncoef(log_spec)","id":1,"options":{"editor-quick-suggestions":"false","out-height":"","read-only":"false","comment":"","results":"markup","warning":"true","fig-cap":"","fig-height":5,"fig-width":7,"context":"interactive","output":"true","autorun":"false","out-width":"700px","classes":"","editor-font-scale":1,"label":"unnamed-chunk-1","message":"true","dpi":72,"editor-max-height":""}},{"code":"par(mfrow = c(2, 2))\nplot(log_spec)","id":2,"options":{"editor-quick-suggestions":"false","out-height":"","read-only":"false","comment":"","results":"markup","warning":"true","fig-cap":"","fig-height":5,"fig-width":7,"context":"interactive","output":"true","autorun":"false","out-width":"700px","classes":"","editor-font-scale":1,"label":"unnamed-chunk-2","message":"true","dpi":72,"editor-max-height":""}},{"code":"predict(log_spec, type = \"response\") |> head()","id":3,"options":{"editor-quick-suggestions":"false","out-height":"","read-only":"false","comment":"","results":"markup","warning":"true","fig-cap":"","fig-height":5,"fig-width":7,"context":"interactive","output":"true","autorun":"false","out-width":"700px","classes":"","editor-font-scale":1,"label":"unnamed-chunk-3","message":"true","dpi":72,"editor-max-height":""}},{"code":"library(glmnet)\n\nX <- model.matrix(sex ~ species*(bill_length_mm + \n        bill_depth_mm + flipper_length_mm),\n    data = peng)\ny <- as.factor(peng$sex)\n\nmycv <- cv.glmnet(X, y, family = binomial)\n\nmylasso <- glmnet(X, y,\n    data = peng, family = \"binomial\", alpha = 1,\n    lambda = mycv$lambda.1se)\ncoef(mylasso)","id":4,"options":{"editor-quick-suggestions":"false","out-height":"","read-only":"false","comment":"","results":"markup","warning":"true","fig-cap":"","fig-height":5,"fig-width":7,"context":"interactive","output":"true","autorun":"false","out-width":"700px","classes":"","editor-font-scale":1,"label":"unnamed-chunk-4","message":"true","dpi":72,"editor-max-height":""}}];
+globalThis.qwebrCellDetails = [{"code":"library(palmerpenguins)\npeng <- penguins[complete.cases(penguins), ]\n\nlog_cont <- glm(sex ~ bill_length_mm + \n        bill_depth_mm + flipper_length_mm,\n    data = peng, family = \"binomial\")\n\nanova(log_cont, test = \"Chisq\") # Sequential\n\nlog_spec <- update(log_cont, ~ . + species * flipper_length_mm)\n\nanova(log_cont, log_spec, test = \"Chisq\")\n\nfull_spec <- glm(sex ~ species*(bill_length_mm + \n        bill_depth_mm + flipper_length_mm),\n    data = peng, family = \"binomial\")\n\nanova(log_spec, full_spec, test = \"Chisq\")\nanova(log_spec, update(log_spec, ~ . - species:flipper_length_mm), test = \"Chisq\")\n\nsummary(log_spec)\ncoef(log_spec)","options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","message":"true","out-height":"","editor-font-scale":1,"output":"true","autorun":"false","dpi":72,"fig-width":7,"warning":"true","classes":"","fig-height":5,"results":"markup","label":"unnamed-chunk-1","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false"},"id":1},{"code":"par(mfrow = c(2, 2))\nplot(log_spec)","options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","message":"true","out-height":"","editor-font-scale":1,"output":"true","autorun":"false","dpi":72,"fig-width":7,"warning":"true","classes":"","fig-height":5,"results":"markup","label":"unnamed-chunk-2","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false"},"id":2},{"code":"predict(log_spec, type = \"response\") |> head()","options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","message":"true","out-height":"","editor-font-scale":1,"output":"true","autorun":"false","dpi":72,"fig-width":7,"warning":"true","classes":"","fig-height":5,"results":"markup","label":"unnamed-chunk-3","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false"},"id":3},{"code":"library(glmnet)\n\nX <- model.matrix(sex ~ species*(bill_length_mm + \n        bill_depth_mm + flipper_length_mm),\n    data = peng)\ny <- as.factor(peng$sex)\n\nmycv <- cv.glmnet(X, y, family = binomial)\n\nmylasso <- glmnet(X, y,\n    data = peng, family = \"binomial\", alpha = 1,\n    lambda = mycv$lambda.1se)\ncoef(mylasso)","options":{"comment":"","read-only":"false","fig-cap":"","context":"interactive","message":"true","out-height":"","editor-font-scale":1,"output":"true","autorun":"false","dpi":72,"fig-width":7,"warning":"true","classes":"","fig-height":5,"results":"markup","label":"unnamed-chunk-4","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false"},"id":4}];
 
 </script>
 <script type="module">
@@ -1379,12 +1379,6 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L21-Logistic_Example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Modelling with Logistic Regression</span></span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1399,7 +1393,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -2874,8 +2868,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L21-Logistic_Example.html" class="pagination-link" aria-label="Modelling with Logistic Regression">
-        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Modelling with Logistic Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L22-Review.html" class="pagination-link" aria-label="Final Exam Review">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
