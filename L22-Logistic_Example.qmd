@@ -1,0 +1,95 @@
+---
+title: "Modelling with Logistic Regression"
+filters:
+  - webr
+---
+
+## Step 1: Concentrate on the Orange Juice
+
+For this analysis, let's look at Orange Juice data from the ISLR2 package (I've resisted the temptation to use the `Auto` data).
+
+Before we begin, define the goal:
+
+Goal: When a customer comes in the store, can we predict which brand they buy?
+
+This is not the only possible question with these data:
+
+- Is the price difference enough to explain why people choose a brand? (If not, then the difference might be because people genuinely like one better than the other.)
+- How big of a discount is needed to sway a customer's purchase?
+- Do different stores have customers with different purchasing habits?
+
+Use the following code block to get acquainted with the data. In class, we'll make a lot of plots!
+
+```{r}
+library(ISLR2)
+data(OJ)
+str(OJ)
+# pairs plot, individual predictors, etc.
+```
+
+There are some predictors that require more advanced exploration techniques:
+
+```{r}
+par(mfrow = c(2, 2))
+plot(PriceMM ~ WeekofPurchase, data = OJ, col = STORE,
+    main = "Price stays consistent for\nbrief periods within stores")
+plot(PriceCH ~ WeekofPurchase, data = OJ, col = STORE,
+    main = "This is true for CH, too.")
+plot(PriceDiff ~ WeekofPurchase, data = OJ, col = STORE,
+    main = "Price difference changes a lot!")
+plot(PriceMM ~ DiscMM, data = OJ, col = STORE,
+    main = "DiscMM does not fully\nexplain the price changes")
+```
+
+Also notice that the prices are all just a little bit below "nice" values. Prices are $1.99, $1.69, etc. because with $1.99 you read the "1" first and it feels like it's just a little above $1 instead of being practically $2. I hate this tactic. Remember: if money is involved, someone is trying to manipulate you.
+
+The response variable is a factor with levels "CH" for Citrus Hill and "MM" for Minute Maid. Let's convert this to 1s and 0s so that we can do math on it. We'll set MM to 1 and CH to 0 (this is completely arbitrary and will affect the interpretations but not the results).
+
+Also, the "STORE" predictor is numeric, but the numbers aren't actually meaningful. Store 4 is not twice the store as store 2, these are actually *ordinal* values. Let's make it a factor so that we don't accidentally fit a linear model with it.
+
+```{r}
+OJ$Purchase <- as.numeric(OJ$Purchase == "MM")
+OJ$STORE <- factor(OJ$STORE)
+```
+
+## Step 2: Propose some models
+
+Use the following chunk to explore which predictors might be related to the response, including a possible interaction term.
+
+```{r}
+plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 10, ...) {
+    if (is.null(g)) {
+        g <- 1
+    } else {
+        g <- as.numeric(factor(g))
+    }
+    plot(x, y, col = g, ...)
+    for(group in g) {
+        xg <- x[g == group]
+        yg <- y[g == group]
+        xseq <- seq(min(xg), max(xg), length.out = 50)
+        window <- diff(range(xg)) * window_frac
+        mean_y <- c()
+        for(i in seq_along(xseq)) {
+           mean_y[i] <- mean(yg[xg < xseq[i] + window & xg > xseq[i] - window])
+        }
+        lines(xseq, mean_y, col = group)
+    }
+}
+plot_averages(OJ$DiscMM, OJ$Purchase, g = OJ$STORE,
+    main = "In all stores, a larger\ndiscount increases P(MM)",
+    xlab = "Discount of MM", ylab = "Prob(Purchase MM)")
+plot_averages(OJ$PriceDiff, OJ$Purchase, g = OJ$STORE,
+    main = "In most stores, the cheaper\njuice is more likely to be purchased.",
+    xlab = "Discount of MM", ylab = "Prob(Purchase MM)")
+barplot(table(OJ$Purchase, OJ$STORE), beside = TRUE,
+    legend.text = TRUE,
+    main = "Stores 0 and 4 sell a lot more CH")
+```
+
+
+
+
+
+
+
