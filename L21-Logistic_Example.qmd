@@ -20,7 +20,7 @@ This is not the only possible question with these data:
 
 Use the following code block to get acquainted with the data. In class, we'll make a lot of plots!
 
-```{r}
+```{webr-r}
 library(ISLR2)
 data(OJ)
 str(OJ)
@@ -29,7 +29,7 @@ str(OJ)
 
 There are some predictors that require more advanced exploration techniques:
 
-```{r}
+```{webr-r}
 par(mfrow = c(2, 2))
 plot(PriceMM ~ WeekofPurchase, data = OJ, col = STORE,
     main = "Price stays consistent for\nbrief periods within stores")
@@ -47,7 +47,7 @@ The response variable is a factor with levels "CH" for Citrus Hill and "MM" for 
 
 Also, the "STORE" predictor is numeric, but the numbers aren't actually meaningful. Store 4 is not twice the store as store 2, these are actually *ordinal* values. Let's make it a factor so that we don't accidentally fit a linear model with it.
 
-```{r}
+```{webr-r}
 OJ$Purchase <- as.numeric(OJ$Purchase == "MM")
 OJ$STORE <- factor(OJ$STORE)
 ```
@@ -56,7 +56,7 @@ OJ$STORE <- factor(OJ$STORE)
 
 Use the following chunk to explore which predictors might be related to the response, including a possible interaction term.
 
-```{r}
+```{webr-r}
 plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 10, ...) {
     if (is.null(g)) {
         g <- 1

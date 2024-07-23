@@ -53,7 +53,8 @@ book:
     - part: Advanced Topics
       chapters:
         - L19-Regularization.qmd
-        - L21-Logistic.qmd
+        - L20-Logistic.qmd
+        - L21-Logistic_Example.qmd
     - part: Review
       chapters:
         - L22-Review.qmd
