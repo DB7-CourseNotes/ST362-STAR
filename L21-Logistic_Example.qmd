@@ -1,8 +1,10 @@
 ---
-title: "Modelling with Logistic Regression"
+institute: "Jam: **Love's a Logistical Thing** by PJ Parker"
 filters:
   - webr
 ---
+
+# Logistic Modelling
 
 ## Step 1: Concentrate on the Orange Juice
 
@@ -24,7 +26,6 @@ Use the following code block to get acquainted with the data. In class, we'll ma
 library(ISLR2)
 data(OJ)
 str(OJ)
-# pairs plot, individual predictors, etc.
 ```
 
 There are some predictors that require more advanced exploration techniques:

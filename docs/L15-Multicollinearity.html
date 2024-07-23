@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"library(car)\nlibrary(MASS)\nn <- 50\n\nx1_x2_corr <- 0.8 # Change me!\nx1_x3_corr <- 0 # Change me!\ncoef_of_x2_in_y <- 2 # Change me too!\nX <- mvrnorm(n = n, mu = c(0, 0, 0), \n        Sigma = matrix(c(\n                1,          x1_x2_corr, x1_x3_corr,\n                x1_x2_corr, 1,          0,\n                x1_x3_corr, 0,          1),\n            nrow = 3))\nmydata <- data.frame(\n    y = 0 + 4*X[, 1] + coef_of_x2_in_y*X[, 2] +\n        2 * X[, 3] + rnorm(n, 0, 5),\n    x1 = X[, 1], x2 = X[, 2], x3 = X[, 3]\n)\nmylm <- lm(y ~ x1 + x2 + x3, data = mydata)\nvif(mylm)\npairs(mydata)","options":{"message":"true","warning":"true","echo":"true","fig-width":7,"editor-quick-suggestions":"false","editor-max-height":"","context":"interactive","autorun":"false","results":"markup","out-height":"","classes":"","comment":"","output":"true","label":"diy_vif","read-only":"false","fig-height":5,"editor-font-scale":1,"dpi":72,"out-width":"700px","fig-cap":""},"id":1}];
+globalThis.qwebrCellDetails = [{"code":"library(car)\nlibrary(MASS)\nn <- 50\n\nx1_x2_corr <- 0.8 # Change me!\nx1_x3_corr <- 0 # Change me!\ncoef_of_x2_in_y <- 2 # Change me too!\nX <- mvrnorm(n = n, mu = c(0, 0, 0), \n        Sigma = matrix(c(\n                1,          x1_x2_corr, x1_x3_corr,\n                x1_x2_corr, 1,          0,\n                x1_x3_corr, 0,          1),\n            nrow = 3))\nmydata <- data.frame(\n    y = 0 + 4*X[, 1] + coef_of_x2_in_y*X[, 2] +\n        2 * X[, 3] + rnorm(n, 0, 5),\n    x1 = X[, 1], x2 = X[, 2], x3 = X[, 3]\n)\nmylm <- lm(y ~ x1 + x2 + x3, data = mydata)\nvif(mylm)\npairs(mydata)","id":1,"options":{"comment":"","classes":"","editor-font-scale":1,"autorun":"false","warning":"true","fig-cap":"","output":"true","echo":"true","message":"true","label":"diy_vif","read-only":"false","editor-quick-suggestions":"false","results":"markup","out-width":"700px","fig-width":7,"context":"interactive","dpi":72,"editor-max-height":"","fig-height":5,"out-height":""}}];
 
 </script>
 <script type="module">
@@ -1374,6 +1374,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L21-Logistic_Example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Logistic Modelling</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1388,7 +1394,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>

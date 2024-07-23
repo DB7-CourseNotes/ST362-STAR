@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"label":"unnamed-chunk-1","fig-cap":"","editor-quick-suggestions":"false","editor-max-height":"","out-height":"","warning":"true","out-width":"700px","fig-width":7,"message":"true","context":"interactive","comment":"","autorun":"false","read-only":"false","classes":"","editor-font-scale":1,"dpi":72,"output":"true","fig-height":5,"results":"markup"},"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))","id":1}];
+globalThis.qwebrCellDetails = [{"code":"data(trees)\ntrees$Diam <- trees$Girth / 12\ntrees$Girth <- NULL\nhead(trees)\n\npar(mfrow = c(2,3))\nsummary(lm(Volume ~ Diam + Height, data = trees))\nplot(Volume ~ Diam, data = trees,\n    main = \"Volume versus Diameter\")\nplot(Volume ~ Height, data = trees,\n    main = \"Volume versus Height\")\nplot(lm(Volume ~ Diam + Height, data = trees))","id":1,"options":{"context":"interactive","editor-font-scale":1,"dpi":72,"classes":"","out-height":"","comment":"","out-width":"700px","editor-max-height":"","read-only":"false","label":"unnamed-chunk-1","editor-quick-suggestions":"false","autorun":"false","message":"true","warning":"true","output":"true","fig-height":5,"fig-cap":"","results":"markup","fig-width":7}}];
 
 </script>
 <script type="module">
@@ -1374,6 +1374,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Classification</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L21-Logistic_Example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Logistic Modelling</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1388,7 +1394,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
       </ul>
