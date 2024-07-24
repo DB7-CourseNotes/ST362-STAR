@@ -1,11 +1,20 @@
 ---
 title: Logistic Modelling
 institute: "Jam: **Love's a Logistical Thing** by PJ Parker"
+format: 
+    revealjs:
+        slide-level: 3
+        theme: serif
+        smaller: true
+        height: 800
+        scrollable: true
 filters:
   - webr
 ---
 
 ## Step 1: Concentrate on the Orange Juice
+
+### Getting Acquainted
 
 For this analysis, let's look at Orange Juice data from the ISLR2 package (I've resisted the temptation to use the `Auto` data).
 
@@ -13,30 +22,48 @@ Before we begin, define the goal:
 
 Goal: When a customer comes in the store, can we predict which brand they buy?
 
+*Note*: We're not predicting *whether* they buy OJ, we're predicting which brand they buy given that they bough OJ.
+
+::: {.content-visible when-profile="book"}
 This is not the only possible question with these data:
 
 - Is the price difference enough to explain why people choose a brand? (If not, then the difference might be because people genuinely like one better than the other.)
 - How big of a discount is needed to sway a customer's purchase?
 - Do different stores have customers with different purchasing habits?
+:::
 
-Use the following code block to get acquainted with the data. In class, we'll make a lot of plots!
+Use the following code block to get acquainted with the data. We'll make a lot of plots!
 
+::: {.content-visible when-profile="book"}
 The response variable is a factor with levels "CH" for Citrus Hill and "MM" for Minute Maid. Let's convert this to 1s and 0s so that we can do math on it. We'll set MM to 1 and CH to 0 (this is completely arbitrary and will affect the interpretations but not the results).
 
 Also, the "STORE" predictor is numeric, but the numbers aren't actually meaningful. Store 4 is not twice the store as store 2, these are actually *ordinal* values. Let's make it a factor so that we don't accidentally fit a linear model with it.
+:::
 
+::: {style="font-size:80%;"}
 ```{webr-r}
 library(ISLR2)
 data(OJ)
 OJ$Purchase <- as.numeric(OJ$Purchase == "MM")
 OJ$StoreID <- factor(OJ$StoreID)
+OJ$SpecialCH <- factor(OJ$SpecialCH)
+OJ$SpecialMM <- factor(OJ$SpecialMM)
 str(OJ)
 ```
+:::
 
-What patterns in the predictors can you find? Take a good read of the help file (`?OJ`), there are some hints in there. For example, there's `StoreID`, which includes a store labelled 7, but there's also an indicator for whether the store is 7, likely meaning that the authors thought there was something special about store 7. There are other hints there too!
+### The Predictors
 
-Change the code below and see what you find!
+What patterns in the predictors can you find? Take a good read of the help file (`?OJ`), there are some hints in there.
 
+
+::: {.content-visible when-profile="book"}
+For example, there's `StoreID`, which includes a store labelled 7, but there's also an indicator for whether the store is 7, likely meaning that the authors thought there was something special about store 7. There are other hints there too!
+:::
+
+Change the code below and see what you find! For now, ignore the `WeekofPurchase` column
+
+::: {style="font-size:80%;"}
 ```{webr-r}
 par(mfrow = c(2, 2))
 
@@ -48,9 +75,13 @@ boxplot(PriceMM ~ StoreID, data = OJ)
 boxplot(PriceDiff ~ StoreID, data = OJ)
 hist(OJ$LoyalCH) # Potentially a measure of how loyal they are to CH?
 ```
+:::
+
+### WeekofPurchase
 
 There are some predictors that require more advanced exploration techniques:
 
+::: {style="font-size:80%;"}
 ```{webr-r}
 par(mfrow = c(2, 2))
 plot(PriceMM ~ WeekofPurchase, data = OJ, col = StoreID,
@@ -62,14 +93,18 @@ plot(PriceDiff ~ WeekofPurchase, data = OJ, col = StoreID,
 plot(PriceMM ~ DiscMM, data = OJ, col = StoreID,
     main = "DiscMM does not fully\nexplain the price changes")
 ```
+:::
 
 Also notice that the prices are all just a little bit below "nice" values. Prices are $1.99, $1.69, etc. because with $1.99 you read the "1" first and it feels like it's just a little above $1 instead of being practically $2. I hate this tactic. Remember: if money is involved, someone is trying to manipulate you.
 
 
-## Step 2: Propose some models
+## Step 2: The Response
+
+### Average value of y for each value of x
 
 Use the following chunk to explore which predictors might be related to the response, including a possible interaction term.
 
+::: {style="font-size:80%;"}
 ```{webr-r}
 plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 5, ...) {
     if (is.null(g)) {
@@ -103,11 +138,173 @@ barplot(table(OJ$Purchase, OJ$StoreID), beside = TRUE,
     legend.text = TRUE,
     main = "Stores 0 and 4 sell a lot more CH")
 ```
+:::
 
 
+### Summary of the Results
+
+- The `WeekofPurchase` details the price changes, but we have those recorded.
+    - Would be useful if we wanted to see if a price drop affected sales, but that's outside the scope of this course.
+- We might want either the `PriceDiff` or both `Price*`s.
+- Either `StoreID` or `Store7`?
+- `LoyalCH` is almost certainly an important predictor.
+- `DiscMM` and `PriceMM` shouldn't be in the same model, but `SpecialMM` might be worth it.
+- `Price*`, `Disc*`, `SalePrice*` and `Special*` all encode similar information.
+    - `PriceDiff` is maybe more important than the group of these?
+- `SpecialMM` would likely encourage CH buyers to by MM instead. `SpecialCH` would likely encourage CH to buy MM. 
+    - If both are on sale, perhaps there's no effect?
+
+### Exploring one model
+
+First, let's start with a simple model. 
+
+- `PriceDiff` accounts for the differences in sale price as well as whether they're on special.
+- `Store7` evaluates whether Store7 is different from the others.
+- `LoyalCH` is clearly something we want to include.
+
+::: {style="font-size:80%;"}
+```{webr-r}
+m1 <- glm(Purchase ~ PriceDiff + Store7 + LoyalCH,
+    data = OJ, family = binomial)
+summary(m1)
+par(mfrow = c(2, 2))
+plot(m1)
+```
+:::
+
+Thoughts?
+
+### A second option
+
+Perhaps it matters whether the OJ is on sale. Maybe the actual store also matters. Let's check both!
+
+- The actual sale price is used, not the listing price.
+- We have an *interaction* between `SpecialMM` and `SpecialCH`. If both are on sale, then perhaps it doesn't affect the buying decision?
+
+::: {style="font-size:80%;"}
+```{webr-r}
+m2 <- glm(
+    Purchase ~ SalePriceCH + SalePriceMM + factor(StoreID) + LoyalCH + 
+        SpecialMM * SpecialCH,
+    data = OJ, family = binomial)
+summary(m2)
+par(mfrow = c(2, 2))
+plot(m2)
+```
+:::
+
+### An extra special ESS
+
+Note that `StoreID` gets split into dummy variables `factor(StoreID)2`, `factor(StoreID)3`, `factor(StoreID)4`, and `factor(StoreID)7`, with Store 1 being the reference category.
+
+The existence of the predictor `Store7` implies there's something special about this store, and it's the only significant result in `m2`.
+
+If we use `StoreID` as the model, we have:
+$$
+y_i = \beta_0 + \beta_1Store2_i + \beta_2Store3_i + \beta_3Store4_i + \beta_4Store7_i + ... + \epsilon_i
+$$
+Compare this to the model with `Store7` as the only predictor
+$$
+y_i = \beta_0 + \beta_4Store7_i + ... + \epsilon_i
+$$
+An ESS test for these two models is equivalent to testing $\beta_1 = \beta_2 = \beta_3 = 0$.
+
+::: {style="font-size:80%;"}
+```{webr-r}
+m2a <- glm(
+    Purchase ~ SalePriceCH + SalePriceMM + StoreID + LoyalCH + 
+        SpecialMM * SpecialCH,
+    data = OJ, family = binomial)
+m2b <- glm(
+    Purchase ~ SalePriceCH + SalePriceMM + Store7 + LoyalCH + 
+        SpecialMM * SpecialCH,
+    data = OJ, family = binomial)
+anova(m2a, m2b, test = "Chisq")
+```
+:::
+
+Since these two models are not significantly different, we can go with the simpler model (`m2b`).
+
+### Specials
+
+In the output, it looked like neither Specials nor the interaction were significant. This is not enough to make a conclusion about all three variables!
+
+::: {.content-visible when-profile="book"}
+
+To be honest about our p-values, we're going to check all of the terms at once. We *could* check the interaction and then check the individual `Special*` terms, but it's better to do it all in one go.
+
+In fact, I specifically *don't* want to check the interaction term. I'm quite certain that the interaction term should be there whenever the `Special*` terms are there. If both brands are on special, then the specials likely don't affect the purchaser's behaviour.
+:::
+
+::: {style="font-size:80%;"}
+```{webr-r}
+anova(
+    m2b,
+    update(m2b, ~ . - SpecialMM * SpecialCH),
+    test = "Chisq"
+)
+```
+:::
+
+No significance means go with the simpler model!
+
+### Model 3: Just MM, or include CH?
+
+::: {style="font-size:80%;"}
+```{webr-r}
+m3a <- glm(
+    Purchase ~ SalePriceMM + SpecialMM + LoyalCH + Store7,
+    data = OJ, family = binomial
+)
+m3b <- update(m3a, ~ . + SalePriceCH + SpecialMM*SpecialCH)
+anova(m3a, m3b, test = "Chisq")
+```
+:::
+
+Since we already saw that `SpecialMM * SpecialCH` wasn't significant, this might add to the hypothesis that `PriceDiff` is everything.
+
+### Model 4 and beyond!
+
+Try out some of the following:
+
+- An interaction between `StoreID` and one of the Discount predictors means that customers at different stores are more swayed by discounts.
+- What combination of `Price*`, `Disc*`, `Special*`, `SalePrice*`, and `PctDisc*` is best?
+    - Only consider models where both CH and MM are present, e.g. `PriceMM` *and* `PriceCH`. 
+
+In the code below, I investigate whether we can just use `PriceDiff`. I also demonstrate that the p-value is different depending on which other predictors are in the model - it might change the decision sometimes!
+
+Note that these are *not* ESS tests, since neither model is nested in the other.
+
+I intentially put an error in the following code. Fix it before you run the code.
 
 
+::: {style="font-size:80%;"}
+```{webr-r}
+m4a1 <- glm(Purchase ~ LoyalCH + PriceDiff,
+    data = OJ, family = binomial)
+m4b1 <- glm(Purchase ~ LoyalCH + SalePriceMM + SalePriceCH + DiscCH + DiscMM,
+    data = OJ, family = binomial)
+anova(m4a1, m4b1, test = "Chisq")
 
+m4a2 <- glm(Purchase ~ PriceDiff,
+    data = OJ, family = binomial)
+m4b2 <- glm(Purchase ~ SalePriceMM + SalePriceCH + DiscCH + DiscMM,
+    data = OJ)
+anova(m4a2, m4b2, test = "Chisq")
+```
+:::
 
+## A Final Model (for demonstration purposes)
 
+### Let's just try this one.
+
+This isn't the best model, but I want to explore some topics.
+
+::: {style="font-size:80%;"}
+```{webr-r}
+mf <- glm(Purchase ~ PriceDiff + Store7 + LoyalCH,
+    data = OJ, family = binomial)
+summary(mf$coef)
+```
+:::
 

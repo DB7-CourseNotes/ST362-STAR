@@ -32,7 +32,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L22-Review.html" rel="next">
+<link href="./L22-Review.pdf" rel="next">
 <link href="./L20-Logistic.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -277,7 +277,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"library(ISLR2)\ndata(OJ)\nOJ$Purchase <- as.numeric(OJ$Purchase == \"MM\")\nOJ$StoreID <- factor(OJ$StoreID)\nstr(OJ)","options":{"editor-font-scale":1,"context":"interactive","autorun":"false","read-only":"false","fig-width":7,"fig-cap":"","out-height":"","comment":"","fig-height":5,"dpi":72,"warning":"true","results":"markup","label":"unnamed-chunk-1","message":"true","classes":"","output":"true","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false"},"id":1},{"code":"par(mfrow = c(2, 2))\n\nplot(PriceMM ~ PriceCH, data = OJ)\nabline(0, 1) # If PriceCH == PriceMM, they will be on this line\n# MM is almost always more expensive than CH.\n\nboxplot(PriceMM ~ StoreID, data = OJ)\nboxplot(PriceDiff ~ StoreID, data = OJ)\nhist(OJ$LoyalCH) # Potentially a measure of how loyal they are to CH?","options":{"editor-font-scale":1,"context":"interactive","autorun":"false","read-only":"false","fig-width":7,"fig-cap":"","out-height":"","comment":"","fig-height":5,"dpi":72,"warning":"true","results":"markup","label":"unnamed-chunk-2","message":"true","classes":"","output":"true","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false"},"id":2},{"code":"par(mfrow = c(2, 2))\nplot(PriceMM ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"Price stays consistent for\\nbrief periods within stores\")\nplot(PriceCH ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"This is true for CH, too.\")\nplot(PriceDiff ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"Price difference changes a lot!\")\nplot(PriceMM ~ DiscMM, data = OJ, col = StoreID,\n    main = \"DiscMM does not fully\\nexplain the price changes\")","options":{"editor-font-scale":1,"context":"interactive","autorun":"false","read-only":"false","fig-width":7,"fig-cap":"","out-height":"","comment":"","fig-height":5,"dpi":72,"warning":"true","results":"markup","label":"unnamed-chunk-3","message":"true","classes":"","output":"true","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false"},"id":3},{"code":"plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 5, ...) {\n    if (is.null(g)) {\n        g <- 1\n    } else {\n        g <- as.numeric(factor(g))\n    }\n    plot(x, y, col = g, ...)\n    for(group in g) {\n        xg <- x[g == group]\n        yg <- y[g == group]\n        xseq <- seq(min(xg), max(xg), length.out = n)\n        window <- diff(range(xg)) * window_frac\n        mean_y <- c()\n        for(i in seq_along(xseq)) {\n           mean_y[i] <- mean(yg[xg < xseq[i] + window & xg > xseq[i] - window])\n        }\n        lines(xseq, mean_y, col = group)\n    }\n}\npar(mfrow = c(2, 2))\nplot_averages(OJ$DiscMM, OJ$Purchase, g = OJ$StoreID,\n    window_frac = 1/5,\n    main = \"In all stores, a larger\\ndiscount increases P(MM)\",\n    xlab = \"Discount of MM\", ylab = \"Prob(Purchase MM)\")\nplot_averages(OJ$PriceDiff, OJ$Purchase, g = OJ$StoreID,\n    window_frac = 1/5,\n    main = \"In most stores, the cheaper\\njuice is more likely to be purchased.\",\n    xlab = \"Price Difference (MM - CH)\", ylab = \"Prob(Purchase MM)\")\nbarplot(table(OJ$Purchase, OJ$StoreID), beside = TRUE,\n    legend.text = TRUE,\n    main = \"Stores 0 and 4 sell a lot more CH\")","options":{"editor-font-scale":1,"context":"interactive","autorun":"false","read-only":"false","fig-width":7,"fig-cap":"","out-height":"","comment":"","fig-height":5,"dpi":72,"warning":"true","results":"markup","label":"unnamed-chunk-4","message":"true","classes":"","output":"true","out-width":"700px","editor-max-height":"","editor-quick-suggestions":"false"},"id":4}];
+globalThis.qwebrCellDetails = [{"id":1,"code":"library(ISLR2)\ndata(OJ)\nOJ$Purchase <- as.numeric(OJ$Purchase == \"MM\")\nOJ$StoreID <- factor(OJ$StoreID)\nOJ$SpecialCH <- factor(OJ$SpecialCH)\nOJ$SpecialMM <- factor(OJ$SpecialMM)\nstr(OJ)","options":{"editor-font-scale":1,"dpi":72,"read-only":"false","editor-quick-suggestions":"false","fig-height":5,"out-height":"","context":"interactive","output":"true","comment":"","editor-max-height":"","label":"unnamed-chunk-1","out-width":"700px","results":"markup","fig-width":7,"autorun":"false","fig-cap":"","classes":"","message":"true","warning":"true"}},{"id":2,"code":"par(mfrow = c(2, 2))\n\nplot(PriceMM ~ PriceCH, data = OJ)\nabline(0, 1) # If PriceCH == PriceMM, they will be on this line\n# MM is almost always more expensive than CH.\n\nboxplot(PriceMM ~ StoreID, data = OJ)\nboxplot(PriceDiff ~ StoreID, data = OJ)\nhist(OJ$LoyalCH) # Potentially a measure of how loyal they are to CH?","options":{"editor-font-scale":1,"dpi":72,"read-only":"false","editor-quick-suggestions":"false","fig-height":5,"out-height":"","context":"interactive","output":"true","comment":"","editor-max-height":"","label":"unnamed-chunk-2","out-width":"700px","results":"markup","fig-width":7,"autorun":"false","fig-cap":"","classes":"","message":"true","warning":"true"}},{"id":3,"code":"par(mfrow = c(2, 2))\nplot(PriceMM ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"Price stays consistent for\\nbrief periods within stores\")\nplot(PriceCH ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"This is true for CH, too.\")\nplot(PriceDiff ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"Price difference changes a lot!\")\nplot(PriceMM ~ DiscMM, data = OJ, col = StoreID,\n    main = \"DiscMM does not fully\\nexplain the price changes\")","options":{"editor-font-scale":1,"dpi":72,"read-only":"false","editor-quick-suggestions":"false","fig-height":5,"out-height":"","context":"interactive","output":"true","comment":"","editor-max-height":"","label":"unnamed-chunk-3","out-width":"700px","results":"markup","fig-width":7,"autorun":"false","fig-cap":"","classes":"","message":"true","warning":"true"}},{"id":4,"code":"plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 5, ...) {\n    if (is.null(g)) {\n        g <- 1\n    } else {\n        g <- as.numeric(factor(g))\n    }\n    plot(x, y, col = g, ...)\n    for(group in g) {\n        xg <- x[g == group]\n        yg <- y[g == group]\n        xseq <- seq(min(xg), max(xg), length.out = n)\n        window <- diff(range(xg)) * window_frac\n        mean_y <- c()\n        for(i in seq_along(xseq)) {\n           mean_y[i] <- mean(yg[xg < xseq[i] + window & xg > xseq[i] - window])\n        }\n        lines(xseq, mean_y, col = group)\n    }\n}\npar(mfrow = c(2, 2))\nplot_averages(OJ$DiscMM, OJ$Purchase, g = OJ$StoreID,\n    window_frac = 1/5,\n    main = \"In all stores, a larger\\ndiscount increases P(MM)\",\n    xlab = \"Discount of MM\", ylab = \"Prob(Purchase MM)\")\nplot_averages(OJ$PriceDiff, OJ$Purchase, g = OJ$StoreID,\n    window_frac = 1/5,\n    main = \"In most stores, the cheaper\\njuice is more likely to be purchased.\",\n    xlab = \"Price Difference (MM - CH)\", ylab = \"Prob(Purchase MM)\")\nbarplot(table(OJ$Purchase, OJ$StoreID), beside = TRUE,\n    legend.text = TRUE,\n    main = \"Stores 0 and 4 sell a lot more CH\")","options":{"editor-font-scale":1,"dpi":72,"read-only":"false","editor-quick-suggestions":"false","fig-height":5,"out-height":"","context":"interactive","output":"true","comment":"","editor-max-height":"","label":"unnamed-chunk-4","out-width":"700px","results":"markup","fig-width":7,"autorun":"false","fig-cap":"","classes":"","message":"true","warning":"true"}},{"id":5,"code":"m1 <- glm(Purchase ~ PriceDiff + Store7 + LoyalCH,\n    data = OJ, family = binomial)\nsummary(m1)\npar(mfrow = c(2, 2))\nplot(m1)","options":{"editor-font-scale":1,"dpi":72,"read-only":"false","editor-quick-suggestions":"false","fig-height":5,"out-height":"","context":"interactive","output":"true","comment":"","editor-max-height":"","label":"unnamed-chunk-5","out-width":"700px","results":"markup","fig-width":7,"autorun":"false","fig-cap":"","classes":"","message":"true","warning":"true"}},{"id":6,"code":"m2 <- glm(\n    Purchase ~ SalePriceCH + SalePriceMM + factor(StoreID) + LoyalCH + \n        SpecialMM * SpecialCH,\n    data = OJ, family = binomial)\nsummary(m2)\npar(mfrow = c(2, 2))\nplot(m2)","options":{"editor-font-scale":1,"dpi":72,"read-only":"false","editor-quick-suggestions":"false","fig-height":5,"out-height":"","context":"interactive","output":"true","comment":"","editor-max-height":"","label":"unnamed-chunk-6","out-width":"700px","results":"markup","fig-width":7,"autorun":"false","fig-cap":"","classes":"","message":"true","warning":"true"}},{"id":7,"code":"m2a <- glm(\n    Purchase ~ SalePriceCH + SalePriceMM + StoreID + LoyalCH + \n        SpecialMM * SpecialCH,\n    data = OJ, family = binomial)\nm2b <- glm(\n    Purchase ~ SalePriceCH + SalePriceMM + Store7 + LoyalCH + \n        SpecialMM * SpecialCH,\n    data = OJ, family = binomial)\nanova(m2a, m2b, test = \"Chisq\")","options":{"editor-font-scale":1,"dpi":72,"read-only":"false","editor-quick-suggestions":"false","fig-height":5,"out-height":"","context":"interactive","output":"true","comment":"","editor-max-height":"","label":"unnamed-chunk-7","out-width":"700px","results":"markup","fig-width":7,"autorun":"false","fig-cap":"","classes":"","message":"true","warning":"true"}},{"id":8,"code":"anova(\n    m2b,\n    update(m2b, ~ . - SpecialMM * SpecialCH),\n    test = \"Chisq\"\n)","options":{"editor-font-scale":1,"dpi":72,"read-only":"false","editor-quick-suggestions":"false","fig-height":5,"out-height":"","context":"interactive","output":"true","comment":"","editor-max-height":"","label":"unnamed-chunk-8","out-width":"700px","results":"markup","fig-width":7,"autorun":"false","fig-cap":"","classes":"","message":"true","warning":"true"}},{"id":9,"code":"m3a <- glm(\n    Purchase ~ SalePriceMM + SpecialMM + LoyalCH + Store7,\n    data = OJ, family = binomial\n)\nm3b <- update(m3a, ~ . + SalePriceCH + SpecialMM*SpecialCH)\nanova(m3a, m3b, test = \"Chisq\")","options":{"editor-font-scale":1,"dpi":72,"read-only":"false","editor-quick-suggestions":"false","fig-height":5,"out-height":"","context":"interactive","output":"true","comment":"","editor-max-height":"","label":"unnamed-chunk-9","out-width":"700px","results":"markup","fig-width":7,"autorun":"false","fig-cap":"","classes":"","message":"true","warning":"true"}},{"id":10,"code":"m4a1 <- glm(Purchase ~ LoyalCH + PriceDiff,\n    data = OJ, family = binomial)\nm4b1 <- glm(Purchase ~ LoyalCH + SalePriceMM + SalePriceCH + DiscCH + DiscMM,\n    data = OJ, family = binomial)\nanova(m4a1, m4b1, test = \"Chisq\")\n\nm4a2 <- glm(Purchase ~ PriceDiff,\n    data = OJ, family = binomial)\nm4b2 <- glm(Purchase ~ SalePriceMM + SalePriceCH + DiscCH + DiscMM,\n    data = OJ)\nanova(m4a2, m4b2, test = \"Chisq\")","options":{"editor-font-scale":1,"dpi":72,"read-only":"false","editor-quick-suggestions":"false","fig-height":5,"out-height":"","context":"interactive","output":"true","comment":"","editor-max-height":"","label":"unnamed-chunk-10","out-width":"700px","results":"markup","fig-width":7,"autorun":"false","fig-cap":"","classes":"","message":"true","warning":"true"}},{"id":11,"code":"mf <- glm(Purchase ~ PriceDiff + Store7 + LoyalCH,\n    data = OJ, family = binomial)\nsummary(mf$coef)","options":{"editor-font-scale":1,"dpi":72,"read-only":"false","editor-quick-suggestions":"false","fig-height":5,"out-height":"","context":"interactive","output":"true","comment":"","editor-max-height":"","label":"unnamed-chunk-11","out-width":"700px","results":"markup","fig-width":7,"autorun":"false","fig-cap":"","classes":"","message":"true","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1155,7 +1155,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L21-Logistic_Example.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Logistic Modelling</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.pdf">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L21-Logistic_Example.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Logistic Modelling</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1185,7 +1185,7 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="./index.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -1200,67 +1200,67 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L01-Introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="./L01-Introduction.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Statistics Review</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L02-Fitting_Straight_Lines.html" class="sidebar-item-text sidebar-link">
+  <a href="./L02-Fitting_Straight_Lines.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Fitting Straight Lines</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L03-Residuals.html" class="sidebar-item-text sidebar-link">
+  <a href="./L03-Residuals.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Assessing Fit</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L04-Matrix_Form.html" class="sidebar-item-text sidebar-link">
+  <a href="./L04-Matrix_Form.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression in Matrix Form</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L05-General_Regression.html" class="sidebar-item-text sidebar-link">
+  <a href="./L05-General_Regression.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The General Regression Situation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L06-Extra_Sums_of_Squares.html" class="sidebar-item-text sidebar-link">
+  <a href="./L06-Extra_Sums_of_Squares.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Extra Sum-of-Squares</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L07-Exampless.html" class="sidebar-item-text sidebar-link">
+  <a href="./L07-Exampless.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ESS Exampless</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L08-Hat-Resid_Plots-Cook.html" class="sidebar-item-text sidebar-link">
+  <a href="./L08-Hat-Resid_Plots-Cook.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The Hat Matrix</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Analysing-Resids.html" class="sidebar-item-text sidebar-link">
+  <a href="./L09-Analysing-Resids.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The Hat Matrix 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Extra_Topics.html" class="sidebar-item-text sidebar-link">
+  <a href="./L10-Extra_Topics.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Special Topics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L11-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+  <a href="./L11-Wrong_Model.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Getting the Wrong Model</span></span></a>
   </div>
 </li>
@@ -1277,31 +1277,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L12-NonLinear.html" class="sidebar-item-text sidebar-link">
+  <a href="./L12-NonLinear.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Linear Relationships with Linear Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-Transforming_Response.html" class="sidebar-item-text sidebar-link">
+  <a href="./L13-Transforming_Response.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-Modelling_Transformations.html" class="sidebar-item-text sidebar-link">
+  <a href="./L14-Modelling_Transformations.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Modelling with Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-Multicollinearity.html" class="sidebar-item-text sidebar-link">
+  <a href="./L15-Multicollinearity.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Dummies.html" class="sidebar-item-text sidebar-link">
+  <a href="./L16-Dummies.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dummy Variables</span></span></a>
   </div>
 </li>
@@ -1313,7 +1313,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Modelling_Poorly.html" class="sidebar-item-text sidebar-link">
+  <a href="./L18-Modelling_Poorly.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Modelling Poorly</span></span></a>
   </div>
 </li>
@@ -1330,7 +1330,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
+  <a href="./L19-Regularization.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization</span></span></a>
   </div>
 </li>
@@ -1359,7 +1359,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L22-Review.html" class="sidebar-item-text sidebar-link">
+  <a href="./L22-Review.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span></a>
   </div>
 </li>
@@ -1382,67 +1382,67 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb03-MSE.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb03-MSE.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Bias/variance of <span class="math inline">\(\sigma^2\)</span></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb04-R_Matrix_Form.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb04-R_Matrix_Form.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Verifying Matrix Identities</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb05-ANOVA-R2-F_test-CI.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb05-ANOVA-R2-F_test-CI.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">ANOVA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb11-R_hat_resids_cook.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb11-R_hat_resids_cook.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Hat Matrix and Residuals in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb12-Corr_in_Betas.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb12-Corr_in_Betas.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Extra Topics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb13-Wrong_Model.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb13-Wrong_Model.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Lab Missing/Extra Predictors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb15-Transformations.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb15-Transformations.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Transformations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb16-Regression_with_Dummies.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb16-Regression_with_Dummies.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">I</span>&nbsp; <span class="chapter-title">Regression with Categorical Predictors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb17-Multico.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb17-Multico.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">J</span>&nbsp; <span class="chapter-title">Multicollinearity</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb18-Backwards_Selection_is_Bad.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb18-Backwards_Selection_is_Bad.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">K</span>&nbsp; <span class="chapter-title">Backwards p-values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Lb19-Permutation.html" class="sidebar-item-text sidebar-link">
+  <a href="./Lb19-Permutation.pdf" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">L</span>&nbsp; <span class="chapter-title">Permutation Tests</span></span></a>
   </div>
 </li>
@@ -1458,8 +1458,27 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#step-1-concentrate-on-the-orange-juice" id="toc-step-1-concentrate-on-the-orange-juice" class="nav-link active" data-scroll-target="#step-1-concentrate-on-the-orange-juice"><span class="header-section-number">21.1</span> Step 1: Concentrate on the Orange Juice</a></li>
-  <li><a href="#step-2-propose-some-models" id="toc-step-2-propose-some-models" class="nav-link" data-scroll-target="#step-2-propose-some-models"><span class="header-section-number">21.2</span> Step 2: Propose some models</a></li>
+  <li><a href="#step-1-concentrate-on-the-orange-juice" id="toc-step-1-concentrate-on-the-orange-juice" class="nav-link active" data-scroll-target="#step-1-concentrate-on-the-orange-juice"><span class="header-section-number">21.1</span> Step 1: Concentrate on the Orange Juice</a>
+  <ul class="collapse">
+  <li><a href="#getting-acquainted" id="toc-getting-acquainted" class="nav-link" data-scroll-target="#getting-acquainted">Getting Acquainted</a></li>
+  <li><a href="#the-predictors" id="toc-the-predictors" class="nav-link" data-scroll-target="#the-predictors">The Predictors</a></li>
+  <li><a href="#weekofpurchase" id="toc-weekofpurchase" class="nav-link" data-scroll-target="#weekofpurchase">WeekofPurchase</a></li>
+  </ul></li>
+  <li><a href="#step-2-the-response" id="toc-step-2-the-response" class="nav-link" data-scroll-target="#step-2-the-response"><span class="header-section-number">21.2</span> Step 2: The Response</a>
+  <ul class="collapse">
+  <li><a href="#average-value-of-y-for-each-value-of-x" id="toc-average-value-of-y-for-each-value-of-x" class="nav-link" data-scroll-target="#average-value-of-y-for-each-value-of-x">Average value of y for each value of x</a></li>
+  <li><a href="#summary-of-the-results" id="toc-summary-of-the-results" class="nav-link" data-scroll-target="#summary-of-the-results">Summary of the Results</a></li>
+  <li><a href="#exploring-one-model" id="toc-exploring-one-model" class="nav-link" data-scroll-target="#exploring-one-model">Exploring one model</a></li>
+  <li><a href="#a-second-option" id="toc-a-second-option" class="nav-link" data-scroll-target="#a-second-option">A second option</a></li>
+  <li><a href="#an-extra-special-ess" id="toc-an-extra-special-ess" class="nav-link" data-scroll-target="#an-extra-special-ess">An extra special ESS</a></li>
+  <li><a href="#specials" id="toc-specials" class="nav-link" data-scroll-target="#specials">Specials</a></li>
+  <li><a href="#model-3-just-mm-or-include-ch" id="toc-model-3-just-mm-or-include-ch" class="nav-link" data-scroll-target="#model-3-just-mm-or-include-ch">Model 3: Just MM, or include CH?</a></li>
+  <li><a href="#model-4-and-beyond" id="toc-model-4-and-beyond" class="nav-link" data-scroll-target="#model-4-and-beyond">Model 4 and beyond!</a></li>
+  </ul></li>
+  <li><a href="#a-final-model-for-demonstration-purposes" id="toc-a-final-model-for-demonstration-purposes" class="nav-link" data-scroll-target="#a-final-model-for-demonstration-purposes"><span class="header-section-number">21.3</span> A Final Model (for demonstration purposes)</a>
+  <ul class="collapse">
+  <li><a href="#lets-just-try-this-one." id="toc-lets-just-try-this-one." class="nav-link" data-scroll-target="#lets-just-try-this-one.">Let’s just try this one.</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1693,7 +1712,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 }
 </script>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L21-Logistic_Example.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Logistic Modelling</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.pdf">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L21-Logistic_Example.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Logistic Modelling</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Logistic Modelling</span></h1>
 </div>
@@ -1733,36 +1752,168 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 
 <section id="step-1-concentrate-on-the-orange-juice" class="level2" data-number="21.1">
 <h2 data-number="21.1" class="anchored" data-anchor-id="step-1-concentrate-on-the-orange-juice"><span class="header-section-number">21.1</span> Step 1: Concentrate on the Orange Juice</h2>
+<section id="getting-acquainted" class="level3">
+<h3 class="anchored" data-anchor-id="getting-acquainted">Getting Acquainted</h3>
 <p>For this analysis, let’s look at Orange Juice data from the ISLR2 package (I’ve resisted the temptation to use the <code>Auto</code> data).</p>
 <p>Before we begin, define the goal:</p>
 <p>Goal: When a customer comes in the store, can we predict which brand they buy?</p>
+<p><em>Note</em>: We’re not predicting <em>whether</em> they buy OJ, we’re predicting which brand they buy given that they bough OJ.</p>
 <p>This is not the only possible question with these data:</p>
 <ul>
 <li>Is the price difference enough to explain why people choose a brand? (If not, then the difference might be because people genuinely like one better than the other.)</li>
 <li>How big of a discount is needed to sway a customer’s purchase?</li>
 <li>Do different stores have customers with different purchasing habits?</li>
 </ul>
-<p>Use the following code block to get acquainted with the data. In class, we’ll make a lot of plots!</p>
+<p>Use the following code block to get acquainted with the data. We’ll make a lot of plots!</p>
 <p>The response variable is a factor with levels “CH” for Citrus Hill and “MM” for Minute Maid. Let’s convert this to 1s and 0s so that we can do math on it. We’ll set MM to 1 and CH to 0 (this is completely arbitrary and will affect the interpretations but not the results).</p>
 <p>Also, the “STORE” predictor is numeric, but the numbers aren’t actually meaningful. Store 4 is not twice the store as store 2, these are actually <em>ordinal</em> values. Let’s make it a factor so that we don’t accidentally fit a linear model with it.</p>
+<div style="font-size:80%;">
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>What patterns in the predictors can you find? Take a good read of the help file (<code>?OJ</code>), there are some hints in there. For example, there’s <code>StoreID</code>, which includes a store labelled 7, but there’s also an indicator for whether the store is 7, likely meaning that the authors thought there was something special about store 7. There are other hints there too!</p>
-<p>Change the code below and see what you find!</p>
+</div>
+</section>
+<section id="the-predictors" class="level3">
+<h3 class="anchored" data-anchor-id="the-predictors">The Predictors</h3>
+<p>What patterns in the predictors can you find? Take a good read of the help file (<code>?OJ</code>), there are some hints in there.</p>
+<p>For example, there’s <code>StoreID</code>, which includes a store labelled 7, but there’s also an indicator for whether the store is 7, likely meaning that the authors thought there was something special about store 7. There are other hints there too!</p>
+<p>Change the code below and see what you find! For now, ignore the <code>WeekofPurchase</code> column</p>
+<div style="font-size:80%;">
 <div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+</section>
+<section id="weekofpurchase" class="level3">
+<h3 class="anchored" data-anchor-id="weekofpurchase">WeekofPurchase</h3>
 <p>There are some predictors that require more advanced exploration techniques:</p>
+<div style="font-size:80%;">
 <div id="qwebr-insertion-location-3"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
 <p>Also notice that the prices are all just a little bit below “nice” values. Prices are $1.99, $1.69, etc. because with $1.99 you read the “1” first and it feels like it’s just a little above $1 instead of being practically $2. I hate this tactic. Remember: if money is involved, someone is trying to manipulate you.</p>
 </section>
-<section id="step-2-propose-some-models" class="level2" data-number="21.2">
-<h2 data-number="21.2" class="anchored" data-anchor-id="step-2-propose-some-models"><span class="header-section-number">21.2</span> Step 2: Propose some models</h2>
+</section>
+<section id="step-2-the-response" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="step-2-the-response"><span class="header-section-number">21.2</span> Step 2: The Response</h2>
+<section id="average-value-of-y-for-each-value-of-x" class="level3">
+<h3 class="anchored" data-anchor-id="average-value-of-y-for-each-value-of-x">Average value of y for each value of x</h3>
 <p>Use the following chunk to explore which predictors might be related to the response, including a possible interaction term.</p>
+<div style="font-size:80%;">
 <div id="qwebr-insertion-location-4"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+</section>
+<section id="summary-of-the-results" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-the-results">Summary of the Results</h3>
+<ul>
+<li>The <code>WeekofPurchase</code> details the price changes, but we have those recorded.
+<ul>
+<li>Would be useful if we wanted to see if a price drop affected sales, but that’s outside the scope of this course.</li>
+</ul></li>
+<li>We might want either the <code>PriceDiff</code> or both <code>Price*</code>s.</li>
+<li>Either <code>StoreID</code> or <code>Store7</code>?</li>
+<li><code>LoyalCH</code> is almost certainly an important predictor.</li>
+<li><code>DiscMM</code> and <code>PriceMM</code> shouldn’t be in the same model, but <code>SpecialMM</code> might be worth it.</li>
+<li><code>Price*</code>, <code>Disc*</code>, <code>SalePrice*</code> and <code>Special*</code> all encode similar information.
+<ul>
+<li><code>PriceDiff</code> is maybe more important than the group of these?</li>
+</ul></li>
+<li><code>SpecialMM</code> would likely encourage CH buyers to by MM instead. <code>SpecialCH</code> would likely encourage CH to buy MM.
+<ul>
+<li>If both are on sale, perhaps there’s no effect?</li>
+</ul></li>
+</ul>
+</section>
+<section id="exploring-one-model" class="level3">
+<h3 class="anchored" data-anchor-id="exploring-one-model">Exploring one model</h3>
+<p>First, let’s start with a simple model.</p>
+<ul>
+<li><code>PriceDiff</code> accounts for the differences in sale price as well as whether they’re on special.</li>
+<li><code>Store7</code> evaluates whether Store7 is different from the others.</li>
+<li><code>LoyalCH</code> is clearly something we want to include.</li>
+</ul>
+<div style="font-size:80%;">
+<div id="qwebr-insertion-location-5"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<p>Thoughts?</p>
+</section>
+<section id="a-second-option" class="level3">
+<h3 class="anchored" data-anchor-id="a-second-option">A second option</h3>
+<p>Perhaps it matters whether the OJ is on sale. Maybe the actual store also matters. Let’s check both!</p>
+<ul>
+<li>The actual sale price is used, not the listing price.</li>
+<li>We have an <em>interaction</em> between <code>SpecialMM</code> and <code>SpecialCH</code>. If both are on sale, then perhaps it doesn’t affect the buying decision?</li>
+</ul>
+<div style="font-size:80%;">
+<div id="qwebr-insertion-location-6"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+</section>
+<section id="an-extra-special-ess" class="level3">
+<h3 class="anchored" data-anchor-id="an-extra-special-ess">An extra special ESS</h3>
+<p>Note that <code>StoreID</code> gets split into dummy variables <code>factor(StoreID)2</code>, <code>factor(StoreID)3</code>, <code>factor(StoreID)4</code>, and <code>factor(StoreID)7</code>, with Store 1 being the reference category.</p>
+<p>The existence of the predictor <code>Store7</code> implies there’s something special about this store, and it’s the only significant result in <code>m2</code>.</p>
+<p>If we use <code>StoreID</code> as the model, we have: <span class="math display">\[
+y_i = \beta_0 + \beta_1Store2_i + \beta_2Store3_i + \beta_3Store4_i + \beta_4Store7_i + ... + \epsilon_i
+\]</span> Compare this to the model with <code>Store7</code> as the only predictor <span class="math display">\[
+y_i = \beta_0 + \beta_4Store7_i + ... + \epsilon_i
+\]</span> An ESS test for these two models is equivalent to testing <span class="math inline">\(\beta_1 = \beta_2 = \beta_3 = 0\)</span>.</p>
+<div style="font-size:80%;">
+<div id="qwebr-insertion-location-7"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<p>Since these two models are not significantly different, we can go with the simpler model (<code>m2b</code>).</p>
+</section>
+<section id="specials" class="level3">
+<h3 class="anchored" data-anchor-id="specials">Specials</h3>
+<p>In the output, it looked like neither Specials nor the interaction were significant. This is not enough to make a conclusion about all three variables!</p>
+<p>To be honest about our p-values, we’re going to check all of the terms at once. We <em>could</em> check the interaction and then check the individual <code>Special*</code> terms, but it’s better to do it all in one go.</p>
+<p>In fact, I specifically <em>don’t</em> want to check the interaction term. I’m quite certain that the interaction term should be there whenever the <code>Special*</code> terms are there. If both brands are on special, then the specials likely don’t affect the purchaser’s behaviour.</p>
+<div style="font-size:80%;">
+<div id="qwebr-insertion-location-8"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<p>No significance means go with the simpler model!</p>
+</section>
+<section id="model-3-just-mm-or-include-ch" class="level3">
+<h3 class="anchored" data-anchor-id="model-3-just-mm-or-include-ch">Model 3: Just MM, or include CH?</h3>
+<div style="font-size:80%;">
+<div id="qwebr-insertion-location-9"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<p>Since we already saw that <code>SpecialMM * SpecialCH</code> wasn’t significant, this might add to the hypothesis that <code>PriceDiff</code> is everything.</p>
+</section>
+<section id="model-4-and-beyond" class="level3">
+<h3 class="anchored" data-anchor-id="model-4-and-beyond">Model 4 and beyond!</h3>
+<p>Try out some of the following:</p>
+<ul>
+<li>An interaction between <code>StoreID</code> and one of the Discount predictors means that customers at different stores are more swayed by discounts.</li>
+<li>What combination of <code>Price*</code>, <code>Disc*</code>, <code>Special*</code>, <code>SalePrice*</code>, and <code>PctDisc*</code> is best?
+<ul>
+<li>Only consider models where both CH and MM are present, e.g.&nbsp;<code>PriceMM</code> <em>and</em> <code>PriceCH</code>.</li>
+</ul></li>
+</ul>
+<p>In the code below, I investigate whether we can just use <code>PriceDiff</code>. I also demonstrate that the p-value is different depending on which other predictors are in the model - it might change the decision sometimes!</p>
+<p>Note that these are <em>not</em> ESS tests, since neither model is nested in the other.</p>
+<p>I intentially put an error in the following code. Fix it before you run the code.</p>
+<div style="font-size:80%;">
+<div id="qwebr-insertion-location-10"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+</section>
+</section>
+<section id="a-final-model-for-demonstration-purposes" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="a-final-model-for-demonstration-purposes"><span class="header-section-number">21.3</span> A Final Model (for demonstration purposes)</h2>
+<section id="lets-just-try-this-one." class="level3">
+<h3 class="anchored" data-anchor-id="lets-just-try-this-one.">Let’s just try this one.</h3>
+<p>This isn’t the best model, but I want to explore some topics.</p>
+<div style="font-size:80%;">
+<div id="qwebr-insertion-location-11"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -2337,7 +2488,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L22-Review.html" class="pagination-link" aria-label="Final Exam Review">
+      <a href="./L22-Review.pdf" class="pagination-link" aria-label="Final Exam Review">
         <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Final Exam Review</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
