@@ -53,19 +53,6 @@ str(OJ)
 ```
 :::
 
-```{shinylive-r}
-#| standalone: true
-library(ISLR2)
-data(OJ)
-OJ$Purchase <- as.numeric(OJ$Purchase == "MM")
-OJ$StoreID <- factor(OJ$StoreID)
-OJ$SpecialCH <- factor(OJ$SpecialCH)
-OJ$SpecialMM <- factor(OJ$SpecialMM)
-library(ExPanDaR)
-
-ExPanD(OJ)
-```
-
 ### The Predictors
 
 What patterns in the predictors can you find? Take a good read of the help file (`?OJ`), there are some hints in there.
