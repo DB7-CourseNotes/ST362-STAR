@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-07-23">
+<meta name="dcterms.date" content="2024-07-24">
 
 <title>STAR Notes – 20&nbsp; Classification</title>
 <style>
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -316,7 +282,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"code":"library(palmerpenguins)\npeng <- penguins[complete.cases(penguins), ]\n\nlog_cont <- glm(sex ~ bill_length_mm + \n        bill_depth_mm + flipper_length_mm,\n    data = peng, family = \"binomial\")\n\nanova(log_cont, test = \"Chisq\") # Sequential\n\nlog_spec <- update(log_cont, ~ . + species * flipper_length_mm)\n\nanova(log_cont, log_spec, test = \"Chisq\")\n\nfull_spec <- glm(sex ~ species*(bill_length_mm + \n        bill_depth_mm + flipper_length_mm),\n    data = peng, family = \"binomial\")\n\nanova(log_spec, full_spec, test = \"Chisq\")\nanova(log_spec, update(log_spec, ~ . - species:flipper_length_mm), test = \"Chisq\")\n\nsummary(log_spec)\ncoef(log_spec)","options":{"fig-cap":"","context":"interactive","dpi":72,"classes":"","read-only":"false","fig-height":5,"results":"markup","editor-quick-suggestions":"false","warning":"true","editor-max-height":"","comment":"","message":"true","fig-width":7,"label":"unnamed-chunk-1","autorun":"false","output":"true","out-width":"700px","out-height":"","editor-font-scale":1}},{"id":2,"code":"par(mfrow = c(2, 2))\nplot(log_spec)","options":{"fig-cap":"","context":"interactive","dpi":72,"classes":"","read-only":"false","fig-height":5,"results":"markup","editor-quick-suggestions":"false","warning":"true","editor-max-height":"","comment":"","message":"true","fig-width":7,"label":"unnamed-chunk-2","autorun":"false","output":"true","out-width":"700px","out-height":"","editor-font-scale":1}},{"id":3,"code":"predict(log_spec, type = \"response\") |> head()","options":{"fig-cap":"","context":"interactive","dpi":72,"classes":"","read-only":"false","fig-height":5,"results":"markup","editor-quick-suggestions":"false","warning":"true","editor-max-height":"","comment":"","message":"true","fig-width":7,"label":"unnamed-chunk-3","autorun":"false","output":"true","out-width":"700px","out-height":"","editor-font-scale":1}},{"id":4,"code":"library(glmnet)\n\nX <- model.matrix(sex ~ species*(bill_length_mm + \n        bill_depth_mm + flipper_length_mm),\n    data = peng)\ny <- as.factor(peng$sex)\n\nmycv <- cv.glmnet(X, y, family = binomial)\n\nmylasso <- glmnet(X, y,\n    data = peng, family = \"binomial\", alpha = 1,\n    lambda = mycv$lambda.1se)\ncoef(mylasso)","options":{"fig-cap":"","context":"interactive","dpi":72,"classes":"","read-only":"false","fig-height":5,"results":"markup","editor-quick-suggestions":"false","warning":"true","editor-max-height":"","comment":"","message":"true","fig-width":7,"label":"unnamed-chunk-4","autorun":"false","output":"true","out-width":"700px","out-height":"","editor-font-scale":1}}];
+globalThis.qwebrCellDetails = [{"code":"library(palmerpenguins)\npeng <- penguins[complete.cases(penguins), ]\n\nlog_cont <- glm(sex ~ bill_length_mm + \n        bill_depth_mm + flipper_length_mm,\n    data = peng, family = \"binomial\")\n\nanova(log_cont, test = \"Chisq\") # Sequential\n\nlog_spec <- update(log_cont, ~ . + species * flipper_length_mm)\n\nanova(log_cont, log_spec, test = \"Chisq\")\n\nfull_spec <- glm(sex ~ species*(bill_length_mm + \n        bill_depth_mm + flipper_length_mm),\n    data = peng, family = \"binomial\")\n\nanova(log_spec, full_spec, test = \"Chisq\")\nanova(log_spec, update(log_spec, ~ . - species:flipper_length_mm), test = \"Chisq\")\n\nsummary(log_spec)\ncoef(log_spec)","id":1,"options":{"label":"unnamed-chunk-1","message":"true","fig-cap":"","comment":"","results":"markup","warning":"true","autorun":"false","editor-max-height":"","context":"interactive","editor-quick-suggestions":"false","dpi":72,"out-width":"700px","classes":"","out-height":"","fig-width":7,"output":"true","read-only":"false","editor-font-scale":1,"fig-height":5}},{"code":"par(mfrow = c(2, 2))\nplot(log_spec)","id":2,"options":{"label":"unnamed-chunk-2","message":"true","fig-cap":"","comment":"","results":"markup","warning":"true","autorun":"false","editor-max-height":"","context":"interactive","editor-quick-suggestions":"false","dpi":72,"out-width":"700px","classes":"","out-height":"","fig-width":7,"output":"true","read-only":"false","editor-font-scale":1,"fig-height":5}},{"code":"predict(log_spec, type = \"response\") |> head()","id":3,"options":{"label":"unnamed-chunk-3","message":"true","fig-cap":"","comment":"","results":"markup","warning":"true","autorun":"false","editor-max-height":"","context":"interactive","editor-quick-suggestions":"false","dpi":72,"out-width":"700px","classes":"","out-height":"","fig-width":7,"output":"true","read-only":"false","editor-font-scale":1,"fig-height":5}},{"code":"library(glmnet)\n\nX <- model.matrix(sex ~ species*(bill_length_mm + \n        bill_depth_mm + flipper_length_mm),\n    data = peng)\ny <- as.factor(peng$sex)\n\nmycv <- cv.glmnet(X, y, family = binomial)\n\nmylasso <- glmnet(X, y,\n    data = peng, family = \"binomial\", alpha = 1,\n    lambda = mycv$lambda.1se)\ncoef(mylasso)","id":4,"options":{"label":"unnamed-chunk-4","message":"true","fig-cap":"","comment":"","results":"markup","warning":"true","autorun":"false","editor-max-height":"","context":"interactive","editor-quick-suggestions":"false","dpi":72,"out-width":"700px","classes":"","out-height":"","fig-width":7,"output":"true","read-only":"false","editor-font-scale":1,"fig-height":5}}];
 
 </script>
 <script type="module">
@@ -1502,11 +1468,12 @@ window.Quarto = {
   <li><a href="#goal-predict-a-1" id="toc-goal-predict-a-1" class="nav-link" data-scroll-target="#goal-predict-a-1">Goal: Predict a 1</a></li>
   <li><a href="#why-not-linear-regression" id="toc-why-not-linear-regression" class="nav-link" data-scroll-target="#why-not-linear-regression">Why Not Linear Regression?</a></li>
   <li><a href="#the-mean-of-y-at-each-value-of-x" id="toc-the-mean-of-y-at-each-value-of-x" class="nav-link" data-scroll-target="#the-mean-of-y-at-each-value-of-x">The mean of y at each value of x</a></li>
-  <li><a href="#the-logistic-function---a-sigmoidal-function" id="toc-the-logistic-function---a-sigmoidal-function" class="nav-link" data-scroll-target="#the-logistic-function---a-sigmoidal-function">The Logistic Function - A Sigmoidal Function</a></li>
+  <li><a href="#the-logistic-function---a-sigmoid" id="toc-the-logistic-function---a-sigmoid" class="nav-link" data-scroll-target="#the-logistic-function---a-sigmoid">The Logistic Function - A Sigmoid</a></li>
   <li><a href="#logistic-function---now-with-parameters" id="toc-logistic-function---now-with-parameters" class="nav-link" data-scroll-target="#logistic-function---now-with-parameters">Logistic Function - Now with Parameters</a></li>
   <li><a href="#logistic-function---now-with-parameters-estimated-from-data" id="toc-logistic-function---now-with-parameters-estimated-from-data" class="nav-link" data-scroll-target="#logistic-function---now-with-parameters-estimated-from-data">Logistic Function - Now with Parameters <em>Estimated from DATA</em></a></li>
   <li><a href="#logistic-regression-1" id="toc-logistic-regression-1" class="nav-link" data-scroll-target="#logistic-regression-1">Logistic Regression</a></li>
-  <li><a href="#interpreting-parameters" id="toc-interpreting-parameters" class="nav-link" data-scroll-target="#interpreting-parameters">Interpreting Parameters</a></li>
+  <li><a href="#interpreting-slope-parameters" id="toc-interpreting-slope-parameters" class="nav-link" data-scroll-target="#interpreting-slope-parameters">Interpreting Slope Parameters</a></li>
+  <li><a href="#odds-ratios" id="toc-odds-ratios" class="nav-link" data-scroll-target="#odds-ratios">Odds Ratios</a></li>
   <li><a href="#the-loss-function" id="toc-the-loss-function" class="nav-link" data-scroll-target="#the-loss-function">The Loss Function</a></li>
   <li><a href="#examples-two-different-predictors-in-the-default-data" id="toc-examples-two-different-predictors-in-the-default-data" class="nav-link" data-scroll-target="#examples-two-different-predictors-in-the-default-data">Examples: Two different predictors in the <code>Default</code> data</a></li>
   <li><a href="#odds-versus-probabilities" id="toc-odds-versus-probabilities" class="nav-link" data-scroll-target="#odds-versus-probabilities">Odds versus Probabilities</a></li>
@@ -1773,7 +1740,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
-            Jam: <strong>Love’s a Logistical Thing</strong> by PJ Parker
+            Jam: <strong>Sigma Oasis</strong> by Phish
           </p>
       </div>
   </div>
@@ -1784,7 +1751,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-23</p>
+      <p class="date">2024-07-24</p>
     </div>
   </div>
   
@@ -1811,13 +1778,24 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <h3 class="anchored" data-anchor-id="why-not-linear-regression">Why Not Linear Regression?</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
-
+<p>The plot on the right shows Default versus Credit Card Balance (with jittering).</p>
+<ul>
+<li>“Default” is 0 for No, 1 for Yes
+<ul>
+<li>Dummy encoding for the <em>response</em></li>
+</ul></li>
+<li>Linear model predicts negative values!
+<ul>
+<li>Also, values above 1.</li>
+</ul></li>
+<li>What could the slope possibly represent???</li>
+</ul>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="L20-Logistic_files/figure-revealjs/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1831,14 +1809,14 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L20-Logistic_files/figure-html/mean-of-y-for-each-x-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="L20-Logistic_files/figure-revealjs/mean-of-y-for-each-x-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="the-logistic-function---a-sigmoidal-function" class="level3">
-<h3 class="anchored" data-anchor-id="the-logistic-function---a-sigmoidal-function">The Logistic Function - A Sigmoidal Function</h3>
+<section id="the-logistic-function---a-sigmoid" class="level3">
+<h3 class="anchored" data-anchor-id="the-logistic-function---a-sigmoid">The Logistic Function - A Sigmoid</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>If <span class="math inline">\(t\in\mathbb{R}\)</span>, then <span class="math display">\[
@@ -1849,7 +1827,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="L20-Logistic_files/figure-revealjs/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="480"></p>
 </figure>
 </div>
 </div>
@@ -1859,9 +1837,12 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </section>
 <section id="logistic-function---now-with-parameters" class="level3">
 <h3 class="anchored" data-anchor-id="logistic-function---now-with-parameters">Logistic Function - Now with Parameters</h3>
+<p><span class="math display">\[
+\sigma(\beta_0 + \beta_1 t)
+\]</span></p>
 <pre class="shinylive-r" data-engine="r"><code>#| standalone: true
-#| viewerHeight: 400
-#| viewerWidth: 700
+#| viewerHeight: 600
+#| viewerWidth: 800
 
 xseq &lt;- seq(-10, 10, 0.05)
 sigma &lt;- function(t) exp(t)/(1 + exp(t))
@@ -1870,8 +1851,8 @@ input &lt;- list(b0 = 0, b1 = 1)
 
 ui &lt;- fluidPage(
     sidebarPanel(
-        sliderInput("b0", "Intercept", -5, 5, 0, 0.1, animate = list(interval = 100)),
-        sliderInput("b1", "Slope", -5, 5, 1, 0.1, animate = list(interval = 100))
+        sliderInput("b0", "Intercept B_0", -5, 5, 0, 0.1, animate = list(interval = 100)),
+        sliderInput("b1", "Slope B_1", -5, 5, 1, 0.1, animate = list(interval = 100))
     ),
     mainPanel(plotOutput("plot"), )
 )
@@ -1904,7 +1885,7 @@ p_i &amp;= \sigma(\eta(x_i))\\
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="L20-Logistic_files/figure-revealjs/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="480"></p>
 </figure>
 </div>
 </div>
@@ -1930,10 +1911,10 @@ p_i &amp;= \sigma(\eta(x_i))\\
 </ul>
 <p>It’s just one step away from a linear model!</p>
 </section>
-<section id="interpreting-parameters" class="level3">
-<h3 class="anchored" data-anchor-id="interpreting-parameters">Interpreting Parameters</h3>
+<section id="interpreting-slope-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-slope-parameters">Interpreting Slope Parameters</h3>
 <ul>
-<li>General structure: “For each one unit increase in <span class="math inline">\(x_i\)</span>, some function of <span class="math inline">\(y_i\)</span> changes by some function of <span class="math inline">\(\beta\)</span>”“.</li>
+<li>General structure: “For each one unit increase in <span class="math inline">\(x_i\)</span>, some function of <span class="math inline">\(y_i\)</span> changes by some function of <span class="math inline">\(\beta\)</span>”.</li>
 </ul>
 <ul>
 <li>For logistic regression:
@@ -1954,6 +1935,16 @@ p_i &amp;= \sigma(\eta(x_i))\\
 </ul></li>
 </ul>
 </section>
+<section id="odds-ratios" class="level3">
+<h3 class="anchored" data-anchor-id="odds-ratios">Odds Ratios</h3>
+<p>Consider the one-predictor example.</p>
+<p><span class="math display">\[
+\eta(x_i) = \beta_0 + \beta_1x_{i1}\text{ and }\eta(x_i + 1) = \beta_0 + \beta_1x_i + \beta_1\text{, }\therefore \eta(x_i + 1) - \eta(x_i) = \beta
+\]</span></p>
+<p>The logg odds ratio is defined as <span class="math display">\[
+\log(OR) = \log\left( \frac{p(x_i + 1)}{1 - p(x_i + 1)} \middle/ \frac{p(x_i)}{1 - p(x_i)}\right)
+\]</span> Using <span class="math inline">\(\eta(x_i) = \log\left(\frac{p(x_i)}{1-p(x_i)}\right)\)</span>, show that <span class="math inline">\(\log(OR) = \beta_1\)</span></p>
+</section>
 <section id="the-loss-function" class="level3">
 <h3 class="anchored" data-anchor-id="the-loss-function">The Loss Function</h3>
 <p>For all observations:</p>
@@ -1969,7 +1960,10 @@ p_i &amp;= \sigma(\eta(x_i))\\
 </ul>
 <p>These can be combined as: <span class="math display">\[
 \prod_{i:y_{i} = 0}\left(1 - P(Y_{i} = 1|\beta_0,\beta_1,X)\right)\prod_{i:y_i=1}P(Y_i = 1|\beta_0,\beta_1,X)
-\]</span> Which is NOT just the sum of squared errors!</p>
+\]</span> which is equivalent to: <span class="math display">\[
+\prod_{i=1}^n(1 - P(Y_{i} = 1|\beta_0,\beta_1,X))^{1 - Y_i}P(Y_i = 1|\beta_0,\beta_1,X)^{Y_i}
+\]</span></p>
+<p>Which is NOT just the sum of squared errors!</p>
 <p>Unlike linear regression, there’s no closed form for <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat\beta_1\)</span>; we need numerical methods.</p>
 </section>
 <section id="examples-two-different-predictors-in-the-default-data" class="level3">
@@ -1980,7 +1974,7 @@ p_i &amp;= \sigma(\eta(x_i))\\
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="384"></p>
+<p><img src="L20-Logistic_files/figure-revealjs/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -1994,7 +1988,7 @@ p_i &amp;= \sigma(\eta(x_i))\\
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L20-Logistic_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="384"></p>
+<p><img src="L20-Logistic_files/figure-revealjs/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -2078,45 +2072,10 @@ P(\text{defaulting} | \eta(x_i)) &gt; p \implies a + bx_1 + cx_2 + dx_3 &gt; e
 <section id="section" class="level3">
 <h3 class="anchored" data-anchor-id="section"></h3>
 <div class="cell">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR2)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Default<span class="sc">$</span>default <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(Default<span class="sc">$</span>default)) <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Default<span class="sc">$</span>student <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(Default<span class="sc">$</span>student)) <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>decision_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">student =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">balance =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2655</span>, <span class="at">length.out =</span> <span class="dv">250</span>),</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">income=</span> <span class="fu">seq</span>(<span class="dv">770</span>, <span class="dv">73555</span>, <span class="at">length.out =</span> <span class="dv">250</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>my_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> student <span class="sc">+</span> balance <span class="sc">+</span> income,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> Default, <span class="at">family =</span> binomial)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>decision_grid<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(my_glm, <span class="at">newdata =</span> decision_grid)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>student_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Not Student"</span>, <span class="st">"Student"</span>)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(student_labels) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>(<span class="at">data =</span> decision_grid,</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> balance, <span class="at">y =</span> income, <span class="at">fill =</span> <span class="fu">factor</span>(pred <span class="sc">&gt;</span> <span class="fl">0.5</span>))) <span class="sc">+</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"firebrick"</span>, <span class="st">"green"</span>, <span class="st">"firebrick"</span>, <span class="st">"green"</span>)) <span class="sc">+</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">data =</span> Default, </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> balance, <span class="at">y =</span> income, </span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="fu">factor</span>(default <span class="sc">==</span> <span class="dv">1</span>)),</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span> student, </span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">student =</span> student_labels)) <span class="sc">+</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Credit Card Balance"</span>,</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Income"</span>,</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> <span class="st">"Default?"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L20-Logistic_files/figure-html/decision_boundary-1.png" class="img-fluid figure-img" width="864"></p>
+<p><img src="L20-Logistic_files/figure-revealjs/decision_boundary-1.png" class="img-fluid figure-img" width="864"></p>
 </figure>
 </div>
 </div>
@@ -2307,6 +2266,44 @@ P(Y_i = j| x = x_i) \stackrel{def}{=} p_j(x_i)
 </section>
 
 </main> <!-- /main -->
+
+<script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script>
+
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
