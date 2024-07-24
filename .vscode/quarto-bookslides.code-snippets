@@ -62,5 +62,17 @@
         "scope": "quarto",
         "prefix": "mcqans",
         "body": "<!--- $0 --->"
+    },
+
+    "webr-small": {
+        "scope": "quarto",
+        "prefix": "webr-small",
+        "body": [
+            "::: {style=\"font-size:80%;\"}",
+            "```{webr-r}",
+            "$0",
+            "```",
+            ":::"
+        ]
     }
 }
