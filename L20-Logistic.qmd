@@ -1,11 +1,12 @@
 ---
 title: "Classification"
-institute: "Jam: **Love's a Logistical Thing** by PJ Parker"
+institute: "Jam: **Sigma Oasis** by Phish"
 format: 
     revealjs:
         slide-level: 3
         theme: serif
         smaller: true
+        height: 800
 filters:
     - webr
     - shinylive
@@ -36,12 +37,22 @@ set.seed(2112)
 ::: {.column width="50%"}
 \vspace{1cm}
 
+The plot on the right shows Default versus Credit Card Balance (with jittering).
+
+- "Default" is 0 for No, 1 for Yes
+    - Dummy encoding for the *response*
+- Linear model predicts negative values!
+    - Also, values above 1.
+- What could the slope possibly represent???
+
 :::
 ::: {.column width="50%"}
 
 ```{r}
 #| eval: true
 #| echo: false
+#| fig-height: 6
+#| fig-width: 6
 
 library(ISLR2)
 library(ggplot2)
@@ -52,7 +63,8 @@ ggplot(Default) +
     theme_bw() +
     labs(x = "Credit Card Balance",
         y = "Defaulted (No = 0, Yes = 1)") +
-    scale_y_continuous(breaks = c(0, 1), minor_breaks = c(0, 1))
+    scale_y_continuous(breaks = c(0, 1), minor_breaks = c(0, 1)) +
+    geom_smooth(method = "lm", formula = y ~ x, se = FALSE)
 ```
 :::
 ::::
@@ -80,7 +92,7 @@ plot_averages(x = Default$balance, y = as.numeric(Default$default) - 1,
     xlab = "Credit Card Balance")
 ```
 
-### The Logistic Function - A Sigmoidal Function
+### The Logistic Function - A Sigmoid
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -113,10 +125,14 @@ ggplot() + theme_minimal() +
 
 ### Logistic Function - Now with Parameters
 
+$$
+\sigma(\beta_0 + \beta_1 t)
+$$
+
 ```{shinylive-r}
 #| standalone: true
-#| viewerHeight: 400
-#| viewerWidth: 700
+#| viewerHeight: 600
+#| viewerWidth: 800
 
 xseq <- seq(-10, 10, 0.05)
 sigma <- function(t) exp(t)/(1 + exp(t))
@@ -125,8 +141,8 @@ input <- list(b0 = 0, b1 = 1)
 
 ui <- fluidPage(
     sidebarPanel(
-        sliderInput("b0", "Intercept", -5, 5, 0, 0.1, animate = list(interval = 100)),
-        sliderInput("b1", "Slope", -5, 5, 1, 0.1, animate = list(interval = 100))
+        sliderInput("b0", "Intercept B_0", -5, 5, 0, 0.1, animate = list(interval = 100)),
+        sliderInput("b1", "Slope B_1", -5, 5, 1, 0.1, animate = list(interval = 100))
     ),
     mainPanel(plotOutput("plot"), )
 )
@@ -207,9 +223,9 @@ $\eta(x_i) = -10.65 + 0.0054\cdot\text{balance}_i$
 
 It's just one step away from a linear model!
 
-### Interpreting Parameters
+### Interpreting Slope Parameters
 
-- General structure: "For each one unit increase in $x_i$, some function of $y_i$ changes by some function of $\beta$"".
+- General structure: "For each one unit increase in $x_i$, some function of $y_i$ changes by some function of $\beta$".
 
 ::: {.content-visible unless-profile="book"}
 &nbsp;
@@ -232,6 +248,28 @@ It's just one step away from a linear model!
 - $\beta$ is the **change in log odds** for a one unit increase.
     - "**log odds _ratio_**".
 
+### Odds Ratios
+
+Consider the one-predictor example. 
+
+$$
+\eta(x_i) = \beta_0 + \beta_1x_{i1}\text{ and }\eta(x_i + 1) = \beta_0 + \beta_1x_i + \beta_1\text{, }\therefore \eta(x_i + 1) - \eta(x_i) = \beta
+$$
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+The logg odds ratio is defined as
+$$
+\log(OR) = \log\left( \frac{p(x_i + 1)}{1 - p(x_i + 1)} \middle/ \frac{p(x_i)}{1 - p(x_i)}\right)
+$$
+Using $\eta(x_i) = \log\left(\frac{p(x_i)}{1-p(x_i)}\right)$, show that $\log(OR) = \beta_1$
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
 ### The Loss Function
 
 For all observations:
@@ -241,14 +279,15 @@ For all observations:
 - If $y_i = 1$, we want $p(x_i)$ to be as *high* as possible.
     - Maximize $P(Y_{i} = 1|\beta_0,\beta_1,X)$
 
-::: {.content-visible unless-profile="book"}
-&nbsp;
-:::
-
 These can be combined as:
 $$
 \prod_{i:y_{i} = 0}\left(1 - P(Y_{i} = 1|\beta_0,\beta_1,X)\right)\prod_{i:y_i=1}P(Y_i = 1|\beta_0,\beta_1,X)
 $$
+which is equivalent to:
+$$
+\prod_{i=1}^n(1 - P(Y_{i} = 1|\beta_0,\beta_1,X))^{1 - Y_i}P(Y_i = 1|\beta_0,\beta_1,X)^{Y_i}
+$$
+
 Which is NOT just the sum of squared errors!
 
 ::: {.content-visible unless-profile="book"}
@@ -483,21 +522,83 @@ There *is* a closed form for $V(\hat\beta)$ and a way to test significance, but 
 - Relies on likelihoods, which we avoided in this course.
 - You can assume significance tests in R output are correct.
 
+::: {.content-visible unless-profile="book"}
 
 ## Participation
 
 ### Q1
 
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
 
+Logistic regression models the mean of y for each value of x.
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+a. TRUE
+b. FALSE
+
+<!--- A --->
 
 ### Q2
 
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+Logistic regression results in predictions of either 0 or 1.
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+a. TRUE
+b. FALSE
+
+<!--- B --->
+
 ### Q3
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+A slope parameter of 2 means that each one unit increase in x is associated with...
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+a. An increase of 2 in the odds of y.
+b. An increase of 2 in y.
+c. An increase of 2 in the log of the odds ratio of y.
+d. An increase of 2 in the probability of y.
+
+<!--- C --->
 
 ### Q4
 
-### Q5
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
 
+Which of the following linear regression concepts does *not* apply to logistic regression?
+
+::: {.content-visible unless-profile="book"}
+&nbsp;
+:::
+
+a. Predictions are found by plugging in x values.
+b. Multicollinearity will affect the covariance of the parameter estimates.
+c. The SSE divided by its degrees of freedom will follow a Chi-Square distribution.
+d. We can use polynomial terms and interactions to get different patterns.
+
+<!--- A --->
+
+:::
 
 
 ## Classification Basics
