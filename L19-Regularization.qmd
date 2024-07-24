@@ -1,10 +1,11 @@
 ---
-title: "Regularization Methods"
 institute: "Jam: **Ted Lasso Theme** by Marcus Mumford and Tom Howe"
 filters:
   - shinylive
   - webr
 ---
+
+# Regularization
 
 ```{r}
 #| include: false

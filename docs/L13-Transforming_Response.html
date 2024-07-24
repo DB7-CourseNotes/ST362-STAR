@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))","options":{"editor-quick-suggestions":"false","read-only":"false","out-height":"","out-width":"700px","editor-font-scale":1,"autorun":"false","context":"interactive","label":"unnamed-chunk-1","warning":"true","dpi":72,"fig-cap":"","editor-max-height":"","fig-width":7,"fig-height":5,"results":"markup","classes":"","message":"true","comment":"","output":"true"},"id":1},{"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)","options":{"editor-quick-suggestions":"false","read-only":"false","out-height":"","out-width":"700px","editor-font-scale":1,"autorun":"false","context":"interactive","label":"trans1","warning":"true","dpi":72,"fig-cap":"","editor-max-height":"","fig-width":7,"fig-height":5,"results":"markup","classes":"","message":"true","comment":"","output":"true"},"id":2}];
+globalThis.qwebrCellDetails = [{"id":1,"options":{"results":"markup","comment":"","editor-max-height":"","read-only":"false","message":"true","fig-height":5,"out-width":"700px","output":"true","classes":"","editor-font-scale":1,"dpi":72,"fig-width":7,"out-height":"","autorun":"false","label":"unnamed-chunk-1","editor-quick-suggestions":"false","fig-cap":"","context":"interactive","warning":"true"},"code":"dugongs <- read.csv(\"https://raw.githubusercontent.com/DS-100/course-notes/main/constant_model_loss_transformations/data/dugongs.csv\")\n\npar(mfrow = c(1, 2))\nplot(Age ~ Length, data = dugongs)\nabline(lm(Age ~ Length, data = dugongs))\nplot(log(Age) ~ Length, data = dugongs)\nabline(lm(log(Age) ~ Length, data = dugongs))"},{"id":2,"options":{"results":"markup","comment":"","editor-max-height":"","read-only":"false","message":"true","fig-height":5,"out-width":"700px","output":"true","classes":"","editor-font-scale":1,"dpi":72,"fig-width":7,"out-height":"","autorun":"false","label":"trans1","editor-quick-suggestions":"false","fig-cap":"","context":"interactive","warning":"true"},"code":"set.seed(2112)\nn <- 60\nx <- runif(n, 1, 10)\nxl <- log(x)\nepsilon <- rnorm(n, 0, 3)\n# y ~ log(x) has linear errors\ny1 <- log(x) + epsilon\n# log(y) ~ x <=> y = exp(x + epsilon)\ny2 <- exp(x + epsilon)\n\nmylm <- lm(y1^3 ~ x)\npar(mfrow = c(2, 2))\nplot(mylm)"}];
 
 </script>
 <script type="module">
@@ -1365,7 +1365,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">

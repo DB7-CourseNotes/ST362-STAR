@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-07-22">
+<meta name="dcterms.date" content="2024-07-24">
 
-<title>STAR Notes – 19&nbsp; Regularization Methods</title>
+<title>STAR Notes – 19&nbsp; Regularization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -282,7 +282,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Run this code once and it will install packages,\n# run again and the package installation messages will disappear.\nlibrary(glmnet)\nlibrary(palmerpenguins)\n\n# glmnet requires separate matrix for X and y,\n# NAs in X might get removed, making X and y have\n# incompatible dimensions, therefore we must remove\n# NAs ourselves.\npeng <- na.omit(penguins)\n\n# glmnet requires a matrix - it will not create dummy \n# variables for you. The easiest way to do this is to\n# get lm() to do it for us, then extract the results.\nmylm <- lm(\n  formula = body_mass_g ~ \n    (flipper_length_mm + bill_depth_mm + bill_length_mm) * species + \n    flipper_length_mm * island,\n  data = peng)\nprint(\"Coefficients of the linear model:\")\nsummary(mylm)$coef # Lots of predictors are not significant.\n\n# The [, -1] removes the first column, which is just 1s\nx <- model.matrix(mylm)[, -1]\ny <- peng$body_mass_g\n\n# Estimate lambda via cross-validation\nlambda_estimates <- cv.glmnet(x = x, y = y)\nplot(lambda_estimates)\n\n# Fit the model with the lambda that minimizes CV error\n# (Also try lasso_estimates$lambda.1se; what do you notice?)\nmylasso <- glmnet(x = x, y = y,\n  lambda = lambda_estimates$lambda.min)\ncat(\"\\n\\n\\n\") # Empty lines to separate R output\nprint(\"Coefficients of the lasso model:\")\ncoef(mylasso)","id":1,"options":{"editor-font-scale":1,"label":"unnamed-chunk-1","read-only":"false","editor-quick-suggestions":"false","editor-max-height":"","output":"true","message":"true","fig-height":5,"comment":"","warning":"true","dpi":72,"fig-cap":"","out-height":"","context":"interactive","eval":"true","classes":"","autorun":"false","out-width":"700px","fig-width":7,"results":"markup"}},{"code":"library(glmnet) # cv.glmnet() and glmnet()\nlibrary(ISLR2) # Wage data set\n\nWage <- ISLR2::Wage\n# From names(Wage), I want to remove \"region\" and \"wage\"\nWage <- Wage[, -c(6, 11)]","id":2,"options":{"editor-font-scale":1,"label":"unnamed-chunk-2","read-only":"false","editor-quick-suggestions":"false","editor-max-height":"","output":"true","message":"true","fig-height":5,"comment":"","warning":"true","dpi":72,"fig-cap":"","out-height":"","context":"interactive","classes":"","autorun":"false","out-width":"700px","fig-width":7,"results":"markup"}},{"code":"X <- model.matrix(logwage ~ ., data = Wage)[,-1]\ny <- as.numeric(Wage$logwage)","id":3,"options":{"editor-font-scale":1,"label":"unnamed-chunk-3","read-only":"false","editor-quick-suggestions":"false","editor-max-height":"","output":"true","message":"true","fig-height":5,"comment":"","warning":"true","dpi":72,"fig-cap":"","out-height":"","context":"interactive","classes":"","autorun":"false","out-width":"700px","fig-width":7,"results":"markup"}},{"code":"cv_check <- cv.glmnet(x = X, y = y, alpha = 1)\nplot(cv_check)","id":4,"options":{"editor-font-scale":1,"label":"unnamed-chunk-4","read-only":"false","editor-quick-suggestions":"false","editor-max-height":"","output":"true","message":"true","fig-height":5,"comment":"","warning":"true","dpi":72,"fig-cap":"","out-height":"","context":"interactive","classes":"","autorun":"false","out-width":"700px","fig-width":7,"results":"markup"}},{"code":"my_lasso <- glmnet(X, y, lambda = cv_check$lambda.1se)\nmy_lasso\ncoef(my_lasso)","id":5,"options":{"editor-font-scale":1,"label":"unnamed-chunk-5","read-only":"false","editor-quick-suggestions":"false","editor-max-height":"","output":"true","message":"true","fig-height":5,"comment":"","warning":"true","dpi":72,"fig-cap":"","out-height":"","context":"interactive","classes":"","autorun":"false","out-width":"700px","fig-width":7,"results":"markup"}},{"code":"standardized_X <- apply(X, 2, scale)\nstandardized_lm <- lm(y ~ standardized_X)\ncoef_mat <- cbind(coef(my_lasso),\n    coef(standardized_lm))\n\nres <- cbind(\n        coef_mat, \n        apply(coef_mat, 1, function(x) abs(x[2] - x[1]))\n    ) |> \n    round(3)\ncolnames(res) <- c(\"lasso\", \"lm\", \"|lm - lasso|\")\nres","id":6,"options":{"editor-font-scale":1,"label":"unnamed-chunk-6","read-only":"false","editor-quick-suggestions":"false","editor-max-height":"","output":"true","message":"true","fig-height":5,"comment":"","warning":"true","dpi":72,"fig-cap":"","out-height":"","context":"interactive","classes":"","autorun":"false","out-width":"700px","fig-width":7,"results":"markup"}}];
+globalThis.qwebrCellDetails = [{"id":1,"code":"# Run this code once and it will install packages,\n# run again and the package installation messages will disappear.\nlibrary(glmnet)\nlibrary(palmerpenguins)\n\n# glmnet requires separate matrix for X and y,\n# NAs in X might get removed, making X and y have\n# incompatible dimensions, therefore we must remove\n# NAs ourselves.\npeng <- na.omit(penguins)\n\n# glmnet requires a matrix - it will not create dummy \n# variables for you. The easiest way to do this is to\n# get lm() to do it for us, then extract the results.\nmylm <- lm(\n  formula = body_mass_g ~ \n    (flipper_length_mm + bill_depth_mm + bill_length_mm) * species + \n    flipper_length_mm * island,\n  data = peng)\nprint(\"Coefficients of the linear model:\")\nsummary(mylm)$coef # Lots of predictors are not significant.\n\n# The [, -1] removes the first column, which is just 1s\nx <- model.matrix(mylm)[, -1]\ny <- peng$body_mass_g\n\n# Estimate lambda via cross-validation\nlambda_estimates <- cv.glmnet(x = x, y = y)\nplot(lambda_estimates)\n\n# Fit the model with the lambda that minimizes CV error\n# (Also try lasso_estimates$lambda.1se; what do you notice?)\nmylasso <- glmnet(x = x, y = y,\n  lambda = lambda_estimates$lambda.min)\ncat(\"\\n\\n\\n\") # Empty lines to separate R output\nprint(\"Coefficients of the lasso model:\")\ncoef(mylasso)","options":{"out-width":"700px","fig-cap":"","output":"true","editor-font-scale":1,"out-height":"","eval":"true","read-only":"false","autorun":"false","classes":"","editor-quick-suggestions":"false","results":"markup","label":"unnamed-chunk-1","comment":"","dpi":72,"context":"interactive","fig-height":5,"message":"true","warning":"true","fig-width":7,"editor-max-height":""}},{"id":2,"code":"library(glmnet) # cv.glmnet() and glmnet()\nlibrary(ISLR2) # Wage data set\n\nWage <- ISLR2::Wage\n# From names(Wage), I want to remove \"region\" and \"wage\"\nWage <- Wage[, -c(6, 11)]","options":{"out-width":"700px","fig-cap":"","output":"true","editor-font-scale":1,"out-height":"","read-only":"false","autorun":"false","classes":"","editor-quick-suggestions":"false","results":"markup","label":"unnamed-chunk-2","comment":"","dpi":72,"context":"interactive","fig-height":5,"message":"true","warning":"true","fig-width":7,"editor-max-height":""}},{"id":3,"code":"X <- model.matrix(logwage ~ ., data = Wage)[,-1]\ny <- as.numeric(Wage$logwage)","options":{"out-width":"700px","fig-cap":"","output":"true","editor-font-scale":1,"out-height":"","read-only":"false","autorun":"false","classes":"","editor-quick-suggestions":"false","results":"markup","label":"unnamed-chunk-3","comment":"","dpi":72,"context":"interactive","fig-height":5,"message":"true","warning":"true","fig-width":7,"editor-max-height":""}},{"id":4,"code":"cv_check <- cv.glmnet(x = X, y = y, alpha = 1)\nplot(cv_check)","options":{"out-width":"700px","fig-cap":"","output":"true","editor-font-scale":1,"out-height":"","read-only":"false","autorun":"false","classes":"","editor-quick-suggestions":"false","results":"markup","label":"unnamed-chunk-4","comment":"","dpi":72,"context":"interactive","fig-height":5,"message":"true","warning":"true","fig-width":7,"editor-max-height":""}},{"id":5,"code":"my_lasso <- glmnet(X, y, lambda = cv_check$lambda.1se)\nmy_lasso\ncoef(my_lasso)","options":{"out-width":"700px","fig-cap":"","output":"true","editor-font-scale":1,"out-height":"","read-only":"false","autorun":"false","classes":"","editor-quick-suggestions":"false","results":"markup","label":"unnamed-chunk-5","comment":"","dpi":72,"context":"interactive","fig-height":5,"message":"true","warning":"true","fig-width":7,"editor-max-height":""}},{"id":6,"code":"standardized_X <- apply(X, 2, scale)\nstandardized_lm <- lm(y ~ standardized_X)\ncoef_mat <- cbind(coef(my_lasso),\n    coef(standardized_lm))\n\nres <- cbind(\n        coef_mat, \n        apply(coef_mat, 1, function(x) abs(x[2] - x[1]))\n    ) |> \n    round(3)\ncolnames(res) <- c(\"lasso\", \"lm\", \"|lm - lasso|\")\nres","options":{"out-width":"700px","fig-cap":"","output":"true","editor-font-scale":1,"out-height":"","read-only":"false","autorun":"false","classes":"","editor-quick-suggestions":"false","results":"markup","label":"unnamed-chunk-6","comment":"","dpi":72,"context":"interactive","fig-height":5,"message":"true","warning":"true","fig-width":7,"editor-max-height":""}}];
 
 </script>
 <script type="module">
@@ -1160,7 +1160,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L19-Regularization.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L19-Regularization.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -1336,7 +1336,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1725,9 +1725,9 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 }
 </script>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L19-Regularization.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19-Regularization.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="./L19-Regularization.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></h1>
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization</span></h1>
 </div>
 
 
@@ -1751,7 +1751,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-22</p>
+      <p class="date">2024-07-24</p>
     </div>
   </div>
   
@@ -2119,44 +2119,6 @@ shinyApp(ui = ui, server = server)</code></pre>
 </section>
 
 </main> <!-- /main -->
-
-<script>
-  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-  // slide changes (different for each slide format).
-  (function () {
-    // dispatch for htmlwidgets
-    function fireSlideEnter() {
-      const event = window.document.createEvent("Event");
-      event.initEvent("slideenter", true, true);
-      window.document.dispatchEvent(event);
-    }
-
-    function fireSlideChanged(previousSlide, currentSlide) {
-      fireSlideEnter();
-
-      // dispatch for shiny
-      if (window.jQuery) {
-        if (previousSlide) {
-          window.jQuery(previousSlide).trigger("hidden");
-        }
-        if (currentSlide) {
-          window.jQuery(currentSlide).trigger("shown");
-        }
-      }
-    }
-
-    // hookup for slidy
-    if (window.w3c_slidy) {
-      window.w3c_slidy.add_observer(function (slide_num) {
-        // slide_num starts at position 1
-        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-      });
-    }
-
-  })();
-</script>
-
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

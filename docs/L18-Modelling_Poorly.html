@@ -277,7 +277,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"dpi":72,"comment":"","warning":"true","editor-max-height":"","editor-quick-suggestions":"false","fig-width":7,"message":"true","editor-font-scale":1,"out-height":"","classes":"","results":"markup","label":"unnamed-chunk-1","fig-height":5,"autorun":"false","context":"interactive","read-only":"false","fig-cap":"","out-width":"700px","output":"true"},"id":1,"code":"last_digit_of_student_number <- 0\nHitters <- read.csv(paste0(\"https://raw.githubusercontent.com/DB7-CourseNotes/ST362-STAR/main/data/Hitters_\", last_digit_of_student_number, \".csv\"))\n\nmymodel <- lm(Salary ~ ., data = Hitters)\npar(mfrow = c(2, 2))\nplot(mymodel)\n\n# Find the best model you can come up with!\n# Try ?step to look at automated subset selection!\n# You might also want to try Salary ~ .^2, which includes all interaction\n# terms, but you should probably use forward selection on that (explain why!)"},{"options":{"dpi":72,"comment":"","warning":"true","editor-max-height":"","editor-quick-suggestions":"false","fig-width":7,"message":"true","editor-font-scale":1,"out-height":"","classes":"","results":"markup","label":"unnamed-chunk-2","fig-height":5,"autorun":"false","context":"interactive","read-only":"false","fig-cap":"","out-width":"700px","output":"true"},"id":2,"code":"n <- 100\np <- 30\n# Generate 30 uncorrelated predictors\nX <- matrix(ncol = p, nrow = n, data = runif(n * p, 0, 10))\n# y is uncorrelated with the predictors\ny <- matrix(ncol = 1, nrow = n, data = rnorm(n, 0, 3))\nmydf <- cbind(y = y, X) |> as.data.frame()\nnames(mydf)[1] <- \"y\"\nstep(lm(y ~ ., data = mydf), direction = \"backward\", trace = 0) |>\n    coef()"}];
+globalThis.qwebrCellDetails = [{"code":"last_digit_of_student_number <- 0\nHitters <- read.csv(paste0(\"https://raw.githubusercontent.com/DB7-CourseNotes/ST362-STAR/main/data/Hitters_\", last_digit_of_student_number, \".csv\"))\n\nmymodel <- lm(Salary ~ ., data = Hitters)\npar(mfrow = c(2, 2))\nplot(mymodel)\n\n# Find the best model you can come up with!\n# Try ?step to look at automated subset selection!\n# You might also want to try Salary ~ .^2, which includes all interaction\n# terms, but you should probably use forward selection on that (explain why!)","options":{"comment":"","dpi":72,"warning":"true","editor-quick-suggestions":"false","out-height":"","autorun":"false","fig-width":7,"editor-font-scale":1,"read-only":"false","context":"interactive","output":"true","message":"true","fig-height":5,"results":"markup","classes":"","fig-cap":"","out-width":"700px","label":"unnamed-chunk-1","editor-max-height":""},"id":1},{"code":"n <- 100\np <- 30\n# Generate 30 uncorrelated predictors\nX <- matrix(ncol = p, nrow = n, data = runif(n * p, 0, 10))\n# y is uncorrelated with the predictors\ny <- matrix(ncol = 1, nrow = n, data = rnorm(n, 0, 3))\nmydf <- cbind(y = y, X) |> as.data.frame()\nnames(mydf)[1] <- \"y\"\nstep(lm(y ~ ., data = mydf), direction = \"backward\", trace = 0) |>\n    coef()","options":{"comment":"","dpi":72,"warning":"true","editor-quick-suggestions":"false","out-height":"","autorun":"false","fig-width":7,"editor-font-scale":1,"read-only":"false","context":"interactive","output":"true","message":"true","fig-height":5,"results":"markup","classes":"","fig-cap":"","out-width":"700px","label":"unnamed-chunk-2","editor-max-height":""},"id":2}];
 
 </script>
 <script type="module">
@@ -1331,7 +1331,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -2553,8 +2553,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L19-Regularization.html" class="pagination-link" aria-label="Regularization Methods">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L19-Regularization.html" class="pagination-link" aria-label="Regularization">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

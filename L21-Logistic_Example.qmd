@@ -1,10 +1,9 @@
 ---
+title: Logistic Modelling
 institute: "Jam: **Love's a Logistical Thing** by PJ Parker"
 filters:
   - webr
 ---
-
-# Logistic Modelling
 
 ## Step 1: Concentrate on the Orange Juice
 

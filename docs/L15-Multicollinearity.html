@@ -311,7 +311,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"options":{"dpi":72,"results":"markup","editor-font-scale":1,"editor-quick-suggestions":"false","editor-max-height":"","comment":"","out-height":"","message":"true","label":"diy_vif","autorun":"false","out-width":"700px","classes":"","read-only":"false","echo":"true","warning":"true","fig-cap":"","context":"interactive","fig-width":7,"fig-height":5,"output":"true"},"code":"library(car)\nlibrary(MASS)\nn <- 50\n\nx1_x2_corr <- 0.8 # Change me!\nx1_x3_corr <- 0 # Change me!\ncoef_of_x2_in_y <- 2 # Change me too!\nX <- mvrnorm(n = n, mu = c(0, 0, 0), \n        Sigma = matrix(c(\n                1,          x1_x2_corr, x1_x3_corr,\n                x1_x2_corr, 1,          0,\n                x1_x3_corr, 0,          1),\n            nrow = 3))\nmydata <- data.frame(\n    y = 0 + 4*X[, 1] + coef_of_x2_in_y*X[, 2] +\n        2 * X[, 3] + rnorm(n, 0, 5),\n    x1 = X[, 1], x2 = X[, 2], x3 = X[, 3]\n)\nmylm <- lm(y ~ x1 + x2 + x3, data = mydata)\nvif(mylm)\npairs(mydata)"}];
+globalThis.qwebrCellDetails = [{"id":1,"code":"library(car)\nlibrary(MASS)\nn <- 50\n\nx1_x2_corr <- 0.8 # Change me!\nx1_x3_corr <- 0 # Change me!\ncoef_of_x2_in_y <- 2 # Change me too!\nX <- mvrnorm(n = n, mu = c(0, 0, 0), \n        Sigma = matrix(c(\n                1,          x1_x2_corr, x1_x3_corr,\n                x1_x2_corr, 1,          0,\n                x1_x3_corr, 0,          1),\n            nrow = 3))\nmydata <- data.frame(\n    y = 0 + 4*X[, 1] + coef_of_x2_in_y*X[, 2] +\n        2 * X[, 3] + rnorm(n, 0, 5),\n    x1 = X[, 1], x2 = X[, 2], x3 = X[, 3]\n)\nmylm <- lm(y ~ x1 + x2 + x3, data = mydata)\nvif(mylm)\npairs(mydata)","options":{"out-width":"700px","context":"interactive","editor-font-scale":1,"fig-height":5,"label":"diy_vif","dpi":72,"editor-quick-suggestions":"false","fig-width":7,"results":"markup","fig-cap":"","autorun":"false","warning":"true","classes":"","comment":"","out-height":"","echo":"true","output":"true","message":"true","read-only":"false","editor-max-height":""}}];
 
 </script>
 <script type="module">
@@ -1365,7 +1365,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L19-Regularization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Regularization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
