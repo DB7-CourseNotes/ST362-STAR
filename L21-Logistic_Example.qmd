@@ -305,7 +305,91 @@ This isn't the best model, but I want to explore some topics.
 ```{webr-r}
 mf <- glm(Purchase ~ PriceDiff + Store7 + LoyalCH,
     data = OJ, family = binomial)
-summary(mf$coef)
+summary(mf)$coef
 ```
 :::
 
+### Interpreting The Intercept
+
+The intercept is 3.41
+$$
+p(x_i) = expit(3.41) = 0.968
+$$
+Theres a 96.8% chance that a customer buys MM when all predictors are 0.
+
+Does this make sense?
+
+::: {.content-visible when-profile="book"}
+- "When all predictors are 0" includes `LoyalCH`; the intercept refers to someone who is loyal to MM!
+:::
+
+### Interpreting the `PriceDiff` (MM - CH)
+
+The slope for `PriceDiff` is -2.82. 
+
+- Negative - P(buys MM) decreases as MM becomes more expensive relative to CH.
+- Odds Ratio is exp(-2.82) = 0.0596.
+    - People are 0.0596 times as likely to buy MM when it's a dollar more expensive than CH, relative to when they're the same price.
+    - For an "equal price" versus "50 cents" comparison, customers are exp(-1.41) = 24% more likely to buy MM.
+
+### Comparing Parameters
+
+Which predictor is most important?
+
+::: {style="font-size:80%;"}
+```{webr-r}
+summary(mf)$coef
+```
+:::
+
+## Regularization
+
+### LASSO
+
+Recall:
+
+- `glmnet` will standardize the variables for you
+- `glmnet` uses LASSO by default.
+
+We're going to start with an overspecified model, and see what LASSO which predictors LASSO will select.
+
+::: {style="font-size:80%;"}
+```{webr-r}
+library(glmnet)
+
+# glmnet doesn't handle formula notation, so we make X ourselves
+formula <- Purchase ~ (PriceDiff + LoyalCH + SalePriceMM + SalePriceCH) * StoreID + SpecialMM*SpecialCH
+x <- model.matrix(formula, data = OJ)[, -1]
+y <- OJ$Purchase
+
+l1_crossvalidation <- cv.glmnet(x = x, y = y)
+plot(l1_crossvalidation)
+```
+:::
+
+The two vertical lines are the minumum value of the MSE and the value that's within 1 SE of the minimum.
+
+- `lambda.1se` does more regularizing, and the MSE is "close enough" relative to the variance.
+
+### LASSO with `lambda.1se`
+
+Change `lambda.1se` to `lambda.min` to see the difference in selected features!
+
+::: {style="font-size:80%;"}
+```{webr-r}
+l1 <- glmnet(x = x, y = y, lambda = l1_crossvalidation$lambda.1se)
+coef(l1)
+```
+:::
+
+### Interpreting LASSO parameters
+
+The parameter for `PriceDiff` is -0.21. A one *standard deviation* change in `PriceDiff` leads to an Odds Ratio of exp(-0.21) 0.81. 
+
+::: {style="font-size:80%;"}
+```{webr-r}
+sd(OJ$PriceDiff)
+```
+:::
+
+That's an increase in price difference of \$0.27.
