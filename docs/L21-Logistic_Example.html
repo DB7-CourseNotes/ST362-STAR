@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-07-24">
+<meta name="dcterms.date" content="2024-07-26">
 
 <title>STAR Notes – 21&nbsp; Logistic Modelling</title>
 <style>
@@ -255,7 +255,7 @@ body.reveal.quarto-dark div.qwebr-console-area {
 // Document level settings ----
 
 // Determine if we need to install R packages
-globalThis.qwebrInstallRPackagesList = [''];
+globalThis.qwebrInstallRPackagesList = ['ISLR2', 'glmnet'];
 
 // Specify possible locations to search for the repository
 globalThis.qwebrPackageRepoURLS = ['https://repo.r-wasm.org/'];
@@ -277,7 +277,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"id":1,"code":"library(ISLR2)\ndata(OJ)\nOJ$Purchase <- as.numeric(OJ$Purchase == \"MM\")\nOJ$StoreID <- factor(OJ$StoreID)\nOJ$SpecialCH <- factor(OJ$SpecialCH)\nOJ$SpecialMM <- factor(OJ$SpecialMM)\nstr(OJ)","options":{"editor-max-height":"","out-height":"","context":"interactive","fig-height":5,"warning":"true","fig-cap":"","results":"markup","label":"unnamed-chunk-1","editor-quick-suggestions":"false","read-only":"false","dpi":72,"editor-font-scale":1,"autorun":"false","output":"true","fig-width":7,"message":"true","classes":"","comment":"","out-width":"700px"}},{"id":2,"code":"par(mfrow = c(2, 2))\n\nplot(PriceMM ~ PriceCH, data = OJ)\nabline(0, 1) # If PriceCH == PriceMM, they will be on this line\n# MM is almost always more expensive than CH.\n\nboxplot(PriceMM ~ StoreID, data = OJ)\nboxplot(PriceDiff ~ StoreID, data = OJ)\nhist(OJ$LoyalCH) # Potentially a measure of how loyal they are to CH?","options":{"editor-max-height":"","out-height":"","context":"interactive","fig-height":5,"warning":"true","fig-cap":"","results":"markup","label":"unnamed-chunk-2","editor-quick-suggestions":"false","read-only":"false","dpi":72,"editor-font-scale":1,"autorun":"false","output":"true","fig-width":7,"message":"true","classes":"","comment":"","out-width":"700px"}},{"id":3,"code":"par(mfrow = c(2, 2))\nplot(PriceMM ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"Price stays consistent for\\nbrief periods within stores\")\nplot(PriceCH ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"This is true for CH, too.\")\nplot(PriceDiff ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"Price difference changes a lot!\")\nplot(PriceMM ~ DiscMM, data = OJ, col = StoreID,\n    main = \"DiscMM does not fully\\nexplain the price changes\")","options":{"editor-max-height":"","out-height":"","context":"interactive","fig-height":5,"warning":"true","fig-cap":"","results":"markup","label":"unnamed-chunk-3","editor-quick-suggestions":"false","read-only":"false","dpi":72,"editor-font-scale":1,"autorun":"false","output":"true","fig-width":7,"message":"true","classes":"","comment":"","out-width":"700px"}},{"id":4,"code":"plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 5, ...) {\n    if (is.null(g)) {\n        g <- 1\n    } else {\n        g <- as.numeric(factor(g))\n    }\n    plot(x, y, col = g, ...)\n    for(group in g) {\n        xg <- x[g == group]\n        yg <- y[g == group]\n        xseq <- seq(min(xg), max(xg), length.out = n)\n        window <- diff(range(xg)) * window_frac\n        mean_y <- c()\n        for(i in seq_along(xseq)) {\n           mean_y[i] <- mean(yg[xg < xseq[i] + window & xg > xseq[i] - window])\n        }\n        lines(xseq, mean_y, col = group)\n    }\n}\npar(mfrow = c(2, 2))\nplot_averages(OJ$DiscMM, OJ$Purchase, g = OJ$StoreID,\n    window_frac = 1/5,\n    main = \"In all stores, a larger\\ndiscount increases P(MM)\",\n    xlab = \"Discount of MM\", ylab = \"Prob(Purchase MM)\")\nplot_averages(OJ$PriceDiff, OJ$Purchase, g = OJ$StoreID,\n    window_frac = 1/5,\n    main = \"In most stores, the cheaper\\njuice is more likely to be purchased.\",\n    xlab = \"Price Difference (MM - CH)\", ylab = \"Prob(Purchase MM)\")\nbarplot(table(OJ$Purchase, OJ$StoreID), beside = TRUE,\n    legend.text = TRUE,\n    main = \"Stores 0 and 4 sell a lot more CH\")","options":{"editor-max-height":"","out-height":"","context":"interactive","fig-height":5,"warning":"true","fig-cap":"","results":"markup","label":"unnamed-chunk-4","editor-quick-suggestions":"false","read-only":"false","dpi":72,"editor-font-scale":1,"autorun":"false","output":"true","fig-width":7,"message":"true","classes":"","comment":"","out-width":"700px"}},{"id":5,"code":"m1 <- glm(Purchase ~ PriceDiff + Store7 + LoyalCH,\n    data = OJ, family = binomial)\nsummary(m1)\npar(mfrow = c(2, 2))\nplot(m1)","options":{"editor-max-height":"","out-height":"","context":"interactive","fig-height":5,"warning":"true","fig-cap":"","results":"markup","label":"unnamed-chunk-5","editor-quick-suggestions":"false","read-only":"false","dpi":72,"editor-font-scale":1,"autorun":"false","output":"true","fig-width":7,"message":"true","classes":"","comment":"","out-width":"700px"}},{"id":6,"code":"m2 <- glm(\n    Purchase ~ SalePriceCH + SalePriceMM + factor(StoreID) + LoyalCH + \n        SpecialMM * SpecialCH,\n    data = OJ, family = binomial)\nsummary(m2)\npar(mfrow = c(2, 2))\nplot(m2)","options":{"editor-max-height":"","out-height":"","context":"interactive","fig-height":5,"warning":"true","fig-cap":"","results":"markup","label":"unnamed-chunk-6","editor-quick-suggestions":"false","read-only":"false","dpi":72,"editor-font-scale":1,"autorun":"false","output":"true","fig-width":7,"message":"true","classes":"","comment":"","out-width":"700px"}},{"id":7,"code":"m2a <- glm(\n    Purchase ~ SalePriceCH + SalePriceMM + StoreID + LoyalCH + \n        SpecialMM * SpecialCH,\n    data = OJ, family = binomial)\nm2b <- glm(\n    Purchase ~ SalePriceCH + SalePriceMM + Store7 + LoyalCH + \n        SpecialMM * SpecialCH,\n    data = OJ, family = binomial)\nanova(m2a, m2b, test = \"Chisq\")","options":{"editor-max-height":"","out-height":"","context":"interactive","fig-height":5,"warning":"true","fig-cap":"","results":"markup","label":"unnamed-chunk-7","editor-quick-suggestions":"false","read-only":"false","dpi":72,"editor-font-scale":1,"autorun":"false","output":"true","fig-width":7,"message":"true","classes":"","comment":"","out-width":"700px"}},{"id":8,"code":"anova(\n    m2b,\n    update(m2b, ~ . - SpecialMM * SpecialCH),\n    test = \"Chisq\"\n)","options":{"editor-max-height":"","out-height":"","context":"interactive","fig-height":5,"warning":"true","fig-cap":"","results":"markup","label":"unnamed-chunk-8","editor-quick-suggestions":"false","read-only":"false","dpi":72,"editor-font-scale":1,"autorun":"false","output":"true","fig-width":7,"message":"true","classes":"","comment":"","out-width":"700px"}},{"id":9,"code":"m3a <- glm(\n    Purchase ~ SalePriceMM + SpecialMM + LoyalCH + Store7,\n    data = OJ, family = binomial\n)\nm3b <- update(m3a, ~ . + SalePriceCH + SpecialMM*SpecialCH)\nanova(m3a, m3b, test = \"Chisq\")","options":{"editor-max-height":"","out-height":"","context":"interactive","fig-height":5,"warning":"true","fig-cap":"","results":"markup","label":"unnamed-chunk-9","editor-quick-suggestions":"false","read-only":"false","dpi":72,"editor-font-scale":1,"autorun":"false","output":"true","fig-width":7,"message":"true","classes":"","comment":"","out-width":"700px"}},{"id":10,"code":"m4a1 <- glm(Purchase ~ LoyalCH + PriceDiff,\n    data = OJ, family = binomial)\nm4b1 <- glm(Purchase ~ LoyalCH + SalePriceMM + SalePriceCH + DiscCH + DiscMM,\n    data = OJ, family = binomial)\nanova(m4a1, m4b1, test = \"Chisq\")\n\nm4a2 <- glm(Purchase ~ PriceDiff,\n    data = OJ, family = binomial)\nm4b2 <- glm(Purchase ~ SalePriceMM + SalePriceCH + DiscCH + DiscMM,\n    data = OJ)\nanova(m4a2, m4b2, test = \"Chisq\")","options":{"editor-max-height":"","out-height":"","context":"interactive","fig-height":5,"warning":"true","fig-cap":"","results":"markup","label":"unnamed-chunk-10","editor-quick-suggestions":"false","read-only":"false","dpi":72,"editor-font-scale":1,"autorun":"false","output":"true","fig-width":7,"message":"true","classes":"","comment":"","out-width":"700px"}},{"id":11,"code":"mf <- glm(Purchase ~ PriceDiff + Store7 + LoyalCH,\n    data = OJ, family = binomial)\nsummary(mf$coef)","options":{"editor-max-height":"","out-height":"","context":"interactive","fig-height":5,"warning":"true","fig-cap":"","results":"markup","label":"unnamed-chunk-11","editor-quick-suggestions":"false","read-only":"false","dpi":72,"editor-font-scale":1,"autorun":"false","output":"true","fig-width":7,"message":"true","classes":"","comment":"","out-width":"700px"}}];
+globalThis.qwebrCellDetails = [{"code":"library(ISLR2)\ndata(OJ)\nOJ$Purchase <- as.numeric(OJ$Purchase == \"MM\")\nOJ$StoreID <- factor(OJ$StoreID)\nOJ$SpecialCH <- factor(OJ$SpecialCH)\nOJ$SpecialMM <- factor(OJ$SpecialMM)\nstr(OJ)","id":1,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-1","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"par(mfrow = c(2, 2))\n\nplot(PriceMM ~ PriceCH, data = OJ)\nabline(0, 1) # If PriceCH == PriceMM, they will be on this line\n# MM is almost always more expensive than CH.\n\nboxplot(PriceMM ~ StoreID, data = OJ)\nboxplot(PriceDiff ~ StoreID, data = OJ)\nhist(OJ$LoyalCH) # Potentially a measure of how loyal they are to CH?","id":2,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-2","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"par(mfrow = c(2, 2))\nplot(PriceMM ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"Price stays consistent for\\nbrief periods within stores\")\nplot(PriceCH ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"This is true for CH, too.\")\nplot(PriceDiff ~ WeekofPurchase, data = OJ, col = StoreID,\n    main = \"Price difference changes a lot!\")\nplot(PriceMM ~ DiscMM, data = OJ, col = StoreID,\n    main = \"DiscMM does not fully\\nexplain the price changes\")","id":3,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-3","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"plot_averages <- function(x, y, g = NULL, n = 50, window_frac = 1 / 5, ...) {\n    if (is.null(g)) {\n        g <- 1\n    } else {\n        g <- as.numeric(factor(g))\n    }\n    plot(x, y, col = g, ...)\n    for(group in g) {\n        xg <- x[g == group]\n        yg <- y[g == group]\n        xseq <- seq(min(xg), max(xg), length.out = n)\n        window <- diff(range(xg)) * window_frac\n        mean_y <- c()\n        for(i in seq_along(xseq)) {\n           mean_y[i] <- mean(yg[xg < xseq[i] + window & xg > xseq[i] - window])\n        }\n        lines(xseq, mean_y, col = group)\n    }\n}\npar(mfrow = c(2, 2))\nplot_averages(OJ$DiscMM, OJ$Purchase, g = OJ$StoreID,\n    window_frac = 1/5,\n    main = \"In all stores, a larger\\ndiscount increases P(MM)\",\n    xlab = \"Discount of MM\", ylab = \"Prob(Purchase MM)\")\nplot_averages(OJ$PriceDiff, OJ$Purchase, g = OJ$StoreID,\n    window_frac = 1/5,\n    main = \"In most stores, the cheaper\\njuice is more likely to be purchased.\",\n    xlab = \"Price Difference (MM - CH)\", ylab = \"Prob(Purchase MM)\")\nbarplot(table(OJ$Purchase, OJ$StoreID), beside = TRUE,\n    legend.text = TRUE,\n    main = \"Stores 0 and 4 sell a lot more CH\")","id":4,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-4","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"m1 <- glm(Purchase ~ PriceDiff + Store7 + LoyalCH,\n    data = OJ, family = binomial)\nsummary(m1)\npar(mfrow = c(2, 2))\nplot(m1)","id":5,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-5","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"m2 <- glm(\n    Purchase ~ SalePriceCH + SalePriceMM + factor(StoreID) + LoyalCH + \n        SpecialMM * SpecialCH,\n    data = OJ, family = binomial)\nsummary(m2)\npar(mfrow = c(2, 2))\nplot(m2)","id":6,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-6","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"m2a <- glm(\n    Purchase ~ SalePriceCH + SalePriceMM + StoreID + LoyalCH + \n        SpecialMM * SpecialCH,\n    data = OJ, family = binomial)\nm2b <- glm(\n    Purchase ~ SalePriceCH + SalePriceMM + Store7 + LoyalCH + \n        SpecialMM * SpecialCH,\n    data = OJ, family = binomial)\nanova(m2a, m2b, test = \"Chisq\")","id":7,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-7","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"anova(\n    m2b,\n    update(m2b, ~ . - SpecialMM * SpecialCH),\n    test = \"Chisq\"\n)","id":8,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-8","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"m3a <- glm(\n    Purchase ~ SalePriceMM + SpecialMM + LoyalCH + Store7,\n    data = OJ, family = binomial\n)\nm3b <- update(m3a, ~ . + SalePriceCH + SpecialMM*SpecialCH)\nanova(m3a, m3b, test = \"Chisq\")","id":9,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-9","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"m4a1 <- glm(Purchase ~ LoyalCH + PriceDiff,\n    data = OJ, family = binomial)\nm4b1 <- glm(Purchase ~ LoyalCH + SalePriceMM + SalePriceCH + DiscCH + DiscMM,\n    data = OJ, family = binomial)\nanova(m4a1, m4b1, test = \"Chisq\")\n\nm4a2 <- glm(Purchase ~ PriceDiff,\n    data = OJ, family = binomial)\nm4b2 <- glm(Purchase ~ SalePriceMM + SalePriceCH + DiscCH + DiscMM,\n    data = OJ)\nanova(m4a2, m4b2, test = \"Chisq\")","id":10,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-10","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"mf <- glm(Purchase ~ PriceDiff + Store7 + LoyalCH,\n    data = OJ, family = binomial)\nsummary(mf)$coef","id":11,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-11","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"summary(mf)$coef","id":12,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-12","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"library(glmnet)\n\n# glmnet doesn't handle formula notation, so we make X ourselves\nformula <- Purchase ~ (PriceDiff + LoyalCH + SalePriceMM + SalePriceCH) * StoreID + SpecialMM*SpecialCH\nx <- model.matrix(formula, data = OJ)[, -1]\ny <- OJ$Purchase\n\nl1_crossvalidation <- cv.glmnet(x = x, y = y)\nplot(l1_crossvalidation)","id":13,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-13","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"l1 <- glmnet(x = x, y = y, lambda = l1_crossvalidation$lambda.1se)\ncoef(l1)","id":14,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-14","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}},{"code":"sd(OJ$PriceDiff)","id":15,"options":{"output":"true","fig-height":5,"classes":"","editor-quick-suggestions":"false","dpi":72,"editor-font-scale":1,"fig-width":7,"results":"markup","warning":"true","autorun":"false","read-only":"false","context":"interactive","label":"unnamed-chunk-15","editor-max-height":"","comment":"","out-height":"","message":"true","out-width":"700px","fig-cap":""}}];
 
 </script>
 <script type="module">
@@ -1478,6 +1478,15 @@ window.Quarto = {
   <li><a href="#a-final-model-for-demonstration-purposes" id="toc-a-final-model-for-demonstration-purposes" class="nav-link" data-scroll-target="#a-final-model-for-demonstration-purposes"><span class="header-section-number">21.3</span> A Final Model (for demonstration purposes)</a>
   <ul class="collapse">
   <li><a href="#lets-just-try-this-one." id="toc-lets-just-try-this-one." class="nav-link" data-scroll-target="#lets-just-try-this-one.">Let’s just try this one.</a></li>
+  <li><a href="#interpreting-the-intercept" id="toc-interpreting-the-intercept" class="nav-link" data-scroll-target="#interpreting-the-intercept">Interpreting The Intercept</a></li>
+  <li><a href="#interpreting-the-pricediff-mm---ch" id="toc-interpreting-the-pricediff-mm---ch" class="nav-link" data-scroll-target="#interpreting-the-pricediff-mm---ch">Interpreting the <code>PriceDiff</code> (MM - CH)</a></li>
+  <li><a href="#comparing-parameters" id="toc-comparing-parameters" class="nav-link" data-scroll-target="#comparing-parameters">Comparing Parameters</a></li>
+  </ul></li>
+  <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization"><span class="header-section-number">21.4</span> Regularization</a>
+  <ul class="collapse">
+  <li><a href="#lasso" id="toc-lasso" class="nav-link" data-scroll-target="#lasso">LASSO</a></li>
+  <li><a href="#lasso-with-lambda.1se" id="toc-lasso-with-lambda.1se" class="nav-link" data-scroll-target="#lasso-with-lambda.1se">LASSO with <code>lambda.1se</code></a></li>
+  <li><a href="#interpreting-lasso-parameters" id="toc-interpreting-lasso-parameters" class="nav-link" data-scroll-target="#interpreting-lasso-parameters">Interpreting LASSO parameters</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1738,7 +1747,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-24</p>
+      <p class="date">2024-07-26</p>
     </div>
   </div>
   
@@ -1911,6 +1920,73 @@ y_i = \beta_0 + \beta_4Store7_i + ... + \epsilon_i
 <div id="qwebr-insertion-location-11"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
+</section>
+<section id="interpreting-the-intercept" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-intercept">Interpreting The Intercept</h3>
+<p>The intercept is 3.41 <span class="math display">\[
+p(x_i) = expit(3.41) = 0.968
+\]</span> Theres a 96.8% chance that a customer buys MM when all predictors are 0.</p>
+<p>Does this make sense?</p>
+<ul>
+<li>“When all predictors are 0” includes <code>LoyalCH</code>; the intercept refers to someone who is loyal to MM!</li>
+</ul>
+</section>
+<section id="interpreting-the-pricediff-mm---ch" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-pricediff-mm---ch">Interpreting the <code>PriceDiff</code> (MM - CH)</h3>
+<p>The slope for <code>PriceDiff</code> is -2.82.</p>
+<ul>
+<li>Negative - P(buys MM) decreases as MM becomes more expensive relative to CH.</li>
+<li>Odds Ratio is exp(-2.82) = 0.0596.
+<ul>
+<li>People are 0.0596 times as likely to buy MM when it’s a dollar more expensive than CH, relative to when they’re the same price.</li>
+<li>For an “equal price” versus “50 cents” comparison, customers are exp(-1.41) = 24% more likely to buy MM.</li>
+</ul></li>
+</ul>
+</section>
+<section id="comparing-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-parameters">Comparing Parameters</h3>
+<p>Which predictor is most important?</p>
+<div style="font-size:80%;">
+<div id="qwebr-insertion-location-12"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+</section>
+</section>
+<section id="regularization" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="regularization"><span class="header-section-number">21.4</span> Regularization</h2>
+<section id="lasso" class="level3">
+<h3 class="anchored" data-anchor-id="lasso">LASSO</h3>
+<p>Recall:</p>
+<ul>
+<li><code>glmnet</code> will standardize the variables for you</li>
+<li><code>glmnet</code> uses LASSO by default.</li>
+</ul>
+<p>We’re going to start with an overspecified model, and see what LASSO which predictors LASSO will select.</p>
+<div style="font-size:80%;">
+<div id="qwebr-insertion-location-13"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<p>The two vertical lines are the minumum value of the MSE and the value that’s within 1 SE of the minimum.</p>
+<ul>
+<li><code>lambda.1se</code> does more regularizing, and the MSE is “close enough” relative to the variance.</li>
+</ul>
+</section>
+<section id="lasso-with-lambda.1se" class="level3">
+<h3 class="anchored" data-anchor-id="lasso-with-lambda.1se">LASSO with <code>lambda.1se</code></h3>
+<p>Change <code>lambda.1se</code> to <code>lambda.min</code> to see the difference in selected features!</p>
+<div style="font-size:80%;">
+<div id="qwebr-insertion-location-14"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+</section>
+<section id="interpreting-lasso-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-lasso-parameters">Interpreting LASSO parameters</h3>
+<p>The parameter for <code>PriceDiff</code> is -0.21. A one <em>standard deviation</em> change in <code>PriceDiff</code> leads to an Odds Ratio of exp(-0.21) 0.81.</p>
+<div style="font-size:80%;">
+<div id="qwebr-insertion-location-15"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</div>
+<p>That’s an increase in price difference of $0.27.</p>
 
 
 </section>

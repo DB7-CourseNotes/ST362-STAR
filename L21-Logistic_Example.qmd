@@ -11,6 +11,8 @@ format:
 filters:
   - webr
   - shinylive
+webr:
+    packages: ["ISLR2", "glmnet"]
 ---
 
 ## Step 1: Concentrate on the Orange Juice

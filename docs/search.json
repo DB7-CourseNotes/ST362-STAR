@@ -1453,7 +1453,18 @@
     "href": "L21-Logistic_Example.html#a-final-model-for-demonstration-purposes",
     "title": "21  Logistic Modelling",
     "section": "21.3 A Final Model (for demonstration purposes)",
-    "text": "21.3 A Final Model (for demonstration purposes)\n\nLet’s just try this one.\nThis isn’t the best model, but I want to explore some topics.\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "text": "21.3 A Final Model (for demonstration purposes)\n\nLet’s just try this one.\nThis isn’t the best model, but I want to explore some topics.\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nInterpreting The Intercept\nThe intercept is 3.41 \\[\np(x_i) = expit(3.41) = 0.968\n\\] Theres a 96.8% chance that a customer buys MM when all predictors are 0.\nDoes this make sense?\n\n“When all predictors are 0” includes LoyalCH; the intercept refers to someone who is loyal to MM!\n\n\n\nInterpreting the PriceDiff (MM - CH)\nThe slope for PriceDiff is -2.82.\n\nNegative - P(buys MM) decreases as MM becomes more expensive relative to CH.\nOdds Ratio is exp(-2.82) = 0.0596.\n\nPeople are 0.0596 times as likely to buy MM when it’s a dollar more expensive than CH, relative to when they’re the same price.\nFor an “equal price” versus “50 cents” comparison, customers are exp(-1.41) = 24% more likely to buy MM.\n\n\n\n\nComparing Parameters\nWhich predictor is most important?\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Logistic Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "L21-Logistic_Example.html#regularization",
+    "href": "L21-Logistic_Example.html#regularization",
+    "title": "21  Logistic Modelling",
+    "section": "21.4 Regularization",
+    "text": "21.4 Regularization\n\nLASSO\nRecall:\n\nglmnet will standardize the variables for you\nglmnet uses LASSO by default.\n\nWe’re going to start with an overspecified model, and see what LASSO which predictors LASSO will select.\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nThe two vertical lines are the minumum value of the MSE and the value that’s within 1 SE of the minimum.\n\nlambda.1se does more regularizing, and the MSE is “close enough” relative to the variance.\n\n\n\nLASSO with lambda.1se\nChange lambda.1se to lambda.min to see the difference in selected features!\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nInterpreting LASSO parameters\nThe parameter for PriceDiff is -0.21. A one standard deviation change in PriceDiff leads to an Odds Ratio of exp(-0.21) 0.81.\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nThat’s an increase in price difference of $0.27.",
     "crumbs": [
       "Advanced Topics",
       "<span class='chapter-number'>21</span>  <span class='chapter-title'>Logistic Modelling</span>"
