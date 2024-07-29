@@ -15,6 +15,13 @@ webr:
     packages: ["ISLR2", "glmnet"]
 ---
 
+## Preamble
+
+### Announcements
+
+- Haven't had a chance to check A4 winner; winner will be contacted tomorrow!
+- 
+
 ## Step 1: Concentrate on the Orange Juice
 
 ### Getting Acquainted
@@ -307,7 +314,7 @@ This isn't the best model, but I want to explore some topics.
 ```{webr-r}
 mf <- glm(Purchase ~ PriceDiff + Store7 + LoyalCH,
     data = OJ, family = binomial)
-summary(mf)$coef
+summary(mf)
 ```
 :::
 
@@ -315,11 +322,15 @@ summary(mf)$coef
 
 The intercept is 3.41
 $$
-p(x_i) = expit(3.41) = 0.968
+p(x_i) = \text{expit}(3.41) = \frac{\exp(3.41)}{1 + \exp(3.41)} = 0.968
 $$
 Theres a 96.8% chance that a customer buys MM when all predictors are 0.
 
 Does this make sense?
+
+</br>
+
+Why was this expit() instead of exp(), like we use for the log odds ratio?
 
 ::: {.content-visible when-profile="book"}
 - "When all predictors are 0" includes `LoyalCH`; the intercept refers to someone who is loyal to MM!
@@ -329,10 +340,10 @@ Does this make sense?
 
 The slope for `PriceDiff` is -2.82. 
 
-- Negative - P(buys MM) decreases as MM becomes more expensive relative to CH.
+- Negative, which means P(buys MM) decreases as MM becomes more expensive relative to CH.
 - Odds Ratio is exp(-2.82) = 0.0596.
     - People are 0.0596 times as likely to buy MM when it's a dollar more expensive than CH, relative to when they're the same price.
-    - For an "equal price" versus "50 cents" comparison, customers are exp(-1.41) = 24% more likely to buy MM.
+    - For an "equal price" versus "50 cents less" comparison, customers are exp(-1.41) = 24% as likely to buy MM when CH is $0.5 cheaper.
 
 ### Comparing Parameters
 
@@ -340,7 +351,7 @@ Which predictor is most important?
 
 ::: {style="font-size:80%;"}
 ```{webr-r}
-summary(mf)$coef
+summary(mf)
 ```
 :::
 
@@ -353,7 +364,7 @@ Recall:
 - `glmnet` will standardize the variables for you
 - `glmnet` uses LASSO by default.
 
-We're going to start with an overspecified model, and see what LASSO which predictors LASSO will select.
+We're going to start with an overspecified model, and see what LASSO which predictors LASSO will select. Note that there are 28 predictors once we account for the interaction terms.
 
 ::: {style="font-size:80%;"}
 ```{webr-r}
@@ -386,12 +397,13 @@ coef(l1)
 
 ### Interpreting LASSO parameters
 
-The parameter for `PriceDiff` is -0.21. A one *standard deviation* change in `PriceDiff` leads to an Odds Ratio of exp(-0.21) 0.81. 
+The parameter for `PriceDiff` is -0.21. A one *standard deviation* change in `PriceDiff` leads to an Odds Ratio of exp(-0.21) = 0.81. 
 
 ::: {style="font-size:80%;"}
 ```{webr-r}
+#| autorun: true
 sd(OJ$PriceDiff)
 ```
 :::
 
-That's an increase in price difference of \$0.27.
+That's an increase in price difference of \$0.27 leading to an OR of 0.81.
