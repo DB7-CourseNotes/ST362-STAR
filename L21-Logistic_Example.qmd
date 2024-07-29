@@ -1,6 +1,6 @@
 ---
 title: Logistic Modelling
-institute: "Jam: **Love's a Logistical Thing** by PJ Parker"
+institute: "Jam: **Final Countdown** by Europe"
 format: 
     revealjs:
         slide-level: 3
