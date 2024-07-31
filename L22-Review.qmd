@@ -12,6 +12,16 @@ set.seed(2112)
 
 ### Announcements
 
+- Exam structure:
+    - 18 MC/TF questions
+    - 2 Short answer/explanation questions
+    - 1 question on modelling approaches
+    - 1 mathematical derivation and interpretation of formulas question.
+        - Expect the expectation!
+    - For grad students, one extra question with matrix multiplication\lspace
+- Trying to have grades calculated by Friday so you know where you stand.
+
+
 :::
 
 ## Summaries
@@ -27,14 +37,7 @@ set.seed(2112)
 ### "Extra Topics" Lecture
 
 - Standardizing
-    - Effect on parameter estimates\lspace
-- General Linear Hypotheses
-    - Full versus hypothesized model, and the form of the F test
-        - (Not the math, but possibly the degrees of freedom)\lspace
-- Weighted/Generalized Least Squares
-    - Understand what $V$ and $P$ represent.
-    - Manipulate formulas by replacing $\underline f$ with $P^{-1}\underline \epsilon$.
-    - Suggest $V$ based on the context of the question.
+    - Effect on parameter estimates (especially correlations)
 
 ### Getting the Wrong Model
 
@@ -44,7 +47,7 @@ set.seed(2112)
 
 ### Transforming the Predictors
 
-- Polynomial regression
+- Polynomial models
     - When to use them
     - Lower order terms
     - Extrapolation\lspace
@@ -69,7 +72,7 @@ set.seed(2112)
 - Extra sum-of-squares to test whether categories are statistically different
     - What kind of test is this? ANOVA? ANCOVA?
 
-### Multicollinearity
+### Multicollinearity!
 
 - Why it increases variance (many different parameter combinations are equivalent)\lspace
 - Detecting via the variance inflation factor
@@ -115,6 +118,17 @@ set.seed(2112)
 - "Residuals" are weird 
     - Not "observed minus expected" anymore!
 
+::: {.content-visible when-profile="book"}
+
+
+## Self-Study
+
+In addition to a quiz that will be added to MyLS, below is the quizizz that we went though in class!
+
+<div style="width:100%;display:flex;flex-direction:column;gap:8px;min-height:635px;"><iframe src="https://quizizz.com/embed/quiz/66a8dc2fb02e785fa8243946" title="ST362 - Quizizz" style="flex:1;" frameBorder="1" allowfullscreen></iframe></div>
+
+
+:::
 
 
 ## Midterm Solutions
