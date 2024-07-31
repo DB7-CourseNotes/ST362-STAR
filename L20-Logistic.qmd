@@ -260,7 +260,7 @@ $$
 &nbsp;
 :::
 
-The logg odds ratio is defined as
+The log odds ratio is defined as
 $$
 \log(OR) = \log\left( \frac{p(x_i + 1)}{1 - p(x_i + 1)} \middle/ \frac{p(x_i)}{1 - p(x_i)}\right)
 $$
